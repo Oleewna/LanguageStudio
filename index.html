@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LanguageStudio – Італійська A1 (Головна)</title>
+  <meta name="description" content="LanguageStudio — сучасна інтерактивна платформа для вивчення італійської мови A1. Досліджуйте маршрут навчання, проходьте уроки та вдосконалюйте свої знання." />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css?v=5" />
+</head>
+
+<body>
+
+<!-- ═══════════════ TOAST CONTAINER ═══════════════ -->
+<div id="toast-container"></div>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header class="ls-header">
+  <div class="ls-header-inner">
+
+    <!-- Brand -->
+    <div style="display:flex;align-items:center;gap:.75rem;flex-shrink:0;">
+      <div class="ls-logo-icon">
+        <i class="fa-solid fa-language" style="color:#fff;font-size:1.1rem;"></i>
+      </div>
+      <div>
+        <div style="font-size:1.15rem;font-weight:800;letter-spacing:-.015em;">
+          <span class="ls-brand-name">Language</span><span class="ls-brand-accent">Studio</span>
+        </div>
+        <div class="ls-lang-badge">🇮🇹 Італійська A1</div>
+      </div>
+    </div>
+
+    <!-- Right controls -->
+    <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+      <!-- Streak -->
+      <div class="ls-streak-badge" title="Ваша щоденна серія">
+        <i class="fa-solid fa-fire"></i>
+        <span>0</span>
+        <span>Днів</span>
+      </div>
+      <!-- XP -->
+      <div class="ls-xp-badge" id="xp-badge" title="Зароблені бали досвіду">
+        <i class="fa-solid fa-star" style="color:#fbbf24;"></i>
+        <span id="xp-count">0</span>
+        <span>XP</span>
+      </div>
+      <!-- Theme Toggle -->
+      <button id="theme-toggle" class="ls-theme-toggle" onclick="toggleTheme()" title="Перейти на темну тему" aria-label="Перемкнути тему">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <!-- Avatar (Guest) -->
+      <div class="ls-avatar" title="Гість" aria-label="Профіль гостя">
+        <i class="fa-solid fa-user"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav with Dropdowns -->
+  <nav class="ls-nav">
+    <div class="ls-nav-inner" aria-label="Головна навігація">
+      <!-- Home Tab -->
+      <div class="ls-nav-item">
+        <a href="index.html" class="ls-tab active">
+          <i class="fa-solid fa-house" style="font-size:.8rem;"></i> Головна
+        </a>
+      </div>
+
+      <!-- Lessons Dropdown -->
+      <div class="ls-nav-item">
+        <button class="ls-tab" aria-haspopup="true" aria-expanded="false">
+          <i class="fa-solid fa-book-open" style="font-size:.8rem;"></i> Уроки
+          <i class="fa-solid fa-chevron-down ls-tab-chevron"></i>
+        </button>
+        <div class="ls-dropdown-menu">
+          <div class="ls-dropdown-header">Розділ 1: Основи (A0–A1)</div>
+          <a href="lessons/lesson-1.html" class="ls-dropdown-item">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-circle-play" style="color:var(--brand-500);"></i>
+              <div>
+                <div>Урок 1: Привітання</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">I Saluti e la Cortesia</div>
+              </div>
+            </div>
+            <span class="ls-dropdown-tag active">Доступно</span>
+          </a>
+          <div class="ls-dropdown-item locked">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-lock" style="color:var(--text-muted);"></i>
+              <div>
+                <div>Урок 2: Алфавіт та вимова</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">L'Alfabeto e la Pronuncia</div>
+              </div>
+            </div>
+            <span class="ls-dropdown-tag locked">Скоро</span>
+          </div>
+          <div class="ls-dropdown-item locked">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-lock" style="color:var(--text-muted);"></i>
+              <div>
+                <div>Урок 3: Знайомство</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">Presentarsi</div>
+              </div>
+            </div>
+            <span class="ls-dropdown-tag locked">Скоро</span>
+          </div>
+          <div class="ls-dropdown-item locked">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-lock" style="color:var(--text-muted);"></i>
+              <div>
+                <div>Урок 4: В італійському барі</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">Al Bar Italiano</div>
+              </div>
+            </div>
+            <span class="ls-dropdown-tag locked">Скоро</span>
+          </div>
+          <div class="ls-dropdown-divider"></div>
+          <a href="#roadmap-section" class="ls-dropdown-item" style="font-size:0.78rem;color:var(--brand-600);font-weight:600;">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-map-location-dot"></i>
+              <span>Переглянути повний маршрут</span>
+            </div>
+            <i class="fa-solid fa-arrow-down" style="font-size:0.65rem;"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Exercises Dropdown -->
+      <div class="ls-nav-item">
+        <button class="ls-tab" aria-haspopup="true" aria-expanded="false">
+          <i class="fa-solid fa-dumbbell" style="font-size:.8rem;"></i> Вправи
+          <i class="fa-solid fa-chevron-down ls-tab-chevron"></i>
+        </button>
+        <div class="ls-dropdown-menu">
+          <div class="ls-dropdown-header">Практичні тренажери</div>
+          <a href="lessons/lesson-1.html#ex1-card" class="ls-dropdown-item">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-list-check" style="color:#0ea5e9;"></i>
+              <div>Тести на вибір форми (+50 XP)</div>
+            </div>
+          </a>
+          <a href="lessons/lesson-1.html#ex2-card" class="ls-dropdown-item">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-pen-to-square" style="color:#10b981;"></i>
+              <div>Заповнення пропусків (+50 XP)</div>
+            </div>
+          </a>
+          <a href="lessons/lesson-1.html#ex3-card" class="ls-dropdown-item">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-language" style="color:#f59e0b;"></i>
+              <div>Переклад та контекст (+50 XP)</div>
+            </div>
+          </a>
+          <a href="lessons/lesson-1.html#ex4-card" class="ls-dropdown-item">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-arrows-split-up-and-left" style="color:#8b5cf6;"></i>
+              <div>Зіставлення реплік (+50 XP)</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Flashcards Dropdown -->
+      <div class="ls-nav-item">
+        <button class="ls-tab" aria-haspopup="true" aria-expanded="false">
+          <i class="fa-solid fa-clone" style="font-size:.8rem;"></i> Картки
+          <i class="fa-solid fa-chevron-down ls-tab-chevron"></i>
+        </button>
+        <div class="ls-dropdown-menu">
+          <div class="ls-dropdown-header">Словникові фліп-картки</div>
+          <a href="lessons/lesson-1.html#vocab-section" class="ls-dropdown-item">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-layer-group" style="color:var(--brand-500);"></i>
+              <div>Словник Уроку 1 (Привітання)</div>
+            </div>
+            <span class="ls-dropdown-tag active">4 слова</span>
+          </a>
+          <div class="ls-dropdown-item locked">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-lock" style="color:var(--text-muted);"></i>
+              <div>Фонетичні картки (Вимова)</div>
+            </div>
+            <span class="ls-dropdown-tag locked">Скоро</span>
+          </div>
+          <div class="ls-dropdown-item locked">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-lock" style="color:var(--text-muted);"></i>
+              <div>Інтервальне повторення A1</div>
+            </div>
+            <span class="ls-dropdown-tag locked">Скоро</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Games & Resources Dropdown -->
+      <div class="ls-nav-item">
+        <button class="ls-tab" aria-haspopup="true" aria-expanded="false">
+          <i class="fa-solid fa-gamepad" style="font-size:.8rem;"></i> Міні-ігри
+          <i class="fa-solid fa-chevron-down ls-tab-chevron"></i>
+        </button>
+        <div class="ls-dropdown-menu">
+          <div class="ls-dropdown-header">Гейміфікація & Довідник</div>
+          <a href="lessons/lesson-1.html#game-start-btn" class="ls-dropdown-item">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-traffic-light" style="color:#0ea5e9;"></i>
+              <div>
+                <div>«Il Semaforo dei Saluti»</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">Сортування фраз на час</div>
+              </div>
+            </div>
+            <span class="ls-dropdown-tag active">+50 XP</span>
+          </a>
+          <div class="ls-dropdown-divider"></div>
+          <a href="lessons/lesson-1.html#theory-table-section" class="ls-dropdown-item">
+            <div class="ls-dropdown-item-left">
+              <i class="fa-solid fa-table-list" style="color:#10b981;"></i>
+              <div>Таблиця форм ввічливості</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+</header>
+
+<!-- ═══════════════════ MAIN HOMEPAGE ═══════════════════ -->
+<main class="ls-main">
+
+  <!-- ════════════════════════════════
+       HERO BANNER
+  ════════════════════════════════ -->
+  <div class="ls-hero">
+    <div class="ls-hero-deco-1"></div>
+    <div class="ls-hero-deco-2"></div>
+    <div class="ls-hero-deco-3"></div>
+
+    <div style="position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2rem;">
+      <div style="flex:1;min-width:280px;">
+        <span class="ls-hero-unit-label">Розділ 1 · Основи Італійської (A0–A1)</span>
+        <h1>Ласкаво просимо! 👋</h1>
+        <p class="ls-hero-desc">
+          Розпочніть свій шлях у вивченні італійської мови прямо зараз!
+          Урок 1 познайомить вас з основними привітаннями, вимовою українською транскрипцією, реальними діалогами та інтерактивними вправами.
+        </p>
+        <div style="margin-top:1rem;display:flex;align-items:center;gap:.75rem;">
+          <div class="ls-hero-progress-track"><div class="ls-hero-progress-fill" style="width:0%;"></div></div>
+          <span style="color:#fff;font-size:.75rem;font-weight:700;">0/4 уроків</span>
+        </div>
+      </div>
+      <a href="lessons/lesson-1.html" class="ls-hero-btn" style="text-decoration:none;">
+        <i class="fa-solid fa-circle-play"></i> Розпочати Урок 1
+      </a>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       QUICK STATS GRID
+  ════════════════════════════════ -->
+  <div class="ls-stats-grid">
+    <div class="ls-card ls-stat-card">
+      <div class="ls-stat-icon green"><i class="fa-solid fa-check-circle"></i></div>
+      <div>
+        <div class="ls-stat-value">0<span>/12</span></div>
+        <div class="ls-stat-label">Уроків завершено</div>
+      </div>
+    </div>
+    <div class="ls-card ls-stat-card">
+      <div class="ls-stat-icon sky"><i class="fa-solid fa-bullseye"></i></div>
+      <div>
+        <div class="ls-stat-value">0<span>%</span></div>
+        <div class="ls-stat-label">Точність відповідей</div>
+      </div>
+    </div>
+    <div class="ls-card ls-stat-card">
+      <div class="ls-stat-icon purple"><i class="fa-solid fa-medal"></i></div>
+      <div>
+        <div class="ls-stat-value" style="font-size:1.15rem;">Початківець</div>
+        <div class="ls-stat-label">Поточний рівень · A0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       COURSE ROADMAP SECTION
+  ════════════════════════════════ -->
+  <div class="ls-card" id="roadmap-section" style="padding:1.75rem;margin-bottom:2rem;">
+    <div class="ls-roadmap-header">
+      <div>
+        <h2 class="ls-roadmap-title" style="font-size:1.05rem;">
+          <i class="fa-solid fa-map-location-dot" style="color:var(--brand-500);margin-right:.5rem;"></i>Маршрут Розділу 1: Основи Італійської
+        </h2>
+        <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;">
+          Покроковий план вивчення від базових фраз до впевненого діалогу
+        </p>
+      </div>
+      <span class="ls-roadmap-badge">4 уроки курсу</span>
+    </div>
+
+    <!-- Lesson 1 – Active & Linked (Flex Row) -->
+    <a href="lessons/lesson-1.html" class="ls-roadmap-item has-line cursor-pointer" aria-label="Перейти до Уроку 1">
+      <div class="ls-roadmap-dot active">
+        <i class="fa-solid fa-circle-play"></i>
+      </div>
+      <div class="ls-roadmap-body active-body">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;flex-wrap:wrap;">
+          <div>
+            <div class="ls-roadmap-title-text" style="font-size:0.95rem;">
+              Урок 1: Перший контакт і привітання <span style="font-size:0.85em;font-weight:600;opacity:0.85;">(I Saluti e la Cortesia)</span>
+            </div>
+            <div class="ls-roadmap-sub" style="margin-top:0.2rem;">
+              Теорія привітань · Українська транскрипція · 2 Автентичні діалоги · 4 Вправи · Міні-гра
+            </div>
+          </div>
+          <span class="ls-roadmap-status-active">
+            <i class="fa-solid fa-bolt" style="font-size:.7rem;"></i> Доступно зараз
+          </span>
+        </div>
+        <div class="ls-roadmap-progress-track">
+          <div class="ls-roadmap-progress-fill" style="width:0%;"></div>
+        </div>
+        <div style="font-size:.72rem;color:var(--brand-500);font-weight:700;margin-top:.4rem;display:flex;align-items:center;gap:.3rem;">
+          <span>Натисніть, щоб відкрити урок</span> <i class="fa-solid fa-arrow-right" style="font-size:.65rem;"></i>
+        </div>
+      </div>
+    </a>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;flex-wrap:wrap;">
+          <div>
+            <div class="ls-roadmap-title-text" style="font-size:0.95rem;">
+              Урок 1: Перший контакт і привітання <span style="font-size:0.85em;font-weight:600;opacity:0.85;">(I Saluti e la Cortesia)</span>
+            </div>
+            <div class="ls-roadmap-sub" style="margin-top:0.2rem;">
+              Теорія привітань · Українська транскрипція · 2 Автентичні діалоги · 4 Вправи · Міні-гра
+            </div>
+          </div>
+          <span class="ls-roadmap-status-active">
+            <i class="fa-solid fa-bolt" style="font-size:.7rem;"></i> Доступно зараз
+          </span>
+        </div>
+        <div class="ls-roadmap-progress-track">
+          <div class="ls-roadmap-progress-fill" style="width:0%;"></div>
+        </div>
+        <div style="font-size:.72rem;color:var(--brand-500);font-weight:700;margin-top:.4rem;display:flex;align-items:center;gap:.3rem;">
+          <span>Натисніть, щоб відкрити урок</span> <i class="fa-solid fa-arrow-right" style="font-size:.65rem;"></i>
+        </div>
+      </div>
+    </a>
+
+    <!-- Lesson 2 – Locked -->
+    <div class="ls-roadmap-item has-line ls-lesson-locked">
+      <div class="ls-roadmap-dot locked"><i class="fa-solid fa-lock"></i></div>
+      <div class="ls-roadmap-body locked-body" style="flex:1;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;flex-wrap:wrap;">
+          <div>
+            <div class="ls-roadmap-locked-title">Урок 2: Італійський алфавіт та вимова (L'Alfabeto e la Pronuncia)</div>
+            <div class="ls-roadmap-locked-sub">Правила C/G/CH/GH · Подвійні приголосні · Німа H</div>
+          </div>
+          <span class="ls-roadmap-status-locked"><i class="fa-solid fa-lock" style="font-size:.65rem;margin-right:.2rem;"></i>Заблоковано</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lesson 3 – Locked -->
+    <div class="ls-roadmap-item has-line ls-lesson-locked">
+      <div class="ls-roadmap-dot locked"><i class="fa-solid fa-lock"></i></div>
+      <div class="ls-roadmap-body locked-body" style="flex:1;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;flex-wrap:wrap;">
+          <div>
+            <div class="ls-roadmap-locked-title">Урок 3: Знайомство та самопрезентація (Presentarsi)</div>
+            <div class="ls-roadmap-locked-sub">Як назвати ім'я, походження, національність та вік</div>
+          </div>
+          <span class="ls-roadmap-status-locked"><i class="fa-solid fa-lock" style="font-size:.65rem;margin-right:.2rem;"></i>Заблоковано</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lesson 4 – Locked -->
+    <div class="ls-roadmap-item ls-lesson-locked">
+      <div class="ls-roadmap-dot locked"><i class="fa-solid fa-lock"></i></div>
+      <div class="ls-roadmap-body locked-body" style="flex:1;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;flex-wrap:wrap;">
+          <div>
+            <div class="ls-roadmap-locked-title">Урок 4: В італійському барі (Al Bar Italiano)</div>
+            <div class="ls-roadmap-locked-sub">Замовлення кави, випічки та рахунку · Вирази Vorrei/Prendo</div>
+          </div>
+          <span class="ls-roadmap-status-locked"><i class="fa-solid fa-lock" style="font-size:.65rem;margin-right:.2rem;"></i>Заблоковано</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ════════════════════════════════
+       FEATURES & PLATFORM HIGHLIGHTS
+  ════════════════════════════════ -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:1rem;margin-bottom:2rem;">
+    <div class="ls-card" style="padding:1.25rem;">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem;">
+        <div class="ls-stat-icon sky" style="width:2.4rem;height:2.4rem;font-size:1.1rem;"><i class="fa-solid fa-book"></i></div>
+        <strong style="font-size:0.92rem;color:var(--text-primary);">Вимова українською</strong>
+      </div>
+      <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.55;">
+        Зручна практична українська транскрипція та зрозумілі фонетичні пояснення до кожної фрази.
+      </p>
+    </div>
+
+    <div class="ls-card" style="padding:1.25rem;">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem;">
+        <div class="ls-stat-icon green" style="width:2.4rem;height:2.4rem;font-size:1.1rem;"><i class="fa-solid fa-comments"></i></div>
+        <strong style="font-size:0.92rem;color:var(--text-primary);">Живі діалоги</strong>
+      </div>
+      <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.55;">
+        Реальні повсякденні ситуації з точним перекладом та поясненням контексту.
+      </p>
+    </div>
+
+    <div class="ls-card" style="padding:1.25rem;">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem;">
+        <div class="ls-stat-icon purple" style="width:2.4rem;height:2.4rem;font-size:1.1rem;"><i class="fa-solid fa-gamepad"></i></div>
+        <strong style="font-size:0.92rem;color:var(--text-primary);">Гейміфікація та XP</strong>
+      </div>
+      <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.55;">
+        Інтерактивні міні-ігри на швидкість, серії днів, бали досвіду та тематичні нагороди.
+      </p>
+    </div>
+  </div>
+
+</main>
+
+<!-- Scripts -->
+<script src="script.js?v=3"></script>
+
+</body>
+</html>

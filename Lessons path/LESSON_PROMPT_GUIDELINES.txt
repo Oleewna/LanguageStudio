@@ -1,0 +1,72 @@
+================================================================================
+LESSON GENERATION INSTRUCTIONS (LanguageStudio Platform)
+================================================================================
+
+When instructed to "create Lesson [N]" or "add Lesson [N] following these guidelines", 
+generate a complete, production-ready lesson module adhering strictly to the 4-part 
+structure detailed below.
+
+--------------------------------------------------------------------------------
+CORE DIRECTIVES
+--------------------------------------------------------------------------------
+1. COMPREHENSIVE THEORY FIRST: Do not summarize or abbreviate grammar/phonetic rules. 
+   Explain concepts deeply and thoroughly as a dedicated teacher would during a live class.
+2. UKRAINIAN LANGUAGE FIRST: All theoretical explanations, translations, notes, 
+   and pronunciation guides MUST be in Ukrainian (not in English). 
+   Pronunciation must be provided using clear Ukrainian phonetic transcriptions 
+   (e.g., [буон-джор-но], [ча-о]).
+3. NO AUDIO & NO "РЕГІСТР": Do not include audio cues/triggers, and do not use 
+   the "Регістр" classification. Focus on clear context, time of day, and situation.
+4. ADAPTIVE CONTENT: Adapt the tone, vocabulary, dialogues, and exercise types 
+   specifically to the topic of the lesson.
+5. CLEAR PEDAGOGICAL FLOW: Move seamlessly from learning (Theory & Vocabulary) 
+   to active practice (Drills & Interactive Games).
+
+================================================================================
+REQUIRED LESSON STRUCTURE
+================================================================================
+
+1. LESSON METADATA
+--------------------------------------------------------------------------------
+- Lesson Number & Title (Italian & Ukrainian)
+- CEFR Level (e.g., A0, A1, A2)
+- Target Learning Objectives (3-4 concise bullet points in Ukrainian)
+- Estimated Completion Time (e.g., 15–20 хв)
+
+2. SECTION 1: IN-DEPTH THEORY & CONCEPTS
+--------------------------------------------------------------------------------
+- Detailed explanation of rules, patterns, and cultural nuance in Ukrainian.
+- Comprehensive Reference Tables: Include gender, singular/plural, conjugations, 
+  or Ukrainian phonetic breakdowns [вимова українською] where applicable.
+- Pronunciation Guides: Highlight key sounds, accent marks, stress rules using 
+  Ukrainian phonetic transcription (e.g., [буон-джор-но]).
+- Common Pitfalls & Exceptions: Explicitly call out frequent student mistakes.
+
+3. SECTION 2: REAL-WORLD EXAMPLES & DIALOGUES
+--------------------------------------------------------------------------------
+- Contextual Sentences: Provide isolated examples with verbatim Ukrainian translations.
+- Authentic Conversations:
+  * Provide at least two realistic dialogues (e.g., University Campus vs. Office/Legal scenario).
+  * Format dialogues clearly with speaker names, Italian text, and line-by-line Ukrainian translations.
+- Key Vocabulary Breakdown: Highlight essential keywords and expressions used 
+  in the dialogues with Ukrainian translations.
+
+4. SECTION 3: GUIDED PRACTICE DRILLS (3-4 EXERCISES)
+--------------------------------------------------------------------------------
+Provide a varied set of interactive exercises using the following formats (No audio):
+- Exercise 1: Multiple Choice / Contextual Selection (Targeting grammar & situational rules).
+- Exercise 2: Sentence Builder / Fill-in-the-Blank (Targeting spelling, word forms & context).
+- Exercise 3: Translation / Reading Comprehension (Targeting contextual meaning & interpretation).
+- Exercise 4: Sorting / Matching Exercise (Targeting courteous responses, vocabulary pairs).
+
+*For every exercise, provide:*
+- Clear instructions for the student in Ukrainian.
+- The correct answer key.
+- Pedagogical Explanation/Feedback for both correct and incorrect responses in Ukrainian.
+
+5. SECTION 4: GAMIFIED REVIEW / CHECKPOINT
+--------------------------------------------------------------------------------
+Design a themed mini-game or interactive quiz mechanism tailored to the topic:
+- Game Type (e.g., Time-Attack Categorization, Matching Pairs, Speed Flashcards).
+- Game Rules & Win Condition in Ukrainian (e.g., "Сортуйте 10 фраз правильно за 45 секунд для отримання +50 XP").
+- Item Pool: List of 8–12 vocabulary items or prompts used inside the game.

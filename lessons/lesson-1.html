@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Урок 1: Привітання та ввічливість (I Saluti e la Cortesia) – LanguageStudio</title>
+  <meta name="description" content="Урок 1 курсу Італійської A1: теорія привітань, часові форми, правила ввічливості, вимова українською, автентичні діалоги та вправи." />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="../styles.css?v=5" />
+</head>
+
+<body>
+
+<!-- ═══════════════ TOAST CONTAINER ═══════════════ -->
+<div id="toast-container"></div>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header class="ls-header">
+  <div class="ls-header-inner">
+
+    <!-- Brand & Back Button -->
+    <div style="display:flex;align-items:center;gap:1rem;flex-shrink:0;">
+      <a href="../index.html" class="ls-back-btn" title="Повернутися на головну" style="font-weight:700;font-size:0.85rem;text-decoration:none;">
+        <i class="fa-solid fa-arrow-left"></i> На головну
+      </a>
+      <div style="height:1.25rem;width:1px;background:var(--border-base);"></div>
+      <a href="../index.html" style="display:flex;align-items:center;gap:.6rem;text-decoration:none;">
+        <div class="ls-logo-icon" style="width:1.9rem;height:1.9rem;">
+          <i class="fa-solid fa-language" style="color:#fff;font-size:.85rem;"></i>
+        </div>
+        <div style="font-size:1rem;font-weight:800;letter-spacing:-.015em;">
+          <span class="ls-brand-name">Language</span><span class="ls-brand-accent">Studio</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Right Controls -->
+    <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+      <div class="ls-streak-badge" title="Ваша щоденна серія">
+        <i class="fa-solid fa-fire"></i>
+        <span>0</span>
+        <span>Днів</span>
+      </div>
+      <div class="ls-xp-badge" id="xp-badge" title="Зароблені бали досвіду">
+        <i class="fa-solid fa-star" style="color:#fbbf24;"></i>
+        <span id="xp-count">0</span>
+        <span>XP</span>
+      </div>
+      <!-- Theme Toggle -->
+      <button id="theme-toggle" class="ls-theme-toggle" onclick="toggleTheme()" title="Перейти на темну тему" aria-label="Перемкнути тему">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <div class="ls-avatar" title="Гість" aria-label="Профіль гостя">
+        <i class="fa-solid fa-user"></i>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════ MAIN LESSON CONTENT ═══════════════════ -->
+<main class="ls-main">
+
+  <!-- ════════════════════════════════
+       LESSON METADATA & PROGRESS HEADER
+  ════════════════════════════════ -->
+  <div class="ls-card ls-lesson-header" style="margin-bottom:2rem;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+      <div style="flex:1;">
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;flex-wrap:wrap;">
+          <span class="ls-lesson-unit-badge">Розділ 1 · Урок 1</span>
+          <span class="ls-lang-badge">🇮🇹 Рівень A0 / A1</span>
+          <span class="ls-lesson-time"><i class="fa-regular fa-clock" style="margin-right:.25rem;"></i>15–20 хв</span>
+        </div>
+        <h1 class="ls-lesson-title" style="font-size:clamp(1.3rem,3vw,1.85rem);line-height:1.3;">
+          Перший контакт і привітання <span style="font-size:0.9em;color:var(--brand-500);font-weight:600;">(I Saluti e la Cortesia)</span>
+        </h1>
+        <p style="font-size:0.85rem;color:var(--text-secondary);margin-top:0.4rem;max-width:45rem;line-height:1.55;">
+          Навчіться вітатися у будь-який час доби, вимовляти кожне слово за зручною українською транскрипцією та вільно використовувати формули ввічливості.
+        </p>
+      </div>
+    </div>
+
+    <!-- Progress tracker -->
+    <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border-base);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem;">
+        <span class="ls-progress-label"><i class="fa-solid fa-list-check" style="color:var(--brand-500);margin-right:.4rem;"></i>Прогрес вправ розділу</span>
+        <span class="ls-progress-count"><span id="completed-count">0</span>/4 виконано</span>
+      </div>
+      <div class="ls-progress-track">
+        <div id="progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SECTION 1: IN-DEPTH THEORY & CONCEPTS
+  ════════════════════════════════ -->
+  <section style="margin-bottom:2.5rem;">
+    <p class="ls-section-heading">
+      <i class="fa-solid fa-graduation-cap"></i>Секція 1 · Повна теорія та вимова
+    </p>
+
+    <!-- 1.1 Architecture of Greetings -->
+    <div class="ls-theory-box">
+      <h2 class="ls-theory-title">
+        <i class="fa-solid fa-sun"></i>1.1 Архітектура італійських привітань
+      </h2>
+      <p class="ls-theory-text">
+        В італійській мові вибір привітання залежить насамперед від часу доби та ситуації. Усі форми привітань поділяються на <strong>часові</strong> (пов'язані з часом дня) та <strong>універсальні</strong>.
+      </p>
+
+      <div class="ls-table-wrap">
+        <table class="ls-table">
+          <thead>
+            <tr>
+              <th>Італійська фраза</th>
+              <th>Переклад українською</th>
+              <th>Коли вживається</th>
+              <th>Вимова українською</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Buongiorno</strong></td>
+              <td>Доброго ранку / Добрий день</td>
+              <td>Зранку і приблизно до 13:00–14:00 (до обіду)</td>
+              <td><code>[буон-джор-но]</code></td>
+            </tr>
+            <tr>
+              <td><strong>Buon pomeriggio</strong></td>
+              <td>Доброго дня</td>
+              <td>Після обіду (13:00 – 17:00)</td>
+              <td><code>[буон по-ме-рід-джо]</code></td>
+            </tr>
+            <tr>
+              <td><strong>Buonasera</strong></td>
+              <td>Доброго вечора</td>
+              <td>З 16:00–17:00 до пізнього вечора</td>
+              <td><code>[буо-на-се-ра]</code></td>
+            </tr>
+            <tr>
+              <td><strong>Buonanotte</strong></td>
+              <td>Добраніч</td>
+              <td><strong>Тільки перед відходом до сну</strong></td>
+              <td><code>[буо-на-нот-те]</code></td>
+            </tr>
+            <tr>
+              <td><strong>Ciao</strong></td>
+              <td>Привіт / Бувай</td>
+              <td>Будь-коли при зустрічі та прощанні</td>
+              <td><code>[ча-о]</code></td>
+            </tr>
+            <tr>
+              <td><strong>Salve</strong></td>
+              <td>Вітаю / Добрий день</td>
+              <td>Універсально при вході в заклад або зустрічі</td>
+              <td><code>[саль-ве]</code></td>
+            </tr>
+            <tr>
+              <td><strong>Arrivederci</strong></td>
+              <td>До побачення</td>
+              <td>Ввічливе прощання</td>
+              <td><code>[ар-рі-ве-дер-чі]</code></td>
+            </tr>
+            <tr>
+              <td><strong>A presto</strong></td>
+              <td>До швидкої зустрічі</td>
+              <td>Прощання на невизначений час</td>
+              <td><code>[а прес-то]</code></td>
+            </tr>
+            <tr>
+              <td><strong>Ci vediamo</strong></td>
+              <td>Побачимось</td>
+              <td>Дружнє прощання</td>
+              <td><code>[чі ве-дья-мо]</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pitfall warning -->
+      <div class="ls-alert ls-alert-warn">
+        <i class="fa-solid fa-triangle-exclamation" style="font-size:1.2rem;margin-top:0.1rem;"></i>
+        <div>
+          <strong>Важливе застереження:</strong> Ніколи не кажіть <em>«Buonanotte»</em>, коли приходите в ресторан чи до друзів о 20:00! В італійській мові це означає «я лягаю спати». Увечері завжди вітаються фразою <strong>«Buonasera» [буо-на-се-ра]</strong>.
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.2 Courtesy Phrases & Pronunciation Guide -->
+    <div class="ls-theory-box">
+      <h2 class="ls-theory-title">
+        <i class="fa-solid fa-hand-holding-heart"></i>1.2 Формули ввічливості та фонетичні правила
+      </h2>
+      <p class="ls-theory-text">
+        Ввічливе спілкування в Італії будується на кількох базових словах, які легко запам'ятати:
+      </p>
+
+      <div class="ls-table-wrap">
+        <table class="ls-table">
+          <thead>
+            <tr>
+              <th>Фраза</th>
+              <th>Переклад</th>
+              <th>Вимова українською</th>
+              <th>Корисне пояснення</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Per favore</strong></td>
+              <td>Будь ласка</td>
+              <td><code>[пер фа-во-ре]</code></td>
+              <td>Вживається при будь-якому ввічливому проханні</td>
+            </tr>
+            <tr>
+              <td><strong>Grazie</strong></td>
+              <td>Дякую</td>
+              <td><code>[гра-цьє]</code></td>
+              <td>Наголос на перший склад. Звук «z» звучить як [ц]</td>
+            </tr>
+            <tr>
+              <td><strong>Grazie mille</strong></td>
+              <td>Щиро дякую (тисяча подяк)</td>
+              <td><code>[гра-цьє міл-ле]</code></td>
+              <td>Вираз великої вдячності</td>
+            </tr>
+            <tr>
+              <td><strong>Prego</strong></td>
+              <td>Будь ласка / Прошу</td>
+              <td><code>[пре-го]</code></td>
+              <td>Ввічлива відповідь на «Grazie»</td>
+            </tr>
+            <tr>
+              <td><strong>Scusa / Scusi</strong></td>
+              <td>Вибач / Перепрошую</td>
+              <td><code>[ску-за]</code> / <code>[ску-зі]</code></td>
+              <td>Scusa — до знайомого; Scusi — до незнайомця</td>
+            </tr>
+            <tr>
+              <td><strong>Piacere</strong></td>
+              <td>Приємно познайомитися</td>
+              <td><code>[пья-че-ре]</code></td>
+              <td>Кажуть під час знайомства та потиску руки</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="ls-alert ls-alert-tip">
+        <i class="fa-solid fa-lightbulb" style="font-size:1.2rem;margin-top:0.1rem;"></i>
+        <div>
+          <strong>Фонетична порада:</strong> Буква <strong>C</strong> перед <em>i</em> та <em>e</em> завжди читається як українське <strong>[ч]</strong> (<em>Ciao</em> = [ча-о], <em>Piacere</em> = [пья-че-ре]). А буква <strong>Z</strong> перед голосними читається як <strong>[ц]</strong> (<em>Grazie</em> = [гра-цьє]).
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════
+       SECTION 2: REAL-WORLD DIALOGUES & VOCABULARY
+  ════════════════════════════════ -->
+  <section style="margin-bottom:2.5rem;">
+    <p class="ls-section-heading">
+      <i class="fa-solid fa-comments"></i>Секція 2 · Автентичні діалоги та словник
+    </p>
+
+    <!-- Vocabulary flip cards -->
+    <div class="ls-vocab-grid">
+      <div class="vocab-card" title="Наведіть для перекладу">
+        <div class="vocab-card-inner">
+          <div class="vocab-front vc-sky-front">
+            <span class="vocab-word">Ciao</span>
+            <span class="vocab-phonetic">[ча-о]</span>
+          </div>
+          <div class="vocab-back vc-sky-back">
+            <span class="vocab-translation">Привіт / Бувай</span>
+            <span class="vocab-register">Зустріч і прощання</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vocab-card" title="Наведіть для перекладу">
+        <div class="vocab-card-inner">
+          <div class="vocab-front vc-amber-front">
+            <span class="vocab-word">Buongiorno</span>
+            <span class="vocab-phonetic">[буон-джор-но]</span>
+          </div>
+          <div class="vocab-back vc-amber-back">
+            <span class="vocab-translation">Добрий день</span>
+            <span class="vocab-register">Ранок і день</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vocab-card" title="Наведіть для перекладу">
+        <div class="vocab-card-inner">
+          <div class="vocab-front vc-indigo-front">
+            <span class="vocab-word" style="font-size:1.1rem;">Buonasera</span>
+            <span class="vocab-phonetic">[буо-на-се-ра]</span>
+          </div>
+          <div class="vocab-back vc-indigo-back">
+            <span class="vocab-translation">Добрий вечір</span>
+            <span class="vocab-register">Вечірній час</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vocab-card" title="Наведіть для перекладу">
+        <div class="vocab-card-inner">
+          <div class="vocab-front vc-teal-front">
+            <span class="vocab-word">Arrivederci</span>
+            <span class="vocab-phonetic">[ар-рі-ве-дер-чі]</span>
+          </div>
+          <div class="vocab-back vc-teal-back">
+            <span class="vocab-translation">До побачення</span>
+            <span class="vocab-register">Ввічливе прощання</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dialogue 1: Bologna Campus -->
+    <div class="ls-card ls-dialogue-card" style="margin-bottom:1.5rem;">
+      <div class="ls-dialogue-meta">
+        <span class="ls-dialogue-label">
+          <i class="fa-solid fa-graduation-cap" style="color:var(--brand-500);margin-right:.3rem;"></i>Діалог 1 · Зустріч біля університету в Болоньї
+        </span>
+      </div>
+
+      <div class="ls-dialogue-messages">
+        <div class="ls-msg">
+          <div class="ls-msg-avatar sky"><i class="fa-solid fa-user"></i></div>
+          <div class="ls-bubble sky left">
+            <div class="ls-bubble-text ls-bubble-sky">Ciao Giulia! Come stai?</div>
+            <div class="ls-bubble-phonetic">[ча-о джу-лья! ко-ме стай?]</div>
+            <div class="ls-bubble-sub">Привіт Джулія! Як справи?</div>
+          </div>
+        </div>
+
+        <div class="ls-msg right">
+          <div class="ls-msg-avatar slate"><i class="fa-solid fa-user"></i></div>
+          <div class="ls-bubble slate right">
+            <div class="ls-bubble-text">Ciao Marco! Molto bene, grazie! E tu?</div>
+            <div class="ls-bubble-phonetic">[ча-о мар-ко! моль-то бе-не, гра-цьє! е ту?]</div>
+            <div class="ls-bubble-sub">Привіт Марко! Дуже добре, дякую! А ти?</div>
+          </div>
+        </div>
+
+        <div class="ls-msg">
+          <div class="ls-msg-avatar sky"><i class="fa-solid fa-user"></i></div>
+          <div class="ls-bubble sky left">
+            <div class="ls-bubble-text ls-bubble-sky">Non c'è male, grazie! A presto e buona giornata!</div>
+            <div class="ls-bubble-phonetic">[нон че ма-ле, гра-цьє! а прес-то е буо-на джор-на-та!]</div>
+            <div class="ls-bubble-sub">Непогано, дякую! До зустрічі та гарного дня!</div>
+          </div>
+        </div>
+
+        <div class="ls-msg right">
+          <div class="ls-msg-avatar slate"><i class="fa-solid fa-user"></i></div>
+          <div class="ls-bubble slate right">
+            <div class="ls-bubble-text">Grazie, anche a te! Ciao!</div>
+            <div class="ls-bubble-phonetic">[гра-цьє, ан-ке а те! ча-о!]</div>
+            <div class="ls-bubble-sub">Дякую, тобі також! Па-па!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dialogue 2: Rome Office -->
+    <div class="ls-card ls-dialogue-card">
+      <div class="ls-dialogue-meta">
+        <span class="ls-dialogue-label">
+          <i class="fa-solid fa-briefcase" style="color:#0d9488;margin-right:.3rem;"></i>Діалог 2 · Зустріч в офісі в Римі
+        </span>
+      </div>
+
+      <div class="ls-dialogue-messages">
+        <div class="ls-msg">
+          <div class="ls-msg-avatar teal"><i class="fa-solid fa-user-tie"></i></div>
+          <div class="ls-bubble teal left">
+            <div class="ls-bubble-text ls-bubble-teal">Buongiorno, signore. Posso aiutare?</div>
+            <div class="ls-bubble-phonetic">[буон-джор-но, сінь-йо-ре. пос-со а-ю-та-ре?]</div>
+            <div class="ls-bubble-sub">Доброго дня, пане. Чим можу допомогти?</div>
+          </div>
+        </div>
+
+        <div class="ls-msg right">
+          <div class="ls-msg-avatar slate"><i class="fa-solid fa-user"></i></div>
+          <div class="ls-bubble slate right">
+            <div class="ls-bubble-text">Buongiorno. Ho un appuntamento.</div>
+            <div class="ls-bubble-phonetic">[буон-джор-но. о ун ап-пун-та-мен-то.]</div>
+            <div class="ls-bubble-sub">Доброго дня. У мене призначена зустріч.</div>
+          </div>
+        </div>
+
+        <div class="ls-msg">
+          <div class="ls-msg-avatar teal"><i class="fa-solid fa-user-tie"></i></div>
+          <div class="ls-bubble teal left">
+            <div class="ls-bubble-text ls-bubble-teal">Certamente. Si accomodi, prego! Buongiorno, come sta?</div>
+            <div class="ls-bubble-phonetic">[чер-та-мен-те. сі ак-ко-мо-ді, пре-го! буон-джор-но, ко-ме ста?]</div>
+            <div class="ls-bubble-sub">Звісно. Присідайте, будь ласка! Доброго дня, як справи?</div>
+          </div>
+        </div>
+
+        <div class="ls-msg right">
+          <div class="ls-msg-avatar slate"><i class="fa-solid fa-user"></i></div>
+          <div class="ls-bubble slate right">
+            <div class="ls-bubble-text">Molto bene, grazie. E Lei?</div>
+            <div class="ls-bubble-phonetic">[моль-то бе-не, гра-цьє. е лей?]</div>
+            <div class="ls-bubble-sub">Дуже добре, дякую. А у Вас?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════
+       SECTION 3: GUIDED PRACTICE DRILLS
+  ════════════════════════════════ -->
+  <section style="margin-bottom:2.5rem;">
+    <p class="ls-section-heading">
+      <i class="fa-solid fa-dumbbell"></i>Секція 3 · Інтерактивні тренувальні вправи
+    </p>
+
+    <!-- Drill 1: Contextual Multiple Choice -->
+    <div class="ls-drill-card" id="ex1-card">
+      <div class="ls-drill-header">
+        <span class="ls-drill-num">1</span>
+        <h3 class="ls-drill-title">Вибір привітання за ситуацією</h3>
+        <span class="ls-done-badge" id="ex1-badge">✓ Виконано (+50 XP)</span>
+      </div>
+      <div class="ls-drill-prompt">
+        Ви зайшли до готелю о <strong>20:00</strong> для заселення. Яке привітання є найвлучнішим?
+      </div>
+      <div class="ls-mc-grid" id="mc-options">
+        <button class="ls-mc-btn" onclick="checkMC(this, false)">A. &nbsp;Buonanotte, signore.</button>
+        <button class="ls-mc-btn" onclick="checkMC(this, true)">B. &nbsp;Buonasera, ho una prenotazione.</button>
+        <button class="ls-mc-btn" onclick="checkMC(this, false)">C. &nbsp;Buon pomeriggio, a domani.</button>
+        <button class="ls-mc-btn" onclick="checkMC(this, false)">D. &nbsp;Ciao bello!</button>
+      </div>
+      <div class="ls-feedback" id="mc-feedback"></div>
+    </div>
+
+    <!-- Drill 2: Fill in the Blank -->
+    <div class="ls-drill-card" id="ex2-card">
+      <div class="ls-drill-header">
+        <span class="ls-drill-num">2</span>
+        <h3 class="ls-drill-title">Заповнення пропусків у розмові</h3>
+        <span class="ls-done-badge" id="ex2-badge">✓ Виконано (+50 XP)</span>
+      </div>
+      <div class="ls-drill-prompt">
+        Вставте пропущені слова ввічливої форми у фразу:<br /><br />
+        <strong>«<input id="fill-input-1" type="text" class="ls-fill-input" style="width:110px;display:inline-block;" placeholder="Scusa / Scusi" autocomplete="off" /> signore, come <input id="fill-input-2" type="text" class="ls-fill-input" style="width:90px;display:inline-block;" placeholder="stai / sta" autocomplete="off" /> сьогодні? — Molto bene, <input id="fill-input-3" type="text" class="ls-fill-input" style="width:90px;display:inline-block;" placeholder="grazie / ciao" autocomplete="off" />!»</strong>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:.75rem;">
+        <button id="fill-btn" class="ls-submit-btn" onclick="submitFill()">
+          <i class="fa-solid fa-paper-plane"></i> Перевірити відповідь
+        </button>
+      </div>
+      <div class="ls-feedback" id="fill-feedback"></div>
+    </div>
+
+    <!-- Drill 3: Reading & Translation Comprehension -->
+    <div class="ls-drill-card" id="ex3-card">
+      <div class="ls-drill-header">
+        <span class="ls-drill-num">3</span>
+        <h3 class="ls-drill-title">Переклад та розуміння значення</h3>
+        <span class="ls-done-badge" id="ex3-badge">✓ Виконано (+50 XP)</span>
+      </div>
+      <div class="ls-drill-prompt">
+        Оберіть точний український переклад для італійської фрази: <strong>«A presto e buona giornata!»</strong>
+      </div>
+      <div class="ls-mc-grid" id="trans-options">
+        <button class="ls-mc-btn" onclick="checkTranslation(this, false)">A. &nbsp;Добраніч і солодких снів!</button>
+        <button class="ls-mc-btn" onclick="checkTranslation(this, true)">B. &nbsp;До швидкої зустрічі та гарного дня!</button>
+        <button class="ls-mc-btn" onclick="checkTranslation(this, false)">C. &nbsp;Привіт і як справи?</button>
+        <button class="ls-mc-btn" onclick="checkTranslation(this, false)">D. &nbsp;Будь ласка, проходьте!</button>
+      </div>
+      <div class="ls-feedback" id="trans-feedback"></div>
+    </div>
+
+    <!-- Drill 4: Matching Pairs -->
+    <div class="ls-drill-card" id="ex4-card">
+      <div class="ls-drill-header">
+        <span class="ls-drill-num">4</span>
+        <h3 class="ls-drill-title">Зіставлення реплік ввічливості</h3>
+        <span class="ls-done-badge" id="ex4-badge">✓ Виконано (+50 XP)</span>
+      </div>
+      <div class="ls-drill-prompt">
+        Оберіть фразу зліва, а потім клікніть на відповідну відповідь справа.
+      </div>
+      <div class="ls-matching-container">
+        <div class="ls-match-col ls-match-col-left">
+          <button class="ls-match-btn" onclick="selectMatchLeft(this, 'p1')">
+            <span>1. Grazie mille!</span> <i class="fa-solid fa-arrow-right" style="font-size:.7rem;color:var(--text-muted);"></i>
+          </button>
+          <button class="ls-match-btn" onclick="selectMatchLeft(this, 'p2')">
+            <span>2. Piacere!</span> <i class="fa-solid fa-arrow-right" style="font-size:.7rem;color:var(--text-muted);"></i>
+          </button>
+          <button class="ls-match-btn" onclick="selectMatchLeft(this, 'p3')">
+            <span>3. Buona giornata!</span> <i class="fa-solid fa-arrow-right" style="font-size:.7rem;color:var(--text-muted);"></i>
+          </button>
+          <button class="ls-match-btn" onclick="selectMatchLeft(this, 'p4')">
+            <span>4. Come stai?</span> <i class="fa-solid fa-arrow-right" style="font-size:.7rem;color:var(--text-muted);"></i>
+          </button>
+        </div>
+        <div class="ls-match-col ls-match-col-right">
+          <button class="ls-match-btn" onclick="selectMatchRight(this, 'r2')">
+            <span>A. Piacere mio!</span>
+          </button>
+          <button class="ls-match-btn" onclick="selectMatchRight(this, 'r1')">
+            <span>B. Prego!</span>
+          </button>
+          <button class="ls-match-btn" onclick="selectMatchRight(this, 'r4')">
+            <span>C. Bene, grazie! E tu?</span>
+          </button>
+          <button class="ls-match-btn" onclick="selectMatchRight(this, 'r3')">
+            <span>D. Grazie, anche a te!</span>
+          </button>
+        </div>
+      </div>
+      <div class="ls-feedback" id="match-feedback"></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════
+       SECTION 4: GAMIFIED CHECKPOINT MINI-GAME
+  ════════════════════════════════ -->
+  <section style="margin-bottom:3rem;">
+    <p class="ls-section-heading">
+      <i class="fa-solid fa-gamepad"></i>Секція 4 · Гейміфікований чекпоінт
+    </p>
+
+    <div class="ls-game-card">
+      <div class="ls-game-header">
+        <div>
+          <h3 class="ls-game-title">
+            <i class="fa-solid fa-traffic-light" style="color:var(--brand-500);"></i>Міні-гра: «Il Semaforo dei Saluti»
+          </h3>
+          <p style="font-size:0.82rem;color:var(--text-secondary);margin-top:0.2rem;">
+            Сортуйте 10 італійських фраз за ситуаціями за 45 секунд. Наберіть 8+ правильних відповідей та отримайте <strong>+50 XP</strong>!
+          </p>
+        </div>
+        <button id="game-start-btn" class="ls-submit-btn" onclick="startGreetingsGame()">
+          <i class="fa-solid fa-play"></i> Почати гру
+        </button>
+      </div>
+
+      <!-- Win notification box -->
+      <div id="game-win-box" style="display:none;margin-bottom:1rem;"></div>
+
+      <!-- Arena -->
+      <div id="game-arena" class="ls-game-arena" style="display:none;">
+        <div style="font-size:0.75rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:.4rem;">
+          Поточна фраза:
+        </div>
+        <div class="ls-current-prompt" id="game-current-text">
+          Buongiorno!
+        </div>
+        <div style="font-size:0.78rem;color:var(--text-secondary);" id="game-current-hint">
+          Вимова: [буон-джор-но]
+        </div>
+
+        <div style="width:100%;max-width:32rem;margin-top:1.25rem;">
+          <div style="font-size:0.72rem;font-weight:700;color:var(--text-muted);margin-bottom:.4rem;">Оберіть правильний кошик:</div>
+          <div class="ls-game-buckets">
+            <button class="ls-bucket-btn ls-bucket-green" onclick="chooseBucket('morning_day')">
+              <i class="fa-solid fa-sun" style="font-size:1.1rem;"></i>
+              <span>🌅 Ранок і день</span>
+              <span style="font-size:0.68rem;font-weight:500;">Mattina e Giorno</span>
+            </button>
+            <button class="ls-bucket-btn ls-bucket-blue" onclick="chooseBucket('evening_night')">
+              <i class="fa-solid fa-moon" style="font-size:1.1rem;"></i>
+              <span>🌙 Вечір і ніч</span>
+              <span style="font-size:0.68rem;font-weight:500;">Sera e Notte</span>
+            </button>
+            <button class="ls-bucket-btn ls-bucket-purple" onclick="chooseBucket('courtesy')">
+              <i class="fa-solid fa-hand-holding-heart" style="font-size:1.1rem;"></i>
+              <span>🤝 Ввічливість</span>
+              <span style="font-size:0.68rem;font-weight:500;">Cortesia e Saluti</span>
+            </button>
+          </div>
+        </div>
+
+        <div style="width:100%;max-width:32rem;">
+          <div class="ls-game-score-row">
+            <span>Рахунок: <strong id="game-score">0 / 10</strong></span>
+            <span>Залишилось: <strong id="game-timer-text">45 сек</strong></span>
+          </div>
+          <div class="ls-timer-bar-wrap">
+            <div id="game-timer-fill" class="ls-timer-bar-fill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Scripts -->
+<script src="../script.js?v=3"></script>
+
+</body>
+</html>
