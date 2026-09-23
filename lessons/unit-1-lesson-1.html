@@ -400,8 +400,9 @@
         <div class="task"><b>19.</b> Benvenuta nel ___. (будинок) <input type="text" placeholder="встав слово" /></div>
 
         <div style="margin-top:1.5rem;display:flex;justify-content:flex-end;">
-          <button class="btn-primary" onclick="alert('Завдання збережено! +30 XP');addXP(30);">Здати завдання уроку</button>
+          <button class="btn-primary" type="button" onclick="gradeLessonTasks()">Перевірити завдання</button>
         </div>
+        <div id="taskResult" class="task-result" role="status" aria-live="polite"></div>
 
       </div>
 
@@ -464,7 +465,72 @@ function openProfileModal(){
 function closeProfileModal(){
   document.getElementById('profileModal').classList.remove('open');
 }
-</script>
+
+function gradeLessonTasks() {
+  const choiceAnswers = {
+    q1: 'Як справи?', q2: 'Дякую', q3: "anch'io", q4: 'новий',
+    q5: 'grazie mille', q6: 'Так', q7: 'Ні', q8: 'Так'
+  };
+  const textAnswers = [
+    { pattern: /^stai\s*[,;]?\s*grazie!?$/i, label: 'stai, grazie' },
+    { pattern: /^nuova$/i, label: 'nuova' },
+    { pattern: /^grazie$/i, label: 'grazie' },
+    { pattern: /^palazzo$/i, label: 'palazzo' }
+  ];
+  const taskRoot = document.getElementById('tasks');
+  const allTasks = Array.from(taskRoot.querySelectorAll('.task'));
+  const choiceNames = Object.keys(choiceAnswers);
+  const textInputs = Array.from(taskRoot.querySelectorAll('input[type="text"]'));
+  const unanswered = choiceNames.some(name => !taskRoot.querySelector(`input[name="${name}"]:checked`)) || textInputs.some(input => !input.value.trim());
+  const result = document.getElementById('taskResult');
+
+  if (unanswered) {
+    result.textContent = 'Дайте відповідь на всі 12 завдань перед перевіркою.';
+    result.className = 'task-result task-result-warning';
+    return;
+  }
+
+  let correctCount = 0;
+  allTasks.forEach(task => {
+    task.classList.remove('task-correct', 'task-incorrect');
+    task.querySelector('.task-feedback')?.remove();
+  });
+
+  choiceNames.forEach(name => {
+    const selected = taskRoot.querySelector(`input[name="${name}"]:checked`).parentElement.textContent.trim();
+    const isCorrect = selected === choiceAnswers[name];
+    showTaskFeedback(taskRoot.querySelector(`input[name="${name}"]`).closest('.task'), isCorrect, choiceAnswers[name]);
+    correctCount += Number(isCorrect);
+  });
+
+  textInputs.forEach((input, index) => {
+    const normalized = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
+    const isCorrect = textAnswers[index].pattern.test(normalized);
+    showTaskFeedback(input.closest('.task'), isCorrect, textAnswers[index].label);
+    correctCount += Number(isCorrect);
+  });
+
+  const total = choiceNames.length + textInputs.length;
+  const earnedXP = Math.round((correctCount / total) * 30);
+  const scoreKey = 'ls_unit_1_lesson_1_best_xp';
+  const previousBest = Number(localStorage.getItem(scoreKey) || '0');
+  const xpToAdd = Math.max(0, earnedXP - previousBest);
+  if (xpToAdd > 0) {
+    localStorage.setItem(scoreKey, String(earnedXP));
+    addXP(xpToAdd);
+  }
+
+  result.textContent = `${correctCount}/${total} правильних. ${xpToAdd > 0 ? `Додано ${xpToAdd} XP.` : `Ваш найкращий результат уже враховано (${previousBest} XP).`}`;
+  result.className = `task-result ${correctCount === total ? 'task-result-success' : 'task-result-info'}`;
+}
+
+function showTaskFeedback(task, isCorrect, correctAnswer) {
+  task.classList.add(isCorrect ? 'task-correct' : 'task-incorrect');
+  const feedback = document.createElement('div');
+  feedback.className = 'task-feedback';
+  feedback.textContent = isCorrect ? '✓ Правильно' : `Правильна відповідь: ${correctAnswer}`;
+  task.appendChild(feedback);
+}</script>
 
 </body>
 </html>

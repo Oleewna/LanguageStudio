@@ -630,3 +630,14 @@ table.vocab-table tr:last-child td {
   .content > .card:has(.dialogue-content) { display: flex; flex-direction: column; gap: 1.25rem; }
   .content > .card:has(.dialogue-content) .scene-img-wrapper { order: -1; min-height: 14rem; max-height: 20rem; }
 }
+
+/* Lesson task validation */
+.task { transition: border-color 0.18s ease, background 0.18s ease; }
+.task-correct { border-color: var(--it-green); background: var(--it-green-light); }
+.task-incorrect { border-color: var(--it-red); background: var(--it-red-light); }
+.task-feedback { margin-top: 0.55rem; font-size: 0.8rem; font-weight: 700; color: var(--it-green); }
+.task-incorrect .task-feedback { color: var(--it-red); }
+.task-result { margin-top: 1rem; padding: 0.85rem 1rem; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: 600; }
+.task-result-warning { background: #fff7df; color: #9a6500; }
+.task-result-info { background: #edf5ff; color: #1d5f9e; }
+.task-result-success { background: var(--it-green-light); color: var(--it-green); }
