@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Власний словник — LanguageStudio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<style>
+  .dict-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.55rem 0.9rem;
+    flex: 1;
+    min-width: 220px;
+    max-width: 400px;
+  }
+  .search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: inherit;
+    font-size: 0.88rem;
+    color: var(--ink);
+    width: 100%;
+  }
+  .dict-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .dict-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.15s, border-color 0.15s;
+  }
+  .dict-card:hover {
+    border-color: #CBD5E1;
+    transform: translateY(-2px);
+  }
+  .dict-word-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .dict-phon {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-top: 0.1rem;
+  }
+  .dict-trans {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-top: 0.2rem;
+  }
+  .custom-tag {
+    font-size: 0.65rem;
+    background: #FEF3E2;
+    color: #B56A00;
+    border: 1px solid #F6D7A8;
+    padding: 0.1rem 0.4rem;
+    border-radius: 99px;
+    font-weight: 700;
+  }
+  .dict-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .delete-btn {
+    background: none;
+    border: none;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0.4rem;
+    border-radius: 0.35rem;
+    transition: color 0.15s;
+  }
+  .delete-btn:hover {
+    color: var(--gold);
+  }
+
+  /* Modal */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    backdrop-filter: blur(2px);
+  }
+  .modal-backdrop.open {
+    display: flex;
+  }
+  .modal-dialog {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+  }
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  .form-label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin-bottom: 0.35rem;
+  }
+  .form-control {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 0.8rem;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--ink);
+    background: var(--bg);
+    outline: none;
+  }
+  .form-control:focus {
+    border-color: var(--pine);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ MOBILE DRAWER NAV ═══════════ -->
+<div class="mob-overlay" id="mobOverlay" onclick="closeMobNav()"></div>
+<nav class="mob-nav" id="mobNav" aria-label="Мобільне меню">
+  <div class="mob-nav-header">
+    <a href="../index.html" class="mob-nav-brand">🇮🇹 LanguageStudio</a>
+    <button class="mob-close-btn" onclick="closeMobNav()" aria-label="Закрити">✕</button>
+  </div>
+  <div class="mob-section-label">Головне</div>
+  <a href="../index.html" class="mob-nav-link"><span class="ic">🏠</span>Головна</a>
+  <a href="units.html" class="mob-nav-link"><span class="ic">📚</span>Розділи (Units)</a>
+  <a href="../lessons/unit-1-lesson-1.html" class="mob-nav-link"><span class="ic">▶</span>Урок 1.1 · Ліфт</a>
+  <div class="mob-section-label">Практика</div>
+  <a href="flashcards.html" class="mob-nav-link"><span class="ic">🃏</span>Флешкартки</a>
+  <a href="tasks.html" class="mob-nav-link"><span class="ic">✏️</span>Завдання</a>
+  <a href="dictionary.html" class="mob-nav-link active"><span class="ic">📖</span>Власний словник</a>
+  <a href="games.html" class="mob-nav-link"><span class="ic">🎮</span>Ігри</a>
+  <a href="grammar.html" class="mob-nav-link"><span class="ic">📋</span>Довідник граматики</a>
+</nav>
+
+<!-- ═══════════ TOPBAR WITH DROPDOWNS ═══════════ -->
+<header class="topnav">
+  <a href="../index.html" class="nav-brand">
+    <span class="nav-brand-flag">☕</span>
+    <span class="nav-brand-name">LanguageStudio</span>
+  </a>
+
+  <nav class="nav-links" aria-label="Головна навігація">
+    
+    <!-- Розділи dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='units.html'">
+        📚 Розділи <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Навчальні юніти</div>
+        <div class="nav-submenu">
+          <a href="../lessons/unit-1-lesson-1.html" class="nav-dd-item nav-submenu-trigger">
+            <span class="dd-icon">📚</span>Розділ 1 · Il primo giorno
+            <span class="submenu-arrow">›</span>
+          </a>
+          <div class="nav-submenu-panel">
+            <div class="nav-dd-header">Уроки розділу 1</div>
+            <a href="../lessons/unit-1-lesson-1.html" class="nav-dd-item"><span class="dd-icon">▶</span>Урок 1 · Ліфт <span class="dd-tag active">Активний</span></a>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 2 · Come ti chiami?</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 3 · Di dove sei?</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 4 · Consolidazione</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 5 · La mia scena</span>
+          </div>
+        </div>
+        <a href="units.html" class="nav-dd-item">
+          <span class="dd-icon">📑</span>Переглянути всі 4 розділи
+        </a>
+      </div>
+    </div>
+
+    <!-- Флешкартки dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='flashcards.html'">
+        🃏 Флешкартки <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Тренажер слів</div>
+        <a href="flashcards.html" class="nav-dd-item">
+          <span class="dd-icon">👋</span>Привітання та база (13 слів)
+        </a>
+        <a href="flashcards.html?topic=custom" class="nav-dd-item">
+          <span class="dd-icon">⭐</span>Мої власні збережені слова
+        </a>
+      </div>
+    </div>
+
+    <!-- Завдання dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='tasks.html'">
+        ✏️ Завдання <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Практичні тести</div>
+        <a href="tasks.html" class="nav-dd-item">
+          <span class="dd-icon">⚡</span>Щоденний бліц-тест
+        </a>
+        <a href="../lessons/unit-1-lesson-1.html#tasks" class="nav-dd-item">
+          <span class="dd-icon">📝</span>Вправи до Уроку 1
+        </a>
+      </div>
+    </div>
+
+    <!-- Словник dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn active" onclick="location.href='dictionary.html'">
+        📖 Словник <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Власний словник</div>
+        <a href="dictionary.html" class="nav-dd-item">
+          <span class="dd-icon">🔍</span>Пошук по базі слів
+        </a>
+        <a href="dictionary.html?add=1" class="nav-dd-item">
+          <span class="dd-icon">➕</span>Додати власне слово
+        </a>
+      </div>
+    </div>
+
+    <!-- Ігри dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='games.html'">
+        🎮 Ігри <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Міні-ігри</div>
+        <a href="games.html" class="nav-dd-item">
+          <span class="dd-icon">🚦</span>Світлофор привітань
+        </a>
+      </div>
+    </div>
+
+    <!-- Довідник dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='grammar.html'">
+        📋 Довідник <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Граматичні шпаргалки</div>
+        <a href="grammar.html?tab=saluti" class="nav-dd-item">
+          <span class="dd-icon">☀️</span>Привітання за часом доби
+        </a>
+        <a href="grammar.html?tab=articoli" class="nav-dd-item">
+          <span class="dd-icon">📰</span>Означені артиклі
+        </a>
+        <a href="grammar.html?tab=verbi" class="nav-dd-item">
+          <span class="dd-icon">🔷</span>Essere та Avere
+        </a>
+      </div>
+    </div>
+
+  </nav>
+
+  <div class="nav-right">
+    <div class="nav-xp-badge">⭐ <span class="xp-val-display">0</span> XP</div>
+    <button class="menu-toggle" onclick="openMobNav()" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-label">Особиста база слів</div>
+    <h1>Власний словник</h1>
+    <p>Зберігайте нові італійські слова з уроків або власного життя, слухайте їхню вимову та використовуйте у флешкартках.</p>
+  </div>
+</section>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<main class="page-container">
+
+  <div class="dict-toolbar">
+    <div class="search-box">
+      <span>🔍</span>
+      <input type="text" id="dictSearch" class="search-input" placeholder="Пошук слова чи перекладу..." oninput="renderDictionary()" />
+    </div>
+    <button class="btn-primary" onclick="openAddModal()">➕ Додати нове слово</button>
+  </div>
+
+  <div class="dict-grid" id="dictGrid"></div>
+
+</main>
+
+<!-- Modal: Add Custom Word -->
+<div class="modal-backdrop" id="addModal" onclick="if(event.target===this)closeAddModal()">
+  <div class="modal-dialog">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+      <h3 style="font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;">➕ Нове слово</h3>
+      <button onclick="closeAddModal()" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--ink-soft);">✕</button>
+    </div>
+    <form id="addWordForm" onsubmit="saveNewWord(event)">
+      <div class="form-group">
+        <label class="form-label">Італійське слово чи фраза *</label>
+        <input type="text" id="wIt" class="form-control" required placeholder="напр. arrivederci" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Український переклад *</label>
+        <input type="text" id="wUa" class="form-control" required placeholder="напр. до побачення" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Транскрипція (необов'язково)</label>
+        <input type="text" id="wPhon" class="form-control" placeholder="напр. ар-рі-ве-дер-чі" />
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:0.6rem;margin-top:1.5rem;">
+        <button type="button" class="btn-ghost" onclick="closeAddModal()">Скасувати</button>
+        <button type="submit" class="btn-primary">Зберегти (+25 XP)</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>☕ <b>LanguageStudio</b> · Corso di Italiano A0–A1</div>
+    <div class="footer-links">
+      <a href="../index.html">Головна</a>
+      <a href="units.html">Розділи</a>
+      <a href="flashcards.html">Флешкартки</a>
+      <a href="tasks.html">Завдання</a>
+      <a href="games.html">Ігри</a>
+      <a href="grammar.html">Довідник</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/app.js"></script>
+<script>
+const DICT_BASE = [
+  { id: 'b1', word: 'ciao', phon: '[ча-о]', trans: 'привіт / бувай', custom: false },
+  { id: 'b2', word: 'come stai?', phon: '[ко-ме стай]', trans: 'як справи?', custom: false },
+  { id: 'b3', word: 'bene', phon: '[бе-не]', trans: 'добре', custom: false },
+  { id: 'b4', word: 'grazie', phon: '[гра-цьє]', trans: 'дякую', custom: false },
+  { id: 'b5', word: 'prego', phon: '[пре-го]', trans: 'будь ласка / нема за що', custom: false },
+  { id: 'b6', word: 'sì', phon: '[сі]', trans: 'так', custom: false },
+  { id: 'b7', word: 'no', phon: '[но]', trans: 'ні', custom: false },
+  { id: 'b8', word: 'anch\'io', phon: '[ан-кі-о]', trans: 'я теж', custom: false },
+  { id: 'b9', word: 'nuovo/a', phon: '[ну-о-во/ва]', trans: 'новий / нова', custom: false },
+  { id: 'b10', word: 'primo giorno', phon: '[прі-мо джор-но]', trans: 'перший день', custom: false },
+  { id: 'b11', word: 'benvenuto/a', phon: '[бен-ве-ну-то/та]', trans: 'ласкаво просимо', custom: false },
+  { id: 'b12', word: 'palazzo', phon: '[па-лац-цо]', trans: 'будинок (багатоповерховий)', custom: false },
+  { id: 'b13', word: 'grazie mille', phon: '[гра-цьє міл-ле]', trans: 'дуже дякую', custom: false }
+];
+
+function getCustomWords() {
+  try { return JSON.parse(localStorage.getItem(DICT_KEY) || '[]'); } catch { return []; }
+}
+
+function saveCustomWords(words) {
+  try { localStorage.setItem(DICT_KEY, JSON.stringify(words)); } catch {}
+}
+
+function renderDictionary() {
+  const grid = document.getElementById('dictGrid');
+  const query = (document.getElementById('dictSearch')?.value || '').toLowerCase().trim();
+  const custom = getCustomWords();
+  const all = [...DICT_BASE, ...custom];
+  const filtered = query
+    ? all.filter(w => w.word.toLowerCase().includes(query) || w.trans.toLowerCase().includes(query))
+    : all;
+
+  if (!filtered.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--ink-soft);">Слів не знайдено</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(w => `
+    <div class="dict-card">
+      <div>
+        <div class="dict-word-title">
+          ${w.word}
+          ${w.custom ? '<span class="custom-tag">власне</span>' : ''}
+        </div>
+        <div class="dict-phon">${w.phon || ''}</div>
+        <div class="dict-trans">${w.trans}</div>
+      </div>
+      <div class="dict-actions">
+        <button class="audio-btn" onclick="speak('${w.word.replace(/'/g, "\\'")}', this)" title="Аудіо">🔊</button>
+        ${w.custom ? `<button class="delete-btn" onclick="deleteWord('${w.id}')" title="Видалити">🗑</button>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function openAddModal() {
+  document.getElementById('addModal').classList.add('open');
+  document.getElementById('wIt').focus();
+}
+
+function closeAddModal() {
+  document.getElementById('addModal').classList.remove('open');
+  document.getElementById('addWordForm').reset();
+}
+
+function saveNewWord(e) {
+  e.preventDefault();
+  const word = document.getElementById('wIt').value.trim();
+  const trans = document.getElementById('wUa').value.trim();
+  const phon = document.getElementById('wPhon').value.trim();
+  if (!word || !trans) return;
+
+  const list = getCustomWords();
+  list.unshift({
+    id: 'c_' + Date.now(),
+    word,
+    trans,
+    phon: phon ? `[${phon.replace(/[\[\]]/g, '')}]` : '',
+    custom: true
+  });
+  saveCustomWords(list);
+  addXP(25);
+  closeAddModal();
+  renderDictionary();
+}
+
+function deleteWord(id) {
+  const list = getCustomWords().filter(w => w.id !== id);
+  saveCustomWords(list);
+  renderDictionary();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderDictionary();
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('add') === '1') {
+    openAddModal();
+  }
+});
+</script>
+</body>
+</html>

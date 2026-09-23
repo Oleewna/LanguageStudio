@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Довідник граматики — LanguageStudio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<style>
+  .grammar-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .grammar-tabs-header {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--border);
+    overflow-x: auto;
+    background: var(--bg);
+    -webkit-overflow-scrolling: touch;
+  }
+  .gr-tab-btn {
+    padding: 0.85rem 1.25rem;
+    border: none;
+    background: none;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    border-bottom: 2.5px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-bottom: -2px;
+    transition: all 0.15s;
+    touch-action: manipulation;
+  }
+  .gr-tab-btn:hover {
+    color: var(--ink);
+  }
+  .gr-tab-btn.active {
+    color: var(--pine);
+    border-bottom-color: var(--pine);
+    font-weight: 700;
+    background: var(--surface);
+  }
+  .grammar-body {
+    padding: clamp(1.2rem, 3.5vw, 1.8rem);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table.gr-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    min-width: 450px;
+  }
+  table.gr-table th {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    border-bottom: 2px solid var(--border);
+  }
+  table.gr-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  table.gr-table tr:last-child td {
+    border-bottom: none;
+  }
+  .gr-note-box {
+    background: var(--bg);
+    border-left: 3px solid var(--pine);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1rem;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    margin-top: 1.25rem;
+    line-height: 1.5;
+  }
+  .gr-note-box b {
+    color: var(--ink);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ MOBILE DRAWER NAV ═══════════ -->
+<div class="mob-overlay" id="mobOverlay" onclick="closeMobNav()"></div>
+<nav class="mob-nav" id="mobNav" aria-label="Мобільне меню">
+  <div class="mob-nav-header">
+    <a href="../index.html" class="mob-nav-brand">🇮🇹 LanguageStudio</a>
+    <button class="mob-close-btn" onclick="closeMobNav()" aria-label="Закрити">✕</button>
+  </div>
+  <div class="mob-section-label">Головне</div>
+  <a href="../index.html" class="mob-nav-link"><span class="ic">🏠</span>Головна</a>
+  <a href="units.html" class="mob-nav-link"><span class="ic">📚</span>Розділи (Units)</a>
+  <a href="../lessons/unit-1-lesson-1.html" class="mob-nav-link"><span class="ic">▶</span>Урок 1.1 · Ліфт</a>
+  <div class="mob-section-label">Практика</div>
+  <a href="flashcards.html" class="mob-nav-link"><span class="ic">🃏</span>Флешкартки</a>
+  <a href="tasks.html" class="mob-nav-link"><span class="ic">✏️</span>Завдання</a>
+  <a href="dictionary.html" class="mob-nav-link"><span class="ic">📖</span>Власний словник</a>
+  <a href="games.html" class="mob-nav-link"><span class="ic">🎮</span>Ігри</a>
+  <a href="grammar.html" class="mob-nav-link active"><span class="ic">📋</span>Довідник граматики</a>
+</nav>
+
+<!-- ═══════════ TOPBAR ═══════════ -->
+<header class="topnav">
+  <a href="../index.html" class="nav-brand">
+    <span class="nav-brand-flag">☕</span>
+    <span class="nav-brand-name">LanguageStudio</span>
+  </a>
+
+  <nav class="nav-links" aria-label="Головна навігація">
+    <div class="nav-dd"><button class="nav-dd-btn" onclick="location.href='units.html'">📚 Розділи <span class="chev">▾</span></button><div class="nav-dd-menu"><div class="nav-dd-header">Навчальні юніти</div>        <div class="nav-submenu">
+          <a href="../lessons/unit-1-lesson-1.html" class="nav-dd-item nav-submenu-trigger">
+            <span class="dd-icon">📚</span>Розділ 1 · Il primo giorno
+            <span class="submenu-arrow">›</span>
+          </a>
+          <div class="nav-submenu-panel">
+            <div class="nav-dd-header">Уроки розділу 1</div>
+            <a href="../lessons/unit-1-lesson-1.html" class="nav-dd-item"><span class="dd-icon">▶</span>Урок 1 · Ліфт <span class="dd-tag active">Активний</span></a>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 2 · Come ti chiami?</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 3 · Di dove sei?</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 4 · Consolidazione</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 5 · La mia scena</span>
+          </div>
+        </div></div></div>
+    <div class="nav-dd"><a href="flashcards.html" class="nav-dd-btn">🃏 Флешкартки</a></div>
+    <div class="nav-dd"><a href="tasks.html" class="nav-dd-btn">✏️ Завдання</a></div>
+    <div class="nav-dd"><a href="dictionary.html" class="nav-dd-btn">📖 Словник</a></div>
+    <div class="nav-dd"><a href="games.html" class="nav-dd-btn">🎮 Ігри</a></div>
+    <div class="nav-dd"><a href="grammar.html" class="nav-dd-btn active">📋 Довідник</a></div>
+  </nav>
+
+  <div class="nav-right">
+    <div class="nav-xp-badge">⭐ <span class="xp-val-display">0</span> XP</div>
+    <button class="menu-toggle" onclick="openMobNav()" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-label">Граматичні шпаргалки</div>
+    <h1>Довідник граматики</h1>
+    <p>Швидкий доступ до ключових правил італійської мови рівня A1: артиклі, форми дієслів та етикетні вирази.</p>
+  </div>
+</section>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<main class="page-container">
+
+  <div class="grammar-card">
+    
+    <div class="grammar-tabs-header">
+      <button class="gr-tab-btn active" onclick="switchGrTab('saluti', this)">☀️ Привітання</button>
+      <button class="gr-tab-btn" onclick="switchGrTab('articoli', this)">📰 Артиклі</button>
+      <button class="gr-tab-btn" onclick="switchGrTab('verbi', this)">🔷 Essere & Avere</button>
+      <button class="gr-tab-btn" onclick="switchGrTab('cortesia', this)">🤝 Tu vs Lei</button>
+    </div>
+
+    <div class="grammar-body" id="grBody"></div>
+
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>☕ <b>LanguageStudio</b> · Corso di Italiano A0–A1</div>
+    <div class="footer-links">
+      <a href="../index.html">Головна</a>
+      <a href="units.html">Розділи</a>
+      <a href="flashcards.html">Флешкартки</a>
+      <a href="tasks.html">Завдання</a>
+      <a href="dictionary.html">Словник</a>
+      <a href="games.html">Ігри</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/app.js"></script>
+<script>
+const GR_DATA = {
+  saluti: `
+    <table class="gr-table">
+      <thead>
+        <tr>
+          <th>Фраза</th>
+          <th>Вимова</th>
+          <th>Переклад</th>
+          <th>Коли вживати</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><b>Buongiorno</b> <button class="audio-btn" style="width:1.5rem;height:1.5rem;font-size:0.7rem;" onclick="speak('Buongiorno')">🔊</button></td><td>[буон-джор-но]</td><td>Добрий ранок / Добрий день</td><td>Зранку до ~13:00–14:00</td></tr>
+        <tr><td><b>Buon pomeriggio</b> <button class="audio-btn" style="width:1.5rem;height:1.5rem;font-size:0.7rem;" onclick="speak('Buon pomeriggio')">🔊</button></td><td>[буон по-ме-рід-джо]</td><td>Добрий день (після обіду)</td><td>З 14:00 до ~17:00</td></tr>
+        <tr><td><b>Buonasera</b> <button class="audio-btn" style="width:1.5rem;height:1.5rem;font-size:0.7rem;" onclick="speak('Buonasera')">🔊</button></td><td>[буо-на-се-ра]</td><td>Добрий вечір</td><td>Після 17:00</td></tr>
+        <tr><td><b>Buonanotte</b> <button class="audio-btn" style="width:1.5rem;height:1.5rem;font-size:0.7rem;" onclick="speak('Buonanotte')">🔊</button></td><td>[буо-на-нот-те]</td><td>Добраніч</td><td><b>Тільки</b> перед сном (прощання)</td></tr>
+        <tr><td><b>Ciao!</b> <button class="audio-btn" style="width:1.5rem;height:1.5rem;font-size:0.7rem;" onclick="speak('Ciao')">🔊</button></td><td>[ча-о]</td><td>Привіт / Бувай</td><td>Універсально для друзів та знайомих</td></tr>
+        <tr><td><b>Salve!</b> <button class="audio-btn" style="width:1.5rem;height:1.5rem;font-size:0.7rem;" onclick="speak('Salve')">🔊</button></td><td>[саль-ве]</td><td>Вітаю!</td><td>Нейтральне вітання в будь-який час</td></tr>
+      </tbody>
+    </table>
+    <div class="gr-note-box">
+      <b>💡 Важливо:</b> «Buonanotte» кажуть виключно тоді, коли хтось іде спати. Якщо ви просто прощаєтесь ввечері на вулиці, кажіть «Buonasera» або «Arrivederci!».
+    </div>
+  `,
+  articoli: `
+    <table class="gr-table">
+      <thead>
+        <tr>
+          <th>Рід / Число</th>
+          <th>Перед приголосними</th>
+          <th>Перед s+пригол., z, gn, ps</th>
+          <th>Перед голосними</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><b>Чоловічий (однина)</b></td><td><b>il</b> ragazzo</td><td><b>lo</b> studente, <b>lo</b> zaino</td><td><b>l'</b>amico</td></tr>
+        <tr><td><b>Чоловічий (множина)</b></td><td><b>i</b> ragazzi</td><td><b>gli</b> studenti, <b>gli</b> zaini</td><td><b>gli</b> amici</td></tr>
+        <tr><td><b>Жіночий (однина)</b></td><td><b>la</b> pizza</td><td><b>la</b> ragazza</td><td><b>l'</b>amica</td></tr>
+        <tr><td><b>Жіночий (множина)</b></td><td><b>le</b> pizze</td><td><b>le</b> ragazze</td><td><b>le</b> amiche</td></tr>
+      </tbody>
+    </table>
+    <div class="gr-note-box">
+      <b>💡 Зверніть увагу:</b> Перед голосними в однині артиклі <i>lo</i> та <i>la</i> скорочуються до <b>l'</b> (l'albergo, l'ora).
+    </div>
+  `,
+  verbi: `
+    <table class="gr-table">
+      <thead>
+        <tr>
+          <th>Особа</th>
+          <th>Essere (бути)</th>
+          <th>Avere (мати)</th>
+          <th>Приклад використання</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><b>io</b> (я)</td><td>sono</td><td>ho</td><td>Io sono Sara / Ho un gatto</td></tr>
+        <tr><td><b>tu</b> (ти)</td><td>sei</td><td>hai</td><td>Sei italiana? / Hai fame?</td></tr>
+        <tr><td><b>lui / lei</b> (він / вона)</td><td>è</td><td>ha</td><td>Lui è Marco / Lei ha una casa</td></tr>
+        <tr><td><b>noi</b> (ми)</td><td>siamo</td><td>abbiamo</td><td>Siamo a Milano / Abbiamo tempo</td></tr>
+        <tr><td><b>voi</b> (ви)</td><td>siete</td><td>avete</td><td>Siete pronti? / Avete domande?</td></tr>
+        <tr><td><b>loro</b> (вони)</td><td>sono</td><td>hanno</td><td>Sono gentili / Hanno fretta</td></tr>
+      </tbody>
+    </table>
+    <div class="gr-note-box">
+      <b>💡 Вік в італійській мові:</b> Вік виражається через дієслово <i>avere</i> (мати): «Ho 25 anni» (Мені 25 років, дослівно «Я маю 25 років»).
+    </div>
+  `,
+  cortesia: `
+    <table class="gr-table">
+      <thead>
+        <tr>
+          <th>Ситуація</th>
+          <th>Неформально (на «ти» — tu)</th>
+          <th>Ввічливо (на «Ви» — Lei)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><b>Привітання</b></td><td>Ciao!</td><td>Buongiorno / Buonasera</td></tr>
+        <tr><td><b>Як справи?</b></td><td>Come stai?</td><td>Come sta?</td></tr>
+        <tr><td><b>Як звати?</b></td><td>Come ti chiami?</td><td>Come si chiama?</td></tr>
+        <tr><td><b>Звідки ви?</b></td><td>Di dove sei?</td><td>Di dov'è?</td></tr>
+        <tr><td><b>Вибачте</b></td><td>Scusa!</td><td>Scusi!</td></tr>
+        <tr><td><b>Прощання</b></td><td>Ciao! / A presto!</td><td>Arrivederla! / Arrivederci!</td></tr>
+      </tbody>
+    </table>
+  `
+};
+
+function switchGrTab(tabKey, btn) {
+  document.querySelectorAll('.gr-tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('grBody').innerHTML = GR_DATA[tabKey] || '';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const requestedTab = urlParams.get('tab') || 'saluti';
+  const tabIndexMap = { saluti: 0, articoli: 1, verbi: 2, cortesia: 3 };
+  const targetBtn = document.querySelectorAll('.gr-tab-btn')[tabIndexMap[requestedTab] || 0];
+  if (targetBtn) {
+    switchGrTab(requestedTab, targetBtn);
+  } else {
+    document.getElementById('grBody').innerHTML = GR_DATA.saluti;
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Флешкартки — LanguageStudio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<style>
+  .fc-wrapper {
+    max-width: 580px;
+    margin: 0 auto;
+  }
+  
+  /* Filter controls panel */
+  .filter-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .filter-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+  }
+  .filter-select {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.45rem 0.65rem;
+    font-family: inherit;
+    font-size: 0.84rem;
+    color: var(--ink);
+    background: var(--bg);
+    outline: none;
+    cursor: pointer;
+  }
+  .filter-select:focus {
+    border-color: var(--pine);
+  }
+
+  .topic-chips {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  .topic-chip {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--ink-soft);
+    padding: 0.3rem 0.75rem;
+    border-radius: 99px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    touch-action: manipulation;
+  }
+  .topic-chip.active {
+    background: #EAF4EC;
+    border-color: #BDE3CB;
+    color: var(--pine);
+    font-weight: 700;
+  }
+
+  /* 3D Card Stage */
+  .fc-stage {
+    perspective: 1000px;
+    width: 100%;
+    height: 250px;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+  }
+  .fc-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .fc-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+  .fc-front {
+    background: var(--surface);
+  }
+  .fc-back {
+    background: linear-gradient(135deg, var(--pine) 0%, #1D3A29 100%);
+    color: #F5F3EA;
+    transform: rotateY(180deg);
+  }
+  .fc-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .fc-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.55rem;
+    border-radius: 99px;
+    color: var(--ink-soft);
+  }
+  .fc-word {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+  }
+  .fc-phon {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .fc-hint {
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    margin-top: 1rem;
+    opacity: 0.8;
+  }
+  .fc-trans {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.4rem, 4vw, 1.85rem);
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .fc-example {
+    font-size: 0.88rem;
+    opacity: 0.9;
+    font-style: italic;
+    max-width: 340px;
+    line-height: 1.45;
+  }
+  .fc-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .fc-counter-badge {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    min-width: 60px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ MOBILE DRAWER NAV ═══════════ -->
+<div class="mob-overlay" id="mobOverlay" onclick="closeMobNav()"></div>
+<nav class="mob-nav" id="mobNav" aria-label="Мобільне меню">
+  <div class="mob-nav-header">
+    <a href="../index.html" class="mob-nav-brand">🇮🇹 LanguageStudio</a>
+    <button class="mob-close-btn" onclick="closeMobNav()" aria-label="Закрити">✕</button>
+  </div>
+  <div class="mob-section-label">Головне</div>
+  <a href="../index.html" class="mob-nav-link"><span class="ic">🏠</span>Головна</a>
+  <a href="units.html" class="mob-nav-link"><span class="ic">📚</span>Розділи (Units)</a>
+  <a href="../lessons/unit-1-lesson-1.html" class="mob-nav-link"><span class="ic">▶</span>Урок 1.1 · Ліфт</a>
+  <div class="mob-section-label">Практика</div>
+  <a href="flashcards.html" class="mob-nav-link active"><span class="ic">🃏</span>Флешкартки</a>
+  <a href="tasks.html" class="mob-nav-link"><span class="ic">✏️</span>Завдання</a>
+  <a href="dictionary.html" class="mob-nav-link"><span class="ic">📖</span>Власний словник</a>
+  <a href="games.html" class="mob-nav-link"><span class="ic">🎮</span>Ігри</a>
+  <a href="grammar.html" class="mob-nav-link"><span class="ic">📋</span>Довідник граматики</a>
+</nav>
+
+<!-- ═══════════ TOPBAR WITH DROPDOWNS ═══════════ -->
+<header class="topnav">
+  <a href="../index.html" class="nav-brand">
+    <span class="nav-brand-flag">☕</span>
+    <span class="nav-brand-name">LanguageStudio</span>
+  </a>
+
+  <nav class="nav-links" aria-label="Головна навігація">
+    
+    <!-- Розділи dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='units.html'">
+        📚 Розділи <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Навчальні юніти</div>
+        <div class="nav-submenu">
+          <a href="../lessons/unit-1-lesson-1.html" class="nav-dd-item nav-submenu-trigger">
+            <span class="dd-icon">📚</span>Розділ 1 · Il primo giorno
+            <span class="submenu-arrow">›</span>
+          </a>
+          <div class="nav-submenu-panel">
+            <div class="nav-dd-header">Уроки розділу 1</div>
+            <a href="../lessons/unit-1-lesson-1.html" class="nav-dd-item"><span class="dd-icon">▶</span>Урок 1 · Ліфт <span class="dd-tag active">Активний</span></a>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 2 · Come ti chiami?</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 3 · Di dove sei?</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 4 · Consolidazione</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 5 · La mia scena</span>
+          </div>
+        </div>
+        <a href="units.html" class="nav-dd-item">
+          <span class="dd-icon">📑</span>Переглянути всі 4 розділи
+        </a>
+      </div>
+    </div>
+
+    <!-- Флешкартки dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn active" onclick="location.href='flashcards.html'">
+        🃏 Флешкартки <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Тренажер слів</div>
+        <a href="flashcards.html" class="nav-dd-item">
+          <span class="dd-icon">👋</span>Привітання та база (13 слів)
+        </a>
+        <a href="flashcards.html?topic=custom" class="nav-dd-item">
+          <span class="dd-icon">⭐</span>Мої власні збережені слова
+        </a>
+      </div>
+    </div>
+
+    <!-- Завдання dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='tasks.html'">
+        ✏️ Завдання <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Практичні тести</div>
+        <a href="tasks.html" class="nav-dd-item">
+          <span class="dd-icon">⚡</span>Щоденний бліц-тест
+        </a>
+        <a href="../lessons/unit-1-lesson-1.html#tasks" class="nav-dd-item">
+          <span class="dd-icon">📝</span>Вправи до Уроку 1
+        </a>
+      </div>
+    </div>
+
+    <!-- Словник dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='dictionary.html'">
+        📖 Словник <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Власний словник</div>
+        <a href="dictionary.html" class="nav-dd-item">
+          <span class="dd-icon">🔍</span>Пошук по базі слів
+        </a>
+        <a href="dictionary.html?add=1" class="nav-dd-item">
+          <span class="dd-icon">➕</span>Додати власне слово
+        </a>
+      </div>
+    </div>
+
+    <!-- Ігри dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='games.html'">
+        🎮 Ігри <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Міні-ігри</div>
+        <a href="games.html" class="nav-dd-item">
+          <span class="dd-icon">🚦</span>Світлофор привітань
+        </a>
+      </div>
+    </div>
+
+    <!-- Довідник dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='grammar.html'">
+        📋 Довідник <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Граматичні шпаргалки</div>
+        <a href="grammar.html?tab=saluti" class="nav-dd-item">
+          <span class="dd-icon">☀️</span>Привітання за часом доби
+        </a>
+        <a href="grammar.html?tab=articoli" class="nav-dd-item">
+          <span class="dd-icon">📰</span>Означені артиклі
+        </a>
+        <a href="grammar.html?tab=verbi" class="nav-dd-item">
+          <span class="dd-icon">🔷</span>Essere та Avere
+        </a>
+      </div>
+    </div>
+
+  </nav>
+
+  <div class="nav-right">
+    <div class="nav-xp-badge">⭐ <span class="xp-val-display">0</span> XP</div>
+    <button class="menu-toggle" onclick="openMobNav()" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-label">Словниковий тренажер</div>
+    <h1>Флешкартки</h1>
+    <p>Фільтруйте слова за розділом, уроком чи тематикою. Перевертайте картку та тренуйте пам'ять.</p>
+  </div>
+</section>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<main class="page-container">
+
+  <div class="fc-wrapper">
+
+    <!-- Multi-tiered filter panel -->
+    <div class="filter-panel">
+      <div class="filter-grid">
+        
+        <!-- Filter by Unit -->
+        <div class="filter-group">
+          <label class="filter-label" for="filterUnit">📚 Розділ</label>
+          <select id="filterUnit" class="filter-select" onchange="applyFilters()">
+            <option value="all">Усі розділи</option>
+            <option value="unit-1" selected>Розділ 1 · Il primo giorno</option>
+            <option value="unit-2">Розділ 2 · Al bar</option>
+            <option value="unit-3">Розділ 3 · La famiglia</option>
+            <option value="unit-4">Розділ 4 · In viaggio</option>
+          </select>
+        </div>
+
+        <!-- Filter by Lesson -->
+        <div class="filter-group">
+          <label class="filter-label" for="filterLesson">📑 Урок</label>
+          <select id="filterLesson" class="filter-select" onchange="applyFilters()">
+            <option value="all">Усі уроки</option>
+            <option value="lesson-1" selected>Урок 1.1 · Ліфт</option>
+            <option value="lesson-2">Урок 1.2 · Знайомство</option>
+            <option value="lesson-3">Урок 1.3 · Країни</option>
+            <option value="lesson-4">Урок 1.4 · Числа</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Filter by Topic / Thematic chips -->
+      <div class="topic-chips">
+        <button class="topic-chip active" onclick="setTopicChip('all', this)">Всі тематики</button>
+        <button class="topic-chip" onclick="setTopicChip('greetings', this)">👋 Привітання</button>
+        <button class="topic-chip" onclick="setTopicChip('basic', this)">🔤 Базові фрази</button>
+        <button class="topic-chip" onclick="setTopicChip('custom', this)">⭐ Власні збережені</button>
+      </div>
+    </div>
+
+    <!-- 3D Card Stage -->
+    <div class="fc-stage" onclick="toggleFlip()">
+      <div class="fc-inner" id="fcInner">
+        
+        <!-- Front -->
+        <div class="fc-face fc-front">
+          <div class="fc-meta-row">
+            <span class="fc-tag" id="fcUnitTag">Розділ 1</span>
+            <span class="fc-tag" id="fcTopicTag">👋 Привітання</span>
+          </div>
+          <div class="fc-word" id="fcWord">ciao</div>
+          <div class="fc-phon" id="fcPhon">[ча-о]</div>
+          <div class="fc-hint">👆 Натисніть, щоб побачити переклад</div>
+        </div>
+
+        <!-- Back -->
+        <div class="fc-face fc-back">
+          <div class="fc-trans" id="fcTrans">привіт / бувай</div>
+          <div class="fc-example" id="fcExample">— Ciao! Come stai? — Bene, grazie!</div>
+          <div class="fc-hint" style="color:#DAE3DA;">👆 Натисніть знову для звороту</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="fc-controls">
+      <button class="btn-ghost" onclick="prevCard()">← Назад</button>
+      <span class="fc-counter-badge" id="fcCounter">1 / 13</span>
+      <button class="btn-ghost" onclick="nextCard()">Вперед →</button>
+      <button class="audio-btn" onclick="speakCurrent(this)" title="Аудіо (візуальний режим)">🔊</button>
+      <button class="btn-ghost" onclick="shuffleCards()" title="Перемішати">🔀</button>
+    </div>
+
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>☕ <b>LanguageStudio</b> · Corso di Italiano A0–A1</div>
+    <div class="footer-links">
+      <a href="../index.html">Головна</a>
+      <a href="units.html">Розділи</a>
+      <a href="tasks.html">Завдання</a>
+      <a href="dictionary.html">Словник</a>
+      <a href="games.html">Ігри</a>
+      <a href="grammar.html">Довідник</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/app.js"></script>
+<script>
+const FC_DATA = [
+  { word: 'ciao', phon: '[ча-о]', trans: 'привіт / бувай', ex: 'Ciao! Come stai?', unit: 'unit-1', lesson: 'lesson-1', topic: 'greetings' },
+  { word: 'come stai?', phon: '[ко-ме стай]', trans: 'як справи?', ex: 'Ciao Marco, come stai?', unit: 'unit-1', lesson: 'lesson-1', topic: 'greetings' },
+  { word: 'bene', phon: '[бе-не]', trans: 'добре', ex: 'Bene, grazie! E tu?', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
+  { word: 'grazie', phon: '[гра-цьє]', trans: 'дякую', ex: 'Grazie mille!', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
+  { word: 'prego', phon: '[пре-го]', trans: 'будь ласка / нема за що', ex: '— Grazie! — Prego!', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
+  { word: 'sì', phon: '[сі]', trans: 'так', ex: 'Sì, sono nuova.', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
+  { word: 'no', phon: '[но]', trans: 'ні', ex: 'No, grazie.', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
+  { word: 'anch\'io', phon: '[ан-кі-о]', trans: 'я теж', ex: 'Anch\'io sto bene, grazie!', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
+  { word: 'nuovo/a', phon: '[ну-о-во/ва]', trans: 'новий / нова', ex: 'Sei nuova qui?', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
+  { word: 'primo giorno', phon: '[прі-мо джор-но]', trans: 'перший день', ex: 'È il mio primo giorno.', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
+  { word: 'benvenuto/a', phon: '[бен-ве-ну-то/та]', trans: 'ласкаво просимо', ex: 'Benvenuta nel palazzo!', unit: 'unit-1', lesson: 'lesson-1', topic: 'greetings' },
+  { word: 'palazzo', phon: '[па-лац-цо]', trans: 'будинок (багатоповерховий)', ex: 'Abito in questo palazzo.', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
+  { word: 'grazie mille', phon: '[гра-цьє міл-ле]', trans: 'дуже дякую', ex: 'Grazie mille per l\'aiuto!', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' }
+];
+
+let selectedTopic = 'all';
+let cards = [...FC_DATA];
+let currentIndex = 0;
+let isFlipped = false;
+
+function getCustomWords() {
+  try { return JSON.parse(localStorage.getItem(DICT_KEY) || '[]'); } catch { return []; }
+}
+
+function applyFilters() {
+  const u = document.getElementById('filterUnit').value;
+  const l = document.getElementById('filterLesson').value;
+  const custom = getCustomWords().map(w => ({ ...w, unit: 'unit-1', lesson: 'lesson-1', topic: 'custom' }));
+  let list = [...FC_DATA, ...custom];
+
+  if (u !== 'all') {
+    list = list.filter(item => item.unit === u);
+  }
+  if (l !== 'all') {
+    list = list.filter(item => item.lesson === l);
+  }
+  if (selectedTopic !== 'all') {
+    list = list.filter(item => item.topic === selectedTopic);
+  }
+
+  cards = list;
+  currentIndex = 0;
+  updateCardDisplay();
+}
+
+function setTopicChip(topic, btn) {
+  document.querySelectorAll('.topic-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedTopic = topic;
+  applyFilters();
+}
+
+function updateCardDisplay() {
+  if (!cards.length) {
+    document.getElementById('fcWord').textContent = 'Слів не знайдено';
+    document.getElementById('fcPhon').textContent = '';
+    document.getElementById('fcTrans').textContent = 'Спробуйте змінити фільтри вище';
+    document.getElementById('fcExample').textContent = '';
+    document.getElementById('fcCounter').textContent = '0 / 0';
+    document.getElementById('fcUnitTag').textContent = '—';
+    document.getElementById('fcTopicTag').textContent = '—';
+    return;
+  }
+  const item = cards[currentIndex];
+  const inner = document.getElementById('fcInner');
+  if (isFlipped) {
+    isFlipped = false;
+    inner.style.transform = 'rotateY(0deg)';
+  }
+  document.getElementById('fcUnitTag').textContent = item.unit === 'unit-1' ? 'Розділ 1' : 'Розділ 2';
+  document.getElementById('fcTopicTag').textContent = item.topic === 'greetings' ? '👋 Привітання' : item.topic === 'custom' ? '⭐ Власне' : '🔤 Базове';
+  document.getElementById('fcWord').textContent = item.word;
+  document.getElementById('fcPhon').textContent = item.phon || '';
+  document.getElementById('fcTrans').textContent = item.trans;
+  document.getElementById('fcExample').textContent = item.ex ? `«${item.ex}»` : '';
+  document.getElementById('fcCounter').textContent = `${currentIndex + 1} / ${cards.length}`;
+}
+
+function toggleFlip() {
+  isFlipped = !isFlipped;
+  document.getElementById('fcInner').style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+}
+
+function nextCard() {
+  if (!cards.length) return;
+  currentIndex = (currentIndex + 1) % cards.length;
+  updateCardDisplay();
+}
+
+function prevCard() {
+  if (!cards.length) return;
+  currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+  updateCardDisplay();
+}
+
+function speakCurrent(btn) {
+  speak(cards[currentIndex]?.word || '', btn);
+}
+
+function shuffleCards() {
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+  currentIndex = 0;
+  updateCardDisplay();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const requestedTopic = urlParams.get('topic');
+  if (requestedTopic === 'custom') {
+    const customChip = document.querySelectorAll('.topic-chip')[3];
+    if (customChip) setTopicChip('custom', customChip);
+  } else {
+    applyFilters();
+  }
+});
+</script>
+</body>
+</html>
