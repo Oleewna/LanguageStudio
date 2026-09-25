@@ -557,6 +557,7 @@ function renderDictionary() {
 
   grid.innerHTML = filtered.map(w => {
     const isLearned = learned.includes(w.id);
+    const translation = w.custom ? w.trans : getSourceTranslation(`flashcards.${w.word}`, w.trans);
     return `
     <div class="dict-card ${isLearned ? 'learned' : ''}" onclick="toggleLearned('${w.id}')" title="Натисніть, щоб позначити як вивчене">
       <div>
@@ -566,7 +567,7 @@ function renderDictionary() {
           ${w.type ? `<span class="type-tag">${typeLabels[w.type] || w.type}</span>` : ''}
         </div>
         <div class="dict-phon">${w.phon || ''}</div>
-        <div class="dict-trans">${w.trans}</div>
+        <div class="dict-trans">${translation}</div>
         <div class="dict-meta">
           ${w.lesson ? `<span>📘 ${w.lesson}</span>` : ''}
           ${w.category ? `<span>🏷 ${w.category}</span>` : ''}
@@ -632,6 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
     openAddModal();
   }
 });
+window.addEventListener('sourceLanguageChanged', renderDictionary);
 </script>
 </body>
 </html>

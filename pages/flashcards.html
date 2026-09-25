@@ -516,7 +516,7 @@ function updateCardDisplay() {
   document.getElementById('fcTopicTag').textContent = item.topic === 'greetings' ? '👋 Привітання' : item.topic === 'custom' ? '⭐ Власне' : '🔤 Базове';
   document.getElementById('fcWord').textContent = item.word;
   document.getElementById('fcPhon').textContent = item.phon || '';
-  document.getElementById('fcTrans').textContent = item.trans;
+  document.getElementById('fcTrans').textContent = getSourceTranslation(`flashcards.${item.word}`, item.trans);
   document.getElementById('fcExample').textContent = item.ex ? `«${item.ex}»` : '';
   document.getElementById('fcCounter').textContent = `${currentIndex + 1} / ${cards.length}`;
 }
@@ -562,6 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilters();
   }
 });
+window.addEventListener('sourceLanguageChanged', updateCardDisplay);
 </script>
 </body>
 </html>

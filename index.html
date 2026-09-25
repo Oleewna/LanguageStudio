@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<link rel="icon" type="image/png" href="../assets/images/icons8-translator-100.png" />
+<link rel="icon" type="image/png" href="assets/images/icons8-translator-100.png" />
 <title>LanguageStudio — Італійська для реальних ситуацій</title>
 <meta name="description" content="LanguageStudio — практичний курс італійської мови для конкретних цілей: подорожі, робота, бізнес. Флешкартки, власний словник та ігри." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -568,6 +568,11 @@
         <div style="font-size:0.8rem;color:var(--ink-soft);">Напрямок: <b>Основи спілкування</b></div>
       </div>
     </div>
+    <section class="pm-settings" aria-labelledby="source-language-title">
+      <h3 class="pm-settings-title" id="source-language-title">Налаштування навчання італійської</h3>
+      <label class="pm-setting-label" for="sourceLanguage">Мова перекладу та пояснень</label>
+      <select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select>
+    </section>
     <div class="pm-stats-grid">
       <div class="pm-stat-box">
         <div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div>
