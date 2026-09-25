@@ -125,6 +125,28 @@
   .task-panel.active {
     display: block;
   }
+  .task-situation {
+    border-left: 3px solid var(--pine);
+    padding: 0.2rem 0 0.2rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .task-situation-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--pine);
+    margin-bottom: 0.2rem;
+  }
+  .task-situation-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .task-situation-desc {
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+    margin-top: 0.2rem;
+  }
 
   /* Text-answer inputs (fill-blank, translate) */
   .text-answer-input {
@@ -371,14 +393,20 @@
   <div class="page-hero-inner">
     <div class="page-hero-label">Практика & Перевірка</div>
     <h1>Завдання та Тести</h1>
-    <p>Виконуйте інтерактивні вправи, закріплюйте матеріал діалогів та заробляйте очки досвіду XP.</p>
+    <p>Практикуйте італійську в конкретних ситуаціях. Почніть із першого знайомства в будинку та закріпіть потрібні фрази в різних форматах.</p>
   </div>
 </section>
 
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
 <main class="page-container">
 
-  <h2 class="section-title"><span class="ic">🗂️</span>Банк завдань</h2>
+  <div class="task-situation">
+    <div class="task-situation-label">Ситуація · Основи спілкування</div>
+    <div class="task-situation-title">Перший день у будинку</div>
+    <div class="task-situation-desc">Привітання, коротке знайомство та ввічливі відповіді під час зустрічі з сусідами.</div>
+  </div>
+
+  <h2 class="section-title"><span class="ic">🗂️</span>Вправи за ситуацією</h2>
 
   <div class="task-tabs">
     <button class="task-tab active" data-tab="mcq" onclick="showTaskTab('mcq')">🧠 Вибір відповіді</button>
@@ -647,10 +675,10 @@
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div>☕ <b>LanguageStudio</b> · Corso di Italiano A0–A1</div>
+    <div>☕ <b>LanguageStudio</b> · Італійська для реальних ситуацій</div>
     <div class="footer-links">
       <a href="../index.html">Головна</a>
-      <a href="units.html">Розділи</a>
+      <a href="units.html">Напрямки</a>
       <a href="flashcards.html">Флешкартки</a>
       <a href="dictionary.html">Словник</a>
       <a href="games.html">Ігри</a>

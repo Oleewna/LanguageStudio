@@ -185,6 +185,13 @@
     min-width: 60px;
     text-align: center;
   }
+  .fc-empty-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+  }
 </style>
 </head>
 <body>
@@ -198,8 +205,8 @@
   </div>
   <div class="mob-section-label">Головне</div>
   <a href="../index.html" class="mob-nav-link"><span class="ic">🏠</span>Головна</a>
-  <a href="units.html" class="mob-nav-link"><span class="ic">📚</span>Розділи (Units)</a>
-  <a href="../lessons/unit-1-lesson-1.html" class="mob-nav-link"><span class="ic">▶</span>Урок 1.1 · Рецепція</a>
+  <a href="units.html" class="mob-nav-link"><span class="ic">🧭</span>Напрямки навчання</a>
+  <a href="../lessons/unit-1-lesson-1.html" class="mob-nav-link"><span class="ic">▶</span>Основи · Урок 1</a>
   <div class="mob-section-label">Практика</div>
   <a href="flashcards.html" class="mob-nav-link active"><span class="ic">🃏</span>Флешкартки</a>
   <a href="tasks.html" class="mob-nav-link"><span class="ic">✏️</span>Завдання</a>
@@ -217,20 +224,20 @@
 
   <nav class="nav-links" aria-label="Головна навігація">
     
-    <!-- Розділи dropdown -->
+    <!-- Напрямки dropdown -->
     <div class="nav-dd">
       <button class="nav-dd-btn" onclick="location.href='units.html'">
-        📚 Розділи <span class="chev">▾</span>
+        🧭 Напрямки <span class="chev">▾</span>
       </button>
       <div class="nav-dd-menu">
-        <div class="nav-dd-header">Навчальні юніти</div>
+        <div class="nav-dd-header">Напрямки навчання</div>
         <div class="nav-submenu">
           <a href="../lessons/unit-1-lesson-1.html" class="nav-dd-item nav-submenu-trigger">
-            <span class="dd-icon">📚</span>Розділ 1 · Il primo giorno
+            <span class="dd-icon">👋</span>Основи спілкування
             <span class="submenu-arrow">›</span>
           </a>
           <div class="nav-submenu-panel">
-            <div class="nav-dd-header">Уроки розділу 1</div>
+            <div class="nav-dd-header">Уроки напрямку «Основи»</div>
             <a href="../lessons/unit-1-lesson-1.html" class="nav-dd-item"><span class="dd-icon">▶</span>Урок 1 · Рецепція <span class="dd-tag active">Активний</span></a>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 2 · Come ti chiami?</span>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 3 · Di dove sei?</span>
@@ -239,7 +246,7 @@
           </div>
         </div>
         <a href="units.html" class="nav-dd-item">
-          <span class="dd-icon">📑</span>Переглянути всі 4 розділи
+          <span class="dd-icon">📑</span>Переглянути всі напрямки
         </a>
       </div>
     </div>
@@ -337,7 +344,7 @@
   <div class="page-hero-inner">
     <div class="page-hero-label">Словниковий тренажер</div>
     <h1>Флешкартки</h1>
-    <p>Фільтруйте слова за розділом, уроком чи тематикою. Перевертайте картку та тренуйте пам'ять.</p>
+    <p>Фільтруйте слова за напрямком навчання чи тематикою. Перевертайте картку та тренуйте пам'ять.</p>
   </div>
 </section>
 
@@ -346,31 +353,18 @@
 
   <div class="fc-wrapper">
 
-    <!-- Multi-tiered filter panel -->
+    <!-- Filter panel -->
     <div class="filter-panel">
       <div class="filter-grid">
         
-        <!-- Filter by Unit -->
+        <!-- Filter by Track -->
         <div class="filter-group">
-          <label class="filter-label" for="filterUnit">📚 Розділ</label>
-          <select id="filterUnit" class="filter-select" onchange="applyFilters()">
-            <option value="all">Усі розділи</option>
-            <option value="unit-1" selected>Розділ 1 · Il primo giorno</option>
-            <option value="unit-2">Розділ 2 · Al bar</option>
-            <option value="unit-3">Розділ 3 · La famiglia</option>
-            <option value="unit-4">Розділ 4 · In viaggio</option>
-          </select>
-        </div>
-
-        <!-- Filter by Lesson -->
-        <div class="filter-group">
-          <label class="filter-label" for="filterLesson">📑 Урок</label>
-          <select id="filterLesson" class="filter-select" onchange="applyFilters()">
-            <option value="all">Усі уроки</option>
-            <option value="lesson-1" selected>Урок 1.1 · Рецепція</option>
-            <option value="lesson-2">Урок 1.2 · Знайомство</option>
-            <option value="lesson-3">Урок 1.3 · Країни</option>
-            <option value="lesson-4">Урок 1.4 · Числа</option>
+          <label class="filter-label" for="filterTrack">🧭 Напрямок</label>
+          <select id="filterTrack" class="filter-select" onchange="applyFilters()">
+            <option value="all">Усі напрямки</option>
+            <option value="foundations" selected>👋 Основи спілкування</option>
+            <option value="tourist">🧳 Туристична італійська</option>
+            <option value="business">💼 Робота та бізнес</option>
           </select>
         </div>
 
@@ -392,7 +386,7 @@
         <!-- Front -->
         <div class="fc-face fc-front">
           <div class="fc-meta-row">
-            <span class="fc-tag" id="fcUnitTag">Розділ 1</span>
+            <span class="fc-tag" id="fcUnitTag">👋 Основи</span>
             <span class="fc-tag" id="fcTopicTag">👋 Привітання</span>
           </div>
           <div class="fc-word" id="fcWord">ciao</div>
@@ -410,6 +404,8 @@
       </div>
     </div>
 
+    <div class="fc-empty-note" id="fcEmptyNote" style="display:none;">Для цього напрямку слова ще готуються — спробуйте «Основи спілкування» або власні збережені слова.</div>
+
     <!-- Controls -->
     <div class="fc-controls">
       <button class="btn-ghost" onclick="prevCard()">← Назад</button>
@@ -425,10 +421,10 @@
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div>☕ <b>LanguageStudio</b> · Corso di Italiano A0–A1</div>
+    <div>☕ <b>LanguageStudio</b> · Італійська для реальних ситуацій</div>
     <div class="footer-links">
       <a href="../index.html">Головна</a>
-      <a href="units.html">Розділи</a>
+      <a href="units.html">Напрямки</a>
       <a href="tasks.html">Завдання</a>
       <a href="dictionary.html">Словник</a>
       <a href="games.html">Ігри</a>
@@ -440,20 +436,26 @@
 <script src="../js/app.js"></script>
 <script>
 const FC_DATA = [
-  { word: 'ciao', phon: '[ча-о]', trans: 'привіт / бувай', ex: 'Ciao! Come stai?', unit: 'unit-1', lesson: 'lesson-1', topic: 'greetings' },
-  { word: 'come stai?', phon: '[ко-ме стай]', trans: 'як справи?', ex: 'Ciao Marco, come stai?', unit: 'unit-1', lesson: 'lesson-1', topic: 'greetings' },
-  { word: 'bene', phon: '[бе-не]', trans: 'добре', ex: 'Bene, grazie! E tu?', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
-  { word: 'grazie', phon: '[гра-цьє]', trans: 'дякую', ex: 'Grazie mille!', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
-  { word: 'prego', phon: '[пре-го]', trans: 'будь ласка / нема за що', ex: '— Grazie! — Prego!', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
-  { word: 'sì', phon: '[сі]', trans: 'так', ex: 'Sì, sono nuova.', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
-  { word: 'no', phon: '[но]', trans: 'ні', ex: 'No, grazie.', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
-  { word: 'anch\'io', phon: '[ан-кі-о]', trans: 'я теж', ex: 'Anch\'io sto bene, grazie!', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
-  { word: 'nuovo/a', phon: '[ну-о-во/ва]', trans: 'новий / нова', ex: 'Sei nuova qui?', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
-  { word: 'primo giorno', phon: '[прі-мо джор-но]', trans: 'перший день', ex: 'È il mio primo giorno.', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
-  { word: 'benvenuto/a', phon: '[бен-ве-ну-то/та]', trans: 'ласкаво просимо', ex: 'Benvenuta nel palazzo!', unit: 'unit-1', lesson: 'lesson-1', topic: 'greetings' },
-  { word: 'palazzo', phon: '[па-лац-цо]', trans: 'будинок (багатоповерховий)', ex: 'Abito in questo palazzo.', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' },
-  { word: 'grazie mille', phon: '[гра-цьє міл-ле]', trans: 'дуже дякую', ex: 'Grazie mille per l\'aiuto!', unit: 'unit-1', lesson: 'lesson-1', topic: 'basic' }
+  { word: 'ciao', phon: '[ча-о]', trans: 'привіт / бувай', ex: 'Ciao! Come stai?', track: 'foundations', topic: 'greetings' },
+  { word: 'come stai?', phon: '[ко-ме стай]', trans: 'як справи?', ex: 'Ciao Marco, come stai?', track: 'foundations', topic: 'greetings' },
+  { word: 'bene', phon: '[бе-не]', trans: 'добре', ex: 'Bene, grazie! E tu?', track: 'foundations', topic: 'basic' },
+  { word: 'grazie', phon: '[гра-цьє]', trans: 'дякую', ex: 'Grazie mille!', track: 'foundations', topic: 'basic' },
+  { word: 'prego', phon: '[пре-го]', trans: 'будь ласка / нема за що', ex: '— Grazie! — Prego!', track: 'foundations', topic: 'basic' },
+  { word: 'sì', phon: '[сі]', trans: 'так', ex: 'Sì, sono nuova.', track: 'foundations', topic: 'basic' },
+  { word: 'no', phon: '[но]', trans: 'ні', ex: 'No, grazie.', track: 'foundations', topic: 'basic' },
+  { word: 'anch\'io', phon: '[ан-кі-о]', trans: 'я теж', ex: 'Anch\'io sto bene, grazie!', track: 'foundations', topic: 'basic' },
+  { word: 'nuovo/a', phon: '[ну-о-во/ва]', trans: 'новий / нова', ex: 'Sei nuova qui?', track: 'foundations', topic: 'basic' },
+  { word: 'primo giorno', phon: '[прі-мо джор-но]', trans: 'перший день', ex: 'È il mio primo giorno.', track: 'foundations', topic: 'basic' },
+  { word: 'benvenuto/a', phon: '[бен-ве-ну-то/та]', trans: 'ласкаво просимо', ex: 'Benvenuta nel palazzo!', track: 'foundations', topic: 'greetings' },
+  { word: 'palazzo', phon: '[па-лац-цо]', trans: 'будинок (багатоповерховий)', ex: 'Abito in questo palazzo.', track: 'foundations', topic: 'basic' },
+  { word: 'grazie mille', phon: '[гра-цьє міл-ле]', trans: 'дуже дякую', ex: 'Grazie mille per l\'aiuto!', track: 'foundations', topic: 'basic' }
 ];
+
+const TRACK_LABELS = {
+  foundations: '👋 Основи',
+  tourist: '🧳 Турист',
+  business: '💼 Бізнес'
+};
 
 let selectedTopic = 'all';
 let cards = [...FC_DATA];
@@ -465,16 +467,14 @@ function getCustomWords() {
 }
 
 function applyFilters() {
-  const u = document.getElementById('filterUnit').value;
-  const l = document.getElementById('filterLesson').value;
-  const custom = getCustomWords().map(w => ({ ...w, unit: 'unit-1', lesson: 'lesson-1', topic: 'custom' }));
+  const t = document.getElementById('filterTrack').value;
+  // Custom words follow the person across every track, tagged as 'foundations' by default
+  // so they still show up when no dedicated track content exists yet.
+  const custom = getCustomWords().map(w => ({ ...w, track: 'foundations', topic: 'custom' }));
   let list = [...FC_DATA, ...custom];
 
-  if (u !== 'all') {
-    list = list.filter(item => item.unit === u);
-  }
-  if (l !== 'all') {
-    list = list.filter(item => item.lesson === l);
+  if (t !== 'all') {
+    list = list.filter(item => item.track === t || item.topic === 'custom');
   }
   if (selectedTopic !== 'all') {
     list = list.filter(item => item.topic === selectedTopic);
@@ -493,6 +493,7 @@ function setTopicChip(topic, btn) {
 }
 
 function updateCardDisplay() {
+  const emptyNote = document.getElementById('fcEmptyNote');
   if (!cards.length) {
     document.getElementById('fcWord').textContent = 'Слів не знайдено';
     document.getElementById('fcPhon').textContent = '';
@@ -501,15 +502,17 @@ function updateCardDisplay() {
     document.getElementById('fcCounter').textContent = '0 / 0';
     document.getElementById('fcUnitTag').textContent = '—';
     document.getElementById('fcTopicTag').textContent = '—';
+    emptyNote.style.display = 'block';
     return;
   }
+  emptyNote.style.display = 'none';
   const item = cards[currentIndex];
   const inner = document.getElementById('fcInner');
   if (isFlipped) {
     isFlipped = false;
     inner.style.transform = 'rotateY(0deg)';
   }
-  document.getElementById('fcUnitTag').textContent = item.unit === 'unit-1' ? 'Розділ 1' : 'Розділ 2';
+  document.getElementById('fcUnitTag').textContent = TRACK_LABELS[item.track] || '👋 Основи';
   document.getElementById('fcTopicTag').textContent = item.topic === 'greetings' ? '👋 Привітання' : item.topic === 'custom' ? '⭐ Власне' : '🔤 Базове';
   document.getElementById('fcWord').textContent = item.word;
   document.getElementById('fcPhon').textContent = item.phon || '';
@@ -552,6 +555,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const requestedTopic = urlParams.get('topic');
   if (requestedTopic === 'custom') {
+    document.getElementById('filterTrack').value = 'all';
     const customChip = document.querySelectorAll('.topic-chip')[3];
     if (customChip) setTopicChip('custom', customChip);
   } else {

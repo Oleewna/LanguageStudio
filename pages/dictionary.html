@@ -371,9 +371,9 @@
 <!-- ═══════════ HERO ═══════════ -->
 <section class="page-hero">
   <div class="page-hero-inner">
-    <div class="page-hero-label">Особиста база слів</div>
+    <div class="page-hero-label">Слова за темами й ситуаціями</div>
     <h1>Власний словник</h1>
-    <p>Зберігайте нові італійські слова з уроків або власного життя, слухайте їхню вимову та використовуйте у флешкартках.</p>
+    <p>Знаходьте слова за темою чи ситуацією, зберігайте нову лексику з уроків і власного життя та тренуйте її у флешкартках.</p>
   </div>
 </section>
 
@@ -386,11 +386,11 @@
       <input type="text" id="dictSearch" class="search-input" placeholder="Пошук слова чи перекладу..." oninput="renderDictionary()" />
     </div>
     <div class="dict-filters">
+      <select id="filterCategory" class="filter-select" onchange="renderDictionary()">
+        <option value="">Усі теми й ситуації</option>
+      </select>
       <select id="filterLesson" class="filter-select" onchange="renderDictionary()">
         <option value="">Усі уроки</option>
-      </select>
-      <select id="filterCategory" class="filter-select" onchange="renderDictionary()">
-        <option value="">Усі категорії</option>
       </select>
       <select id="filterType" class="filter-select" onchange="renderDictionary()">
         <option value="">Усі типи</option>
@@ -452,10 +452,10 @@
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div>☕ <b>LanguageStudio</b> · Corso di Italiano A0–A1</div>
+    <div>☕ <b>LanguageStudio</b> · Італійська для реальних ситуацій</div>
     <div class="footer-links">
       <a href="../index.html">Головна</a>
-      <a href="units.html">Розділи</a>
+      <a href="units.html">Напрямки</a>
       <a href="flashcards.html">Флешкартки</a>
       <a href="tasks.html">Завдання</a>
       <a href="games.html">Ігри</a>
@@ -467,18 +467,18 @@
 <script src="../js/app.js"></script>
 <script>
 const DICT_BASE = [
-  { id: 'b1', word: 'ciao', phon: '[ча-о]', trans: 'привіт / бувай', custom: false, lesson: 'Урок 1.1', category: 'привітання', type: 'greeting' },
-  { id: 'b2', word: 'come stai?', phon: '[ко-ме стай]', trans: 'як справи?', custom: false, lesson: 'Урок 1.1', category: 'привітання', type: 'phrase' },
-  { id: 'b3', word: 'bene', phon: '[бе-не]', trans: 'добре', custom: false, lesson: 'Урок 1.1', category: 'привітання', type: 'adjective' },
+  { id: 'b1', word: 'ciao', phon: '[ча-о]', trans: 'привіт / бувай', custom: false, lesson: 'Урок 1.1', category: 'привітання та знайомство', type: 'greeting' },
+  { id: 'b2', word: 'come stai?', phon: '[ко-ме стай]', trans: 'як справи?', custom: false, lesson: 'Урок 1.1', category: 'привітання та знайомство', type: 'phrase' },
+  { id: 'b3', word: 'bene', phon: '[бе-не]', trans: 'добре', custom: false, lesson: 'Урок 1.1', category: 'привітання та знайомство', type: 'adjective' },
   { id: 'b4', word: 'grazie', phon: '[гра-цьє]', trans: 'дякую', custom: false, lesson: 'Урок 1.1', category: 'ввічливість', type: 'phrase' },
   { id: 'b5', word: 'prego', phon: '[пре-го]', trans: 'будь ласка / нема за що', custom: false, lesson: 'Урок 1.1', category: 'ввічливість', type: 'phrase' },
-  { id: 'b6', word: 'sì', phon: '[сі]', trans: 'так', custom: false, lesson: 'Урок 1.1', category: 'база', type: 'other' },
-  { id: 'b7', word: 'no', phon: '[но]', trans: 'ні', custom: false, lesson: 'Урок 1.1', category: 'база', type: 'other' },
-  { id: 'b8', word: 'anch\'io', phon: '[ан-кі-о]', trans: 'я теж', custom: false, lesson: 'Урок 1.1', category: 'база', type: 'phrase' },
-  { id: 'b9', word: 'nuovo/a', phon: '[ну-о-во/ва]', trans: 'новий / нова', custom: false, lesson: 'Урок 1.1', category: 'опис', type: 'adjective' },
-  { id: 'b10', word: 'primo giorno', phon: '[прі-мо джор-но]', trans: 'перший день', custom: false, lesson: 'Урок 1.1', category: 'база', type: 'noun' },
-  { id: 'b11', word: 'benvenuto/a', phon: '[бен-ве-ну-то/та]', trans: 'ласкаво просимо', custom: false, lesson: 'Урок 1.1', category: 'привітання', type: 'greeting' },
-  { id: 'b12', word: 'palazzo', phon: '[па-лац-цо]', trans: 'будинок (багатоповерховий)', custom: false, lesson: 'Урок 1.1', category: 'місто', type: 'noun' },
+  { id: 'b6', word: 'sì', phon: '[сі]', trans: 'так', custom: false, lesson: 'Урок 1.1', category: 'короткі відповіді', type: 'other' },
+  { id: 'b7', word: 'no', phon: '[но]', trans: 'ні', custom: false, lesson: 'Урок 1.1', category: 'короткі відповіді', type: 'other' },
+  { id: 'b8', word: 'anch\'io', phon: '[ан-кі-о]', trans: 'я теж', custom: false, lesson: 'Урок 1.1', category: 'короткі відповіді', type: 'phrase' },
+  { id: 'b9', word: 'nuovo/a', phon: '[ну-о-во/ва]', trans: 'новий / нова', custom: false, lesson: 'Урок 1.1', category: 'перший день', type: 'adjective' },
+  { id: 'b10', word: 'primo giorno', phon: '[прі-мо джор-но]', trans: 'перший день', custom: false, lesson: 'Урок 1.1', category: 'перший день', type: 'noun' },
+  { id: 'b11', word: 'benvenuto/a', phon: '[бен-ве-ну-то/та]', trans: 'ласкаво просимо', custom: false, lesson: 'Урок 1.1', category: 'привітання та знайомство', type: 'greeting' },
+  { id: 'b12', word: 'palazzo', phon: '[па-лац-цо]', trans: 'будинок (багатоповерховий)', custom: false, lesson: 'Урок 1.1', category: 'житло й будинок', type: 'noun' },
   { id: 'b13', word: 'grazie mille', phon: '[гра-цьє міл-ле]', trans: 'дуже дякую', custom: false, lesson: 'Урок 1.1', category: 'ввічливість', type: 'phrase' }
 ];
 
@@ -514,7 +514,7 @@ function populateFilters(all) {
   const typeLabels = { phrase: 'Фраза', noun: 'Іменник', verb: 'Дієслово', adjective: 'Прикметник', greeting: 'Привітання', other: 'Інше' };
 
   lessonSel.innerHTML = '<option value="">Усі уроки</option>' + lessons.map(l => `<option value="${l}">${l}</option>`).join('');
-  catSel.innerHTML = '<option value="">Усі категорії</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
+  catSel.innerHTML = '<option value="">Усі теми й ситуації</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
   typeSel.innerHTML = '<option value="">Усі типи</option>' + types.map(t => `<option value="${t}">${typeLabels[t] || t}</option>`).join('');
 
   lessonSel.value = prevLesson; catSel.value = prevCat; typeSel.value = prevType;
