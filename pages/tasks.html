@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="icon" type="image/png" href="../assets/images/icons8-translator-100.png" />
 <title>Завдання — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -90,6 +91,134 @@
     color: #8C2424;
     border: 1px solid #F5C6C6;
   }
+
+  /* Task bank tabs */
+  .task-tabs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .task-tab {
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .task-tab:hover {
+    border-color: #CBD5E1;
+  }
+  .task-tab.active {
+    background: var(--pine);
+    border-color: var(--pine);
+    color: #fff;
+  }
+  .task-panel {
+    display: none;
+  }
+  .task-panel.active {
+    display: block;
+  }
+
+  /* Text-answer inputs (fill-blank, translate) */
+  .text-answer-input {
+    flex: 1;
+    min-width: 160px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 0.8rem;
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .text-answer-input:focus {
+    border-color: var(--pine);
+  }
+
+  /* Matching pairs */
+  .match-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .match-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .match-item {
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: center;
+    transition: all 0.15s;
+  }
+  .match-item:hover {
+    border-color: #CBD5E1;
+  }
+  .match-item.selected {
+    border-color: var(--pine);
+    background: #EAF4EC;
+  }
+  .match-item.matched {
+    border-color: var(--pine);
+    background: #EAF4EC;
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+  .match-item.wrong {
+    border-color: var(--gold);
+    background: #FDF1F1;
+  }
+  .match-status {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
+  /* Sentence reorder */
+  .reorder-answer, .reorder-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-height: 2.6rem;
+    padding: 0.5rem;
+  }
+  .reorder-answer {
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.75rem;
+  }
+  .reorder-chip {
+    padding: 0.45rem 0.8rem;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color 0.15s;
+  }
+  .reorder-chip:hover {
+    border-color: var(--pine);
+  }
+  .answer-chip {
+    background: #EAF4EC;
+    border-color: var(--pine);
+  }
 </style>
 </head>
 <body>
@@ -173,7 +302,7 @@
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Практичні тести</div>
         <a href="tasks.html" class="nav-dd-item">
-          <span class="dd-icon">⚡</span>Щоденний бліц-тест
+          <span class="dd-icon">🗂️</span>Банк завдань
         </a>
         <a href="../lessons/unit-1-lesson-1.html#tasks" class="nav-dd-item">
           <span class="dd-icon">📝</span>Вправи до Уроку 1
@@ -249,63 +378,269 @@
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
 <main class="page-container">
 
-  <!-- Callout for Lesson 1 full tasks -->
-  <div class="card" style="background:#FAF9F5;border-color:#CFE0D3;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
-    <div>
-      <div style="font-size:0.75rem;font-weight:700;color:var(--pine);text-transform:uppercase;letter-spacing:0.05em;">Комплексний практикум</div>
-      <div style="font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;margin:0.2rem 0;">32 завдання до Уроку 1 · «Come ti chiami?»</div>
-      <div style="font-size:0.85rem;color:var(--ink-soft);">Тести, зіставлення слів, відновлення діалогу та власний переклад.</div>
-    </div>
-    <a href="../lessons/unit-1-lesson-1.html#tasks" class="btn-primary">Відкрити 32 завдання →</a>
+  <h2 class="section-title"><span class="ic">🗂️</span>Банк завдань</h2>
+
+  <div class="task-tabs">
+    <button class="task-tab active" data-tab="mcq" onclick="showTaskTab('mcq')">🧠 Вибір відповіді</button>
+    <button class="task-tab" data-tab="blank" onclick="showTaskTab('blank')">✍️ Заповни пропуск</button>
+    <button class="task-tab" data-tab="match" onclick="showTaskTab('match')">🔗 Зіставлення</button>
+    <button class="task-tab" data-tab="reorder" onclick="showTaskTab('reorder')">🔀 Порядок слів</button>
+    <button class="task-tab" data-tab="translate" onclick="showTaskTab('translate')">🌐 Переклад</button>
+    <button class="task-tab" data-tab="dict" onclick="showTaskTab('dict')">📖 Зі словника</button>
+    <button class="task-tab" data-tab="listen" onclick="showTaskTab('listen')">🔊 Аудіювання</button>
+    <button class="task-tab" data-tab="dialogue" onclick="showTaskTab('dialogue')">💬 Діалог</button>
   </div>
 
-  <h2 class="section-title"><span class="ic">⚡</span>Щоденний бліц-тест</h2>
-
-  <!-- Interactive Question 1 -->
-  <div class="quiz-card" id="q1">
-    <div class="quiz-q-num">Питання 1 з 4</div>
-    <div class="quiz-question">Як перекладається італійська фраза «Come stai?»</div>
-    <div class="quiz-options">
-      <div class="quiz-opt" onclick="checkAnswer(1, 0, false, this)">А) Як тебе звати?</div>
-      <div class="quiz-opt" onclick="checkAnswer(1, 1, true, this)">Б) Як справи?</div>
-      <div class="quiz-opt" onclick="checkAnswer(1, 2, false, this)">В) Звідки ти?</div>
+  <!-- Panel: Multiple choice -->
+  <div class="task-panel active" id="panel-mcq">
+    <div class="quiz-card" id="q1">
+      <div class="quiz-q-num">Питання 1 з 4</div>
+      <div class="quiz-question">Як перекладається італійська фраза «Come stai?»</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer(1, 0, false, this)">А) Як тебе звати?</div>
+        <div class="quiz-opt" data-correct="true" onclick="checkAnswer(1, 1, true, this)">Б) Як справи?</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer(1, 2, false, this)">В) Звідки ти?</div>
+      </div>
+      <div class="quiz-feedback" id="fb1"></div>
     </div>
-    <div class="quiz-feedback" id="fb1"></div>
+
+    <div class="quiz-card" id="q2">
+      <div class="quiz-q-num">Питання 2 з 4</div>
+      <div class="quiz-question">Що в італійській мові означає коротке слово «anch'io»?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="true" onclick="checkAnswer(2, 0, true, this)">А) Я теж</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer(2, 1, false, this)">Б) А ти?</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer(2, 2, false, this)">В) Будь ласка</div>
+      </div>
+      <div class="quiz-feedback" id="fb2"></div>
+    </div>
+
+    <div class="quiz-card" id="q3">
+      <div class="quiz-q-num">Питання 3 з 4</div>
+      <div class="quiz-question">Як сказати італійською «Ласкаво просимо» дівчині?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer(3, 0, false, this)">А) Benvenuto</div>
+        <div class="quiz-opt" data-correct="true" onclick="checkAnswer(3, 1, true, this)">Б) Benvenuta</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer(3, 2, false, this)">В) Buonasera</div>
+      </div>
+      <div class="quiz-feedback" id="fb3"></div>
+    </div>
+
+    <div class="quiz-card" id="q4">
+      <div class="quiz-q-num">Питання 4 з 4</div>
+      <div class="quiz-question">Чи можна вживати «Ciao!» і для зустрічі, і для прощання?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="true" onclick="checkAnswer(4, 0, true, this)">А) Так, це універсальне привітання</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer(4, 1, false, this)">Б) Ні, тільки при зустрічі</div>
+      </div>
+      <div class="quiz-feedback" id="fb4"></div>
+    </div>
   </div>
 
-  <!-- Interactive Question 2 -->
-  <div class="quiz-card" id="q2">
-    <div class="quiz-q-num">Питання 2 з 4</div>
-    <div class="quiz-question">Що в італійській мові означає коротке слово «anch'io»?</div>
-    <div class="quiz-options">
-      <div class="quiz-opt" onclick="checkAnswer(2, 0, true, this)">А) Я теж</div>
-      <div class="quiz-opt" onclick="checkAnswer(2, 1, false, this)">Б) А ти?</div>
-      <div class="quiz-opt" onclick="checkAnswer(2, 2, false, this)">В) Будь ласка</div>
+  <!-- Panel: Fill in the blank -->
+  <div class="task-panel" id="panel-blank">
+    <div class="quiz-card">
+      <div class="quiz-q-num">Заповніть пропуск</div>
+      <div class="quiz-question">«___, come stai?»</div>
+      <div style="font-size:0.8rem;color:var(--ink-soft);margin-bottom:0.75rem;">Підказка: привітання при зустрічі</div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <input type="text" class="text-answer-input" placeholder="Впишіть слово..." />
+        <button class="btn-primary" onclick="checkTextAnswer(this, ['ciao'])">Перевірити</button>
+      </div>
+      <div class="quiz-feedback"></div>
     </div>
-    <div class="quiz-feedback" id="fb2"></div>
+    <div class="quiz-card">
+      <div class="quiz-q-num">Заповніть пропуск</div>
+      <div class="quiz-question">«Sto molto ___.»</div>
+      <div style="font-size:0.8rem;color:var(--ink-soft);margin-bottom:0.75rem;">Підказка: протилежне до «погано»</div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <input type="text" class="text-answer-input" placeholder="Впишіть слово..." />
+        <button class="btn-primary" onclick="checkTextAnswer(this, ['bene'])">Перевірити</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-q-num">Заповніть пропуск</div>
+      <div class="quiz-question">«___ mille per l'aiuto!»</div>
+      <div style="font-size:0.8rem;color:var(--ink-soft);margin-bottom:0.75rem;">Підказка: те, що кажуть, коли дуже вдячні</div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <input type="text" class="text-answer-input" placeholder="Впишіть слово..." />
+        <button class="btn-primary" onclick="checkTextAnswer(this, ['grazie'])">Перевірити</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-q-num">Заповніть пропуск</div>
+      <div class="quiz-question">«Piacere di conoscerti, ___!» (до дівчини)</div>
+      <div style="font-size:0.8rem;color:var(--ink-soft);margin-bottom:0.75rem;">Підказка: «ласкаво просимо» у жіночому роді</div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <input type="text" class="text-answer-input" placeholder="Впишіть слово..." />
+        <button class="btn-primary" onclick="checkTextAnswer(this, ['benvenuta'])">Перевірити</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-q-num">Заповніть пропуск</div>
+      <div class="quiz-question">«Questo è un ___ nuovo.»</div>
+      <div style="font-size:0.8rem;color:var(--ink-soft);margin-bottom:0.75rem;">Підказка: багатоповерховий будинок</div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <input type="text" class="text-answer-input" placeholder="Впишіть слово..." />
+        <button class="btn-primary" onclick="checkTextAnswer(this, ['palazzo'])">Перевірити</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
   </div>
 
-  <!-- Interactive Question 3 -->
-  <div class="quiz-card" id="q3">
-    <div class="quiz-q-num">Питання 3 з 4</div>
-    <div class="quiz-question">Як сказати італійською «Ласкаво просимо» дівчині?</div>
-    <div class="quiz-options">
-      <div class="quiz-opt" onclick="checkAnswer(3, 0, false, this)">А) Benvenuto</div>
-      <div class="quiz-opt" onclick="checkAnswer(3, 1, true, this)">Б) Benvenuta</div>
-      <div class="quiz-opt" onclick="checkAnswer(3, 2, false, this)">В) Buonasera</div>
+  <!-- Panel: Matching pairs -->
+  <div class="task-panel" id="panel-match">
+    <div class="quiz-card">
+      <div class="quiz-q-num">Зіставте слова з перекладом</div>
+      <div class="quiz-question">Натисніть італійське слово, а потім відповідний переклад</div>
+      <div class="match-wrap">
+        <div class="match-col" id="matchColIt"></div>
+        <div class="match-col" id="matchColUa"></div>
+      </div>
+      <div class="match-status" id="matchStatus">Знайдено пар: 0/6</div>
+      <div style="margin-top:1rem;">
+        <button class="btn-ghost" onclick="initMatch()">🔄 Перемішати заново</button>
+      </div>
     </div>
-    <div class="quiz-feedback" id="fb3"></div>
   </div>
 
-  <!-- Interactive Question 4 -->
-  <div class="quiz-card" id="q4">
-    <div class="quiz-q-num">Питання 4 з 4</div>
-    <div class="quiz-question">Чи можна вживати «Ciao!» і для зустрічі, і для прощання?</div>
-    <div class="quiz-options">
-      <div class="quiz-opt" onclick="checkAnswer(4, 0, true, this)">А) Так, це універсальне привітання</div>
-      <div class="quiz-opt" onclick="checkAnswer(4, 1, false, this)">Б) Ні, тільки при зустрічі</div>
+  <!-- Panel: Sentence reorder -->
+  <div class="task-panel" id="panel-reorder">
+    <div id="reorderList"></div>
+  </div>
+
+  <!-- Panel: Translation typing -->
+  <div class="task-panel" id="panel-translate">
+    <div class="quiz-card">
+      <div class="quiz-q-num">Перекладіть італійською</div>
+      <div class="quiz-question">«привіт»</div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <input type="text" class="text-answer-input" placeholder="Італійською..." />
+        <button class="btn-primary" onclick="checkTextAnswer(this, ['ciao'])">Перевірити</button>
+      </div>
+      <div class="quiz-feedback"></div>
     </div>
-    <div class="quiz-feedback" id="fb4"></div>
+    <div class="quiz-card">
+      <div class="quiz-q-num">Перекладіть італійською</div>
+      <div class="quiz-question">«дякую»</div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <input type="text" class="text-answer-input" placeholder="Італійською..." />
+        <button class="btn-primary" onclick="checkTextAnswer(this, ['grazie'])">Перевірити</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-q-num">Перекладіть італійською</div>
+      <div class="quiz-question">«так»</div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <input type="text" class="text-answer-input" placeholder="Італійською..." />
+        <button class="btn-primary" onclick="checkTextAnswer(this, ['si', 'sì'])">Перевірити</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-q-num">Перекладіть італійською</div>
+      <div class="quiz-question">«ні»</div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <input type="text" class="text-answer-input" placeholder="Італійською..." />
+        <button class="btn-primary" onclick="checkTextAnswer(this, ['no'])">Перевірити</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-q-num">Перекладіть італійською</div>
+      <div class="quiz-question">«будь ласка»</div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <input type="text" class="text-answer-input" placeholder="Італійською..." />
+        <button class="btn-primary" onclick="checkTextAnswer(this, ['prego'])">Перевірити</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+  </div>
+
+  <!-- Panel: Dictionary-based quiz -->
+  <div class="task-panel" id="panel-dict">
+    <div class="card" style="margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+      <div style="font-size:0.85rem;color:var(--ink-soft);">Тест генерується з базових слів і ваших власних слів із «Власного словника».</div>
+      <button class="btn-primary" onclick="generateDictQuiz()">🎲 Згенерувати тест</button>
+    </div>
+    <div id="dictQuizContainer"></div>
+  </div>
+
+  <!-- Panel: Listening -->
+  <div class="task-panel" id="panel-listen">
+    <div class="quiz-card" data-word="prego">
+      <div class="quiz-q-num">Аудіювання 1 з 3</div>
+      <div class="quiz-question" style="display:flex;align-items:center;gap:0.75rem;">
+        <button class="audio-btn" onclick="speak('prego', this)" style="font-size:1.3rem;">🔊</button>
+        Натисніть, щоб «прослухати», і оберіть переклад
+      </div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('lst1', 0, false, this, 10)">А) Дякую</div>
+        <div class="quiz-opt" data-correct="true" onclick="checkAnswer('lst1', 1, true, this, 10)">Б) Будь ласка</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('lst1', 2, false, this, 10)">В) Привіт</div>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+    <div class="quiz-card" data-word="grazie">
+      <div class="quiz-q-num">Аудіювання 2 з 3</div>
+      <div class="quiz-question" style="display:flex;align-items:center;gap:0.75rem;">
+        <button class="audio-btn" onclick="speak('grazie', this)" style="font-size:1.3rem;">🔊</button>
+        Натисніть, щоб «прослухати», і оберіть переклад
+      </div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="true" onclick="checkAnswer('lst2', 0, true, this, 10)">А) Дякую</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('lst2', 1, false, this, 10)">Б) Так</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('lst2', 2, false, this, 10)">В) Ні</div>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+    <div class="quiz-card" data-word="benvenuto/a">
+      <div class="quiz-q-num">Аудіювання 3 з 3</div>
+      <div class="quiz-question" style="display:flex;align-items:center;gap:0.75rem;">
+        <button class="audio-btn" onclick="speak('benvenuto', this)" style="font-size:1.3rem;">🔊</button>
+        Натисніть, щоб «прослухати», і оберіть переклад
+      </div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="true" onclick="checkAnswer('lst3', 0, true, this, 10)">А) Ласкаво просимо</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('lst3', 1, false, this, 10)">Б) Новий</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('lst3', 2, false, this, 10)">В) Будинок</div>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+  </div>
+
+  <!-- Panel: Dialogue completion -->
+  <div class="task-panel" id="panel-dialogue">
+    <div class="quiz-card">
+      <div class="quiz-q-num">Діалог 1</div>
+      <div class="quiz-question">
+        <div>👤 А: «Ciao! Come stai?»</div>
+        <div style="margin-top:0.4rem;color:var(--ink-soft);">👤 Б: оберіть репліку, якою продовжити діалог</div>
+      </div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="true" onclick="checkAnswer('dlg1', 0, true, this, 10)">Bene, grazie! E tu?</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('dlg1', 1, false, this, 10)">Grazie mille!</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('dlg1', 2, false, this, 10)">Sì, va bene.</div>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-q-num">Діалог 2</div>
+      <div class="quiz-question">
+        <div>👤 А: «Benvenuto nel nostro palazzo!»</div>
+        <div style="margin-top:0.4rem;color:var(--ink-soft);">👤 Б: оберіть репліку, якою продовжити діалог</div>
+      </div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="true" onclick="checkAnswer('dlg2', 0, true, this, 10)">Grazie mille!</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('dlg2', 1, false, this, 10)">No, grazie.</div>
+        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('dlg2', 2, false, this, 10)">Come stai?</div>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
   </div>
 
 </main>
@@ -328,27 +663,263 @@
 <script>
 const answered = {};
 
-function checkAnswer(qId, optIdx, isCorrect, el) {
+function shuffle(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+/* ── Tabs ────────────────────────────────────────────────── */
+function showTaskTab(name) {
+  document.querySelectorAll('.task-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.task-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.querySelector(`.task-tab[data-tab="${name}"]`).classList.add('active');
+}
+
+/* ── Generic multiple-choice checker (used by MCQ, listening, dialogue, dict quiz) ── */
+function checkAnswer(qId, optIdx, isCorrect, el, xp = 15) {
   if (answered[qId]) return;
   answered[qId] = true;
 
-  const card = document.getElementById(`q${qId}`);
+  const card = el.closest('.quiz-card');
   const opts = card.querySelectorAll('.quiz-opt');
-  const fb = document.getElementById(`fb${qId}`);
+  const fb = card.querySelector('.quiz-feedback');
 
   opts.forEach(o => o.style.pointerEvents = 'none');
 
   if (isCorrect) {
     el.classList.add('correct');
     fb.className = 'quiz-feedback show-correct';
-    fb.innerHTML = '🎉 <b>Чудово!</b> Правильна відповідь. (+15 XP)';
-    addXP(15);
+    fb.innerHTML = `🎉 <b>Чудово!</b> Правильна відповідь. (+${xp} XP)`;
+    addXP(xp);
   } else {
     el.classList.add('wrong');
+    const correctOpt = [...opts].find(o => o.dataset.correct === 'true');
+    if (correctOpt) correctOpt.classList.add('correct');
     fb.className = 'quiz-feedback show-wrong';
     fb.innerHTML = '❌ <b>Не зовсім.</b> Подивіться правильний варіант вище.';
   }
+
+  if (card.dataset.word) {
+    fb.innerHTML += `<br><span style="opacity:.7;">Слово: <b>${card.dataset.word}</b></span>`;
+  }
 }
+
+/* ── Generic text-answer checker (used by fill-blank, translation typing) ── */
+function checkTextAnswer(btn, answers) {
+  const card = btn.closest('.quiz-card');
+  if (card.dataset.answered === '1') return;
+
+  const input = card.querySelector('.text-answer-input');
+  const fb = card.querySelector('.quiz-feedback');
+  const val = input.value.trim().toLowerCase();
+  const norm = answers.map(a => a.toLowerCase());
+
+  if (norm.includes(val)) {
+    card.dataset.answered = '1';
+    input.disabled = true;
+    fb.className = 'quiz-feedback show-correct';
+    fb.innerHTML = '🎉 <b>Правильно!</b> (+10 XP)';
+    addXP(10);
+  } else {
+    fb.className = 'quiz-feedback show-wrong';
+    fb.innerHTML = `❌ <b>Спробуйте ще раз.</b> (Правильна відповідь: <b>${answers[0]}</b>)`;
+  }
+}
+
+/* ── Matching pairs ──────────────────────────────────────── */
+const MATCH_DATA = [
+  { id: 'm1', it: 'ciao', ua: 'привіт' },
+  { id: 'm2', it: 'grazie', ua: 'дякую' },
+  { id: 'm3', it: 'prego', ua: 'будь ласка' },
+  { id: 'm4', it: 'sì', ua: 'так' },
+  { id: 'm5', it: 'no', ua: 'ні' },
+  { id: 'm6', it: 'bene', ua: 'добре' }
+];
+let matchSelected = { it: null, ua: null };
+let matchFoundCount = 0;
+let matchXPGiven = false;
+
+function initMatch() {
+  matchSelected = { it: null, ua: null };
+  matchFoundCount = 0;
+  matchXPGiven = false;
+  const itCol = document.getElementById('matchColIt');
+  const uaCol = document.getElementById('matchColUa');
+  itCol.innerHTML = shuffle(MATCH_DATA).map(m => `<div class="match-item" data-id="${m.id}" data-side="it" onclick="selectMatch(this)">${m.it}</div>`).join('');
+  uaCol.innerHTML = shuffle(MATCH_DATA).map(m => `<div class="match-item" data-id="${m.id}" data-side="ua" onclick="selectMatch(this)">${m.ua}</div>`).join('');
+  document.getElementById('matchStatus').textContent = `Знайдено пар: 0/${MATCH_DATA.length}`;
+}
+
+function selectMatch(el) {
+  const side = el.dataset.side;
+  if (el.classList.contains('matched')) return;
+  if (matchSelected[side]) matchSelected[side].classList.remove('selected');
+  el.classList.add('selected');
+  matchSelected[side] = el;
+
+  if (matchSelected.it && matchSelected.ua) {
+    const itEl = matchSelected.it, uaEl = matchSelected.ua;
+    if (itEl.dataset.id === uaEl.dataset.id) {
+      itEl.classList.remove('selected');
+      uaEl.classList.remove('selected');
+      itEl.classList.add('matched');
+      uaEl.classList.add('matched');
+      matchFoundCount++;
+      document.getElementById('matchStatus').textContent = `Знайдено пар: ${matchFoundCount}/${MATCH_DATA.length}`;
+      matchSelected = { it: null, ua: null };
+      if (matchFoundCount === MATCH_DATA.length && !matchXPGiven) {
+        matchXPGiven = true;
+        addXP(20);
+        document.getElementById('matchStatus').innerHTML += ' 🎉 Всі пари знайдено! (+20 XP)';
+      }
+    } else {
+      itEl.classList.add('wrong');
+      uaEl.classList.add('wrong');
+      setTimeout(() => {
+        itEl.classList.remove('selected', 'wrong');
+        uaEl.classList.remove('selected', 'wrong');
+        matchSelected = { it: null, ua: null };
+      }, 600);
+    }
+  }
+}
+
+/* ── Sentence reorder ────────────────────────────────────── */
+const REORDER_DATA = [
+  { id: 'r1', clue: 'Привіт, як справи?', words: ['Ciao,', 'come', 'stai?'] },
+  { id: 'r2', clue: 'Дуже дякую за все', words: ['Grazie', 'mille', 'per', 'tutto'] },
+  { id: 'r3', clue: 'Ласкаво просимо до нашого будинку', words: ['Benvenuto', 'nel', 'nostro', 'palazzo'] }
+];
+const reorderState = {};
+
+function initReorder() {
+  const container = document.getElementById('reorderList');
+  container.innerHTML = REORDER_DATA.map(r => `
+    <div class="quiz-card" id="reorder-${r.id}" data-answered="0">
+      <div class="quiz-q-num">Складіть речення</div>
+      <div class="quiz-question">💬 «${r.clue}»</div>
+      <div class="reorder-answer" id="ans-${r.id}"></div>
+      <div class="reorder-pool" id="pool-${r.id}"></div>
+      <div style="display:flex;gap:0.6rem;margin-top:1rem;">
+        <button class="btn-primary" onclick="checkReorder('${r.id}')">Перевірити</button>
+        <button class="btn-ghost" onclick="resetReorder('${r.id}')">Скинути</button>
+      </div>
+      <div class="quiz-feedback" id="fb-reorder-${r.id}"></div>
+    </div>
+  `).join('');
+  REORDER_DATA.forEach(r => {
+    reorderState[r.id] = { pool: shuffle(r.words), answer: [] };
+    drawReorder(r.id);
+  });
+}
+
+function drawReorder(id) {
+  const st = reorderState[id];
+  document.getElementById(`pool-${id}`).innerHTML = st.pool.map((w, i) => `<span class="reorder-chip" onclick="moveToAnswer('${id}',${i})">${w}</span>`).join('');
+  document.getElementById(`ans-${id}`).innerHTML = st.answer.length
+    ? st.answer.map((w, i) => `<span class="reorder-chip answer-chip" onclick="moveToPool('${id}',${i})">${w}</span>`).join('')
+    : '<span style="color:var(--ink-soft);font-size:0.8rem;">Натисніть слова знизу, щоб скласти речення</span>';
+}
+
+function moveToAnswer(id, idx) {
+  const st = reorderState[id];
+  const [w] = st.pool.splice(idx, 1);
+  st.answer.push(w);
+  drawReorder(id);
+}
+
+function moveToPool(id, idx) {
+  const st = reorderState[id];
+  const [w] = st.answer.splice(idx, 1);
+  st.pool.push(w);
+  drawReorder(id);
+}
+
+function resetReorder(id) {
+  const card = document.getElementById(`reorder-${id}`);
+  card.dataset.answered = '0';
+  const fb = document.getElementById(`fb-reorder-${id}`);
+  fb.className = 'quiz-feedback';
+  fb.innerHTML = '';
+  const r = REORDER_DATA.find(x => x.id === id);
+  reorderState[id] = { pool: shuffle(r.words), answer: [] };
+  drawReorder(id);
+}
+
+function checkReorder(id) {
+  const card = document.getElementById(`reorder-${id}`);
+  if (card.dataset.answered === '1') return;
+  const r = REORDER_DATA.find(x => x.id === id);
+  const st = reorderState[id];
+  const fb = document.getElementById(`fb-reorder-${id}`);
+
+  if (st.answer.join(' ') === r.words.join(' ')) {
+    card.dataset.answered = '1';
+    fb.className = 'quiz-feedback show-correct';
+    fb.innerHTML = '🎉 <b>Правильно!</b> (+10 XP)';
+    addXP(10);
+  } else {
+    fb.className = 'quiz-feedback show-wrong';
+    fb.innerHTML = '❌ <b>Ще не так.</b> Спробуйте ще раз.';
+  }
+}
+
+/* ── Dictionary-based quiz ───────────────────────────────── */
+const DICT_BASE_TASKS = [
+  { word: 'ciao', trans: 'привіт / бувай' },
+  { word: 'come stai?', trans: 'як справи?' },
+  { word: 'bene', trans: 'добре' },
+  { word: 'grazie', trans: 'дякую' },
+  { word: 'prego', trans: 'будь ласка / нема за що' },
+  { word: 'sì', trans: 'так' },
+  { word: 'no', trans: 'ні' },
+  { word: "anch'io", trans: 'я теж' },
+  { word: 'nuovo/a', trans: 'новий / нова' },
+  { word: 'primo giorno', trans: 'перший день' },
+  { word: 'benvenuto/a', trans: 'ласкаво просимо' },
+  { word: 'palazzo', trans: 'будинок (багатоповерховий)' },
+  { word: 'grazie mille', trans: 'дуже дякую' }
+];
+
+function getAllDictWords() {
+  let custom = [];
+  try { custom = JSON.parse(localStorage.getItem(DICT_KEY) || '[]'); } catch {}
+  return [...DICT_BASE_TASKS, ...custom.map(c => ({ word: c.word, trans: c.trans }))];
+}
+
+function generateDictQuiz() {
+  const pool = getAllDictWords();
+  const container = document.getElementById('dictQuizContainer');
+
+  if (pool.length < 3) {
+    container.innerHTML = '<p style="color:var(--ink-soft);">Додайте більше слів у словник, щоб згенерувати тест (мінімум 3).</p>';
+    return;
+  }
+
+  const qCount = Math.min(5, pool.length);
+  const chosen = shuffle(pool).slice(0, qCount);
+
+  container.innerHTML = chosen.map((q, i) => {
+    const distractors = shuffle(pool.filter(w => w.word !== q.word)).slice(0, 2);
+    const options = shuffle([{ ...q, correct: true }, ...distractors.map(d => ({ ...d, correct: false }))]);
+    const qid = `dq_${Date.now()}_${i}`;
+    return `
+      <div class="quiz-card">
+        <div class="quiz-q-num">Питання ${i + 1} з ${qCount}</div>
+        <div class="quiz-question">Що означає «${q.word}»?</div>
+        <div class="quiz-options">
+          ${options.map((o, idx) => `<div class="quiz-opt" data-correct="${o.correct}" onclick="checkAnswer('${qid}',${idx},${o.correct},this,10)">${o.trans}</div>`).join('')}
+        </div>
+        <div class="quiz-feedback"></div>
+      </div>
+    `;
+  }).join('');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initMatch();
+  initReorder();
+});
 </script>
 </body>
 </html>

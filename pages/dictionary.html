@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="icon" type="image/png" href="../assets/images/icons8-translator-100.png" />
 <title>Власний словник — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -57,6 +58,72 @@
   .dict-card:hover {
     border-color: #CBD5E1;
     transform: translateY(-2px);
+  }
+  .dict-card {
+    cursor: pointer;
+    position: relative;
+  }
+  .dict-card.learned {
+    border-color: var(--pine);
+    background: #F3F8F4;
+  }
+  .dict-filters {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .filter-select {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0.7rem;
+    font-family: inherit;
+    font-size: 0.82rem;
+    color: var(--ink);
+    background: var(--surface);
+    outline: none;
+    cursor: pointer;
+  }
+  .filter-select:focus {
+    border-color: var(--pine);
+  }
+  .type-tag {
+    font-size: 0.65rem;
+    background: #EEF2FF;
+    color: #4338CA;
+    border: 1px solid #C7D2FE;
+    padding: 0.1rem 0.4rem;
+    border-radius: 99px;
+    font-weight: 700;
+  }
+  .dict-meta {
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    margin-top: 0.35rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .star-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0.4rem;
+    border-radius: 0.35rem;
+    color: var(--ink-soft);
+    transition: color 0.15s, transform 0.15s;
+  }
+  .star-btn.active {
+    color: #D4A017;
+  }
+  .star-btn:hover {
+    transform: scale(1.15);
+  }
+  .no-results {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--ink-soft);
   }
   .dict-word-title {
     font-size: 1rem;
@@ -318,6 +385,17 @@
       <span>🔍</span>
       <input type="text" id="dictSearch" class="search-input" placeholder="Пошук слова чи перекладу..." oninput="renderDictionary()" />
     </div>
+    <div class="dict-filters">
+      <select id="filterLesson" class="filter-select" onchange="renderDictionary()">
+        <option value="">Усі уроки</option>
+      </select>
+      <select id="filterCategory" class="filter-select" onchange="renderDictionary()">
+        <option value="">Усі категорії</option>
+      </select>
+      <select id="filterType" class="filter-select" onchange="renderDictionary()">
+        <option value="">Усі типи</option>
+      </select>
+    </div>
     <button class="btn-primary" onclick="openAddModal()">➕ Додати нове слово</button>
   </div>
 
@@ -345,6 +423,25 @@
         <label class="form-label">Транскрипція (необов'язково)</label>
         <input type="text" id="wPhon" class="form-control" placeholder="напр. ар-рі-ве-дер-чі" />
       </div>
+      <div class="form-group">
+        <label class="form-label">Тип слова</label>
+        <select id="wType" class="form-control">
+          <option value="phrase">Фраза</option>
+          <option value="noun">Іменник</option>
+          <option value="verb">Дієслово</option>
+          <option value="adjective">Прикметник</option>
+          <option value="greeting">Привітання</option>
+          <option value="other">Інше</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Категорія</label>
+        <input type="text" id="wCategory" class="form-control" placeholder="напр. привітання, їжа, числа" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Урок (необов'язково)</label>
+        <input type="text" id="wLesson" class="form-control" placeholder="напр. Урок 1.1" />
+      </div>
       <div style="display:flex;justify-content:flex-end;gap:0.6rem;margin-top:1.5rem;">
         <button type="button" class="btn-ghost" onclick="closeAddModal()">Скасувати</button>
         <button type="submit" class="btn-primary">Зберегти (+25 XP)</button>
@@ -370,20 +467,58 @@
 <script src="../js/app.js"></script>
 <script>
 const DICT_BASE = [
-  { id: 'b1', word: 'ciao', phon: '[ча-о]', trans: 'привіт / бувай', custom: false },
-  { id: 'b2', word: 'come stai?', phon: '[ко-ме стай]', trans: 'як справи?', custom: false },
-  { id: 'b3', word: 'bene', phon: '[бе-не]', trans: 'добре', custom: false },
-  { id: 'b4', word: 'grazie', phon: '[гра-цьє]', trans: 'дякую', custom: false },
-  { id: 'b5', word: 'prego', phon: '[пре-го]', trans: 'будь ласка / нема за що', custom: false },
-  { id: 'b6', word: 'sì', phon: '[сі]', trans: 'так', custom: false },
-  { id: 'b7', word: 'no', phon: '[но]', trans: 'ні', custom: false },
-  { id: 'b8', word: 'anch\'io', phon: '[ан-кі-о]', trans: 'я теж', custom: false },
-  { id: 'b9', word: 'nuovo/a', phon: '[ну-о-во/ва]', trans: 'новий / нова', custom: false },
-  { id: 'b10', word: 'primo giorno', phon: '[прі-мо джор-но]', trans: 'перший день', custom: false },
-  { id: 'b11', word: 'benvenuto/a', phon: '[бен-ве-ну-то/та]', trans: 'ласкаво просимо', custom: false },
-  { id: 'b12', word: 'palazzo', phon: '[па-лац-цо]', trans: 'будинок (багатоповерховий)', custom: false },
-  { id: 'b13', word: 'grazie mille', phon: '[гра-цьє міл-ле]', trans: 'дуже дякую', custom: false }
+  { id: 'b1', word: 'ciao', phon: '[ча-о]', trans: 'привіт / бувай', custom: false, lesson: 'Урок 1.1', category: 'привітання', type: 'greeting' },
+  { id: 'b2', word: 'come stai?', phon: '[ко-ме стай]', trans: 'як справи?', custom: false, lesson: 'Урок 1.1', category: 'привітання', type: 'phrase' },
+  { id: 'b3', word: 'bene', phon: '[бе-не]', trans: 'добре', custom: false, lesson: 'Урок 1.1', category: 'привітання', type: 'adjective' },
+  { id: 'b4', word: 'grazie', phon: '[гра-цьє]', trans: 'дякую', custom: false, lesson: 'Урок 1.1', category: 'ввічливість', type: 'phrase' },
+  { id: 'b5', word: 'prego', phon: '[пре-го]', trans: 'будь ласка / нема за що', custom: false, lesson: 'Урок 1.1', category: 'ввічливість', type: 'phrase' },
+  { id: 'b6', word: 'sì', phon: '[сі]', trans: 'так', custom: false, lesson: 'Урок 1.1', category: 'база', type: 'other' },
+  { id: 'b7', word: 'no', phon: '[но]', trans: 'ні', custom: false, lesson: 'Урок 1.1', category: 'база', type: 'other' },
+  { id: 'b8', word: 'anch\'io', phon: '[ан-кі-о]', trans: 'я теж', custom: false, lesson: 'Урок 1.1', category: 'база', type: 'phrase' },
+  { id: 'b9', word: 'nuovo/a', phon: '[ну-о-во/ва]', trans: 'новий / нова', custom: false, lesson: 'Урок 1.1', category: 'опис', type: 'adjective' },
+  { id: 'b10', word: 'primo giorno', phon: '[прі-мо джор-но]', trans: 'перший день', custom: false, lesson: 'Урок 1.1', category: 'база', type: 'noun' },
+  { id: 'b11', word: 'benvenuto/a', phon: '[бен-ве-ну-то/та]', trans: 'ласкаво просимо', custom: false, lesson: 'Урок 1.1', category: 'привітання', type: 'greeting' },
+  { id: 'b12', word: 'palazzo', phon: '[па-лац-цо]', trans: 'будинок (багатоповерховий)', custom: false, lesson: 'Урок 1.1', category: 'місто', type: 'noun' },
+  { id: 'b13', word: 'grazie mille', phon: '[гра-цьє міл-ле]', trans: 'дуже дякую', custom: false, lesson: 'Урок 1.1', category: 'ввічливість', type: 'phrase' }
 ];
+
+const LEARNED_KEY = 'ls_dict_learned';
+
+function getLearnedIds() {
+  try { return JSON.parse(localStorage.getItem(LEARNED_KEY) || '[]'); } catch { return []; }
+}
+
+function toggleLearned(id, evt) {
+  if (evt) evt.stopPropagation();
+  let learned = getLearnedIds();
+  if (learned.includes(id)) {
+    learned = learned.filter(x => x !== id);
+  } else {
+    learned.push(id);
+    addXP(5);
+  }
+  try { localStorage.setItem(LEARNED_KEY, JSON.stringify(learned)); } catch {}
+  renderDictionary();
+}
+
+function populateFilters(all) {
+  const lessonSel = document.getElementById('filterLesson');
+  const catSel = document.getElementById('filterCategory');
+  const typeSel = document.getElementById('filterType');
+  const prevLesson = lessonSel.value, prevCat = catSel.value, prevType = typeSel.value;
+
+  const lessons = [...new Set(all.map(w => w.lesson).filter(Boolean))].sort();
+  const cats = [...new Set(all.map(w => w.category).filter(Boolean))].sort();
+  const types = [...new Set(all.map(w => w.type).filter(Boolean))].sort();
+
+  const typeLabels = { phrase: 'Фраза', noun: 'Іменник', verb: 'Дієслово', adjective: 'Прикметник', greeting: 'Привітання', other: 'Інше' };
+
+  lessonSel.innerHTML = '<option value="">Усі уроки</option>' + lessons.map(l => `<option value="${l}">${l}</option>`).join('');
+  catSel.innerHTML = '<option value="">Усі категорії</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
+  typeSel.innerHTML = '<option value="">Усі типи</option>' + types.map(t => `<option value="${t}">${typeLabels[t] || t}</option>`).join('');
+
+  lessonSel.value = prevLesson; catSel.value = prevCat; typeSel.value = prevType;
+}
 
 function getCustomWords() {
   try { return JSON.parse(localStorage.getItem(DICT_KEY) || '[]'); } catch { return []; }
@@ -398,31 +533,53 @@ function renderDictionary() {
   const query = (document.getElementById('dictSearch')?.value || '').toLowerCase().trim();
   const custom = getCustomWords();
   const all = [...DICT_BASE, ...custom];
-  const filtered = query
-    ? all.filter(w => w.word.toLowerCase().includes(query) || w.trans.toLowerCase().includes(query))
-    : all;
+
+  populateFilters(all);
+  const lessonFilter = document.getElementById('filterLesson').value;
+  const catFilter = document.getElementById('filterCategory').value;
+  const typeFilter = document.getElementById('filterType').value;
+  const learned = getLearnedIds();
+
+  const filtered = all.filter(w => {
+    const matchesQuery = !query || w.word.toLowerCase().includes(query) || w.trans.toLowerCase().includes(query);
+    const matchesLesson = !lessonFilter || w.lesson === lessonFilter;
+    const matchesCat = !catFilter || w.category === catFilter;
+    const matchesType = !typeFilter || w.type === typeFilter;
+    return matchesQuery && matchesLesson && matchesCat && matchesType;
+  });
 
   if (!filtered.length) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--ink-soft);">Слів не знайдено</div>';
+    grid.innerHTML = '<div class="no-results">Слів не знайдено</div>';
     return;
   }
 
-  grid.innerHTML = filtered.map(w => `
-    <div class="dict-card">
+  const typeLabels = { phrase: 'Фраза', noun: 'Іменник', verb: 'Дієслово', adjective: 'Прикметник', greeting: 'Привітання', other: 'Інше' };
+
+  grid.innerHTML = filtered.map(w => {
+    const isLearned = learned.includes(w.id);
+    return `
+    <div class="dict-card ${isLearned ? 'learned' : ''}" onclick="toggleLearned('${w.id}')" title="Натисніть, щоб позначити як вивчене">
       <div>
         <div class="dict-word-title">
           ${w.word}
           ${w.custom ? '<span class="custom-tag">власне</span>' : ''}
+          ${w.type ? `<span class="type-tag">${typeLabels[w.type] || w.type}</span>` : ''}
         </div>
         <div class="dict-phon">${w.phon || ''}</div>
         <div class="dict-trans">${w.trans}</div>
+        <div class="dict-meta">
+          ${w.lesson ? `<span>📘 ${w.lesson}</span>` : ''}
+          ${w.category ? `<span>🏷 ${w.category}</span>` : ''}
+        </div>
       </div>
       <div class="dict-actions">
-        <button class="audio-btn" onclick="speak('${w.word.replace(/'/g, "\\'")}', this)" title="Аудіо">🔊</button>
-        ${w.custom ? `<button class="delete-btn" onclick="deleteWord('${w.id}')" title="Видалити">🗑</button>` : ''}
+        <button class="star-btn ${isLearned ? 'active' : ''}" onclick="toggleLearned('${w.id}', event)" title="${isLearned ? 'Вивчено' : 'Позначити як вивчене'}">${isLearned ? '⭐' : '☆'}</button>
+        <button class="audio-btn" onclick="event.stopPropagation(); speak('${w.word.replace(/'/g, "\\'")}', this)" title="Аудіо">🔊</button>
+        ${w.custom ? `<button class="delete-btn" onclick="event.stopPropagation(); deleteWord('${w.id}')" title="Видалити">🗑</button>` : ''}
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function openAddModal() {
@@ -440,6 +597,9 @@ function saveNewWord(e) {
   const word = document.getElementById('wIt').value.trim();
   const trans = document.getElementById('wUa').value.trim();
   const phon = document.getElementById('wPhon').value.trim();
+  const type = document.getElementById('wType').value;
+  const category = document.getElementById('wCategory').value.trim();
+  const lesson = document.getElementById('wLesson').value.trim();
   if (!word || !trans) return;
 
   const list = getCustomWords();
@@ -448,6 +608,9 @@ function saveNewWord(e) {
     word,
     trans,
     phon: phon ? `[${phon.replace(/[\[\]]/g, '')}]` : '',
+    type: type || 'other',
+    category: category || '',
+    lesson: lesson || '',
     custom: true
   });
   saveCustomWords(list);
