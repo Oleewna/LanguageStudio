@@ -550,6 +550,7 @@ function renderDictionary() {
 
   if (!filtered.length) {
     grid.innerHTML = '<div class="no-results">Слів не знайдено</div>';
+    applyInterfaceLanguage();
     return;
   }
 
@@ -581,6 +582,7 @@ function renderDictionary() {
     </div>
   `;
   }).join('');
+  applyInterfaceLanguage();
 }
 
 function openAddModal() {

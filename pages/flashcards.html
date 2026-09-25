@@ -502,6 +502,7 @@ function updateCardDisplay() {
     document.getElementById('fcCounter').textContent = '0 / 0';
     document.getElementById('fcUnitTag').textContent = '—';
     document.getElementById('fcTopicTag').textContent = '—';
+    applyInterfaceLanguage();
     emptyNote.style.display = 'block';
     return;
   }
@@ -519,6 +520,7 @@ function updateCardDisplay() {
   document.getElementById('fcTrans').textContent = getSourceTranslation(`flashcards.${item.word}`, item.trans);
   document.getElementById('fcExample').textContent = item.ex ? `«${item.ex}»` : '';
   document.getElementById('fcCounter').textContent = `${currentIndex + 1} / ${cards.length}`;
+  applyInterfaceLanguage();
 }
 
 function toggleFlip() {

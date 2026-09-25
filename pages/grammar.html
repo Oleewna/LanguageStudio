@@ -282,6 +282,7 @@ function switchGrTab(tabKey, btn) {
   document.querySelectorAll('.gr-tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('grBody').innerHTML = GR_DATA[tabKey] || '';
+  applyInterfaceLanguage();
 }
 
 document.addEventListener('DOMContentLoaded', () => {

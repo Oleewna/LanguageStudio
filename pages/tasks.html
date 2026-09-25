@@ -780,6 +780,7 @@ function initMatch() {
   itCol.innerHTML = shuffle(MATCH_DATA).map(m => `<div class="match-item" data-id="${m.id}" data-side="it" onclick="selectMatch(this)">${m.it}</div>`).join('');
   uaCol.innerHTML = shuffle(MATCH_DATA).map(m => `<div class="match-item" data-id="${m.id}" data-side="ua" onclick="selectMatch(this)">${getSourceLanguage() === 'en' ? m.en : m.ua}</div>`).join('');
   document.getElementById('matchStatus').textContent = `${taskText('Знайдено пар', 'Pairs found')}: 0/${MATCH_DATA.length}`;
+  applyInterfaceLanguage();
 }
 
 function selectMatch(el) {
@@ -843,6 +844,7 @@ function initReorder() {
     reorderState[r.id] = { pool: shuffle(r.words), answer: [] };
     drawReorder(r.id);
   });
+  applyInterfaceLanguage();
 }
 
 function drawReorder(id) {
@@ -950,6 +952,7 @@ function generateDictQuiz() {
       </div>
     `;
   }).join('');
+  applyInterfaceLanguage();
 }
 
 document.addEventListener('DOMContentLoaded', () => {

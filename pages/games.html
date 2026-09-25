@@ -203,26 +203,31 @@
 const QUESTIONS = [
   {
     sit: '☀️ 09:30 ранку, зустріч із сусідом у під\'їзді',
+    sitEn: '☀️ 9:30 a.m., meeting a neighbor in the apartment building',
     options: ['Buongiorno', 'Buonanotte', 'Buonasera', 'Arrivederci'],
     correct: 0
   },
   {
     sit: '🌙 23:00, ви йдете спати і кажете рідним:',
+    sitEn: '🌙 11:00 p.m., you are going to bed and say to your family:',
     options: ['Buon pomeriggio', 'Buonanotte', 'Ciao', 'Buongiorno'],
     correct: 1
   },
   {
     sit: '🌆 19:30 вечора, ви заходите у ресторан:',
+    sitEn: '🌆 7:30 p.m., you enter a restaurant:',
     options: ['Buonasera', 'Buongiorno', 'Buonanotte', 'Prego'],
     correct: 0
   },
   {
     sit: '👋 Ви випадково зустріли давнього друга на вулиці:',
+    sitEn: '👋 You run into an old friend on the street:',
     options: ['Arrivederla', 'Scusi', 'Ciao!', 'Buonanotte'],
     correct: 2
   },
   {
     sit: '🙏 Вам сказали «Grazie mille!», що ви відповідаєте?',
+    sitEn: '🙏 Someone says “Grazie mille!” What do you reply?',
     options: ['Prego!', 'Sì', 'Anch\'io', 'Grazie'],
     correct: 0
   }
@@ -233,14 +238,15 @@ let score = 0;
 
 function loadGameRound() {
   if (round >= QUESTIONS.length) {
-    document.getElementById('gameSit').textContent = '🏆 Гра завершена!';
-    document.getElementById('gameChoices').innerHTML = `<button class="btn-primary" style="grid-column:1/-1;" onclick="restartGame()">Грати знову</button>`;
-    document.getElementById('gameFeedback').innerHTML = `<span style="color:var(--pine);">Ви набрали ${score} очок і заробили +50 XP!</span>`;
+    const english = getSourceLanguage() === 'en';
+    document.getElementById('gameSit').textContent = english ? '🏆 Game complete!' : '🏆 Гра завершена!';
+    document.getElementById('gameChoices').innerHTML = `<button class="btn-primary" style="grid-column:1/-1;" onclick="restartGame()">${english ? 'Play again' : 'Грати знову'}</button>`;
+    document.getElementById('gameFeedback').innerHTML = `<span style="color:var(--pine);">${english ? `You scored ${score} points and earned +50 XP!` : `Ви набрали ${score} очок і заробили +50 XP!`}</span>`;
     addXP(50);
     return;
   }
   const q = QUESTIONS[round];
-  document.getElementById('gameSit').textContent = q.sit;
+  document.getElementById('gameSit').textContent = getSourceLanguage() === 'en' ? q.sitEn : q.sit;
   document.getElementById('gRound').textContent = `${round + 1}/${QUESTIONS.length}`;
   document.getElementById('gScore').textContent = score;
   document.getElementById('gameFeedback').textContent = '';
@@ -260,7 +266,7 @@ function answerGame(idx) {
   if (idx === q.correct) {
     btns[idx].style.background = '#EAF4EC';
     btns[idx].style.borderColor = 'var(--pine)';
-    fb.innerHTML = '<span style="color:var(--pine);">✨ Правильно! (+20 очок)</span>';
+    fb.innerHTML = `<span style="color:var(--pine);">✨ ${getSourceLanguage() === 'en' ? 'Correct! (+20 points)' : 'Правильно! (+20 очок)'}</span>`;
     score += 20;
     speak(q.options[idx]);
   } else {
@@ -268,7 +274,7 @@ function answerGame(idx) {
     btns[idx].style.borderColor = 'var(--gold)';
     btns[q.correct].style.background = '#EAF4EC';
     btns[q.correct].style.borderColor = 'var(--pine)';
-    fb.innerHTML = '<span style="color:var(--gold);">Помилка! Правильно: ' + q.options[q.correct] + '</span>';
+    fb.innerHTML = `<span style="color:var(--gold);">${getSourceLanguage() === 'en' ? 'Incorrect! Correct answer:' : 'Помилка! Правильно:'} ${q.options[q.correct]}</span>`;
   }
 
   setTimeout(() => {
