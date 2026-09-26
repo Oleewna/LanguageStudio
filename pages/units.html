@@ -94,14 +94,88 @@
   .unit-card.open .unit-chevron {
     transform: rotate(180deg);
   }
-  .lessons-list {
+
+  /* Category-level collapsible wrapper */
+  .category-body {
     border-top: 1px solid var(--border);
     display: none;
     background: var(--bg);
   }
-  .unit-card.open .lessons-list {
+  .unit-card.open .category-body {
     display: block;
   }
+
+  /* Middle "unit" level — nested collapsible group between category and lessons */
+  .unit-group {
+    border-bottom: 1px solid var(--border);
+  }
+  .unit-group:last-child {
+    border-bottom: none;
+  }
+  .unit-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.5rem 0.85rem 2.5rem;
+    gap: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+    background: var(--surface);
+    transition: background 0.15s;
+  }
+  .unit-group-header:hover {
+    background: #FAFAF6;
+  }
+  .unit-group-title {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .unit-group-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+  .unit-group-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .unit-group-badge.active-badge {
+    background: #EAF4EC;
+    color: var(--pine);
+    border-color: #BDE3CB;
+  }
+  .unit-group-chevron {
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    transition: transform 0.2s ease;
+  }
+  .unit-group.open .unit-group-chevron {
+    transform: rotate(180deg);
+  }
+
+  .lessons-list {
+    display: none;
+    background: var(--bg);
+  }
+  .unit-group .lessons-list {
+    border-top: 1px solid var(--border);
+  }
+  /* Each unit-group's own open state controls its lessons, independent of
+     other unit-groups, but only visible once the parent category is open */
+  .unit-card.open .unit-group .lessons-list {
+    display: none;
+  }
+  .unit-card.open .unit-group.open .lessons-list {
+    display: block;
+  }
+
   .lesson-row {
     display: flex;
     align-items: center;
@@ -180,6 +254,9 @@
     }
     .unit-header {
       padding: 1rem;
+    }
+    .unit-group-header {
+      padding-left: 1.25rem;
     }
   }
 </style>
@@ -324,7 +401,13 @@
   </nav>
 
   <div class="nav-right">
-    <div class="nav-xp-badge">⭐ <span class="xp-val-display">0</span> XP</div>
+    <button type="button" class="student-widget" onclick="openProfileModal()" title="Мій профіль студента" aria-label="Мій профіль студента">
+      <span class="student-stats">
+        <span class="streak-badge">🔥 <span>1</span></span>
+        <span class="xp-badge">⭐ <span class="xp-val-display">0</span> <span>XP</span></span>
+      </span>
+      <span class="student-avatar">S</span>
+    </button>
     <button class="menu-toggle" onclick="openMobNav()" aria-label="Меню">☰</button>
   </div>
 </header>
@@ -341,136 +424,7 @@
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
 <main class="page-container">
 
-  <div class="units-container">
-
-    <!-- TRACK 1: Foundations -->
-    <div class="unit-card open" onclick="toggleUnit(this)">
-      <div class="unit-header">
-        <div class="unit-header-left">
-          <div class="unit-num u1">👋</div>
-          <div>
-            <div class="unit-title">Основи спілкування</div>
-            <div class="unit-sub">Привітання, знайомство, числа 0–100, дієслова essere & avere — база для будь-якого напрямку</div>
-          </div>
-        </div>
-        <div class="unit-meta">
-          <span class="unit-badge active-badge">1/5 уроків відкрито</span>
-          <span class="unit-chevron">▾</span>
-        </div>
-      </div>
-      <div class="lessons-list" onclick="event.stopPropagation()">
-        
-        <a href="../lessons/unit-1-lesson-1.html" class="lesson-row active-lesson">
-          <div>
-            <div class="lesson-num">Урок 1</div>
-            <div class="lesson-name">Рецепція — «Come ti chiami?»</div>
-            <div class="lesson-it">Перший діалог у міланському будинку, нові слова, культура розмови</div>
-          </div>
-          <div class="lesson-right">
-            <span class="lesson-status ls-available">▶ Відкрити</span>
-            <span class="lesson-time">~15 хв</span>
-          </div>
-        </a>
-
-        <div class="lesson-row locked">
-          <div>
-            <div class="lesson-num">Урок 2</div>
-            <div class="lesson-name">Come ti chiami? (Як тебе звати?)</div>
-            <div class="lesson-it">Знайомство, дієслово chiamarsi, формули ввічливості</div>
-          </div>
-          <div class="lesson-right">
-            <span class="lesson-status ls-soon">Скоро</span>
-            <span class="lesson-time">~15 хв</span>
-          </div>
-        </div>
-
-        <div class="lesson-row locked">
-          <div>
-            <div class="lesson-num">Урок 3</div>
-            <div class="lesson-name">Di dove sei? (Звідки ти?)</div>
-            <div class="lesson-it">Країни, національності, відмінювання дієслова essere</div>
-          </div>
-          <div class="lesson-right">
-            <span class="lesson-status ls-soon">Скоро</span>
-            <span class="lesson-time">~15 хв</span>
-          </div>
-        </div>
-
-        <div class="lesson-row locked">
-          <div>
-            <div class="lesson-num">Урок 4</div>
-            <div class="lesson-name">I numeri e l'età (Числа та вік)</div>
-            <div class="lesson-it">Рахунок 0–100, дієслово avere, номер телефону</div>
-          </div>
-          <div class="lesson-right">
-            <span class="lesson-status ls-soon">Скоро</span>
-            <span class="lesson-time">~20 хв</span>
-          </div>
-        </div>
-
-        <div class="lesson-row locked">
-          <div>
-            <div class="lesson-num">Урок 5</div>
-            <div class="lesson-name">La mia scena · Підсумкова практика</div>
-            <div class="lesson-it">Комплексний тест та створення власного діалогу</div>
-          </div>
-          <div class="lesson-right">
-            <span class="lesson-status ls-soon">Скоро</span>
-            <span class="lesson-time">~25 хв</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- TRACK 2: Tourist Italian -->
-    <div class="unit-card" onclick="toggleUnit(this)">
-      <div class="unit-header">
-        <div class="unit-header-left">
-          <div class="unit-num u2">🧳</div>
-          <div>
-            <div class="unit-title">Туристична італійська</div>
-            <div class="unit-sub">Готелі, ресторани, транспорт, шопінг та фрази на випадок форс-мажору в подорожі</div>
-          </div>
-        </div>
-        <div class="unit-meta">
-          <span class="unit-badge">🔒 Заблоковано</span>
-          <span class="unit-chevron">▾</span>
-        </div>
-      </div>
-      <div class="lessons-list" onclick="event.stopPropagation()">
-        <div class="lesson-row locked"><div><div class="lesson-name">Alla stazione (На вокзалі та в аеропорту)</div></div><div class="lesson-right"><span class="lesson-status ls-soon">Скоро</span></div></div>
-        <div class="lesson-row locked"><div><div class="lesson-name">In albergo (Заселення в готель)</div></div><div class="lesson-right"><span class="lesson-status ls-soon">Скоро</span></div></div>
-        <div class="lesson-row locked"><div><div class="lesson-name">Un caffè, per favore (У барі та кафе)</div></div><div class="lesson-right"><span class="lesson-status ls-soon">Скоро</span></div></div>
-        <div class="lesson-row locked"><div><div class="lesson-name">Al ristorante (Замовлення в ресторані)</div></div><div class="lesson-right"><span class="lesson-status ls-soon">Скоро</span></div></div>
-        <div class="lesson-row locked"><div><div class="lesson-name">Lo shopping e i prezzi (Шопінг та ціни)</div></div><div class="lesson-right"><span class="lesson-status ls-soon">Скоро</span></div></div>
-      </div>
-    </div>
-
-    <!-- TRACK 3: Work & Business Italian -->
-    <div class="unit-card" onclick="toggleUnit(this)">
-      <div class="unit-header">
-        <div class="unit-header-left">
-          <div class="unit-num u3">💼</div>
-          <div>
-            <div class="unit-title">Італійська для роботи та бізнесу</div>
-            <div class="unit-sub">Офісне спілкування, зустрічі, електронні листи та small talk з колегами</div>
-          </div>
-        </div>
-        <div class="unit-meta">
-          <span class="unit-badge">🔒 Заблоковано</span>
-          <span class="unit-chevron">▾</span>
-        </div>
-      </div>
-      <div class="lessons-list" onclick="event.stopPropagation()">
-        <div class="lesson-row locked"><div><div class="lesson-name">In ufficio (Перший день в офісі)</div></div><div class="lesson-right"><span class="lesson-status ls-soon">Скоро</span></div></div>
-        <div class="lesson-row locked"><div><div class="lesson-name">Riunioni e appuntamenti (Зустрічі та домовленості)</div></div><div class="lesson-right"><span class="lesson-status ls-soon">Скоро</span></div></div>
-        <div class="lesson-row locked"><div><div class="lesson-name">Email e comunicazione scritta (Ділові листи)</div></div><div class="lesson-right"><span class="lesson-status ls-soon">Скоро</span></div></div>
-        <div class="lesson-row locked"><div><div class="lesson-name">Networking e small talk (Спілкування з колегами)</div></div><div class="lesson-right"><span class="lesson-status ls-soon">Скоро</span></div></div>
-      </div>
-    </div>
-
-  </div>
+  <div class="units-container" id="unitsContainer"></div>
 
 </main>
 
@@ -493,6 +447,202 @@
 function toggleUnit(card) {
   card.classList.toggle('open');
 }
+
+function toggleUnitGroup(groupEl, event) {
+  if (event) event.stopPropagation();
+  if (groupEl) groupEl.classList.toggle('open');
+}
+</script>
+
+<!-- Data-driven category + unit + lesson rendering. Category → Unit → Lesson.
+     Fixed on review: (1) removed a duplicated lock/active badge that had been
+     added at the unit-group level — badge state only ever applied at the
+     category level in the original page, so it's now only shown per-unit
+     when a unit explicitly supplies its own badgeText (used by future
+     multi-unit categories); (2) restored lesson-num / lesson-it (description)
+     / lesson-time fields for the "Основи спілкування" lessons, which the
+     original page rendered but the earlier flat (title, href, status) model
+     had dropped; (3) when a category has exactly one unit, the unit-group
+     header is skipped entirely (not just auto-opened) so no redundant bar
+     appears — matching the original page pixel-for-pixel for all 3 existing
+     categories. -->
+<script>
+const categories = [
+  {
+    id: 'foundations',
+    icon: '👋',
+    title: 'Основи спілкування',
+    subtitle: 'Привітання, знайомство, числа 0–100, дієслова essere & avere — база для будь-якого напрямку',
+    locked: false,
+    defaultOpen: true,
+    badgeText: '1/5 уроків відкрито',
+    units: [
+      {
+        id: 'foundations-unit-1',
+        title: 'Основи спілкування',
+        lessons: [
+          { num: 'Урок 1', title: 'Рецепція — «Come ti chiami?»', description: 'Перший діалог у міланському будинку, нові слова, культура розмови', href: '../lessons/unit-1-lesson-1.html', status: 'available', time: '~15 хв' },
+          { num: 'Урок 2', title: 'Come ti chiami? (Як тебе звати?)', description: 'Знайомство, дієслово chiamarsi, формули ввічливості', href: null, status: 'soon', time: '~15 хв' },
+          { num: 'Урок 3', title: 'Di dove sei? (Звідки ти?)', description: 'Країни, національності, відмінювання дієслова essere', href: null, status: 'soon', time: '~15 хв' },
+          { num: 'Урок 4', title: "I numeri e l'età (Числа та вік)", description: 'Рахунок 0–100, дієслово avere, номер телефону', href: null, status: 'soon', time: '~20 хв' },
+          { num: 'Урок 5', title: 'La mia scena · Підсумкова практика', description: 'Комплексний тест та створення власного діалогу', href: null, status: 'soon', time: '~25 хв' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'tourist',
+    icon: '🧳',
+    title: 'Туристична італійська',
+    subtitle: 'Готелі, ресторани, транспорт, шопінг та фрази на випадок форс-мажору в подорожі',
+    locked: true,
+    defaultOpen: false,
+    badgeText: '🔒 Заблоковано',
+    units: [
+      {
+        id: 'tourist-unit-1',
+        title: 'Туристична італійська',
+        lessons: [
+          { title: 'Alla stazione (На вокзалі та в аеропорту)', href: null, status: 'soon' },
+          { title: 'In albergo (Заселення в готель)', href: null, status: 'soon' },
+          { title: 'Un caffè, per favore (У барі та кафе)', href: null, status: 'soon' },
+          { title: 'Al ristorante (Замовлення в ресторані)', href: null, status: 'soon' },
+          { title: 'Lo shopping e i prezzi (Шопінг та ціни)', href: null, status: 'soon' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'business',
+    icon: '💼',
+    title: 'Італійська для роботи та бізнесу',
+    subtitle: 'Офісне спілкування, зустрічі, електронні листи та small talk з колегами',
+    locked: true,
+    defaultOpen: false,
+    badgeText: '🔒 Заблоковано',
+    units: [
+      {
+        id: 'business-unit-1',
+        title: 'Італійська для роботи та бізнесу',
+        lessons: [
+          { title: 'In ufficio (Перший день в офісі)', href: null, status: 'soon' },
+          { title: 'Riunioni e appuntamenti (Зустрічі та домовленості)', href: null, status: 'soon' },
+          { title: 'Email e comunicazione scritta (Ділові листи)', href: null, status: 'soon' },
+          { title: 'Networking e small talk (Спілкування з колегами)', href: null, status: 'soon' }
+        ]
+      }
+    ]
+  }
+];
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str == null ? '' : String(str);
+  return div.innerHTML;
+}
+
+function renderLessonRow(lesson) {
+  const isAvailable = lesson.status === 'available';
+  const rowClass = isAvailable ? 'lesson-row active-lesson' : 'lesson-row locked';
+  const statusClass = isAvailable ? 'lesson-status ls-available' : 'lesson-status ls-soon';
+  const statusText = isAvailable ? '▶ Відкрити' : 'Скоро';
+
+  const numHtml = lesson.num ? `<div class="lesson-num">${escapeHtml(lesson.num)}</div>` : '';
+  const descHtml = lesson.description ? `<div class="lesson-it">${escapeHtml(lesson.description)}</div>` : '';
+  const timeHtml = lesson.time ? `<span class="lesson-time">${escapeHtml(lesson.time)}</span>` : '';
+
+  const inner = `
+        <div>
+          ${numHtml}
+          <div class="lesson-name">${escapeHtml(lesson.title)}</div>
+          ${descHtml}
+        </div>
+        <div class="lesson-right">
+          <span class="${statusClass}">${statusText}</span>
+          ${timeHtml}
+        </div>
+  `;
+
+  if (lesson.href) {
+    return `<a href="${escapeHtml(lesson.href)}" class="${rowClass}">${inner}</a>`;
+  }
+  return `<div class="${rowClass}">${inner}</div>`;
+}
+
+function renderUnitGroup(unit, totalUnitsInCategory) {
+  const lessonsHtml = unit.lessons.map(renderLessonRow).join('');
+  const singleUnit = totalUnitsInCategory === 1;
+
+  if (singleUnit) {
+    // Only unit in this category — auto-expand and skip the collapsible
+    // header entirely, so no redundant bar appears above the lessons.
+    return `
+      <div class="unit-group open" data-unit-id="${escapeHtml(unit.id)}">
+        <div class="lessons-list">
+          ${lessonsHtml}
+        </div>
+      </div>
+    `;
+  }
+
+  const badgeHtml = unit.badgeText
+    ? `<span class="unit-group-badge${unit.locked ? '' : ' active-badge'}">${escapeHtml(unit.badgeText)}</span>`
+    : '';
+
+  return `
+    <div class="unit-group" data-unit-id="${escapeHtml(unit.id)}">
+      <div class="unit-group-header" onclick="toggleUnitGroup(this.closest('.unit-group'), event)">
+        <div class="unit-group-title">${escapeHtml(unit.title)}</div>
+        <div class="unit-group-meta">
+          ${badgeHtml}
+          <span class="unit-group-chevron">▾</span>
+        </div>
+      </div>
+      <div class="lessons-list">
+        ${lessonsHtml}
+      </div>
+    </div>
+  `;
+}
+
+function renderCategoryCard(category, index) {
+  const numClass = `u${index + 1}`;
+  const openClass = category.defaultOpen ? ' open' : '';
+  const badgeClass = category.locked ? 'unit-badge' : 'unit-badge active-badge';
+  const unitsHtml = category.units.map(u => renderUnitGroup(u, category.units.length)).join('');
+
+  return `
+    <div class="unit-card${openClass}" data-category-id="${escapeHtml(category.id)}" onclick="toggleUnit(this)">
+      <div class="unit-header">
+        <div class="unit-header-left">
+          <div class="unit-num ${numClass}">${category.icon}</div>
+          <div>
+            <div class="unit-title">${escapeHtml(category.title)}</div>
+            <div class="unit-sub">${escapeHtml(category.subtitle)}</div>
+          </div>
+        </div>
+        <div class="unit-meta">
+          <span class="${badgeClass}">${escapeHtml(category.badgeText)}</span>
+          <span class="unit-chevron">▾</span>
+        </div>
+      </div>
+      <div class="category-body" onclick="event.stopPropagation()">
+        ${unitsHtml}
+      </div>
+    </div>
+  `;
+}
+
+function renderCategories() {
+  const container = document.getElementById('unitsContainer');
+  if (!container) return;
+  container.innerHTML = categories.map(renderCategoryCard).join('');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderCategories();
+  console.log(categories);
+});
 </script>
 </body>
 </html>

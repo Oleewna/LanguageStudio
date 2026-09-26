@@ -603,6 +603,47 @@ function closeMobNav() {
   document.body.style.overflow = '';
 }
 
+function ensureProfileModal() {
+  if (document.getElementById('profileModal')) return;
+  document.body.insertAdjacentHTML('beforeend', `
+    <div class="profile-modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
+      <section class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-title">
+        <div class="pm-topline">
+          <div class="pm-eyebrow" id="profile-title">Профіль студента</div>
+          <button type="button" class="pm-close" onclick="closeProfileModal()" aria-label="Закрити">✕</button>
+        </div>
+        <div class="pm-header">
+          <div class="pm-avatar">S</div>
+          <div>
+            <div class="pm-name">Студент LanguageStudio</div>
+            <div class="pm-path">Напрямок: <b>Основи спілкування</b></div>
+          </div>
+        </div>
+        <section class="pm-settings" aria-labelledby="source-language-title">
+          <h3 class="pm-settings-title" id="source-language-title">Налаштування навчання італійської</h3>
+          <label class="pm-setting-label" for="sourceLanguage">Мова перекладу та пояснень</label>
+          <select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select>
+        </section>
+        <div class="pm-stats-grid">
+          <div class="pm-stat-box"><div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">Очок XP</div></div>
+          <div class="pm-stat-box"><div class="pm-stat-val" style="color:#D97706;">1 день</div><div class="pm-stat-lbl">Ударний темп (Streak)</div></div>
+          <div class="pm-stat-box"><div class="pm-stat-val">1/16</div><div class="pm-stat-lbl">Пройдено уроків</div></div>
+          <div class="pm-stat-box"><div class="pm-stat-val">13</div><div class="pm-stat-lbl">Слів у словнику</div></div>
+        </div>
+        <div class="pm-footer"><button class="btn-ghost" onclick="closeProfileModal()">Закрити</button></div>
+      </section>
+    </div>`);
+}
+
+function openProfileModal() {
+  ensureProfileModal();
+  document.getElementById('profileModal').classList.add('open');
+}
+
+function closeProfileModal() {
+  document.getElementById('profileModal')?.classList.remove('open');
+}
+
 // Visual audio button click handler (voice synthesis deactivated as requested)
 function speak(text, btnElement) {
   // Visual pulse / indicator for future audio playback
@@ -613,6 +654,7 @@ function speak(text, btnElement) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  ensureProfileModal();
   updateXPDisplay();
   applySourceLanguageSettings();
 });

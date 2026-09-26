@@ -374,13 +374,13 @@
 
   <!-- Right: Student Profile Widget -->
   <div class="nav-right">
-    <div class="student-widget" onclick="openProfileModal()" title="Мій профіль студента">
-      <div class="student-avatar">S</div>
+    <button type="button" class="student-widget" onclick="openProfileModal()" title="Мій профіль студента" aria-label="Мій профіль студента">
       <div class="student-stats">
         <div class="streak-badge">🔥 <span>1</span></div>
         <div class="xp-badge">⭐ <span class="xp-val-display">0</span> <span>XP</span></div>
       </div>
-    </div>
+      <div class="student-avatar">S</div>
+    </button>
     <button class="menu-toggle" onclick="openMobNav()" aria-label="Меню">☰</button>
   </div>
 </header>
@@ -554,49 +554,6 @@
 
 </main>
 
-<!-- ═══════════ STUDENT PROFILE MODAL ═══════════ -->
-<div class="profile-modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
-  <div class="profile-modal-card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
-      <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--it-green);letter-spacing:0.05em;">Профіль студента</div>
-      <button onclick="closeProfileModal()" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--ink-soft);">✕</button>
-    </div>
-    <div class="pm-header">
-      <div class="pm-avatar">S</div>
-      <div>
-        <div style="font-family:var(--font-serif);font-size:1.2rem;font-weight:700;">Студент LanguageStudio</div>
-        <div style="font-size:0.8rem;color:var(--ink-soft);">Напрямок: <b>Основи спілкування</b></div>
-      </div>
-    </div>
-    <section class="pm-settings" aria-labelledby="source-language-title">
-      <h3 class="pm-settings-title" id="source-language-title">Налаштування навчання італійської</h3>
-      <label class="pm-setting-label" for="sourceLanguage">Мова перекладу та пояснень</label>
-      <select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select>
-    </section>
-    <div class="pm-stats-grid">
-      <div class="pm-stat-box">
-        <div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div>
-        <div class="pm-stat-lbl">Очок XP</div>
-      </div>
-      <div class="pm-stat-box">
-        <div class="pm-stat-val" style="color:#D97706;">1 день</div>
-        <div class="pm-stat-lbl">Ударний темп (Streak)</div>
-      </div>
-      <div class="pm-stat-box">
-        <div class="pm-stat-val">1/16</div>
-        <div class="pm-stat-lbl">Пройдено уроків</div>
-      </div>
-      <div class="pm-stat-box">
-        <div class="pm-stat-val">13</div>
-        <div class="pm-stat-lbl">Слів у словнику</div>
-      </div>
-    </div>
-    <div style="display:flex;justify-content:flex-end;">
-      <button class="btn-ghost" onclick="closeProfileModal()">Закрити</button>
-    </div>
-  </div>
-</div>
-
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer class="site-footer">
   <div class="footer-inner">
@@ -613,13 +570,5 @@
 </footer>
 
 <script src="js/app.js"></script>
-<script>
-function openProfileModal(){
-  document.getElementById('profileModal').classList.add('open');
-}
-function closeProfileModal(){
-  document.getElementById('profileModal').classList.remove('open');
-}
-</script>
 </body>
 </html>
