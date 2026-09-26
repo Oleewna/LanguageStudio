@@ -7,6 +7,13 @@
 <title>Ігри — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  (function() {
+    const saved = localStorage.getItem('ls_theme');
+    const theme = (saved === 'dark' || saved === 'light') ? saved : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
 <link rel="stylesheet" href="../css/main.css">
 <style>
   .game-arena {
@@ -129,6 +136,7 @@
   </nav>
 
   <div class="nav-right">
+    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Переключити тему" aria-label="Переключити тему">🌙</button>
     <button type="button" class="student-widget" onclick="openProfileModal()" title="Мій профіль студента" aria-label="Мій профіль студента">
       <span class="student-stats">
         <span class="streak-badge">🔥 <span>1</span></span>

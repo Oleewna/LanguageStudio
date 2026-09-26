@@ -19,6 +19,17 @@
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
+[data-theme="dark"] {
+  --bg: #0d0f12;
+  --surface: #181b22;
+  --border: #282d39;
+  --ink: #f3f4f6;
+  --ink-soft: #a1a7b5;
+  --sidebar-bg: #12141a;
+  --it-green-light: rgba(34, 197, 94, 0.16);
+  --it-green-border: #15803d;
+}
+
 * {
   box-sizing: border-box;
 }

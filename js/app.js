@@ -655,14 +655,53 @@ function closeMobNav() {
   document.body.style.overflow = '';
 }
 
+/* ── Theme Management (Dark Mode / Light Mode) ── */
+const THEME_KEY = 'ls_theme';
+
+function getTheme() {
+  const saved = localStorage.getItem(THEME_KEY);
+  if (saved === 'dark' || saved === 'light') return saved;
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function setTheme(themeName) {
+  const finalTheme = themeName === 'dark' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', finalTheme);
+  localStorage.setItem(THEME_KEY, finalTheme);
+  updateThemeToggleButtons(finalTheme);
+}
+
+function toggleTheme() {
+  const current = getTheme();
+  setTheme(current === 'dark' ? 'light' : 'dark');
+}
+
+function updateThemeToggleButtons(themeName) {
+  const btns = document.querySelectorAll('.theme-toggle-btn');
+  const icon = (typeof LS_ICONS !== 'undefined' && LS_ICONS) ? (themeName === 'dark' ? LS_ICONS.sun : LS_ICONS.moon) : (themeName === 'dark' ? '☀️' : '🌙');
+  btns.forEach(btn => {
+    btn.innerHTML = icon;
+    btn.setAttribute('title', themeName === 'dark' ? 'Увімкнути світлу тему' : 'Увімкнути темну тему');
+  });
+}
+
+function initTheme() {
+  setTheme(getTheme());
+}
+
+// Immediately apply saved theme on script parse to prevent FOUC
+initTheme();
+
 function ensureProfileModal() {
   if (document.getElementById('profileModal')) return;
+  const themeIcon = (typeof LS_ICONS !== 'undefined' && LS_ICONS) ? LS_ICONS.sun : '🌓';
+  const closeIcon = (typeof LS_ICONS !== 'undefined' && LS_ICONS) ? LS_ICONS.close : '✕';
   document.body.insertAdjacentHTML('beforeend', `
     <div class="profile-modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
       <section class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-title">
         <div class="pm-topline">
           <div class="pm-eyebrow" id="profile-title">Профіль студента</div>
-          <button type="button" class="pm-close" onclick="closeProfileModal()" aria-label="Закрити">✕</button>
+          <button type="button" class="pm-close" onclick="closeProfileModal()" aria-label="Закрити">${closeIcon}</button>
         </div>
         <div class="pm-header">
           <div class="pm-avatar">S</div>
@@ -675,6 +714,11 @@ function ensureProfileModal() {
           <h3 class="pm-settings-title" id="source-language-title">Налаштування навчання італійської</h3>
           <label class="pm-setting-label" for="sourceLanguage">Мова перекладу та пояснень</label>
           <select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select>
+          
+          <label class="pm-setting-label" style="margin-top:1rem;display:block;">Тема інтерфейсу</label>
+          <button type="button" class="btn-ghost" onclick="toggleTheme()" style="width:100%;margin-top:0.3rem;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;">
+            ${themeIcon} Переключити тему
+          </button>
         </section>
         <div class="pm-stats-grid">
           <div class="pm-stat-box"><div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">Очок XP</div></div>
@@ -698,7 +742,6 @@ function closeProfileModal() {
 
 // Visual audio button click handler (voice synthesis deactivated as requested)
 function speak(text, btnElement) {
-  // Visual pulse / indicator for future audio playback
   if (btnElement && btnElement.classList) {
     btnElement.classList.add('audio-playing');
     setTimeout(() => btnElement.classList.remove('audio-playing'), 500);
@@ -709,4 +752,5 @@ document.addEventListener('DOMContentLoaded', () => {
   ensureProfileModal();
   updateXPDisplay();
   applySourceLanguageSettings();
+  initTheme();
 });

@@ -4,26 +4,209 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <link rel="icon" type="image/png" href="../assets/images/icons8-translator-100.png" />
-<title>Завдання — LanguageStudio</title>
+<title>Завдання та Вправи — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  (function() {
+    const saved = localStorage.getItem('ls_theme');
+    const theme = (saved === 'dark' || saved === 'light') ? saved : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
 <link rel="stylesheet" href="../css/main.css">
 <style>
+  /* ── Filter & Sort Controls Panel ── */
+  .task-filter-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1rem, 2.5vw, 1.4rem);
+    margin-bottom: 1.8rem;
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .filter-header-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--pine);
+    margin-bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .cat-pills-wrap {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    width: 100%;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+    padding: 0.42rem 0.9rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    font-family: inherit;
+    line-height: 1.2;
+    box-sizing: border-box;
+  }
+  .cat-pill:hover {
+    border-color: var(--pine);
+    color: var(--pine);
+  }
+  .cat-pill.active {
+    background: var(--it-green) !important;
+    border-color: var(--it-green) !important;
+    color: #FFFFFF !important;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(27, 122, 75, 0.25);
+  }
+  .task-tab.active {
+    background: var(--it-green) !important;
+    border-color: var(--it-green) !important;
+    color: #FFFFFF !important;
+    font-weight: 700;
+  }
+  
+  .filter-controls-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+    align-items: end;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+  .filter-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+  }
+  .filter-select, .filter-input {
+    width: 100%;
+    min-width: 0;
+    padding: 0.6rem 0.8rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 0.86rem;
+    outline: none;
+    transition: border-color 0.15s;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+  }
+  .filter-select:focus, .filter-input:focus {
+    border-color: var(--pine);
+  }
+
+  /* ── Stats Hero Highlights ── */
+  .tasks-hero-stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.2rem;
+  }
+  .stat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(4px);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+  }
+
+  /* ── Exercise Badges & Cards ── */
   .quiz-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: clamp(1.25rem, 3.5vw, 1.8rem);
+    padding: clamp(1.2rem, 3vw, 1.8rem);
     margin-bottom: 1.5rem;
     box-shadow: var(--shadow-sm);
+    transition: transform 0.15s, box-shadow 0.15s;
+    width: 100%;
+    box-sizing: border-box;
   }
+  .card-meta-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .card-tags {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .badge-level {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .badge-level.lvl-a1 { background: #EAF4EC; color: #1E6B3B; border: 1px solid #BDE3CB; }
+  .badge-level.lvl-a2 { background: #E0F2FE; color: #0369A1; border: 1px solid #BAE6FD; }
+  .badge-level.lvl-b1 { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+
+  .badge-cat {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.73rem;
+    font-weight: 600;
+    background: rgba(0,0,0,0.04);
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
   .quiz-q-num {
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--pine);
-    margin-bottom: 0.4rem;
   }
   .quiz-question {
     font-size: 1.05rem;
@@ -73,11 +256,11 @@
   }
   .quiz-feedback {
     margin-top: 1rem;
-    padding: 0.8rem 1rem;
+    padding: 0.85rem 1.1rem;
     border-radius: var(--radius-sm);
-    font-size: 0.86rem;
+    font-size: 0.88rem;
     display: none;
-    line-height: 1.45;
+    line-height: 1.48;
   }
   .quiz-feedback.show-correct {
     display: block;
@@ -91,15 +274,52 @@
     color: #8C2424;
     border: 1px solid #F5C6C6;
   }
+  .quiz-explanation {
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px dashed rgba(0,0,0,0.12);
+    font-size: 0.84rem;
+    color: inherit;
+    opacity: 0.9;
+  }
 
-  /* Task bank tabs */
+  /* ── Category Sub-section Headers ── */
+  .category-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+  }
+  .category-section-title:first-child {
+    margin-top: 0;
+  }
+  .category-section-count {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    background: var(--border);
+    color: var(--ink-soft);
+  }
+
+  /* ── Task bank format tabs ── */
   .task-tabs {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
     margin-bottom: 1.5rem;
+    width: 100%;
   }
   .task-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     padding: 0.55rem 1.1rem;
     border-radius: 999px;
     border: 1.5px solid var(--border);
@@ -110,6 +330,7 @@
     cursor: pointer;
     transition: all 0.15s;
     font-family: inherit;
+    white-space: nowrap;
   }
   .task-tab:hover {
     border-color: #CBD5E1;
@@ -121,34 +342,13 @@
   }
   .task-panel {
     display: none;
+    width: 100%;
   }
   .task-panel.active {
     display: block;
   }
-  .task-situation {
-    border-left: 3px solid var(--pine);
-    padding: 0.2rem 0 0.2rem 1rem;
-    margin-bottom: 1.5rem;
-  }
-  .task-situation-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--pine);
-    margin-bottom: 0.2rem;
-  }
-  .task-situation-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--ink);
-  }
-  .task-situation-desc {
-    font-size: 0.84rem;
-    color: var(--ink-soft);
-    margin-top: 0.2rem;
-  }
 
-  /* Text-answer inputs (fill-blank, translate) */
+  /* Text-answer inputs */
   .text-answer-input {
     flex: 1;
     min-width: 160px;
@@ -241,6 +441,52 @@
     background: #EAF4EC;
     border-color: var(--pine);
   }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-lg);
+    color: var(--ink-soft);
+  }
+  .empty-state-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Responsive Adaptability Media Queries ── */
+  @media (max-width: 900px) {
+    .filter-controls-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .filter-controls-row {
+      grid-template-columns: 1fr;
+    }
+    .cat-pills-wrap {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: 0.4rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .cat-pill {
+      flex-shrink: 0;
+    }
+    .task-tabs {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: 0.4rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .task-tab {
+      flex-shrink: 0;
+    }
+    .match-wrap {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 </head>
 <body>
@@ -290,12 +536,10 @@
             <a href="../lessons/communication-basics-lesson-1.html" class="nav-dd-item"><span class="dd-icon">▶</span>Урок 1 · Знайомство <span class="dd-tag active">Активний</span></a>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 2 · Come ti chiami?</span>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 3 · Di dove sei?</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 4 · Consolidazione</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 5 · La mia scena</span>
           </div>
         </div>
         <a href="units.html" class="nav-dd-item">
-          <span class="dd-icon">📑</span>Переглянути всі 4 розділи
+          <span class="dd-icon">📑</span>Переглянути всі розділи
         </a>
       </div>
     </div>
@@ -311,7 +555,7 @@
           <span class="dd-icon">👋</span>Привітання та база (13 слів)
         </a>
         <a href="flashcards.html?topic=custom" class="nav-dd-item">
-          <span class="dd-icon">⭐</span>Мої власні збережені слова
+          <span class="dd-icon">⭐</span>Мої збережені слова
         </a>
       </div>
     </div>
@@ -322,12 +566,15 @@
         ✏️ Завдання <span class="chev">▾</span>
       </button>
       <div class="nav-dd-menu">
-        <div class="nav-dd-header">Практичні тести</div>
+        <div class="nav-dd-header">Практичні вправи</div>
         <a href="tasks.html" class="nav-dd-item">
-          <span class="dd-icon">🗂️</span>Банк завдань
+          <span class="dd-icon">🎯</span>Усі вправи та тести
         </a>
-        <a href="../lessons/communication-basics-lesson-1.html#tasks" class="nav-dd-item">
-          <span class="dd-icon">📝</span>Вправи до Уроку 1
+        <a href="tasks.html?group=grammar" class="nav-dd-item">
+          <span class="dd-icon">📌</span>Граматичний тренажер
+        </a>
+        <a href="tasks.html?group=situational" class="nav-dd-item">
+          <span class="dd-icon">💬</span>Ситуативні завдання
         </a>
       </div>
     </div>
@@ -368,14 +615,14 @@
       </button>
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Граматичні шпаргалки</div>
-        <a href="grammar.html?tab=saluti" class="nav-dd-item">
-          <span class="dd-icon">☀️</span>Привітання за часом доби
-        </a>
         <a href="grammar.html?tab=articoli" class="nav-dd-item">
           <span class="dd-icon">📰</span>Означені артиклі
         </a>
         <a href="grammar.html?tab=verbi" class="nav-dd-item">
           <span class="dd-icon">🔷</span>Essere та Avere
+        </a>
+        <a href="grammar.html?tab=cortesia" class="nav-dd-item">
+          <span class="dd-icon">🤝</span>Tu vs Lei (Етикет)
         </a>
       </div>
     </div>
@@ -383,6 +630,7 @@
   </nav>
 
   <div class="nav-right">
+    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Переключити тему" aria-label="Переключити тему">🌙</button>
     <button type="button" class="student-widget" onclick="openProfileModal()" title="Мій профіль студента" aria-label="Мій профіль студента">
       <span class="student-stats">
         <span class="streak-badge">🔥 <span>1</span></span>
@@ -397,284 +645,131 @@
 <!-- ═══════════ HERO ═══════════ -->
 <section class="page-hero">
   <div class="page-hero-inner">
-    <div class="page-hero-label">Практика & Перевірка</div>
-    <h1>Завдання та Тести</h1>
-    <p>Практикуйте італійську в конкретних ситуаціях. Почніть із першого знайомства в будинку та закріпіть потрібні фрази в різних форматах.</p>
+    <div class="page-hero-label">Практика & Перевірка знань</div>
+    <h1>Завдання та Вправи</h1>
+    <p>Тренуйте граматику та реальні ситуації спілкування. Обирайте категорію, рівень складності (A1–B1) та зручний формат вправ.</p>
+    <div class="tasks-hero-stats">
+      <div class="stat-pill">🎯 <span><b>40+</b> Вправ у базі</span></div>
+      <div class="stat-pill">🏷️ <span><b>8</b> Категорій знань</span></div>
+      <div class="stat-pill">📊 <span>Рівні A1, A2, B1</span></div>
+    </div>
   </div>
 </section>
 
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
 <main class="page-container">
 
-  <div class="task-situation">
-    <div class="task-situation-label">Ситуація · Основи спілкування</div>
-    <div class="task-situation-title">Перший день у будинку</div>
-    <div class="task-situation-desc">Привітання, коротке знайомство та ввічливі відповіді під час зустрічі з сусідами.</div>
+  <!-- ═══════════ FILTER & SORT TOOLBAR ═══════════ -->
+  <div class="task-filter-panel">
+    <div class="filter-header-title">
+      <span>🗂️ Категорії та Фільтри</span>
+      <span id="activeFilterSummary" style="font-weight:600;color:var(--ink-soft);font-size:0.75rem;">Завантаження...</span>
+    </div>
+
+    <!-- Category Pills -->
+    <div class="cat-pills-wrap" id="catPillsWrap">
+      <button class="cat-pill active" data-cat="all" onclick="setCategoryFilter('all')">🌐 Всі категорії</button>
+      
+      <!-- Grammar categories -->
+      <button class="cat-pill" data-cat="articles" onclick="setCategoryFilter('articles')">📌 Іменники & Артиклі</button>
+      <button class="cat-pill" data-cat="verbs" onclick="setCategoryFilter('verbs')">🔷 Дієслова (Essere/Avere)</button>
+      <button class="cat-pill" data-cat="pronouns" onclick="setCategoryFilter('pronouns')">💬 Займенники & Прийменники</button>
+      <button class="cat-pill" data-cat="sentence" onclick="setCategoryFilter('sentence')">🧱 Структура речення</button>
+      
+      <!-- Situational categories -->
+      <button class="cat-pill" data-cat="greetings" onclick="setCategoryFilter('greetings')">🏠 Знайомство & Сусіди</button>
+      <button class="cat-pill" data-cat="cafe" onclick="setCategoryFilter('cafe')">☕ У кафе та барі</button>
+      <button class="cat-pill" data-cat="directions" onclick="setCategoryFilter('directions')">🗺️ Орієнтування в місті</button>
+      <button class="cat-pill" data-cat="shopping" onclick="setCategoryFilter('shopping')">🛒 Покупки та ціни</button>
+    </div>
+
+    <!-- Secondary Controls: Group, Level, Sort, Search -->
+    <div class="filter-controls-row">
+      <div class="filter-group">
+        <label class="filter-label" for="groupFilterSelect">Група</label>
+        <select class="filter-select" id="groupFilterSelect" onchange="applyFiltersAndSort()">
+          <option value="all">Усі теми (Граматика + Ситуації)</option>
+          <option value="grammar">📌 Тільки Граматика</option>
+          <option value="situational">💬 Тільки Ситуації</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="levelFilterSelect">Рівень складності</label>
+        <select class="filter-select" id="levelFilterSelect" onchange="applyFiltersAndSort()">
+          <option value="all">Усі рівні (A1 – B1)</option>
+          <option value="A1">A1 · Початковий (Breakthrough)</option>
+          <option value="A2">A2 · Елементарний (Waystage)</option>
+          <option value="B1">B1 · Середній (Threshold)</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="sortFilterSelect">Сортування</label>
+        <select class="filter-select" id="sortFilterSelect" onchange="applyFiltersAndSort()">
+          <option value="default">За замовчуванням</option>
+          <option value="level-asc">Складність: A1 ➔ B1</option>
+          <option value="level-desc">Складність: B1 ➔ A1</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label" for="searchInput">Пошук за словом</label>
+        <input type="text" class="filter-input" id="searchInput" placeholder="Пошук фрази або правила..." oninput="applyFiltersAndSort()" />
+      </div>
+    </div>
   </div>
 
-  <h2 class="section-title"><span class="ic">🗂️</span>Вправи за ситуацією</h2>
+  <!-- ═══════════ EXERCISE TYPE TABS ═══════════ -->
+  <h2 class="section-title"><span class="ic">🎯</span>Формати вправ</h2>
 
   <div class="task-tabs">
     <button class="task-tab active" data-tab="mcq" onclick="showTaskTab('mcq')">🧠 Вибір відповіді</button>
     <button class="task-tab" data-tab="blank" onclick="showTaskTab('blank')">✍️ Заповни пропуск</button>
-    <button class="task-tab" data-tab="match" onclick="showTaskTab('match')">🔗 Зіставлення</button>
+    <button class="task-tab" data-tab="match" onclick="showTaskTab('match')">🔗 Зіставлення слів</button>
     <button class="task-tab" data-tab="reorder" onclick="showTaskTab('reorder')">🔀 Порядок слів</button>
-    <button class="task-tab" data-tab="translate" onclick="showTaskTab('translate')">🌐 Переклад</button>
-    <button class="task-tab" data-tab="dict" onclick="showTaskTab('dict')">📖 Зі словника</button>
     <button class="task-tab" data-tab="listen" onclick="showTaskTab('listen')">🔊 Аудіювання</button>
     <button class="task-tab" data-tab="dialogue" onclick="showTaskTab('dialogue')">💬 Діалог</button>
+    <button class="task-tab" data-tab="dict" onclick="showTaskTab('dict')">📖 Зі словника</button>
   </div>
 
-  <!-- Panel: Multiple choice -->
+  <!-- Panel: Multiple Choice -->
   <div class="task-panel active" id="panel-mcq">
-    <div class="quiz-card" id="q1">
-      <div class="quiz-q-num">Питання 1 з 4</div>
-      <div class="quiz-question" data-source-key="tasks.q1.question">Як перекладається італійська фраза «Come stai?»</div>
-      <div class="quiz-options">
-        <div class="quiz-opt" data-correct="false" data-source-key="tasks.q1.a" onclick="checkAnswer(1, 0, false, this)">А) Як тебе звати?</div>
-        <div class="quiz-opt" data-correct="true" data-source-key="tasks.q1.b" onclick="checkAnswer(1, 1, true, this)">Б) Як справи?</div>
-        <div class="quiz-opt" data-correct="false" data-source-key="tasks.q1.c" onclick="checkAnswer(1, 2, false, this)">В) Звідки ти?</div>
-      </div>
-      <div class="quiz-feedback" id="fb1"></div>
-    </div>
-
-    <div class="quiz-card" id="q2">
-      <div class="quiz-q-num">Питання 2 з 4</div>
-      <div class="quiz-question" data-source-key="tasks.q2.question">Що в італійській мові означає коротке слово «anch'io»?</div>
-      <div class="quiz-options">
-        <div class="quiz-opt" data-correct="true" data-source-key="tasks.q2.a" onclick="checkAnswer(2, 0, true, this)">А) Я теж</div>
-        <div class="quiz-opt" data-correct="false" data-source-key="tasks.q2.b" onclick="checkAnswer(2, 1, false, this)">Б) А ти?</div>
-        <div class="quiz-opt" data-correct="false" data-source-key="tasks.q2.c" onclick="checkAnswer(2, 2, false, this)">В) Будь ласка</div>
-      </div>
-      <div class="quiz-feedback" id="fb2"></div>
-    </div>
-
-    <div class="quiz-card" id="q3">
-      <div class="quiz-q-num">Питання 3 з 4</div>
-      <div class="quiz-question" data-source-key="tasks.q3.question">Як сказати італійською «Ласкаво просимо» дівчині?</div>
-      <div class="quiz-options">
-        <div class="quiz-opt" data-correct="false" onclick="checkAnswer(3, 0, false, this)">А) Benvenuto</div>
-        <div class="quiz-opt" data-correct="true" onclick="checkAnswer(3, 1, true, this)">Б) Benvenuta</div>
-        <div class="quiz-opt" data-correct="false" onclick="checkAnswer(3, 2, false, this)">В) Buonasera</div>
-      </div>
-      <div class="quiz-feedback" id="fb3"></div>
-    </div>
-
-    <div class="quiz-card" id="q4">
-      <div class="quiz-q-num">Питання 4 з 4</div>
-      <div class="quiz-question" data-source-key="tasks.q4.question">Чи можна вживати «Ciao!» і для зустрічі, і для прощання?</div>
-      <div class="quiz-options">
-        <div class="quiz-opt" data-correct="true" data-source-key="tasks.q4.a" onclick="checkAnswer(4, 0, true, this)">А) Так, це універсальне привітання</div>
-        <div class="quiz-opt" data-correct="false" data-source-key="tasks.q4.b" onclick="checkAnswer(4, 1, false, this)">Б) Ні, тільки при зустрічі</div>
-      </div>
-      <div class="quiz-feedback" id="fb4"></div>
-    </div>
+    <div id="container-mcq"></div>
   </div>
 
-  <!-- Panel: Fill in the blank -->
+  <!-- Panel: Fill in the Blank -->
   <div class="task-panel" id="panel-blank">
-    <div class="quiz-card">
-      <div class="quiz-q-num">Заповніть пропуск</div>
-      <div class="quiz-question">«___, come stai?»</div>
-      <div data-source-key="tasks.hint.greeting" style="font-size:0.8rem;color:var(--ink-soft);margin-bottom:0.75rem;">Підказка: привітання при зустрічі</div>
-      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <input type="text" class="text-answer-input" placeholder="Впишіть слово..." />
-        <button class="btn-primary" onclick="checkTextAnswer(this, ['ciao'])">Перевірити</button>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
-    <div class="quiz-card">
-      <div class="quiz-q-num">Заповніть пропуск</div>
-      <div class="quiz-question">«Sto molto ___.»</div>
-      <div data-source-key="tasks.hint.well" style="font-size:0.8rem;color:var(--ink-soft);margin-bottom:0.75rem;">Підказка: протилежне до «погано»</div>
-      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <input type="text" class="text-answer-input" placeholder="Впишіть слово..." />
-        <button class="btn-primary" onclick="checkTextAnswer(this, ['bene'])">Перевірити</button>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
-    <div class="quiz-card">
-      <div class="quiz-q-num">Заповніть пропуск</div>
-      <div class="quiz-question">«___ mille per l'aiuto!»</div>
-      <div data-source-key="tasks.hint.thanks" style="font-size:0.8rem;color:var(--ink-soft);margin-bottom:0.75rem;">Підказка: те, що кажуть, коли дуже вдячні</div>
-      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <input type="text" class="text-answer-input" placeholder="Впишіть слово..." />
-        <button class="btn-primary" onclick="checkTextAnswer(this, ['grazie'])">Перевірити</button>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
-    <div class="quiz-card">
-      <div class="quiz-q-num">Заповніть пропуск</div>
-      <div class="quiz-question">«Piacere di conoscerti, ___!» (до дівчини)</div>
-      <div data-source-key="tasks.hint.welcome" style="font-size:0.8rem;color:var(--ink-soft);margin-bottom:0.75rem;">Підказка: «ласкаво просимо» у жіночому роді</div>
-      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <input type="text" class="text-answer-input" placeholder="Впишіть слово..." />
-        <button class="btn-primary" onclick="checkTextAnswer(this, ['benvenuta'])">Перевірити</button>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
-    <div class="quiz-card">
-      <div class="quiz-q-num">Заповніть пропуск</div>
-      <div class="quiz-question">«Questo è un ___ nuovo.»</div>
-      <div data-source-key="tasks.hint.building" style="font-size:0.8rem;color:var(--ink-soft);margin-bottom:0.75rem;">Підказка: багатоповерховий будинок</div>
-      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <input type="text" class="text-answer-input" placeholder="Впишіть слово..." />
-        <button class="btn-primary" onclick="checkTextAnswer(this, ['palazzo'])">Перевірити</button>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
+    <div id="container-blank"></div>
   </div>
 
-  <!-- Panel: Matching pairs -->
+  <!-- Panel: Matching Pairs -->
   <div class="task-panel" id="panel-match">
-    <div class="quiz-card">
-      <div class="quiz-q-num" data-source-key="tasks.match.title">Зіставте слова з перекладом</div>
-      <div class="quiz-question" data-source-key="tasks.match.instruction">Натисніть італійське слово, а потім відповідний переклад</div>
-      <div class="match-wrap">
-        <div class="match-col" id="matchColIt"></div>
-        <div class="match-col" id="matchColUa"></div>
-      </div>
-      <div class="match-status" id="matchStatus">Знайдено пар: 0/6</div>
-      <div style="margin-top:1rem;">
-        <button class="btn-ghost" onclick="initMatch()">🔄 Перемішати заново</button>
-      </div>
-    </div>
+    <div id="container-match"></div>
   </div>
 
-  <!-- Panel: Sentence reorder -->
+  <!-- Panel: Sentence Builder / Reordering -->
   <div class="task-panel" id="panel-reorder">
-    <div id="reorderList"></div>
-  </div>
-
-  <!-- Panel: Translation typing -->
-  <div class="task-panel" id="panel-translate">
-    <div class="quiz-card">
-      <div class="quiz-q-num">Перекладіть італійською</div>
-      <div class="quiz-question" data-source-key="tasks.translate.hello">«привіт»</div>
-      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <input type="text" class="text-answer-input" placeholder="Італійською..." />
-        <button class="btn-primary" onclick="checkTextAnswer(this, ['ciao'])">Перевірити</button>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
-    <div class="quiz-card">
-      <div class="quiz-q-num">Перекладіть італійською</div>
-      <div class="quiz-question" data-source-key="tasks.translate.thanks">«дякую»</div>
-      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <input type="text" class="text-answer-input" placeholder="Італійською..." />
-        <button class="btn-primary" onclick="checkTextAnswer(this, ['grazie'])">Перевірити</button>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
-    <div class="quiz-card">
-      <div class="quiz-q-num">Перекладіть італійською</div>
-      <div class="quiz-question" data-source-key="tasks.translate.yes">«так»</div>
-      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <input type="text" class="text-answer-input" placeholder="Італійською..." />
-        <button class="btn-primary" onclick="checkTextAnswer(this, ['si', 'sì'])">Перевірити</button>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
-    <div class="quiz-card">
-      <div class="quiz-q-num">Перекладіть італійською</div>
-      <div class="quiz-question" data-source-key="tasks.translate.no">«ні»</div>
-      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <input type="text" class="text-answer-input" placeholder="Італійською..." />
-        <button class="btn-primary" onclick="checkTextAnswer(this, ['no'])">Перевірити</button>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
-    <div class="quiz-card">
-      <div class="quiz-q-num">Перекладіть італійською</div>
-      <div class="quiz-question" data-source-key="tasks.translate.please">«будь ласка»</div>
-      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
-        <input type="text" class="text-answer-input" placeholder="Італійською..." />
-        <button class="btn-primary" onclick="checkTextAnswer(this, ['prego'])">Перевірити</button>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
-  </div>
-
-  <!-- Panel: Dictionary-based quiz -->
-  <div class="task-panel" id="panel-dict">
-    <div class="card" style="margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
-      <div style="font-size:0.85rem;color:var(--ink-soft);">Тест генерується з базових слів і ваших власних слів із «Власного словника».</div>
-      <button class="btn-primary" onclick="generateDictQuiz()">🎲 Згенерувати тест</button>
-    </div>
-    <div id="dictQuizContainer"></div>
+    <div id="container-reorder"></div>
   </div>
 
   <!-- Panel: Listening -->
   <div class="task-panel" id="panel-listen">
-    <div class="quiz-card" data-word="prego">
-      <div class="quiz-q-num">Аудіювання 1 з 3</div>
-      <div class="quiz-question" style="display:flex;align-items:center;gap:0.75rem;">
-        <button class="audio-btn" onclick="speak('prego', this)" style="font-size:1.3rem;">🔊</button>
-        <span data-source-key="tasks.listen.instruction">Натисніть, щоб «прослухати», і оберіть переклад</span>
-      </div>
-      <div class="quiz-options">
-        <div class="quiz-opt" data-correct="false" data-source-key="tasks.listen.thanks" onclick="checkAnswer('lst1', 0, false, this, 10)">А) Дякую</div>
-        <div class="quiz-opt" data-correct="true" data-source-key="tasks.listen.please" onclick="checkAnswer('lst1', 1, true, this, 10)">Б) Будь ласка</div>
-        <div class="quiz-opt" data-correct="false" data-source-key="tasks.listen.hello" onclick="checkAnswer('lst1', 2, false, this, 10)">В) Привіт</div>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
-    <div class="quiz-card" data-word="grazie">
-      <div class="quiz-q-num">Аудіювання 2 з 3</div>
-      <div class="quiz-question" style="display:flex;align-items:center;gap:0.75rem;">
-        <button class="audio-btn" onclick="speak('grazie', this)" style="font-size:1.3rem;">🔊</button>
-        <span data-source-key="tasks.listen.instruction">Натисніть, щоб «прослухати», і оберіть переклад</span>
-      </div>
-      <div class="quiz-options">
-        <div class="quiz-opt" data-correct="true" data-source-key="tasks.listen.thanks" onclick="checkAnswer('lst2', 0, true, this, 10)">А) Дякую</div>
-        <div class="quiz-opt" data-correct="false" data-source-key="tasks.listen.yes" onclick="checkAnswer('lst2', 1, false, this, 10)">Б) Так</div>
-        <div class="quiz-opt" data-correct="false" data-source-key="tasks.listen.no" onclick="checkAnswer('lst2', 2, false, this, 10)">В) Ні</div>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
-    <div class="quiz-card" data-word="benvenuto/a">
-      <div class="quiz-q-num">Аудіювання 3 з 3</div>
-      <div class="quiz-question" style="display:flex;align-items:center;gap:0.75rem;">
-        <button class="audio-btn" onclick="speak('benvenuto', this)" style="font-size:1.3rem;">🔊</button>
-        <span data-source-key="tasks.listen.instruction">Натисніть, щоб «прослухати», і оберіть переклад</span>
-      </div>
-      <div class="quiz-options">
-        <div class="quiz-opt" data-correct="true" data-source-key="tasks.listen.welcome" onclick="checkAnswer('lst3', 0, true, this, 10)">А) Ласкаво просимо</div>
-        <div class="quiz-opt" data-correct="false" data-source-key="tasks.listen.new" onclick="checkAnswer('lst3', 1, false, this, 10)">Б) Новий</div>
-        <div class="quiz-opt" data-correct="false" data-source-key="tasks.listen.building" onclick="checkAnswer('lst3', 2, false, this, 10)">В) Будинок</div>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
+    <div id="container-listen"></div>
   </div>
 
-  <!-- Panel: Dialogue completion -->
+  <!-- Panel: Dialogue Completion -->
   <div class="task-panel" id="panel-dialogue">
-    <div class="quiz-card">
-      <div class="quiz-q-num">Діалог 1</div>
-      <div class="quiz-question">
-        <div>👤 А: «Ciao! Come stai?»</div>
-        <div style="margin-top:0.4rem;color:var(--ink-soft);" data-source-key="tasks.dialogue.instruction">👤 Б: оберіть репліку, якою продовжити діалог</div>
-      </div>
-      <div class="quiz-options">
-        <div class="quiz-opt" data-correct="true" onclick="checkAnswer('dlg1', 0, true, this, 10)">Bene, grazie! E tu?</div>
-        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('dlg1', 1, false, this, 10)">Grazie mille!</div>
-        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('dlg1', 2, false, this, 10)">Sì, va bene.</div>
-      </div>
-      <div class="quiz-feedback"></div>
+    <div id="container-dialogue"></div>
+  </div>
+
+  <!-- Panel: Dictionary Generator -->
+  <div class="task-panel" id="panel-dict">
+    <div class="card" style="margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+      <div style="font-size:0.88rem;color:var(--ink-soft);">Персоналізований тест генерується з вашого «Власного словника» та базового запасу.</div>
+      <button class="btn-primary" onclick="generateDictQuiz()">🎲 Згенерувати новий тест</button>
     </div>
-    <div class="quiz-card">
-      <div class="quiz-q-num">Діалог 2</div>
-      <div class="quiz-question">
-        <div>👤 А: «Benvenuto nel nostro palazzo!»</div>
-        <div style="margin-top:0.4rem;color:var(--ink-soft);" data-source-key="tasks.dialogue.instruction">👤 Б: оберіть репліку, якою продовжити діалог</div>
-      </div>
-      <div class="quiz-options">
-        <div class="quiz-opt" data-correct="true" onclick="checkAnswer('dlg2', 0, true, this, 10)">Grazie mille!</div>
-        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('dlg2', 1, false, this, 10)">No, grazie.</div>
-        <div class="quiz-opt" data-correct="false" onclick="checkAnswer('dlg2', 2, false, this, 10)">Come stai?</div>
-      </div>
-      <div class="quiz-feedback"></div>
-    </div>
+    <div id="dictQuizContainer"></div>
   </div>
 
 </main>
@@ -684,7 +779,7 @@
     <div>☕ <b>LanguageStudio</b> · Італійська для реальних ситуацій</div>
     <div class="footer-links">
       <a href="../index.html">Головна</a>
-      <a href="units.html">Напрямки</a>
+      <a href="units.html">Розділи</a>
       <a href="flashcards.html">Флешкартки</a>
       <a href="dictionary.html">Словник</a>
       <a href="games.html">Ігри</a>
@@ -695,216 +790,851 @@
 
 <script src="../js/app.js"></script>
 <script>
-const answered = {};
+/* ════════════════════════════════════════════════════════════════════
+   EXERCISE BANK DATA MODEL (Categories, Formats, Levels, Explanations)
+   ════════════════════════════════════════════════════════════════════ */
 
-function shuffle(arr) {
-  return [...arr].sort(() => Math.random() - 0.5);
+const CATEGORIES_MAP = {
+  articles:   { group: 'grammar',     nameUk: '📌 Іменники & Артиклі',         nameEn: '📌 Nouns & Articles' },
+  verbs:      { group: 'grammar',     nameUk: '🔷 Відмінювання дієслів',        nameEn: '🔷 Verb Conjugation' },
+  pronouns:   { group: 'grammar',     nameUk: '💬 Займенники & Прийменники',   nameEn: '💬 Pronouns & Prepositions' },
+  sentence:   { group: 'grammar',     nameUk: '🧱 Структура речення',           nameEn: '🧱 Sentence Structure' },
+  greetings:  { group: 'situational', nameUk: '🏠 Знайомство & Сусіди',         nameEn: '🏠 Greetings & Meeting Neighbors' },
+  cafe:       { group: 'situational', nameUk: '☕ У кафе та барі',              nameEn: '☕ At the Cafe & Bar' },
+  directions: { group: 'situational', nameUk: '🗺️ Орієнтування в місті',       nameEn: '🗺️ Asking Directions' },
+  shopping:   { group: 'situational', nameUk: '🛒 Покупки та ціни',             nameEn: '🛒 Shopping & Prices' }
+};
+
+const LEVEL_RANK = { 'A1': 1, 'A2': 2, 'B1': 3 };
+
+const TASK_BANK = [
+  /* ──────────────── MULTIPLE CHOICE (MCQ) ──────────────── */
+  {
+    id: 'mcq-g1', format: 'mcq', category: 'greetings', level: 'A1',
+    question: { uk: 'Як перекладається італійська фраза «Come stai?»', en: 'What does the Italian phrase “Come stai?” mean?' },
+    options: [
+      { text: { uk: 'А) Як тебе звати?', en: 'A) What is your name?' }, correct: false },
+      { text: { uk: 'Б) Як справи?', en: 'B) How are you?' }, correct: true },
+      { text: { uk: 'В) Звідки ти?', en: 'C) Where are you from?' }, correct: false }
+    ],
+    explanation: { uk: '«Come stai?» використовується для неформального запитання «Як справи?» (до однієї людини).', en: '“Come stai?” is used to informally ask “How are you?” to one person.' }
+  },
+  {
+    id: 'mcq-g2', format: 'mcq', category: 'greetings', level: 'A1',
+    question: { uk: 'Чи можна вживати «Ciao!» і для зустрічі, і для прощання?', en: 'Can “Ciao!” be used both when greeting and saying goodbye?' },
+    options: [
+      { text: { uk: 'А) Так, це універсальне неформальне привітання', en: 'A) Yes, it is a universal informal greeting' }, correct: true },
+      { text: { uk: 'Б) Ні, тільки при зустрічі', en: 'B) No, only when meeting someone' }, correct: false }
+    ],
+    explanation: { uk: '«Ciao!» є універсальним словом для "Привіт" та "Бувай" серед друзів та знайомих.', en: '“Ciao!” is universally used for both “Hello” and “Goodbye” among acquaintances.' }
+  },
+  {
+    id: 'mcq-art1', format: 'mcq', category: 'articles', level: 'A1',
+    question: { uk: 'Який визначений артикль чоловічого роду вживається зі словом «ragazzo»?', en: 'Which masculine definite article is used with the word “ragazzo”?' },
+    options: [
+      { text: { uk: 'А) la', en: 'A) la' }, correct: false },
+      { text: { uk: 'Б) il', en: 'B) il' }, correct: true },
+      { text: { uk: 'В) lo', en: 'C) lo' }, correct: false }
+    ],
+    explanation: { uk: 'Для іменників чоловічого роду, що починаються на більшість приголосних, вживається артикль «il» (il ragazzo).', en: 'Nouns starting with standard consonants take “il” in the masculine singular.' }
+  },
+  {
+    id: 'mcq-art2', format: 'mcq', category: 'articles', level: 'A2',
+    question: { uk: 'Який артикль слід вжити перед іменником «zaino» (рюкзак)?', en: 'Which article should be placed before “zaino” (backpack)?' },
+    options: [
+      { text: { uk: 'А) il', en: 'A) il' }, correct: false },
+      { text: { uk: 'Б) lo', en: 'B) lo' }, correct: true },
+      { text: { uk: 'В) l\'', en: 'C) l\'' }, correct: false }
+    ],
+    explanation: { uk: 'Перед z, s+приголосна, gn, ps у чоловічому роді використовується артикль «lo» (lo zaino, lo studente).', en: 'Masculine nouns starting with Z or S+consonant take the article “lo”.' }
+  },
+  {
+    id: 'mcq-verb1', format: 'mcq', category: 'verbs', level: 'A1',
+    question: { uk: 'Оберіть правильну форму дієслова «essere» для займенника «noi» (ми):', en: 'Choose the correct form of “essere” for “noi” (we):' },
+    options: [
+      { text: { uk: 'А) siamo', en: 'A) siamo' }, correct: true },
+      { text: { uk: 'Б) siete', en: 'B) siete' }, correct: false },
+      { text: { uk: 'В) sono', en: 'C) sono' }, correct: false }
+    ],
+    explanation: { uk: 'Форми дієслова essere: io sono, tu sei, lui/lei è, noi siamo, voi siete, loro sono.', en: 'Conjugation of essere: io sono, tu sei, lui/lei è, noi siamo, voi siete, loro sono.' }
+  },
+  {
+    id: 'mcq-verb2', format: 'mcq', category: 'verbs', level: 'A2',
+    question: { uk: 'Яка форма дієслова «avere» (мати) відповідає займеннику «loro» (вони)?', en: 'Which form of “avere” (to have) corresponds to “loro” (they)?' },
+    options: [
+      { text: { uk: 'А) abbiamo', en: 'A) abbiamo' }, correct: false },
+      { text: { uk: 'Б) avete', en: 'B) avete' }, correct: false },
+      { text: { uk: 'В) hanno', en: 'C) hanno' }, correct: true }
+    ],
+    explanation: { uk: 'Форми дієслова avere: io ho, tu hai, lui/lei ha, noi abbiamo, voi avete, loro hanno.', en: 'Conjugation of avere: io ho, tu hai, lui/lei ha, noi abbiamo, voi avete, loro hanno.' }
+  },
+  {
+    id: 'mcq-cafe1', format: 'mcq', category: 'cafe', level: 'A1',
+    question: { uk: 'Як ввічливо попросити чашку кави в італійському барі?', en: 'How do you politely order a cup of coffee in an Italian bar?' },
+    options: [
+      { text: { uk: 'А) Un caffè, per favore', en: 'A) Un caffè, per favore' }, correct: true },
+      { text: { uk: 'Б) Vostro caffè', en: 'B) Vostro caffè' }, correct: false },
+      { text: { uk: 'В) Ciao caffè', en: 'C) Ciao caffè' }, correct: false }
+    ],
+    explanation: { uk: '«Per favore» або «per piacere» означає «будь ласка» при замовленні.', en: '“Per favore” or “per piacere” is the standard polite phrase for “please”.' }
+  },
+  {
+    id: 'mcq-dir1', format: 'mcq', category: 'directions', level: 'A2',
+    question: { uk: 'Що означає італійська фраза «Dov\'è la stazione?»', en: 'What does “Dov\'è la stazione?” mean?' },
+    options: [
+      { text: { uk: 'А) Коли прибуває потяг?', en: 'A) When does the train arrive?' }, correct: false },
+      { text: { uk: 'Б) Де знаходиться вокзал / станція?', en: 'B) Where is the train station?' }, correct: true },
+      { text: { uk: 'В) Скільки коштує квиток?', en: 'C) How much is the ticket?' }, correct: false }
+    ],
+    explanation: { uk: '«Dov\'è...» скорочено від «Dove è...» означає «Де є...?».', en: '“Dov\'è...” is a contraction of “Dove è...” meaning “Where is...?”.' }
+  },
+  {
+    id: 'mcq-shop1', format: 'mcq', category: 'shopping', level: 'A2',
+    question: { uk: 'Як правильно запитати про вартість товару італійською мовою?', en: 'How do you ask for the price of an item in Italian?' },
+    options: [
+      { text: { uk: 'А) Quanto costa?', en: 'A) Quanto costa?' }, correct: true },
+      { text: { uk: 'Б) Che ora è?', en: 'B) Che ora è?' }, correct: false },
+      { text: { uk: 'В) Chi sei?', en: 'C) Chi sei?' }, correct: false }
+    ],
+    explanation: { uk: '«Quanto costa?» (однина) та «Quanto costano?» (множина) — фрази для запитання про ціну.', en: '“Quanto costa?” is used to ask the price of a single item.' }
+  },
+  {
+    id: 'mcq-pro1', format: 'mcq', category: 'pronouns', level: 'B1',
+    question: { uk: 'Оберіть правильний прямий займенник: «Vedi Marco?» — «Sì, ___ vedo.»', en: 'Choose the direct pronoun: “Vedi Marco?” — “Sì, ___ vedo.”' },
+    options: [
+      { text: { uk: 'А) lo', en: 'A) lo' }, correct: true },
+      { text: { uk: 'Б) la', en: 'B) la' }, correct: false },
+      { text: { uk: 'В) li', en: 'C) li' }, correct: false }
+    ],
+    explanation: { uk: 'Marco є іменником чоловічого роду однини, тому прямий займенник — «lo».', en: 'Marco is a singular masculine noun, replaced by the direct pronoun “lo”.' }
+  },
+
+  /* ──────────────── FILL IN THE BLANK (BLANK) ──────────────── */
+  {
+    id: 'blk-g1', format: 'blank', category: 'greetings', level: 'A1',
+    question: { uk: '«___, come stai?»', en: '“___, come stai?”' },
+    hint: { uk: 'Підказка: неформальне привітання при зустрічі', en: 'Hint: informal greeting' },
+    answers: ['ciao'],
+    explanation: { uk: 'Слово «Ciao» вставляється на початку неформального привітання.', en: '“Ciao” goes at the start of an informal greeting.' }
+  },
+  {
+    id: 'blk-g2', format: 'blank', category: 'greetings', level: 'A1',
+    question: { uk: '«Sto molto ___!»', en: '“Sto molto ___!”' },
+    hint: { uk: 'Підказка: протилежне до «погано» (male)', en: 'Hint: opposite of “male” (badly)' },
+    answers: ['bene'],
+    explanation: { uk: '«Sto molto bene» означає «У мене все дуже добре».', en: '“Sto molto bene” means “I am doing very well”.' }
+  },
+  {
+    id: 'blk-v1', format: 'blank', category: 'verbs', level: 'A1',
+    question: { uk: '«Io ___ studente di italiano.»', en: '“Io ___ studente di italiano.”' },
+    hint: { uk: 'Підказка: форма дієслова essere (я є)', en: 'Hint: form of essere for “I am”' },
+    answers: ['sono'],
+    explanation: { uk: 'Перша особа однини дієслова essere: «Io sono».', en: 'First person singular of essere: “Io sono”.' }
+  },
+  {
+    id: 'blk-v2', format: 'blank', category: 'verbs', level: 'A2',
+    question: { uk: '«Noi ___ una bella casa in Italia.»', en: '“Noi ___ una bella casa in Italia.”' },
+    hint: { uk: 'Підказка: ми маємо (дієслово avere)', en: 'Hint: we have (verb avere)' },
+    answers: ['abbiamo'],
+    explanation: { uk: 'Форма дієслова avere для noi: «abbiamo».', en: 'Form of avere for noi: “abbiamo”.' }
+  },
+  {
+    id: 'blk-art1', format: 'blank', category: 'articles', level: 'A1',
+    question: { uk: '«___ casa è grande e luminosa.»', en: '“___ casa è grande e luminosa.”' },
+    hint: { uk: 'Підказка: жіночий артикль однини', en: 'Hint: feminine singular article' },
+    answers: ['la'],
+    explanation: { uk: 'Casa є іменником жіночого роду, тому артикль «la».', en: 'Casa is feminine singular, so the article is “la”.' }
+  },
+  {
+    id: 'blk-cafe1', format: 'blank', category: 'cafe', level: 'A1',
+    question: { uk: '«Un espresso e un cornetto, per ___!»', en: '“Un espresso e un cornetto, per ___!”' },
+    hint: { uk: 'Підказка: слово "будь ласка" (favore)', en: 'Hint: word for “please”' },
+    answers: ['favore', 'piacere'],
+    explanation: { uk: '«Per favore» або «per piacere» означає «будь ласка».', en: '“Per favore” means “please”.' }
+  },
+  {
+    id: 'blk-dir1', format: 'blank', category: 'directions', level: 'A2',
+    question: { uk: '«Gira a ___ dopo la farmacia!»', en: '“Gira a ___ dopo la farmacia!”' },
+    hint: { uk: 'Підказка: праворуч (destra)', en: 'Hint: to the right (destra)' },
+    answers: ['destra'],
+    explanation: { uk: '«A destra» означає «праворуч», «a sinistra» — «ліворуч».', en: '“A destra” means “to the right”.' }
+  },
+
+  /* ──────────────── MATCHING PAIRS (MATCH) ──────────────── */
+  {
+    id: 'match-greetings', format: 'match', category: 'greetings', level: 'A1',
+    title: { uk: 'Привітання та Базові фрази', en: 'Greetings & Basic Phrases' },
+    pairs: [
+      { id: 'm1', it: 'ciao', ua: 'привіт / бувай', en: 'hello / goodbye' },
+      { id: 'm2', it: 'grazie', ua: 'дякую', en: 'thank you' },
+      { id: 'm3', it: 'prego', ua: 'будь ласка', en: 'you are welcome' },
+      { id: 'm4', it: 'benvenuto', ua: 'ласкаво просимо', en: 'welcome' },
+      { id: 'm5', it: 'buongiorno', ua: 'Доброго дня', en: 'good morning' },
+      { id: 'm6', it: 'arrivederci', ua: 'до побачення', en: 'goodbye' }
+    ]
+  },
+  {
+    id: 'match-verbs', format: 'match', category: 'verbs', level: 'A2',
+    title: { uk: 'Дієслова та займенники', en: 'Verbs & Pronouns' },
+    pairs: [
+      { id: 'mv1', it: 'io sono', ua: 'я є', en: 'I am' },
+      { id: 'mv2', it: 'tu hai', ua: 'ти маєш', en: 'you have' },
+      { id: 'mv3', it: 'noi siamo', ua: 'ми є', en: 'we are' },
+      { id: 'mv4', it: 'parlare', ua: 'говорити', en: 'to speak' },
+      { id: 'mv5', it: 'prendere', ua: 'брати / замовляти', en: 'to take / order' },
+      { id: 'mv6', it: 'capire', ua: 'розуміти', en: 'to understand' }
+    ]
+  },
+  {
+    id: 'match-cafe', format: 'match', category: 'cafe', level: 'A1',
+    title: { uk: 'У кафе та барі', en: 'At the Cafe & Bar' },
+    pairs: [
+      { id: 'mc1', it: 'il conto', ua: 'рахунок', en: 'the bill' },
+      { id: 'mc2', it: 'la colazione', ua: 'сніданок', en: 'breakfast' },
+      { id: 'mc3', it: 'il tavolo', ua: 'стіл', en: 'table' },
+      { id: 'mc4', it: 'l\'acqua', ua: 'вода', en: 'water' },
+      { id: 'mc5', it: 'il cornetto', ua: 'круасан', en: 'croissant' },
+      { id: 'mc6', it: 'ordinare', ua: 'замовляти', en: 'to order' }
+    ]
+  },
+
+  /* ──────────────── SENTENCE BUILDER (REORDER) ──────────────── */
+  {
+    id: 'reorder-g1', format: 'reorder', category: 'greetings', level: 'A1',
+    clue: { uk: 'Привіт, як справи?', en: 'Hello, how are you?' },
+    words: ['Ciao,', 'come', 'stai?'],
+    explanation: { uk: 'Порядок слів у питанні привітання: Ciao, come stai?', en: 'Word order for greeting: Ciao, come stai?' }
+  },
+  {
+    id: 'reorder-cafe1', format: 'reorder', category: 'cafe', level: 'A1',
+    clue: { uk: 'Я хочу каву, будь ласка', en: 'I would like a coffee, please' },
+    words: ['Vorrei', 'un', 'caffè,', 'per', 'favore.'],
+    explanation: { uk: '«Vorrei» (я б хотів) є ввічливою формою для замовлення.', en: '“Vorrei” (I would like) is the polite way to order.' }
+  },
+  {
+    id: 'reorder-verbs1', format: 'reorder', category: 'verbs', level: 'A2',
+    clue: { uk: 'Ми новачки у цьому будинку', en: 'We are new in this building' },
+    words: ['Noi', 'siamo', 'nuovi', 'in', 'questo', 'palazzo.'],
+    explanation: { uk: 'Займенник + дієслово + прикметник + прийменник.', en: 'Pronoun + verb + adjective + preposition.' }
+  },
+  {
+    id: 'reorder-dir1', format: 'reorder', category: 'directions', level: 'A2',
+    clue: { uk: 'Де знаходиться найближча станція?', en: 'Where is the nearest station?' },
+    words: ['Dov\'è', 'la', 'stazione', 'più', 'vicina?'],
+    explanation: { uk: '«Dov\'è» завжди стоїть на початку питального речення про місце знаходження.', en: '“Dov\'è” always starts a question about location.' }
+  },
+
+  /* ──────────────── AUDIO LISTENING (LISTEN) ──────────────── */
+  {
+    id: 'listen-g1', format: 'listen', category: 'greetings', level: 'A1',
+    audioWord: 'prego',
+    instruction: { uk: 'Прослухайте аудіо та оберіть переклад слова', en: 'Listen to the audio and pick the translation' },
+    options: [
+      { text: { uk: 'А) Дякую', en: 'A) Thank you' }, correct: false },
+      { text: { uk: 'Б) Будь ласка / Нема за що', en: 'B) You are welcome' }, correct: true },
+      { text: { uk: 'В) Привіт', en: 'C) Hello' }, correct: false }
+    ],
+    explanation: { uk: 'Озвучене слово: «Prego» (Будь ласка / Нема за що).', en: 'Audio spoken: “Prego” (You are welcome).' }
+  },
+  {
+    id: 'listen-g2', format: 'listen', category: 'greetings', level: 'A1',
+    audioWord: 'grazie',
+    instruction: { uk: 'Прослухайте аудіо та оберіть переклад слова', en: 'Listen to the audio and pick the translation' },
+    options: [
+      { text: { uk: 'А) Дякую', en: 'A) Thank you' }, correct: true },
+      { text: { uk: 'Б) Так', en: 'B) Yes' }, correct: false },
+      { text: { uk: 'В) Ні', en: 'C) No' }, correct: false }
+    ],
+    explanation: { uk: 'Озвучене слово: «Grazie» (Дякую).', en: 'Audio spoken: “Grazie” (Thank you).' }
+  },
+  {
+    id: 'listen-cafe1', format: 'listen', category: 'cafe', level: 'A2',
+    audioWord: 'cappuccino',
+    instruction: { uk: 'Прослухайте аудіо та оберіть правильно записане слово', en: 'Listen to the audio and select the matching word' },
+    options: [
+      { text: { uk: 'А) Capuchino', en: 'A) Capuchino' }, correct: false },
+      { text: { uk: 'Б) Cappuccino', en: 'B) Cappuccino' }, correct: true },
+      { text: { uk: 'В) Capucino', en: 'C) Capucino' }, correct: false }
+    ],
+    explanation: { uk: 'В італійській мові слово пишеться з подвійними `pp` та `cc`: Cappuccino.', en: 'Spelled with double `pp` and `cc`: Cappuccino.' }
+  },
+
+  /* ──────────────── DIALOGUE CONTINUATION (DIALOGUE) ──────────────── */
+  {
+    id: 'dlg-g1', format: 'dialogue', category: 'greetings', level: 'A1',
+    lineA: '👤 А: «Ciao! Come ti chiami?»',
+    instruction: { uk: '👤 Б: оберіть репліку, якою продовжити знайомство', en: '👤 B: choose the line that continues the introduction' },
+    options: [
+      { text: 'Mi chiamo Sara. E tu?', correct: true },
+      { text: 'Grazie mille per l\'aiuto!', correct: false },
+      { text: 'Un caffè per favore.', correct: false }
+    ],
+    explanation: { uk: 'На питання «Come ti chiami?» відповідь починається з «Mi chiamo...».', en: 'To answer “Come ti chiami?”, start with “Mi chiamo...”.' }
+  },
+  {
+    id: 'dlg-cafe1', format: 'dialogue', category: 'cafe', level: 'A1',
+    lineA: '👤 А: «Buongiorno! Cosa desidera?»',
+    instruction: { uk: '👤 Б: оберіть репліку для замовлення в барі', en: '👤 B: choose the line to order at the cafe bar' },
+    options: [
+      { text: 'Un cappuccino e una brioche, per favore.', correct: true },
+      { text: 'Piacere di conoscerti!', correct: false },
+      { text: 'Sto molto bene, grazie.', correct: false }
+    ],
+    explanation: { uk: 'В барі на питання «Cosa desidera?» замовляють їжу або напої.', en: 'When asked “Cosa desidera?”, specify what you want to order.' }
+  },
+  {
+    id: 'dlg-dir1', format: 'dialogue', category: 'directions', level: 'A2',
+    lineA: '👤 А: «Scusi, dov\'è il museo?»',
+    instruction: { uk: '👤 Б: оберіть репліку для пояснення дороги', en: '👤 B: choose the line to give directions' },
+    options: [
+      { text: 'Vada sempre diritto e poi a destra.', correct: true },
+      { text: 'Mi chiamo Marco.', correct: false },
+      { text: 'Sono venti euro.', correct: false }
+    ],
+    explanation: { uk: 'Вказівка дороги містить фрази напрямку: «sempre diritto» (прямо) та «a destra» (праворуч).', en: 'Giving directions involves phrases like “sempre diritto” and “a destra”.' }
+  },
+  {
+    id: 'dlg-shop1', format: 'dialogue', category: 'shopping', level: 'A2',
+    lineA: '👤 А: «Quanto costa questa maglietta?»',
+    instruction: { uk: '👤 Б: оберіть відповідь продавця про ціну', en: '👤 B: choose the seller\'s response showing price' },
+    options: [
+      { text: 'Costa venticinque euro.', correct: true },
+      { text: 'Buona giornata!', correct: false },
+      { text: 'No, non parlo inglese.', correct: false }
+    ],
+    explanation: { uk: 'На питання про ціну «Quanto costa...?» називають вартість «Costa... euro».', en: 'When asked “Quanto costa...?”, state the price in euros.' }
+  }
+];
+
+/* ════════════════════════════════════════════════════════════════════
+   STATE MANAGEMENT & FILTERING ENGINE
+   ════════════════════════════════════════════════════════════════════ */
+
+let activeCategoryFilter = 'all';
+let currentTab = 'mcq';
+const answeredState = {};
+
+function getLang() {
+  return typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
 }
 
-function taskText(ukrainian, english) {
-  return getSourceLanguage() === 'en' ? english : ukrainian;
+function getText(obj) {
+  if (!obj) return '';
+  if (typeof obj === 'string') return obj;
+  const lang = getLang();
+  return obj[lang] || obj['uk'] || obj['en'] || '';
 }
 
-/* ── Tabs ────────────────────────────────────────────────── */
+function setCategoryFilter(cat) {
+  activeCategoryFilter = cat;
+  document.querySelectorAll('.cat-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === cat);
+  });
+  applyFiltersAndSort();
+}
+
 function showTaskTab(name) {
+  currentTab = name;
   document.querySelectorAll('.task-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.task-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('panel-' + name).classList.add('active');
   document.querySelector(`.task-tab[data-tab="${name}"]`).classList.add('active');
+
+  if (name === 'match') {
+    renderMatchingPanel();
+  } else if (name === 'reorder') {
+    renderReorderPanel();
+  } else if (name === 'dict') {
+    generateDictQuiz();
+  } else {
+    applyFiltersAndSort();
+  }
 }
 
-/* ── Generic multiple-choice checker (used by MCQ, listening, dialogue, dict quiz) ── */
-function checkAnswer(qId, optIdx, isCorrect, el, xp = 15) {
-  if (answered[qId]) return;
-  answered[qId] = true;
+function applyFiltersAndSort() {
+  const groupVal = document.getElementById('groupFilterSelect').value;
+  const levelVal = document.getElementById('levelFilterSelect').value;
+  const sortVal = document.getElementById('sortFilterSelect').value;
+  const searchVal = document.getElementById('searchInput').value.trim().toLowerCase();
 
-  const card = el.closest('.quiz-card');
+  // Filter tasks for current format tab
+  let filtered = TASK_BANK.filter(t => {
+    if (t.format !== currentTab) return false;
+    
+    // Category pill filter
+    if (activeCategoryFilter !== 'all' && t.category !== activeCategoryFilter) return false;
+
+    // Group filter (grammar vs. situational)
+    const catInfo = CATEGORIES_MAP[t.category];
+    if (groupVal !== 'all' && catInfo && catInfo.group !== groupVal) return false;
+
+    // Level filter
+    if (levelVal !== 'all' && t.level !== levelVal) return false;
+
+    // Search filter
+    if (searchVal) {
+      const qText = getText(t.question || t.title || t.lineA).toLowerCase();
+      const catText = getText(catInfo ? catInfo.nameUk : '').toLowerCase();
+      if (!qText.includes(searchVal) && !catText.includes(searchVal)) return false;
+    }
+
+    return true;
+  });
+
+  // Sort tasks
+  if (sortVal === 'level-asc') {
+    filtered.sort((a, b) => (LEVEL_RANK[a.level] || 1) - (LEVEL_RANK[b.level] || 1));
+  } else if (sortVal === 'level-desc') {
+    filtered.sort((a, b) => (LEVEL_RANK[b.level] || 1) - (LEVEL_RANK[a.level] || 1));
+  }
+
+  // Update summary badge
+  const summaryEl = document.getElementById('activeFilterSummary');
+  if (summaryEl) {
+    summaryEl.textContent = `${getLang() === 'en' ? 'Showing' : 'Знайдено'}: ${filtered.length} ${getLang() === 'en' ? 'exercises' : 'вправ'}`;
+  }
+
+  // Render format specific container
+  if (currentTab === 'mcq') renderMCQPanel(filtered);
+  else if (currentTab === 'blank') renderBlankPanel(filtered);
+  else if (currentTab === 'listen') renderListenPanel(filtered);
+  else if (currentTab === 'dialogue') renderDialoguePanel(filtered);
+  else if (currentTab === 'match') renderMatchingPanel(filtered);
+  else if (currentTab === 'reorder') renderReorderPanel(filtered);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   RENDERERS FOR EXERCISE TYPES
+   ════════════════════════════════════════════════════════════════════ */
+
+function groupByCategory(items) {
+  const groups = {};
+  items.forEach(item => {
+    const cat = item.category || 'general';
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(item);
+  });
+  return groups;
+}
+
+function renderCategoryHeader(catKey, count) {
+  const info = CATEGORIES_MAP[catKey] || { nameUk: 'Загальні вправи', nameEn: 'General Exercises' };
+  const name = getLang() === 'en' ? info.nameEn : info.nameUk;
+  return `
+    <div class="category-section-title">
+      <span>${name}</span>
+      <span class="category-section-count">${count} ${getLang() === 'en' ? 'tasks' : 'завдань'}</span>
+    </div>
+  `;
+}
+
+function renderEmptyState() {
+  return `
+    <div class="empty-state">
+      <div class="empty-state-icon">🔍</div>
+      <h3>${getLang() === 'en' ? 'No exercises found' : 'Вправ не знайдено'}</h3>
+      <p>${getLang() === 'en' ? 'Try adjusting your filters or search keywords.' : 'Спробуйте змінити категорії або скинути фільтри.'}</p>
+    </div>
+  `;
+}
+
+/* ── 1. Multiple Choice Renderer ── */
+function renderMCQPanel(items) {
+  const container = document.getElementById('container-mcq');
+  if (!items.length) { container.innerHTML = renderEmptyState(); return; }
+
+  const groups = groupByCategory(items);
+  let html = '';
+
+  for (const catKey in groups) {
+    html += renderCategoryHeader(catKey, groups[catKey].length);
+    groups[catKey].forEach((task, idx) => {
+      const catInfo = CATEGORIES_MAP[task.category] || {};
+      const catName = getLang() === 'en' ? (catInfo.nameEn || '') : (catInfo.nameUk || '');
+      
+      html += `
+        <div class="quiz-card" id="card-${task.id}">
+          <div class="card-meta-header">
+            <div class="card-tags">
+              <span class="badge-level lvl-${task.level.toLowerCase()}">${task.level}</span>
+              <span class="badge-cat">${catName}</span>
+            </div>
+            <div class="quiz-q-num">${getLang() === 'en' ? 'Question' : 'Питання'} ${idx + 1}</div>
+          </div>
+          <div class="quiz-question">${getText(task.question)}</div>
+          <div class="quiz-options">
+            ${task.options.map((opt, oIdx) => `
+              <div class="quiz-opt" data-correct="${opt.correct}" onclick="handleMCQClick('${task.id}', ${oIdx}, ${opt.correct}, this)">
+                ${getText(opt.text)}
+              </div>
+            `).join('')}
+          </div>
+          <div class="quiz-feedback" id="fb-${task.id}"></div>
+        </div>
+      `;
+    });
+  }
+  container.innerHTML = html;
+}
+
+function handleMCQClick(taskId, optIdx, isCorrect, el) {
+  if (answeredState[taskId]) return;
+  answeredState[taskId] = true;
+
+  const card = document.getElementById(`card-${taskId}`);
+  const task = TASK_BANK.find(t => t.id === taskId);
   const opts = card.querySelectorAll('.quiz-opt');
-  const fb = card.querySelector('.quiz-feedback');
+  const fb = document.getElementById(`fb-${taskId}`);
 
   opts.forEach(o => o.style.pointerEvents = 'none');
 
   if (isCorrect) {
     el.classList.add('correct');
     fb.className = 'quiz-feedback show-correct';
-    fb.innerHTML = `🎉 <b>${taskText('Чудово!', 'Great!')}</b> ${taskText('Правильна відповідь.', 'Correct answer.')} (+${xp} XP)`;
-    addXP(xp);
+    fb.innerHTML = `🎉 <b>${getLang() === 'en' ? 'Great!' : 'Чудово!'}</b> ${getLang() === 'en' ? 'Correct answer.' : 'Правильна відповідь.'} (+15 XP)`;
+    if (typeof addXP === 'function') addXP(15);
   } else {
     el.classList.add('wrong');
     const correctOpt = [...opts].find(o => o.dataset.correct === 'true');
     if (correctOpt) correctOpt.classList.add('correct');
     fb.className = 'quiz-feedback show-wrong';
-    fb.innerHTML = `❌ <b>${taskText('Не зовсім.', 'Not quite.')}</b> ${taskText('Подивіться правильний варіант вище.', 'The correct answer is shown above.')}`;
+    fb.innerHTML = `❌ <b>${getLang() === 'en' ? 'Not quite.' : 'Не зовсім.'}</b> ${getLang() === 'en' ? 'The correct answer is highlighted.' : 'Подивіться правильний варіант вище.'}`;
   }
 
-  if (card.dataset.word) {
-    fb.innerHTML += `<br><span style="opacity:.7;">${taskText('Слово:', 'Word:')} <b>${card.dataset.word}</b></span>`;
+  if (task && task.explanation) {
+    fb.innerHTML += `<div class="quiz-explanation">💡 <b>${getLang() === 'en' ? 'Explanation:' : 'Пояснення:'}</b> ${getText(task.explanation)}</div>`;
   }
 }
 
-/* ── Generic text-answer checker (used by fill-blank, translation typing) ── */
-function checkTextAnswer(btn, answers) {
-  const card = btn.closest('.quiz-card');
-  if (card.dataset.answered === '1') return;
+/* ── 2. Fill in the Blank Renderer ── */
+function renderBlankPanel(items) {
+  const container = document.getElementById('container-blank');
+  if (!items.length) { container.innerHTML = renderEmptyState(); return; }
 
-  const input = card.querySelector('.text-answer-input');
-  const fb = card.querySelector('.quiz-feedback');
+  const groups = groupByCategory(items);
+  let html = '';
+
+  for (const catKey in groups) {
+    html += renderCategoryHeader(catKey, groups[catKey].length);
+    groups[catKey].forEach(task => {
+      const catInfo = CATEGORIES_MAP[task.category] || {};
+      const catName = getLang() === 'en' ? (catInfo.nameEn || '') : (catInfo.nameUk || '');
+
+      html += `
+        <div class="quiz-card" id="card-${task.id}">
+          <div class="card-meta-header">
+            <div class="card-tags">
+              <span class="badge-level lvl-${task.level.toLowerCase()}">${task.level}</span>
+              <span class="badge-cat">${catName}</span>
+            </div>
+            <div class="quiz-q-num">${getLang() === 'en' ? 'Fill in the blank' : 'Заповніть пропуск'}</div>
+          </div>
+          <div class="quiz-question">${getText(task.question)}</div>
+          ${task.hint ? `<div style="font-size:0.82rem;color:var(--ink-soft);margin-bottom:0.75rem;">${getText(task.hint)}</div>` : ''}
+          <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+            <input type="text" class="text-answer-input" id="input-${task.id}" placeholder="${getLang() === 'en' ? 'Type answer...' : 'Впишіть слово...'}" />
+            <button class="btn-primary" onclick="handleBlankCheck('${task.id}')">${getLang() === 'en' ? 'Check' : 'Перевірити'}</button>
+          </div>
+          <div class="quiz-feedback" id="fb-${task.id}"></div>
+        </div>
+      `;
+    });
+  }
+  container.innerHTML = html;
+}
+
+function handleBlankCheck(taskId) {
+  if (answeredState[taskId]) return;
+  const task = TASK_BANK.find(t => t.id === taskId);
+  const input = document.getElementById(`input-${taskId}`);
+  const fb = document.getElementById(`fb-${taskId}`);
   const val = input.value.trim().toLowerCase();
-  const norm = answers.map(a => a.toLowerCase());
+  const validAnswers = task.answers.map(a => a.toLowerCase());
 
-  if (norm.includes(val)) {
-    card.dataset.answered = '1';
+  if (validAnswers.includes(val)) {
+    answeredState[taskId] = true;
     input.disabled = true;
     fb.className = 'quiz-feedback show-correct';
-    fb.innerHTML = `🎉 <b>${taskText('Правильно!', 'Correct!')}</b> (+10 XP)`;
-    addXP(10);
+    fb.innerHTML = `🎉 <b>${getLang() === 'en' ? 'Correct!' : 'Правильно!'}</b> (+10 XP)`;
+    if (typeof addXP === 'function') addXP(10);
   } else {
     fb.className = 'quiz-feedback show-wrong';
-    fb.innerHTML = `❌ <b>${taskText('Спробуйте ще раз.', 'Try again.')}</b> (${taskText('Правильна відповідь:', 'Correct answer:')} <b>${answers[0]}</b>)`;
+    fb.innerHTML = `❌ <b>${getLang() === 'en' ? 'Try again.' : 'Спробуйте ще раз.'}</b> (${getLang() === 'en' ? 'Correct:' : 'Правильна відповідь:'} <b>${task.answers[0]}</b>)`;
+  }
+
+  if (task && task.explanation) {
+    fb.innerHTML += `<div class="quiz-explanation">💡 <b>${getLang() === 'en' ? 'Explanation:' : 'Пояснення:'}</b> ${getText(task.explanation)}</div>`;
   }
 }
 
-/* ── Matching pairs ──────────────────────────────────────── */
-const MATCH_DATA = [
-  { id: 'm1', it: 'ciao', ua: 'привіт', en: 'hello' },
-  { id: 'm2', it: 'grazie', ua: 'дякую', en: 'thank you' },
-  { id: 'm3', it: 'prego', ua: 'будь ласка', en: 'please / you are welcome' },
-  { id: 'm4', it: 'sì', ua: 'так', en: 'yes' },
-  { id: 'm5', it: 'no', ua: 'ні', en: 'no' },
-  { id: 'm6', it: 'bene', ua: 'добре', en: 'well / good' }
-];
-let matchSelected = { it: null, ua: null };
-let matchFoundCount = 0;
-let matchXPGiven = false;
+/* ── 3. Audio Listening Renderer ── */
+function renderListenPanel(items) {
+  const container = document.getElementById('container-listen');
+  if (!items.length) { container.innerHTML = renderEmptyState(); return; }
 
-function initMatch() {
-  matchSelected = { it: null, ua: null };
-  matchFoundCount = 0;
-  matchXPGiven = false;
-  const itCol = document.getElementById('matchColIt');
-  const uaCol = document.getElementById('matchColUa');
-  itCol.innerHTML = shuffle(MATCH_DATA).map(m => `<div class="match-item" data-id="${m.id}" data-side="it" onclick="selectMatch(this)">${m.it}</div>`).join('');
-  uaCol.innerHTML = shuffle(MATCH_DATA).map(m => `<div class="match-item" data-id="${m.id}" data-side="ua" onclick="selectMatch(this)">${getSourceLanguage() === 'en' ? m.en : m.ua}</div>`).join('');
-  document.getElementById('matchStatus').textContent = `${taskText('Знайдено пар', 'Pairs found')}: 0/${MATCH_DATA.length}`;
-  applyInterfaceLanguage();
+  const groups = groupByCategory(items);
+  let html = '';
+
+  for (const catKey in groups) {
+    html += renderCategoryHeader(catKey, groups[catKey].length);
+    groups[catKey].forEach(task => {
+      const catInfo = CATEGORIES_MAP[task.category] || {};
+      const catName = getLang() === 'en' ? (catInfo.nameEn || '') : (catInfo.nameUk || '');
+
+      html += `
+        <div class="quiz-card" id="card-${task.id}">
+          <div class="card-meta-header">
+            <div class="card-tags">
+              <span class="badge-level lvl-${task.level.toLowerCase()}">${task.level}</span>
+              <span class="badge-cat">${catName}</span>
+            </div>
+            <div class="quiz-q-num">${getLang() === 'en' ? 'Listening Practice' : 'Аудіювання'}</div>
+          </div>
+          <div class="quiz-question" style="display:flex;align-items:center;gap:0.75rem;">
+            <button class="audio-btn" onclick="speak('${task.audioWord}', this)" style="font-size:1.3rem;" title="Listen to Italian word">🔊</button>
+            <span>${getText(task.instruction)}</span>
+          </div>
+          <div class="quiz-options">
+            ${task.options.map((opt, oIdx) => `
+              <div class="quiz-opt" data-correct="${opt.correct}" onclick="handleMCQClick('${task.id}', ${oIdx}, ${opt.correct}, this)">
+                ${getText(opt.text)}
+              </div>
+            `).join('')}
+          </div>
+          <div class="quiz-feedback" id="fb-${task.id}"></div>
+        </div>
+      `;
+    });
+  }
+  container.innerHTML = html;
 }
 
-function selectMatch(el) {
+/* ── 4. Dialogue Renderer ── */
+function renderDialoguePanel(items) {
+  const container = document.getElementById('container-dialogue');
+  if (!items.length) { container.innerHTML = renderEmptyState(); return; }
+
+  const groups = groupByCategory(items);
+  let html = '';
+
+  for (const catKey in groups) {
+    html += renderCategoryHeader(catKey, groups[catKey].length);
+    groups[catKey].forEach(task => {
+      const catInfo = CATEGORIES_MAP[task.category] || {};
+      const catName = getLang() === 'en' ? (catInfo.nameEn || '') : (catInfo.nameUk || '');
+
+      html += `
+        <div class="quiz-card" id="card-${task.id}">
+          <div class="card-meta-header">
+            <div class="card-tags">
+              <span class="badge-level lvl-${task.level.toLowerCase()}">${task.level}</span>
+              <span class="badge-cat">${catName}</span>
+            </div>
+            <div class="quiz-q-num">${getLang() === 'en' ? 'Interactive Dialogue' : 'Практика діалогу'}</div>
+          </div>
+          <div class="quiz-question">
+            <div>${task.lineA}</div>
+            <div style="margin-top:0.4rem;color:var(--ink-soft);font-size:0.88rem;">${getText(task.instruction)}</div>
+          </div>
+          <div class="quiz-options">
+            ${task.options.map((opt, oIdx) => `
+              <div class="quiz-opt" data-correct="${opt.correct}" onclick="handleMCQClick('${task.id}', ${oIdx}, ${opt.correct}, this)">
+                💬 ${opt.text}
+              </div>
+            `).join('')}
+          </div>
+          <div class="quiz-feedback" id="fb-${task.id}"></div>
+        </div>
+      `;
+    });
+  }
+  container.innerHTML = html;
+}
+
+/* ── 5. Matching Pairs Renderer ── */
+let currentMatchData = [];
+let matchSelected = { it: null, target: null };
+let matchFoundCount = 0;
+
+function renderMatchingPanel(filteredItems) {
+  const container = document.getElementById('container-match');
+  const matchTasks = (filteredItems || TASK_BANK).filter(t => t.format === 'match');
+
+  if (!matchTasks.length) { container.innerHTML = renderEmptyState(); return; }
+
+  const task = matchTasks[0];
+  currentMatchData = task.pairs;
+  matchSelected = { it: null, target: null };
+  matchFoundCount = 0;
+
+  const shuffledIt = [...currentMatchData].sort(() => Math.random() - 0.5);
+  const shuffledTarget = [...currentMatchData].sort(() => Math.random() - 0.5);
+
+  container.innerHTML = `
+    <div class="quiz-card">
+      <div class="card-meta-header">
+        <div class="card-tags">
+          <span class="badge-level lvl-${task.level.toLowerCase()}">${task.level}</span>
+          <span class="badge-cat">${getLang() === 'en' ? 'Word Matching' : 'Зіставлення слів'}</span>
+        </div>
+        <div class="quiz-q-num">${getText(task.title)}</div>
+      </div>
+      <div class="quiz-question">${getLang() === 'en' ? 'Select an Italian word, then select its translation' : 'Натисніть італійське слово, а потім відповідний переклад'}</div>
+      
+      <div class="match-wrap">
+        <div class="match-col" id="matchColIt">
+          ${shuffledIt.map(m => `<div class="match-item" data-id="${m.id}" data-side="it" onclick="selectMatchItem(this)">${m.it}</div>`).join('')}
+        </div>
+        <div class="match-col" id="matchColTarget">
+          ${shuffledTarget.map(m => `<div class="match-item" data-id="${m.id}" data-side="target" onclick="selectMatchItem(this)">${getLang() === 'en' ? m.en : m.ua}</div>`).join('')}
+        </div>
+      </div>
+
+      <div class="match-status" id="matchStatus">${getLang() === 'en' ? 'Pairs found' : 'Знайдено пар'}: 0/${currentMatchData.length}</div>
+      <div style="margin-top:1rem;">
+        <button class="btn-ghost" onclick="renderMatchingPanel()">🔄 ${getLang() === 'en' ? 'Shuffle again' : 'Перемішати заново'}</button>
+      </div>
+    </div>
+  `;
+}
+
+function selectMatchItem(el) {
   const side = el.dataset.side;
   if (el.classList.contains('matched')) return;
+
   if (matchSelected[side]) matchSelected[side].classList.remove('selected');
   el.classList.add('selected');
   matchSelected[side] = el;
 
-  if (matchSelected.it && matchSelected.ua) {
-    const itEl = matchSelected.it, uaEl = matchSelected.ua;
-    if (itEl.dataset.id === uaEl.dataset.id) {
+  if (matchSelected.it && matchSelected.target) {
+    const itEl = matchSelected.it, targetEl = matchSelected.target;
+    if (itEl.dataset.id === targetEl.dataset.id) {
       itEl.classList.remove('selected');
-      uaEl.classList.remove('selected');
+      targetEl.classList.remove('selected');
       itEl.classList.add('matched');
-      uaEl.classList.add('matched');
+      targetEl.classList.add('matched');
       matchFoundCount++;
-      document.getElementById('matchStatus').textContent = `${taskText('Знайдено пар', 'Pairs found')}: ${matchFoundCount}/${MATCH_DATA.length}`;
-      matchSelected = { it: null, ua: null };
-      if (matchFoundCount === MATCH_DATA.length && !matchXPGiven) {
-        matchXPGiven = true;
-        addXP(20);
-        document.getElementById('matchStatus').innerHTML += ` 🎉 ${taskText('Всі пари знайдено!', 'All pairs found!')} (+20 XP)`;
+      
+      document.getElementById('matchStatus').textContent = `${getLang() === 'en' ? 'Pairs found' : 'Знайдено пар'}: ${matchFoundCount}/${currentMatchData.length}`;
+      matchSelected = { it: null, target: null };
+
+      if (matchFoundCount === currentMatchData.length) {
+        if (typeof addXP === 'function') addXP(20);
+        document.getElementById('matchStatus').innerHTML += ` 🎉 <b>${getLang() === 'en' ? 'All pairs matched!' : 'Всі пари знайдено!'}</b> (+20 XP)`;
       }
     } else {
       itEl.classList.add('wrong');
-      uaEl.classList.add('wrong');
+      targetEl.classList.add('wrong');
       setTimeout(() => {
         itEl.classList.remove('selected', 'wrong');
-        uaEl.classList.remove('selected', 'wrong');
-        matchSelected = { it: null, ua: null };
+        targetEl.classList.remove('selected', 'wrong');
+        matchSelected = { it: null, target: null };
       }, 600);
     }
   }
 }
 
-/* ── Sentence reorder ────────────────────────────────────── */
-const REORDER_DATA = [
-  { id: 'r1', clue: 'Привіт, як справи?', clueEn: 'Hello, how are you?', words: ['Ciao,', 'come', 'stai?'] },
-  { id: 'r2', clue: 'Дуже дякую за все', clueEn: 'Thank you very much for everything', words: ['Grazie', 'mille', 'per', 'tutto'] },
-  { id: 'r3', clue: 'Ласкаво просимо до нашого будинку', clueEn: 'Welcome to our apartment building', words: ['Benvenuto', 'nel', 'nostro', 'palazzo'] }
-];
-const reorderState = {};
+/* ── 6. Sentence Builder / Reorder Renderer ── */
+const reorderStateMap = {};
 
-function initReorder() {
-  const container = document.getElementById('reorderList');
-  container.innerHTML = REORDER_DATA.map(r => `
-    <div class="quiz-card" id="reorder-${r.id}" data-answered="0">
-      <div class="quiz-q-num">${taskText('Складіть речення', 'Build the sentence')}</div>
-      <div class="quiz-question">💬 «${getSourceLanguage() === 'en' ? r.clueEn : r.clue}»</div>
-      <div class="reorder-answer" id="ans-${r.id}"></div>
-      <div class="reorder-pool" id="pool-${r.id}"></div>
-      <div style="display:flex;gap:0.6rem;margin-top:1rem;">
-        <button class="btn-primary" onclick="checkReorder('${r.id}')">Перевірити</button>
-        <button class="btn-ghost" onclick="resetReorder('${r.id}')">Скинути</button>
+function renderReorderPanel(filteredItems) {
+  const container = document.getElementById('container-reorder');
+  const items = (filteredItems || TASK_BANK).filter(t => t.format === 'reorder');
+
+  if (!items.length) { container.innerHTML = renderEmptyState(); return; }
+
+  container.innerHTML = items.map(task => {
+    if (!reorderStateMap[task.id]) {
+      reorderStateMap[task.id] = {
+        pool: [...task.words].sort(() => Math.random() - 0.5),
+        answer: []
+      };
+    }
+    const catInfo = CATEGORIES_MAP[task.category] || {};
+    const catName = getLang() === 'en' ? (catInfo.nameEn || '') : (catInfo.nameUk || '');
+
+    return `
+      <div class="quiz-card" id="card-${task.id}">
+        <div class="card-meta-header">
+          <div class="card-tags">
+            <span class="badge-level lvl-${task.level.toLowerCase()}">${task.level}</span>
+            <span class="badge-cat">${catName}</span>
+          </div>
+          <div class="quiz-q-num">${getLang() === 'en' ? 'Build the sentence' : 'Складіть речення'}</div>
+        </div>
+        <div class="quiz-question">💬 «${getText(task.clue)}»</div>
+        <div class="reorder-answer" id="ans-${task.id}"></div>
+        <div class="reorder-pool" id="pool-${task.id}"></div>
+        <div style="display:flex;gap:0.6rem;margin-top:1rem;">
+          <button class="btn-primary" onclick="checkReorderSentence('${task.id}')">${getLang() === 'en' ? 'Check' : 'Перевірити'}</button>
+          <button class="btn-ghost" onclick="resetReorderSentence('${task.id}')">${getLang() === 'en' ? 'Reset' : 'Скинути'}</button>
+        </div>
+        <div class="quiz-feedback" id="fb-${task.id}"></div>
       </div>
-      <div class="quiz-feedback" id="fb-reorder-${r.id}"></div>
-    </div>
-  `).join('');
-  REORDER_DATA.forEach(r => {
-    reorderState[r.id] = { pool: shuffle(r.words), answer: [] };
-    drawReorder(r.id);
-  });
-  applyInterfaceLanguage();
+    `;
+  }).join('');
+
+  items.forEach(task => drawReorderChips(task.id));
 }
 
-function drawReorder(id) {
-  const st = reorderState[id];
-  document.getElementById(`pool-${id}`).innerHTML = st.pool.map((w, i) => `<span class="reorder-chip" onclick="moveToAnswer('${id}',${i})">${w}</span>`).join('');
-  document.getElementById(`ans-${id}`).innerHTML = st.answer.length
-    ? st.answer.map((w, i) => `<span class="reorder-chip answer-chip" onclick="moveToPool('${id}',${i})">${w}</span>`).join('')
-    : `<span style="color:var(--ink-soft);font-size:0.8rem;">${taskText('Натисніть слова знизу, щоб скласти речення', 'Select the words below to build the sentence')}</span>`;
+function drawReorderChips(id) {
+  const st = reorderStateMap[id];
+  if (!st) return;
+  const poolEl = document.getElementById(`pool-${id}`);
+  const ansEl = document.getElementById(`ans-${id}`);
+  if (!poolEl || !ansEl) return;
+
+  poolEl.innerHTML = st.pool.map((w, i) => `<span class="reorder-chip" onclick="moveChipToAnswer('${id}',${i})">${w}</span>`).join('');
+  ansEl.innerHTML = st.answer.length
+    ? st.answer.map((w, i) => `<span class="reorder-chip answer-chip" onclick="moveChipToPool('${id}',${i})">${w}</span>`).join('')
+    : `<span style="color:var(--ink-soft);font-size:0.8rem;">${getLang() === 'en' ? 'Click words below to assemble sentence' : 'Натисніть слова знизу, щоб скласти речення'}</span>`;
 }
 
-function moveToAnswer(id, idx) {
-  const st = reorderState[id];
+function moveChipToAnswer(id, idx) {
+  const st = reorderStateMap[id];
   const [w] = st.pool.splice(idx, 1);
   st.answer.push(w);
-  drawReorder(id);
+  drawReorderChips(id);
 }
 
-function moveToPool(id, idx) {
-  const st = reorderState[id];
+function moveChipToPool(id, idx) {
+  const st = reorderStateMap[id];
   const [w] = st.answer.splice(idx, 1);
   st.pool.push(w);
-  drawReorder(id);
+  drawReorderChips(id);
 }
 
-function resetReorder(id) {
-  const card = document.getElementById(`reorder-${id}`);
-  card.dataset.answered = '0';
-  const fb = document.getElementById(`fb-reorder-${id}`);
-  fb.className = 'quiz-feedback';
-  fb.innerHTML = '';
-  const r = REORDER_DATA.find(x => x.id === id);
-  reorderState[id] = { pool: shuffle(r.words), answer: [] };
-  drawReorder(id);
+function resetReorderSentence(id) {
+  const task = TASK_BANK.find(x => x.id === id);
+  reorderStateMap[id] = { pool: [...task.words].sort(() => Math.random() - 0.5), answer: [] };
+  const fb = document.getElementById(`fb-${id}`);
+  if (fb) { fb.className = 'quiz-feedback'; fb.innerHTML = ''; }
+  delete answeredState[id];
+  drawReorderChips(id);
 }
 
-function checkReorder(id) {
-  const card = document.getElementById(`reorder-${id}`);
-  if (card.dataset.answered === '1') return;
-  const r = REORDER_DATA.find(x => x.id === id);
-  const st = reorderState[id];
-  const fb = document.getElementById(`fb-reorder-${id}`);
+function checkReorderSentence(id) {
+  if (answeredState[id]) return;
+  const task = TASK_BANK.find(x => x.id === id);
+  const st = reorderStateMap[id];
+  const fb = document.getElementById(`fb-${id}`);
 
-  if (st.answer.join(' ') === r.words.join(' ')) {
-    card.dataset.answered = '1';
+  if (st.answer.join(' ') === task.words.join(' ')) {
+    answeredState[id] = true;
     fb.className = 'quiz-feedback show-correct';
-    fb.innerHTML = `🎉 <b>${taskText('Правильно!', 'Correct!')}</b> (+10 XP)`;
-    addXP(10);
+    fb.innerHTML = `🎉 <b>${getLang() === 'en' ? 'Correct!' : 'Правильно!'}</b> (+10 XP)`;
+    if (typeof addXP === 'function') addXP(10);
   } else {
     fb.className = 'quiz-feedback show-wrong';
-    fb.innerHTML = `❌ <b>${taskText('Ще не так.', 'Not quite.')}</b> ${taskText('Спробуйте ще раз.', 'Try again.')}`;
+    fb.innerHTML = `❌ <b>${getLang() === 'en' ? 'Not quite right.' : 'Ще не так.'}</b> ${getLang() === 'en' ? 'Check the word order.' : 'Спробуйте ще раз.'}`;
+  }
+
+  if (task && task.explanation) {
+    fb.innerHTML += `<div class="quiz-explanation">💡 <b>${getLang() === 'en' ? 'Explanation:' : 'Пояснення:'}</b> ${getText(task.explanation)}</div>`;
   }
 }
 
-/* ── Dictionary-based quiz ───────────────────────────────── */
+/* ── 7. Custom Dictionary Quiz Generator ── */
 const DICT_BASE_TASKS = [
   { word: 'ciao', trans: 'привіт / бувай' },
   { word: 'come stai?', trans: 'як справи?' },
@@ -915,7 +1645,6 @@ const DICT_BASE_TASKS = [
   { word: 'no', trans: 'ні' },
   { word: "anch'io", trans: 'я теж' },
   { word: 'nuovo/a', trans: 'новий / нова' },
-  { word: 'primo giorno', trans: 'перший день' },
   { word: 'benvenuto/a', trans: 'ласкаво просимо' },
   { word: 'palazzo', trans: 'будинок (багатоповерховий)' },
   { word: 'grazie mille', trans: 'дуже дякую' }
@@ -924,9 +1653,9 @@ const DICT_BASE_TASKS = [
 function getAllDictWords() {
   let custom = [];
   try { custom = JSON.parse(localStorage.getItem(DICT_KEY) || '[]'); } catch {}
-  const baseWords = DICT_BASE_TASKS.map(word => ({
-    ...word,
-    trans: getSourceTranslation(`flashcards.${word.word}`, word.trans)
+  const baseWords = DICT_BASE_TASKS.map(w => ({
+    ...w,
+    trans: typeof getSourceTranslation === 'function' ? getSourceTranslation(`flashcards.${w.word}`, w.trans) : w.trans
   }));
   return [...baseWords, ...custom.map(c => ({ word: c.word, trans: c.trans }))];
 }
@@ -936,34 +1665,45 @@ function generateDictQuiz() {
   const container = document.getElementById('dictQuizContainer');
 
   if (pool.length < 3) {
-    container.textContent = taskText('Додайте більше слів у словник, щоб згенерувати тест (мінімум 3).', 'Add more words to your dictionary to generate a quiz (at least 3).');
+    container.textContent = getLang() === 'en' ? 'Add more words to your dictionary to generate a quiz (at least 3).' : 'Додайте більше слів у словник, щоб згенерувати тест (мінімум 3).';
     return;
   }
 
   const qCount = Math.min(5, pool.length);
-  const chosen = shuffle(pool).slice(0, qCount);
+  const chosen = [...pool].sort(() => Math.random() - 0.5).slice(0, qCount);
 
   container.innerHTML = chosen.map((q, i) => {
-    const distractors = shuffle(pool.filter(w => w.word !== q.word)).slice(0, 2);
-    const options = shuffle([{ ...q, correct: true }, ...distractors.map(d => ({ ...d, correct: false }))]);
+    const distractors = [...pool.filter(w => w.word !== q.word)].sort(() => Math.random() - 0.5).slice(0, 2);
+    const options = [...[{ ...q, correct: true }], ...distractors.map(d => ({ ...d, correct: false }))].sort(() => Math.random() - 0.5);
     const qid = `dq_${Date.now()}_${i}`;
     return `
-      <div class="quiz-card">
-        <div class="quiz-q-num">Питання ${i + 1} з ${qCount}</div>
-        <div class="quiz-question">${taskText('Що означає', 'What does')} «${q.word}»${taskText('?', ' mean?')}</div>
+      <div class="quiz-card" id="card-${qid}">
+        <div class="quiz-q-num">${getLang() === 'en' ? 'Question' : 'Питання'} ${i + 1} ${getLang() === 'en' ? 'of' : 'з'} ${qCount}</div>
+        <div class="quiz-question">${getLang() === 'en' ? 'What does' : 'Що означає'} «<b>${q.word}</b>»${getLang() === 'en' ? ' mean?' : '?'}</div>
         <div class="quiz-options">
-          ${options.map((o, idx) => `<div class="quiz-opt" data-correct="${o.correct}" onclick="checkAnswer('${qid}',${idx},${o.correct},this,10)">${o.trans}</div>`).join('')}
+          ${options.map((o, idx) => `
+            <div class="quiz-opt" data-correct="${o.correct}" onclick="handleMCQClick('${qid}', ${idx}, ${o.correct}, this)">
+              ${o.trans}
+            </div>
+          `).join('')}
         </div>
-        <div class="quiz-feedback"></div>
+        <div class="quiz-feedback" id="fb-${qid}"></div>
       </div>
     `;
   }).join('');
-  applyInterfaceLanguage();
 }
 
+/* ════════════════════════════════════════════════════════════════════
+   INITIALIZATION
+   ════════════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-  initMatch();
-  initReorder();
+  const urlParams = new URLSearchParams(window.location.search);
+  const requestedGroup = urlParams.get('group');
+  if (requestedGroup && ['grammar', 'situational'].includes(requestedGroup)) {
+    const groupSelect = document.getElementById('groupFilterSelect');
+    if (groupSelect) groupSelect.value = requestedGroup;
+  }
+  applyFiltersAndSort();
 });
 </script>
 </body>

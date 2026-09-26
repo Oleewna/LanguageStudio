@@ -7,6 +7,13 @@
 <title>Довідник граматики — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  (function() {
+    const saved = localStorage.getItem('ls_theme');
+    const theme = (saved === 'dark' || saved === 'light') ? saved : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
 <link rel="stylesheet" href="../css/main.css">
 <style>
   .grammar-card {
@@ -119,7 +126,14 @@
   </a>
 
   <nav class="nav-links" aria-label="Головна навігація">
-    <div class="nav-dd"><button class="nav-dd-btn" onclick="location.href='units.html'">📚 Розділи <span class="chev">▾</span></button><div class="nav-dd-menu"><div class="nav-dd-header">Навчальні юніти</div>        <div class="nav-submenu">
+    <!-- Розділи dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='units.html'">
+        📚 Розділи <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Навчальні юніти</div>
+        <div class="nav-submenu">
           <a href="../lessons/communication-basics-lesson-1.html" class="nav-dd-item nav-submenu-trigger">
             <span class="dd-icon">📚</span>Основи спілкування
             <span class="submenu-arrow">›</span>
@@ -129,18 +143,78 @@
             <a href="../lessons/communication-basics-lesson-1.html" class="nav-dd-item"><span class="dd-icon">▶</span>Урок 1 · Знайомство <span class="dd-tag active">Активний</span></a>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 2 · Come ti chiami?</span>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 3 · Di dove sei?</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 4 · Consolidazione</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 5 · La mia scena</span>
           </div>
-        </div></div></div>
-    <div class="nav-dd"><a href="flashcards.html" class="nav-dd-btn">🃏 Флешкартки</a></div>
-    <div class="nav-dd"><a href="tasks.html" class="nav-dd-btn">✏️ Завдання</a></div>
-    <div class="nav-dd"><a href="dictionary.html" class="nav-dd-btn">📖 Словник</a></div>
-    <div class="nav-dd"><a href="games.html" class="nav-dd-btn">🎮 Ігри</a></div>
-    <div class="nav-dd"><a href="grammar.html" class="nav-dd-btn active">📋 Довідник</a></div>
+        </div>
+        <a href="units.html" class="nav-dd-item">
+          <span class="dd-icon">📑</span>Переглянути всі розділи
+        </a>
+      </div>
+    </div>
+
+    <!-- Флешкартки dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='flashcards.html'">
+        🃏 Флешкартки <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Тренажер слів</div>
+        <a href="flashcards.html" class="nav-dd-item"><span class="dd-icon">👋</span>Привітання та база</a>
+        <a href="flashcards.html?topic=custom" class="nav-dd-item"><span class="dd-icon">⭐</span>Мої збережені слова</a>
+      </div>
+    </div>
+
+    <!-- Завдання dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='tasks.html'">
+        ✏️ Завдання <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Практичні вправи</div>
+        <a href="tasks.html" class="nav-dd-item"><span class="dd-icon">🎯</span>Усі вправи та тести</a>
+        <a href="tasks.html?group=grammar" class="nav-dd-item"><span class="dd-icon">📌</span>Граматичний тренажер</a>
+        <a href="tasks.html?group=situational" class="nav-dd-item"><span class="dd-icon">💬</span>Ситуативні завдання</a>
+      </div>
+    </div>
+
+    <!-- Словник dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='dictionary.html'">
+        📖 Словник <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Власний словник</div>
+        <a href="dictionary.html" class="nav-dd-item"><span class="dd-icon">🔍</span>Пошук по базі слів</a>
+        <a href="dictionary.html?add=1" class="nav-dd-item"><span class="dd-icon">➕</span>Додати власне слово</a>
+      </div>
+    </div>
+
+    <!-- Ігри dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="location.href='games.html'">
+        🎮 Ігри <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Міні-ігри</div>
+        <a href="games.html" class="nav-dd-item"><span class="dd-icon">🚦</span>Світлофор привітань</a>
+      </div>
+    </div>
+
+    <!-- Довідник dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn active" onclick="location.href='grammar.html'">
+        📋 Довідник <span class="chev">▾</span>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Граматичні шпаргалки</div>
+        <a href="grammar.html?tab=articoli" class="nav-dd-item"><span class="dd-icon">📰</span>Означені артиклі</a>
+        <a href="grammar.html?tab=verbi" class="nav-dd-item"><span class="dd-icon">🔷</span>Essere та Avere</a>
+        <a href="grammar.html?tab=cortesia" class="nav-dd-item"><span class="dd-icon">🤝</span>Tu vs Lei (Етикет)</a>
+      </div>
+    </div>
   </nav>
 
   <div class="nav-right">
+    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Переключити тему" aria-label="Переключити тему">🌙</button>
     <button type="button" class="student-widget" onclick="openProfileModal()" title="Мій профіль студента" aria-label="Мій профіль студента">
       <span class="student-stats">
         <span class="streak-badge">🔥 <span>1</span></span>
@@ -157,7 +231,7 @@
   <div class="page-hero-inner">
     <div class="page-hero-label">Граматичні шпаргалки</div>
     <h1>Довідник граматики</h1>
-    <p>Швидкий доступ до ключових правил італійської мови рівня A1: артиклі, форми дієслів та етикетні вирази.</p>
+    <p>Швидкий доступ до ключових правил італійської мови рівня A1–B1: артиклі, форми дієслів та етикетні вирази.</p>
   </div>
 </section>
 
@@ -167,8 +241,7 @@
   <div class="grammar-card">
     
     <div class="grammar-tabs-header">
-      <button class="gr-tab-btn active" onclick="switchGrTab('saluti', this)">☀️ Привітання</button>
-      <button class="gr-tab-btn" onclick="switchGrTab('articoli', this)">📰 Артиклі</button>
+      <button class="gr-tab-btn active" onclick="switchGrTab('articoli', this)">📰 Артиклі</button>
       <button class="gr-tab-btn" onclick="switchGrTab('verbi', this)">🔷 Essere & Avere</button>
       <button class="gr-tab-btn" onclick="switchGrTab('cortesia', this)">🤝 Tu vs Lei</button>
     </div>
@@ -181,7 +254,7 @@
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div>☕ <b>LanguageStudio</b> · Corso di Italiano A0–A1</div>
+    <div>☕ <b>LanguageStudio</b> · Corso di Italiano A0–B1</div>
     <div class="footer-links">
       <a href="../index.html">Головна</a>
       <a href="units.html">Розділи</a>
@@ -196,29 +269,6 @@
 <script src="../js/app.js"></script>
 <script>
 const GR_DATA = {
-  saluti: `
-    <table class="gr-table">
-      <thead>
-        <tr>
-          <th>Фраза</th>
-          <th>Вимова</th>
-          <th>Переклад</th>
-          <th>Коли вживати</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td><b>Buongiorno</b> <button class="audio-btn" style="width:1.5rem;height:1.5rem;font-size:0.7rem;" onclick="speak('Buongiorno')">🔊</button></td><td>[буон-джор-но]</td><td>Добрий ранок / Добрий день</td><td>Зранку до ~13:00–14:00</td></tr>
-        <tr><td><b>Buon pomeriggio</b> <button class="audio-btn" style="width:1.5rem;height:1.5rem;font-size:0.7rem;" onclick="speak('Buon pomeriggio')">🔊</button></td><td>[буон по-ме-рід-джо]</td><td>Добрий день (після обіду)</td><td>З 14:00 до ~17:00</td></tr>
-        <tr><td><b>Buonasera</b> <button class="audio-btn" style="width:1.5rem;height:1.5rem;font-size:0.7rem;" onclick="speak('Buonasera')">🔊</button></td><td>[буо-на-се-ра]</td><td>Добрий вечір</td><td>Після 17:00</td></tr>
-        <tr><td><b>Buonanotte</b> <button class="audio-btn" style="width:1.5rem;height:1.5rem;font-size:0.7rem;" onclick="speak('Buonanotte')">🔊</button></td><td>[буо-на-нот-те]</td><td>Добраніч</td><td><b>Тільки</b> перед сном (прощання)</td></tr>
-        <tr><td><b>Ciao!</b> <button class="audio-btn" style="width:1.5rem;height:1.5rem;font-size:0.7rem;" onclick="speak('Ciao')">🔊</button></td><td>[ча-о]</td><td>Привіт / Бувай</td><td>Універсально для друзів та знайомих</td></tr>
-        <tr><td><b>Salve!</b> <button class="audio-btn" style="width:1.5rem;height:1.5rem;font-size:0.7rem;" onclick="speak('Salve')">🔊</button></td><td>[саль-ве]</td><td>Вітаю!</td><td>Нейтральне вітання в будь-який час</td></tr>
-      </tbody>
-    </table>
-    <div class="gr-note-box">
-      <b>💡 Важливо:</b> «Buonanotte» кажуть виключно тоді, коли хтось іде спати. Якщо ви просто прощаєтесь ввечері на вулиці, кажіть «Buonasera» або «Arrivederci!».
-    </div>
-  `,
   articoli: `
     <table class="gr-table">
       <thead>
@@ -287,19 +337,19 @@ const GR_DATA = {
 function switchGrTab(tabKey, btn) {
   document.querySelectorAll('.gr-tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('grBody').innerHTML = GR_DATA[tabKey] || '';
-  applyInterfaceLanguage();
+  document.getElementById('grBody').innerHTML = GR_DATA[tabKey] || GR_DATA.articoli;
+  if (typeof applyInterfaceLanguage === 'function') applyInterfaceLanguage();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const requestedTab = urlParams.get('tab') || 'saluti';
-  const tabIndexMap = { saluti: 0, articoli: 1, verbi: 2, cortesia: 3 };
+  const requestedTab = urlParams.get('tab') || 'articoli';
+  const tabIndexMap = { articoli: 0, verbi: 1, cortesia: 2 };
   const targetBtn = document.querySelectorAll('.gr-tab-btn')[tabIndexMap[requestedTab] || 0];
   if (targetBtn) {
     switchGrTab(requestedTab, targetBtn);
   } else {
-    document.getElementById('grBody').innerHTML = GR_DATA.saluti;
+    document.getElementById('grBody').innerHTML = GR_DATA.articoli;
   }
 });
 </script>
