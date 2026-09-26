@@ -170,6 +170,28 @@ body {
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(27, 122, 75, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.hero-copy {
+  flex: 1 1 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-image {
+  width: min(34%, 320px);
+  min-width: 180px;
+  height: auto;
+  border-radius: 1rem;
+  object-fit: cover;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+  border: 3px solid rgba(255,255,255,0.22);
+  position: relative;
+  z-index: 1;
 }
 
 .hero::after {
@@ -256,6 +278,8 @@ h3.task-cat:first-of-type {
   margin-bottom: 1.2rem;
   border: 1px solid var(--border);
   background: var(--bg);
+  align-self: start;
+  margin-top: 0.75rem;
 }
 
 .scene-img {
@@ -263,6 +287,19 @@ h3.task-cat:first-of-type {
   height: auto;
   display: block;
   object-fit: cover;
+  transform: scale(1.16);
+  transform-origin: center center;
+}
+
+.dialogue-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1.1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.dialogue-copy {
+  min-width: 0;
 }
 
 .dialogue-line {
@@ -627,8 +664,32 @@ table.vocab-table tr:last-child td {
 .content > .card:has(.dialogue-content) .story-text { margin-bottom: 1.5rem; }
 @media (max-width: 760px) {
   .content { padding: 1.25rem 1rem 3.5rem; }
+  .dialogue-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .dialogue-layout .scene-img-wrapper {
+    order: -1;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    max-height: 20rem;
+    margin: 0 0 0.5rem;
+  }
+  .dialogue-layout .scene-img {
+    width: 100%;
+    height: auto;
+    transform: none;
+  }
   .content > .card:has(.dialogue-content) { display: flex; flex-direction: column; gap: 1.25rem; }
-  .content > .card:has(.dialogue-content) .scene-img-wrapper { order: -1; min-height: 14rem; max-height: 20rem; }
+  .content > .card:has(.dialogue-content) .scene-img-wrapper {
+    order: -1;
+    min-height: 14rem;
+    max-height: 20rem;
+    margin-top: 0;
+    align-self: stretch;
+  }
 }
 
 /* Lesson task validation */
