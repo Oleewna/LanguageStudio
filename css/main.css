@@ -235,7 +235,13 @@ body {
   gap: 0.6rem;
 }
 
+/* Order: hamburger menu first (left), student widget second (right) */
+.menu-toggle {
+  order: 1;
+}
+
 .student-widget {
+  order: 2;
   display: flex;
   align-items: center;
   gap: 0.55rem;
@@ -372,34 +378,6 @@ body {
   font-size: 0.72rem;
   color: var(--ink-soft);
   margin-top: 0.15rem;
-}
-.pm-settings {
-  margin: 1.25rem 0;
-  padding: 1rem;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-}
-.pm-settings-title {
-  font-size: 0.82rem;
-  font-weight: 700;
-  margin-bottom: 0.7rem;
-}
-.pm-setting-label {
-  display: block;
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: var(--ink-soft);
-  margin-bottom: 0.35rem;
-}
-.pm-setting-select {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 0.6rem 0.7rem;
-  background: var(--surface);
-  color: var(--ink);
-  font: inherit;
 }
 
 /* ── MOBILE DRAWER NAV ── */
