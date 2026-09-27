@@ -177,27 +177,14 @@ body {
   flex-shrink: 0;
 }
 
-.nav-flag-pip {
-  width: 2.55rem;
-  height: 2.55rem;
-  border-radius: 0.8rem;
-  padding: 0.35rem;
-  background: linear-gradient(135deg, #10a95b, #008c45);
-  box-shadow: 0 7px 16px rgba(0, 140, 69, 0.22);
+.brand-logo {
+  display: block;
+  height: 4.5rem;
+  width: auto;
+  max-width: min(52vw, 38rem);
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(21, 168, 96, 0.18));
 }
-.nav-flag-pip::after {
-  content: 'Aあ';
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-  border-radius: 0.42rem;
-  background: var(--surface);
-  color: var(--it-green);
-  font-size: 0.62rem;
-  font-weight: 800;
-}
-.nav-flag-pip span { display: none; }
 
 .nav-brand-name {
   font-family: var(--font-sans);
@@ -205,6 +192,21 @@ body {
   letter-spacing: -0.055em;
   color: var(--it-green);
   font-weight: 700;
+}
+
+.mob-nav-brand {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--it-green);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mob-nav-brand .brand-logo {
+  height: 3rem;
 }
 
 .nav-links {

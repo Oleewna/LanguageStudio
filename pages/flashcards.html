@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<link rel="icon" type="image/png" href="../assets/images/icons8-translator-100.png" />
+<link rel="icon" type="image/png" href="../assets/images/icon.png" />
 <title>Флешкартки — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -207,26 +207,27 @@
 <div class="mob-overlay" id="mobOverlay" onclick="closeMobNav()"></div>
 <nav class="mob-nav" id="mobNav" aria-label="Мобільне меню">
   <div class="mob-nav-header">
-    <a href="../index.html" class="mob-nav-brand">🇮🇹 LanguageStudio</a>
-    <button class="mob-close-btn" onclick="closeMobNav()" aria-label="Закрити">✕</button>
+    <a href="../index.html" class="mob-nav-brand" aria-label="LanguageStudio home">
+      <img src="../assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
+    </a>
+    <button class="mob-close-btn" onclick="closeMobNav()" aria-label="Закрити"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
   </div>
   <div class="mob-section-label">Головне</div>
-  <a href="../index.html" class="mob-nav-link"><span class="ic">🏠</span>Головна</a>
+  <a href="../index.html" class="mob-nav-link"><span class="ic"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></span>Головна</a>
   <a href="units.html" class="mob-nav-link"><span class="ic">🧭</span>Напрямки навчання</a>
-  <a href="../lessons/communication-basics-lesson-1.html" class="mob-nav-link"><span class="ic">▶</span>Основи · Урок 1</a>
+  <a href="../lessons/communication-basics-lesson-1.html" class="mob-nav-link"><span class="ic"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>Основи · Урок 1</a>
   <div class="mob-section-label">Практика</div>
-  <a href="flashcards.html" class="mob-nav-link active"><span class="ic">🃏</span>Флешкартки</a>
-  <a href="tasks.html" class="mob-nav-link"><span class="ic">✏️</span>Завдання</a>
-  <a href="dictionary.html" class="mob-nav-link"><span class="ic">📖</span>Власний словник</a>
-  <a href="games.html" class="mob-nav-link"><span class="ic">🎮</span>Ігри</a>
-  <a href="grammar.html" class="mob-nav-link"><span class="ic">📋</span>Довідник граматики</a>
+  <a href="flashcards.html" class="mob-nav-link active"><span class="ic"><svg class="ls-icon" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/><rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/><line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg></span>Флешкартки</a>
+  <a href="tasks.html" class="mob-nav-link"><span class="ic"><svg class="ls-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#cd212a"/><path d="M6 8l1.3 1.3L9.5 7" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="8" x2="17.2" y2="8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 12.3l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="12.3" x2="17.2" y2="12.3" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 16.6l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><line x1="11" y1="16.6" x2="15" y2="16.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/></svg></span>Завдання</a>
+  <a href="dictionary.html" class="mob-nav-link"><span class="ic"><svg class="ls-icon" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7.3 4.3 4.5 4.3v14c2.8 0 5.5.7 7.5 2.2z" fill="#008c45"/><path d="M12 6.5C14 5 16.7 4.3 19.5 4.3v14c-2.8 0-5.5.7-7.5 2.2z" fill="#d97706"/><line x1="12" y1="6.5" x2="12" y2="20.5" stroke="#172033" stroke-width="1.2"/></svg></span>Власний словник</a>
+  <a href="games.html" class="mob-nav-link"><span class="ic"><svg class="ls-icon" viewBox="0 0 24 24"><rect x="2" y="7.5" width="20" height="11" rx="5.5" fill="#1c2b44"/><path d="M7 11v4M5 13h4" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><circle cx="15.8" cy="11.3" r="1.4" fill="#cd212a"/><circle cx="18.3" cy="13.8" r="1.4" fill="#00c46a"/></svg></span>Ігри</a>
+  <a href="grammar.html" class="mob-nav-link"><span class="ic"><svg class="ls-icon" viewBox="0 0 24 24"><rect x="5" y="4.5" width="14" height="16.5" rx="2" fill="#fff" stroke="#172033" stroke-width="1.5"/><rect x="9" y="2.7" width="6" height="3" rx="1" fill="#d97706"/><path d="M8 11.3l1.1 1.1 2-2.1" stroke="#008c45" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12.7" y1="11" x2="16.7" y2="11" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="14.7" x2="16.7" y2="14.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="17.7" x2="14" y2="17.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/></svg></span>Довідник граматики</a>
 </nav>
 
 <!-- ═══════════ TOPBAR WITH DROPDOWNS ═══════════ -->
 <header class="topnav">
-  <a href="../index.html" class="nav-brand">
-    <span class="nav-brand-flag">☕</span>
-    <span class="nav-brand-name">LanguageStudio</span>
+  <a href="../index.html" class="nav-brand" aria-label="LanguageStudio home">
+    <img src="../assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
   </a>
 
   <nav class="nav-links" aria-label="Головна навігація">
@@ -234,7 +235,7 @@
     <!-- Напрямки dropdown -->
     <div class="nav-dd">
       <button class="nav-dd-btn" onclick="location.href='units.html'">
-        🧭 Напрямки <span class="chev">▾</span>
+        🧭 Напрямки <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Напрямки навчання</div>
@@ -245,11 +246,11 @@
           </a>
           <div class="nav-submenu-panel">
             <div class="nav-dd-header">Уроки напрямку «Основи»</div>
-            <a href="../lessons/communication-basics-lesson-1.html" class="nav-dd-item"><span class="dd-icon">▶</span>Урок 1 · Знайомство <span class="dd-tag active">Активний</span></a>
+            <a href="../lessons/communication-basics-lesson-1.html" class="nav-dd-item"><span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>Урок 1 · Знайомство <span class="dd-tag active">Активний</span></a>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 2 · Come ti chiami?</span>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 3 · Di dove sei?</span>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 4 · Consolidazione</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 5 · La mia scena</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Урок 5 · La mia сцена</span>
           </div>
         </div>
         <a href="units.html" class="nav-dd-item">
@@ -261,7 +262,7 @@
     <!-- Флешкартки dropdown -->
     <div class="nav-dd">
       <button class="nav-dd-btn active" onclick="location.href='flashcards.html'">
-        🃏 Флешкартки <span class="chev">▾</span>
+        <svg class="ls-icon" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/><rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/><line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg> Флешкартки <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Тренажер слів</div>
@@ -269,7 +270,7 @@
           <span class="dd-icon">👋</span>Привітання та база (13 слів)
         </a>
         <a href="flashcards.html?topic=custom" class="nav-dd-item">
-          <span class="dd-icon">⭐</span>Мої власні збережені слова
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/></svg></span>Мої власні збережені слова
         </a>
       </div>
     </div>
@@ -277,7 +278,7 @@
     <!-- Завдання dropdown -->
     <div class="nav-dd">
       <button class="nav-dd-btn" onclick="location.href='tasks.html'">
-        ✏️ Завдання <span class="chev">▾</span>
+        <svg class="ls-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#cd212a"/><path d="M6 8l1.3 1.3L9.5 7" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="8" x2="17.2" y2="8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 12.3l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="12.3" x2="17.2" y2="12.3" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 16.6l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><line x1="11" y1="16.6" x2="15" y2="16.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/></svg> Завдання <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Практичні вправи</div>
@@ -296,15 +297,15 @@
     <!-- Словник dropdown -->
     <div class="nav-dd">
       <button class="nav-dd-btn" onclick="location.href='dictionary.html'">
-        📖 Словник <span class="chev">▾</span>
+        <svg class="ls-icon" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7.3 4.3 4.5 4.3v14c2.8 0 5.5.7 7.5 2.2z" fill="#008c45"/><path d="M12 6.5C14 5 16.7 4.3 19.5 4.3v14c-2.8 0-5.5.7-7.5 2.2z" fill="#d97706"/><line x1="12" y1="6.5" x2="12" y2="20.5" stroke="#172033" stroke-width="1.2"/></svg> Словник <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Власний словник</div>
         <a href="dictionary.html" class="nav-dd-item">
-          <span class="dd-icon">🔍</span>Пошук по базі слів
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg></span>Пошук по базі слів
         </a>
         <a href="dictionary.html?add=1" class="nav-dd-item">
-          <span class="dd-icon">➕</span>Додати власне слово
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>Додати власне слово
         </a>
       </div>
     </div>
@@ -312,7 +313,7 @@
     <!-- Ігри dropdown -->
     <div class="nav-dd">
       <button class="nav-dd-btn" onclick="location.href='games.html'">
-        🎮 Ігри <span class="chev">▾</span>
+        <svg class="ls-icon" viewBox="0 0 24 24"><rect x="2" y="7.5" width="20" height="11" rx="5.5" fill="#1c2b44"/><path d="M7 11v4M5 13h4" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><circle cx="15.8" cy="11.3" r="1.4" fill="#cd212a"/><circle cx="18.3" cy="13.8" r="1.4" fill="#00c46a"/></svg> Ігри <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Міні-ігри</div>
@@ -325,7 +326,7 @@
     <!-- Довідник dropdown -->
     <div class="nav-dd">
       <button class="nav-dd-btn" onclick="location.href='grammar.html'">
-        📋 Довідник <span class="chev">▾</span>
+        <svg class="ls-icon" viewBox="0 0 24 24"><rect x="5" y="4.5" width="14" height="16.5" rx="2" fill="#fff" stroke="#172033" stroke-width="1.5"/><rect x="9" y="2.7" width="6" height="3" rx="1" fill="#d97706"/><path d="M8 11.3l1.1 1.1 2-2.1" stroke="#008c45" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12.7" y1="11" x2="16.7" y2="11" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="14.7" x2="16.7" y2="14.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="17.7" x2="14" y2="17.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/></svg> Довідник <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Граматичні шпаргалки</div>
@@ -348,7 +349,7 @@
     <button type="button" class="student-widget" onclick="openProfileModal()" title="Мій профіль студента" aria-label="Мій профіль студента">
       <span class="student-stats">
         <span class="streak-badge">🔥 <span>1</span></span>
-        <span class="xp-badge">⭐ <span class="xp-val-display">0</span> <span>XP</span></span>
+        <span class="xp-badge"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/></svg> <span class="xp-val-display">0</span> <span>XP</span></span>
       </span>
       <span class="student-avatar">S</span>
     </button>
