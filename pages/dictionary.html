@@ -7,239 +7,21 @@
 <title>Власний словник — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script>
-  (function() {
-    const saved = localStorage.getItem('ls_theme');
-    const theme = (saved === 'dark' || saved === 'light') ? saved : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
-  })();
-</script>
+<script src="../js/theme.js"></script>
 <link rel="stylesheet" href="../css/main.css">
-<style>
-  .dict-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 1.5rem;
-  }
-  .search-box {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 0.55rem 0.9rem;
-    flex: 1;
-    min-width: 220px;
-    max-width: 400px;
-  }
-  .search-input {
-    border: none;
-    background: transparent;
-    outline: none;
-    font-family: inherit;
-    font-size: 0.88rem;
-    color: var(--ink);
-    width: 100%;
-  }
-  .dict-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem;
-  }
-  .dict-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 1rem 1.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.15s, border-color 0.15s;
-  }
-  .dict-card:hover {
-    border-color: #CBD5E1;
-    transform: translateY(-2px);
-  }
-  .dict-card {
-    cursor: pointer;
-    position: relative;
-  }
-  .dict-card.learned {
-    border-color: var(--pine);
-    background: #F3F8F4;
-  }
-  .dict-filters {
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-  }
-  .filter-select {
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 0.5rem 0.7rem;
-    font-family: inherit;
-    font-size: 0.82rem;
-    color: var(--ink);
-    background: var(--surface);
-    outline: none;
-    cursor: pointer;
-  }
-  .filter-select:focus {
-    border-color: var(--pine);
-  }
-  .type-tag {
-    font-size: 0.65rem;
-    background: #EEF2FF;
-    color: #4338CA;
-    border: 1px solid #C7D2FE;
-    padding: 0.1rem 0.4rem;
-    border-radius: 99px;
-    font-weight: 700;
-  }
-  .dict-meta {
-    font-size: 0.72rem;
-    color: var(--ink-soft);
-    margin-top: 0.35rem;
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-  .star-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    padding: 0.4rem;
-    border-radius: 0.35rem;
-    color: var(--ink-soft);
-    transition: color 0.15s, transform 0.15s;
-  }
-  .star-btn.active {
-    color: #D4A017;
-  }
-  .star-btn:hover {
-    transform: scale(1.15);
-  }
-  .no-results {
-    grid-column: 1/-1;
-    text-align: center;
-    padding: 3rem;
-    color: var(--ink-soft);
-  }
-  .dict-word-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--ink);
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-  }
-  .dict-phon {
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-    font-style: italic;
-    margin-top: 0.1rem;
-  }
-  .dict-trans {
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-    margin-top: 0.2rem;
-  }
-  .custom-tag {
-    font-size: 0.65rem;
-    background: #FEF3E2;
-    color: #B56A00;
-    border: 1px solid #F6D7A8;
-    padding: 0.1rem 0.4rem;
-    border-radius: 99px;
-    font-weight: 700;
-  }
-  .dict-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  .delete-btn {
-    background: none;
-    border: none;
-    color: var(--ink-soft);
-    cursor: pointer;
-    font-size: 0.9rem;
-    padding: 0.4rem;
-    border-radius: 0.35rem;
-    transition: color 0.15s;
-  }
-  .delete-btn:hover {
-    color: var(--gold);
-  }
+<link rel="stylesheet" href="../css/dictionary.css">
 
-  /* Modal */
-  .modal-backdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    backdrop-filter: blur(2px);
-  }
-  .modal-backdrop.open {
-    display: flex;
-  }
-  .modal-dialog {
-    background: var(--surface);
-    border-radius: var(--radius-lg);
-    padding: 1.75rem;
-    width: 100%;
-    max-width: 440px;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border);
-  }
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  .form-label {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--ink-soft);
-    margin-bottom: 0.35rem;
-  }
-  .form-control {
-    width: 100%;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 0.6rem 0.8rem;
-    font-family: inherit;
-    font-size: 0.9rem;
-    color: var(--ink);
-    background: var(--bg);
-    outline: none;
-  }
-  .form-control:focus {
-    border-color: var(--pine);
-  }
-</style>
 </head>
 <body>
 
 <!-- ═══════════ MOBILE DRAWER NAV ═══════════ -->
-<div class="mob-overlay" id="mobOverlay" onclick="closeMobNav()"></div>
+<div class="mob-overlay" id="mobOverlay" data-external-handler-dictionary-1=""></div>
 <nav class="mob-nav" id="mobNav" aria-label="Мобільне меню">
   <div class="mob-nav-header">
     <a href="../index.html" class="mob-nav-brand" aria-label="LanguageStudio home">
       <img src="../assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
     </a>
-    <button class="mob-close-btn" onclick="closeMobNav()" aria-label="Закрити"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    <button class="mob-close-btn" data-external-handler-dictionary-2="" aria-label="Закрити"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
   </div>
   <div class="mob-section-label">Головне</div>
   <a href="../index.html" class="mob-nav-link"><span class="ic"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></span>Головна</a>
@@ -263,7 +45,7 @@
     
     <!-- Розділи dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='units.html'">
+      <button class="nav-dd-btn" data-external-handler-dictionary-3="">
         <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5A1.5 1.5 0 0 0 20 18.5z"/></svg> Розділи <span class="chev"><svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
       </button>
       <div class="nav-dd-menu">
@@ -290,7 +72,7 @@
 
     <!-- Флешкартки dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='flashcards.html'">
+      <button class="nav-dd-btn" data-external-handler-dictionary-4="">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/><rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/><line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg> Флешкартки <span class="chev"><svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
       </button>
       <div class="nav-dd-menu">
@@ -306,7 +88,7 @@
 
     <!-- Завдання dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='tasks.html'">
+      <button class="nav-dd-btn" data-external-handler-dictionary-5="">
         <svg class="ls-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#cd212a"/><path d="M6 8l1.3 1.3L9.5 7" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="8" x2="17.2" y2="8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 12.3l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="12.3" x2="17.2" y2="12.3" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 16.6l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><line x1="11" y1="16.6" x2="15" y2="16.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/></svg> Завдання <span class="chev"><svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
       </button>
       <div class="nav-dd-menu">
@@ -325,7 +107,7 @@
 
     <!-- Словник dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn active" onclick="location.href='dictionary.html'">
+      <button class="nav-dd-btn active" data-external-handler-dictionary-6="">
         <svg class="ls-icon" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7.3 4.3 4.5 4.3v14c2.8 0 5.5.7 7.5 2.2z" fill="#008c45"/><path d="M12 6.5C14 5 16.7 4.3 19.5 4.3v14c-2.8 0-5.5.7-7.5 2.2z" fill="#d97706"/><line x1="12" y1="6.5" x2="12" y2="20.5" stroke="#172033" stroke-width="1.2"/></svg> Словник <span class="chev"><svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
       </button>
       <div class="nav-dd-menu">
@@ -341,7 +123,7 @@
 
     <!-- Ігри dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='games.html'">
+      <button class="nav-dd-btn" data-external-handler-dictionary-7="">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="2" y="7.5" width="20" height="11" rx="5.5" fill="#1c2b44"/><path d="M7 11v4M5 13h4" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><circle cx="15.8" cy="11.3" r="1.4" fill="#cd212a"/><circle cx="18.3" cy="13.8" r="1.4" fill="#00c46a"/></svg> Ігри <span class="chev"><svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
       </button>
       <div class="nav-dd-menu">
@@ -354,7 +136,7 @@
 
     <!-- Довідник dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='grammar.html'">
+      <button class="nav-dd-btn" data-external-handler-dictionary-8="">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="5" y="4.5" width="14" height="16.5" rx="2" fill="#fff" stroke="#172033" stroke-width="1.5"/><rect x="9" y="2.7" width="6" height="3" rx="1" fill="#d97706"/><path d="M8 11.3l1.1 1.1 2-2.1" stroke="#008c45" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12.7" y1="11" x2="16.7" y2="11" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="14.7" x2="16.7" y2="14.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="17.7" x2="14" y2="17.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/></svg> Довідник <span class="chev"><svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
       </button>
       <div class="nav-dd-menu">
@@ -374,15 +156,15 @@
   </nav>
 
   <div class="nav-right">
-    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Переключити тему" aria-label="Переключити тему">🌙</button>
-    <button type="button" class="student-widget" onclick="openProfileModal()" title="Мій профіль студента" aria-label="Мій профіль студента">
+    <button class="theme-toggle-btn" data-external-handler-dictionary-9="" title="Переключити тему" aria-label="Переключити тему">🌙</button>
+    <button type="button" class="student-widget" data-external-handler-dictionary-10="" title="Мій профіль студента" aria-label="Мій профіль студента">
       <span class="student-stats">
         <span class="streak-badge">🔥 <span>1</span></span>
         <span class="xp-badge">⭐ <span class="xp-val-display">0</span> <span>XP</span></span>
       </span>
       <span class="student-avatar">S</span>
     </button>
-    <button class="menu-toggle" onclick="openMobNav()" aria-label="Меню">☰</button>
+    <button class="menu-toggle" data-external-handler-dictionary-11="" aria-label="Меню">☰</button>
   </div>
 </header>
 
@@ -401,20 +183,20 @@
   <div class="dict-toolbar">
     <div class="search-box">
       <span><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg></span>
-      <input type="text" id="dictSearch" class="search-input" placeholder="Пошук слова чи перекладу..." oninput="renderDictionary()" />
+      <input type="text" id="dictSearch" class="search-input" placeholder="Пошук слова чи перекладу..." data-external-handler-dictionary-12="" />
     </div>
     <div class="dict-filters">
-      <select id="filterCategory" class="filter-select" onchange="renderDictionary()">
+      <select id="filterCategory" class="filter-select" data-external-handler-dictionary-13="">
         <option value="">Усі теми й ситуації</option>
       </select>
-      <select id="filterLesson" class="filter-select" onchange="renderDictionary()">
+      <select id="filterLesson" class="filter-select" data-external-handler-dictionary-14="">
         <option value="">Усі уроки</option>
       </select>
-      <select id="filterType" class="filter-select" onchange="renderDictionary()">
+      <select id="filterType" class="filter-select" data-external-handler-dictionary-15="">
         <option value="">Усі типи</option>
       </select>
     </div>
-    <button class="btn-primary" onclick="openAddModal()"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Додати нове слово</button>
+    <button class="btn-primary" data-external-handler-dictionary-16=""><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Додати нове слово</button>
   </div>
 
   <div class="dict-grid" id="dictGrid"></div>
@@ -422,13 +204,13 @@
 </main>
 
 <!-- Modal: Add Custom Word -->
-<div class="modal-backdrop" id="addModal" onclick="if(event.target===this)closeAddModal()">
+<div class="modal-backdrop" id="addModal" data-external-handler-dictionary-17="">
   <div class="modal-dialog">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
-      <h3 style="font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Нове слово</h3>
-      <button onclick="closeAddModal()" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--ink-soft);"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    <div id="external-style-dictionary-1">
+      <h3 id="external-style-dictionary-2"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Нове слово</h3>
+      <button data-external-handler-dictionary-18="" id="external-style-dictionary-3"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
     </div>
-    <form id="addWordForm" onsubmit="saveNewWord(event)">
+    <form id="addWordForm" data-external-handler-dictionary-19="">
       <div class="form-group">
         <label class="form-label">Італійське слово чи фраза *</label>
         <input type="text" id="wIt" class="form-control" required placeholder="напр. arrivederci" />
@@ -460,8 +242,8 @@
         <label class="form-label">Урок (необов'язково)</label>
         <input type="text" id="wLesson" class="form-control" placeholder="напр. Урок 1.1" />
       </div>
-      <div style="display:flex;justify-content:flex-end;gap:0.6rem;margin-top:1.5rem;">
-        <button type="button" class="btn-ghost" onclick="closeAddModal()">Скасувати</button>
+      <div id="external-style-dictionary-4">
+        <button type="button" class="btn-ghost" data-external-handler-dictionary-20="">Скасувати</button>
         <button type="submit" class="btn-primary">Зберегти (+25 XP)</button>
       </div>
     </form>
@@ -483,177 +265,6 @@
 </footer>
 
 <script src="../js/app.js"></script>
-<script>
-const DICT_BASE = [
-  { id: 'b1', word: 'ciao', phon: '[ча-о]', trans: 'привіт / бувай', custom: false, lesson: 'Урок 1.1', category: 'привітання та знайомство', type: 'greeting' },
-  { id: 'b2', word: 'come stai?', phon: '[ко-ме стай]', trans: 'як справи?', custom: false, lesson: 'Урок 1.1', category: 'привітання та знайомство', type: 'phrase' },
-  { id: 'b3', word: 'bene', phon: '[бе-не]', trans: 'добре', custom: false, lesson: 'Урок 1.1', category: 'привітання та знайомство', type: 'adjective' },
-  { id: 'b4', word: 'grazie', phon: '[гра-цьє]', trans: 'дякую', custom: false, lesson: 'Урок 1.1', category: 'ввічливість', type: 'phrase' },
-  { id: 'b5', word: 'prego', phon: '[пре-го]', trans: 'будь ласка / нема за що', custom: false, lesson: 'Урок 1.1', category: 'ввічливість', type: 'phrase' },
-  { id: 'b6', word: 'sì', phon: '[сі]', trans: 'так', custom: false, lesson: 'Урок 1.1', category: 'короткі відповіді', type: 'other' },
-  { id: 'b7', word: 'no', phon: '[но]', trans: 'ні', custom: false, lesson: 'Урок 1.1', category: 'короткі відповіді', type: 'other' },
-  { id: 'b8', word: 'anch\'io', phon: '[ан-кі-о]', trans: 'я теж', custom: false, lesson: 'Урок 1.1', category: 'короткі відповіді', type: 'phrase' },
-  { id: 'b9', word: 'nuovo/a', phon: '[ну-о-во/ва]', trans: 'новий / нова', custom: false, lesson: 'Урок 1.1', category: 'перший день', type: 'adjective' },
-  { id: 'b10', word: 'primo giorno', phon: '[прі-мо джор-но]', trans: 'перший день', custom: false, lesson: 'Урок 1.1', category: 'перший день', type: 'noun' },
-  { id: 'b11', word: 'benvenuto/a', phon: '[бен-ве-ну-то/та]', trans: 'ласкаво просимо', custom: false, lesson: 'Урок 1.1', category: 'привітання та знайомство', type: 'greeting' },
-  { id: 'b12', word: 'palazzo', phon: '[па-лац-цо]', trans: 'будинок (багатоповерховий)', custom: false, lesson: 'Урок 1.1', category: 'житло й будинок', type: 'noun' },
-  { id: 'b13', word: 'grazie mille', phon: '[гра-цьє міл-ле]', trans: 'дуже дякую', custom: false, lesson: 'Урок 1.1', category: 'ввічливість', type: 'phrase' }
-];
-
-const LEARNED_KEY = 'ls_dict_learned';
-
-function getLearnedIds() {
-  try { return JSON.parse(localStorage.getItem(LEARNED_KEY) || '[]'); } catch { return []; }
-}
-
-function toggleLearned(id, evt) {
-  if (evt) evt.stopPropagation();
-  let learned = getLearnedIds();
-  if (learned.includes(id)) {
-    learned = learned.filter(x => x !== id);
-  } else {
-    learned.push(id);
-    addXP(5);
-  }
-  try { localStorage.setItem(LEARNED_KEY, JSON.stringify(learned)); } catch {}
-  renderDictionary();
-}
-
-function populateFilters(all) {
-  const lessonSel = document.getElementById('filterLesson');
-  const catSel = document.getElementById('filterCategory');
-  const typeSel = document.getElementById('filterType');
-  const prevLesson = lessonSel.value, prevCat = catSel.value, prevType = typeSel.value;
-
-  const lessons = [...new Set(all.map(w => w.lesson).filter(Boolean))].sort();
-  const cats = [...new Set(all.map(w => w.category).filter(Boolean))].sort();
-  const types = [...new Set(all.map(w => w.type).filter(Boolean))].sort();
-
-  const typeLabels = { phrase: 'Фраза', noun: 'Іменник', verb: 'Дієслово', adjective: 'Прикметник', greeting: 'Привітання', other: 'Інше' };
-
-  lessonSel.innerHTML = '<option value="">Усі уроки</option>' + lessons.map(l => `<option value="${l}">${l}</option>`).join('');
-  catSel.innerHTML = '<option value="">Усі теми й ситуації</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
-  typeSel.innerHTML = '<option value="">Усі типи</option>' + types.map(t => `<option value="${t}">${typeLabels[t] || t}</option>`).join('');
-
-  lessonSel.value = prevLesson; catSel.value = prevCat; typeSel.value = prevType;
-}
-
-function getCustomWords() {
-  try { return JSON.parse(localStorage.getItem(DICT_KEY) || '[]'); } catch { return []; }
-}
-
-function saveCustomWords(words) {
-  try { localStorage.setItem(DICT_KEY, JSON.stringify(words)); } catch {}
-}
-
-function renderDictionary() {
-  const grid = document.getElementById('dictGrid');
-  const query = (document.getElementById('dictSearch')?.value || '').toLowerCase().trim();
-  const custom = getCustomWords();
-  const all = [...DICT_BASE, ...custom];
-
-  populateFilters(all);
-  const lessonFilter = document.getElementById('filterLesson').value;
-  const catFilter = document.getElementById('filterCategory').value;
-  const typeFilter = document.getElementById('filterType').value;
-  const learned = getLearnedIds();
-
-  const filtered = all.filter(w => {
-    const matchesQuery = !query || w.word.toLowerCase().includes(query) || w.trans.toLowerCase().includes(query);
-    const matchesLesson = !lessonFilter || w.lesson === lessonFilter;
-    const matchesCat = !catFilter || w.category === catFilter;
-    const matchesType = !typeFilter || w.type === typeFilter;
-    return matchesQuery && matchesLesson && matchesCat && matchesType;
-  });
-
-  if (!filtered.length) {
-    grid.innerHTML = '<div class="no-results">Слів не знайдено</div>';
-    applyInterfaceLanguage();
-    return;
-  }
-
-  const typeLabels = { phrase: 'Фраза', noun: 'Іменник', verb: 'Дієслово', adjective: 'Прикметник', greeting: 'Привітання', other: 'Інше' };
-
-  grid.innerHTML = filtered.map(w => {
-    const isLearned = learned.includes(w.id);
-    const translation = w.custom ? w.trans : getSourceTranslation(`flashcards.${w.word}`, w.trans);
-    return `
-    <div class="dict-card ${isLearned ? 'learned' : ''}" onclick="toggleLearned('${w.id}')" title="Натисніть, щоб позначити як вивчене">
-      <div>
-        <div class="dict-word-title">
-          ${w.word}
-          ${w.custom ? '<span class="custom-tag">власне</span>' : ''}
-          ${w.type ? `<span class="type-tag">${typeLabels[w.type] || w.type}</span>` : ''}
-        </div>
-        <div class="dict-phon">${w.phon || ''}</div>
-        <div class="dict-trans">${translation}</div>
-        <div class="dict-meta">
-          ${w.lesson ? `<span>📘 ${w.lesson}</span>` : ''}
-          ${w.category ? `<span>🏷 ${w.category}</span>` : ''}
-        </div>
-      </div>
-      <div class="dict-actions">
-        <button class="star-btn ${isLearned ? 'active' : ''}" onclick="toggleLearned('${w.id}', event)" title="${isLearned ? 'Вивчено' : 'Позначити як вивчене'}"><svg class="ls-icon" viewBox="0 0 24 24" fill="${isLearned ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/></svg></button>
-        <button class="audio-btn" onclick="event.stopPropagation(); speak('${w.word.replace(/'/g, "\\'")}', this)" title="Аудіо"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></svg></button>
-        ${w.custom ? `<button class="delete-btn" onclick="event.stopPropagation(); deleteWord('${w.id}')" title="Видалити">🗑</button>` : ''}
-      </div>
-    </div>
-  `;
-  }).join('');
-  applyInterfaceLanguage();
-}
-
-function openAddModal() {
-  document.getElementById('addModal').classList.add('open');
-  document.getElementById('wIt').focus();
-}
-
-function closeAddModal() {
-  document.getElementById('addModal').classList.remove('open');
-  document.getElementById('addWordForm').reset();
-}
-
-function saveNewWord(e) {
-  e.preventDefault();
-  const word = document.getElementById('wIt').value.trim();
-  const trans = document.getElementById('wUa').value.trim();
-  const phon = document.getElementById('wPhon').value.trim();
-  const type = document.getElementById('wType').value;
-  const category = document.getElementById('wCategory').value.trim();
-  const lesson = document.getElementById('wLesson').value.trim();
-  if (!word || !trans) return;
-
-  const list = getCustomWords();
-  list.unshift({
-    id: 'c_' + Date.now(),
-    word,
-    trans,
-    phon: phon ? `[${phon.replace(/[\[\]]/g, '')}]` : '',
-    type: type || 'other',
-    category: category || '',
-    lesson: lesson || '',
-    custom: true
-  });
-  saveCustomWords(list);
-  addXP(25);
-  closeAddModal();
-  renderDictionary();
-}
-
-function deleteWord(id) {
-  const list = getCustomWords().filter(w => w.id !== id);
-  saveCustomWords(list);
-  renderDictionary();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  renderDictionary();
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('add') === '1') {
-    openAddModal();
-  }
-});
-window.addEventListener('sourceLanguageChanged', renderDictionary);
-</script>
+<script src="../js/dictionary.js"></script>
 </body>
 </html>

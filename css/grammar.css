@@ -1,0 +1,79 @@
+.grammar-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .grammar-tabs-header {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--border);
+    overflow-x: auto;
+    background: var(--bg);
+    -webkit-overflow-scrolling: touch;
+  }
+  .gr-tab-btn {
+    padding: 0.85rem 1.25rem;
+    border: none;
+    background: none;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    border-bottom: 2.5px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-bottom: -2px;
+    transition: all 0.15s;
+    touch-action: manipulation;
+  }
+  .gr-tab-btn:hover {
+    color: var(--ink);
+  }
+  .gr-tab-btn.active {
+    color: var(--pine);
+    border-bottom-color: var(--pine);
+    font-weight: 700;
+    background: var(--surface);
+  }
+  .grammar-body {
+    padding: clamp(1.2rem, 3.5vw, 1.8rem);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table.gr-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    min-width: 450px;
+  }
+  table.gr-table th {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    border-bottom: 2px solid var(--border);
+  }
+  table.gr-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  table.gr-table tr:last-child td {
+    border-bottom: none;
+  }
+  .gr-note-box {
+    background: var(--bg);
+    border-left: 3px solid var(--pine);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1rem;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    margin-top: 1.25rem;
+    line-height: 1.5;
+  }
+  .gr-note-box b {
+    color: var(--ink);
+  }

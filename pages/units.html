@@ -7,277 +7,21 @@
 <title>Напрямки навчання — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script>
-  (function() {
-    const saved = localStorage.getItem('ls_theme');
-    const theme = (saved === 'dark' || saved === 'light') ? saved : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
-  })();
-</script>
+<script src="../js/theme.js"></script>
 <link rel="stylesheet" href="../css/main.css">
-<style>
-  .units-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-  .unit-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-  }
-  .unit-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.2rem 1.5rem;
-    gap: 1rem;
-    flex-wrap: wrap;
-    cursor: pointer;
-    user-select: none;
-    background: var(--surface);
-    transition: background 0.15s;
-  }
-  .unit-header:hover {
-    background: #FDFCF8;
-  }
-  .unit-header-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .unit-num {
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 1.15rem;
-    flex-shrink: 0;
-  }
-  .u1 { background: #EAF4EC; color: var(--pine); }
-  .u2 { background: #EEF2FA; color: #3B5FA0; }
-  .u3 { background: #FEF3E2; color: #B56A00; }
+<link rel="stylesheet" href="../css/units.css">
 
-  .unit-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 1.08rem;
-    color: var(--ink);
-  }
-  .unit-sub {
-    font-size: 0.82rem;
-    color: var(--ink-soft);
-    margin-top: 0.15rem;
-  }
-  .unit-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .unit-badge {
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.25rem 0.65rem;
-    border-radius: 99px;
-    border: 1px solid var(--border);
-    color: var(--ink-soft);
-    white-space: nowrap;
-  }
-  .unit-badge.active-badge {
-    background: #EAF4EC;
-    color: var(--pine);
-    border-color: #BDE3CB;
-  }
-  .unit-chevron {
-    font-size: 0.8rem;
-    color: var(--ink-soft);
-    transition: transform 0.2s ease;
-  }
-  .unit-card.open .unit-chevron {
-    transform: rotate(180deg);
-  }
-
-  /* Category-level collapsible wrapper */
-  .category-body {
-    border-top: 1px solid var(--border);
-    display: none;
-    background: var(--bg);
-  }
-  .unit-card.open .category-body {
-    display: block;
-  }
-
-  /* Middle "unit" level — nested collapsible group between category and lessons */
-  .unit-group {
-    border-bottom: 1px solid var(--border);
-  }
-  .unit-group:last-child {
-    border-bottom: none;
-  }
-  .unit-group-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.85rem 1.5rem 0.85rem 2.5rem;
-    gap: 0.75rem;
-    cursor: pointer;
-    user-select: none;
-    background: var(--surface);
-    transition: background 0.15s;
-  }
-  .unit-group-header:hover {
-    background: #FAFAF6;
-  }
-  .unit-group-title {
-    font-size: 0.86rem;
-    font-weight: 700;
-    color: var(--ink);
-  }
-  .unit-group-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    flex-shrink: 0;
-  }
-  .unit-group-badge {
-    font-size: 0.68rem;
-    font-weight: 700;
-    padding: 0.15rem 0.5rem;
-    border-radius: 99px;
-    border: 1px solid var(--border);
-    color: var(--ink-soft);
-    white-space: nowrap;
-  }
-  .unit-group-badge.active-badge {
-    background: #EAF4EC;
-    color: var(--pine);
-    border-color: #BDE3CB;
-  }
-  .unit-group-chevron {
-    font-size: 0.75rem;
-    color: var(--ink-soft);
-    transition: transform 0.2s ease;
-  }
-  .unit-group.open .unit-group-chevron {
-    transform: rotate(180deg);
-  }
-
-  .lessons-list {
-    display: none;
-    background: var(--bg);
-  }
-  .unit-group .lessons-list {
-    border-top: 1px solid var(--border);
-  }
-  /* Each unit-group's own open state controls its lessons, independent of
-     other unit-groups, but only visible once the parent category is open */
-  .unit-card.open .unit-group .lessons-list {
-    display: none;
-  }
-  .unit-card.open .unit-group.open .lessons-list {
-    display: block;
-  }
-
-  .lesson-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.5rem 1rem 4.75rem;
-    gap: 0.75rem;
-    border-bottom: 1px solid var(--border);
-    text-decoration: none;
-    color: var(--ink);
-    background: var(--surface);
-    transition: background 0.15s;
-  }
-  .lesson-row:last-child {
-    border-bottom: none;
-  }
-  .lesson-row:hover {
-    background: #FAFAF6;
-  }
-  .lesson-row.active-lesson {
-    background: #FAF9F5;
-  }
-  .lesson-row.locked {
-    opacity: 0.55;
-    cursor: not-allowed;
-    background: #FBFBFA;
-  }
-  .lesson-num {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--ink-soft);
-    margin-bottom: 0.1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-  .lesson-name {
-    font-size: 0.94rem;
-    font-weight: 600;
-    color: var(--ink);
-  }
-  .lesson-it {
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-    margin-top: 0.15rem;
-    font-style: italic;
-  }
-  .lesson-right {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    flex-shrink: 0;
-  }
-  .lesson-status {
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.2rem 0.55rem;
-    border-radius: 99px;
-  }
-  .ls-available {
-    background: #EAF4EC;
-    color: var(--pine);
-  }
-  .ls-soon {
-    background: var(--bg);
-    color: var(--ink-soft);
-    border: 1px solid var(--border);
-  }
-  .lesson-time {
-    font-size: 0.74rem;
-    color: var(--ink-soft);
-  }
-
-  @media (max-width: 600px) {
-    .lesson-row {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-    .unit-header {
-      padding: 1rem;
-    }
-    .unit-group-header {
-      padding-left: 1.25rem;
-    }
-  }
-</style>
 </head>
 <body>
 
 <!-- ═══════════ MOBILE DRAWER NAV ═══════════ -->
-<div class="mob-overlay" id="mobOverlay" onclick="closeMobNav()"></div>
+<div class="mob-overlay" id="mobOverlay" data-external-handler-units-1=""></div>
 <nav class="mob-nav" id="mobNav" aria-label="Мобільне меню">
   <div class="mob-nav-header">
     <a href="../index.html" class="mob-nav-brand" aria-label="LanguageStudio home">
       <img src="../assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
     </a>
-    <button class="mob-close-btn" onclick="closeMobNav()" aria-label="Закрити"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    <button class="mob-close-btn" data-external-handler-units-2="" aria-label="Закрити"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
   </div>
   <div class="mob-section-label">Головне</div>
   <a href="../index.html" class="mob-nav-link"><span class="ic"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></span>Головна</a>
@@ -301,7 +45,7 @@
     
     <!-- Напрямки dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn active" onclick="location.href='units.html'">
+      <button class="nav-dd-btn active" data-external-handler-units-3="">
         <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5A1.5 1.5 0 0 0 20 18.5z"/></svg> Напрямки <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -328,7 +72,7 @@
 
     <!-- Флешкартки dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='flashcards.html'">
+      <button class="nav-dd-btn" data-external-handler-units-4="">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/><rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/><line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg> Флешкартки <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -344,7 +88,7 @@
 
     <!-- Завдання dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='tasks.html'">
+      <button class="nav-dd-btn" data-external-handler-units-5="">
         <svg class="ls-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#cd212a"/><path d="M6 8l1.3 1.3L9.5 7" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="8" x2="17.2" y2="8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 12.3l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="12.3" x2="17.2" y2="12.3" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 16.6l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><line x1="11" y1="16.6" x2="15" y2="16.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/></svg> Завдання <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -363,7 +107,7 @@
 
     <!-- Словник dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='dictionary.html'">
+      <button class="nav-dd-btn" data-external-handler-units-6="">
         <svg class="ls-icon" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7.3 4.3 4.5 4.3v14c2.8 0 5.5.7 7.5 2.2z" fill="#008c45"/><path d="M12 6.5C14 5 16.7 4.3 19.5 4.3v14c-2.8 0-5.5.7-7.5 2.2z" fill="#d97706"/><line x1="12" y1="6.5" x2="12" y2="20.5" stroke="#172033" stroke-width="1.2"/></svg> Словник <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -379,7 +123,7 @@
 
     <!-- Ігри dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='games.html'">
+      <button class="nav-dd-btn" data-external-handler-units-7="">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="2" y="7.5" width="20" height="11" rx="5.5" fill="#1c2b44"/><path d="M7 11v4M5 13h4" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><circle cx="15.8" cy="11.3" r="1.4" fill="#cd212a"/><circle cx="18.3" cy="13.8" r="1.4" fill="#00c46a"/></svg> Ігри <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -392,7 +136,7 @@
 
     <!-- Довідник dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='grammar.html'">
+      <button class="nav-dd-btn" data-external-handler-units-8="">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="5" y="4.5" width="14" height="16.5" rx="2" fill="#fff" stroke="#172033" stroke-width="1.5"/><rect x="9" y="2.7" width="6" height="3" rx="1" fill="#d97706"/><path d="M8 11.3l1.1 1.1 2-2.1" stroke="#008c45" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12.7" y1="11" x2="16.7" y2="11" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="14.7" x2="16.7" y2="14.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="17.7" x2="14" y2="17.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/></svg> Довідник <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -412,14 +156,14 @@
   </nav>
 
   <div class="nav-right">
-    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Переключити тему" aria-label="Переключити тему"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
-    <button type="button" class="student-widget" onclick="openProfileModal()" title="Мій профіль студента" aria-label="Мій профіль студента">
+    <button class="theme-toggle-btn" data-external-handler-units-9="" title="Переключити тему" aria-label="Переключити тему"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
+    <button type="button" class="student-widget" data-external-handler-units-10="" title="Мій профіль студента" aria-label="Мій профіль студента">
       <div class="student-stats">
         <div class="xp-badge"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/></svg> <span class="xp-val-display">0</span> <span>XP</span></div>
       </div>
       <div class="student-avatar">S</div>
     </button>
-    <button class="menu-toggle" onclick="openMobNav()" aria-label="Меню">☰</button>
+    <button class="menu-toggle" data-external-handler-units-11="" aria-label="Меню">☰</button>
   </div>
 </header>
 
@@ -454,16 +198,7 @@
 </footer>
 
 <script src="../js/app.js"></script>
-<script>
-function toggleUnit(card) {
-  card.classList.toggle('open');
-}
 
-function toggleUnitGroup(groupEl, event) {
-  if (event) event.stopPropagation();
-  if (groupEl) groupEl.classList.toggle('open');
-}
-</script>
 
 <!-- Data-driven category + unit + lesson rendering. Category → Unit → Lesson.
      Fixed on review: (1) removed a duplicated lock/active badge that had been
@@ -477,184 +212,6 @@ function toggleUnitGroup(groupEl, event) {
      header is skipped entirely (not just auto-opened) so no redundant bar
      appears — matching the original page pixel-for-pixel for all 3 existing
      categories. -->
-<script>
-const categories = [
-  {
-    id: 'foundations',
-    icon: '👋',
-    title: 'Основи спілкування',
-    subtitle: 'Привітання, знайомство, числа 0–100, дієслова essere & avere — база для будь-якого напрямку',
-    locked: false,
-    defaultOpen: true,
-    badgeText: '1/5 уроків відкрито',
-    units: [
-      {
-        id: 'foundations-unit-1',
-        title: 'Основи спілкування',
-        lessons: [
-          { num: 'Урок 1', title: 'Знайомство — «Come ti chiami?»', description: 'Перший діалог у міланському класі, нові слова, культура розмови', href: '../lessons/communication-basics-lesson-1.html', status: 'available', time: '~15 хв' },
-          { num: 'Урок 2', title: 'Come ti chiami? (Як тебе звати?)', description: 'Знайомство, дієслово chiamarsi, формули ввічливості', href: null, status: 'soon', time: '~15 хв' },
-          { num: 'Урок 3', title: 'Di dove sei? (Звідки ти?)', description: 'Країни, національності, відмінювання дієслова essere', href: null, status: 'soon', time: '~15 хв' },
-          { num: 'Урок 4', title: "I numeri e l'età (Числа та вік)", description: 'Рахунок 0–100, дієслово avere, номер телефону', href: null, status: 'soon', time: '~20 хв' },
-          { num: 'Урок 5', title: 'La mia scena · Підсумкова практика', description: 'Комплексний тест та створення власного діалогу', href: null, status: 'soon', time: '~25 хв' }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'tourist',
-    icon: '🧳',
-    title: 'Туристична італійська',
-    subtitle: 'Готелі, ресторани, транспорт, шопінг та фрази на випадок форс-мажору в подорожі',
-    locked: true,
-    defaultOpen: false,
-    badgeText: '🔒 Заблоковано',
-    units: [
-      {
-        id: 'tourist-unit-1',
-        title: 'Туристична італійська',
-        lessons: [
-          { title: 'Alla stazione (На вокзалі та в аеропорту)', href: null, status: 'soon' },
-          { title: 'In albergo (Заселення в готель)', href: null, status: 'soon' },
-          { title: 'Un caffè, per favore (У барі та кафе)', href: null, status: 'soon' },
-          { title: 'Al ristorante (Замовлення в ресторані)', href: null, status: 'soon' },
-          { title: 'Lo shopping e i prezzi (Шопінг та ціни)', href: null, status: 'soon' }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'business',
-    icon: '💼',
-    title: 'Італійська для роботи та бізнесу',
-    subtitle: 'Офісне спілкування, зустрічі, електронні листи та small talk з колегами',
-    locked: true,
-    defaultOpen: false,
-    badgeText: '🔒 Заблоковано',
-    units: [
-      {
-        id: 'business-unit-1',
-        title: 'Італійська для роботи та бізнесу',
-        lessons: [
-          { title: 'In ufficio (Перший день в офісі)', href: null, status: 'soon' },
-          { title: 'Riunioni e appuntamenti (Зустрічі та домовленості)', href: null, status: 'soon' },
-          { title: 'Email e comunicazione scritta (Ділові листи)', href: null, status: 'soon' },
-          { title: 'Networking e small talk (Спілкування з колегами)', href: null, status: 'soon' }
-        ]
-      }
-    ]
-  }
-];
-
-function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str == null ? '' : String(str);
-  return div.innerHTML;
-}
-
-function renderLessonRow(lesson) {
-  const isAvailable = lesson.status === 'available';
-  const rowClass = isAvailable ? 'lesson-row active-lesson' : 'lesson-row locked';
-  const statusClass = isAvailable ? 'lesson-status ls-available' : 'lesson-status ls-soon';
-  const statusText = isAvailable ? '<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg> Відкрити' : 'Скоро';
-
-  const numHtml = lesson.num ? `<div class="lesson-num">${escapeHtml(lesson.num)}</div>` : '';
-  const descHtml = lesson.description ? `<div class="lesson-it">${escapeHtml(lesson.description)}</div>` : '';
-  const timeHtml = lesson.time ? `<span class="lesson-time">${escapeHtml(lesson.time)}</span>` : '';
-
-  const inner = `
-        <div>
-          ${numHtml}
-          <div class="lesson-name">${escapeHtml(lesson.title)}</div>
-          ${descHtml}
-        </div>
-        <div class="lesson-right">
-          <span class="${statusClass}">${statusText}</span>
-          ${timeHtml}
-        </div>
-  `;
-
-  if (lesson.href) {
-    return `<a href="${escapeHtml(lesson.href)}" class="${rowClass}">${inner}</a>`;
-  }
-  return `<div class="${rowClass}">${inner}</div>`;
-}
-
-function renderUnitGroup(unit, totalUnitsInCategory) {
-  const lessonsHtml = unit.lessons.map(renderLessonRow).join('');
-  const singleUnit = totalUnitsInCategory === 1;
-
-  if (singleUnit) {
-    // Only unit in this category — auto-expand and skip the collapsible
-    // header entirely, so no redundant bar appears above the lessons.
-    return `
-      <div class="unit-group open" data-unit-id="${escapeHtml(unit.id)}">
-        <div class="lessons-list">
-          ${lessonsHtml}
-        </div>
-      </div>
-    `;
-  }
-
-  const badgeHtml = unit.badgeText
-    ? `<span class="unit-group-badge${unit.locked ? '' : ' active-badge'}">${escapeHtml(unit.badgeText)}</span>`
-    : '';
-
-  return `
-    <div class="unit-group" data-unit-id="${escapeHtml(unit.id)}">
-      <div class="unit-group-header" onclick="toggleUnitGroup(this.closest('.unit-group'), event)">
-        <div class="unit-group-title">${escapeHtml(unit.title)}</div>
-        <div class="unit-group-meta">
-          ${badgeHtml}
-          <span class="unit-group-chevron"><svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
-        </div>
-      </div>
-      <div class="lessons-list">
-        ${lessonsHtml}
-      </div>
-    </div>
-  `;
-}
-
-function renderCategoryCard(category, index) {
-  const numClass = `u${index + 1}`;
-  const openClass = category.defaultOpen ? ' open' : '';
-  const badgeClass = category.locked ? 'unit-badge' : 'unit-badge active-badge';
-  const unitsHtml = category.units.map(u => renderUnitGroup(u, category.units.length)).join('');
-
-  return `
-    <div class="unit-card${openClass}" data-category-id="${escapeHtml(category.id)}" onclick="toggleUnit(this)">
-      <div class="unit-header">
-        <div class="unit-header-left">
-          <div class="unit-num ${numClass}">${category.icon}</div>
-          <div>
-            <div class="unit-title">${escapeHtml(category.title)}</div>
-            <div class="unit-sub">${escapeHtml(category.subtitle)}</div>
-          </div>
-        </div>
-        <div class="unit-meta">
-          <span class="${badgeClass}">${escapeHtml(category.badgeText)}</span>
-          <span class="unit-chevron"><svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
-        </div>
-      </div>
-      <div class="category-body" onclick="event.stopPropagation()">
-        ${unitsHtml}
-      </div>
-    </div>
-  `;
-}
-
-function renderCategories() {
-  const container = document.getElementById('unitsContainer');
-  if (!container) return;
-  container.innerHTML = categories.map(renderCategoryCard).join('');
-  applySourceLanguageSettings();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  renderCategories();
-  console.log(categories);
-});
-</script>
+<script src="../js/units.js"></script>
 </body>
 </html>

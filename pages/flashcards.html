@@ -7,210 +7,21 @@
 <title>Флешкартки — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script>
-  (function() {
-    const saved = localStorage.getItem('ls_theme');
-    const theme = (saved === 'dark' || saved === 'light') ? saved : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
-  })();
-</script>
+<script src="../js/theme.js"></script>
 <link rel="stylesheet" href="../css/main.css">
-<style>
-  .fc-wrapper {
-    max-width: 580px;
-    margin: 0 auto;
-  }
-  
-  /* Filter controls panel */
-  .filter-panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 1rem 1.25rem;
-    margin-bottom: 1.5rem;
-    box-shadow: var(--shadow-sm);
-  }
-  .filter-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 0.75rem;
-    margin-bottom: 0.85rem;
-  }
-  .filter-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-  .filter-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--ink-soft);
-  }
-  .filter-select {
-    width: 100%;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 0.45rem 0.65rem;
-    font-family: inherit;
-    font-size: 0.84rem;
-    color: var(--ink);
-    background: var(--bg);
-    outline: none;
-    cursor: pointer;
-  }
-  .filter-select:focus {
-    border-color: var(--pine);
-  }
+<link rel="stylesheet" href="../css/flashcards.css">
 
-  .topic-chips {
-    display: flex;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--border);
-  }
-  .topic-chip {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    color: var(--ink-soft);
-    padding: 0.3rem 0.75rem;
-    border-radius: 99px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-    touch-action: manipulation;
-  }
-  .topic-chip.active {
-    background: #EAF4EC;
-    border-color: #BDE3CB;
-    color: var(--pine);
-    font-weight: 700;
-  }
-
-  /* 3D Card Stage */
-  .fc-stage {
-    perspective: 1000px;
-    width: 100%;
-    height: 250px;
-    margin-bottom: 1.5rem;
-    cursor: pointer;
-  }
-  .fc-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  .fc-face {
-    position: absolute;
-    inset: 0;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
-    padding: 1.75rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    box-shadow: var(--shadow-sm);
-  }
-  .fc-front {
-    background: var(--surface);
-  }
-  .fc-back {
-    background: linear-gradient(135deg, var(--pine) 0%, #1D3A29 100%);
-    color: #F5F3EA;
-    transform: rotateY(180deg);
-  }
-  .fc-meta-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .fc-tag {
-    font-size: 0.68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    padding: 0.2rem 0.55rem;
-    border-radius: 99px;
-    color: var(--ink-soft);
-  }
-  .fc-word {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(1.8rem, 5vw, 2.4rem);
-    font-weight: 700;
-    color: var(--ink);
-    margin-bottom: 0.35rem;
-  }
-  .fc-phon {
-    font-size: 0.92rem;
-    color: var(--ink-soft);
-    font-style: italic;
-  }
-  .fc-hint {
-    font-size: 0.74rem;
-    color: var(--ink-soft);
-    margin-top: 1rem;
-    opacity: 0.8;
-  }
-  .fc-trans {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(1.4rem, 4vw, 1.85rem);
-    font-weight: 700;
-    margin-bottom: 0.6rem;
-  }
-  .fc-example {
-    font-size: 0.88rem;
-    opacity: 0.9;
-    font-style: italic;
-    max-width: 340px;
-    line-height: 1.45;
-  }
-  .fc-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-  .fc-counter-badge {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--ink-soft);
-    min-width: 60px;
-    text-align: center;
-  }
-  .fc-empty-note {
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--ink-soft);
-    margin-top: -0.5rem;
-    margin-bottom: 1rem;
-  }
-</style>
 </head>
 <body>
 
 <!-- ═══════════ MOBILE DRAWER NAV ═══════════ -->
-<div class="mob-overlay" id="mobOverlay" onclick="closeMobNav()"></div>
+<div class="mob-overlay" id="mobOverlay" data-external-handler-flashcards-1=""></div>
 <nav class="mob-nav" id="mobNav" aria-label="Мобільне меню">
   <div class="mob-nav-header">
     <a href="../index.html" class="mob-nav-brand" aria-label="LanguageStudio home">
       <img src="../assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
     </a>
-    <button class="mob-close-btn" onclick="closeMobNav()" aria-label="Закрити"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    <button class="mob-close-btn" data-external-handler-flashcards-2="" aria-label="Закрити"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
   </div>
   <div class="mob-section-label">Головне</div>
   <a href="../index.html" class="mob-nav-link"><span class="ic"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></span>Головна</a>
@@ -234,7 +45,7 @@
     
     <!-- Напрямки dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='units.html'">
+      <button class="nav-dd-btn" data-external-handler-flashcards-3="">
         🧭 Напрямки <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -261,7 +72,7 @@
 
     <!-- Флешкартки dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn active" onclick="location.href='flashcards.html'">
+      <button class="nav-dd-btn active" data-external-handler-flashcards-4="">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/><rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/><line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg> Флешкартки <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -277,7 +88,7 @@
 
     <!-- Завдання dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='tasks.html'">
+      <button class="nav-dd-btn" data-external-handler-flashcards-5="">
         <svg class="ls-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#cd212a"/><path d="M6 8l1.3 1.3L9.5 7" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="8" x2="17.2" y2="8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 12.3l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="12.3" x2="17.2" y2="12.3" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 16.6l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><line x1="11" y1="16.6" x2="15" y2="16.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/></svg> Завдання <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -296,7 +107,7 @@
 
     <!-- Словник dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='dictionary.html'">
+      <button class="nav-dd-btn" data-external-handler-flashcards-6="">
         <svg class="ls-icon" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7.3 4.3 4.5 4.3v14c2.8 0 5.5.7 7.5 2.2z" fill="#008c45"/><path d="M12 6.5C14 5 16.7 4.3 19.5 4.3v14c-2.8 0-5.5.7-7.5 2.2z" fill="#d97706"/><line x1="12" y1="6.5" x2="12" y2="20.5" stroke="#172033" stroke-width="1.2"/></svg> Словник <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -312,7 +123,7 @@
 
     <!-- Ігри dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='games.html'">
+      <button class="nav-dd-btn" data-external-handler-flashcards-7="">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="2" y="7.5" width="20" height="11" rx="5.5" fill="#1c2b44"/><path d="M7 11v4M5 13h4" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><circle cx="15.8" cy="11.3" r="1.4" fill="#cd212a"/><circle cx="18.3" cy="13.8" r="1.4" fill="#00c46a"/></svg> Ігри <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -325,7 +136,7 @@
 
     <!-- Довідник dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='grammar.html'">
+      <button class="nav-dd-btn" data-external-handler-flashcards-8="">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="5" y="4.5" width="14" height="16.5" rx="2" fill="#fff" stroke="#172033" stroke-width="1.5"/><rect x="9" y="2.7" width="6" height="3" rx="1" fill="#d97706"/><path d="M8 11.3l1.1 1.1 2-2.1" stroke="#008c45" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12.7" y1="11" x2="16.7" y2="11" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="14.7" x2="16.7" y2="14.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="17.7" x2="14" y2="17.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/></svg> Довідник <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -345,15 +156,15 @@
   </nav>
 
   <div class="nav-right">
-    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Переключити тему" aria-label="Переключити тему">🌙</button>
-    <button type="button" class="student-widget" onclick="openProfileModal()" title="Мій профіль студента" aria-label="Мій профіль студента">
+    <button class="theme-toggle-btn" data-external-handler-flashcards-9="" title="Переключити тему" aria-label="Переключити тему">🌙</button>
+    <button type="button" class="student-widget" data-external-handler-flashcards-10="" title="Мій профіль студента" aria-label="Мій профіль студента">
       <span class="student-stats">
         <span class="streak-badge">🔥 <span>1</span></span>
         <span class="xp-badge"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/></svg> <span class="xp-val-display">0</span> <span>XP</span></span>
       </span>
       <span class="student-avatar">S</span>
     </button>
-    <button class="menu-toggle" onclick="openMobNav()" aria-label="Меню">☰</button>
+    <button class="menu-toggle" data-external-handler-flashcards-11="" aria-label="Меню">☰</button>
   </div>
 </header>
 
@@ -378,7 +189,7 @@
         <!-- Filter by Track -->
         <div class="filter-group">
           <label class="filter-label" for="filterTrack">🧭 Напрямок</label>
-          <select id="filterTrack" class="filter-select" onchange="applyFilters()">
+          <select id="filterTrack" class="filter-select" data-external-handler-flashcards-12="">
             <option value="all">Усі напрямки</option>
             <option value="foundations" selected>👋 Основи спілкування</option>
             <option value="tourist">🧳 Туристична італійська</option>
@@ -390,15 +201,15 @@
 
       <!-- Filter by Topic / Thematic chips -->
       <div class="topic-chips">
-        <button class="topic-chip active" onclick="setTopicChip('all', this)">Всі тематики</button>
-        <button class="topic-chip" onclick="setTopicChip('greetings', this)">👋 Привітання</button>
-        <button class="topic-chip" onclick="setTopicChip('basic', this)">🔤 Базові фрази</button>
-        <button class="topic-chip" onclick="setTopicChip('custom', this)">⭐ Власні збережені</button>
+        <button class="topic-chip active" data-external-handler-flashcards-13="">Всі тематики</button>
+        <button class="topic-chip" data-external-handler-flashcards-14="">👋 Привітання</button>
+        <button class="topic-chip" data-external-handler-flashcards-15="">🔤 Базові фрази</button>
+        <button class="topic-chip" data-external-handler-flashcards-16="">⭐ Власні збережені</button>
       </div>
     </div>
 
     <!-- 3D Card Stage -->
-    <div class="fc-stage" onclick="toggleFlip()">
+    <div class="fc-stage" data-external-handler-flashcards-17="">
       <div class="fc-inner" id="fcInner">
         
         <!-- Front -->
@@ -416,21 +227,21 @@
         <div class="fc-face fc-back">
           <div class="fc-trans" id="fcTrans">привіт / бувай</div>
           <div class="fc-example" id="fcExample">— Ciao! Come stai? — Bene, grazie!</div>
-          <div class="fc-hint" style="color:#DAE3DA;">👆 Натисніть знову для звороту</div>
+          <div class="fc-hint" id="external-style-flashcards-1">👆 Натисніть знову для звороту</div>
         </div>
 
       </div>
     </div>
 
-    <div class="fc-empty-note" id="fcEmptyNote" style="display:none;">Для цього напрямку слова ще готуються — спробуйте «Основи спілкування» або власні збережені слова.</div>
+    <div class="fc-empty-note" id="fcEmptyNote">Для цього напрямку слова ще готуються — спробуйте «Основи спілкування» або власні збережені слова.</div>
 
     <!-- Controls -->
     <div class="fc-controls">
-      <button class="btn-ghost" onclick="prevCard()">← Назад</button>
+      <button class="btn-ghost" data-external-handler-flashcards-18="">← Назад</button>
       <span class="fc-counter-badge" id="fcCounter">1 / 13</span>
-      <button class="btn-ghost" onclick="nextCard()">Вперед →</button>
-      <button class="audio-btn" onclick="speakCurrent(this)" title="Аудіо (візуальний режим)">🔊</button>
-      <button class="btn-ghost" onclick="shuffleCards()" title="Перемішати">🔀</button>
+      <button class="btn-ghost" data-external-handler-flashcards-19="">Вперед →</button>
+      <button class="audio-btn" data-external-handler-flashcards-20="" title="Аудіо (візуальний режим)">🔊</button>
+      <button class="btn-ghost" data-external-handler-flashcards-21="" title="Перемішати">🔀</button>
     </div>
 
   </div>
@@ -452,137 +263,6 @@
 </footer>
 
 <script src="../js/app.js"></script>
-<script>
-const FC_DATA = [
-  { word: 'ciao', phon: '[ча-о]', trans: 'привіт / бувай', ex: 'Ciao! Come stai?', track: 'foundations', topic: 'greetings' },
-  { word: 'come stai?', phon: '[ко-ме стай]', trans: 'як справи?', ex: 'Ciao Marco, come stai?', track: 'foundations', topic: 'greetings' },
-  { word: 'bene', phon: '[бе-не]', trans: 'добре', ex: 'Bene, grazie! E tu?', track: 'foundations', topic: 'basic' },
-  { word: 'grazie', phon: '[гра-цьє]', trans: 'дякую', ex: 'Grazie mille!', track: 'foundations', topic: 'basic' },
-  { word: 'prego', phon: '[пре-го]', trans: 'будь ласка / нема за що', ex: '— Grazie! — Prego!', track: 'foundations', topic: 'basic' },
-  { word: 'sì', phon: '[сі]', trans: 'так', ex: 'Sì, sono nuova.', track: 'foundations', topic: 'basic' },
-  { word: 'no', phon: '[но]', trans: 'ні', ex: 'No, grazie.', track: 'foundations', topic: 'basic' },
-  { word: 'anch\'io', phon: '[ан-кі-о]', trans: 'я теж', ex: 'Anch\'io sto bene, grazie!', track: 'foundations', topic: 'basic' },
-  { word: 'nuovo/a', phon: '[ну-о-во/ва]', trans: 'новий / нова', ex: 'Sei nuova qui?', track: 'foundations', topic: 'basic' },
-  { word: 'primo giorno', phon: '[прі-мо джор-но]', trans: 'перший день', ex: 'È il mio primo giorno.', track: 'foundations', topic: 'basic' },
-  { word: 'benvenuto/a', phon: '[бен-ве-ну-то/та]', trans: 'ласкаво просимо', ex: 'Benvenuta nel palazzo!', track: 'foundations', topic: 'greetings' },
-  { word: 'palazzo', phon: '[па-лац-цо]', trans: 'будинок (багатоповерховий)', ex: 'Abito in questo palazzo.', track: 'foundations', topic: 'basic' },
-  { word: 'grazie mille', phon: '[гра-цьє міл-ле]', trans: 'дуже дякую', ex: 'Grazie mille per l\'aiuto!', track: 'foundations', topic: 'basic' }
-];
-
-const TRACK_LABELS = {
-  foundations: '👋 Основи',
-  tourist: '🧳 Турист',
-  business: '💼 Бізнес'
-};
-
-let selectedTopic = 'all';
-let cards = [...FC_DATA];
-let currentIndex = 0;
-let isFlipped = false;
-
-function getCustomWords() {
-  try { return JSON.parse(localStorage.getItem(DICT_KEY) || '[]'); } catch { return []; }
-}
-
-function applyFilters() {
-  const t = document.getElementById('filterTrack').value;
-  // Custom words follow the person across every track, tagged as 'foundations' by default
-  // so they still show up when no dedicated track content exists yet.
-  const custom = getCustomWords().map(w => ({ ...w, track: 'foundations', topic: 'custom' }));
-  let list = [...FC_DATA, ...custom];
-
-  if (t !== 'all') {
-    list = list.filter(item => item.track === t || item.topic === 'custom');
-  }
-  if (selectedTopic !== 'all') {
-    list = list.filter(item => item.topic === selectedTopic);
-  }
-
-  cards = list;
-  currentIndex = 0;
-  updateCardDisplay();
-}
-
-function setTopicChip(topic, btn) {
-  document.querySelectorAll('.topic-chip').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  selectedTopic = topic;
-  applyFilters();
-}
-
-function updateCardDisplay() {
-  const emptyNote = document.getElementById('fcEmptyNote');
-  if (!cards.length) {
-    document.getElementById('fcWord').textContent = 'Слів не знайдено';
-    document.getElementById('fcPhon').textContent = '';
-    document.getElementById('fcTrans').textContent = 'Спробуйте змінити фільтри вище';
-    document.getElementById('fcExample').textContent = '';
-    document.getElementById('fcCounter').textContent = '0 / 0';
-    document.getElementById('fcUnitTag').textContent = '—';
-    document.getElementById('fcTopicTag').textContent = '—';
-    applyInterfaceLanguage();
-    emptyNote.style.display = 'block';
-    return;
-  }
-  emptyNote.style.display = 'none';
-  const item = cards[currentIndex];
-  const inner = document.getElementById('fcInner');
-  if (isFlipped) {
-    isFlipped = false;
-    inner.style.transform = 'rotateY(0deg)';
-  }
-  document.getElementById('fcUnitTag').textContent = TRACK_LABELS[item.track] || '👋 Основи';
-  document.getElementById('fcTopicTag').textContent = item.topic === 'greetings' ? '👋 Привітання' : item.topic === 'custom' ? '⭐ Власне' : '🔤 Базове';
-  document.getElementById('fcWord').textContent = item.word;
-  document.getElementById('fcPhon').textContent = item.phon || '';
-  document.getElementById('fcTrans').textContent = getSourceTranslation(`flashcards.${item.word}`, item.trans);
-  document.getElementById('fcExample').textContent = item.ex ? `«${item.ex}»` : '';
-  document.getElementById('fcCounter').textContent = `${currentIndex + 1} / ${cards.length}`;
-  applyInterfaceLanguage();
-}
-
-function toggleFlip() {
-  isFlipped = !isFlipped;
-  document.getElementById('fcInner').style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
-}
-
-function nextCard() {
-  if (!cards.length) return;
-  currentIndex = (currentIndex + 1) % cards.length;
-  updateCardDisplay();
-}
-
-function prevCard() {
-  if (!cards.length) return;
-  currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-  updateCardDisplay();
-}
-
-function speakCurrent(btn) {
-  speak(cards[currentIndex]?.word || '', btn);
-}
-
-function shuffleCards() {
-  for (let i = cards.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [cards[i], cards[j]] = [cards[j], cards[i]];
-  }
-  currentIndex = 0;
-  updateCardDisplay();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const requestedTopic = urlParams.get('topic');
-  if (requestedTopic === 'custom') {
-    document.getElementById('filterTrack').value = 'all';
-    const customChip = document.querySelectorAll('.topic-chip')[3];
-    if (customChip) setTopicChip('custom', customChip);
-  } else {
-    applyFilters();
-  }
-});
-window.addEventListener('sourceLanguageChanged', updateCardDisplay);
-</script>
+<script src="../js/flashcards.js"></script>
 </body>
 </html>

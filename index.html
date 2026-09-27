@@ -8,243 +8,21 @@
 <meta name="description" content="LanguageStudio — практичний курс італійської мови для конкретних цілей: подорожі, робота, бізнес. Флешкартки, власний словник та ігри." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script>
-  (function() {
-    const saved = localStorage.getItem('ls_theme');
-    const theme = (saved === 'dark' || saved === 'light') ? saved : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
-  })();
-</script>
+<script src="js/theme.js"></script>
 <link rel="stylesheet" href="css/main.css">
-<style>
-  /* ── QUICK HUBS ── */
-  .hub-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-  }
-  .hub-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 1.1rem 1.25rem;
-    text-decoration: none;
-    color: var(--ink);
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-    box-shadow: var(--shadow-sm);
-  }
-  .hub-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--it-green-border);
-    box-shadow: var(--shadow-md);
-  }
-  .hub-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-  }
-  .hi-green { background: var(--it-green-light); color: var(--it-green); }
-  .hi-red { background: var(--it-red-light); color: var(--it-red); }
-  .hi-gold { background: var(--it-gold-light); color: var(--it-gold); }
-  .hi-dark { background: #272720; color: #FFF; }
-  
-  .hub-card-title {
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: var(--ink);
-  }
-  .hub-card-sub {
-    font-size: 0.74rem;
-    color: var(--ink-soft);
-  }
+<link rel="stylesheet" href="css/index.css">
 
-  /* ── LEARNING TREE / ROADMAP ── */
-  .roadmap-section {
-    margin-top: 1rem;
-  }
-  .unit-tree-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-  }
-  .unit-tree-header {
-    padding: 1.25rem 1.5rem;
-    background: var(--surface);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    border-bottom: 1px solid var(--border);
-    flex-wrap: wrap;
-  }
-  .unit-badge-main {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding: 0.25rem 0.6rem;
-    border-radius: var(--radius-full);
-  }
-  .ub-active { background: var(--it-green-light); color: var(--it-green); border: 1px solid var(--it-green-border); }
-  .ub-locked { background: var(--bg); color: var(--ink-soft); border: 1px solid var(--border); }
-
-  .unit-tree-title {
-    font-family: var(--font-serif);
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--ink);
-    margin: 0.35rem 0 0.15rem;
-  }
-  .unit-tree-desc {
-    font-size: 0.84rem;
-    color: var(--ink-soft);
-  }
-
-  /* Tree node list */
-  .tree-path {
-    padding: 1.5rem clamp(1rem, 3.5vw, 2rem);
-    position: relative;
-  }
-  .tree-node-item {
-    display: flex;
-    gap: 1.25rem;
-    position: relative;
-    padding-bottom: 1.75rem;
-  }
-  .tree-node-item:last-child {
-    padding-bottom: 0;
-  }
-  /* Vertical connecting line */
-  .tree-node-item:not(:last-child)::before {
-    content: '';
-    position: absolute;
-    top: 2.5rem;
-    left: 1.35rem;
-    width: 2px;
-    height: calc(100% - 2rem);
-    background: #E5E2D8;
-    z-index: 1;
-  }
-  .tree-node-item.completed:not(:last-child)::before {
-    background: var(--it-green);
-  }
-
-  .node-bullet {
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 0.95rem;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 2;
-    transition: transform 0.15s ease;
-  }
-  .nb-active {
-    background: var(--it-green);
-    color: #FFFFFF;
-    box-shadow: 0 0 0 4px var(--it-green-light);
-  }
-  .nb-current {
-    background: var(--it-red);
-    color: #FFFFFF;
-    box-shadow: 0 0 0 4px var(--it-red-light);
-  }
-  .nb-locked {
-    background: var(--bg);
-    color: var(--ink-soft);
-    border: 2px solid var(--border);
-  }
-
-  .node-content-card {
-    flex: 1;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 1rem 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    text-decoration: none;
-    color: var(--ink);
-    transition: all 0.15s ease;
-    flex-wrap: wrap;
-  }
-  .node-content-card:hover {
-    background: #FDFCF8;
-    border-color: #CBD5E1;
-    transform: translateX(3px);
-  }
-  .node-content-card.locked-card {
-    opacity: 0.6;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-  .node-tag {
-    font-size: 0.68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--ink-soft);
-    margin-bottom: 0.2rem;
-  }
-  .node-title {
-    font-size: 0.98rem;
-    font-weight: 700;
-    color: var(--ink);
-    line-height: 1.35;
-  }
-  .node-sub {
-    font-size: 0.8rem;
-    color: var(--ink-soft);
-    margin-top: 0.2rem;
-  }
-  .node-btn {
-    font-size: 0.8rem;
-    font-weight: 700;
-    padding: 0.4rem 0.85rem;
-    border-radius: var(--radius-sm);
-    white-space: nowrap;
-  }
-  .nb-btn-active {
-    background: var(--it-red);
-    color: #FFFFFF;
-  }
-  .nb-btn-locked {
-    background: var(--border);
-    color: var(--ink-soft);
-  }
-</style>
 </head>
 <body>
 
 <!-- ═══════════ MOBILE DRAWER NAV ═══════════ -->
-<div class="mob-overlay" id="mobOverlay" onclick="closeMobNav()"></div>
+<div class="mob-overlay" id="mobOverlay" data-external-handler-index-1=""></div>
 <nav class="mob-nav" id="mobNav" aria-label="Мобільне меню">
   <div class="mob-nav-header">
     <a href="index.html" class="mob-nav-brand" aria-label="LanguageStudio home">
       <img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
     </a>
-    <button class="mob-close-btn" onclick="closeMobNav()" aria-label="Закрити"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    <button class="mob-close-btn" data-external-handler-index-2="" aria-label="Закрити"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
   </div>
   
   <div class="mob-section-label">Головне</div>
@@ -270,7 +48,7 @@
     
     <!-- Напрямки dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn active" onclick="location.href='pages/units.html'">
+      <button class="nav-dd-btn active" data-external-handler-index-3="">
         <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5A1.5 1.5 0 0 0 20 18.5z"/></svg> Напрямки <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -297,7 +75,7 @@
 
     <!-- Флешкартки dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='pages/flashcards.html'">
+      <button class="nav-dd-btn" data-external-handler-index-4="">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/><rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/><line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg> Флешкартки <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -313,7 +91,7 @@
 
     <!-- Завдання dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='pages/tasks.html'">
+      <button class="nav-dd-btn" data-external-handler-index-5="">
         <svg class="ls-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#cd212a"/><path d="M6 8l1.3 1.3L9.5 7" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="8" x2="17.2" y2="8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 12.3l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="12.3" x2="17.2" y2="12.3" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 16.6l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><line x1="11" y1="16.6" x2="15" y2="16.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/></svg> Завдання <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -332,7 +110,7 @@
 
     <!-- Словник dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='pages/dictionary.html'">
+      <button class="nav-dd-btn" data-external-handler-index-6="">
         <svg class="ls-icon" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7.3 4.3 4.5 4.3v14c2.8 0 5.5.7 7.5 2.2z" fill="#008c45"/><path d="M12 6.5C14 5 16.7 4.3 19.5 4.3v14c-2.8 0-5.5.7-7.5 2.2z" fill="#d97706"/><line x1="12" y1="6.5" x2="12" y2="20.5" stroke="#172033" stroke-width="1.2"/></svg> Словник <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -348,7 +126,7 @@
 
     <!-- Ігри dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='pages/games.html'">
+      <button class="nav-dd-btn" data-external-handler-index-7="">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="2" y="7.5" width="20" height="11" rx="5.5" fill="#1c2b44"/><path d="M7 11v4M5 13h4" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><circle cx="15.8" cy="11.3" r="1.4" fill="#cd212a"/><circle cx="18.3" cy="13.8" r="1.4" fill="#00c46a"/></svg> Ігри <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -361,7 +139,7 @@
 
     <!-- Довідник dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="location.href='pages/grammar.html'">
+      <button class="nav-dd-btn" data-external-handler-index-8="">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="5" y="4.5" width="14" height="16.5" rx="2" fill="#fff" stroke="#172033" stroke-width="1.5"/><rect x="9" y="2.7" width="6" height="3" rx="1" fill="#d97706"/><path d="M8 11.3l1.1 1.1 2-2.1" stroke="#008c45" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12.7" y1="11" x2="16.7" y2="11" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="14.7" x2="16.7" y2="14.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="17.7" x2="14" y2="17.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/></svg> Довідник <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav-dd-menu">
@@ -382,15 +160,15 @@
 
   <!-- Right: Student Profile Widget -->
   <div class="nav-right">
-    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Переключити тему" aria-label="Переключити тему"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
-    <button type="button" class="student-widget" onclick="openProfileModal()" title="Мій профіль студента" aria-label="Мій профіль студента">
+    <button class="theme-toggle-btn" data-external-handler-index-9="" title="Переключити тему" aria-label="Переключити тему"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
+    <button type="button" class="student-widget" data-external-handler-index-10="" title="Мій профіль студента" aria-label="Мій профіль студента">
       <div class="student-stats">
         <div class="streak-badge"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c4 0 6.5-2.6 6.5-6 0-2-1-3.4-2-4.6.2 1.6-.6 2.6-1.4 3-.2-2.6-1.5-4.8-3.6-6.2.5 2 .1 3.6-1 4.7-.9.9-1.6 2-1.6 3.4 0 2.6 1.5 5.7 3.1 5.7z"/></svg> <span>1</span></div>
         <div class="xp-badge"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/></svg> <span class="xp-val-display">0</span> <span>XP</span></div>
       </div>
       <div class="student-avatar">S</div>
     </button>
-    <button class="menu-toggle" onclick="openMobNav()" aria-label="Меню">☰</button>
+    <button class="menu-toggle" data-external-handler-index-11="" aria-label="Меню">☰</button>
   </div>
 </header>
 
@@ -464,7 +242,7 @@
           <div class="unit-tree-title">Основи спілкування</div>
           <div class="unit-tree-desc">Привітання, перший діалог у Мілані, знайомство та базові дієслова — фундамент, потрібний для будь-якого напрямку нижче</div>
         </div>
-        <a href="pages/units.html" class="btn-ghost" style="padding:0.4rem 0.8rem;font-size:0.78rem;">Усі напрямки →</a>
+        <a href="pages/units.html" class="btn-ghost" id="external-style-index-1">Усі напрямки →</a>
       </div>
 
       <div class="tree-path">
@@ -538,8 +316,8 @@
     </div>
 
     <!-- TRACK: TOURIST ITALIAN (teaser) -->
-    <div class="unit-tree-card" style="opacity:0.85;">
-      <div class="unit-tree-header" style="background:var(--surface);">
+    <div class="unit-tree-card" id="external-style-index-2">
+      <div class="unit-tree-header" id="external-style-index-3">
         <div>
           <span class="unit-badge-main ub-locked"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Незабаром</span>
           <div class="unit-tree-title"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="6" rx="2"/><path d="M16 21V6a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v15"/></svg> Туристична італійська</div>
@@ -549,8 +327,8 @@
     </div>
 
     <!-- TRACK: WORK / BUSINESS ITALIAN (teaser) -->
-    <div class="unit-tree-card" style="opacity:0.85;">
-      <div class="unit-tree-header" style="background:var(--surface);">
+    <div class="unit-tree-card" id="external-style-index-4">
+      <div class="unit-tree-header" id="external-style-index-5">
         <div>
           <span class="unit-badge-main ub-locked"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Незабаром</span>
           <div class="unit-tree-title"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Італійська для роботи та бізнесу</div>
@@ -580,5 +358,6 @@
 
 <script src="js/icons.js"></script>
 <script src="js/app.js"></script>
+  <script src="js/index.js"></script>
 </body>
 </html>

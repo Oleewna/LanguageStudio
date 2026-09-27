@@ -1,0 +1,187 @@
+.fc-wrapper {
+    max-width: 580px;
+    margin: 0 auto;
+  }
+  
+  /* Filter controls panel */
+  .filter-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .filter-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+  }
+  .filter-select {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.45rem 0.65rem;
+    font-family: inherit;
+    font-size: 0.84rem;
+    color: var(--ink);
+    background: var(--bg);
+    outline: none;
+    cursor: pointer;
+  }
+  .filter-select:focus {
+    border-color: var(--pine);
+  }
+
+  .topic-chips {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  .topic-chip {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--ink-soft);
+    padding: 0.3rem 0.75rem;
+    border-radius: 99px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    touch-action: manipulation;
+  }
+  .topic-chip.active {
+    background: #EAF4EC;
+    border-color: #BDE3CB;
+    color: var(--pine);
+    font-weight: 700;
+  }
+
+  /* 3D Card Stage */
+  .fc-stage {
+    perspective: 1000px;
+    width: 100%;
+    height: 250px;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+  }
+  .fc-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .fc-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+  .fc-front {
+    background: var(--surface);
+  }
+  .fc-back {
+    background: linear-gradient(135deg, var(--pine) 0%, #1D3A29 100%);
+    color: #F5F3EA;
+    transform: rotateY(180deg);
+  }
+  .fc-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .fc-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.55rem;
+    border-radius: 99px;
+    color: var(--ink-soft);
+  }
+  .fc-word {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+  }
+  .fc-phon {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .fc-hint {
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    margin-top: 1rem;
+    opacity: 0.8;
+  }
+  .fc-trans {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.4rem, 4vw, 1.85rem);
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .fc-example {
+    font-size: 0.88rem;
+    opacity: 0.9;
+    font-style: italic;
+    max-width: 340px;
+    line-height: 1.45;
+  }
+  .fc-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .fc-counter-badge {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    min-width: 60px;
+    text-align: center;
+  }
+  .fc-empty-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+  }
+
+#external-style-flashcards-1 { color:#DAE3DA; }
+
+#fcEmptyNote { display:none; }

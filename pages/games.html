@@ -7,94 +7,21 @@
 <title>Ігри — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script>
-  (function() {
-    const saved = localStorage.getItem('ls_theme');
-    const theme = (saved === 'dark' || saved === 'light') ? saved : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
-  })();
-</script>
+<script src="../js/theme.js"></script>
 <link rel="stylesheet" href="../css/main.css">
-<style>
-  .game-arena {
-    max-width: 520px;
-    margin: 0 auto 2.5rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: clamp(1.25rem, 3vw, 2rem);
-    box-shadow: var(--shadow-sm);
-    text-align: center;
-  }
-  .game-badge {
-    display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    background: #FEF3E2;
-    color: var(--accent-amber);
-    padding: 0.25rem 0.65rem;
-    border-radius: 99px;
-    margin-bottom: 0.75rem;
-  }
-  .game-prompt {
-    font-size: 0.95rem;
-    color: var(--ink-soft);
-    margin-bottom: 0.5rem;
-  }
-  .game-situation {
-    font-family: 'Fraunces', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--ink);
-    margin-bottom: 1.5rem;
-    min-height: 2.2rem;
-  }
-  .game-choices {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-  }
-  .game-btn {
-    padding: 0.85rem 0.75rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-md);
-    background: var(--bg);
-    color: var(--ink);
-    cursor: pointer;
-    transition: all 0.15s;
-    touch-action: manipulation;
-  }
-  .game-btn:hover {
-    border-color: #CBD5E1;
-    background: #FAF8F0;
-  }
-  .game-score-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border);
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-    font-weight: 600;
-  }
-</style>
+<link rel="stylesheet" href="../css/games.css">
+
 </head>
 <body>
 
 <!-- ═══════════ MOBILE DRAWER NAV ═══════════ -->
-<div class="mob-overlay" id="mobOverlay" onclick="closeMobNav()"></div>
+<div class="mob-overlay" id="mobOverlay" data-external-handler-games-1=""></div>
 <nav class="mob-nav" id="mobNav" aria-label="Мобільне меню">
   <div class="mob-nav-header">
     <a href="../index.html" class="mob-nav-brand" aria-label="LanguageStudio home">
       <img src="../assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
     </a>
-    <button class="mob-close-btn" onclick="closeMobNav()" aria-label="Закрити"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    <button class="mob-close-btn" data-external-handler-games-2="" aria-label="Закрити"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
   </div>
   <div class="mob-section-label">Головне</div>
   <a href="../index.html" class="mob-nav-link"><span class="ic"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></span>Головна</a>
@@ -115,7 +42,7 @@
   </a>
 
   <nav class="nav-links" aria-label="Головна навігація">
-    <div class="nav-dd"><button class="nav-dd-btn" onclick="location.href='units.html'"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5A1.5 1.5 0 0 0 20 18.5z"/></svg> Розділи <span class="chev"><svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button><div class="nav-dd-menu"><div class="nav-dd-header">Навчальні юніти</div>        <div class="nav-submenu">
+    <div class="nav-dd"><button class="nav-dd-btn" data-external-handler-games-3=""><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5A1.5 1.5 0 0 0 20 18.5z"/></svg> Розділи <span class="chev"><svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></button><div class="nav-dd-menu"><div class="nav-dd-header">Навчальні юніти</div>        <div class="nav-submenu">
           <a href="../lessons/communication-basics-lesson-1.html" class="nav-dd-item nav-submenu-trigger">
             <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5A1.5 1.5 0 0 0 20 18.5z"/></svg></span>Основи спілкування
             <span class="submenu-arrow">›</span>
@@ -137,15 +64,15 @@
   </nav>
 
   <div class="nav-right">
-    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Переключити тему" aria-label="Переключити тему">🌙</button>
-    <button type="button" class="student-widget" onclick="openProfileModal()" title="Мій профіль студента" aria-label="Мій профіль студента">
+    <button class="theme-toggle-btn" data-external-handler-games-4="" title="Переключити тему" aria-label="Переключити тему">🌙</button>
+    <button type="button" class="student-widget" data-external-handler-games-5="" title="Мій профіль студента" aria-label="Мій профіль студента">
       <span class="student-stats">
         <span class="streak-badge">🔥 <span>1</span></span>
         <span class="xp-badge"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/></svg> <span class="xp-val-display">0</span> <span>XP</span></span>
       </span>
       <span class="student-avatar">S</span>
     </button>
-    <button class="menu-toggle" onclick="openMobNav()" aria-label="Меню">☰</button>
+    <button class="menu-toggle" data-external-handler-games-6="" aria-label="Меню">☰</button>
   </div>
 </header>
 
@@ -168,13 +95,13 @@
     <div class="game-situation" id="gameSit">☀️ 09:30 ранку в під'їзді будинку</div>
     
     <div class="game-choices" id="gameChoices">
-      <button class="game-btn" onclick="answerGame(0)">Buongiorno</button>
-      <button class="game-btn" onclick="answerGame(1)">Buonanotte</button>
-      <button class="game-btn" onclick="answerGame(2)">Buonasera</button>
-      <button class="game-btn" onclick="answerGame(3)">Arrivederci</button>
+      <button class="game-btn" data-external-handler-games-7="">Buongiorno</button>
+      <button class="game-btn" data-external-handler-games-8="">Buonanotte</button>
+      <button class="game-btn" data-external-handler-games-9="">Buonasera</button>
+      <button class="game-btn" data-external-handler-games-10="">Arrivederci</button>
     </div>
 
-    <div id="gameFeedback" style="min-height:1.8rem;margin-bottom:1rem;font-size:0.9rem;font-weight:700;"></div>
+    <div id="gameFeedback"></div>
 
     <div class="game-score-row">
       <span>Раунд: <b id="gRound">1/5</b></span>
@@ -184,16 +111,16 @@
 
   <!-- Upcoming games teaser -->
   <h2 class="section-title"><span class="ic">🔜</span>Незабаром</h2>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:1rem;">
-    <div class="card" style="opacity:0.75;">
-      <div style="font-size:1.5rem;margin-bottom:0.4rem;"><svg class="ls-icon" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/><rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/><line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg></div>
-      <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;">Memory Word Pairs</div>
-      <div style="font-size:0.82rem;color:var(--ink-soft);margin-top:0.3rem;">Знаходьте пари італійських та українських слів на полі карток.</div>
+  <div id="external-style-games-2">
+    <div class="card" id="external-style-games-3">
+      <div id="external-style-games-4"><svg class="ls-icon" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/><rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/><line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg></div>
+      <div id="external-style-games-5">Memory Word Pairs</div>
+      <div id="external-style-games-6">Знаходьте пари італійських та українських слів на полі карток.</div>
     </div>
-    <div class="card" style="opacity:0.75;">
-      <div style="font-size:1.5rem;margin-bottom:0.4rem;"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg></div>
-      <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;">Barista Milanese</div>
-      <div style="font-size:0.82rem;color:var(--ink-soft);margin-top:0.3rem;">Симулятор замовлення кави та круасанів у міланському барі на час.</div>
+    <div class="card" id="external-style-games-7">
+      <div id="external-style-games-8"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg></div>
+      <div id="external-style-games-9">Barista Milanese</div>
+      <div id="external-style-games-10">Симулятор замовлення кави та круасанів у міланському барі на час.</div>
     </div>
   </div>
 
@@ -214,99 +141,6 @@
 </footer>
 
 <script src="../js/app.js"></script>
-<script>
-const QUESTIONS = [
-  {
-    sit: '☀️ 09:30 ранку, зустріч із сусідом у під\'їзді',
-    sitEn: '☀️ 9:30 a.m., meeting a neighbor in the apartment building',
-    options: ['Buongiorno', 'Buonanotte', 'Buonasera', 'Arrivederci'],
-    correct: 0
-  },
-  {
-    sit: '🌙 23:00, ви йдете спати і кажете рідним:',
-    sitEn: '🌙 11:00 p.m., you are going to bed and say to your family:',
-    options: ['Buon pomeriggio', 'Buonanotte', 'Ciao', 'Buongiorno'],
-    correct: 1
-  },
-  {
-    sit: '🌆 19:30 вечора, ви заходите у ресторан:',
-    sitEn: '🌆 7:30 p.m., you enter a restaurant:',
-    options: ['Buonasera', 'Buongiorno', 'Buonanotte', 'Prego'],
-    correct: 0
-  },
-  {
-    sit: '👋 Ви випадково зустріли давнього друга на вулиці:',
-    sitEn: '👋 You run into an old friend on the street:',
-    options: ['Arrivederla', 'Scusi', 'Ciao!', 'Buonanotte'],
-    correct: 2
-  },
-  {
-    sit: '🙏 Вам сказали «Grazie mille!», що ви відповідаєте?',
-    sitEn: '🙏 Someone says “Grazie mille!” What do you reply?',
-    options: ['Prego!', 'Sì', 'Anch\'io', 'Grazie'],
-    correct: 0
-  }
-];
-
-let round = 0;
-let score = 0;
-
-function loadGameRound() {
-  if (round >= QUESTIONS.length) {
-    const english = getSourceLanguage() === 'en';
-    document.getElementById('gameSit').textContent = english ? '🏆 Game complete!' : '🏆 Гра завершена!';
-    document.getElementById('gameChoices').innerHTML = `<button class="btn-primary" style="grid-column:1/-1;" onclick="restartGame()">${english ? 'Play again' : 'Грати знову'}</button>`;
-    document.getElementById('gameFeedback').innerHTML = `<span style="color:var(--pine);">${english ? `You scored ${score} points and earned +50 XP!` : `Ви набрали ${score} очок і заробили +50 XP!`}</span>`;
-    addXP(50);
-    return;
-  }
-  const q = QUESTIONS[round];
-  document.getElementById('gameSit').textContent = getSourceLanguage() === 'en' ? q.sitEn : q.sit;
-  document.getElementById('gRound').textContent = `${round + 1}/${QUESTIONS.length}`;
-  document.getElementById('gScore').textContent = score;
-  document.getElementById('gameFeedback').textContent = '';
-
-  const choiceHtml = q.options.map((opt, idx) => `
-    <button class="game-btn" onclick="answerGame(${idx})">${opt}</button>
-  `).join('');
-  document.getElementById('gameChoices').innerHTML = choiceHtml;
-}
-
-function answerGame(idx) {
-  const q = QUESTIONS[round];
-  const btns = document.querySelectorAll('.game-btn');
-  btns.forEach(b => b.style.pointerEvents = 'none');
-
-  const fb = document.getElementById('gameFeedback');
-  if (idx === q.correct) {
-    btns[idx].style.background = '#EAF4EC';
-    btns[idx].style.borderColor = 'var(--pine)';
-    fb.innerHTML = `<span style="color:var(--pine);">✨ ${getSourceLanguage() === 'en' ? 'Correct! (+20 points)' : 'Правильно! (+20 очок)'}</span>`;
-    score += 20;
-    speak(q.options[idx]);
-  } else {
-    btns[idx].style.background = '#FDF1F1';
-    btns[idx].style.borderColor = 'var(--gold)';
-    btns[q.correct].style.background = '#EAF4EC';
-    btns[q.correct].style.borderColor = 'var(--pine)';
-    fb.innerHTML = `<span style="color:var(--gold);">${getSourceLanguage() === 'en' ? 'Incorrect! Correct answer:' : 'Помилка! Правильно:'} ${q.options[q.correct]}</span>`;
-  }
-
-  setTimeout(() => {
-    round++;
-    loadGameRound();
-  }, 1400);
-}
-
-function restartGame() {
-  round = 0;
-  score = 0;
-  loadGameRound();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  loadGameRound();
-});
-</script>
+<script src="../js/games.js"></script>
 </body>
 </html>
