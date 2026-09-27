@@ -1,31 +1,36 @@
 const QUESTIONS = [
   {
-    sit: '☀️ 09:30 ранку, зустріч із сусідом у під\'їзді',
-    sitEn: '☀️ 9:30 a.m., meeting a neighbor in the apartment building',
+    icon: 'sun',
+    sit: '09:30 ранку, зустріч із сусідом у під'їзді',
+    sitEn: '9:30 a.m., meeting a neighbor in the apartment building',
     options: ['Buongiorno', 'Buonanotte', 'Buonasera', 'Arrivederci'],
     correct: 0
   },
   {
-    sit: '🌙 23:00, ви йдете спати і кажете рідним:',
-    sitEn: '🌙 11:00 p.m., you are going to bed and say to your family:',
+    icon: 'moon',
+    sit: '23:00, ви йдете спати і кажете рідним:',
+    sitEn: '11:00 p.m., you are going to bed and say to your family:',
     options: ['Buon pomeriggio', 'Buonanotte', 'Ciao', 'Buongiorno'],
     correct: 1
   },
   {
-    sit: '🌆 19:30 вечора, ви заходите у ресторан:',
-    sitEn: '🌆 7:30 p.m., you enter a restaurant:',
+    icon: 'sun',
+    sit: '19:30 вечора, ви заходите у ресторан:',
+    sitEn: '7:30 p.m., you enter a restaurant:',
     options: ['Buonasera', 'Buongiorno', 'Buonanotte', 'Prego'],
     correct: 0
   },
   {
-    sit: '👋 Ви випадково зустріли давнього друга на вулиці:',
-    sitEn: '👋 You run into an old friend on the street:',
+    icon: 'handshake',
+    sit: 'Ви випадково зустріли давнього друга на вулиці:',
+    sitEn: 'You run into an old friend on the street:',
     options: ['Arrivederla', 'Scusi', 'Ciao!', 'Buonanotte'],
     correct: 2
   },
   {
-    sit: '🙏 Вам сказали «Grazie mille!», що ви відповідаєте?',
-    sitEn: '🙏 Someone says “Grazie mille!” What do you reply?',
+    icon: 'handshake',
+    sit: 'Вам сказали «Grazie mille!», що ви відповідаєте?',
+    sitEn: 'Someone says “Grazie mille!” What do you reply?',
     options: ['Prego!', 'Sì', 'Anch\'io', 'Grazie'],
     correct: 0
   }
@@ -37,14 +42,14 @@ let score = 0;
 function loadGameRound() {
   if (round >= QUESTIONS.length) {
     const english = getSourceLanguage() === 'en';
-    document.getElementById('gameSit').textContent = english ? '🏆 Game complete!' : '🏆 Гра завершена!';
+    document.getElementById('gameSit').innerHTML = `${getIconSvg('trophy')}<span>${english ? 'Game complete!' : 'Гра завершена!'}</span>`;
     document.getElementById('gameChoices').innerHTML = `<button class="btn-primary" onclick="restartGame()" id="external-style-games-11">${english ? 'Play again' : 'Грати знову'}</button>`;
     document.getElementById('gameFeedback').innerHTML = `<span id="external-style-games-12">${english ? `You scored ${score} points and earned +50 XP!` : `Ви набрали ${score} очок і заробили +50 XP!`}</span>`;
     addXP(50);
     return;
   }
   const q = QUESTIONS[round];
-  document.getElementById('gameSit').textContent = getSourceLanguage() === 'en' ? q.sitEn : q.sit;
+  document.getElementById('gameSit').innerHTML = `${getIconSvg(q.icon)}<span>${getSourceLanguage() === 'en' ? q.sitEn : q.sit}</span>`;
   document.getElementById('gRound').textContent = `${round + 1}/${QUESTIONS.length}`;
   document.getElementById('gScore').textContent = score;
   document.getElementById('gameFeedback').textContent = '';
@@ -64,11 +69,12 @@ function answerGame(idx) {
   if (idx === q.correct) {
     btns[idx].style.background = '#EAF4EC';
     btns[idx].style.borderColor = 'var(--pine)';
-    fb.innerHTML = `<span id="external-style-games-13">✨ ${getSourceLanguage() === 'en' ? 'Correct! (+20 points)' : 'Правильно! (+20 очок)'}</span>`;
+    fb.innerHTML = `<span id="external-style-games-13">${getIconSvg('sparkles')} ${getSourceLanguage() === 'en' ? 'Correct! (+20 points)' : 'Правильно! (+20 очок)'}</span>`;
     score += 20;
     speak(q.options[idx]);
-  } else {
-    btns[idx].style.background = '#FDF1F1';
+      icon: 'handshake',
+      sit: 'Вам сказали «Grazie mille!», що ви відповідаєте?',
+      sitEn: 'Someone says “Grazie mille!” What do you reply?',
     btns[idx].style.borderColor = 'var(--gold)';
     btns[q.correct].style.background = '#EAF4EC';
     btns[q.correct].style.borderColor = 'var(--pine)';
@@ -80,14 +86,14 @@ function answerGame(idx) {
     loadGameRound();
   }, 1400);
 }
-
+      document.getElementById('gameSit').innerHTML = `${getIconSvg('trophy')}<span>${english ? 'Game complete!' : 'Гра завершена!'}</span>`;
 function restartGame() {
   round = 0;
   score = 0;
   loadGameRound();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('gameSit').innerHTML = `${getIconSvg(q.icon)}<span>${getSourceLanguage() === 'en' ? q.sitEn : q.sit}</span>`;
   loadGameRound();
 });
 

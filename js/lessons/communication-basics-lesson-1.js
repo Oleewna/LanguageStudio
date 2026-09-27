@@ -23,7 +23,7 @@ function gradeLessonTasks() {
     { pattern: /^benvenuta$/i, label: 'Benvenuta' },
     { pattern: /^prego$/i, label: 'Prego' }
   ];
-  const taskRoot = document.getElementById('tasks').nextElementSibling;
+  const taskRoot = document.getElementById('exercises').nextElementSibling;
   const allTasks = Array.from(taskRoot.querySelectorAll('.task'));
   const choiceNames = Object.keys(choiceAnswers);
   const textInputs = Array.from(taskRoot.querySelectorAll('input[type="text"]'));
@@ -132,7 +132,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-communication-basics-lesson-1-5]');
   if (!target) return;
   var result = (function(event) {
-location.href='../pages/tasks.html'
+location.href='../pages/exercises.html'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();

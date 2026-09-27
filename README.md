@@ -1,71 +1,23 @@
-# LanguageStudio — Professional Italian Learning Platform
+# LanguageStudio
 
-A structured, teacher-led Italian learning platform designed to bridge classroom instruction with interactive self-study. Built on a CEFR-guided curriculum (A1–C2), this platform provides students with organized theory, native audio examples, interactive exercises, and gamified study tools.
+A concept for a structured Italian course that combines short lessons with 
+interactive practice — instead of the scattered vocab lists and standalone quizzes 
+most free language sites offer.
 
----
+## The idea
 
-## 📐 System Architecture & Module Breakdown
+Each lesson follows the same four-step loop: a real dialogue, a short grammar 
+breakdown, guided drills, and a mini-game checkpoint. The goal is a linear, 
+teacher-style curriculum rather than an open shelf of disconnected exercises — 
+you unlock the next lesson instead of picking randomly.
 
-### 1. Student Portal (`/learn`)
-* **Structured Learning Roadmap:** Visual, step-by-step unit progression following CEFR standards with locked and unlocked lesson nodes.
-* **Lesson Theory Hub:** In-depth grammar guides, structured explanations, and dialogue transcripts written to reinforce live teaching sessions.
-* **Native Audio & Examples:** Pronunciation clips integrated directly into vocabulary lists and conversation examples.
-* **Interactive Drill Engine:**
-  * Multiple choice & single-choice quizzes
-  * Sentence structure and word-reordering exercises
-  * Audio listening comprehension drills
-  * Interactive fill-in-the-blank text inputs
-* **Games & Study Tools:**
-  * Spaced Repetition (SRS) flashcards for active recall
-  * Time-attack word matching games
-  * Listening quizzes
-* **Gamification & Progress:** Streak counters, XP rewards, lesson accuracy rates, and completion tracking.
+Practice happens across a few connected tools that all pull from the same word/lesson 
+data: flashcards, a multi-format exercise bank (multiple choice, fill-in-blank, 
+matching, sentence building, listening, dialogue), a personal dictionary you can add 
+words to, and a quick reaction-time game. XP and streaks tie it together.
 
-### 2. Teacher & Admin Dashboard (`/admin`)
-* **Student Roster Management:** Invite students, manage access, and organize learners into study groups or cohorts.
-* **Homework & Practice Assignments:** Assign specific modules, drills, or review games to individual students or classes.
-* **Analytics & Homework Tracker:** Real-time visibility into student quiz scores, exercise completion times, accuracy rates, and common mistakes.
-* **Manual Feedback System:** Review written submissions and track individual student progress over time.
+## Current state
 
----
-
-## 🎒 Standardized Lesson Structure Template
-
-Every lesson follows a consistent 4-step sequence to maximize engagement and retention:
-
-```text
-┌────────────────────────────────────────────────────────┐
-│ 1. REAL-WORLD DIALOGUE & AUDIO                         │
-│    Listen to a native conversation snippet first.      │
-├────────────────────────────────────────────────────────┤
-│ 2. THEORY & GRAMMAR BREAKDOWN                          │
-│    Clear, bite-sized rules explaining the dialogue.    │
-├────────────────────────────────────────────────────────┤
-│ 3. GUIDED DRILLS & EXERCISES                           │
-│    Multiple-choice, fill-in-blanks, re-ordering.       │
-├────────────────────────────────────────────────────────┤
-│ 4. MINI-GAME / CHECKPOINT                              │
-│    Timed matching or flashcard review to earn XP.      │
-└────────────────────────────────────────────────────────┘
-```
-
----
-
-## 🛠️ Key Platform Features vs. Reference Sites
-
-| Feature | Reference Sites (LingoHut / 50Languages / PrimalEzione) | Impara! Platform |
-| :--- | :--- | :--- |
-| **Structure** | Unstructured vocabulary lists or standalone articles | CEFR-guided linear curriculum (A1–C2) |
-| **Grammar Explanations** | Minimal or fragmented across pages | Deep, structured theory integrated with drills |
-| **Progress Control** | Open list access with no prerequisites | Sequential progression & checkpoint tests |
-| **Teacher Controls** | None (Public tools) | Complete dashboard to manage students & assign tasks |
-| **Gamification** | Basic quizzes | XP tracking, streaks, audio matching, & flashcard games |
-
----
-
-## ⚡ Technical Stack Recommendations
-
-* **Frontend:** React / Next.js with Tailwind CSS (Responsive design, fast page loads)
-* **Backend & Database:** Node.js / PostgreSQL or Supabase (User management, progress tracking, quiz data)
-* **Audio Engine:** HTML5 Audio API / Web Speech API (or pre-recorded native audio files)
-* **Hosting:** Vercel (Frontend) + Supabase/Render (Backend & Database)
+- Front-end prototype only — static HTML/CSS/JS, no backend
+- One full lesson built (Communication basics); other tracks are locked placeholders
+- Progress/XP/dictionary stored in browser `localStorage`, no accounts or teacher dashboard yet

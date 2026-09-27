@@ -50,7 +50,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-index-5]');
   if (!target) return;
   var result = (function(event) {
-location.href='pages/tasks.html'
+location.href='pages/exercises.html'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();

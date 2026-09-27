@@ -15,10 +15,11 @@ const FC_DATA = [
 ];
 
 const TRACK_LABELS = {
-  foundations: '👋 Основи',
-  tourist: '🧳 Турист',
-  business: '💼 Бізнес'
+  foundations: 'Основи',
+  tourist: 'Турист',
+  business: 'Бізнес'
 };
+const TRACK_ICONS = { foundations: 'handshake', tourist: 'suitcase', business: 'briefcase' };
 
 let selectedTopic = 'all';
 let cards = [...FC_DATA];
@@ -76,8 +77,10 @@ function updateCardDisplay() {
     isFlipped = false;
     inner.style.transform = 'rotateY(0deg)';
   }
-  document.getElementById('fcUnitTag').textContent = TRACK_LABELS[item.track] || '👋 Основи';
-  document.getElementById('fcTopicTag').textContent = item.topic === 'greetings' ? '👋 Привітання' : item.topic === 'custom' ? '⭐ Власне' : '🔤 Базове';
+  document.getElementById('fcUnitTag').innerHTML = `${getIconSvg(TRACK_ICONS[item.track] || 'handshake')}<span>${TRACK_LABELS[item.track] || 'Основи'}</span>`;
+  const topicIcon = item.topic === 'greetings' ? 'handshake' : item.topic === 'custom' ? 'star' : 'type';
+  const topicLabel = item.topic === 'greetings' ? 'Привітання' : item.topic === 'custom' ? 'Власне' : 'Базове';
+  document.getElementById('fcTopicTag').innerHTML = `${getIconSvg(topicIcon)}<span>${topicLabel}</span>`;
   document.getElementById('fcWord').textContent = item.word;
   document.getElementById('fcPhon').textContent = item.phon || '';
   document.getElementById('fcTrans').textContent = getSourceTranslation(`flashcards.${item.word}`, item.trans);
@@ -181,7 +184,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-flashcards-5]');
   if (!target) return;
   var result = (function(event) {
-location.href='tasks.html'
+location.href='exercises.html'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();

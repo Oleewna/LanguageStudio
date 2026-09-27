@@ -102,14 +102,14 @@ function renderDictionary() {
         <div class="dict-phon">${w.phon || ''}</div>
         <div class="dict-trans">${translation}</div>
         <div class="dict-meta">
-          ${w.lesson ? `<span>📘 ${w.lesson}</span>` : ''}
-          ${w.category ? `<span>🏷 ${w.category}</span>` : ''}
+          ${w.lesson ? `<span>${getIconSvg('units')} ${w.lesson}</span>` : ''}
+          ${w.category ? `<span>${getIconSvg('tag')} ${w.category}</span>` : ''}
         </div>
       </div>
       <div class="dict-actions">
         <button class="star-btn ${isLearned ? 'active' : ''}" onclick="toggleLearned('${w.id}', event)" title="${isLearned ? 'Вивчено' : 'Позначити як вивчене'}"><svg class="ls-icon" viewBox="0 0 24 24" fill="${isLearned ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/></svg></button>
         <button class="audio-btn" onclick="event.stopPropagation(); speak('${w.word.replace(/'/g, "\\'")}', this)" title="Аудіо"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></svg></button>
-        ${w.custom ? `<button class="delete-btn" onclick="event.stopPropagation(); deleteWord('${w.id}')" title="Видалити">🗑</button>` : ''}
+        ${w.custom ? `<button class="delete-btn" onclick="event.stopPropagation(); deleteWord('${w.id}')" title="Видалити">${getIconSvg('trash')}</button>` : ''}
       </div>
     </div>
   `;
@@ -221,7 +221,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-dictionary-5]');
   if (!target) return;
   var result = (function(event) {
-location.href='tasks.html'
+location.href='exercises.html'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();

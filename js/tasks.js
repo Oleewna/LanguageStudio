@@ -3,14 +3,14 @@
    ════════════════════════════════════════════════════════════════════ */
 
 const CATEGORIES_MAP = {
-  articles:   { group: 'grammar',     nameUk: '📌 Іменники & Артиклі',         nameEn: '📌 Nouns & Articles' },
-  verbs:      { group: 'grammar',     nameUk: '🔷 Відмінювання дієслів',        nameEn: '🔷 Verb Conjugation' },
-  pronouns:   { group: 'grammar',     nameUk: '💬 Займенники & Прийменники',   nameEn: '💬 Pronouns & Prepositions' },
-  sentence:   { group: 'grammar',     nameUk: '🧱 Структура речення',           nameEn: '🧱 Sentence Structure' },
+  articles:   { group: 'grammar', icon: 'pin', nameUk: 'Іменники & Артиклі', nameEn: 'Nouns & Articles' },
+  verbs:      { group: 'grammar', icon: 'verb', nameUk: 'Відмінювання дієслів', nameEn: 'Verb Conjugation' },
+  pronouns:   { group: 'grammar', icon: 'chat', nameUk: 'Займенники & Прийменники', nameEn: 'Pronouns & Prepositions' },
+  sentence:   { group: 'grammar', icon: 'type', nameUk: 'Структура речення', nameEn: 'Sentence Structure' },
   greetings:  { group: 'situational', nameUk: '<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg> Знайомство & Сусіди', nameEn: '<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg> Greetings & Meeting Neighbors' },
   cafe:       { group: 'situational', nameUk: '<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg> У кафе та барі', nameEn: '<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg> At the Cafe & Bar' },
-  directions: { group: 'situational', nameUk: '🗺️ Орієнтування в місті',       nameEn: '🗺️ Asking Directions' },
-  shopping:   { group: 'situational', nameUk: '🛒 Покупки та ціни',             nameEn: '🛒 Shopping & Prices' }
+  directions: { group: 'situational', icon: 'compass', nameUk: 'Орієнтування в місті', nameEn: 'Asking Directions' },
+  shopping:   { group: 'situational', icon: 'shopping', nameUk: 'Покупки та ціни', nameEn: 'Shopping & Prices' }
 };
 
 const LEVEL_RANK = { 'A1': 1, 'A2': 2, 'B1': 3 };
@@ -270,8 +270,8 @@ const TASK_BANK = [
   /* ──────────────── DIALOGUE CONTINUATION (DIALOGUE) ──────────────── */
   {
     id: 'dlg-g1', format: 'dialogue', category: 'greetings', level: 'A1',
-    lineA: '👤 А: «Ciao! Come ti chiami?»',
-    instruction: { uk: '👤 Б: оберіть репліку, якою продовжити знайомство', en: '👤 B: choose the line that continues the introduction' },
+    lineA: 'А: «Ciao! Come ti chiami?»',
+    instruction: { uk: 'Б: оберіть репліку, якою продовжити знайомство', en: 'B: choose the line that continues the introduction' },
     options: [
       { text: 'Mi chiamo Sara. E tu?', correct: true },
       { text: 'Grazie mille per l\'aiuto!', correct: false },
@@ -281,8 +281,8 @@ const TASK_BANK = [
   },
   {
     id: 'dlg-cafe1', format: 'dialogue', category: 'cafe', level: 'A1',
-    lineA: '👤 А: «Buongiorno! Cosa desidera?»',
-    instruction: { uk: '👤 Б: оберіть репліку для замовлення в барі', en: '👤 B: choose the line to order at the cafe bar' },
+    lineA: 'А: «Buongiorno! Cosa desidera?»',
+    instruction: { uk: 'Б: оберіть репліку для замовлення в барі', en: 'B: choose the line to order at the cafe bar' },
     options: [
       { text: 'Un cappuccino e una brioche, per favore.', correct: true },
       { text: 'Piacere di conoscerti!', correct: false },
@@ -292,8 +292,8 @@ const TASK_BANK = [
   },
   {
     id: 'dlg-dir1', format: 'dialogue', category: 'directions', level: 'A2',
-    lineA: '👤 А: «Scusi, dov\'è il museo?»',
-    instruction: { uk: '👤 Б: оберіть репліку для пояснення дороги', en: '👤 B: choose the line to give directions' },
+    lineA: 'А: «Scusi, dov\'è il museo?»',
+    instruction: { uk: 'Б: оберіть репліку для пояснення дороги', en: 'B: choose the line to give directions' },
     options: [
       { text: 'Vada sempre diritto e poi a destra.', correct: true },
       { text: 'Mi chiamo Marco.', correct: false },
@@ -303,8 +303,8 @@ const TASK_BANK = [
   },
   {
     id: 'dlg-shop1', format: 'dialogue', category: 'shopping', level: 'A2',
-    lineA: '👤 А: «Quanto costa questa maglietta?»',
-    instruction: { uk: '👤 Б: оберіть відповідь продавця про ціну', en: '👤 B: choose the seller\'s response showing price' },
+    lineA: 'А: «Quanto costa questa maglietta?»',
+    instruction: { uk: 'Б: оберіть відповідь продавця про ціну', en: 'B: choose the seller\'s response showing price' },
     options: [
       { text: 'Costa venticinque euro.', correct: true },
       { text: 'Buona giornata!', correct: false },
@@ -365,7 +365,7 @@ function applyFiltersAndSort() {
   const sortVal = document.getElementById('sortFilterSelect').value;
   const searchVal = document.getElementById('searchInput').value.trim().toLowerCase();
 
-  // Filter tasks for current format tab
+  // Filter exercises for current format tab
   let filtered = TASK_BANK.filter(t => {
     if (t.format !== currentTab) return false;
     
@@ -389,7 +389,7 @@ function applyFiltersAndSort() {
     return true;
   });
 
-  // Sort tasks
+  // Sort exercises
   if (sortVal === 'level-asc') {
     filtered.sort((a, b) => (LEVEL_RANK[a.level] || 1) - (LEVEL_RANK[b.level] || 1));
   } else if (sortVal === 'level-desc') {
@@ -425,13 +425,18 @@ function groupByCategory(items) {
   return groups;
 }
 
+function getCategoryLabel(catKey) {
+  const info = CATEGORIES_MAP[catKey] || { icon: 'layers', nameUk: 'Загальні вправи', nameEn: 'General Exercises' };
+  const label = getLang() === 'en' ? info.nameEn : info.nameUk;
+  return `${info.icon ? `${getIconSvg(info.icon)} ` : ''}${label}`;
+}
+
 function renderCategoryHeader(catKey, count) {
-  const info = CATEGORIES_MAP[catKey] || { nameUk: 'Загальні вправи', nameEn: 'General Exercises' };
-  const name = getLang() === 'en' ? info.nameEn : info.nameUk;
+  const name = getCategoryLabel(catKey);
   return `
     <div class="category-section-title">
       <span>${name}</span>
-      <span class="category-section-count">${count} ${getLang() === 'en' ? 'tasks' : 'завдань'}</span>
+      <span class="category-section-count">${count} ${getLang() === 'en' ? 'exercises' : 'завдань'}</span>
     </div>
   `;
 }
@@ -457,8 +462,7 @@ function renderMCQPanel(items) {
   for (const catKey in groups) {
     html += renderCategoryHeader(catKey, groups[catKey].length);
     groups[catKey].forEach((task, idx) => {
-      const catInfo = CATEGORIES_MAP[task.category] || {};
-      const catName = getLang() === 'en' ? (catInfo.nameEn || '') : (catInfo.nameUk || '');
+      const catName = getCategoryLabel(task.category);
       
       html += `
         <div class="quiz-card" id="card-${task.id}">
@@ -499,18 +503,18 @@ function handleMCQClick(taskId, optIdx, isCorrect, el) {
   if (isCorrect) {
     el.classList.add('correct');
     fb.className = 'quiz-feedback show-correct';
-    fb.innerHTML = `🎉 <b>${getLang() === 'en' ? 'Great!' : 'Чудово!'}</b> ${getLang() === 'en' ? 'Correct answer.' : 'Правильна відповідь.'} (+15 XP)`;
+    fb.innerHTML = `${getIconSvg('sparkles')} <b>${getLang() === 'en' ? 'Great!' : 'Чудово!'}</b> ${getLang() === 'en' ? 'Correct answer.' : 'Правильна відповідь.'} (+15 XP)`;
     if (typeof addXP === 'function') addXP(15);
   } else {
     el.classList.add('wrong');
     const correctOpt = [...opts].find(o => o.dataset.correct === 'true');
     if (correctOpt) correctOpt.classList.add('correct');
     fb.className = 'quiz-feedback show-wrong';
-    fb.innerHTML = `❌ <b>${getLang() === 'en' ? 'Not quite.' : 'Не зовсім.'}</b> ${getLang() === 'en' ? 'The correct answer is highlighted.' : 'Подивіться правильний варіант вище.'}`;
+    fb.innerHTML = `${getIconSvg('close')} <b>${getLang() === 'en' ? 'Not quite.' : 'Не зовсім.'}</b> ${getLang() === 'en' ? 'The correct answer is highlighted.' : 'Подивіться правильний варіант вище.'}`;
   }
 
   if (task && task.explanation) {
-    fb.innerHTML += `<div class="quiz-explanation">💡 <b>${getLang() === 'en' ? 'Explanation:' : 'Пояснення:'}</b> ${getText(task.explanation)}</div>`;
+    fb.innerHTML += `<div class="quiz-explanation">${getIconSvg('lightbulb')} <b>${getLang() === 'en' ? 'Explanation:' : 'Пояснення:'}</b> ${getText(task.explanation)}</div>`;
   }
 }
 
@@ -525,8 +529,7 @@ function renderBlankPanel(items) {
   for (const catKey in groups) {
     html += renderCategoryHeader(catKey, groups[catKey].length);
     groups[catKey].forEach(task => {
-      const catInfo = CATEGORIES_MAP[task.category] || {};
-      const catName = getLang() === 'en' ? (catInfo.nameEn || '') : (catInfo.nameUk || '');
+      const catName = getCategoryLabel(task.category);
 
       html += `
         <div class="quiz-card" id="card-${task.id}">
@@ -538,8 +541,8 @@ function renderBlankPanel(items) {
             <div class="quiz-q-num">${getLang() === 'en' ? 'Fill in the blank' : 'Заповніть пропуск'}</div>
           </div>
           <div class="quiz-question">${getText(task.question)}</div>
-          ${task.hint ? `<div id="external-style-tasks-4">${getText(task.hint)}</div>` : ''}
-          <div id="external-style-tasks-5">
+          ${task.hint ? `<div id="external-style-exercises-4">${getText(task.hint)}</div>` : ''}
+          <div id="external-style-exercises-5">
             <input type="text" class="text-answer-input" id="input-${task.id}" placeholder="${getLang() === 'en' ? 'Type answer...' : 'Впишіть слово...'}" />
             <button class="btn-primary" onclick="handleBlankCheck('${task.id}')">${getLang() === 'en' ? 'Check' : 'Перевірити'}</button>
           </div>
@@ -563,15 +566,15 @@ function handleBlankCheck(taskId) {
     answeredState[taskId] = true;
     input.disabled = true;
     fb.className = 'quiz-feedback show-correct';
-    fb.innerHTML = `🎉 <b>${getLang() === 'en' ? 'Correct!' : 'Правильно!'}</b> (+10 XP)`;
+    fb.innerHTML = `${getIconSvg('sparkles')} <b>${getLang() === 'en' ? 'Correct!' : 'Правильно!'}</b> (+10 XP)`;
     if (typeof addXP === 'function') addXP(10);
   } else {
     fb.className = 'quiz-feedback show-wrong';
-    fb.innerHTML = `❌ <b>${getLang() === 'en' ? 'Try again.' : 'Спробуйте ще раз.'}</b> (${getLang() === 'en' ? 'Correct:' : 'Правильна відповідь:'} <b>${task.answers[0]}</b>)`;
+    fb.innerHTML = `${getIconSvg('close')} <b>${getLang() === 'en' ? 'Try again.' : 'Спробуйте ще раз.'}</b> (${getLang() === 'en' ? 'Correct:' : 'Правильна відповідь:'} <b>${task.answers[0]}</b>)`;
   }
 
   if (task && task.explanation) {
-    fb.innerHTML += `<div class="quiz-explanation">💡 <b>${getLang() === 'en' ? 'Explanation:' : 'Пояснення:'}</b> ${getText(task.explanation)}</div>`;
+    fb.innerHTML += `<div class="quiz-explanation">${getIconSvg('lightbulb')} <b>${getLang() === 'en' ? 'Explanation:' : 'Пояснення:'}</b> ${getText(task.explanation)}</div>`;
   }
 }
 
@@ -586,8 +589,7 @@ function renderListenPanel(items) {
   for (const catKey in groups) {
     html += renderCategoryHeader(catKey, groups[catKey].length);
     groups[catKey].forEach(task => {
-      const catInfo = CATEGORIES_MAP[task.category] || {};
-      const catName = getLang() === 'en' ? (catInfo.nameEn || '') : (catInfo.nameUk || '');
+      const catName = getCategoryLabel(task.category);
 
       html += `
         <div class="quiz-card" id="card-${task.id}">
@@ -598,8 +600,8 @@ function renderListenPanel(items) {
             </div>
             <div class="quiz-q-num">${getLang() === 'en' ? 'Listening Practice' : 'Аудіювання'}</div>
           </div>
-          <div class="quiz-question" id="external-style-tasks-6">
-            <button class="audio-btn" onclick="speak('${task.audioWord}', this)" title="Listen to Italian word" id="external-style-tasks-7"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></svg></button>
+          <div class="quiz-question" id="external-style-exercises-6">
+            <button class="audio-btn" onclick="speak('${task.audioWord}', this)" title="Listen to Italian word" id="external-style-exercises-7"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></svg></button>
             <span>${getText(task.instruction)}</span>
           </div>
           <div class="quiz-options">
@@ -628,8 +630,7 @@ function renderDialoguePanel(items) {
   for (const catKey in groups) {
     html += renderCategoryHeader(catKey, groups[catKey].length);
     groups[catKey].forEach(task => {
-      const catInfo = CATEGORIES_MAP[task.category] || {};
-      const catName = getLang() === 'en' ? (catInfo.nameEn || '') : (catInfo.nameUk || '');
+      const catName = getCategoryLabel(task.category);
 
       html += `
         <div class="quiz-card" id="card-${task.id}">
@@ -641,13 +642,13 @@ function renderDialoguePanel(items) {
             <div class="quiz-q-num">${getLang() === 'en' ? 'Interactive Dialogue' : 'Практика діалогу'}</div>
           </div>
           <div class="quiz-question">
-            <div>${task.lineA}</div>
-            <div id="external-style-tasks-8">${getText(task.instruction)}</div>
+            <div>${getIconSvg('user')} ${task.lineA}</div>
+            <div id="external-style-exercises-8">${getIconSvg('user')} ${getText(task.instruction)}</div>
           </div>
           <div class="quiz-options">
             ${task.options.map((opt, oIdx) => `
               <div class="quiz-opt" data-correct="${opt.correct}" onclick="handleMCQClick('${task.id}', ${oIdx}, ${opt.correct}, this)">
-                💬 ${opt.text}
+                ${getIconSvg('chat')} ${opt.text}
               </div>
             `).join('')}
           </div>
@@ -699,8 +700,8 @@ function renderMatchingPanel(filteredItems) {
       </div>
 
       <div class="match-status" id="matchStatus">${getLang() === 'en' ? 'Pairs found' : 'Знайдено пар'}: 0/${currentMatchData.length}</div>
-      <div id="external-style-tasks-9">
-        <button class="btn-ghost" onclick="renderMatchingPanel()">🔄 ${getLang() === 'en' ? 'Shuffle again' : 'Перемішати заново'}</button>
+      <div id="external-style-exercises-9">
+        <button class="btn-ghost" onclick="renderMatchingPanel()">${getIconSvg('shuffle')} ${getLang() === 'en' ? 'Shuffle again' : 'Перемішати заново'}</button>
       </div>
     </div>
   `;
@@ -728,7 +729,7 @@ function selectMatchItem(el) {
 
       if (matchFoundCount === currentMatchData.length) {
         if (typeof addXP === 'function') addXP(20);
-        document.getElementById('matchStatus').innerHTML += ` 🎉 <b>${getLang() === 'en' ? 'All pairs matched!' : 'Всі пари знайдено!'}</b> (+20 XP)`;
+        document.getElementById('matchStatus').innerHTML += ` ${getIconSvg('sparkles')} <b>${getLang() === 'en' ? 'All pairs matched!' : 'Всі пари знайдено!'}</b> (+20 XP)`;
       }
     } else {
       itEl.classList.add('wrong');
@@ -758,8 +759,7 @@ function renderReorderPanel(filteredItems) {
         answer: []
       };
     }
-    const catInfo = CATEGORIES_MAP[task.category] || {};
-    const catName = getLang() === 'en' ? (catInfo.nameEn || '') : (catInfo.nameUk || '');
+    const catName = getCategoryLabel(task.category);
 
     return `
       <div class="quiz-card" id="card-${task.id}">
@@ -770,10 +770,10 @@ function renderReorderPanel(filteredItems) {
           </div>
           <div class="quiz-q-num">${getLang() === 'en' ? 'Build the sentence' : 'Складіть речення'}</div>
         </div>
-        <div class="quiz-question">💬 «${getText(task.clue)}»</div>
+        <div class="quiz-question">${getIconSvg('chat')} «${getText(task.clue)}»</div>
         <div class="reorder-answer" id="ans-${task.id}"></div>
         <div class="reorder-pool" id="pool-${task.id}"></div>
-        <div id="external-style-tasks-10">
+        <div id="external-style-exercises-10">
           <button class="btn-primary" onclick="checkReorderSentence('${task.id}')">${getLang() === 'en' ? 'Check' : 'Перевірити'}</button>
           <button class="btn-ghost" onclick="resetReorderSentence('${task.id}')">${getLang() === 'en' ? 'Reset' : 'Скинути'}</button>
         </div>
@@ -795,7 +795,7 @@ function drawReorderChips(id) {
   poolEl.innerHTML = st.pool.map((w, i) => `<span class="reorder-chip" onclick="moveChipToAnswer('${id}',${i})">${w}</span>`).join('');
   ansEl.innerHTML = st.answer.length
     ? st.answer.map((w, i) => `<span class="reorder-chip answer-chip" onclick="moveChipToPool('${id}',${i})">${w}</span>`).join('')
-    : `<span id="external-style-tasks-11">${getLang() === 'en' ? 'Click words below to assemble sentence' : 'Натисніть слова знизу, щоб скласти речення'}</span>`;
+    : `<span id="external-style-exercises-11">${getLang() === 'en' ? 'Click words below to assemble sentence' : 'Натисніть слова знизу, щоб скласти речення'}</span>`;
 }
 
 function moveChipToAnswer(id, idx) {
@@ -830,15 +830,15 @@ function checkReorderSentence(id) {
   if (st.answer.join(' ') === task.words.join(' ')) {
     answeredState[id] = true;
     fb.className = 'quiz-feedback show-correct';
-    fb.innerHTML = `🎉 <b>${getLang() === 'en' ? 'Correct!' : 'Правильно!'}</b> (+10 XP)`;
+    fb.innerHTML = `${getIconSvg('sparkles')} <b>${getLang() === 'en' ? 'Correct!' : 'Правильно!'}</b> (+10 XP)`;
     if (typeof addXP === 'function') addXP(10);
   } else {
     fb.className = 'quiz-feedback show-wrong';
-    fb.innerHTML = `❌ <b>${getLang() === 'en' ? 'Not quite right.' : 'Ще не так.'}</b> ${getLang() === 'en' ? 'Check the word order.' : 'Спробуйте ще раз.'}`;
+    fb.innerHTML = `${getIconSvg('close')} <b>${getLang() === 'en' ? 'Not quite right.' : 'Ще не так.'}</b> ${getLang() === 'en' ? 'Check the word order.' : 'Спробуйте ще раз.'}`;
   }
 
   if (task && task.explanation) {
-    fb.innerHTML += `<div class="quiz-explanation">💡 <b>${getLang() === 'en' ? 'Explanation:' : 'Пояснення:'}</b> ${getText(task.explanation)}</div>`;
+    fb.innerHTML += `<div class="quiz-explanation">${getIconSvg('lightbulb')} <b>${getLang() === 'en' ? 'Explanation:' : 'Пояснення:'}</b> ${getText(task.explanation)}</div>`;
   }
 }
 
@@ -915,7 +915,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-1]');
+  var target = event.target.closest('[data-external-handler-exercises-1]');
   if (!target) return;
   var result = (function(event) {
 closeMobNav()
@@ -927,7 +927,7 @@ closeMobNav()
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-2]');
+  var target = event.target.closest('[data-external-handler-exercises-2]');
   if (!target) return;
   var result = (function(event) {
 closeMobNav()
@@ -939,7 +939,7 @@ closeMobNav()
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-3]');
+  var target = event.target.closest('[data-external-handler-exercises-3]');
   if (!target) return;
   var result = (function(event) {
 location.href='units.html'
@@ -951,7 +951,7 @@ location.href='units.html'
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-4]');
+  var target = event.target.closest('[data-external-handler-exercises-4]');
   if (!target) return;
   var result = (function(event) {
 location.href='flashcards.html'
@@ -963,10 +963,10 @@ location.href='flashcards.html'
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-5]');
+  var target = event.target.closest('[data-external-handler-exercises-5]');
   if (!target) return;
   var result = (function(event) {
-location.href='tasks.html'
+location.href='exercises.html'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();
@@ -975,7 +975,7 @@ location.href='tasks.html'
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-6]');
+  var target = event.target.closest('[data-external-handler-exercises-6]');
   if (!target) return;
   var result = (function(event) {
 location.href='dictionary.html'
@@ -987,7 +987,7 @@ location.href='dictionary.html'
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-7]');
+  var target = event.target.closest('[data-external-handler-exercises-7]');
   if (!target) return;
   var result = (function(event) {
 location.href='games.html'
@@ -999,7 +999,7 @@ location.href='games.html'
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-8]');
+  var target = event.target.closest('[data-external-handler-exercises-8]');
   if (!target) return;
   var result = (function(event) {
 location.href='grammar.html'
@@ -1011,7 +1011,7 @@ location.href='grammar.html'
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-9]');
+  var target = event.target.closest('[data-external-handler-exercises-9]');
   if (!target) return;
   var result = (function(event) {
 toggleTheme()
@@ -1023,7 +1023,7 @@ toggleTheme()
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-10]');
+  var target = event.target.closest('[data-external-handler-exercises-10]');
   if (!target) return;
   var result = (function(event) {
 openProfileModal()
@@ -1035,7 +1035,7 @@ openProfileModal()
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-11]');
+  var target = event.target.closest('[data-external-handler-exercises-11]');
   if (!target) return;
   var result = (function(event) {
 openMobNav()
@@ -1047,7 +1047,7 @@ openMobNav()
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-12]');
+  var target = event.target.closest('[data-external-handler-exercises-12]');
   if (!target) return;
   var result = (function(event) {
 setCategoryFilter('all')
@@ -1059,7 +1059,7 @@ setCategoryFilter('all')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-13]');
+  var target = event.target.closest('[data-external-handler-exercises-13]');
   if (!target) return;
   var result = (function(event) {
 setCategoryFilter('articles')
@@ -1071,7 +1071,7 @@ setCategoryFilter('articles')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-14]');
+  var target = event.target.closest('[data-external-handler-exercises-14]');
   if (!target) return;
   var result = (function(event) {
 setCategoryFilter('verbs')
@@ -1083,7 +1083,7 @@ setCategoryFilter('verbs')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-15]');
+  var target = event.target.closest('[data-external-handler-exercises-15]');
   if (!target) return;
   var result = (function(event) {
 setCategoryFilter('pronouns')
@@ -1095,7 +1095,7 @@ setCategoryFilter('pronouns')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-16]');
+  var target = event.target.closest('[data-external-handler-exercises-16]');
   if (!target) return;
   var result = (function(event) {
 setCategoryFilter('sentence')
@@ -1107,7 +1107,7 @@ setCategoryFilter('sentence')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-17]');
+  var target = event.target.closest('[data-external-handler-exercises-17]');
   if (!target) return;
   var result = (function(event) {
 setCategoryFilter('greetings')
@@ -1119,7 +1119,7 @@ setCategoryFilter('greetings')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-18]');
+  var target = event.target.closest('[data-external-handler-exercises-18]');
   if (!target) return;
   var result = (function(event) {
 setCategoryFilter('cafe')
@@ -1131,7 +1131,7 @@ setCategoryFilter('cafe')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-19]');
+  var target = event.target.closest('[data-external-handler-exercises-19]');
   if (!target) return;
   var result = (function(event) {
 setCategoryFilter('directions')
@@ -1143,7 +1143,7 @@ setCategoryFilter('directions')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-20]');
+  var target = event.target.closest('[data-external-handler-exercises-20]');
   if (!target) return;
   var result = (function(event) {
 setCategoryFilter('shopping')
@@ -1155,7 +1155,7 @@ setCategoryFilter('shopping')
 });
 
 document.addEventListener('change', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-21]');
+  var target = event.target.closest('[data-external-handler-exercises-21]');
   if (!target) return;
   var result = (function(event) {
 applyFiltersAndSort()
@@ -1167,7 +1167,7 @@ applyFiltersAndSort()
 });
 
 document.addEventListener('change', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-22]');
+  var target = event.target.closest('[data-external-handler-exercises-22]');
   if (!target) return;
   var result = (function(event) {
 applyFiltersAndSort()
@@ -1179,7 +1179,7 @@ applyFiltersAndSort()
 });
 
 document.addEventListener('change', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-23]');
+  var target = event.target.closest('[data-external-handler-exercises-23]');
   if (!target) return;
   var result = (function(event) {
 applyFiltersAndSort()
@@ -1191,7 +1191,7 @@ applyFiltersAndSort()
 });
 
 document.addEventListener('input', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-24]');
+  var target = event.target.closest('[data-external-handler-exercises-24]');
   if (!target) return;
   var result = (function(event) {
 applyFiltersAndSort()
@@ -1203,7 +1203,7 @@ applyFiltersAndSort()
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-25]');
+  var target = event.target.closest('[data-external-handler-exercises-25]');
   if (!target) return;
   var result = (function(event) {
 showTaskTab('mcq')
@@ -1215,7 +1215,7 @@ showTaskTab('mcq')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-26]');
+  var target = event.target.closest('[data-external-handler-exercises-26]');
   if (!target) return;
   var result = (function(event) {
 showTaskTab('blank')
@@ -1227,7 +1227,7 @@ showTaskTab('blank')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-27]');
+  var target = event.target.closest('[data-external-handler-exercises-27]');
   if (!target) return;
   var result = (function(event) {
 showTaskTab('match')
@@ -1239,7 +1239,7 @@ showTaskTab('match')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-28]');
+  var target = event.target.closest('[data-external-handler-exercises-28]');
   if (!target) return;
   var result = (function(event) {
 showTaskTab('reorder')
@@ -1251,7 +1251,7 @@ showTaskTab('reorder')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-29]');
+  var target = event.target.closest('[data-external-handler-exercises-29]');
   if (!target) return;
   var result = (function(event) {
 showTaskTab('listen')
@@ -1263,7 +1263,7 @@ showTaskTab('listen')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-30]');
+  var target = event.target.closest('[data-external-handler-exercises-30]');
   if (!target) return;
   var result = (function(event) {
 showTaskTab('dialogue')
@@ -1275,7 +1275,7 @@ showTaskTab('dialogue')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-31]');
+  var target = event.target.closest('[data-external-handler-exercises-31]');
   if (!target) return;
   var result = (function(event) {
 showTaskTab('dict')
@@ -1287,7 +1287,7 @@ showTaskTab('dict')
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-tasks-32]');
+  var target = event.target.closest('[data-external-handler-exercises-32]');
   if (!target) return;
   var result = (function(event) {
 generateDictQuiz()

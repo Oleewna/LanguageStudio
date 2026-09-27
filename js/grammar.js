@@ -17,7 +17,7 @@ const GR_DATA = {
       </tbody>
     </table>
     <div class="gr-note-box">
-      <b>💡 Зверніть увагу:</b> Перед голосними в однині артиклі <i>lo</i> та <i>la</i> скорочуються до <b>l'</b> (l'albergo, l'ora).
+      <b>${getIconSvg('lightbulb')} Зверніть увагу:</b> Перед голосними в однині артиклі <i>lo</i> та <i>la</i> скорочуються до <b>l'</b> (l'albergo, l'ora).
     </div>
   `,
   verbi: `
@@ -40,7 +40,7 @@ const GR_DATA = {
       </tbody>
     </table>
     <div class="gr-note-box">
-      <b>💡 Вік в італійській мові:</b> Вік виражається через дієслово <i>avere</i> (мати): «Ho 25 anni» (Мені 25 років, дослівно «Я маю 25 років»).
+      <b>${getIconSvg('lightbulb')} Вік в італійській мові:</b> Вік виражається через дієслово <i>avere</i> (мати): «Ho 25 anni» (Мені 25 років, дослівно «Я маю 25 років»).
     </div>
   `,
   cortesia: `
@@ -135,7 +135,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-grammar-5]');
   if (!target) return;
   var result = (function(event) {
-location.href='tasks.html'
+location.href='exercises.html'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();

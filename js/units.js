@@ -237,7 +237,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-units-5]');
   if (!target) return;
   var result = (function(event) {
-location.href='tasks.html'
+location.href='exercises.html'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();
