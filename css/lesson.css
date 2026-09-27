@@ -208,15 +208,6 @@ body {
   z-index: 1;
 }
 
-.hero::after {
-  content: "🍋";
-  position: absolute;
-  right: 1.25rem;
-  top: 1.25rem;
-  font-size: 2.6rem;
-  opacity: 0.9;
-}
-
 .hero-label {
   font-size: 0.72rem;
   letter-spacing: 0.08em;

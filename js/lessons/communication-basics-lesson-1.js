@@ -6,6 +6,44 @@ function closeSidebar(){
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sbOverlay').classList.remove('open');
 }
+function updateLessonCharacterNames() {
+  const studentName = getSourceTranslation('lesson.character.student');
+  const studentItalianName = getSourceTranslation('lesson.character.student.italian');
+  const teacherName = getSourceTranslation('lesson.character.teacher');
+  const teacherItalianName = getSourceTranslation('lesson.character.teacher.italian');
+
+  document.querySelectorAll('.dialogue-name').forEach((element, index) => {
+    element.textContent = index % 2 === 0 ? studentName : teacherName;
+  });
+  document.querySelectorAll('.dialogue-avatar').forEach((element, index) => {
+    element.textContent = index % 2 === 0 ? studentName[0] : teacherName[0];
+  });
+  document.querySelectorAll('.dialogue-it').forEach(element => {
+    if (!element.dataset.originalText) element.dataset.originalText = element.innerHTML;
+    element.innerHTML = element.dataset.originalText
+      .replace(/\b(?:Sara|Sofia|Emily)\b/g, studentItalianName)
+      .replace(/\b(?:Anna|Olena|Jessica)\b/g, teacherItalianName);
+  });
+
+  const phoneticLines = document.querySelectorAll('.dialogue-phon');
+  const english = getSourceLanguage() === 'en';
+  if (phoneticLines[2]) phoneticLines[2].textContent = english ? '[mee KYAH-moh EH-mee-lee. eh too]' : '[мі к’я-мо Со-Фі-я. е ту]';
+  if (phoneticLines[3]) phoneticLines[3].textContent = english ? '[EE-oh SOH-noh JESS-ee-kah. pyah-CHEH-reh]' : '[і-о со-но О-ле-на. п’я-че-ре]';
+  if (phoneticLines[4]) phoneticLines[4].textContent = english ? '[pyah-CHEH-reh, JESS-ee-kah]' : '[п’я-че-ре, О-ле-на]';
+
+  const teacherExercise = Array.from(document.querySelectorAll('#exercises + .card .task'))
+    .find(task => task.textContent.includes('Io ___'));
+  const teacherExerciseText = Array.from(teacherExercise?.childNodes || [])
+    .find(node => node.nodeType === Node.TEXT_NODE && node.nodeValue.includes('Io ___'));
+  if (teacherExerciseText) {
+    teacherExerciseText.nodeValue = teacherExerciseText.nodeValue
+      .replace(/\b(?:Anna|Olena|Jessica)\b/g, teacherItalianName);
+  }
+}
+
+updateLessonCharacterNames();
+window.addEventListener('sourceLanguageChanged', updateLessonCharacterNames);
+
 function gradeLessonTasks() {
   const choiceAnswers = {
     q1: getSourceTranslation('lesson.exercise.q1.a'),
@@ -18,10 +56,10 @@ function gradeLessonTasks() {
     q8: getSourceTranslation('lesson.yes')
   };
   const textAnswers = [
-    { pattern: /^sara$/i, label: 'Sara' },
-    { pattern: /^sono$/i, label: 'sono' },
-    { pattern: /^benvenuta$/i, label: 'Benvenuta' },
-    { pattern: /^prego$/i, label: 'Prego' }
+    { value: () => getSourceTranslation('lesson.character.student.italian') },
+    { value: () => 'sono' },
+    { value: () => 'Benvenuta' },
+    { value: () => 'Prego' }
   ];
   const taskRoot = document.getElementById('exercises').nextElementSibling;
   const allTasks = Array.from(taskRoot.querySelectorAll('.task'));
@@ -51,8 +89,9 @@ function gradeLessonTasks() {
 
   textInputs.forEach((input, index) => {
     const normalized = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
-    const isCorrect = textAnswers[index].pattern.test(normalized);
-    showTaskFeedback(input.closest('.task'), isCorrect, textAnswers[index].label);
+    const correctAnswer = textAnswers[index].value();
+    const isCorrect = normalized === correctAnswer.toLowerCase();
+    showTaskFeedback(input.closest('.task'), isCorrect, correctAnswer);
     correctCount += Number(isCorrect);
   });
 
@@ -152,17 +191,6 @@ location.href='../pages/dictionary.html'
   }
 });
 
-document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-communication-basics-lesson-1-7]');
-  if (!target) return;
-  var result = (function(event) {
-location.href='../pages/games.html'
-  }).call(target, event);
-  if (result === false) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-});
 
 document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-communication-basics-lesson-1-8]');
@@ -264,7 +292,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-communication-basics-lesson-1-16]');
   if (!target) return;
   var result = (function(event) {
-speak('Mi chiamo Sara. E tu?', this)
+speak(`Mi chiamo ${getSourceTranslation('lesson.character.student.italian')}. E tu?`, this)
   }).call(target, event);
   if (result === false) {
     event.preventDefault();
@@ -276,7 +304,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-communication-basics-lesson-1-17]');
   if (!target) return;
   var result = (function(event) {
-speak('Io sono Anna. Piacere!', this)
+speak(`Io sono ${getSourceTranslation('lesson.character.teacher.italian')}. Piacere!`, this)
   }).call(target, event);
   if (result === false) {
     event.preventDefault();
@@ -288,7 +316,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-communication-basics-lesson-1-18]');
   if (!target) return;
   var result = (function(event) {
-speak('Piacere, Anna!', this)
+speak(`Piacere, ${getSourceTranslation('lesson.character.teacher.italian')}!`, this)
   }).call(target, event);
   if (result === false) {
     event.preventDefault();

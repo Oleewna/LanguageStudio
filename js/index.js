@@ -70,17 +70,6 @@ location.href='pages/dictionary.html'
   }
 });
 
-document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-index-7]');
-  if (!target) return;
-  var result = (function(event) {
-location.href='pages/games.html'
-  }).call(target, event);
-  if (result === false) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-});
 
 document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-index-8]');

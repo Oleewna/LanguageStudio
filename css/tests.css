@@ -1,6 +1,31 @@
 /* Tests dashboard */
-.tests-hero-stats { display: flex; gap: 0.65rem; flex-wrap: wrap; margin-top: 1.15rem; }
-.tests-hero-stats .stat-pill { background: rgba(255, 255, 255, 0.2); }
+.tests-hero-stats {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin-top: 1.15rem;
+}
+.tests-hero-stats .stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.4rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+}
+.tests-hero-stats .stat-pill .ls-icon {
+  width: 1.12em;
+  height: 1.12em;
+  color: #fff;
+}
 
 .tests-page {
   max-width: 1360px;
@@ -223,6 +248,6 @@
   .topic-card { min-height: 205px; }
   .tests-section-heading h2 { font-size: 1.3rem; }
   .tests-hero-stats { gap: 0.45rem; }
-  .tests-hero-stats .stat-pill { padding: 0.4rem 0.65rem; font-size: 0.72rem; }
+  .tests-hero-stats .stat-pill { min-height: 2.15rem; padding: 0.38rem 0.65rem; font-size: 0.72rem; }
   .placement-stamp { top: 0.75rem; right: 0.75rem; }
 }

@@ -204,17 +204,6 @@ location.href='dictionary.html'
   }
 });
 
-document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-flashcards-7]');
-  if (!target) return;
-  var result = (function(event) {
-location.href='games.html'
-  }).call(target, event);
-  if (result === false) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-});
 
 document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-flashcards-8]');

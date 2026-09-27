@@ -85,7 +85,6 @@ const UI_TRANSLATIONS = {
   '🃏 Флешкартки': '🃏 Flashcards',
   '✏️ Завдання': '✏️ Exercises',
   '📖 Словник': '📖 Dictionary',
-  '🎮 Ігри': '🎮 Games',
   '📋 Довідник': '📋 Grammar guide',
   '🧭 Напрямки': '🧭 Learning paths',
   'Переглянути всі напрямки': 'View all learning paths',
@@ -114,8 +113,6 @@ const UI_TRANSLATIONS = {
   'Вправи до цього уроку': 'Exercises for this lesson',
   'Пошук по базі слів': 'Search vocabulary',
   'Додати власне слово': 'Add a custom word',
-  'Міні-ігри': 'Mini-games',
-  'Світлофор привітань': 'Greeting traffic light',
   'Привітання за часом доби': 'Greetings by time of day',
   'Означені артиклі': 'Definite articles',
   'Привітання, знайомство, числа 0–100, дієслова essere & avere — база для будь-якого напрямку': 'Greetings, introductions, numbers 0–100, and the verbs essere & avere: a foundation for every learning path.',
@@ -156,20 +153,10 @@ const UI_TRANSLATIONS = {
   '[гра-цьє]': '[GRAHTS-yeh]',
   '[пре-го]': '[PREH-goh]',
   '[буо-на ле-цьо-не]': '[BWOH-nah leh-CHOH-neh]',
-  'Раунд:': 'Round:',
-  'Рахунок:': 'Score:',
-  'очок': 'points',
-  'Гра завершена!': 'Game complete!',
-  'Ви набрали': 'You scored',
-  'і заробили +50 XP!': 'and earned +50 XP!',
-  'Грати знову': 'Play again',
-  '✨ Правильно! (+20 очок)': '✨ Correct! (+20 points)',
-  'Помилка! Правильно:': 'Incorrect! Correct answer:',
   'Напрямки навчання — LanguageStudio': 'Learning paths — LanguageStudio',
   'Флешкартки — LanguageStudio': 'Flashcards — LanguageStudio',
   'Завдання — LanguageStudio': 'Exercises — LanguageStudio',
   'Власний словник — LanguageStudio': 'My dictionary — LanguageStudio',
-  'Ігри — LanguageStudio': 'Games — LanguageStudio',
   'Довідник граматики — LanguageStudio': 'Grammar guide — LanguageStudio',
   'Розділ 1 · Урок 1 — LanguageStudio, Італійська': 'Unit 1 · Lesson 1 — LanguageStudio, Italian',
   '· Італійська для реальних ситуацій': '· Italian for real-life situations',
@@ -180,7 +167,6 @@ const UI_TRANSLATIONS = {
   'Флешкартки': 'Flashcards',
   'Завдання': 'Exercises',
   'Власний словник': 'My dictionary',
-  'Ігри': 'Games',
   'Довідник граматики': 'Grammar guide',
   'Напрямки': 'Learning paths',
   'Словник': 'Dictionary',
@@ -210,7 +196,6 @@ const UI_TRANSLATIONS = {
   '3D тренажер': '3D practice deck',
   'Бліц-тести': 'Quick quizzes',
   'Власні слова': 'Your saved words',
-  'Міні-тренажер': 'Mini-game',
   'Таблиці правил': 'Grammar reference',
   'Усі напрямки →': 'All learning paths →',
   'Розпочати ▶': 'Start ▶',
@@ -343,7 +328,6 @@ const UI_TRANSLATIONS = {
   'Усі вправи та тести': 'All exercises and quizzes',
   'Граматичний тренажер': 'Grammar trainer',
   'Ситуативні завдання': 'Situational exercises',
-  'Світлофор привітань': 'Greeting traffic light',
   'Означені артиклі': 'Definite articles',
   'Essere та Avere': 'Essere and Avere',
   'Tu vs Lei (Етикет)': 'Tu vs Lei (Etiquette)',
@@ -424,24 +408,7 @@ const UI_TRANSLATIONS = {
   'Діалог 2': 'Dialogue 2',
   '👤 А: «Ciao! Come stai?»': '👤 A: “Ciao! Come stai?”',
   '👤 А: «Benvenuto nel nostro palazzo!»': '👤 A: “Benvenuto nel nostro palazzo!”',
-  'Ігровий тренажер': 'Game practice',
-  'Мовні Ігри': 'Language games',
-  'Тренуйте швидкість реакції, інтуїтивне розуміння ситуацій та поповнюйте свій словниковий запас.': 'Practice quick reactions, understand situations intuitively, and build your vocabulary.',
-  '🚦 Міні-гра на швидкість': '🚦 Speed mini-game',
-  'Міні-гра на швидкість': 'Speed mini-game',
-  'Оберіть відповідне італійське привітання для ситуації:': 'Choose the Italian greeting that fits the situation:',
-  '☀️ 09:30 ранку, зустріч із сусідом у під\'їзді': '☀️ 9:30 a.m., meeting a neighbor in the apartment building',
-  '09:30 ранку, зустріч із сусідом у під\'їзді': '9:30 a.m., meeting a neighbor in the apartment building',
-  '09:30 ранку в під\'їзді будинку': '9:30 a.m. in the apartment building hallway',
-  '23:00, ви йдете спати і кажете рідним:': '11:00 p.m., you are going to bed and say to your family:',
-  '19:30 вечора, ви заходите у ресторан:': '7:30 p.m., you enter a restaurant:',
-  'Ви випадково зустріли давнього друга на вулиці:': 'You run into an old friend on the street:',
-  'Вам сказали «Grazie mille!», що ви відповідаєте?': 'Someone says “Grazie mille!” What do you reply?',
-  'Раунд: 1/5': 'Round: 1/5',
-  'Рахунок: 0 очок': 'Score: 0 points',
   'Незабаром': 'Coming soon',
-  'Знаходьте пари італійських та українських слів на полі карток.': 'Find matching Italian and English word pairs on the cards.',
-  'Симулятор замовлення кави та круасанів у міланському барі на час.': 'A timed simulation of ordering coffee and croissants at a Milanese bar.',
   'Граматичні шпаргалки': 'Grammar quick reference',
   'Швидкий доступ до основних правил італійської мови: артиклі, форми дієслів та етикетні вирази.': 'Quick access to practical Italian grammar: articles, verb forms, and polite expressions.',
   '☀️ Привітання': '☀️ Greetings',
@@ -589,19 +556,25 @@ const originalInterfaceAttributes = new WeakMap();
 const SOURCE_TRANSLATIONS = {
   'lesson.greeting.1': { uk: 'Доброго дня!', en: 'Good morning!' },
   'lesson.greeting.2': { uk: 'Доброго дня! Як тебе звати?', en: 'Good morning! What is your name?' },
-  'lesson.greeting.3': { uk: 'Мене звати Сара. А тебе?', en: 'My name is Sara. And you?' },
-  'lesson.greeting.4': { uk: 'Я Анна. Приємно познайомитися!', en: "I'm Anna. Nice to meet you!" },
-  'lesson.greeting.5': { uk: 'Приємно, Анно!', en: 'Nice to meet you, Anna!' },
+  'lesson.greeting.3': { uk: 'Мене звати Софія. А тебе?', en: 'My name is Emily. And you?' },
+  'lesson.greeting.4': { uk: 'Я Олена. Приємно познайомитися!', en: "I'm Jessica. Nice to meet you!" },
+  'lesson.greeting.5': { uk: 'Приємно, Олено!', en: 'Nice to meet you, Jessica!' },
   'lesson.greeting.6': { uk: 'Ти тут новенька?', en: 'Are you new here?' },
   'lesson.greeting.7': { uk: 'Так, я новенька.', en: "Yes, I'm new here." },
   'lesson.greeting.8': { uk: 'Ласкаво просимо на курс італійської!', en: 'Welcome to the Italian course!' },
   'lesson.greeting.9': { uk: 'Дуже дякую!', en: 'Thank you very much!' },
   'lesson.greeting.10': { uk: 'Будь ласка. Гарного уроку!', en: 'You are welcome. Have a good lesson!' },
   'lesson.greeting.11': { uk: 'Дякую, гарного дня!', en: 'Thank you. Have a nice day!' },
-  'lesson.story.reception': { uk: 'Сара вперше заходить до мовної школи в Мілані. На рецепції її зустрічає Анна — час привітатися й назвати своє ім’я.', en: 'Sara enters a language school in Milan for the first time. Anna greets her at reception. It is time to say hello and introduce herself.' },
-  'lesson.note.name': { uk: 'Щоб назвати ім’я, можна сказати Mi chiamo Sara або Io sono Sara. Обидва варіанти правильні.', en: 'To give your name, you can say Mi chiamo Sara or Io sono Sara. Both are correct.' },
+  'lesson.scene.intro': { uk: 'Софія приходить на свій перший урок італійської. У класі вона вітається, представляється та знайомиться з Оленою.', en: 'Emily arrives for her first Italian lesson. In class, she greets Jessica, introduces herself, and gets to know her.' },
+  'lesson.section.dialogue': { uk: 'Діалог у класі', en: 'Classroom dialogue' },
+  'lesson.character.student': { uk: 'Софія', en: 'Emily' },
+  'lesson.character.student.italian': { uk: 'Sofia', en: 'Emily' },
+  'lesson.character.teacher': { uk: 'Олена', en: 'Jessica' },
+  'lesson.character.teacher.italian': { uk: 'Olena', en: 'Jessica' },
+  'lesson.story.reception': { uk: 'Софія вперше приходить до мовної школи в Мілані. У класі її зустрічає Олена — час привітатися й назвати своє ім’я.', en: 'Emily arrives at a language school in Milan for the first time. In class, Jessica greets her. It is time to say hello and introduce herself.' },
+  'lesson.note.name': { uk: 'Щоб назвати ім’я, можна сказати Mi chiamo Sofia або Io sono Sofia. Обидва варіанти правильні.', en: 'To give your name, you can say Mi chiamo Emily or Io sono Emily. Both are correct.' },
   'lesson.note.piacere': { uk: 'Piacere кажуть одразу після знайомства.', en: 'Say Piacere just after meeting someone.' },
-  'lesson.culture.greeting': { uk: 'На рецепції, у школі чи магазині доречно починати розмову з Buongiorno — це просте й ввічливе «доброго дня».', en: 'At reception, at school, or in a shop, it is polite to start with Buongiorno, a simple greeting for the daytime.' },
+  'lesson.culture.greeting': { uk: 'У класі, в школі чи в магазині доречно починати розмову з Buongiorno — це просте й ввічливе «доброго дня».', en: 'In class, at school, or in a shop, it is polite to start with Buongiorno, a simple greeting for the daytime.' },
   'lesson.culture.piacere': { uk: 'Після знайомства італійці часто кажуть Piacere. У відповідь можна повторити: Piacere!', en: 'After meeting someone, Italians often say Piacere. You can reply by saying Piacere too!' },
   'lesson.takeaway.1': { uk: 'Come ti chiami? — «Як тебе звати?».', en: 'Come ti chiami? means “What is your name?”' },
   'lesson.takeaway.2': { uk: 'Mi chiamo… — «Мене звати…».', en: 'Mi chiamo… means “My name is…”' },
@@ -611,10 +584,10 @@ const SOURCE_TRANSLATIONS = {
   'lesson.exercise.q1.a': { uk: 'Як тебе звати?', en: 'What is your name?' },
   'lesson.exercise.q1.b': { uk: 'Як справи?', en: 'How are you?' },
   'lesson.exercise.q1.c': { uk: 'Де курс?', en: 'Where is the course?' },
-  'lesson.exercise.q2': { uk: 'Що означає «Mi chiamo Sara»?', en: 'What does “Mi chiamo Sara” mean?' },
-  'lesson.exercise.q2.a': { uk: 'Мене звати Сара', en: 'My name is Sara' },
-  'lesson.exercise.q2.b': { uk: 'Це Сара', en: 'This is Sara' },
-  'lesson.exercise.q2.c': { uk: 'До побачення, Сара', en: 'Goodbye, Sara' },
+  'lesson.exercise.q2': { uk: 'Що означає «Mi chiamo Sofia»?', en: 'What does “Mi chiamo Emily” mean?' },
+  'lesson.exercise.q2.a': { uk: 'Мене звати Софія', en: 'My name is Emily' },
+  'lesson.exercise.q2.b': { uk: 'Це Софія', en: 'This is Emily' },
+  'lesson.exercise.q2.c': { uk: 'До побачення, Софіє', en: 'Goodbye, Emily' },
   'lesson.exercise.q3': { uk: 'Що кажуть після знайомства?', en: 'What do you say after meeting someone?' },
   'lesson.exercise.q4': { uk: 'Що означає «Benvenuta»?', en: 'What does “Benvenuta” mean?' },
   'lesson.exercise.q4.a': { uk: 'Ласкаво просимо (жінці)', en: 'Welcome (to a woman)' },
@@ -622,8 +595,8 @@ const SOURCE_TRANSLATIONS = {
   'lesson.exercise.q4.c': { uk: 'До побачення', en: 'Goodbye' },
   'lesson.exercise.q5': { uk: 'Як відповісти на «Grazie»?', en: 'How do you reply to “Grazie”?' },
   'lesson.exercise.q6': { uk: '«Buongiorno» — ввічливе привітання вдень.', en: '“Buongiorno” is a polite daytime greeting.' },
-  'lesson.exercise.q7': { uk: 'Анна — нова студентка на курсі.', en: 'Anna is a new student on the course.' },
-  'lesson.exercise.q8': { uk: 'Сара вперше прийшла на курс.', en: 'Sara is attending the course for the first time.' },
+  'lesson.exercise.q7': { uk: 'Олена — нова студентка на курсі.', en: 'Jessica is a new student on the course.' },
+  'lesson.exercise.q8': { uk: 'Софія вперше прийшла на курс.', en: 'Emily is attending the course for the first time.' },
   'lesson.yes': { uk: 'Так', en: 'Yes' },
   'lesson.no': { uk: 'Ні', en: 'No' },
   'lesson.vocab.buongiorno': { uk: 'доброго дня', en: 'good morning / good day' },
@@ -812,12 +785,17 @@ function updateThemeToggleButtons(themeName) {
   const btns = document.querySelectorAll('.theme-toggle-btn');
   const icon = (typeof LS_ICONS !== 'undefined' && LS_ICONS) ? (themeName === 'dark' ? LS_ICONS.sun : LS_ICONS.moon) : (themeName === 'dark' ? '☀️' : '🌙');
   const isEnglish = getSourceLanguage() === 'en';
+  const labelText = isEnglish
+    ? (themeName === 'dark' ? 'Enable light theme' : 'Enable dark theme')
+    : (themeName === 'dark' ? 'Увімкнути світлу тему' : 'Увімкнути темну тему');
+
   btns.forEach(btn => {
-    btn.innerHTML = icon;
-    btn.setAttribute('title', isEnglish
-      ? (themeName === 'dark' ? 'Enable light theme' : 'Enable dark theme')
-      : (themeName === 'dark' ? 'Увімкнути світлу тему' : 'Увімкнути темну тему'));
-    btn.setAttribute('aria-label', isEnglish ? 'Switch theme' : 'Переключити тему');
+    const isMobileMenuButton = btn.closest('.mob-nav');
+    btn.innerHTML = isMobileMenuButton
+      ? `${icon}<span class="mob-theme-label">${labelText}</span>`
+      : icon;
+    btn.setAttribute('title', labelText);
+    btn.setAttribute('aria-label', labelText);
   });
 }
 
@@ -869,13 +847,40 @@ function ensureTestsNavigation() {
   }
 }
 
+function ensureMobileThemeToggle() {
+  const mobileNav = document.getElementById('mobNav');
+  if (!mobileNav) return;
+
+  const existing = mobileNav.querySelector('.theme-toggle-btn');
+  if (existing) return;
+
+  const template = document.querySelector('.nav-right .theme-toggle-btn');
+  if (!template) return;
+
+  const clone = template.cloneNode(true);
+  clone.classList.add('mob-theme-toggle');
+  const header = mobileNav.querySelector('.mob-nav-header');
+  if (header) {
+    mobileNav.insertBefore(clone, header.nextSibling);
+  } else {
+    mobileNav.prepend(clone);
+  }
+}
+
+function bindThemeButtons() {
+  document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+    btn.removeEventListener('click', toggleTheme);
+    btn.addEventListener('click', toggleTheme);
+  });
+}
+
 function initTestsNavigation() {
   if (!location.pathname.endsWith('/tests.html')) return;
 
   document.querySelector('.menu-toggle')?.addEventListener('click', openMobNav);
   document.querySelector('.mob-close-btn')?.addEventListener('click', closeMobNav);
   document.getElementById('mobOverlay')?.addEventListener('click', closeMobNav);
-  document.querySelector('.theme-toggle-btn')?.addEventListener('click', toggleTheme);
+  bindThemeButtons();
   document.querySelector('.student-widget')?.addEventListener('click', openProfileModal);
 }
 
@@ -937,6 +942,7 @@ function speak(text, btnElement) {
 
 document.addEventListener('DOMContentLoaded', () => {
   ensureTestsNavigation();
+  bindThemeButtons();
   initTestsNavigation();
   ensureProfileModal();
   updateXPDisplay();
