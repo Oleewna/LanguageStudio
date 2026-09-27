@@ -669,6 +669,10 @@ function setTheme(themeName) {
   document.documentElement.setAttribute('data-theme', finalTheme);
   localStorage.setItem(THEME_KEY, finalTheme);
   updateThemeToggleButtons(finalTheme);
+
+  if (typeof window.updateBrandLogos === 'function') {
+    window.updateBrandLogos(finalTheme);
+  }
 }
 
 function toggleTheme() {
