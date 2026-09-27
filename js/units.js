@@ -11,21 +11,21 @@ const categories = [
   {
     id: 'foundations',
     icon: '👋',
-    title: 'Основи спілкування',
-    subtitle: 'Привітання, знайомство, числа 0–100, дієслова essere & avere — база для будь-якого напрямку',
+    title: 'Communication basics',
+    subtitle: 'Greetings, introductions, numbers 0–100, and the verbs essere & avere — the foundation for every path',
     locked: false,
     defaultOpen: true,
-    badgeText: '1/5 уроків відкрито',
+    badgeText: '1/5 lessons available',
     units: [
       {
         id: 'foundations-unit-1',
-        title: 'Основи спілкування',
+        title: 'Communication basics',
         lessons: [
-          { num: 'Урок 1', title: 'Знайомство — «Come ti chiami?»', description: 'Перший діалог у міланському класі, нові слова, культура розмови', href: '../lessons/communication-basics-lesson-1.html', status: 'available', time: '~15 хв' },
-          { num: 'Урок 2', title: 'Come ti chiami? (Як тебе звати?)', description: 'Знайомство, дієслово chiamarsi, формули ввічливості', href: null, status: 'soon', time: '~15 хв' },
-          { num: 'Урок 3', title: 'Di dove sei? (Звідки ти?)', description: 'Країни, національності, відмінювання дієслова essere', href: null, status: 'soon', time: '~15 хв' },
-          { num: 'Урок 4', title: "I numeri e l'età (Числа та вік)", description: 'Рахунок 0–100, дієслово avere, номер телефону', href: null, status: 'soon', time: '~20 хв' },
-          { num: 'Урок 5', title: 'La mia scena · Підсумкова практика', description: 'Комплексний тест та створення власного діалогу', href: null, status: 'soon', time: '~25 хв' }
+          { num: 'Lesson 1', title: 'Introductions — “Come ti chiami?”', description: 'Your first Milan dialogue, new words, and conversational culture', href: '../lessons/communication-basics-lesson-1.html', status: 'available', time: '~15 min' },
+          { num: 'Lesson 2', title: 'Come ti chiami? (What is your name?)', description: 'Introductions, the verb chiamarsi, and polite expressions', href: null, status: 'soon', time: '~15 min' },
+          { num: 'Lesson 3', title: 'Di dove sei? (Where are you from?)', description: 'Countries, nationalities, and conjugating essere', href: null, status: 'soon', time: '~15 min' },
+          { num: 'Lesson 4', title: "I numeri e l'età (Numbers and age)", description: 'Counting 0–100, the verb avere, and phone numbers', href: null, status: 'soon', time: '~20 min' },
+          { num: 'Lesson 5', title: 'La mia scena · Final practice', description: 'A review quiz and creating your own dialogue', href: null, status: 'soon', time: '~25 min' }
         ]
       }
     ]
@@ -33,21 +33,21 @@ const categories = [
   {
     id: 'tourist',
     icon: '🧳',
-    title: 'Туристична італійська',
-    subtitle: 'Готелі, ресторани, транспорт, шопінг та фрази на випадок форс-мажору в подорожі',
+    title: 'Travel Italian',
+    subtitle: 'Hotels, restaurants, transport, shopping, and emergency phrases for travel',
     locked: true,
     defaultOpen: false,
-    badgeText: '🔒 Заблоковано',
+    badgeText: '🔒 Locked',
     units: [
       {
         id: 'tourist-unit-1',
-        title: 'Туристична італійська',
+        title: 'Travel Italian',
         lessons: [
-          { title: 'Alla stazione (На вокзалі та в аеропорту)', href: null, status: 'soon' },
-          { title: 'In albergo (Заселення в готель)', href: null, status: 'soon' },
-          { title: 'Un caffè, per favore (У барі та кафе)', href: null, status: 'soon' },
-          { title: 'Al ristorante (Замовлення в ресторані)', href: null, status: 'soon' },
-          { title: 'Lo shopping e i prezzi (Шопінг та ціни)', href: null, status: 'soon' }
+          { title: 'Alla stazione (At the station and airport)', href: null, status: 'soon' },
+          { title: 'In albergo (Checking into a hotel)', href: null, status: 'soon' },
+          { title: 'Un caffè, per favore (At the bar and café)', href: null, status: 'soon' },
+          { title: 'Al ristorante (Ordering at a restaurant)', href: null, status: 'soon' },
+          { title: 'Lo shopping e i prezzi (Shopping and prices)', href: null, status: 'soon' }
         ]
       }
     ]
@@ -55,20 +55,20 @@ const categories = [
   {
     id: 'business',
     icon: '💼',
-    title: 'Італійська для роботи та бізнесу',
-    subtitle: 'Офісне спілкування, зустрічі, електронні листи та small talk з колегами',
+    title: 'Business Italian',
+    subtitle: 'Office communication, meetings, emails, and small talk with colleagues',
     locked: true,
     defaultOpen: false,
-    badgeText: '🔒 Заблоковано',
+    badgeText: '🔒 Locked',
     units: [
       {
         id: 'business-unit-1',
-        title: 'Італійська для роботи та бізнесу',
+        title: 'Business Italian',
         lessons: [
-          { title: 'In ufficio (Перший день в офісі)', href: null, status: 'soon' },
-          { title: 'Riunioni e appuntamenti (Зустрічі та домовленості)', href: null, status: 'soon' },
-          { title: 'Email e comunicazione scritta (Ділові листи)', href: null, status: 'soon' },
-          { title: 'Networking e small talk (Спілкування з колегами)', href: null, status: 'soon' }
+          { title: 'In ufficio (First day at the office)', href: null, status: 'soon' },
+          { title: 'Riunioni e appuntamenti (Meetings and appointments)', href: null, status: 'soon' },
+          { title: 'Email e comunicazione scritta (Business emails)', href: null, status: 'soon' },
+          { title: 'Networking e small talk (Talking with colleagues)', href: null, status: 'soon' }
         ]
       }
     ]
@@ -85,7 +85,7 @@ function renderLessonRow(lesson) {
   const isAvailable = lesson.status === 'available';
   const rowClass = isAvailable ? 'lesson-row active-lesson' : 'lesson-row locked';
   const statusClass = isAvailable ? 'lesson-status ls-available' : 'lesson-status ls-soon';
-  const statusText = isAvailable ? '<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg> Відкрити' : 'Скоро';
+  const statusText = isAvailable ? '<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg> Open' : 'Soon';
 
   const numHtml = lesson.num ? `<div class="lesson-num">${escapeHtml(lesson.num)}</div>` : '';
   const descHtml = lesson.description ? `<div class="lesson-it">${escapeHtml(lesson.description)}</div>` : '';

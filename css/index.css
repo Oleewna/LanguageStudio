@@ -24,14 +24,20 @@
     box-shadow: var(--shadow-md);
   }
   .hub-icon {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     flex-shrink: 0;
+  }
+  .hub-icon .ls-icon,
+  .hub-icon svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    display: block;
   }
   .hi-green { background: var(--it-green-light); color: var(--it-green); }
   .hi-red { background: var(--it-red-light); color: var(--it-red); }

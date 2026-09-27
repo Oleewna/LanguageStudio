@@ -236,6 +236,34 @@
     color: var(--ink-soft);
   }
 
+  [data-theme="dark"] .unit-header:hover,
+  [data-theme="dark"] .unit-group-header:hover,
+  [data-theme="dark"] .lesson-row:hover {
+    background: var(--bg);
+  }
+  [data-theme="dark"] .lesson-row.active-lesson {
+    background: var(--card-sub-bg);
+  }
+  [data-theme="dark"] .lesson-row.locked {
+    background: var(--surface);
+  }
+  [data-theme="dark"] .u1,
+  [data-theme="dark"] .unit-badge.active-badge,
+  [data-theme="dark"] .unit-group-badge.active-badge,
+  [data-theme="dark"] .ls-available {
+    background: var(--it-green-light);
+    color: var(--it-green);
+    border-color: var(--it-green-border);
+  }
+  [data-theme="dark"] .u2 {
+    background: rgba(96, 165, 250, 0.16);
+    color: #93c5fd;
+  }
+  [data-theme="dark"] .u3 {
+    background: rgba(245, 158, 11, 0.16);
+    color: #fbbf24;
+  }
+
   @media (max-width: 600px) {
     .lesson-row {
       padding-left: 1rem;

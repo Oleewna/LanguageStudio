@@ -1,17 +1,28 @@
 (function() {
     function getRelativeAssetPath() {
       const pathname = window.location.pathname || '';
-      return pathname.includes('/pages/') || pathname.includes('/lessons/') ? '../' : '';
+      const isNestedPage = pathname.includes('/pages/') || pathname.includes('/lessons/');
+      return isNestedPage ? '../' : '';
+    }
+
+    function resolveLogoPath(theme) {
+      const relativePrefix = getRelativeAssetPath();
+      const filename = theme === 'dark' ? 'dark_theme_logo.png' : 'light_theme_logo.png';
+      return `${relativePrefix}assets/images/${filename}`;
     }
 
     function updateBrandLogos(theme) {
       const currentTheme = theme || document.documentElement.getAttribute('data-theme') || 'light';
-      const relativePrefix = getRelativeAssetPath();
-      const logoPath = `${relativePrefix}assets/images/${currentTheme === 'dark' ? 'dark_theme_logo.png' : 'light_theme_logo.png'}`;
+      const logoPath = resolveLogoPath(currentTheme);
 
       document.querySelectorAll('.brand-logo').forEach((img) => {
+        const fallbackPath = resolveLogoPath(currentTheme === 'dark' ? 'light' : 'dark');
         img.src = logoPath;
         img.alt = 'LanguageStudio';
+        img.style.display = 'block';
+        img.onerror = () => {
+          img.src = fallbackPath;
+        };
       });
     }
 
