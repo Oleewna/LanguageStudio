@@ -17,7 +17,10 @@ const GR_DATA = {
       </tbody>
     </table>
     <div class="gr-note-box">
-      <b>${getIconSvg('lightbulb')} Зверніть увагу:</b> Перед голосними в однині артиклі <i>lo</i> та <i>la</i> скорочуються до <b>l'</b> (l'albergo, l'ora).
+      <b>${getIconSvg('lightbulb')} ${getSourceLanguage() === 'en' ? 'Note:' : 'Зверніть увагу:'}</b>
+      ${getSourceLanguage() === 'en'
+        ? `Before a vowel, singular <i>lo</i> and <i>la</i> contract to <b>l'</b> (l'albergo, l'ora).`
+        : `Перед голосними в однині артиклі <i>lo</i> та <i>la</i> скорочуються до <b>l'</b> (l'albergo, l'ora).`}
     </div>
   `,
   verbi: `

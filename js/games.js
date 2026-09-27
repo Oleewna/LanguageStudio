@@ -1,7 +1,7 @@
 const QUESTIONS = [
   {
     icon: 'sun',
-    sit: '09:30 ранку, зустріч із сусідом у під'їзді',
+    sit: "09:30 ранку, зустріч із сусідом у під'їзді",
     sitEn: '9:30 a.m., meeting a neighbor in the apartment building',
     options: ['Buongiorno', 'Buonanotte', 'Buonasera', 'Arrivederci'],
     correct: 0
@@ -67,17 +67,13 @@ function answerGame(idx) {
 
   const fb = document.getElementById('gameFeedback');
   if (idx === q.correct) {
-    btns[idx].style.background = '#EAF4EC';
-    btns[idx].style.borderColor = 'var(--pine)';
+    btns[idx].classList.add('is-correct');
     fb.innerHTML = `<span id="external-style-games-13">${getIconSvg('sparkles')} ${getSourceLanguage() === 'en' ? 'Correct! (+20 points)' : 'Правильно! (+20 очок)'}</span>`;
     score += 20;
     speak(q.options[idx]);
-      icon: 'handshake',
-      sit: 'Вам сказали «Grazie mille!», що ви відповідаєте?',
-      sitEn: 'Someone says “Grazie mille!” What do you reply?',
-    btns[idx].style.borderColor = 'var(--gold)';
-    btns[q.correct].style.background = '#EAF4EC';
-    btns[q.correct].style.borderColor = 'var(--pine)';
+  } else {
+    btns[idx].classList.add('is-wrong');
+    btns[q.correct].classList.add('is-correct');
     fb.innerHTML = `<span id="external-style-games-14">${getSourceLanguage() === 'en' ? 'Incorrect! Correct answer:' : 'Помилка! Правильно:'} ${q.options[q.correct]}</span>`;
   }
 
@@ -86,16 +82,14 @@ function answerGame(idx) {
     loadGameRound();
   }, 1400);
 }
-      document.getElementById('gameSit').innerHTML = `${getIconSvg('trophy')}<span>${english ? 'Game complete!' : 'Гра завершена!'}</span>`;
+
 function restartGame() {
   round = 0;
   score = 0;
   loadGameRound();
 }
 
-    document.getElementById('gameSit').innerHTML = `${getIconSvg(q.icon)}<span>${getSourceLanguage() === 'en' ? q.sitEn : q.sit}</span>`;
-  loadGameRound();
-});
+document.addEventListener('DOMContentLoaded', loadGameRound);
 
 document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-games-1]');

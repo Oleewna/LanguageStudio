@@ -66,8 +66,8 @@
     touch-action: manipulation;
   }
   .topic-chip.active {
-    background: #EAF4EC;
-    border-color: #BDE3CB;
+    background: var(--it-green-light);
+    border-color: var(--it-green-border);
     color: var(--pine);
     font-weight: 700;
   }
@@ -109,6 +109,9 @@
     background: linear-gradient(135deg, var(--pine) 0%, #1D3A29 100%);
     color: #F5F3EA;
     transform: rotateY(180deg);
+  }
+  [data-theme="dark"] .fc-back {
+    background: linear-gradient(135deg, #155d36 0%, #102d20 100%);
   }
   .fc-meta-row {
     display: flex;

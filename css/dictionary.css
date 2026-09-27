@@ -6,6 +6,50 @@
     flex-wrap: wrap;
     margin-bottom: 1.5rem;
   }
+  .filters-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .filters-toggle-btn:hover {
+    border-color: var(--pine);
+    color: var(--pine);
+  }
+  .filters-toggle-btn[aria-expanded="true"] {
+    background: var(--it-green);
+    border-color: var(--it-green);
+    color: #fff;
+  }
+  .filters-toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .dict-filters-panel {
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+  .dict-filters-panel.hidden {
+    display: none;
+  }
+  .dict-filters {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    width: 100%;
+  }
   .search-box {
     display: flex;
     align-items: center;
@@ -45,7 +89,7 @@
     transition: transform 0.15s, border-color 0.15s;
   }
   .dict-card:hover {
-    border-color: #CBD5E1;
+    border-color: var(--it-green-border);
     transform: translateY(-2px);
   }
   .dict-card {
@@ -54,7 +98,7 @@
   }
   .dict-card.learned {
     border-color: var(--pine);
-    background: #F3F8F4;
+    background: var(--it-green-light);
   }
   .dict-filters {
     display: flex;
@@ -77,9 +121,9 @@
   }
   .type-tag {
     font-size: 0.65rem;
-    background: #EEF2FF;
-    color: #4338CA;
-    border: 1px solid #C7D2FE;
+    background: var(--it-blue-light);
+    color: var(--it-blue);
+    border: 1px solid var(--it-blue-border);
     padding: 0.1rem 0.4rem;
     border-radius: 99px;
     font-weight: 700;
@@ -103,7 +147,7 @@
     transition: color 0.15s, transform 0.15s;
   }
   .star-btn.active {
-    color: #D4A017;
+    color: var(--it-gold);
   }
   .star-btn:hover {
     transform: scale(1.15);
@@ -136,9 +180,9 @@
   }
   .custom-tag {
     font-size: 0.65rem;
-    background: #FEF3E2;
-    color: #B56A00;
-    border: 1px solid #F6D7A8;
+    background: var(--it-gold-light);
+    color: var(--it-gold);
+    border: 1px solid var(--it-gold);
     padding: 0.1rem 0.4rem;
     border-radius: 99px;
     font-weight: 700;

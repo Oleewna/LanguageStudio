@@ -15,12 +15,49 @@
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--pine);
-    margin-bottom: 0.85rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.5rem;
+  }
+  .filters-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .filters-toggle-btn:hover {
+    border-color: var(--pine);
+    color: var(--pine);
+  }
+  .filters-toggle-btn[aria-expanded="true"] {
+    background: var(--it-green);
+    border-color: var(--it-green);
+    color: #fff;
+  }
+  .filters-toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .filter-panel-content.hidden,
+  .dict-filters-panel.hidden {
+    display: none;
+  }
+  .filter-panel-content {
+    margin-top: 1rem;
   }
   .cat-pills-wrap {
     display: flex;
@@ -58,7 +95,7 @@
     border-color: var(--it-green) !important;
     color: #FFFFFF !important;
     font-weight: 700;
-    box-shadow: 0 2px 8px rgba(27, 122, 75, 0.25);
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--it-green) 22%, transparent);
   }
   .task-tab.active {
     background: var(--it-green) !important;
@@ -110,7 +147,7 @@
   }
 
   /* ── Stats Hero Highlights ── */
-  .tasks-hero-stats {
+  .exercises-hero-stats {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
@@ -156,21 +193,6 @@
     gap: 0.4rem;
     flex-wrap: wrap;
   }
-  .badge-level {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.18rem 0.55rem;
-    border-radius: 999px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  .badge-level.lvl-a1 { background: #EAF4EC; color: #1E6B3B; border: 1px solid #BDE3CB; }
-  .badge-level.lvl-a2 { background: #E0F2FE; color: #0369A1; border: 1px solid #BAE6FD; }
-  .badge-level.lvl-b1 { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
-
   .badge-cat {
     display: inline-flex;
     align-items: center;
@@ -217,24 +239,24 @@
     touch-action: manipulation;
   }
   .quiz-opt:hover {
-    border-color: #CBD5E1;
-    background: #FDFCF8;
+    border-color: var(--it-green-border);
+    background: var(--card-sub-bg);
   }
   .quiz-opt.selected {
     border-color: var(--pine);
-    background: #EAF4EC;
+    background: var(--it-green-light);
     font-weight: 600;
   }
   .quiz-opt.correct {
     border-color: var(--pine);
-    background: #EAF4EC;
+    background: var(--it-green-light);
     color: var(--pine);
     font-weight: 700;
   }
   .quiz-opt.wrong {
-    border-color: var(--gold);
-    background: #FDF1F1;
-    color: var(--gold);
+    border-color: var(--it-red);
+    background: var(--it-red-light);
+    color: var(--it-red);
   }
   .quiz-feedback {
     margin-top: 1rem;
@@ -246,20 +268,20 @@
   }
   .quiz-feedback.show-correct {
     display: block;
-    background: #EAF4EC;
-    color: #235237;
-    border: 1px solid #BDE3CB;
+    background: var(--it-green-light);
+    color: var(--it-green);
+    border: 1px solid var(--it-green-border);
   }
   .quiz-feedback.show-wrong {
     display: block;
-    background: #FDF1F1;
-    color: #8C2424;
-    border: 1px solid #F5C6C6;
+    background: var(--it-red-light);
+    color: var(--it-red);
+    border: 1px solid var(--it-red-border);
   }
   .quiz-explanation {
     margin-top: 0.6rem;
     padding-top: 0.6rem;
-    border-top: 1px dashed rgba(0,0,0,0.12);
+    border-top: 1px dashed var(--border);
     font-size: 0.84rem;
     color: inherit;
     opacity: 0.9;
@@ -315,7 +337,7 @@
     white-space: nowrap;
   }
   .task-tab:hover {
-    border-color: #CBD5E1;
+    border-color: var(--it-green-border);
   }
   .task-tab.active {
     background: var(--pine);
@@ -370,22 +392,22 @@
     transition: all 0.15s;
   }
   .match-item:hover {
-    border-color: #CBD5E1;
+    border-color: var(--it-green-border);
   }
   .match-item.selected {
     border-color: var(--pine);
-    background: #EAF4EC;
+    background: var(--it-green-light);
   }
   .match-item.matched {
     border-color: var(--pine);
-    background: #EAF4EC;
+    background: var(--it-green-light);
     opacity: 0.5;
     cursor: default;
     pointer-events: none;
   }
   .match-item.wrong {
-    border-color: var(--gold);
-    background: #FDF1F1;
+    border-color: var(--it-red);
+    background: var(--it-red-light);
   }
   .match-status {
     font-size: 0.85rem;
@@ -420,7 +442,7 @@
     border-color: var(--pine);
   }
   .answer-chip {
-    background: #EAF4EC;
+    background: var(--it-green-light);
     border-color: var(--pine);
   }
 
@@ -472,22 +494,22 @@
 
 #activeFilterSummary { font-weight:600;color:var(--ink-soft);font-size:0.75rem; }
 
-#external-style-tasks-2 { margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap; }
+#external-style-exercises-2 { margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap; }
 
-#external-style-tasks-3 { font-size:0.88rem;color:var(--ink-soft); }
+#external-style-exercises-3 { font-size:0.88rem;color:var(--ink-soft); }
 
-#external-style-tasks-4 { font-size:0.82rem;color:var(--ink-soft);margin-bottom:0.75rem; }
+#external-style-exercises-4 { font-size:0.82rem;color:var(--ink-soft);margin-bottom:0.75rem; }
 
-#external-style-tasks-5 { display:flex;gap:0.6rem;flex-wrap:wrap; }
+#external-style-exercises-5 { display:flex;gap:0.6rem;flex-wrap:wrap; }
 
-#external-style-tasks-6 { display:flex;align-items:center;gap:0.75rem; }
+#external-style-exercises-6 { display:flex;align-items:center;gap:0.75rem; }
 
-#external-style-tasks-7 { font-size:1.3rem; }
+#external-style-exercises-7 { font-size:1.3rem; }
 
-#external-style-tasks-8 { margin-top:0.4rem;color:var(--ink-soft);font-size:0.88rem; }
+#external-style-exercises-8 { margin-top:0.4rem;color:var(--ink-soft);font-size:0.88rem; }
 
-#external-style-tasks-9 { margin-top:1rem; }
+#external-style-exercises-9 { margin-top:1rem; }
 
-#external-style-tasks-10 { display:flex;gap:0.6rem;margin-top:1rem; }
+#external-style-exercises-10 { display:flex;gap:0.6rem;margin-top:1rem; }
 
-#external-style-tasks-11 { color:var(--ink-soft);font-size:0.8rem; }
+#external-style-exercises-11 { color:var(--ink-soft);font-size:0.8rem; }

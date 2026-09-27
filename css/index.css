@@ -43,6 +43,7 @@
   .hi-red { background: var(--it-red-light); color: var(--it-red); }
   .hi-gold { background: var(--it-gold-light); color: var(--it-gold); }
   .hi-dark { background: #272720; color: #FFF; }
+  [data-theme="dark"] .hi-dark { background: var(--card-sub-bg); color: var(--ink-soft); }
   
   .hub-card-title {
     font-size: 0.92rem;
@@ -124,7 +125,7 @@
     left: 1.35rem;
     width: 2px;
     height: calc(100% - 2rem);
-    background: #E5E2D8;
+    background: var(--border);
     z-index: 1;
   }
   .tree-node-item.completed:not(:last-child)::before {
@@ -177,8 +178,8 @@
     flex-wrap: wrap;
   }
   .node-content-card:hover {
-    background: #FDFCF8;
-    border-color: #CBD5E1;
+    background: var(--card-sub-bg);
+    border-color: var(--it-green-border);
     transform: translateX(3px);
   }
   .node-content-card.locked-card {

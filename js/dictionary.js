@@ -161,6 +161,16 @@ function deleteWord(id) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const filterToggle = document.querySelector('[data-filter-toggle="dictionary"]');
+  const dictionaryFiltersPanel = document.getElementById('dictionaryFiltersPanel');
+  if (filterToggle && dictionaryFiltersPanel) {
+    filterToggle.addEventListener('click', () => {
+      const isOpen = filterToggle.getAttribute('aria-expanded') === 'true';
+      filterToggle.setAttribute('aria-expanded', String(!isOpen));
+      dictionaryFiltersPanel.classList.toggle('hidden', isOpen);
+    });
+  }
+
   renderDictionary();
   const params = new URLSearchParams(window.location.search);
   if (params.get('add') === '1') {

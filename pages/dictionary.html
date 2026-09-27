@@ -185,17 +185,26 @@
       <span><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg></span>
       <input type="text" id="dictSearch" class="search-input" placeholder="Пошук слова чи перекладу..." data-external-handler-dictionary-12="" />
     </div>
-    <div class="dict-filters">
-      <select id="filterCategory" class="filter-select" data-external-handler-dictionary-13="">
-        <option value="">Усі теми й ситуації</option>
-      </select>
-      <select id="filterLesson" class="filter-select" data-external-handler-dictionary-14="">
-        <option value="">Усі уроки</option>
-      </select>
-      <select id="filterType" class="filter-select" data-external-handler-dictionary-15="">
-        <option value="">Усі типи</option>
-      </select>
+
+    <button type="button" class="filters-toggle-btn dict-filters-toggle" aria-expanded="false" data-filter-toggle="dictionary">
+      <span class="filters-toggle-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M7 12h10M10 17h4"/></svg></span>
+      <span>Filters</span>
+    </button>
+
+    <div class="dict-filters-panel hidden" id="dictionaryFiltersPanel">
+      <div class="dict-filters">
+        <select id="filterCategory" class="filter-select" data-external-handler-dictionary-13="">
+          <option value="">Усі теми й ситуації</option>
+        </select>
+        <select id="filterLesson" class="filter-select" data-external-handler-dictionary-14="">
+          <option value="">Усі уроки</option>
+        </select>
+        <select id="filterType" class="filter-select" data-external-handler-dictionary-15="">
+          <option value="">Усі типи</option>
+        </select>
+      </div>
     </div>
+
     <button class="btn-primary" data-external-handler-dictionary-16=""><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Додати нове слово</button>
   </div>
 

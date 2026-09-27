@@ -23,7 +23,7 @@
     transition: background 0.15s;
   }
   .unit-header:hover {
-    background: #FDFCF8;
+    background: var(--card-sub-bg);
   }
   .unit-header-left {
     display: flex;
@@ -41,9 +41,9 @@
     font-size: 1.15rem;
     flex-shrink: 0;
   }
-  .u1 { background: #EAF4EC; color: var(--pine); }
-  .u2 { background: #EEF2FA; color: #3B5FA0; }
-  .u3 { background: #FEF3E2; color: #B56A00; }
+  .u1 { background: var(--it-green-light); color: var(--pine); }
+  .u2 { background: var(--it-blue-light); color: var(--it-blue); }
+  .u3 { background: var(--it-gold-light); color: var(--it-gold); }
 
   .unit-title {
     font-family: 'Fraunces', serif;
@@ -71,9 +71,9 @@
     white-space: nowrap;
   }
   .unit-badge.active-badge {
-    background: #EAF4EC;
+    background: var(--it-green-light);
     color: var(--pine);
-    border-color: #BDE3CB;
+    border-color: var(--it-green-border);
   }
   .unit-chevron {
     font-size: 0.8rem;
@@ -113,7 +113,7 @@
     transition: background 0.15s;
   }
   .unit-group-header:hover {
-    background: #FAFAF6;
+    background: var(--card-sub-bg);
   }
   .unit-group-title {
     font-size: 0.86rem;
@@ -136,9 +136,9 @@
     white-space: nowrap;
   }
   .unit-group-badge.active-badge {
-    background: #EAF4EC;
+    background: var(--it-green-light);
     color: var(--pine);
-    border-color: #BDE3CB;
+    border-color: var(--it-green-border);
   }
   .unit-group-chevron {
     font-size: 0.75rem;
@@ -181,15 +181,15 @@
     border-bottom: none;
   }
   .lesson-row:hover {
-    background: #FAFAF6;
+    background: var(--card-sub-bg);
   }
   .lesson-row.active-lesson {
-    background: #FAF9F5;
+    background: var(--card-sub-bg);
   }
   .lesson-row.locked {
     opacity: 0.55;
     cursor: not-allowed;
-    background: #FBFBFA;
+    background: var(--surface);
   }
   .lesson-num {
     font-size: 0.72rem;
@@ -223,7 +223,7 @@
     border-radius: 99px;
   }
   .ls-available {
-    background: #EAF4EC;
+    background: var(--it-green-light);
     color: var(--pine);
   }
   .ls-soon {
@@ -256,12 +256,12 @@
     border-color: var(--it-green-border);
   }
   [data-theme="dark"] .u2 {
-    background: rgba(96, 165, 250, 0.16);
-    color: #93c5fd;
+    background: var(--it-blue-light);
+    color: var(--it-blue);
   }
   [data-theme="dark"] .u3 {
-    background: rgba(245, 158, 11, 0.16);
-    color: #fbbf24;
+    background: var(--it-gold-light);
+    color: var(--it-gold);
   }
 
   @media (max-width: 600px) {

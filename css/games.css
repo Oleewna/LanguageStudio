@@ -14,8 +14,8 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    background: #FEF3E2;
-    color: var(--accent-amber);
+    background: var(--it-gold-light);
+    color: var(--it-gold);
     padding: 0.25rem 0.65rem;
     border-radius: 99px;
     margin-bottom: 0.75rem;
@@ -52,8 +52,28 @@
     touch-action: manipulation;
   }
   .game-btn:hover {
-    border-color: #CBD5E1;
-    background: #FAF8F0;
+    border-color: var(--it-green-border);
+    background: var(--card-sub-bg);
+  }
+  .game-btn.is-correct {
+    border-color: var(--pine);
+    background: var(--it-green-light);
+    color: var(--pine);
+  }
+  .game-btn.is-wrong {
+    border-color: var(--it-red);
+    background: var(--it-red-light);
+    color: var(--it-red);
+  }
+  [data-theme="dark"] .game-btn.is-correct {
+    border-color: var(--pine);
+    background: var(--it-green-light);
+    color: var(--it-green);
+  }
+  [data-theme="dark"] .game-btn.is-wrong {
+    border-color: var(--it-red);
+    background: var(--it-red-light);
+    color: var(--it-red);
   }
   .game-score-row {
     display: flex;

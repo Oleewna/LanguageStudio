@@ -20,15 +20,17 @@
 }
 
 [data-theme="dark"] {
-  --bg: #0d0f12;
-  --surface: #181b22;
-  --border: #282d39;
-  --ink: #f3f4f6;
-  --ink-soft: #a1a7b5;
-  --sidebar-bg: #12141a;
-  --it-green: #22c55e;
-  --it-green-light: rgba(34, 197, 94, 0.16);
-  --it-green-border: #15803d;
+  --bg: #0b0e0c;
+  --surface: #141916;
+  --border: #26332c;
+  --ink: #e7ede9;
+  --ink-soft: #9ba9a1;
+  --sidebar-bg: #101512;
+  --it-green: #1b9b50;
+  --it-green-light: rgba(27, 155, 80, 0.12);
+  --it-green-border: #286442;
+  --it-red: #dc454d;
+  --it-red-light: rgba(220, 69, 77, 0.12);
 }
 
 * {
@@ -63,19 +65,19 @@ body {
   width: 275px;
   flex-shrink: 0;
   background: var(--sidebar-bg);
-  color: #E6E4DA;
+  color: var(--ink);
   padding: 1.5rem 1.1rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  border-right: 1px solid var(--border);
 }
 
 .sb-course {
   font-size: 0.72rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #8C887B;
+  color: var(--it-green);
   margin-bottom: 0.85rem;
   font-weight: 700;
 }
@@ -88,7 +90,7 @@ body {
   font-weight: 700;
   font-size: 0.88rem;
   margin-bottom: 0.5rem;
-  color: #F5F4EE;
+  color: var(--ink);
 }
 
 .sb-lesson {
@@ -98,7 +100,7 @@ body {
   padding: 0.55rem 0.65rem;
   border-radius: 0.5rem;
   font-size: 0.85rem;
-  color: #BDB9AC;
+  color: var(--ink-soft);
   margin-bottom: 0.2rem;
   cursor: pointer;
   text-decoration: none;
@@ -106,13 +108,13 @@ body {
 }
 
 .sb-lesson:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: #FFFFFF;
+  background: var(--it-green-light);
+  color: var(--it-green);
 }
 
 .sb-lesson.active {
-  background: rgba(197, 43, 47, 0.22);
-  color: #F8B4B6;
+  background: var(--it-green-light);
+  color: var(--it-green);
   font-weight: 600;
   border-left: 3px solid var(--it-red);
 }
@@ -653,7 +655,7 @@ table.vocab-table tr:last-child td {
 .sidebar { width: 15.5rem; background: var(--sidebar-bg); color: var(--ink); border-right: 1px solid var(--border); box-shadow: 6px 0 18px rgba(15, 74, 45, 0.04); }
 .sb-course { color: var(--it-green); }
 .sb-unit-title { color: var(--ink); }
-.sb-lesson { color: #64748b; }
+.sb-lesson { color: var(--ink-soft); }
 .sb-lesson:hover { background: var(--it-green-light); color: var(--it-green); }
 .sb-lesson.active { background: var(--it-green-light); color: var(--it-green); border-left-color: var(--it-green); }
 .sb-unit-dim { opacity: 0.65; }
@@ -714,6 +716,9 @@ table.vocab-table tr:last-child td {
 .task-result-warning { background: #fff7df; color: #9a6500; }
 .task-result-info { background: #edf5ff; color: #1d5f9e; }
 .task-result-success { background: var(--it-green-light); color: var(--it-green); }
+
+[data-theme="dark"] .task-result-warning { background: rgba(217, 149, 38, 0.14); color: #d8aa62; }
+[data-theme="dark"] .task-result-info { background: rgba(83, 126, 164, 0.16); color: #8baece; }
 
 [data-theme="dark"] .dialogue-avatar.av-marco {
   background: var(--it-green);

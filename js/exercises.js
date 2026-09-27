@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════════════
-   EXERCISE BANK DATA MODEL (Categories, Formats, Levels, Explanations)
+  EXERCISE BANK DATA MODEL (Categories, Formats, Explanations)
    ════════════════════════════════════════════════════════════════════ */
 
 const CATEGORIES_MAP = {
@@ -13,12 +13,10 @@ const CATEGORIES_MAP = {
   shopping:   { group: 'situational', icon: 'shopping', nameUk: 'Покупки та ціни', nameEn: 'Shopping & Prices' }
 };
 
-const LEVEL_RANK = { 'A1': 1, 'A2': 2, 'B1': 3 };
-
 const TASK_BANK = [
   /* ──────────────── MULTIPLE CHOICE (MCQ) ──────────────── */
   {
-    id: 'mcq-g1', format: 'mcq', category: 'greetings', level: 'A1',
+    id: 'mcq-g1', format: 'mcq', category: 'greetings',
     question: { uk: 'Як перекладається італійська фраза «Come stai?»', en: 'What does the Italian phrase “Come stai?” mean?' },
     options: [
       { text: { uk: 'А) Як тебе звати?', en: 'A) What is your name?' }, correct: false },
@@ -28,7 +26,7 @@ const TASK_BANK = [
     explanation: { uk: '«Come stai?» використовується для неформального запитання «Як справи?» (до однієї людини).', en: '“Come stai?” is used to informally ask “How are you?” to one person.' }
   },
   {
-    id: 'mcq-g2', format: 'mcq', category: 'greetings', level: 'A1',
+    id: 'mcq-g2', format: 'mcq', category: 'greetings',
     question: { uk: 'Чи можна вживати «Ciao!» і для зустрічі, і для прощання?', en: 'Can “Ciao!” be used both when greeting and saying goodbye?' },
     options: [
       { text: { uk: 'А) Так, це універсальне неформальне привітання', en: 'A) Yes, it is a universal informal greeting' }, correct: true },
@@ -37,7 +35,7 @@ const TASK_BANK = [
     explanation: { uk: '«Ciao!» є універсальним словом для "Привіт" та "Бувай" серед друзів та знайомих.', en: '“Ciao!” is universally used for both “Hello” and “Goodbye” among acquaintances.' }
   },
   {
-    id: 'mcq-art1', format: 'mcq', category: 'articles', level: 'A1',
+    id: 'mcq-art1', format: 'mcq', category: 'articles',
     question: { uk: 'Який визначений артикль чоловічого роду вживається зі словом «ragazzo»?', en: 'Which masculine definite article is used with the word “ragazzo”?' },
     options: [
       { text: { uk: 'А) la', en: 'A) la' }, correct: false },
@@ -47,7 +45,7 @@ const TASK_BANK = [
     explanation: { uk: 'Для іменників чоловічого роду, що починаються на більшість приголосних, вживається артикль «il» (il ragazzo).', en: 'Nouns starting with standard consonants take “il” in the masculine singular.' }
   },
   {
-    id: 'mcq-art2', format: 'mcq', category: 'articles', level: 'A2',
+    id: 'mcq-art2', format: 'mcq', category: 'articles',
     question: { uk: 'Який артикль слід вжити перед іменником «zaino» (рюкзак)?', en: 'Which article should be placed before “zaino” (backpack)?' },
     options: [
       { text: { uk: 'А) il', en: 'A) il' }, correct: false },
@@ -57,7 +55,7 @@ const TASK_BANK = [
     explanation: { uk: 'Перед z, s+приголосна, gn, ps у чоловічому роді використовується артикль «lo» (lo zaino, lo studente).', en: 'Masculine nouns starting with Z or S+consonant take the article “lo”.' }
   },
   {
-    id: 'mcq-verb1', format: 'mcq', category: 'verbs', level: 'A1',
+    id: 'mcq-verb1', format: 'mcq', category: 'verbs',
     question: { uk: 'Оберіть правильну форму дієслова «essere» для займенника «noi» (ми):', en: 'Choose the correct form of “essere” for “noi” (we):' },
     options: [
       { text: { uk: 'А) siamo', en: 'A) siamo' }, correct: true },
@@ -67,7 +65,7 @@ const TASK_BANK = [
     explanation: { uk: 'Форми дієслова essere: io sono, tu sei, lui/lei è, noi siamo, voi siete, loro sono.', en: 'Conjugation of essere: io sono, tu sei, lui/lei è, noi siamo, voi siete, loro sono.' }
   },
   {
-    id: 'mcq-verb2', format: 'mcq', category: 'verbs', level: 'A2',
+    id: 'mcq-verb2', format: 'mcq', category: 'verbs',
     question: { uk: 'Яка форма дієслова «avere» (мати) відповідає займеннику «loro» (вони)?', en: 'Which form of “avere” (to have) corresponds to “loro” (they)?' },
     options: [
       { text: { uk: 'А) abbiamo', en: 'A) abbiamo' }, correct: false },
@@ -77,7 +75,7 @@ const TASK_BANK = [
     explanation: { uk: 'Форми дієслова avere: io ho, tu hai, lui/lei ha, noi abbiamo, voi avete, loro hanno.', en: 'Conjugation of avere: io ho, tu hai, lui/lei ha, noi abbiamo, voi avete, loro hanno.' }
   },
   {
-    id: 'mcq-cafe1', format: 'mcq', category: 'cafe', level: 'A1',
+    id: 'mcq-cafe1', format: 'mcq', category: 'cafe',
     question: { uk: 'Як ввічливо попросити чашку кави в італійському барі?', en: 'How do you politely order a cup of coffee in an Italian bar?' },
     options: [
       { text: { uk: 'А) Un caffè, per favore', en: 'A) Un caffè, per favore' }, correct: true },
@@ -87,7 +85,7 @@ const TASK_BANK = [
     explanation: { uk: '«Per favore» або «per piacere» означає «будь ласка» при замовленні.', en: '“Per favore” or “per piacere” is the standard polite phrase for “please”.' }
   },
   {
-    id: 'mcq-dir1', format: 'mcq', category: 'directions', level: 'A2',
+    id: 'mcq-dir1', format: 'mcq', category: 'directions',
     question: { uk: 'Що означає італійська фраза «Dov\'è la stazione?»', en: 'What does “Dov\'è la stazione?” mean?' },
     options: [
       { text: { uk: 'А) Коли прибуває потяг?', en: 'A) When does the train arrive?' }, correct: false },
@@ -97,7 +95,7 @@ const TASK_BANK = [
     explanation: { uk: '«Dov\'è...» скорочено від «Dove è...» означає «Де є...?».', en: '“Dov\'è...” is a contraction of “Dove è...” meaning “Where is...?”.' }
   },
   {
-    id: 'mcq-shop1', format: 'mcq', category: 'shopping', level: 'A2',
+    id: 'mcq-shop1', format: 'mcq', category: 'shopping',
     question: { uk: 'Як правильно запитати про вартість товару італійською мовою?', en: 'How do you ask for the price of an item in Italian?' },
     options: [
       { text: { uk: 'А) Quanto costa?', en: 'A) Quanto costa?' }, correct: true },
@@ -107,7 +105,7 @@ const TASK_BANK = [
     explanation: { uk: '«Quanto costa?» (однина) та «Quanto costano?» (множина) — фрази для запитання про ціну.', en: '“Quanto costa?” is used to ask the price of a single item.' }
   },
   {
-    id: 'mcq-pro1', format: 'mcq', category: 'pronouns', level: 'B1',
+    id: 'mcq-pro1', format: 'mcq', category: 'pronouns',
     question: { uk: 'Оберіть правильний прямий займенник: «Vedi Marco?» — «Sì, ___ vedo.»', en: 'Choose the direct pronoun: “Vedi Marco?” — “Sì, ___ vedo.”' },
     options: [
       { text: { uk: 'А) lo', en: 'A) lo' }, correct: true },
@@ -119,49 +117,49 @@ const TASK_BANK = [
 
   /* ──────────────── FILL IN THE BLANK (BLANK) ──────────────── */
   {
-    id: 'blk-g1', format: 'blank', category: 'greetings', level: 'A1',
+    id: 'blk-g1', format: 'blank', category: 'greetings',
     question: { uk: '«___, come stai?»', en: '“___, come stai?”' },
     hint: { uk: 'Підказка: неформальне привітання при зустрічі', en: 'Hint: informal greeting' },
     answers: ['ciao'],
     explanation: { uk: 'Слово «Ciao» вставляється на початку неформального привітання.', en: '“Ciao” goes at the start of an informal greeting.' }
   },
   {
-    id: 'blk-g2', format: 'blank', category: 'greetings', level: 'A1',
+    id: 'blk-g2', format: 'blank', category: 'greetings',
     question: { uk: '«Sto molto ___!»', en: '“Sto molto ___!”' },
     hint: { uk: 'Підказка: протилежне до «погано» (male)', en: 'Hint: opposite of “male” (badly)' },
     answers: ['bene'],
     explanation: { uk: '«Sto molto bene» означає «У мене все дуже добре».', en: '“Sto molto bene” means “I am doing very well”.' }
   },
   {
-    id: 'blk-v1', format: 'blank', category: 'verbs', level: 'A1',
+    id: 'blk-v1', format: 'blank', category: 'verbs',
     question: { uk: '«Io ___ studente di italiano.»', en: '“Io ___ studente di italiano.”' },
     hint: { uk: 'Підказка: форма дієслова essere (я є)', en: 'Hint: form of essere for “I am”' },
     answers: ['sono'],
     explanation: { uk: 'Перша особа однини дієслова essere: «Io sono».', en: 'First person singular of essere: “Io sono”.' }
   },
   {
-    id: 'blk-v2', format: 'blank', category: 'verbs', level: 'A2',
+    id: 'blk-v2', format: 'blank', category: 'verbs',
     question: { uk: '«Noi ___ una bella casa in Italia.»', en: '“Noi ___ una bella casa in Italia.”' },
     hint: { uk: 'Підказка: ми маємо (дієслово avere)', en: 'Hint: we have (verb avere)' },
     answers: ['abbiamo'],
     explanation: { uk: 'Форма дієслова avere для noi: «abbiamo».', en: 'Form of avere for noi: “abbiamo”.' }
   },
   {
-    id: 'blk-art1', format: 'blank', category: 'articles', level: 'A1',
+    id: 'blk-art1', format: 'blank', category: 'articles',
     question: { uk: '«___ casa è grande e luminosa.»', en: '“___ casa è grande e luminosa.”' },
     hint: { uk: 'Підказка: жіночий артикль однини', en: 'Hint: feminine singular article' },
     answers: ['la'],
     explanation: { uk: 'Casa є іменником жіночого роду, тому артикль «la».', en: 'Casa is feminine singular, so the article is “la”.' }
   },
   {
-    id: 'blk-cafe1', format: 'blank', category: 'cafe', level: 'A1',
+    id: 'blk-cafe1', format: 'blank', category: 'cafe',
     question: { uk: '«Un espresso e un cornetto, per ___!»', en: '“Un espresso e un cornetto, per ___!”' },
     hint: { uk: 'Підказка: слово "будь ласка" (favore)', en: 'Hint: word for “please”' },
     answers: ['favore', 'piacere'],
     explanation: { uk: '«Per favore» або «per piacere» означає «будь ласка».', en: '“Per favore” means “please”.' }
   },
   {
-    id: 'blk-dir1', format: 'blank', category: 'directions', level: 'A2',
+    id: 'blk-dir1', format: 'blank', category: 'directions',
     question: { uk: '«Gira a ___ dopo la farmacia!»', en: '“Gira a ___ dopo la farmacia!”' },
     hint: { uk: 'Підказка: праворуч (destra)', en: 'Hint: to the right (destra)' },
     answers: ['destra'],
@@ -170,7 +168,7 @@ const TASK_BANK = [
 
   /* ──────────────── MATCHING PAIRS (MATCH) ──────────────── */
   {
-    id: 'match-greetings', format: 'match', category: 'greetings', level: 'A1',
+    id: 'match-greetings', format: 'match', category: 'greetings',
     title: { uk: 'Привітання та Базові фрази', en: 'Greetings & Basic Phrases' },
     pairs: [
       { id: 'm1', it: 'ciao', ua: 'привіт / бувай', en: 'hello / goodbye' },
@@ -182,7 +180,7 @@ const TASK_BANK = [
     ]
   },
   {
-    id: 'match-verbs', format: 'match', category: 'verbs', level: 'A2',
+    id: 'match-verbs', format: 'match', category: 'verbs',
     title: { uk: 'Дієслова та займенники', en: 'Verbs & Pronouns' },
     pairs: [
       { id: 'mv1', it: 'io sono', ua: 'я є', en: 'I am' },
@@ -194,7 +192,7 @@ const TASK_BANK = [
     ]
   },
   {
-    id: 'match-cafe', format: 'match', category: 'cafe', level: 'A1',
+    id: 'match-cafe', format: 'match', category: 'cafe',
     title: { uk: 'У кафе та барі', en: 'At the Cafe & Bar' },
     pairs: [
       { id: 'mc1', it: 'il conto', ua: 'рахунок', en: 'the bill' },
@@ -208,25 +206,25 @@ const TASK_BANK = [
 
   /* ──────────────── SENTENCE BUILDER (REORDER) ──────────────── */
   {
-    id: 'reorder-g1', format: 'reorder', category: 'greetings', level: 'A1',
+    id: 'reorder-g1', format: 'reorder', category: 'greetings',
     clue: { uk: 'Привіт, як справи?', en: 'Hello, how are you?' },
     words: ['Ciao,', 'come', 'stai?'],
     explanation: { uk: 'Порядок слів у питанні привітання: Ciao, come stai?', en: 'Word order for greeting: Ciao, come stai?' }
   },
   {
-    id: 'reorder-cafe1', format: 'reorder', category: 'cafe', level: 'A1',
+    id: 'reorder-cafe1', format: 'reorder', category: 'cafe',
     clue: { uk: 'Я хочу каву, будь ласка', en: 'I would like a coffee, please' },
     words: ['Vorrei', 'un', 'caffè,', 'per', 'favore.'],
     explanation: { uk: '«Vorrei» (я б хотів) є ввічливою формою для замовлення.', en: '“Vorrei” (I would like) is the polite way to order.' }
   },
   {
-    id: 'reorder-verbs1', format: 'reorder', category: 'verbs', level: 'A2',
+    id: 'reorder-verbs1', format: 'reorder', category: 'verbs',
     clue: { uk: 'Ми новачки у цьому будинку', en: 'We are new in this building' },
     words: ['Noi', 'siamo', 'nuovi', 'in', 'questo', 'palazzo.'],
     explanation: { uk: 'Займенник + дієслово + прикметник + прийменник.', en: 'Pronoun + verb + adjective + preposition.' }
   },
   {
-    id: 'reorder-dir1', format: 'reorder', category: 'directions', level: 'A2',
+    id: 'reorder-dir1', format: 'reorder', category: 'directions',
     clue: { uk: 'Де знаходиться найближча станція?', en: 'Where is the nearest station?' },
     words: ['Dov\'è', 'la', 'stazione', 'più', 'vicina?'],
     explanation: { uk: '«Dov\'è» завжди стоїть на початку питального речення про місце знаходження.', en: '“Dov\'è” always starts a question about location.' }
@@ -234,7 +232,7 @@ const TASK_BANK = [
 
   /* ──────────────── AUDIO LISTENING (LISTEN) ──────────────── */
   {
-    id: 'listen-g1', format: 'listen', category: 'greetings', level: 'A1',
+    id: 'listen-g1', format: 'listen', category: 'greetings',
     audioWord: 'prego',
     instruction: { uk: 'Прослухайте аудіо та оберіть переклад слова', en: 'Listen to the audio and pick the translation' },
     options: [
@@ -245,7 +243,7 @@ const TASK_BANK = [
     explanation: { uk: 'Озвучене слово: «Prego» (Будь ласка / Нема за що).', en: 'Audio spoken: “Prego” (You are welcome).' }
   },
   {
-    id: 'listen-g2', format: 'listen', category: 'greetings', level: 'A1',
+    id: 'listen-g2', format: 'listen', category: 'greetings',
     audioWord: 'grazie',
     instruction: { uk: 'Прослухайте аудіо та оберіть переклад слова', en: 'Listen to the audio and pick the translation' },
     options: [
@@ -256,7 +254,7 @@ const TASK_BANK = [
     explanation: { uk: 'Озвучене слово: «Grazie» (Дякую).', en: 'Audio spoken: “Grazie” (Thank you).' }
   },
   {
-    id: 'listen-cafe1', format: 'listen', category: 'cafe', level: 'A2',
+    id: 'listen-cafe1', format: 'listen', category: 'cafe',
     audioWord: 'cappuccino',
     instruction: { uk: 'Прослухайте аудіо та оберіть правильно записане слово', en: 'Listen to the audio and select the matching word' },
     options: [
@@ -269,7 +267,7 @@ const TASK_BANK = [
 
   /* ──────────────── DIALOGUE CONTINUATION (DIALOGUE) ──────────────── */
   {
-    id: 'dlg-g1', format: 'dialogue', category: 'greetings', level: 'A1',
+    id: 'dlg-g1', format: 'dialogue', category: 'greetings',
     lineA: 'А: «Ciao! Come ti chiami?»',
     instruction: { uk: 'Б: оберіть репліку, якою продовжити знайомство', en: 'B: choose the line that continues the introduction' },
     options: [
@@ -280,7 +278,7 @@ const TASK_BANK = [
     explanation: { uk: 'На питання «Come ti chiami?» відповідь починається з «Mi chiamo...».', en: 'To answer “Come ti chiami?”, start with “Mi chiamo...”.' }
   },
   {
-    id: 'dlg-cafe1', format: 'dialogue', category: 'cafe', level: 'A1',
+    id: 'dlg-cafe1', format: 'dialogue', category: 'cafe',
     lineA: 'А: «Buongiorno! Cosa desidera?»',
     instruction: { uk: 'Б: оберіть репліку для замовлення в барі', en: 'B: choose the line to order at the cafe bar' },
     options: [
@@ -291,7 +289,7 @@ const TASK_BANK = [
     explanation: { uk: 'В барі на питання «Cosa desidera?» замовляють їжу або напої.', en: 'When asked “Cosa desidera?”, specify what you want to order.' }
   },
   {
-    id: 'dlg-dir1', format: 'dialogue', category: 'directions', level: 'A2',
+    id: 'dlg-dir1', format: 'dialogue', category: 'directions',
     lineA: 'А: «Scusi, dov\'è il museo?»',
     instruction: { uk: 'Б: оберіть репліку для пояснення дороги', en: 'B: choose the line to give directions' },
     options: [
@@ -302,7 +300,7 @@ const TASK_BANK = [
     explanation: { uk: 'Вказівка дороги містить фрази напрямку: «sempre diritto» (прямо) та «a destra» (праворуч).', en: 'Giving directions involves phrases like “sempre diritto” and “a destra”.' }
   },
   {
-    id: 'dlg-shop1', format: 'dialogue', category: 'shopping', level: 'A2',
+    id: 'dlg-shop1', format: 'dialogue', category: 'shopping',
     lineA: 'А: «Quanto costa questa maglietta?»',
     instruction: { uk: 'Б: оберіть відповідь продавця про ціну', en: 'B: choose the seller\'s response showing price' },
     options: [
@@ -361,8 +359,6 @@ function showTaskTab(name) {
 
 function applyFiltersAndSort() {
   const groupVal = document.getElementById('groupFilterSelect').value;
-  const levelVal = document.getElementById('levelFilterSelect').value;
-  const sortVal = document.getElementById('sortFilterSelect').value;
   const searchVal = document.getElementById('searchInput').value.trim().toLowerCase();
 
   // Filter exercises for current format tab
@@ -376,9 +372,6 @@ function applyFiltersAndSort() {
     const catInfo = CATEGORIES_MAP[t.category];
     if (groupVal !== 'all' && catInfo && catInfo.group !== groupVal) return false;
 
-    // Level filter
-    if (levelVal !== 'all' && t.level !== levelVal) return false;
-
     // Search filter
     if (searchVal) {
       const qText = getText(t.question || t.title || t.lineA).toLowerCase();
@@ -388,13 +381,6 @@ function applyFiltersAndSort() {
 
     return true;
   });
-
-  // Sort exercises
-  if (sortVal === 'level-asc') {
-    filtered.sort((a, b) => (LEVEL_RANK[a.level] || 1) - (LEVEL_RANK[b.level] || 1));
-  } else if (sortVal === 'level-desc') {
-    filtered.sort((a, b) => (LEVEL_RANK[b.level] || 1) - (LEVEL_RANK[a.level] || 1));
-  }
 
   // Update summary badge
   const summaryEl = document.getElementById('activeFilterSummary');
@@ -468,7 +454,6 @@ function renderMCQPanel(items) {
         <div class="quiz-card" id="card-${task.id}">
           <div class="card-meta-header">
             <div class="card-tags">
-              <span class="badge-level lvl-${task.level.toLowerCase()}">${task.level}</span>
               <span class="badge-cat">${catName}</span>
             </div>
             <div class="quiz-q-num">${getLang() === 'en' ? 'Question' : 'Питання'} ${idx + 1}</div>
@@ -535,7 +520,6 @@ function renderBlankPanel(items) {
         <div class="quiz-card" id="card-${task.id}">
           <div class="card-meta-header">
             <div class="card-tags">
-              <span class="badge-level lvl-${task.level.toLowerCase()}">${task.level}</span>
               <span class="badge-cat">${catName}</span>
             </div>
             <div class="quiz-q-num">${getLang() === 'en' ? 'Fill in the blank' : 'Заповніть пропуск'}</div>
@@ -595,7 +579,6 @@ function renderListenPanel(items) {
         <div class="quiz-card" id="card-${task.id}">
           <div class="card-meta-header">
             <div class="card-tags">
-              <span class="badge-level lvl-${task.level.toLowerCase()}">${task.level}</span>
               <span class="badge-cat">${catName}</span>
             </div>
             <div class="quiz-q-num">${getLang() === 'en' ? 'Listening Practice' : 'Аудіювання'}</div>
@@ -636,7 +619,6 @@ function renderDialoguePanel(items) {
         <div class="quiz-card" id="card-${task.id}">
           <div class="card-meta-header">
             <div class="card-tags">
-              <span class="badge-level lvl-${task.level.toLowerCase()}">${task.level}</span>
               <span class="badge-cat">${catName}</span>
             </div>
             <div class="quiz-q-num">${getLang() === 'en' ? 'Interactive Dialogue' : 'Практика діалогу'}</div>
@@ -683,7 +665,6 @@ function renderMatchingPanel(filteredItems) {
     <div class="quiz-card">
       <div class="card-meta-header">
         <div class="card-tags">
-          <span class="badge-level lvl-${task.level.toLowerCase()}">${task.level}</span>
           <span class="badge-cat">${getLang() === 'en' ? 'Word Matching' : 'Зіставлення слів'}</span>
         </div>
         <div class="quiz-q-num">${getText(task.title)}</div>
@@ -765,7 +746,6 @@ function renderReorderPanel(filteredItems) {
       <div class="quiz-card" id="card-${task.id}">
         <div class="card-meta-header">
           <div class="card-tags">
-            <span class="badge-level lvl-${task.level.toLowerCase()}">${task.level}</span>
             <span class="badge-cat">${catName}</span>
           </div>
           <div class="quiz-q-num">${getLang() === 'en' ? 'Build the sentence' : 'Складіть речення'}</div>
@@ -911,6 +891,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const groupSelect = document.getElementById('groupFilterSelect');
     if (groupSelect) groupSelect.value = requestedGroup;
   }
+
+  const filterToggle = document.querySelector('[data-filter-toggle="exercises"]');
+  const exerciseFiltersPanel = document.getElementById('exerciseFiltersPanel');
+  if (filterToggle && exerciseFiltersPanel) {
+    filterToggle.addEventListener('click', () => {
+      const isOpen = filterToggle.getAttribute('aria-expanded') === 'true';
+      filterToggle.setAttribute('aria-expanded', String(!isOpen));
+      exerciseFiltersPanel.classList.toggle('hidden', isOpen);
+    });
+  }
+
   applyFiltersAndSort();
 });
 

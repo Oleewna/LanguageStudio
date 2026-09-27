@@ -13,6 +13,67 @@ const SOURCE_LANGUAGES = [
 ];
 
 const UI_TRANSLATIONS = {
+  'Тести': 'Tests',
+  'Тести — LanguageStudio': 'Tests — LanguageStudio',
+  'Ситуації та теми': 'Situations & topics',
+  'Оцініть свої знання італійської та оберіть наступний крок. Короткі тематичні тести допоможуть побачити, що вже виходить, а над чим варто попрацювати.': 'Check your Italian and choose your next step. Short topic tests help you see what is going well and what to work on next.',
+  'ТЕСТИ': 'TESTS',
+  '3 категорії': '3 categories',
+  '10–20 хв': '10–20 min',
+  'Ситуації з життя': 'Everyday situations',
+  'ОБЕРІТЬ СИТУАЦІЮ': 'CHOOSE A SITUATION',
+  'З чого почнемо сьогодні?': 'Where shall we start today?',
+  'Оберіть тему, яка потрібна зараз: знайомство, замовлення в кафе чи орієнтування в місті.': 'Choose the situation you need now: introductions, ordering at a cafe, or finding your way around town.',
+  '25 запитань': '25 questions',
+  'Близько 15 хвилин': 'About 15 minutes',
+  'Поки що недоступно': 'Coming soon',
+  'Тематичні тести': 'TOPIC TESTS',
+  'Перевірте окремі навички': 'Explore a situation',
+  'Незабаром': 'Coming soon',
+  'Ваші результати': 'YOUR RESULTS',
+  'Тут з’явиться ваша історія тестів': 'Your test history will appear here',
+  'Коли тести стануть доступними, тут зберігатимуться результати та прогрес за темами.': 'When tests become available, your results and progress by situation will appear here.',
+  '0 пройдено': '0 completed',
+  'План навчання': 'Learning plan',
+  'Почніть із тесту на визначення рівня': 'Start with a placement test',
+  'Після оцінювання ми підкажемо, який напрямок варто обрати далі.': 'After the assessment, we’ll suggest which learning path to take next.',
+  'Переглянути напрямки': 'Browse learning paths',
+  'ОБЕРІТЬ ПОТРІБНУ ТЕМУ': 'PICK A TOPIC',
+  'Оберіть потрібну тему': 'Pick a topic',
+  'Тести згруповані за повсякденними ситуаціями': 'Tests are grouped by everyday situations',
+  'Категорії тестів': 'Test categories',
+  'РОЗМОВА': 'CONVERSATION',
+  'ЇЖА ТА НАПОЇ': 'FOOD & DRINK',
+  'У МІСТІ': 'AROUND TOWN',
+  'Знайомство': 'Introductions',
+  'Кафе': 'Cafe',
+  'Подорожі': 'Travel',
+  'Знайомство та привітання': 'Introductions and greetings',
+  'Почніть розмову, привітайтеся та розкажіть трохи про себе.': 'Start a conversation, greet someone, and share a little about yourself.',
+  'У кафе та ресторані': 'At a cafe or restaurant',
+  'Замовляйте улюблене, уточнюйте ціну та спілкуйтеся ввічливо.': 'Order what you like, ask about prices, and keep the conversation polite.',
+  'Подорожі містом': 'Getting around town',
+  'Запитуйте дорогу, знаходьте потрібне місце та орієнтуйтеся у місті.': 'Ask for directions, find places, and get around town.',
+  'Тест зі знайомства та привітань скоро буде доступний': 'Introductions and greetings test coming soon',
+  'Тест для кафе та ресторанів скоро буде доступний': 'Cafe and restaurant test coming soon',
+  'Тест про подорожі містом скоро буде доступний': 'Getting-around-town test coming soon',
+  'ТЕМАТИЧНІ ТЕСТИ': 'TOPIC TESTS',
+  'ФОРМАТИ': 'FORMATS',
+  'МАЙБУТНІ РЕЗУЛЬТАТИ': 'YOUR RESULTS',
+  'ПЛАН ПІДГОТОВКИ': 'PREPARATION PLAN',
+  '10 хв': '10 min',
+  '15 хв': '15 min',
+  '20 хв': '20 min',
+  'пройдено': 'completed',
+  'БЕТА · ПОПЕРЕДНІЙ ПЕРЕГЛЯД': 'BETA · PREVIEW',
+  'Огляд тестів': 'Test overview',
+  'Результати та наступні кроки': 'Results and next steps',
+  'Оберіть тему для тесту': 'Choose a topic to explore',
+  'Майбутні результати': 'YOUR RESULTS',
+  'Історія тестів з’явиться тут': 'Your test history will appear here',
+  'План підготовки': 'A good next step',
+  'Оберіть напрямок навчання': 'Choose a learning path',
+  'Повторіть основи, а потім перевірте себе на коротких тестах.': 'Review the basics, then check your skills with short tests.',
   'Основи · Урок 1 · Знайомство': 'Basics · Lesson 1 · Introductions',
   'Основи спілкування · Урок 1': 'Communication basics · Lesson 1',
   'Основи спілкування ›': 'Communication basics ›',
@@ -104,7 +165,6 @@ const UI_TRANSLATIONS = {
   'Грати знову': 'Play again',
   '✨ Правильно! (+20 очок)': '✨ Correct! (+20 points)',
   'Помилка! Правильно:': 'Incorrect! Correct answer:',
-  '· Corso di Italiano A0–A1': '· Italian for real-life situations',
   'Напрямки навчання — LanguageStudio': 'Learning paths — LanguageStudio',
   'Флешкартки — LanguageStudio': 'Flashcards — LanguageStudio',
   'Завдання — LanguageStudio': 'Exercises — LanguageStudio',
@@ -237,19 +297,12 @@ const UI_TRANSLATIONS = {
   'Практичні вправи': 'Exercises',
   'Практика & Перевірка знань': 'Practice & Knowledge Review',
   'Завдання та Вправи': 'Exercises and Practice',
-  'Тренуйте граматику та реальні ситуації спілкування. Обирайте категорію, рівень складності (A1–B1) та зручний формат вправ.': 'Practice grammar and real-life conversations. Choose a category, difficulty level (A1–B1), and exercise format.',
-  'Рівні A1, A2, B1': 'Levels A1, A2, B1',
+  'Тренуйте граматику та реальні ситуації спілкування. Обирайте тему й зручний формат вправ.': 'Practice grammar and real-life conversations. Choose a topic and exercise format.',
+  '7 форматів вправ': '7 exercise formats',
   'Група': 'Group',
-  'Рівень складності': 'Difficulty',
   'Усі теми (Граматика + Ситуації)': 'All topics (Grammar + Situations)',
-  'Усі рівні (A1 – B1)': 'All levels (A1 – B1)',
-  'A1 · Початковий (Breakthrough)': 'A1 · Beginner (Breakthrough)',
-  'A2 · Елементарний (Waystage)': 'A2 · Elementary (Waystage)',
-  'B1 · Середній (Threshold)': 'B1 · Intermediate (Threshold)',
   'Сортування': 'Sorting',
   'За замовчуванням': 'Default',
-  'Складність: A1 ➔ B1': 'Difficulty: A1 ➔ B1',
-  'Складність: B1 ➔ A1': 'Difficulty: B1 ➔ A1',
   'Пошук за словом': 'Search by word',
   'Пошук фрази або правила...': 'Search phrases or grammar rules...',
   'Персоналізований тест генерується з вашого «Власного словника» та базового запасу.': 'A personalized quiz is generated from your saved dictionary and core vocabulary.',
@@ -265,7 +318,6 @@ const UI_TRANSLATIONS = {
   'Вправ у базі': 'Exercises in the bank',
   '8': '8',
   'Категорій знань': 'Knowledge categories',
-  'Рівні A1, A2, B1': 'Levels A1, A2, B1',
   'Категорії та Фільтри': 'Categories & Filters',
   'Всі категорії': 'All categories',
   'Іменники & Артиклі': 'Nouns & Articles',
@@ -302,6 +354,7 @@ const UI_TRANSLATIONS = {
   '🌐 Переклад': '🌐 Translation',
   '📖 Зі словника': '📖 Dictionary quiz',
   '🔊 Аудіювання': '🔊 Listening',
+  'Аудіювання': 'Listening',
   '💬 Діалог': '💬 Dialogue',
   'Питання 1 з 4': 'Question 1 of 4',
   'Питання 2 з 4': 'Question 2 of 4',
@@ -379,6 +432,7 @@ const UI_TRANSLATIONS = {
   'Оберіть відповідне італійське привітання для ситуації:': 'Choose the Italian greeting that fits the situation:',
   '☀️ 09:30 ранку, зустріч із сусідом у під\'їзді': '☀️ 9:30 a.m., meeting a neighbor in the apartment building',
   '09:30 ранку, зустріч із сусідом у під\'їзді': '9:30 a.m., meeting a neighbor in the apartment building',
+  '09:30 ранку в під\'їзді будинку': '9:30 a.m. in the apartment building hallway',
   '23:00, ви йдете спати і кажете рідним:': '11:00 p.m., you are going to bed and say to your family:',
   '19:30 вечора, ви заходите у ресторан:': '7:30 p.m., you enter a restaurant:',
   'Ви випадково зустріли давнього друга на вулиці:': 'You run into an old friend on the street:',
@@ -389,8 +443,7 @@ const UI_TRANSLATIONS = {
   'Знаходьте пари італійських та українських слів на полі карток.': 'Find matching Italian and English word pairs on the cards.',
   'Симулятор замовлення кави та круасанів у міланському барі на час.': 'A timed simulation of ordering coffee and croissants at a Milanese bar.',
   'Граматичні шпаргалки': 'Grammar quick reference',
-  'Швидкий доступ до ключових правил італійської мови рівня A1: артиклі, форми дієслів та етикетні вирази.': 'Quick access to essential Italian grammar: articles, verb forms, and polite expressions.',
-  'Швидкий доступ до ключових правил італійської мови рівня A1–B1: артиклі, форми дієслів та етикетні вирази.': 'Quick access to essential Italian grammar at A1–B1: articles, verb forms, and polite expressions.',
+  'Швидкий доступ до основних правил італійської мови: артиклі, форми дієслів та етикетні вирази.': 'Quick access to practical Italian grammar: articles, verb forms, and polite expressions.',
   '☀️ Привітання': '☀️ Greetings',
   '📰 Артиклі': '📰 Articles',
   'Артиклі': 'Articles',
@@ -489,7 +542,7 @@ const UI_TRANSLATIONS = {
   '[буо-на-нот-те]': '[bwo-na-NOT-teh]',
   '[ча-о]': '[chow]',
   '[саль-ве]': '[SAHL-veh]',
-  'Corso di Italiano · A0–A1': 'Italian course · Foundations',
+  'Курс італійської · Основи': 'Italian foundations',
   'Розділ 1 · Il primo giorno': 'Unit 1 · Il primo giorno',
   'Урок 1 · Знайомство': 'Lesson 1 · Introductions',
   'Урок 2 · Come ti chiami?': 'Lesson 2 · Come ti chiami?',
@@ -503,8 +556,7 @@ const UI_TRANSLATIONS = {
   'Розділ 1 ›': 'Unit 1 ›',
   'Урок 1.1 · Знайомство': 'Lesson 1.1 · Introductions',
   'Усі уроки →': 'All lessons →',
-  '☕ LanguageStudio · Corso di Italiano A0–A1': '☕ LanguageStudio · Italian for real-life situations',
-  '· Corso di Italiano A0–A1': '· Italian for real-life situations',
+  '· Італійська для реальних ситуацій': '· Italian for real-life situations',
   '☕ LanguageStudio · Італійська для реальних ситуацій': '☕ LanguageStudio · Italian for real-life situations',
   'Розділи (Units)': 'Learning paths',
   '📘 Урок 1.1': '📘 Lesson 1.1',
@@ -785,6 +837,48 @@ function renderRegisteredIcons(root = document) {
 
 renderRegisteredIcons();
 
+function ensureTestsNavigation() {
+  const currentDirectory = location.pathname.split('/').at(-2);
+  const testsHref = currentDirectory === 'pages'
+    ? 'tests.html'
+    : currentDirectory === 'lessons'
+      ? '../pages/tests.html'
+      : 'pages/tests.html';
+  const isTestsPage = location.pathname.endsWith('/tests.html');
+  const desktopNav = document.querySelector('.nav-links');
+  const mobileNav = document.querySelector('.mob-nav');
+
+  if (desktopNav && !desktopNav.querySelector('[data-tests-link]')) {
+    const link = document.createElement('a');
+    link.className = `nav-dd-btn${isTestsPage ? ' active' : ''}`;
+    link.href = testsHref;
+    link.dataset.testsLink = '';
+    link.setAttribute('aria-current', isTestsPage ? 'page' : 'false');
+    link.innerHTML = `<span class="dd-icon">${getIconSvg('target')}</span>Тести`;
+    desktopNav.append(link);
+  }
+
+  if (mobileNav && !mobileNav.querySelector('[data-tests-link]')) {
+    const link = document.createElement('a');
+    link.className = `mob-nav-link${isTestsPage ? ' active' : ''}`;
+    link.href = testsHref;
+    link.dataset.testsLink = '';
+    link.setAttribute('aria-current', isTestsPage ? 'page' : 'false');
+    link.innerHTML = `<span class="ic">${getIconSvg('target')}</span>Тести`;
+    mobileNav.append(link);
+  }
+}
+
+function initTestsNavigation() {
+  if (!location.pathname.endsWith('/tests.html')) return;
+
+  document.querySelector('.menu-toggle')?.addEventListener('click', openMobNav);
+  document.querySelector('.mob-close-btn')?.addEventListener('click', closeMobNav);
+  document.getElementById('mobOverlay')?.addEventListener('click', closeMobNav);
+  document.querySelector('.theme-toggle-btn')?.addEventListener('click', toggleTheme);
+  document.querySelector('.student-widget')?.addEventListener('click', openProfileModal);
+}
+
 function ensureProfileModal() {
   if (document.getElementById('profileModal')) return;
   const themeIcon = (typeof LS_ICONS !== 'undefined' && LS_ICONS) ? LS_ICONS.sun : '🌓';
@@ -815,7 +909,7 @@ function ensureProfileModal() {
         </section>
         <div class="pm-stats-grid">
           <div class="pm-stat-box"><div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">Очок XP</div></div>
-          <div class="pm-stat-box"><div class="pm-stat-val" style="color:#D97706;">1 день</div><div class="pm-stat-lbl">Ударний темп (Streak)</div></div>
+          <div class="pm-stat-box"><div class="pm-stat-val" style="color:var(--it-gold);">1 день</div><div class="pm-stat-lbl">Ударний темп (Streak)</div></div>
           <div class="pm-stat-box"><div class="pm-stat-val">1/16</div><div class="pm-stat-lbl">Пройдено уроків</div></div>
           <div class="pm-stat-box"><div class="pm-stat-val">13</div><div class="pm-stat-lbl">Слів у словнику</div></div>
         </div>
@@ -842,6 +936,8 @@ function speak(text, btnElement) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  ensureTestsNavigation();
+  initTestsNavigation();
   ensureProfileModal();
   updateXPDisplay();
   applySourceLanguageSettings();
