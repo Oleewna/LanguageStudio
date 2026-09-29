@@ -21,7 +21,7 @@ const categories = [
         id: 'foundations-unit-1',
         title: 'Communication basics',
         lessons: [
-          { num: 'Lesson 1', title: 'Introductions — “Come ti chiami?”', description: 'Your first Milan dialogue, new words, and conversational culture', href: '../lessons/communication-basics-lesson-1.html', status: 'available', time: '~15 min' },
+          { num: 'Lesson 1', title: 'Introductions — “Come ti chiami?”', description: 'Your first Milan dialogue, new words, and conversational culture', href: '../pages/communication-basics/communication-basics-lesson-1.html', status: 'available', time: '~15 min' },
           { num: 'Lesson 2', title: 'Come ti chiami? (What is your name?)', description: 'Introductions, the verb chiamarsi, and polite expressions', href: null, status: 'soon', time: '~15 min' },
           { num: 'Lesson 3', title: 'Di dove sei? (Where are you from?)', description: 'Countries, nationalities, and conjugating essere', href: null, status: 'soon', time: '~15 min' },
           { num: 'Lesson 4', title: "I numeri e l'età (Numbers and age)", description: 'Counting 0–100, the verb avere, and phone numbers', href: null, status: 'soon', time: '~20 min' },

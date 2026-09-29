@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="icon" type="image/png" href="../assets/images/icons8-translator-100.png" />
+<title>Вхід та реєстрація — LanguageStudio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="../js/theme.js"></script>
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/auth.css">
+</head>
+<body class="auth-page">
+
+<header class="auth-topbar">
+  <a href="../index.html" class="auth-brand" aria-label="LanguageStudio — головна">
+    <img src="../assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
+  </a>
+  <div class="auth-actions">
+    <button class="theme-toggle-btn" type="button" title="Змінити тему" aria-label="Змінити тему">
+      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+    </button>
+    <a class="btn-ghost auth-home" href="../index.html">← Головна</a>
+  </div>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-label">Особистий кабінет</div>
+    <h1>Вхід та реєстрація</h1>
+    <p>Ця демо-сторінка показує майбутній вхід і реєстрацію. Поки що профіль та прогрес зберігаються лише на цьому пристрої.</p>
+  </div>
+</section>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<main class="page-container">
+
+  <div class="auth-wrap">
+    <div class="auth-card">
+
+      <input type="radio" name="auth-tab" id="tab-login" class="auth-radio" checked />
+      <input type="radio" name="auth-tab" id="tab-signup" class="auth-radio" />
+
+      <div class="auth-tabs-header">
+        <label for="tab-login" class="auth-tab">🔑 Вхід</label>
+        <label for="tab-signup" class="auth-tab">✨ Реєстрація</label>
+      </div>
+
+      <!-- Panel: Log in -->
+      <div class="auth-panel" id="panel-login">
+        <h2 class="auth-title">Bentornato!</h2>
+        <p class="auth-sub">Раді бачити вас знову. Введіть дані, щоб продовжити навчання.</p>
+
+        <form action="#" method="post">
+          <div class="auth-group">
+            <label class="auth-label" for="loginEmail">Електронна пошта</label>
+            <input type="email" id="loginEmail" name="email" class="auth-input" placeholder="name@example.com" autocomplete="email" required />
+          </div>
+          <div class="auth-group">
+            <label class="auth-label" for="loginPassword">Пароль</label>
+            <input type="password" id="loginPassword" name="password" class="auth-input" placeholder="Ваш пароль" autocomplete="current-password" required />
+          </div>
+          <div class="auth-row">
+            <label class="auth-check"><input type="checkbox" name="remember" /> Запам'ятати мене</label>
+            <a href="#" class="auth-link">Забули пароль?</a>
+          </div>
+          <button type="submit" class="btn-primary auth-submit">Увійти</button>
+        </form>
+
+        <div class="auth-switch">Ще немає акаунта? <label for="tab-signup">Зареєструватися</label></div>
+      </div>
+
+      <!-- Panel: Sign up -->
+      <div class="auth-panel" id="panel-signup">
+        <h2 class="auth-title">Benvenuto!</h2>
+        <p class="auth-sub">Форма реєстрації поки демонстраційна. Дані нікуди не надсилаються.</p>
+
+        <form action="#" method="post">
+          <div class="auth-group">
+            <label class="auth-label" for="signupName">Ім'я</label>
+            <input type="text" id="signupName" name="name" class="auth-input" placeholder="Як до вас звертатися?" autocomplete="given-name" required />
+          </div>
+          <div class="auth-group">
+            <label class="auth-label" for="signupEmail">Електронна пошта</label>
+            <input type="email" id="signupEmail" name="email" class="auth-input" placeholder="name@example.com" autocomplete="email" required />
+          </div>
+          <div class="auth-group">
+            <label class="auth-label" for="signupPassword">Пароль</label>
+            <input type="password" id="signupPassword" name="password" class="auth-input" placeholder="Мінімум 8 символів" minlength="8" autocomplete="new-password" required />
+            <div class="auth-hint">Використайте літери та цифри для надійності.</div>
+          </div>
+          <div class="auth-group">
+            <label class="auth-label" for="signupPassword2">Повторіть пароль</label>
+            <input type="password" id="signupPassword2" name="password2" class="auth-input" placeholder="Ще раз той самий пароль" minlength="8" autocomplete="new-password" required />
+          </div>
+          <div class="auth-row">
+            <label class="auth-check"><input type="checkbox" name="terms" required /> Погоджуюся з умовами використання та політикою конфіденційності</label>
+          </div>
+          <button type="submit" class="btn-primary auth-submit">Створити акаунт</button>
+        </form>
+
+        <div class="auth-switch">Вже маєте акаунт? <label for="tab-login">Увійти</label></div>
+      </div>
+
+    </div>
+
+    <div class="auth-note-box">
+      <b>💡 Важливо:</b> Демо-профіль: акаунти ще не підключені; прогрес зберігається лише в цьому браузері.
+    </div>
+  </div>
+
+</main>
+
+<script src="../js/app.js"></script>
+</body>
+</html>

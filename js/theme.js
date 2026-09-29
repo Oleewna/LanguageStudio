@@ -1,8 +1,12 @@
 (function() {
     function getRelativeAssetPath() {
       const pathname = window.location.pathname || '';
-      const isNestedPage = pathname.includes('/pages/') || pathname.includes('/lessons/');
-      return isNestedPage ? '../' : '';
+      const routeMarker = ['/pages/', '/lessons/'].find((marker) => pathname.includes(marker));
+      if (!routeMarker) return '';
+
+      const route = pathname.slice(pathname.indexOf(routeMarker) + routeMarker.length);
+      const directoryDepth = route.split('/').length - 1;
+      return '../'.repeat(directoryDepth + 1);
     }
 
     function resolveLogoPath(theme) {

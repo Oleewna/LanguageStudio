@@ -933,7 +933,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-exercises-3]');
   if (!target) return;
   var result = (function(event) {
-location.href='units.html'
+location.href='path.html'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();

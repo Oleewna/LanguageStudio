@@ -11,6 +11,11 @@ const SOURCE_LANGUAGES = [
   { code: 'uk', uk: 'Українська', en: 'Ukrainian' },
   { code: 'en', uk: 'Англійська', en: 'English' }
 ];
+const LOCAL_STUDENT_PROFILE = {
+  isAuthenticated: false,
+  displayName: '',
+  email: ''
+};
 
 const UI_TRANSLATIONS = {
   'Тести': 'Tests',
@@ -101,10 +106,10 @@ const UI_TRANSLATIONS = {
   'Riunioni e appuntamenti (Зустрічі та домовленості)': 'Riunioni e appuntamenti (Meetings and appointments)',
   'Email e comunicazione scritta (Ділові листи)': 'Email e comunicazione scritta (Business emails)',
   'Networking e small talk (Спілкування з колегами)': 'Networking e small talk (Talking with colleagues)',
-  'Навчальні юніти': 'Learning units',
+  'Навчальні юніти': 'Learning path',
   'Уроки напрямку «Основи»': 'Lessons in “Basics”',
   'Активний': 'Active',
-  'Переглянути всі 4 розділи': 'View all 4 units',
+  'Переглянути всі 4 розділи': 'View all 4 path',
   'Тренажер слів': 'Vocabulary trainer',
   'Привітання та база (13 слів)': 'Greetings and basics (13 words)',
   'Мої власні збережені слова': 'My saved words',
@@ -128,6 +133,37 @@ const UI_TRANSLATIONS = {
   'Головна': 'Home',
   'LanguageStudio — Італійська для реальних ситуацій': 'LanguageStudio — Italian for real-life situations',
   'Мій профіль студента': 'My student profile',
+  'Особистий кабінет': 'Your account',
+  'Вхід та реєстрація': 'Sign in or create an account',
+  'Ця демо-сторінка показує майбутній вхід і реєстрацію. Поки що профіль та прогрес зберігаються лише на цьому пристрої.': 'This demo shows the planned sign-in and registration flow. For now, your profile and progress stay on this device only.',
+  '🔑 Вхід': '🔑 Sign in',
+  '✨ Реєстрація': '✨ Create account',
+  'Раді бачити вас знову. Введіть дані, щоб продовжити навчання.': 'Welcome back. Enter your details to continue learning.',
+  'Електронна пошта': 'Email address',
+  'Ваш пароль': 'Your password',
+  "Запам'ятати мене": 'Remember me',
+  'Забули пароль?': 'Forgot password?',
+  'Увійти': 'Sign in',
+  'Змінити тему': 'Switch theme',
+  'Ще немає акаунта?': 'New here?',
+  'Зареєструватися': 'Create an account',
+  'Форма реєстрації поки демонстраційна. Дані нікуди не надсилаються.': 'Registration is a demo for now. No data is sent.',
+  "Ім'я": 'Name',
+  'Як до вас звертатися?': 'What should we call you?',
+  'Пароль': 'Password',
+  'Мінімум 8 символів': 'At least 8 characters',
+  'Використайте літери та цифри для надійності.': 'Use a mix of letters and numbers for a stronger password.',
+  'Повторіть пароль': 'Confirm password',
+  'Ще раз той самий пароль': 'Enter the same password again',
+  'Погоджуюся з умовами використання та політикою конфіденційності': 'I agree to the terms of use and privacy policy',
+  'Створити акаунт': 'Create account',
+  'Вже маєте акаунт?': 'Already have an account?',
+  '💡 Важливо:': '💡 Note:',
+  'Демо-профіль: акаунти ще не підключені; прогрес зберігається лише в цьому браузері.': 'Demo profile: accounts are not connected yet; progress is saved in this browser only.',
+  'Увійти або зареєструватися': 'Sign in or create an account',
+  'Студент': 'Student',
+  'Гостьовий профіль · прогрес зберігається на цьому пристрої': 'Guest profile · progress is saved on this device',
+  'Профіль студента': 'Student profile',
   'Розділи': 'Learning paths',
   '← Головна': '← Home',
   'Розділ 1 · Урок 1': 'Unit 1 · Lesson 1',
@@ -171,8 +207,6 @@ const UI_TRANSLATIONS = {
   'Напрямки': 'Learning paths',
   'Словник': 'Dictionary',
   'Довідник': 'Grammar guide',
-  'Профіль студента': 'Student profile',
-  'Студент LanguageStudio': 'LanguageStudio student',
   'Рівень:': 'Level:',
   'Налаштування навчання італійської': 'Italian learning settings',
   'Мова перекладу та пояснень': 'Interface and translation language',
@@ -239,7 +273,7 @@ const UI_TRANSLATIONS = {
   '🔒 Незабаром': '🔒 Coming soon',
   '1/5 уроків відкрито': '1/5 lessons available',
   'LanguageStudio · Італійська для реальних ситуацій': 'LanguageStudio · Italian for real-life situations',
-  'Всі розділи курсу': 'All course units',
+  'Всі розділи курсу': 'All course path',
   '▶ Відкрити': '▶ Open',
   'Туристична італійська': 'Italian for travel',
   'Готелі, ресторани, транспорт, шопінг та фрази на випадок форс-мажору в подорожі': 'Hotels, restaurants, transport, shopping, and phrases for travel emergencies.',
@@ -323,7 +357,7 @@ const UI_TRANSLATIONS = {
   'Діалог': 'Dialogue',
   'Зі словника': 'From Dictionary',
   'Згенерувати новий тест': 'Generate a new quiz',
-  'Переглянути всі розділи': 'View all units',
+  'Переглянути всі розділи': 'View all path',
   'Привітання та база (13 слів)': 'Greetings and basics (13 words)',
   'Усі вправи та тести': 'All exercises and quizzes',
   'Граматичний тренажер': 'Grammar trainer',
@@ -553,6 +587,80 @@ const UI_TRANSLATIONS = {
 const originalInterfaceText = new WeakMap();
 const originalInterfaceAttributes = new WeakMap();
 
+const REVERSE_UI_TRANSLATIONS = Object.fromEntries(
+  Object.entries(UI_TRANSLATIONS).map(([ukrainian, english]) => [english, ukrainian])
+);
+
+const UK_INTERFACE_TRANSLATIONS = {
+  'Italian for real-life situations': 'Італійська для реальних ситуацій',
+  'Learning paths': 'Напрямки навчання',
+  'Choose your goal': 'Оберіть свою мету',
+  'Quick drills': 'Швидкі вправи',
+  'Rules reference': 'Довідник правил',
+  'Check your progress': 'Перевірте свій прогрес',
+  'Greetings, your first Milanese dialogue, introductions, and basic verbs — the foundation that supports every path below.': 'Привітання, ваш перший діалог у Мілані, знайомство та базові дієслова — основа для всіх подальших напрямків.',
+  'All paths →': 'Усі напрямки →',
+  'Introduction — “Come ti chiami?”': 'Знайомство — «Come ti chiami?»',
+  'Your first Milan classroom dialogue, new words, and conversational culture': 'Ваш перший діалог у міланському класі, нові слова та культура спілкування',
+  'Start': 'Почати',
+  'Lesson 1.2 · Soon': 'Урок 1.2 · Незабаром',
+  'How to ask someone’s name, the verb chiamarsi, and polite formulas': 'Як запитати ім’я, дієслово chiamarsi та ввічливі вислови',
+  'Soon': 'Незабаром',
+  'Lesson 1.3 · Soon': 'Урок 1.3 · Незабаром',
+  'Countries, nationalities, and conjugation of essere': 'Країни, національності та відмінювання дієслова essere',
+  'Lesson 1.4 · Soon': 'Урок 1.4 · Незабаром',
+  "I numeri e l'età (Numbers and age)": "I numeri e l'età (Числа та вік)",
+  'Counting 0–100, the verb avere, and phone numbers': 'Рахунок від 0 до 100, дієслово avere та номери телефонів',
+  'Lesson 1.5 · Soon': 'Урок 1.5 · Незабаром',
+  'La mia scena · Path recap': 'La mia scena · Підсумок напрямку',
+  'A final quiz and your own mini-dialogue scene': 'Підсумковий тест і власний мінідіалог',
+  '🎓 Summary': '🎓 Підсумок',
+  'Travel Italian': 'Італійська для подорожей',
+  'Hotels, restaurants, transport, shopping, and emergency phrases for your trip.': 'Готелі, ресторани, транспорт, покупки та фрази на випадок надзвичайних ситуацій у подорожі.',
+  'Business Italian': 'Італійська для роботи та бізнесу',
+  'Meetings, email, workplace small talk, and professional vocabulary.': 'Зустрічі, електронне листування, неформальне спілкування на роботі та професійна лексика.',
+  'Paths': 'Напрямки',
+  'Each path builds vocabulary and phrases around a real-life situation — from travel to office conversations. Start with the basics, then move into your chosen path.': 'Кожен напрямок допомагає вивчати лексику й фрази для реальних ситуацій — від подорожей до розмов в офісі. Почніть з основ, а потім переходьте до обраного напрямку.',
+  'Greetings, introductions, numbers 0–100, and the verbs essere & avere — the foundation for every path': 'Привітання, знайомство, числа від 0 до 100 та дієслова essere й avere — основа для будь-якого напрямку',
+  'Your first Milan dialogue, new words, and conversational culture': 'Ваш перший діалог у Мілані, нові слова та культура спілкування',
+  'Open': 'Відкрити',
+  'Introductions, the verb chiamarsi, and polite expressions': 'Знайомство, дієслово chiamarsi та ввічливі вислови',
+  'Countries, nationalities, and conjugating essere': 'Країни, національності та відмінювання дієслова essere',
+  'A review quiz and creating your own dialogue': 'Підсумковий тест і створення власного діалогу',
+  'Hotels, restaurants, transport, shopping, and emergency phrases for travel': 'Готелі, ресторани, транспорт, покупки та фрази на випадок надзвичайних ситуацій у подорожі',
+  'Office communication, meetings, emails, and small talk with colleagues': 'Спілкування в офісі, зустрічі, електронні листи та невимушені розмови з колегами',
+  'LanguageStudio home': 'На головну LanguageStudio',
+    'XP points': 'Бали досвіду',
+      'Очок XP': 'Бали досвіду',
+    'Essere and Avere': 'Essere й Avere',
+    'Tu vs Lei (Etiquette)': 'Tu чи Lei (етикет)',
+  'Mobile menu': 'Мобільне меню',
+    'Guide': 'Довідник',
+  'Exercises and practice — LanguageStudio': 'Вправи та практика — LanguageStudio',
+  'Exercises and practice': 'Вправи та практика',
+  'Filters': 'Фільтри',
+    'Зберегти (+25 XP)': 'Зберегти (+25 балів)',
+  'Lessons in the Basics track': 'Уроки напрямку «Основи»',
+  'Lesson track': 'Уроки курсу',
+  'Lesson 1 · Introduction': 'Урок 1 · Знайомство',
+  'Lesson 4 · Consolidation': 'Урок 4 · Повторення',
+    'Lesson 4 · Consolidazione': 'Урок 4 · Consolidazione',
+  'Lesson 5 · Practice recap': 'Урок 5 · Підсумкова практика',
+  'Browse all paths': 'Переглянути всі напрямки',
+  'Word trainer': 'Тренажер слів',
+  'Practice drills': 'Практичні вправи',
+  'Your word bank': 'Власний словник',
+  'Search the word base': 'Пошук у словнику',
+  'Add your own word': 'Додати власне слово',
+  'Grammar cheat sheets': 'Граматичні шпаргалки',
+  'Ударний темп (Streak)': 'Серія днів',
+  'Розділи (Units)': 'Напрямки навчання',
+  'Essere та Avere': 'Essere й Avere',
+  'Essere & Avere': 'Essere й Avere',
+  'Tu vs Lei (Етикет)': 'Tu чи Lei (етикет)',
+  'Tu vs Lei': 'Tu чи Lei'
+};
+
 const SOURCE_TRANSLATIONS = {
   'lesson.greeting.1': { uk: 'Доброго дня!', en: 'Good morning!' },
   'lesson.greeting.2': { uk: 'Доброго дня! Як тебе звати?', en: 'Good morning! What is your name?' },
@@ -670,10 +778,15 @@ function getSelectedSourceLanguage() {
   return SOURCE_LANGUAGES.some(language => language.code === savedLanguage) ? savedLanguage : 'device';
 }
 
+function getInterfaceTranslation(text, language) {
+  if (language === 'en') return UI_TRANSLATIONS[text];
+  return UK_INTERFACE_TRANSLATIONS[text] || REVERSE_UI_TRANSLATIONS[text];
+}
+
 function applyInterfaceLanguage() {
   const language = getSourceLanguage();
   document.documentElement.lang = language;
-  document.title = language === 'en' ? UI_TRANSLATIONS[ORIGINAL_DOCUMENT_TITLE] || ORIGINAL_DOCUMENT_TITLE : ORIGINAL_DOCUMENT_TITLE;
+  document.title = getInterfaceTranslation(ORIGINAL_DOCUMENT_TITLE, language) || ORIGINAL_DOCUMENT_TITLE;
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   let node;
 
@@ -682,7 +795,7 @@ function applyInterfaceLanguage() {
     if (!originalInterfaceText.has(node)) originalInterfaceText.set(node, node.nodeValue);
     const original = originalInterfaceText.get(node);
     const trimmed = original.trim();
-    const translated = language === 'en' ? UI_TRANSLATIONS[trimmed.replace(/\s+/g, ' ')] : null;
+    const translated = getInterfaceTranslation(trimmed.replace(/\s+/g, ' '), language);
     node.nodeValue = translated ? original.replace(trimmed, translated) : original;
   }
 
@@ -692,7 +805,7 @@ function applyInterfaceLanguage() {
       if (!element.hasAttribute(attribute)) return;
       if (!Object.hasOwn(originals, attribute)) originals[attribute] = element.getAttribute(attribute);
       const original = originals[attribute];
-      element.setAttribute(attribute, language === 'en' ? UI_TRANSLATIONS[original] || original : original);
+      element.setAttribute(attribute, getInterfaceTranslation(original, language) || original);
     });
     originalInterfaceAttributes.set(element, originals);
   });
@@ -888,6 +1001,7 @@ function ensureProfileModal() {
   if (document.getElementById('profileModal')) return;
   const themeIcon = (typeof LS_ICONS !== 'undefined' && LS_ICONS) ? LS_ICONS.sun : '🌓';
   const closeIcon = (typeof LS_ICONS !== 'undefined' && LS_ICONS) ? LS_ICONS.close : '✕';
+  const studentIdentity = getStudentProfilePresentation();
   document.body.insertAdjacentHTML('beforeend', `
     <div class="profile-modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
       <section class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-title">
@@ -898,19 +1012,25 @@ function ensureProfileModal() {
         <div class="pm-header">
           <div class="pm-avatar">S</div>
           <div>
-            <div class="pm-name">Студент LanguageStudio</div>
+            <div class="pm-name">${studentIdentity.name}</div>
+            <div class="pm-path">${studentIdentity.status}</div>
             <div class="pm-path">Напрямок: <b>Основи спілкування</b></div>
           </div>
         </div>
         <section class="pm-settings" aria-labelledby="source-language-title">
           <h3 class="pm-settings-title" id="source-language-title">Налаштування навчання італійської</h3>
-          <label class="pm-setting-label" for="sourceLanguage">Мова перекладу та пояснень</label>
-          <select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select>
-          
-          <label class="pm-setting-label" style="margin-top:1rem;display:block;">Тема інтерфейсу</label>
-          <button type="button" class="btn-ghost" onclick="toggleTheme()" style="width:100%;margin-top:0.3rem;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;">
-            ${themeIcon} Переключити тему
-          </button>
+          <div class="pm-settings-grid">
+            <div class="pm-setting">
+              <label class="pm-setting-label" for="sourceLanguage">Мова перекладу та пояснень</label>
+              <select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select>
+            </div>
+            <div class="pm-setting">
+              <div class="pm-setting-label">Тема інтерфейсу</div>
+              <button type="button" class="btn-ghost pm-theme-button" onclick="toggleTheme()">
+                ${themeIcon} Переключити тему
+              </button>
+            </div>
+          </div>
         </section>
         <div class="pm-stats-grid">
           <div class="pm-stat-box"><div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">Очок XP</div></div>
@@ -918,18 +1038,69 @@ function ensureProfileModal() {
           <div class="pm-stat-box"><div class="pm-stat-val">1/16</div><div class="pm-stat-lbl">Пройдено уроків</div></div>
           <div class="pm-stat-box"><div class="pm-stat-val">13</div><div class="pm-stat-lbl">Слів у словнику</div></div>
         </div>
-        <div class="pm-footer"><button class="btn-ghost" onclick="closeProfileModal()">Закрити</button></div>
+        <div class="pm-footer">
+          <a class="btn-primary" href="${getAuthPageHref()}">Увійти або зареєструватися</a>
+        </div>
       </section>
     </div>`);
 }
 
+function getStudentProfile() {
+  return LOCAL_STUDENT_PROFILE;
+}
+
+function getStudentProfilePresentation() {
+  const profile = getStudentProfile();
+  if (!profile.isAuthenticated) {
+    return {
+      name: 'Студент',
+      status: 'Гостьовий профіль · прогрес зберігається на цьому пристрої'
+    };
+  }
+
+  return {
+    name: profile.displayName || 'Студент',
+    status: profile.email || 'Профіль студента'
+  };
+}
+
+function getAuthPageHref() {
+  const pagesMarker = '/pages/';
+  const pagesIndex = location.pathname.indexOf(pagesMarker);
+  if (pagesIndex < 0) return 'pages/auth.html';
+
+  const currentRoute = location.pathname.slice(pagesIndex + pagesMarker.length);
+  const directoryDepth = currentRoute.split('/').length - 1;
+  return `${'../'.repeat(directoryDepth)}auth.html`;
+}
+
+let profileScrollPosition = 0;
+
+function lockProfilePageScroll() {
+  if (document.documentElement.classList.contains('profile-modal-open')) return;
+
+  profileScrollPosition = window.scrollY;
+  document.documentElement.classList.add('profile-modal-open');
+  document.body.classList.add('profile-modal-open');
+  document.body.style.setProperty('--profile-scroll-top', `-${profileScrollPosition}px`);
+}
+
+function unlockProfilePageScroll() {
+  document.documentElement.classList.remove('profile-modal-open');
+  document.body.classList.remove('profile-modal-open');
+  document.body.style.removeProperty('--profile-scroll-top');
+  window.scrollTo(0, profileScrollPosition);
+}
+
 function openProfileModal() {
   ensureProfileModal();
+  lockProfilePageScroll();
   document.getElementById('profileModal').classList.add('open');
 }
 
 function closeProfileModal() {
   document.getElementById('profileModal')?.classList.remove('open');
+  unlockProfilePageScroll();
 }
 
 // Visual audio button click handler (voice synthesis deactivated as requested)

@@ -30,6 +30,7 @@
   --it-green-light: rgba(27, 155, 80, 0.12);
   --it-green-border: #286442;
   --it-red: #dc454d;
+  --it-red-hover: #c73740;
   --it-red-light: rgba(220, 69, 77, 0.12);
 }
 
@@ -593,6 +594,46 @@ table.vocab-table tr:last-child td {
   .lesson-topbar {
     padding: 0.75rem 1rem;
     gap: 0.5rem;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .lesson-topbar > div:first-child {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .crumb {
+    min-width: 0;
+  }
+
+  .lesson-topbar-actions {
+    width: 100%;
+  }
+
+  .lesson-topbar-actions > a {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: 0.65rem;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 280px) {
+    .lesson-topbar-actions > a {
+      font-size: 0;
+    }
+
+    .lesson-topbar-actions > a::before {
+      font-size: 1rem;
+    }
+
+    .lesson-topbar-actions > a:first-child::before {
+      content: "←";
+    }
+
+    .lesson-topbar-actions > a:last-child::before {
+      content: "→";
+    }
   }
 
   .content {

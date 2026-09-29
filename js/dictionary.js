@@ -102,7 +102,7 @@ function renderDictionary() {
         <div class="dict-phon">${w.phon || ''}</div>
         <div class="dict-trans">${translation}</div>
         <div class="dict-meta">
-          ${w.lesson ? `<span>${getIconSvg('units')} ${w.lesson}</span>` : ''}
+          ${w.lesson ? `<span>${getIconSvg('path')} ${w.lesson}</span>` : ''}
           ${w.category ? `<span>${getIconSvg('tag')} ${w.category}</span>` : ''}
         </div>
       </div>
@@ -207,7 +207,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-dictionary-3]');
   if (!target) return;
   var result = (function(event) {
-location.href='units.html'
+location.href='path.html'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();

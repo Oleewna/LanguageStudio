@@ -147,7 +147,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-communication-basics-lesson-1-3]');
   if (!target) return;
   var result = (function(event) {
-location.href='../pages/units.html'
+location.href='../pages/path.html'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();
