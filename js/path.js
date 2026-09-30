@@ -174,7 +174,7 @@ function renderCategoryCard(category, index) {
 }
 
 function renderCategories() {
-  const container = document.getElementById('unitsContainer');
+  const container = document.getElementById('pathContainer');
   if (!container) return;
   container.innerHTML = categories.map(renderCategoryCard).join('');
   applySourceLanguageSettings();
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-units-1]');
+  var target = event.target.closest('[data-external-handler-path-1]');
   if (!target) return;
   var result = (function(event) {
 closeMobNav()
@@ -198,7 +198,7 @@ closeMobNav()
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-units-2]');
+  var target = event.target.closest('[data-external-handler-path-2]');
   if (!target) return;
   var result = (function(event) {
 closeMobNav()
@@ -210,10 +210,10 @@ closeMobNav()
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-units-3]');
+  var target = event.target.closest('[data-external-handler-path-3]');
   if (!target) return;
   var result = (function(event) {
-location.href='units.html'
+location.href='path.html'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();
@@ -222,7 +222,7 @@ location.href='units.html'
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-units-4]');
+  var target = event.target.closest('[data-external-handler-path-4]');
   if (!target) return;
   var result = (function(event) {
 location.href='flashcards.html'
@@ -234,7 +234,7 @@ location.href='flashcards.html'
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-units-5]');
+  var target = event.target.closest('[data-external-handler-path-5]');
   if (!target) return;
   var result = (function(event) {
 location.href='exercises.html'
@@ -246,7 +246,7 @@ location.href='exercises.html'
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-units-6]');
+  var target = event.target.closest('[data-external-handler-path-6]');
   if (!target) return;
   var result = (function(event) {
 location.href='dictionary.html'
@@ -259,7 +259,7 @@ location.href='dictionary.html'
 
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-units-8]');
+  var target = event.target.closest('[data-external-handler-path-8]');
   if (!target) return;
   var result = (function(event) {
 location.href='grammar.html'
@@ -271,7 +271,7 @@ location.href='grammar.html'
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-units-9]');
+  var target = event.target.closest('[data-external-handler-path-9]');
   if (!target) return;
   var result = (function(event) {
 toggleTheme()
@@ -283,7 +283,7 @@ toggleTheme()
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-units-10]');
+  var target = event.target.closest('[data-external-handler-path-10]');
   if (!target) return;
   var result = (function(event) {
 openProfileModal()
@@ -295,7 +295,7 @@ openProfileModal()
 });
 
 document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-units-11]');
+  var target = event.target.closest('[data-external-handler-path-11]');
   if (!target) return;
   var result = (function(event) {
 openMobNav()
