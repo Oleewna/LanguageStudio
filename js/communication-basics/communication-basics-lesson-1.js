@@ -6,6 +6,64 @@ function closeSidebar(){
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sbOverlay').classList.remove('open');
 }
+function updateLessonPageLanguage() {
+  const english = getSourceLanguage() === 'en';
+
+  const setText = (selector, englishText, ukrainianText) => {
+    const node = document.querySelector(selector);
+    if (!node) return;
+    node.textContent = english ? englishText : ukrainianText;
+  };
+
+  const iconMarkup = '<span class="ic"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>';
+
+  setText('.sb-course', 'Italian basics course', 'Курс італійської · Основи');
+  setText('.sb-unit-title', 'Communication basics', 'Основи спілкування');
+  document.querySelectorAll('.sb-lesson').forEach((node, index) => {
+    const labels = english
+      ? ['Lesson 1 · Introductions', 'Lesson 2 · Come ti chiami?', 'Lesson 3 · Di dove sei?', 'Lesson 4 · Consolidazione', 'Lesson 5 · La mia scena']
+      : ['Урок 1 · Знайомство', 'Урок 2 · Come ti chiami?', 'Урок 3 · Di dove sei?', 'Урок 4 · Consolidazione', 'Урок 5 · La mia scena'];
+    const label = labels[index] || labels[0];
+    node.innerHTML = `${index === 0 ? iconMarkup : '<span class="ic">○</span>'}${label}`;
+  });
+
+  const lessonTextMap = {
+    '.crumb': english ? 'Communication basics › Lesson 1 · Introductions' : 'Основи спілкування › Урок 1 · Знайомство',
+    '.hero-label': english ? 'Communication basics · Lesson 1' : 'Основи спілкування · Урок 1',
+    '.hero h1': english ? 'Introductions — Come ti chiami?' : 'Знайомство — Come ti chiami?',
+    '.hero-copy p': english ? 'Emily arrives for her first Italian lesson. In class, she greets Jessica, introduces herself, and gets to know her.' : 'Софія приходить на свій перший урок італійської. У класі вона вітається, представляється та знайомиться з Оленою.',
+    '.section-title': english ? 'Classroom dialogue' : 'Діалог у класі',
+    '.story-text': english ? 'Emily arrives at a language school in Milan for the first time. In class, Jessica greets her. It is time to say hello and introduce herself.' : 'Сара вперше заходить до мовної школи в Мілані. На рецепції її зустрічає Анна — час привітатися й назвати своє ім’я.'
+  };
+
+  const lessonActionMap = [
+    { selector: '.btn-ghost', en: '← Previous', uk: '← Назад', aria: { en: 'Return to home', uk: 'Повернутися на головну' } },
+    { selector: '.btn-primary', en: 'Lessons →', uk: 'Уроки →', aria: { en: 'View all lessons', uk: 'Переглянути всі уроки' } }
+  ];
+
+  lessonActionMap.forEach(({ selector, en, uk, aria }) => {
+    const node = document.querySelector(selector);
+    if (!node) return;
+    node.textContent = english ? en : uk;
+    node.setAttribute('aria-label', english ? aria.en : aria.uk);
+  });
+
+  Object.entries(lessonTextMap).forEach(([selector, value]) => {
+    const node = document.querySelector(selector);
+    if (node) node.textContent = value;
+  });
+
+  document.querySelectorAll('.dialogue-ua').forEach((node, index) => {
+    const ukValues = [
+      'Доброго дня!', 'Доброго дня! Як тебе звати?', 'Мене звати Сара. А тебе?', 'Я Анна. Приємно познайомитися!', 'Приємно, Анно!', 'Ти тут новенька?', 'Так, я новенька.', 'Ласкаво просимо на курс італійської!', 'Дуже дякую!', 'Будь ласка. Гарного уроку!', 'Дякую, гарного дня!'
+    ];
+    const enValues = [
+      'Good morning!', 'Good morning! What is your name?', 'My name is Sara. And you?', "I'm Anna. Nice to meet you!", 'Nice to meet you, Anna!', 'Are you new here?', "Yes, I'm new here.", 'Welcome to the Italian course!', 'Thank you very much!', 'You are welcome. Have a good lesson!', 'Thank you. Have a nice day!'
+    ];
+    if (ukValues[index]) node.textContent = english ? enValues[index] : ukValues[index];
+  });
+}
+
 function updateLessonCharacterNames() {
   const studentName = getSourceTranslation('lesson.character.student');
   const studentItalianName = getSourceTranslation('lesson.character.student.italian');
@@ -42,7 +100,11 @@ function updateLessonCharacterNames() {
 }
 
 updateLessonCharacterNames();
-window.addEventListener('sourceLanguageChanged', updateLessonCharacterNames);
+updateLessonPageLanguage();
+window.addEventListener('sourceLanguageChanged', () => {
+  updateLessonCharacterNames();
+  updateLessonPageLanguage();
+});
 
 function gradeLessonTasks() {
   const choiceAnswers = {
