@@ -58,7 +58,7 @@
       </svg>
     </span>Learning paths
   </a>
-  <a href="pages/communication-basics/communication-basics-lesson-1.html" class="mob-nav-link" data-nav="lesson-1">
+  <a href="pages/lesson.html?id=communication-basics-1" class="mob-nav-link" data-nav="lesson-1">
     <span class="ic">
       <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/>
@@ -135,13 +135,13 @@
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Learning paths</div>
         <div class="nav-submenu">
-          <a href="pages/communication-basics/communication-basics-lesson-1.html" class="nav-dd-item nav-submenu-trigger" data-nav="lesson-1">
+          <a href="pages/lesson.html?id=communication-basics-1" class="nav-dd-item nav-submenu-trigger" data-nav="lesson-1">
             <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2h-3.8a2 2 0 0 0-1.4.6L4.3 11a1 1 0 0 0 0 1.4l5.3 5.3a1 1 0 0 0 1.4 0L17 11.7a2 2 0 0 0 .6-1.4V6"/></svg></span>Communication basics
             <span class="submenu-arrow">›</span>
           </a>
           <div class="nav-submenu-panel">
             <div class="nav-dd-header">Lesson track</div>
-            <a href="pages/communication-basics/communication-basics-lesson-1.html" class="nav-dd-item"><span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>Lesson 1 · Introduction <span class="dd-tag active">Active</span></a>
+            <a href="pages/lesson.html?id=communication-basics-1" class="nav-dd-item" data-nav="lesson-1"><span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>Lesson 1 · Introduction <span class="dd-tag active">Active</span></a>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 2 · Come ti chiami?</span>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 3 · Di dove sei?</span>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 4 · Consolidation</span>
@@ -297,7 +297,7 @@
       </svg>
     </span>Learning paths
   </a>
-  <a href="pages/communication-basics/communication-basics-lesson-1.html" class="mob-nav-link" data-nav="lesson-1">
+  <a href="pages/lesson.html?id=communication-basics-1" class="mob-nav-link" data-nav="lesson-1">
     <span class="ic">
       <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/>
@@ -400,11 +400,23 @@
       </div>
     </div>
     <section class="pm-settings" aria-labelledby="source-language-title">
-      <h3 class="pm-settings-title" id="source-language-title">Italian Learning Settings</h3>
+      <h3 class="pm-settings-title" id="source-language-title">Learning & Interface Settings</h3>
       <div class="pm-settings-grid">
         <div class="pm-setting">
+          <label class="pm-setting-label" for="targetCourse">Target Course (Мова курсу)</label>
+          <select class="pm-setting-select" id="targetCourse" data-target-course-select onchange="setTargetCourse(this.value)">
+            <option value="italian">🇮🇹 Italian (Італійська)</option>
+            <option value="spanish">🇪🇸 Spanish (Іспанська)</option>
+          </select>
+        </div>
+        <div class="pm-setting">
           <label class="pm-setting-label" for="sourceLanguage">Language for translations & explanations</label>
-          <select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select>
+          <select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)">
+            <option value="device">Device language</option>
+            <option value="uk">Українська</option>
+            <option value="en">English</option>
+            <option value="pl">Polski</option>
+          </select>
         </div>
         <div class="pm-setting">
           <div class="pm-setting-label">Interface Theme</div>
@@ -463,7 +475,7 @@
   function getCurrentPageKey() {
     const path = window.location.pathname.toLowerCase().replace(/\\/g, '/');
     if (path.endsWith('/index.html') || path.endsWith('/') || path.endsWith('/languagestudio/')) return 'home';
-    if (path.includes('communication-basics-lesson-1.html')) return 'lesson-1';
+    if (path.includes('lesson.html')) return 'lesson';
     if (path.includes('flashcards.html')) return 'flashcards';
     if (path.includes('exercises.html')) return 'exercises';
     if (path.includes('dictionary.html')) return 'dictionary';
@@ -486,6 +498,26 @@
     matchedLinks.forEach(link => {
       link.classList.add('active');
     });
+
+    // Special handling for lesson pages:
+    // Highlight lesson-1 link, specific lesson IDs, and the parent learning paths button
+    if (pageKey === 'lesson' || pageKey === 'lesson-1') {
+      const lessonParams = new URLSearchParams(window.location.search);
+      const lessonId = lessonParams.get('id') || '';
+
+      container.querySelectorAll('[data-nav="lesson"]').forEach(link => link.classList.add('active'));
+
+      if (!lessonId || lessonId === 'communication-basics-1') {
+        container.querySelectorAll('[data-nav="lesson-1"]').forEach(link => link.classList.add('active'));
+      }
+      if (lessonId) {
+        container.querySelectorAll(`[data-nav="${lessonId}"]`).forEach(link => link.classList.add('active'));
+      }
+
+      // Highlight parent dropdown button for learning paths
+      const pathBtn = container.querySelector('[data-nav-btn="path"]');
+      if (pathBtn) pathBtn.classList.add('active');
+    }
 
     // Dropdown button matching current section
     const navBtn = container.querySelector(`[data-nav-btn="${pageKey}"]`);

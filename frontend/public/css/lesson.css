@@ -767,3 +767,303 @@ table.vocab-table tr:last-child td {
   border-color: var(--it-green-border);
   color: var(--it-green);
 }
+
+/* ── Dynamic Lesson Engine Block Styles ── */
+
+/* Interactive Story Vocabulary Hints */
+.vocab-hint-term {
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+  color: var(--it-green);
+  border-bottom: 1.5px dotted var(--it-green);
+  cursor: pointer;
+  padding: 0 0.15rem;
+  border-radius: 0.25rem;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.vocab-hint-term:hover,
+.vocab-hint-term:focus,
+.vocab-hint-term.active {
+  background: var(--it-green-light);
+  outline: none;
+}
+
+.vocab-hint-bubble {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.45rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 40;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.vocab-hint-bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--ink);
+}
+
+.vocab-hint-term:hover .vocab-hint-bubble,
+.vocab-hint-term:focus .vocab-hint-bubble,
+.vocab-hint-term.active .vocab-hint-bubble {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+[data-theme="dark"] .vocab-hint-bubble {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .vocab-hint-bubble::after {
+  border-top-color: var(--surface);
+}
+
+.vocab-hints-box {
+  margin-top: 1.5rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--bg);
+  border: 1px dashed var(--border);
+  border-radius: 0.95rem;
+}
+
+.vocab-hints-header {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.88rem;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+  flex-wrap: wrap;
+}
+
+.vocab-hints-subtitle {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-left: auto;
+}
+
+.vocab-hints-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.vocab-hint-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-family: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.vocab-hint-chip:hover {
+  border-color: var(--it-green);
+  background: var(--it-green-light);
+  color: var(--it-green);
+  transform: translateY(-1px);
+}
+
+.vocab-hint-chip b {
+  color: var(--ink);
+}
+
+.vocab-hint-chip:hover b {
+  color: var(--it-green);
+}
+
+.vocab-hint-chip span {
+  color: var(--ink-soft);
+}
+
+/* Reading Story Paragraphs & Translation Toggle */
+.story-paragraph-item {
+  margin-bottom: 1.25rem;
+}
+
+.story-paragraph-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.story-paragraph-row .story-it {
+  flex: 1;
+  margin-bottom: 0.35rem;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.story-trans-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.45rem;
+  cursor: pointer;
+  padding: 0.25rem 0.45rem;
+  font-size: 0.9rem;
+  line-height: 1;
+  color: var(--ink-soft);
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.story-trans-toggle:hover {
+  border-color: var(--it-green);
+  color: var(--it-green);
+  background: var(--it-green-light);
+}
+
+.story-trans {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0.2rem 0 0.8rem 0;
+  padding: 0.35rem 0.75rem;
+  border-left: 2px solid var(--it-green);
+  font-style: italic;
+  background: var(--it-green-light);
+  border-radius: 0 0.4rem 0.4rem 0;
+}
+
+/* Grammar Block Styles */
+.grammar-card {
+  padding: 1.5rem;
+}
+
+.grammar-explanation {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+
+.grammar-table {
+  margin-top: 0.5rem;
+}
+
+.grammar-highlight {
+  font-weight: 700;
+  color: var(--it-green);
+  background: var(--it-green-light);
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.35rem;
+}
+
+/* Vocabulary Cell Layout */
+.vocab-word-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vocab-word-cell .audio-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  cursor: pointer;
+  color: var(--ink-soft);
+  transition: all 0.15s ease;
+}
+
+.vocab-word-cell .audio-btn:hover {
+  border-color: var(--it-green);
+  color: var(--it-green);
+  background: var(--it-green-light);
+}
+
+/* Audio Playing Visual State */
+.audio-btn.audio-playing {
+  animation: audioPulse 0.5s ease;
+  color: var(--it-green) !important;
+  border-color: var(--it-green) !important;
+  background: var(--it-green-light) !important;
+}
+
+@keyframes audioPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* ── Lesson Bottom Navigation ── */
+.lesson-bottom-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding: 1.5rem 0 0;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.lesson-bottom-nav > a {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .lesson-bottom-nav {
+    flex-direction: column;
+  }
+  .lesson-bottom-nav > a {
+    width: 100%;
+  }
+}
+
+/* ── Hero meta chips (type badge, duration, XP) ── */
+.hero-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 680px) {
+  .hero-meta {
+    display: none;
+  }
+}
+
+/* ── Sidebar lesson link status markers ── */
+.sb-lesson[aria-current="page"] {
+  background: var(--it-green-light);
+  color: var(--it-green);
+  font-weight: 600;
+  border-left: 3px solid var(--it-green);
+}

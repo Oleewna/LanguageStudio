@@ -21,7 +21,7 @@ const categories = [
         id: 'foundations-unit-1',
         title: 'Communication basics',
         lessons: [
-          { num: 'Lesson 1', title: 'Introductions — “Come ti chiami?”', description: 'Your first Milan dialogue, new words, and conversational culture', href: '../pages/communication-basics/communication-basics-lesson-1.html', status: 'available', time: '~15 min' },
+          { num: 'Lesson 1', title: 'Introductions — “Come ti chiami?”', description: 'Your first Milan dialogue, new words, and conversational culture', href: 'lesson.html?id=communication-basics-1', status: 'available', time: '~15 min' },
           { num: 'Lesson 2', title: 'Come ti chiami? (What is your name?)', description: 'Introductions, the verb chiamarsi, and polite expressions', href: null, status: 'soon', time: '~15 min' },
           { num: 'Lesson 3', title: 'Di dove sei? (Where are you from?)', description: 'Countries, nationalities, and conjugating essere', href: null, status: 'soon', time: '~15 min' },
           { num: 'Lesson 4', title: "I numeri e l'età (Numbers and age)", description: 'Counting 0–100, the verb avere, and phone numbers', href: null, status: 'soon', time: '~20 min' },
@@ -85,7 +85,10 @@ function renderLessonRow(lesson) {
   const isAvailable = lesson.status === 'available';
   const rowClass = isAvailable ? 'lesson-row active-lesson' : 'lesson-row locked';
   const statusClass = isAvailable ? 'lesson-status ls-available' : 'lesson-status ls-soon';
-  const statusText = isAvailable ? '<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg> Open' : 'Soon';
+  const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
+  const openLabel = typeof window.getInterfaceTranslation === 'function' ? (window.getInterfaceTranslation('Open', lang) || 'Open') : 'Open';
+  const soonLabel = typeof window.getInterfaceTranslation === 'function' ? (window.getInterfaceTranslation('Soon', lang) || 'Soon') : 'Soon';
+  const statusText = isAvailable ? `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg> ${escapeHtml(openLabel)}` : escapeHtml(soonLabel);
 
   const numHtml = lesson.num ? `<div class="lesson-num">${escapeHtml(lesson.num)}</div>` : '';
   const descHtml = lesson.description ? `<div class="lesson-it">${escapeHtml(lesson.description)}</div>` : '';
@@ -183,6 +186,10 @@ function renderCategories() {
 document.addEventListener('DOMContentLoaded', () => {
   renderCategories();
   console.log(categories);
+});
+
+window.addEventListener('sourceLanguageChanged', () => {
+  renderCategories();
 });
 
 document.addEventListener('click', function(event) {
