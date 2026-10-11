@@ -1,0 +1,238 @@
+<!-- ═══════════ LanguageStudio Component: Navbar ═══════════ -->
+<!-- Includes mobile drawer navigation and desktop top navigation bar -->
+
+<!-- Mobile Drawer Navigation -->
+<div class="mob-overlay" id="mobOverlay"></div>
+<nav class="mob-nav" id="mobNav" aria-label="Mobile navigation">
+  <div class="mob-nav-header">
+    <a href="index.html" class="mob-nav-brand" aria-label="LanguageStudio home">
+      <img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
+    </a>
+    <button class="mob-close-btn" type="button" aria-label="Close">
+      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 5l14 14M19 5L5 19"/>
+      </svg>
+    </button>
+  </div>
+
+  <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">
+    <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+    </svg>
+    <span class="mob-theme-label">Switch theme</span>
+  </button>
+  
+  <div class="mob-section-label">Main</div>
+  <a href="index.html" class="mob-nav-link" data-nav="home">
+    <span class="ic">
+      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/>
+      </svg>
+    </span>Home
+  </a>
+  <a href="pages/path.html" class="mob-nav-link" data-nav="path">
+    <span class="ic">
+      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+      </svg>
+    </span>Learning paths
+  </a>
+  <a href="pages/communication-basics/communication-basics-lesson-1.html" class="mob-nav-link" data-nav="lesson-1">
+    <span class="ic">
+      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/>
+      </svg>
+    </span>Basics · Lesson 1
+  </a>
+  
+  <div class="mob-section-label">Practice</div>
+  <a href="pages/flashcards.html" class="mob-nav-link" data-nav="flashcards">
+    <span class="ic">
+      <svg class="ls-icon" viewBox="0 0 24 24">
+        <rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/>
+        <rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/>
+        <line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
+      </svg>
+    </span>Flashcards
+  </a>
+  <a href="pages/exercises.html" class="mob-nav-link" data-nav="exercises">
+    <span class="ic">
+      <svg class="ls-icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="11" fill="#cd212a"/>
+        <path d="M6 8l1.3 1.3L9.5 7" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="11" y1="8" x2="17.2" y2="8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M6 12.3l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="11" y1="12.3" x2="17.2" y2="12.3" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M6 16.6l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/>
+        <line x1="11" y1="16.6" x2="15" y2="16.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/>
+      </svg>
+    </span>Exercises
+  </a>
+  <a href="pages/dictionary.html" class="mob-nav-link" data-nav="dictionary">
+    <span class="ic">
+      <svg class="ls-icon" viewBox="0 0 24 24">
+        <path d="M12 6.5C10 5 7.3 4.3 4.5 4.3v14c2.8 0 5.5.7 7.5 2.2z" fill="#008c45"/>
+        <path d="M12 6.5C14 5 16.7 4.3 19.5 4.3v14c-2.8 0-5.5.7-7.5 2.2z" fill="#d97706"/>
+        <line x1="12" y1="6.5" x2="12" y2="20.5" stroke="#172033" stroke-width="1.2"/>
+      </svg>
+    </span>My dictionary
+  </a>
+  <a href="pages/grammar.html" class="mob-nav-link" data-nav="grammar">
+    <span class="ic">
+      <svg class="ls-icon" viewBox="0 0 24 24">
+        <rect x="5" y="4.5" width="14" height="16.5" rx="2" fill="#fff" stroke="#172033" stroke-width="1.5"/>
+        <rect x="9" y="2.7" width="6" height="3" rx="1" fill="#d97706"/>
+        <path d="M8 11.3l1.1 1.1 2-2.1" stroke="#008c45" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="12.7" y1="11" x2="16.7" y2="11" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
+        <line x1="8" y1="14.7" x2="16.7" y2="14.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
+        <line x1="8" y1="17.7" x2="14" y2="17.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+    </span>Grammar guide
+  </a>
+  <a href="pages/tests.html" class="mob-nav-link" data-nav="tests" data-tests-link="">
+    <span class="ic">
+      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+      </svg>
+    </span>Tests
+  </a>
+</nav>
+
+<!-- Desktop Topbar -->
+<header class="topnav">
+  <a href="index.html" class="nav-brand" aria-label="LanguageStudio home">
+    <img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
+  </a>
+
+  <nav class="nav-links" aria-label="Main navigation">
+    
+    <!-- Learning paths dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" type="button" data-nav-btn="path">
+        <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Learning paths <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Learning paths</div>
+        <div class="nav-submenu">
+          <a href="pages/communication-basics/communication-basics-lesson-1.html" class="nav-dd-item nav-submenu-trigger" data-nav="lesson-1">
+            <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2h-3.8a2 2 0 0 0-1.4.6L4.3 11a1 1 0 0 0 0 1.4l5.3 5.3a1 1 0 0 0 1.4 0L17 11.7a2 2 0 0 0 .6-1.4V6"/></svg></span>Communication basics
+            <span class="submenu-arrow">›</span>
+          </a>
+          <div class="nav-submenu-panel">
+            <div class="nav-dd-header">Lesson track</div>
+            <a href="pages/communication-basics/communication-basics-lesson-1.html" class="nav-dd-item"><span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>Lesson 1 · Introduction <span class="dd-tag active">Active</span></a>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 2 · Come ti chiami?</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 3 · Di dove sei?</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 4 · Consolidation</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 5 · Practice recap</span>
+          </div>
+        </div>
+        <a href="pages/path.html" class="nav-dd-item" data-nav="path">
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>Browse all paths
+        </a>
+      </div>
+    </div>
+
+    <!-- Flashcards dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" type="button" data-nav-btn="flashcards">
+        <svg class="ls-icon" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/><rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/><line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg> Flashcards <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Word trainer</div>
+        <a href="pages/flashcards.html" class="nav-dd-item" data-nav="flashcards">
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2h-3.8a2 2 0 0 0-1.4.6L4.3 11a1 1 0 0 0 0 1.4l5.3 5.3a1 1 0 0 0 1.4 0L17 11.7a2 2 0 0 0 .6-1.4V6"/></svg></span>Greetings and basics (13 words)
+        </a>
+        <a href="pages/flashcards.html?topic=custom" class="nav-dd-item">
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/></svg></span>My saved words
+        </a>
+      </div>
+    </div>
+
+    <!-- Exercises dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" type="button" data-nav-btn="exercises">
+        <svg class="ls-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#cd212a"/><path d="M6 8l1.3 1.3L9.5 7" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="8" x2="17.2" y2="8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 12.3l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="12.3" x2="17.2" y2="12.3" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 16.6l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><line x1="11" y1="16.6" x2="15" y2="16.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/></svg> Exercises <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Practice drills</div>
+        <a href="pages/exercises.html" class="nav-dd-item" data-nav="exercises">
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="6"/><circle cx="12" cy="2"/></svg></span>All exercises and quizzes
+        </a>
+        <a href="pages/exercises.html?group=grammar" class="nav-dd-item">
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="17" y2="22"/><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"/></svg></span>Grammar trainer
+        </a>
+        <a href="pages/exercises.html?group=situational" class="nav-dd-item">
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></span>Situational exercises
+        </a>
+      </div>
+    </div>
+
+    <!-- Dictionary dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" type="button" data-nav-btn="dictionary">
+        <svg class="ls-icon" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7.3 4.3 4.5 4.3v14c2.8 0 5.5.7 7.5 2.2z" fill="#008c45"/><path d="M12 6.5C14 5 16.7 4.3 19.5 4.3v14c-2.8 0-5.5.7-7.5 2.2z" fill="#d97706"/><line x1="12" y1="6.5" x2="12" y2="20.5" stroke="#172033" stroke-width="1.2"/></svg> Dictionary <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Your word bank</div>
+        <a href="pages/dictionary.html" class="nav-dd-item" data-nav="dictionary">
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg></span>Search the word base
+        </a>
+        <a href="pages/dictionary.html?add=1" class="nav-dd-item">
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>Add your own word
+        </a>
+      </div>
+    </div>
+
+    <!-- Grammar dropdown -->
+    <div class="nav-dd">
+      <button class="nav-dd-btn" type="button" data-nav-btn="grammar">
+        <svg class="ls-icon" viewBox="0 0 24 24"><rect x="5" y="4.5" width="14" height="16.5" rx="2" fill="#fff" stroke="#172033" stroke-width="1.5"/><rect x="9" y="2.7" width="6" height="3" rx="1" fill="#d97706"/><path d="M8 11.3l1.1 1.1 2-2.1" stroke="#008c45" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="12.7" y1="11" x2="16.7" y2="11" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="14.7" x2="16.7" y2="14.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="17.7" x2="14" y2="17.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/></svg> Grammar guide <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="nav-dd-menu">
+        <div class="nav-dd-header">Grammar cheat sheets</div>
+        <a href="pages/grammar.html?tab=articoli" class="nav-dd-item">
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8z"/></svg></span>Definite articles
+        </a>
+        <a href="pages/grammar.html?tab=verbi" class="nav-dd-item">
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.4l8.6 8.6a2.41 2.41 0 0 0 3.4 0l8.6-8.6a2.41 2.41 0 0 0 0-3.4l-8.6-8.6a2.41 2.41 0 0 0-3.4 0l-8.6 8.6z"/></svg></span>Essere and Avere
+        </a>
+        <a href="pages/grammar.html?tab=cortesia" class="nav-dd-item">
+          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2-2"/><path d="m14 14 2.5 2.5"/><path d="m12.5 12.5 2 2"/><path d="M18 11V6a2 2 0 0 0-2-2h-3.8a2 2 0 0 0-1.4.6L4.3 11a1 1 0 0 0 0 1.4l5.3 5.3a1 1 0 0 0 1.4 0L17 11.7a2 2 0 0 0 .6-1.4V6"/></svg></span>Tu vs Lei (Etiquette)
+        </a>
+      </div>
+    </div>
+
+    <!-- Tests link -->
+    <a href="pages/tests.html" class="nav-dd-btn" data-nav-btn="tests" data-tests-link="">
+      <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span> Tests
+    </a>
+
+  </nav>
+
+  <!-- Right: Student Profile Widget & Menu Button -->
+  <div class="nav-right">
+    <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">
+      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+      </svg>
+    </button>
+    <button type="button" class="student-widget" title="Student profile" aria-label="Student profile">
+      <div class="student-stats">
+        <div class="streak-badge">
+          <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21c4 0 6.5-2.6 6.5-6 0-2-1-3.4-2-4.6.2 1.6-.6 2.6-1.4 3-.2-2.6-1.5-4.8-3.6-6.2.5 2 .1 3.6-1 4.7-.9.9-1.6 2-1.6 3.4 0 2.6 1.5 5.7 3.1 5.7z"/>
+          </svg> <span>1</span>
+        </div>
+        <div class="xp-badge">
+          <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/>
+          </svg> <span class="xp-val-display">0</span> <span>XP</span>
+        </div>
+      </div>
+      <div class="student-avatar">S</div>
+    </button>
+    <button class="menu-toggle" type="button" aria-label="Menu">☰</button>
+  </div>
+</header>

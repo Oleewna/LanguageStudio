@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="icon" type="image/png" href="../assets/images/icon.png" />
+<title>Exercises and practice — LanguageStudio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="../js/theme.js"></script>
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/exercises.css">
+
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR COMPONENT ═══════════ -->
+<div data-component="navbar"></div>
+
+
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-label">Практика & Перевірка знань</div>
+    <h1>Завдання та Вправи</h1>
+    <p>Тренуйте граматику та реальні ситуації спілкування. Обирайте тему й зручний формат вправ.</p>
+    <div class="exercises-hero-stats">
+      <div class="stat-pill"><span data-icon="target"></span> <span><b>40+</b> Вправ у базі</span></div>
+      <div class="stat-pill"><span data-icon="tag"></span> <span><b>8</b> Категорій знань</span></div>
+      <div class="stat-pill"><span data-icon="layers"></span> <span>7 форматів вправ</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<main class="page-container">
+
+  <!-- ═══════════ FILTER & SORT TOOLBAR ═══════════ -->
+  <div class="task-filter-panel">
+    <div class="filter-header-title">
+      <button type="button" class="filters-toggle-btn" aria-expanded="false" data-filter-toggle="exercises">
+        <span class="filters-toggle-icon"><span data-icon="layers"></span></span>
+        <span>Filters</span>
+      </button>
+      <span id="activeFilterSummary">Завантаження...</span>
+    </div>
+
+    <div class="filter-panel-content hidden" id="exerciseFiltersPanel">
+      <!-- Category Pills -->
+      <div class="cat-pills-wrap" id="catPillsWrap">
+        <button class="cat-pill active" data-cat="all" data-external-handler-exercises-12=""><span data-icon="globe"></span> Всі категорії</button>
+        
+        <!-- Grammar categories -->
+        <button class="cat-pill" data-cat="articles" data-external-handler-exercises-13=""><span data-icon="pin"></span> Іменники & Артиклі</button>
+        <button class="cat-pill" data-cat="verbs" data-external-handler-exercises-14=""><span data-icon="verb"></span> Дієслова (Essere/Avere)</button>
+        <button class="cat-pill" data-cat="pronouns" data-external-handler-exercises-15=""><span data-icon="chat"></span> Займенники & Прийменники</button>
+        <button class="cat-pill" data-cat="sentence" data-external-handler-exercises-16=""><span data-icon="type"></span> Структура речення</button>
+        
+        <!-- Situational categories -->
+        <button class="cat-pill" data-cat="greetings" data-external-handler-exercises-17=""><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg> Знайомство & Сусіди</button>
+        <button class="cat-pill" data-cat="cafe" data-external-handler-exercises-18=""><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg> У кафе та барі</button>
+        <button class="cat-pill" data-cat="directions" data-external-handler-exercises-19=""><span data-icon="compass"></span> Орієнтування в місті</button>
+        <button class="cat-pill" data-cat="shopping" data-external-handler-exercises-20=""><span data-icon="shopping"></span> Покупки та ціни</button>
+      </div>
+
+      <!-- Secondary Controls: Group and Search -->
+      <div class="filter-controls-row">
+        <div class="filter-group">
+          <label class="filter-label" for="groupFilterSelect">Група</label>
+          <select class="filter-select" id="groupFilterSelect" data-external-handler-exercises-21="">
+            <option value="all">Усі теми (Граматика + Ситуації)</option>
+            <option value="grammar">Тільки Граматика</option>
+            <option value="situational">Тільки Ситуації</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="searchInput">Пошук за словом</label>
+          <input type="text" class="filter-input" id="searchInput" placeholder="Пошук фрази або правила..." data-external-handler-exercises-24="" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ EXERCISE TYPE TABS ═══════════ -->
+  <h2 class="section-title"><span class="ic"><span data-icon="target"></span></span>Формати вправ</h2>
+
+  <div class="task-tabs">
+    <button class="task-tab active" data-tab="mcq" data-external-handler-exercises-25=""><span data-icon="brain"></span> Вибір відповіді</button>
+    <button class="task-tab" data-tab="blank" data-external-handler-exercises-26=""><span data-icon="pencil"></span> Заповни пропуск</button>
+    <button class="task-tab" data-tab="match" data-external-handler-exercises-27=""><span data-icon="match"></span> Зіставлення слів</button>
+    <button class="task-tab" data-tab="reorder" data-external-handler-exercises-28=""><span data-icon="reorder"></span> Порядок слів</button>
+    <button class="task-tab" data-tab="listen" data-external-handler-exercises-29=""><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></svg> Аудіювання</button>
+    <button class="task-tab" data-tab="dialogue" data-external-handler-exercises-30=""><span data-icon="chat"></span> Діалог</button>
+    <button class="task-tab" data-tab="dict" data-external-handler-exercises-31=""><svg class="ls-icon" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7.3 4.3 4.5 4.3v14c2.8 0 5.5.7 7.5 2.2z" fill="#008c45"/><path d="M12 6.5C14 5 16.7 4.3 19.5 4.3v14c-2.8 0-5.5.7-7.5 2.2z" fill="#d97706"/><line x1="12" y1="6.5" x2="12" y2="20.5" stroke="#172033" stroke-width="1.2"/></svg> Зі словника</button>
+  </div>
+
+  <!-- Panel: Multiple Choice -->
+  <div class="task-panel active" id="panel-mcq">
+    <div id="container-mcq"></div>
+  </div>
+
+  <!-- Panel: Fill in the Blank -->
+  <div class="task-panel" id="panel-blank">
+    <div id="container-blank"></div>
+  </div>
+
+  <!-- Panel: Matching Pairs -->
+  <div class="task-panel" id="panel-match">
+    <div id="container-match"></div>
+  </div>
+
+  <!-- Panel: Sentence Builder / Reordering -->
+  <div class="task-panel" id="panel-reorder">
+    <div id="container-reorder"></div>
+  </div>
+
+  <!-- Panel: Listening -->
+  <div class="task-panel" id="panel-listen">
+    <div id="container-listen"></div>
+  </div>
+
+  <!-- Panel: Dialogue Completion -->
+  <div class="task-panel" id="panel-dialogue">
+    <div id="container-dialogue"></div>
+  </div>
+
+  <!-- Panel: Dictionary Generator -->
+  <div class="task-panel" id="panel-dict">
+    <div class="card" id="external-style-exercises-2">
+      <div id="external-style-exercises-3">Персоналізований тест генерується з вашого «Власного словника» та базового запасу.</div>
+      <button class="btn-primary" data-external-handler-exercises-32=""><span data-icon="dice"></span> Згенерувати новий тест</button>
+    </div>
+    <div id="dictQuizContainer"></div>
+  </div>
+
+</main>
+
+<!-- ═══════════ FOOTER COMPONENT ═══════════ -->
+<div data-component="footer"></div>
+
+<script src="../js/components.js"></script>
+<script src="../js/icons.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/exercises.js"></script>
+</body>
+</html>

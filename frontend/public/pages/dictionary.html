@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="icon" type="image/png" href="../assets/images/icon.png" />
+<title>My dictionary — LanguageStudio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="../js/theme.js"></script>
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/dictionary.css">
+
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR COMPONENT ═══════════ -->
+<div data-component="navbar"></div>
+
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-label">Слова за темами й ситуаціями</div>
+    <h1>Власний словник</h1>
+    <p>Знаходьте слова за темою чи ситуацією, зберігайте нову лексику з уроків і власного життя та тренуйте її у флешкартках.</p>
+  </div>
+</section>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<main class="page-container">
+
+  <div class="dict-toolbar">
+    <div class="search-box">
+      <span><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg></span>
+      <input type="text" id="dictSearch" class="search-input" placeholder="Пошук слова чи перекладу..." data-external-handler-dictionary-12="" />
+    </div>
+
+    <button type="button" class="filters-toggle-btn dict-filters-toggle" aria-expanded="false" data-filter-toggle="dictionary">
+      <span class="filters-toggle-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M7 12h10M10 17h4"/></svg></span>
+      <span>Filters</span>
+    </button>
+
+    <div class="dict-filters-panel hidden" id="dictionaryFiltersPanel">
+      <div class="dict-filters">
+        <select id="filterCategory" class="filter-select" data-external-handler-dictionary-13="">
+          <option value="">Усі теми й ситуації</option>
+        </select>
+        <select id="filterLesson" class="filter-select" data-external-handler-dictionary-14="">
+          <option value="">Усі уроки</option>
+        </select>
+        <select id="filterType" class="filter-select" data-external-handler-dictionary-15="">
+          <option value="">Усі типи</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn-primary" data-external-handler-dictionary-16=""><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Додати нове слово</button>
+  </div>
+
+  <div class="dict-grid" id="dictGrid"></div>
+
+</main>
+
+<!-- Modal: Add Custom Word -->
+<div class="modal-backdrop" id="addModal" data-external-handler-dictionary-17="">
+  <div class="modal-dialog">
+    <div id="external-style-dictionary-1">
+      <h3 id="external-style-dictionary-2"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Нове слово</h3>
+      <button data-external-handler-dictionary-18="" id="external-style-dictionary-3"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    </div>
+    <form id="addWordForm" data-external-handler-dictionary-19="">
+      <div class="form-group">
+        <label class="form-label">Італійське слово чи фраза *</label>
+        <input type="text" id="wIt" class="form-control" required placeholder="напр. arrivederci" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Український переклад *</label>
+        <input type="text" id="wUa" class="form-control" required placeholder="напр. до побачення" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Транскрипція (необов'язково)</label>
+        <input type="text" id="wPhon" class="form-control" placeholder="напр. ар-рі-ве-дер-чі" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Тип слова</label>
+        <select id="wType" class="form-control">
+          <option value="phrase">Фраза</option>
+          <option value="noun">Іменник</option>
+          <option value="verb">Дієслово</option>
+          <option value="adjective">Прикметник</option>
+          <option value="greeting">Привітання</option>
+          <option value="other">Інше</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Категорія</label>
+        <input type="text" id="wCategory" class="form-control" placeholder="напр. привітання, їжа, числа" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Урок (необов'язково)</label>
+        <input type="text" id="wLesson" class="form-control" placeholder="напр. Урок 1.1" />
+      </div>
+      <div id="external-style-dictionary-4">
+        <button type="button" class="btn-ghost" data-external-handler-dictionary-20="">Скасувати</button>
+        <button type="submit" class="btn-primary">Зберегти (+25 XP)</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ═══════════ FOOTER COMPONENT ═══════════ -->
+<div data-component="footer"></div>
+
+<script src="../js/icons.js"></script>
+<script src="../js/components.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/dictionary.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!-- ═══════════ LanguageStudio Component: Student Profile Modal ═══════════ -->
+<div class="profile-modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
+  <section class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-title">
+    <div class="pm-topline">
+      <div class="pm-eyebrow" id="profile-title">Student Profile</div>
+      <button type="button" class="pm-close" onclick="closeProfileModal()" aria-label="Close">✕</button>
+    </div>
+    
+    <div class="pm-header">
+      <div class="pm-avatar">S</div>
+      <div>
+        <div class="pm-name">Student</div>
+        <div class="pm-path">Guest profile · progress is saved on this device</div>
+        <div class="pm-path">Learning path: <b>Communication basics</b></div>
+      </div>
+    </div>
+    
+    <section class="pm-settings" aria-labelledby="source-language-title">
+      <h3 class="pm-settings-title" id="source-language-title">Italian Learning Settings</h3>
+      <div class="pm-settings-grid">
+        <div class="pm-setting">
+          <label class="pm-setting-label" for="sourceLanguage">Language for translations & explanations</label>
+          <select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select>
+        </div>
+        <div class="pm-setting">
+          <div class="pm-setting-label">Interface Theme</div>
+          <button type="button" class="btn-ghost pm-theme-button" onclick="toggleTheme()">
+            🌓 Switch theme
+          </button>
+        </div>
+      </div>
+    </section>
+    
+    <div class="pm-stats-grid">
+      <div class="pm-stat-box">
+        <div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div>
+        <div class="pm-stat-lbl">XP Points</div>
+      </div>
+      <div class="pm-stat-box">
+        <div class="pm-stat-val" style="color:var(--it-gold);">1 day</div>
+        <div class="pm-stat-lbl">Daily Streak</div>
+      </div>
+      <div class="pm-stat-box">
+        <div class="pm-stat-val">1/16</div>
+        <div class="pm-stat-lbl">Lessons Completed</div>
+      </div>
+      <div class="pm-stat-box">
+        <div class="pm-stat-val">13</div>
+        <div class="pm-stat-lbl">Dictionary Words</div>
+      </div>
+    </div>
+    
+    <div class="pm-footer">
+      <a class="btn-primary" href="pages/auth.html" data-nav="auth">Sign in or register</a>
+    </div>
+  </section>
+</div>

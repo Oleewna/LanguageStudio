@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="icon" type="image/png" href="../assets/images/icon.png" />
+<title>Learning paths — LanguageStudio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="../js/theme.js"></script>
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/path.css">
+
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR COMPONENT ═══════════ -->
+<div data-component="navbar"></div>
+
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-label">Choose your goal</div>
+    <h1>Learning paths</h1>
+    <p>Each path builds vocabulary and phrases around a real-life situation — from travel to office conversations. Start with the basics, then move into your chosen path.</p>
+  </div>
+</section>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<main class="page-container">
+
+  <div class="path-container" id="pathContainer"></div>
+
+</main>
+
+<!-- ═══════════ FOOTER COMPONENT ═══════════ -->
+<div data-component="footer"></div>
+
+<script src="../js/icons.js"></script>
+<script src="../js/components.js"></script>
+<script src="../js/app.js"></script>
+
+
+<!-- Data-driven category + unit + lesson rendering. Category → Unit → Lesson.
+     Fixed on review: (1) removed a duplicated lock/active badge that had been
+     added at the unit-group level — badge state only ever applied at the
+     category level in the original page, so it's now only shown per-unit
+     when a unit explicitly supplies its own badgeText (used by future
+     multi-unit categories); (2) restored lesson-num / lesson-it (description)
+     / lesson-time fields for the "Основи спілкування" lessons, which the
+     original page rendered but the earlier flat (title, href, status) model
+     had dropped; (3) when a category has exactly one unit, the unit-group
+     header is skipped entirely (not just auto-opened) so no redundant bar
+     appears — matching the original page pixel-for-pixel for all 3 existing
+     categories. -->
+<script src="../js/path.js"></script>
+</body>
+</html>

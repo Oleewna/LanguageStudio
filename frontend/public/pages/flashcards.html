@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="icon" type="image/png" href="../assets/images/icon.png" />
+<title>Флешкартки — LanguageStudio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="../js/theme.js"></script>
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/flashcards.css">
+
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR COMPONENT ═══════════ -->
+<div data-component="navbar"></div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-label">Словниковий тренажер</div>
+    <h1>Флешкартки</h1>
+    <p>Фільтруйте слова за напрямком навчання чи тематикою. Перевертайте картку та тренуйте пам'ять.</p>
+  </div>
+</section>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<main class="page-container">
+
+  <div class="fc-wrapper">
+
+    <!-- Filter panel -->
+    <div class="filter-panel">
+      <div class="filter-grid">
+        
+        <!-- Filter by Track -->
+        <div class="filter-group">
+          <label class="filter-label" for="filterTrack"><span data-icon="compass"></span> Напрямок</label>
+          <select id="filterTrack" class="filter-select" data-external-handler-flashcards-12="">
+            <option value="all">Усі напрямки</option>
+            <option value="foundations" selected>Основи спілкування</option>
+            <option value="tourist">Туристична італійська</option>
+            <option value="business">Робота та бізнес</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Filter by Topic / Thematic chips -->
+      <div class="topic-chips">
+        <button class="topic-chip active" data-external-handler-flashcards-13="">Всі тематики</button>
+        <button class="topic-chip" data-external-handler-flashcards-14=""><span data-icon="handshake"></span> Привітання</button>
+        <button class="topic-chip" data-external-handler-flashcards-15=""><span data-icon="type"></span> Базові фрази</button>
+        <button class="topic-chip" data-external-handler-flashcards-16=""><span data-icon="star"></span> Власні збережені</button>
+      </div>
+    </div>
+
+    <!-- 3D Card Stage -->
+    <div class="fc-stage" data-external-handler-flashcards-17="">
+      <div class="fc-inner" id="fcInner">
+        
+        <!-- Front -->
+        <div class="fc-face fc-front">
+          <div class="fc-meta-row">
+            <span class="fc-tag" id="fcUnitTag"><span data-icon="handshake"></span><span>Основи</span></span>
+            <span class="fc-tag" id="fcTopicTag"><span data-icon="handshake"></span><span>Привітання</span></span>
+          </div>
+          <div class="fc-word" id="fcWord">ciao</div>
+          <div class="fc-phon" id="fcPhon">[ча-о]</div>
+          <div class="fc-hint"><span data-icon="pointer"></span> Натисніть, щоб побачити переклад</div>
+        </div>
+
+        <!-- Back -->
+        <div class="fc-face fc-back">
+          <div class="fc-trans" id="fcTrans">привіт / бувай</div>
+          <div class="fc-example" id="fcExample">— Ciao! Come stai? — Bene, grazie!</div>
+          <div class="fc-hint" id="external-style-flashcards-1"><span data-icon="pointer"></span> Натисніть знову для звороту</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="fc-empty-note" id="fcEmptyNote">Для цього напрямку слова ще готуються — спробуйте «Основи спілкування» або власні збережені слова.</div>
+
+    <!-- Controls -->
+    <div class="fc-controls">
+      <button class="btn-ghost" data-external-handler-flashcards-18="">← Назад</button>
+      <span class="fc-counter-badge" id="fcCounter">1 / 13</span>
+      <button class="btn-ghost" data-external-handler-flashcards-19="">Вперед →</button>
+      <button class="audio-btn" data-external-handler-flashcards-20="" title="Аудіо (візуальний режим)"><span data-icon="audio"></span></button>
+      <button class="btn-ghost" data-external-handler-flashcards-21="" title="Перемішати"><span data-icon="shuffle"></span></button>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- ═══════════ FOOTER COMPONENT ═══════════ -->
+<div data-component="footer"></div>
+
+<script src="../js/components.js"></script>
+<script src="../js/icons.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/flashcards.js"></script>
+</body>
+</html>
