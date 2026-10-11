@@ -110,31 +110,6 @@
       true: 'Yes',
       false: 'No',
       enterWord: 'enter word'
-    },
-    pl: {
-      checkTasks: 'Sprawdź zadania',
-      checkAllPrompt: 'Proszę odpowiedzieć na wszystkie pytania przed sprawdzeniem.',
-      correct: '✓ Poprawnie',
-      correctAnswer: 'Prawidłowa odpowiedź:',
-      scorePassed: 'Świetnie! Lekcja zaliczona pomyślnie!',
-      scoreRetry: 'Spróbuj ponownie, aby poprawić wynik (wymagane min. 70%).',
-      xpAwarded: 'Zdobyto +{xp} XP!',
-      alreadyCompleted: 'Ta lekcja została już ukończona wcześniej.',
-      accuracy: 'Wynik: {correct}/{total} poprawnych odpowiedzi ({percent}%)',
-      showTranslation: 'Pokaż tłumaczenie',
-      hideTranslation: 'Ukryj tłumaczenie',
-      hintsTitle: 'Wskazówki słownikowe',
-      tapForHint: 'Kliknij podkreślone słowo, aby zobaczyć podpowiedź',
-      pronoun: 'Zaimek',
-      form: 'Forma',
-      example: 'Przykład',
-      translation: 'Tłumaczenie',
-      word: 'Słowo',
-      pronunciation: 'Wymowa',
-      listen: 'Odsłuchaj',
-      true: 'Tak',
-      false: 'Nie',
-      enterWord: 'wpisz słowo'
     }
   };
 
@@ -283,8 +258,8 @@
     const lines = (section.lines || []).map((line, idx) => {
       const speakerName = escapeHtml(line.speaker || `Speaker ${idx + 1}`);
       const avatarLetter = escapeHtml(line.avatar || line.speaker?.charAt(0) || '💬');
-      const avatarClass = (line.avatar === 'S' || line.speaker === 'Sara' || line.speaker === 'Sofia')
-        ? 'av-sara'
+      const avatarClass = (line.avatar === 'S' || line.speaker === 'Sofia')
+        ? 'av-student'
         : 'av-marco';
 
       const audioBtn = line.audio !== false ? `

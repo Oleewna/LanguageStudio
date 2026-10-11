@@ -34,7 +34,7 @@ const GR_DATA = {
         </tr>
       </thead>
       <tbody>
-        <tr><td><b>io</b> (я)</td><td>sono</td><td>ho</td><td>Io sono Sara / Ho un gatto</td></tr>
+        <tr><td><b>io</b> (я)</td><td>sono</td><td>ho</td><td>Io sono Sofia / Ho un gatto</td></tr>
         <tr><td><b>tu</b> (ти)</td><td>sei</td><td>hai</td><td>Sei italiana? / Hai fame?</td></tr>
         <tr><td><b>lui / lei</b> (він / вона)</td><td>è</td><td>ha</td><td>Lui è Marco / Lei ha una casa</td></tr>
         <tr><td><b>noi</b> (ми)</td><td>siamo</td><td>abbiamo</td><td>Siamo a Milano / Abbiamo tempo</td></tr>

@@ -170,10 +170,10 @@
   /** Map lesson type to localised badge label */
   function typeBadge(type, lang) {
     const map = {
-      dialogue:   { uk: 'Діалог',    en: 'Dialogue', pl: 'Dialog' },
-      reading:    { uk: 'Читання',   en: 'Reading',  pl: 'Czytanie' },
-      grammar:    { uk: 'Граматика', en: 'Grammar',  pl: 'Gramatyka' },
-      checkpoint: { uk: 'Тест',      en: 'Test',     pl: 'Test' },
+      dialogue:   { uk: 'Діалог',    en: 'Dialogue' },
+      reading:    { uk: 'Читання',   en: 'Reading' },
+      grammar:    { uk: 'Граматика', en: 'Grammar' },
+      checkpoint: { uk: 'Тест',      en: 'Test' },
     };
     const entry = map[type] || map.dialogue;
     return entry[lang] || entry.uk || entry.en;
@@ -210,21 +210,21 @@
 
     const sbAllCourses = document.getElementById('sbAllCoursesText');
     if (sbAllCourses) {
-      sbAllCourses.textContent = lang === 'en' ? 'All learning paths' : (lang === 'pl' ? 'Wszystkie działy kursu' : 'Всі розділи курсу');
+      sbAllCourses.textContent = lang === 'en' ? 'All learning paths' : 'Всі розділи курсу';
     }
     const sbToggle = document.getElementById('sbToggleBtn');
     if (sbToggle) {
-      sbToggle.setAttribute('aria-label', lang === 'en' ? 'Table of contents' : (lang === 'pl' ? 'Spis treści' : 'Зміст розділу'));
+      sbToggle.setAttribute('aria-label', lang === 'en' ? 'Table of contents' : 'Зміст розділу');
     }
     const sidebarEl = document.getElementById('sidebar');
     if (sidebarEl) {
-      sidebarEl.setAttribute('aria-label', lang === 'en' ? 'Lesson contents' : (lang === 'pl' ? 'Spis treści lekcji' : 'Зміст уроку'));
+      sidebarEl.setAttribute('aria-label', lang === 'en' ? 'Lesson contents' : 'Зміст уроку');
     }
 
     const playIcon = `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>`;
     const checkIcon = `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>`;
 
-    const lessonPrefix = lang === 'en' ? 'Lesson' : (lang === 'pl' ? 'Lekcja' : 'Урок');
+    const lessonPrefix = lang === 'en' ? 'Lesson' : 'Урок';
 
     let html = `<div class="sb-unit">`;
     html += `<div class="sb-unit-title">${tr(currentLesson.unitTitle, 'Розділ', lang)}</div>`;
@@ -278,7 +278,7 @@
     const lessonTitle = tr(lesson.title, '', lang);
     const lessonNum   = lesson.lessonNum || '';
     const desc        = tr(lesson.description, '', lang);
-    const lessonPrefix = lang === 'en' ? 'Lesson' : (lang === 'pl' ? 'Lekcja' : 'Урок');
+    const lessonPrefix = lang === 'en' ? 'Lesson' : 'Урок';
 
     if (labelEl)    labelEl.textContent  = `${unitTitle} · ${lessonPrefix} ${lessonNum}`;
     if (titleEl)    titleEl.textContent  = lessonTitle + (lesson.subtitle ? ` — ${tr(lesson.subtitle, '', lang)}` : '');
@@ -324,21 +324,21 @@
     const prevHref = lesson.prevLessonId ? lessonHref(lesson.prevLessonId) : null;
     const nextHref = lesson.nextLessonId ? lessonHref(lesson.nextLessonId) : null;
 
-    const prevText = lang === 'en' ? '← Previous lesson' : (lang === 'pl' ? '← Poprzednia lekcja' : '← Попередній урок');
-    const nextText = lang === 'en' ? 'Next lesson →' : (lang === 'pl' ? 'Następna lekcja →' : 'Наступний урок →');
+    const prevText = lang === 'en' ? '← Previous lesson' : '← Попередній урок';
+    const nextText = lang === 'en' ? 'Next lesson →' : 'Наступний урок →';
 
     // Top bar buttons
     const topPrev = document.getElementById('btnPrevLesson');
     const topNext = document.getElementById('btnNextLesson');
     if (topPrev) {
       topPrev.href = prevHref || 'path.html';
-      topPrev.textContent = prevHref ? prevText : (lang === 'en' ? '← Back' : (lang === 'pl' ? '← Wstecz' : '← Назад'));
-      topPrev.setAttribute('aria-label', prevHref ? prevText : (lang === 'en' ? 'Back to learning paths' : (lang === 'pl' ? 'Powrót do ścieżek nauki' : 'Назад до розділів')));
+      topPrev.textContent = prevHref ? prevText : (lang === 'en' ? '← Back' : '← Назад');
+      topPrev.setAttribute('aria-label', prevHref ? prevText : (lang === 'en' ? 'Back to learning paths' : 'Назад до розділів'));
     }
     if (topNext) {
       topNext.href = nextHref || 'path.html';
-      topNext.textContent = nextHref ? nextText : (lang === 'en' ? 'All lessons →' : (lang === 'pl' ? 'Wszystkie lekcje →' : 'Всі уроки →'));
-      topNext.setAttribute('aria-label', nextHref ? nextText : (lang === 'en' ? 'View all lessons' : (lang === 'pl' ? 'Zobacz wszystkie lekcje' : 'Переглянути всі уроки')));
+      topNext.textContent = nextHref ? nextText : (lang === 'en' ? 'All lessons →' : 'Всі уроки →');
+      topNext.setAttribute('aria-label', nextHref ? nextText : (lang === 'en' ? 'View all lessons' : 'Переглянути всі уроки'));
     }
 
     // Bottom nav buttons
@@ -372,24 +372,22 @@
     const descEl  = document.getElementById('heroDescription');
     const body    = document.getElementById('lessonBody');
 
-    document.title = lang === 'en' ? 'Lesson not found — LanguageStudio' : (lang === 'pl' ? 'Nie znaleziono lekcji — LanguageStudio' : 'Урок не знайдено — LanguageStudio');
+    document.title = lang === 'en' ? 'Lesson not found — LanguageStudio' : 'Урок не знайдено — LanguageStudio';
 
-    if (titleEl) titleEl.textContent = lang === 'en' ? 'Lesson not found' : (lang === 'pl' ? 'Nie znaleziono lekcji' : 'Урок не знайдено');
+    if (titleEl) titleEl.textContent = lang === 'en' ? 'Lesson not found' : 'Урок не знайдено';
     if (descEl) descEl.textContent = requestedId
-      ? (lang === 'en' ? `No lesson was found with id: "${requestedId}".` : (lang === 'pl' ? `Nie znaleziono lekcji o identyfikatorze: „${requestedId}”.` : `Урок з ідентифікатором «${requestedId}» не знайдено.`))
-      : (lang === 'en' ? 'No lesson id was specified in the URL.' : (lang === 'pl' ? 'Nie podano identyfikatora lekcji w adresie URL.' : 'Ідентифікатор уроку не вказано в URL.'));
+      ? (lang === 'en' ? `No lesson was found with id: "${requestedId}".` : `Урок з ідентифікатором «${requestedId}» не знайдено.`)
+      : (lang === 'en' ? 'No lesson id was specified in the URL.' : 'Ідентифікатор уроку не вказано в URL.');
 
     if (body) body.innerHTML = `
       <div style="padding:2rem;text-align:center;">
         <p style="font-size:1rem;color:var(--ink-soft);margin-bottom:1.5rem;">
           ${lang === 'en'
             ? 'Try selecting a lesson from the sidebar or return to the learning paths page.'
-            : (lang === 'pl'
-              ? 'Wybierz lekcję z menu bocznego lub wróć do strony ścieżek nauki.'
-              : 'Оберіть урок зі списку або поверніться на сторінку навчальних розділів.')}
+            : 'Оберіть урок зі списку або поверніться на сторінку навчальних розділів.'}
         </p>
         <a href="path.html" class="btn-primary">
-          ${lang === 'en' ? '📚 All learning paths' : (lang === 'pl' ? '📚 Wszystkie ścieżki nauki' : '📚 Всі розділи навчання')}
+          ${lang === 'en' ? '📚 All learning paths' : '📚 Всі розділи навчання'}
         </a>
       </div>
     `;
@@ -565,6 +563,9 @@
 
 <!-- ═══════════ BOTTOM FOOTER COMPONENT ═══════════ -->
 <div data-component="footer"></div>
+
+<!-- ═══════════ PROFILE MODAL COMPONENT ═══════════ -->
+<div data-component="profile-modal"></div>
 
 </body>
 </html>

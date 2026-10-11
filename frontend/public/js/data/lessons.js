@@ -18,24 +18,20 @@
       unitTitle: {
         uk: 'Основи спілкування',
         en: 'Communication basics',
-        pl: 'Podstawy komunikacji'
       },
       lessonNum: 1,
       type: 'dialogue',
       title: {
         uk: 'Знайомство',
         en: 'Introductions',
-        pl: 'Poznawanie się'
       },
       subtitle: {
         uk: 'Come ti chiami?',
         en: 'Come ti chiami?',
-        pl: 'Come ti chiami?'
       },
       description: {
-        uk: 'Софія приходить на свій перший урок італійської. У класі вона вітається, представляється та знайомиться з Оленою.',
-        en: 'Emily arrives for her first Italian lesson. In class, she greets Jessica, introduces herself, and gets to know her.',
-        pl: 'Sara przychodzi na swoją pierwszą lekcję włoskiego. W klasie wita się, przedstawia i poznaje Annę.'
+        uk: 'Софія приходить на перший урок італійської в Мілані. Вона знайомиться з Ґретою, студенткою того самого курсу.',
+        en: 'Sofia arrives for her first Italian lesson in Milan and meets Greta, a student in the same course.',
       },
       duration: '15 хв',
       xpReward: 50,
@@ -51,8 +47,8 @@
             en: 'Classroom dialogue'
           },
           story: {
-            uk: 'Сара вперше заходить до мовної школи в Мілані. На рецепції її зустрічає Анна — час привітатися й назвати своє ім’я.',
-            en: 'Emily arrives at a language school in Milan for the first time. In class, Jessica greets her. It is time to say hello and introduce herself.'
+            uk: 'Софія приходить на перший урок італійської в Мілані й знайомиться з Ґретою, іншою студенткою цього курсу.',
+            en: 'Sofia arrives for her first Italian lesson in Milan and meets Greta, another student in the course.'
           },
           image: '../assets/images/communication-basics.jpg',
           imageAlt: {
@@ -61,132 +57,126 @@
           },
           lines: [
             {
-              speaker: 'Sara',
+              speaker: 'Sofia',
               avatar: 'S',
               it: 'Buongiorno!',
               phonetic: '[буон-джор-но]',
               translations: {
                 uk: 'Доброго дня!',
                 en: 'Good morning!',
-                pl: 'Dzień dobry!'
               },
               audio: true
             },
             {
-              speaker: 'Anna',
-              avatar: 'A',
+              speaker: 'Greta',
+              avatar: 'G',
               it: 'Buongiorno! Come ti chiami?',
               phonetic: '[ко-ме ті к’я-мі]',
               translations: {
                 uk: 'Доброго дня! Як тебе звати?',
                 en: 'Good morning! What is your name?',
-                pl: 'Dzień dobry! Jak masz na imię?'
               },
               audio: true
             },
             {
-              speaker: 'Sara',
+              speaker: 'Sofia',
               avatar: 'S',
-              it: 'Mi chiamo Sara. E tu?',
-              phonetic: '[мі к’я-мо Са-ра. е ту]',
+              it: 'Mi chiamo Sofia. E tu?',
+              phonetic: '[мі к’я-мо Со-фі-а. е ту]',
               translations: {
-                uk: 'Мене звати Сара. А тебе?',
-                en: 'My name is Sara. And you?',
-                pl: 'Nazywam się Sara. A ty?'
+                uk: 'Мене звати Софія. А тебе?',
+                en: 'My name is Sofia. And you?',
               },
               audio: true
             },
             {
-              speaker: 'Anna',
-              avatar: 'A',
-              it: 'Io sono Anna. Piacere!',
-              phonetic: '[і-о со-но Ан-на. п’я-че-ре]',
+              speaker: 'Greta',
+              avatar: 'G',
+              it: 'Mi chiamo Greta. Piacere!',
+              phonetic: '[мі к’я-мо Ґре-та. п’я-че-ре]',
               translations: {
-                uk: 'Я Анна. Приємно познайомитися!',
-                en: "I'm Anna. Nice to meet you!",
-                pl: 'Jestem Anna. Miło cię poznać!'
+                uk: 'Мене звати Ґрета. Приємно познайомитися!',
+                en: 'My name is Greta. Nice to meet you!',
               },
               audio: true
             },
             {
-              speaker: 'Sara',
+              speaker: 'Sofia',
               avatar: 'S',
-              it: 'Piacere, Anna!',
-              phonetic: '[п’я-че-ре, Ан-на]',
+              it: 'Piacere, Greta!',
+              phonetic: '[п’я-че-ре, Ґре-та]',
               translations: {
-                uk: 'Приємно, Анно!',
-                en: 'Nice to meet you, Anna!',
-                pl: 'Miło mi, Anno!'
+                uk: 'Приємно, Ґрето!',
+                en: 'Nice to meet you, Greta!',
               },
               audio: true
             },
             {
-              speaker: 'Anna',
-              avatar: 'A',
-              it: 'Sei nuova qui?',
-              phonetic: '[сей ну-о-ва куі]',
+              speaker: 'Greta',
+              avatar: 'G',
+              it: 'Di dove sei?',
+              phonetic: '[ді до-ве сей]',
               translations: {
-                uk: 'Ти тут новенька?',
-                en: 'Are you new here?',
-                pl: 'Jesteś tu nowa?'
+                uk: 'Звідки ти?',
+                en: 'Where are you from?',
               },
               audio: true
             },
             {
-              speaker: 'Sara',
+              speaker: 'Sofia',
               avatar: 'S',
-              it: 'Sì, sono nuova.',
-              phonetic: '[сі, со-но ну-о-ва]',
+              it: 'Sono americana. E tu?',
+              phonetic: '[со-но а-ме-рі-ка-на. е ту]',
               translations: {
-                uk: 'Так, я новенька.',
-                en: "Yes, I'm new here."
+                uk: 'Я американка. А ти?',
+                en: "I'm American. And you?"
               },
-              audio: false
+              audio: true
             },
             {
-              speaker: 'Anna',
-              avatar: 'A',
-              it: 'Benvenuta al corso di italiano!',
-              phonetic: '[бен-ве-ну-та аль кор-со ді іта-лья-но]',
+              speaker: 'Greta',
+              avatar: 'G',
+              it: 'Sono tedesca.',
+              phonetic: '[со-но те-де-ска]',
               translations: {
-                uk: 'Ласкаво просимо на курс італійської!',
-                en: 'Welcome to the Italian course!'
+                uk: 'Я німкеня.',
+                en: "I'm German."
               },
-              audio: false
+              audio: true
             },
             {
-              speaker: 'Sara',
+              speaker: 'Sofia',
               avatar: 'S',
-              it: 'Grazie mille!',
-              phonetic: '[гра-цьє міл-ле]',
+              it: 'Anche tu fai il corso d’italiano?',
+              phonetic: '[ан-ке ту фай іль кор-со ді-та-лья-но]',
               translations: {
-                uk: 'Дуже дякую!',
-                en: 'Thank you very much!'
+                uk: 'Ти теж ходиш на курс італійської?',
+                en: 'Are you taking the Italian course too?',
               },
-              audio: false
+              audio: true
             },
             {
-              speaker: 'Anna',
-              avatar: 'A',
-              it: 'Prego. Buona lezione!',
-              phonetic: '[пре-го. буо-на ле-цьо-не]',
+              speaker: 'Greta',
+              avatar: 'G',
+              it: 'Sì, oggi è la mia prima lezione.',
+              phonetic: '[сі, од-джі е ла мі-а прі-ма ле-цьо-не]',
               translations: {
-                uk: 'Будь ласка. Гарного уроку!',
-                en: 'You are welcome. Have a good lesson!'
+                uk: 'Так, сьогодні моє перше заняття.',
+                en: "Yes, today's my first class."
               },
-              audio: false
+              audio: true
             },
             {
-              speaker: 'Sara',
+              speaker: 'Sofia',
               avatar: 'S',
-              it: 'Grazie, buona giornata!',
-              phonetic: '[гра-цьє, буо-на джор-на-та]',
+              it: 'Anche per me!',
+              phonetic: '[ан-ке пер ме]',
               translations: {
-                uk: 'Дякую, гарного дня!',
-                en: 'Thank you. Have a nice day!'
+                uk: 'У мене теж!',
+                en: 'Mine too!'
               },
               audio: false
-            }
+            },
           ]
         },
 
@@ -239,19 +229,35 @@
               }
             },
             {
-              it: 'sei nuova?',
-              transcription: '[сей ну-о-ва]',
+              it: 'di dove sei?',
+              transcription: '[ді до-ве сей]',
               translations: {
-                uk: 'ти новенька?',
-                en: 'are you new? (fem.)'
+                uk: 'звідки ти?',
+                en: 'where are you from?'
               }
             },
             {
-              it: 'benvenuta',
-              transcription: '[бен-ве-ну-та]',
+              it: 'americana / tedesca',
+              transcription: '[а-ме-рі-ка-на / те-де-ска]',
               translations: {
-                uk: 'ласкаво просимо (жінці)',
-                en: 'welcome (fem.)'
+                uk: 'американка / німкеня',
+                en: 'American / German (feminine)'
+              }
+            },
+            {
+              it: "corso d'italiano",
+              transcription: '[кор-со ді-та-лья-но]',
+              translations: {
+                uk: 'курс італійської',
+                en: 'Italian course'
+              }
+            },
+            {
+              it: 'prima lezione',
+              transcription: '[прі-ма ле-цьо-не]',
+              translations: {
+                uk: 'перше заняття',
+                en: 'first lesson'
               }
             },
             {
@@ -270,22 +276,14 @@
                 en: "you're welcome"
               }
             },
-            {
-              it: 'buona lezione',
-              transcription: '[буо-на ле-цьо-не]',
-              translations: {
-                uk: 'гарного уроку',
-                en: 'have a good lesson'
-              }
-            }
           ],
           notes: [
             {
               type: 'default',
               title: { uk: 'Нотатка', en: 'Note' },
               text: {
-                uk: 'Щоб назвати ім’я, можна сказати <i>Mi chiamo Sara</i> або <i>Io sono Sara</i>. Обидва варіанти правильні.',
-                en: 'To state your name, you can say <i>Mi chiamo Sara</i> or <i>Io sono Sara</i>. Both options are correct.'
+                uk: 'Щоб назвати ім’я, можна сказати <i>Mi chiamo Sofia</i> або <i>Io sono Sofia</i>. Обидва варіанти правильні.',
+                en: 'To state your name, you can say <i>Mi chiamo Sofia</i> or <i>Io sono Sofia</i>. Both options are correct.'
               }
             },
             {
@@ -339,8 +337,8 @@
               en: 'After introductions, say <i>Piacere!</i>.'
             },
             {
-              uk: '<i>Grazie</i> — «дякую», <i>Prego</i> — «будь ласка».',
-              en: '<i>Grazie</i> — "thank you", <i>Prego</i> — "you\'re welcome".'
+              uk: '<i>Di dove sei?</i> — «Звідки ти?». <i>Sono americana/tedesca</i> — «Я американка/німкеня».',
+              en: '<i>Di dove sei?</i> means "Where are you from?". <i>Sono americana/tedesca</i> means "I am American/German".'
             }
           ]
         },
@@ -374,13 +372,13 @@
               type: 'choice',
               category: { uk: 'Множинний вибір', en: 'Multiple choice' },
               question: {
-                uk: 'Що означає «Mi chiamo Sara»?',
-                en: "What does 'Mi chiamo Sara' mean?"
+                uk: 'Що означає «Mi chiamo Greta»?',
+                en: "What does 'Mi chiamo Greta' mean?"
               },
               options: [
-                { translations: { uk: 'Мене звати Сара', en: 'My name is Sara' } },
-                { translations: { uk: 'Це Сара', en: 'This is Sara' } },
-                { translations: { uk: 'До побачення, Сара', en: 'Goodbye, Sara' } }
+                { translations: { uk: 'Мене звати Ґрета', en: 'My name is Greta' } },
+                { translations: { uk: 'Це Ґрета', en: 'This is Greta' } },
+                { translations: { uk: 'До побачення, Ґрето', en: 'Goodbye, Greta' } }
               ],
               correctIndex: 0
             },
@@ -404,13 +402,13 @@
               type: 'choice',
               category: { uk: 'Множинний вибір', en: 'Multiple choice' },
               question: {
-                uk: 'Що означає «Benvenuta»?',
-                en: "What does 'Benvenuta' mean?"
+                uk: 'Що означає «tedesca»?',
+                en: "What does 'tedesca' mean?"
               },
               options: [
-                { translations: { uk: 'Ласкаво просимо (жінці)', en: 'Welcome (feminine)' } },
-                { translations: { uk: 'Гарного дня', en: 'Have a good day' } },
-                { translations: { uk: 'До побачення', en: 'Goodbye' } }
+                { translations: { uk: 'Німкеня', en: 'German (feminine)' } },
+                { translations: { uk: 'Американка', en: 'American (feminine)' } },
+                { translations: { uk: 'Італійка', en: 'Italian (feminine)' } }
               ],
               correctIndex: 0
             },
@@ -446,18 +444,18 @@
               type: 'true_false',
               category: { uk: 'Правда чи ні', en: 'True or False' },
               statement: {
-                uk: 'Анна — нова студентка на курсі.',
-                en: 'Anna is a new student in the course.'
+                uk: 'Софія — американка.',
+                en: 'Sofia is American.'
               },
-              correctAnswer: false
+              correctAnswer: true
             },
             {
               id: 'q8',
               type: 'true_false',
               category: { uk: 'Правда чи ні', en: 'True or False' },
               statement: {
-                uk: 'Сара вперше прийшла на курс.',
-                en: 'Sara has come to the course for the first time.'
+                uk: 'Ґрета — німкеня.',
+                en: 'Greta is German.'
               },
               correctAnswer: true
             },
@@ -473,14 +471,14 @@
                 uk: 'встав ім’я',
                 en: 'enter name'
               },
-              acceptableAnswers: ['Sara', 'Сара', 'Sofia', 'Emily']
+              acceptableAnswers: ['Sofia', 'Софія']
             },
             {
               id: 'q10',
               type: 'fill_blank',
               category: { uk: 'Встав слово', en: 'Fill in the blank' },
               prefix: 'Io',
-              suffix: 'Anna.',
+              suffix: 'Sofia.',
               placeholder: {
                 uk: 'встав слово',
                 en: 'enter word'
@@ -491,13 +489,13 @@
               id: 'q11',
               type: 'fill_blank',
               category: { uk: 'Встав слово', en: 'Fill in the blank' },
-              prefix: '',
-              suffix: 'al corso di italiano!',
+              prefix: 'Sono',
+              suffix: '.',
               placeholder: {
                 uk: 'встав слово',
                 en: 'enter word'
               },
-              acceptableAnswers: ['Benvenuta', 'benvenuta']
+              acceptableAnswers: ['tedesca']
             },
             {
               id: 'q12',
@@ -525,24 +523,20 @@
       unitTitle: {
         uk: 'Основи спілкування',
         en: 'Communication basics',
-        pl: 'Podstawy komunikacji'
       },
       lessonNum: 2,
       type: 'reading',
       title: {
         uk: 'Перший день у Римі',
         en: 'First Day in Rome',
-        pl: 'Pierwszy dzień w Rzymie'
       },
       subtitle: {
         uk: 'Un caffè al bar — розуміння тексту',
         en: 'Un caffè al bar — reading comprehension',
-        pl: 'Un caffè al bar — czytanie ze zrozumieniem'
       },
       description: {
         uk: 'Марко прибуває до Рима, знайомиться з ранковою атмосферою міста та замовляє свій перший еспресо в барі.',
         en: 'Marco arrives in Rome, experiences the morning city atmosphere, and orders his first espresso at the bar.',
-        pl: 'Marco przybywa do Rzymu, poznaje poranną atmosferę miasta i zamawia swoje pierwsze espresso w barze.'
       },
       duration: '20 хв',
       xpReward: 50,
@@ -807,24 +801,20 @@
       unitTitle: {
         uk: 'Основи спілкування',
         en: 'Communication basics',
-        pl: 'Podstawy komunikacji'
       },
       lessonNum: 3,
       type: 'grammar',
       title: {
         uk: 'Дієслово Essere (Бути)',
         en: 'The Verb Essere (To Be)',
-        pl: 'Czasownik Essere (Być)'
       },
       subtitle: {
         uk: 'Теперішній час (Presente indicativo)',
         en: 'Present tense (Presente indicativo)',
-        pl: 'Czas teraźniejszy (Presente indicativo)'
       },
       description: {
         uk: 'Фундаментальне дієслово італійської мови. Вчимося описувати себе, співрозмовника та предмети навколо.',
         en: 'A foundational Italian verb. Learn to describe yourself, others, and things around you.',
-        pl: 'Podstawowy czasownik języka włoskiego. Uczymy się opisywać siebie, rozmówcę oraz otaczające nas przedmioty.'
       },
       duration: '15 хв',
       xpReward: 50,
@@ -1076,16 +1066,6 @@
   // ═══════════════════════════════════════════════════════════════════════
 
   /**
-   * Get a lesson by its unique ID.
-   * @param {string} id
-   * @returns {object|null}
-   */
-  function getLessonById(id) {
-    if (!id) return null;
-    return LS_LESSONS[id] || null;
-  }
-
-  /**
    * Get all lessons belonging to a specific unit, ordered by lessonNum.
    * @param {string} unitId
    * @returns {object[]}
@@ -1134,198 +1114,14 @@
       title: {
         uk: 'Італійська мова',
         en: 'Italian',
-        pl: 'Język włoski'
       },
       subtitle: {
         uk: 'Курс італійської · Основи',
         en: 'Italian Course · Foundations',
-        pl: 'Kurs włoskiego · Podstawy'
       },
       defaultLessonId: 'communication-basics-1',
       lessons: LS_LESSONS
     },
-    spanish: {
-      id: 'spanish',
-      code: 'es',
-      flag: '🇪🇸',
-      title: {
-        uk: 'Іспанська мова',
-        en: 'Spanish',
-        pl: 'Język hiszpański'
-      },
-      subtitle: {
-        uk: 'Курс іспанської · Основи',
-        en: 'Spanish Course · Foundations',
-        pl: 'Kurs hiszpańskiego · Podstawy'
-      },
-      defaultLessonId: 'spanish-basics-1',
-      lessons: {
-        'spanish-basics-1': {
-          id: 'spanish-basics-1',
-          courseId: 'spanish',
-          unitId: 'spanish-basics',
-          unitTitle: {
-            uk: 'Основи спілкування',
-            en: 'Communication basics',
-            pl: 'Podstawy komunikacji'
-          },
-          lessonNum: 1,
-          type: 'dialogue',
-          title: {
-            uk: 'Знайомство',
-            en: 'Introductions',
-            pl: 'Poznawanie się'
-          },
-          subtitle: {
-            uk: '¿Cómo te llamas?',
-            en: '¿Cómo te llamas?',
-            pl: '¿Cómo te llamas?'
-          },
-          description: {
-            uk: 'Карлос та Елена знайомляться на першому уроці іспанської в Мадриді.',
-            en: 'Carlos and Elena introduce themselves in their first Spanish class in Madrid.',
-            pl: 'Carlos i Elena poznają się na pierwszej lekcji hiszpańskiego w Madrycie.'
-          },
-          duration: '15 хв',
-          xpReward: 50,
-          nextLessonId: null,
-          prevLessonId: null,
-
-          sections: [
-            {
-              type: 'dialogue',
-              title: {
-                uk: 'Діалог у класі',
-                en: 'Classroom dialogue',
-                pl: 'Dialog w klasie'
-              },
-              story: {
-                uk: 'Карлос приходить на перший урок іспанської в Мадриді та вітається з Еленою.',
-                en: 'Carlos arrives for his first Spanish lesson in Madrid and greets Elena.',
-                pl: 'Carlos przychodzi na pierwszą lekcję hiszpańskiego w Madrycie i wita się z Eleną.'
-              },
-              image: '../assets/images/communication-basics.jpg',
-              imageAlt: {
-                uk: 'Студенти на уроці іспанської мови',
-                en: 'Students in a Spanish language classroom',
-                pl: 'Uczniowie na lekcji języka hiszpańskiego'
-              },
-              lines: [
-                {
-                  speaker: 'Elena',
-                  avatar: 'E',
-                  it: '¡Hola! ¡Buenos días!',
-                  phonetic: '[о-ла! бу-е-нос ді-ас]',
-                  translations: {
-                    uk: 'Привіт! Доброго ранку!',
-                    en: 'Hello! Good morning!',
-                    pl: 'Cześć! Dzień dobry!'
-                  },
-                  audio: true
-                },
-                {
-                  speaker: 'Carlos',
-                  avatar: 'C',
-                  it: '¡Buenos días! ¿Cómo te llamas?',
-                  phonetic: '[бу-е-нос ді-ас! ко-мо те льа-мас]',
-                  translations: {
-                    uk: 'Доброго ранку! Як тебе звати?',
-                    en: 'Good morning! What is your name?',
-                    pl: 'Dzień dobry! Jak masz na imię?'
-                  },
-                  audio: true
-                },
-                {
-                  speaker: 'Elena',
-                  avatar: 'E',
-                  it: 'Me llamo Elena. ¿Y tú?',
-                  phonetic: '[ме льа-мо Е-ле-на. і ту]',
-                  translations: {
-                    uk: 'Мене звати Елена. А тебе?',
-                    en: 'My name is Elena. And you?',
-                    pl: 'Nazywam się Elena. A ty?'
-                  },
-                  audio: true
-                },
-                {
-                  speaker: 'Carlos',
-                  avatar: 'C',
-                  it: 'Yo soy Carlos. ¡Mucho gusto!',
-                  phonetic: '[йо сой Кар-лос. му-чо гус-то]',
-                  translations: {
-                    uk: 'Я Карлос. Дуже приємно!',
-                    en: "I'm Carlos. Nice to meet you!",
-                    pl: 'Jestem Carlos. Bardzo mi miło!'
-                  },
-                  audio: true
-                }
-              ]
-            },
-            {
-              type: 'vocab',
-              title: {
-                uk: 'Словничок уроку',
-                en: 'Lesson vocabulary',
-                pl: 'Słowniczek lekcji'
-              },
-              items: [
-                {
-                  it: '¡Hola!',
-                  phonetic: '[о-ла]',
-                  translations: { uk: 'Привіт!', en: 'Hello!', pl: 'Cześć!' }
-                },
-                {
-                  it: 'Buenos días',
-                  phonetic: '[бу-е-нос ді-ас]',
-                  translations: { uk: 'Доброго ранку / Доброго дня', en: 'Good morning', pl: 'Dzień dobry' }
-                },
-                {
-                  it: '¿Cómo te llamas?',
-                  phonetic: '[ко-мо те льа-мас]',
-                  translations: { uk: 'Як тебе звати?', en: 'What is your name?', pl: 'Jak masz na imię?' }
-                },
-                {
-                  it: 'Me llamo...',
-                  phonetic: '[ме льа-мо]',
-                  translations: { uk: 'Мене звати...', en: 'My name is...', pl: 'Nazywam się...' }
-                },
-                {
-                  it: '¡Mucho gusto!',
-                  phonetic: '[му-чо гус-то]',
-                  translations: { uk: 'Дуже приємно!', en: 'Nice to meet you!', pl: 'Bardzo mi miło!' }
-                }
-              ]
-            },
-            {
-              type: 'takeaways',
-              title: {
-                uk: 'Підсумки уроку',
-                en: 'Key takeaways',
-                pl: 'Podsumowanie lekcji'
-              },
-              items: [
-                {
-                  bold: '¡Hola! / Buenos días',
-                  text: {
-                    uk: 'Універсальні вітання в іспанській мові.',
-                    en: 'Universal greetings in Spanish.',
-                    pl: 'Uniwersalne powitania w języku hiszpańskim.'
-                  }
-                },
-                {
-                  bold: '¿Cómo te llamas? — Me llamo...',
-                  text: {
-                    uk: 'Основна конструкція знайомства та повідомлення свого імені.',
-                    en: 'Core pattern for introducing yourself and asking someone’s name.',
-                    pl: 'Podstawowa konstrukcja przedstawiania się i pytania o imię.'
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      }
-    }
   };
 
   /**

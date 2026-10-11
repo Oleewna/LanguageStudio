@@ -325,13 +325,15 @@ a, button, input, textarea, select {
   border-bottom-color: var(--it-green);
 }
 
-.nav-dd-btn .chev {
+.nav-dd-btn .chev,
+.nav-dd-btn .ls-chevron {
   font-size: 0.6rem;
   transition: transform 0.2s;
   opacity: 0.75;
 }
 
-.nav-dd:hover .nav-dd-btn .chev {
+.nav-dd:hover .nav-dd-btn .chev,
+.nav-dd:hover .nav-dd-btn .ls-chevron {
   transform: rotate(180deg);
 }
 

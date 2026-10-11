@@ -129,9 +129,9 @@
     
     <!-- Learning paths dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" type="button" data-nav-btn="path">
+      <a href="pages/path.html" class="nav-dd-btn" data-nav-btn="path">
         <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Learning paths <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
+      </a>
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Learning paths</div>
         <div class="nav-submenu">
@@ -156,9 +156,9 @@
 
     <!-- Flashcards dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" type="button" data-nav-btn="flashcards">
+      <a href="pages/flashcards.html" class="nav-dd-btn" data-nav-btn="flashcards">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/><rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/><line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg> Flashcards <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
+      </a>
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Word trainer</div>
         <a href="pages/flashcards.html" class="nav-dd-item" data-nav="flashcards">
@@ -172,9 +172,9 @@
 
     <!-- Exercises dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" type="button" data-nav-btn="exercises">
+      <a href="pages/exercises.html" class="nav-dd-btn" data-nav-btn="exercises">
         <svg class="ls-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#cd212a"/><path d="M6 8l1.3 1.3L9.5 7" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="8" x2="17.2" y2="8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 12.3l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="12.3" x2="17.2" y2="12.3" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 16.6l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><line x1="11" y1="16.6" x2="15" y2="16.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/></svg> Exercises <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
+      </a>
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Practice drills</div>
         <a href="pages/exercises.html" class="nav-dd-item" data-nav="exercises">
@@ -191,9 +191,9 @@
 
     <!-- Dictionary dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" type="button" data-nav-btn="dictionary">
+      <a href="pages/dictionary.html" class="nav-dd-btn" data-nav-btn="dictionary">
         <svg class="ls-icon" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7.3 4.3 4.5 4.3v14c2.8 0 5.5.7 7.5 2.2z" fill="#008c45"/><path d="M12 6.5C14 5 16.7 4.3 19.5 4.3v14c-2.8 0-5.5.7-7.5 2.2z" fill="#d97706"/><line x1="12" y1="6.5" x2="12" y2="20.5" stroke="#172033" stroke-width="1.2"/></svg> Dictionary <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
+      </a>
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Your word bank</div>
         <a href="pages/dictionary.html" class="nav-dd-item" data-nav="dictionary">
@@ -207,13 +207,13 @@
 
     <!-- Grammar dropdown -->
     <div class="nav-dd">
-      <button class="nav-dd-btn" type="button" data-nav-btn="grammar">
+      <a href="pages/grammar.html" class="nav-dd-btn" data-nav-btn="grammar">
         <svg class="ls-icon" viewBox="0 0 24 24"><rect x="5" y="4.5" width="14" height="16.5" rx="2" fill="#fff" stroke="#172033" stroke-width="1.5"/><rect x="9" y="2.7" width="6" height="3" rx="1" fill="#d97706"/><path d="M8 11.3l1.1 1.1 2-2.1" stroke="#008c45" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         <line x1="12.7" y1="11" x2="16.7" y2="11" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
         <line x1="8" y1="14.7" x2="16.7" y2="14.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
         <line x1="8" y1="17.7" x2="14" y2="17.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
       </svg> Grammar guide <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
+      </a>
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Grammar cheat sheets</div>
         <a href="pages/grammar.html?tab=articoli" class="nav-dd-item">
@@ -406,7 +406,6 @@
           <label class="pm-setting-label" for="targetCourse">Target Course (Мова курсу)</label>
           <select class="pm-setting-select" id="targetCourse" data-target-course-select onchange="setTargetCourse(this.value)">
             <option value="italian">🇮🇹 Italian (Італійська)</option>
-            <option value="spanish">🇪🇸 Spanish (Іспанська)</option>
           </select>
         </div>
         <div class="pm-setting">
@@ -415,7 +414,6 @@
             <option value="device">Device language</option>
             <option value="uk">Українська</option>
             <option value="en">English</option>
-            <option value="pl">Polski</option>
           </select>
         </div>
         <div class="pm-setting">
@@ -566,9 +564,6 @@
   function attachEventBindings() {
     highlightActiveLinks(document);
 
-    if (typeof window.bindThemeButtons === 'function') {
-      window.bindThemeButtons();
-    }
     if (typeof window.renderRegisteredIcons === 'function') {
       window.renderRegisteredIcons();
     }
@@ -596,10 +591,15 @@
       overlay.addEventListener('click', closeMobNavProxy);
     }
 
-    // Student widget handler
-    document.querySelectorAll('.student-widget').forEach(widget => {
-      widget.removeEventListener('click', openProfileModalProxy);
-      widget.addEventListener('click', openProfileModalProxy);
+    // Ensure all data-nav-btn buttons/links navigate smoothly
+    document.querySelectorAll('[data-nav-btn]').forEach(el => {
+      if (el.tagName === 'BUTTON') {
+        el.addEventListener('click', () => {
+          const key = el.getAttribute('data-nav-btn');
+          const targetUrl = key === 'home' ? 'index.html' : `pages/${key}.html`;
+          window.location.href = `${PREFIX}${targetUrl}`;
+        });
+      }
     });
 
     window.dispatchEvent(new CustomEvent('componentsLoaded'));
@@ -621,20 +621,12 @@
     }
   }
 
-  function openProfileModalProxy() {
-    if (typeof window.openProfileModal === 'function') window.openProfileModal();
-    else {
-      document.getElementById('profileModal')?.classList.add('open');
-    }
-  }
-
   /**
    * Load and mount all components declared via [data-component]
    */
   async function loadComponents() {
     const placeholders = Array.from(document.querySelectorAll('[data-component]'));
-    if (!placeholders.length) return;
-
+    
     // Instant synchronous mounting for embedded templates to eliminate FOUC
     placeholders.forEach(el => {
       const name = el.getAttribute('data-component');
@@ -642,6 +634,14 @@
         mountComponent(el, EMBEDDED_COMPONENTS[name]);
       }
     });
+
+    // Ensure profile-modal is mounted if not already present
+    if (!document.getElementById('profileModal') && !document.querySelector('[data-component="profile-modal"]') && EMBEDDED_COMPONENTS['profile-modal']) {
+      const modalHolder = document.createElement('div');
+      modalHolder.setAttribute('data-component', 'profile-modal');
+      document.body.appendChild(modalHolder);
+      mountComponent(modalHolder, EMBEDDED_COMPONENTS['profile-modal']);
+    }
 
     attachEventBindings();
 

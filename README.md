@@ -34,8 +34,8 @@ Rather than relying on static HTML files for every lesson, the platform uses a u
   - The engine reads the lesson definition, dynamically renders the curriculum sidebar navigation, compiles the content blocks, and binds interactive handlers.
 
 ### 2. Multi-Language & Reactive Localization (i18n)
-The application supports multiple native interface languages (Ukrainian `uk`, English `en`, Polish `pl`):
-- **Lesson Content Localization**: All text fields in `lessons.js` support multilingual translation objects (`translations: { uk: "...", en: "...", pl: "..." }`). The lesson engine dynamically resolves text using `t(translatable)` based on the active language.
+The application supports Ukrainian (`uk`) and English (`en`) as interface languages for now:
+- **Lesson Content Localization**: Text fields in `lessons.js` use Ukrainian and English translations. The lesson engine dynamically resolves text using `t(translatable)` based on the active language.
 - **Global UI Localization (`js/app.js`)**:
   - Features a centralized bidirectional translation map (`UI_I18N`) and helper `getInterfaceTranslation()`.
   - DOM text nodes are updated via `TreeWalker`, preserving whitespace and UI layout integrity.

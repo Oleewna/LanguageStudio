@@ -271,7 +271,7 @@ const TASK_BANK = [
     lineA: 'А: «Ciao! Come ti chiami?»',
     instruction: { uk: 'Б: оберіть репліку, якою продовжити знайомство', en: 'B: choose the line that continues the introduction' },
     options: [
-      { text: 'Mi chiamo Sara. E tu?', correct: true },
+      { text: 'Mi chiamo Sofia. E tu?', correct: true },
       { text: 'Grazie mille per l\'aiuto!', correct: false },
       { text: 'Un caffè per favore.', correct: false }
     ],
