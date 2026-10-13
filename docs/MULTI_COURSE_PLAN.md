@@ -6,18 +6,17 @@ Goal: turn LanguageStudio from an Italian-only prototype into an **engine + cour
 
 ## Progress
 
-- [ ] Step 1: Schemas and folder layout
-- [ ] Step 2: Course state and namespaced storage
-- [ ] Step 3: Shared layout (nav, footer, profile modal)
-- [ ] Step 4: Vocabulary to JSON
-- [ ] Step 5: Grammar to JSON blocks
-- [ ] Step 6: Exercises to JSON
-- [ ] Step 7: Games to JSON
-- [ ] Step 8: Units page and home page from course data
-- [ ] Step 9: Generic lesson engine
-- [ ] Step 10: Course switcher and per-course settings
-- [ ] Step 11: Second course (Spanish) to test the schema
-- [ ] Step 12: Validation script and authoring guide
+- [x] Step 1: Schemas and folder layout
+- [x] Step 2: Course state and namespaced storage
+- [x] Step 3: Shared layout (nav, footer, profile modal)
+- [x] Step 4: Vocabulary to JSON
+- [x] Step 5: Grammar to JSON blocks
+- [x] Step 6: Exercises to JSON
+- [ ] Step 7: Units page and home page from course data
+- [ ] Step 8: Generic lesson engine
+- [ ] Step 9: Course switcher and per-course settings
+- [ ] Step 10: Second course (Spanish) to test the schema
+- [ ] Step 11: Validation script and authoring guide
 
 ---
 
@@ -133,9 +132,9 @@ Allowed block types: `table`, `note`, `examples`, `rules`. Text supports a tiny 
 **`games.json`**: `{ "games": [ { "id": "greeting-traffic-light", "type": "situation-choice", "title": {...}, "rounds": [ { "icon": "sun", "situation": {...}, "options": [...], "correct": 0 } ] } ] }`
 
 **Done when:**
-- [ ] All files and folders exist.
-- [ ] `docs/schemas.md` documents every shape above.
-- [ ] No page changes yet; the site still works.
+- [x] All files and folders exist.
+- [x] `docs/schemas.md` documents every shape above.
+- [x] No page changes yet; the site still works.
 
 ---
 
@@ -158,9 +157,9 @@ Allowed block types: `table`, `note`, `examples`, `rules`. Text supports a tiny 
 5. Replace direct `localStorage` use for per-course data in `app.js`, `dictionary.js`, `flashcards.js`, `exercises.js`, `communication-basics-lesson-1.js` with the helpers (`DICT_KEY` usage included).
 
 **Done when:**
-- [ ] Existing Italian progress, custom words, and XP still appear after the change.
-- [ ] `?course=xx` with an unknown id falls back to the default without errors.
-- [ ] No page reads/writes per-course data through a raw key anymore.
+- [x] Existing Italian progress, custom words, and XP still appear after the change.
+- [x] `?course=xx` with an unknown id falls back to the default without errors.
+- [x] No page reads/writes per-course data through a raw key anymore.
 
 ---
 
@@ -181,9 +180,9 @@ Allowed block types: `table`, `note`, `examples`, `rules`. Text supports a tiny 
 7. Fix the mixed Ukrainian/English nav labels while here (some pages are `lang="en"` with Ukrainian labels). Interface text still goes through the existing `UI_TRANSLATIONS` mechanism.
 
 **Done when:**
-- [ ] Every page has exactly one nav/footer source (`layout.js`).
-- [ ] Changing a nav label requires editing one file.
-- [ ] Mobile drawer, dropdowns, theme toggle, profile modal, and `tests.html` navigation all work on every page.
+- [x] Every page has exactly one nav/footer source (`layout.js`).
+- [x] Changing a nav label requires editing one file.
+- [x] Mobile drawer, dropdowns, theme toggle, profile modal, and `tests.html` navigation all work on every page.
 
 ---
 
@@ -240,23 +239,7 @@ Allowed block types: `table`, `note`, `examples`, `rules`. Text supports a tiny 
 
 ---
 
-## Step 7: Games to JSON
-
-**Goal:** games are data-driven and opt-in per course.
-
-**Do:**
-1. Move `QUESTIONS` to `courses/it/games.json` as the `greeting-traffic-light` game (`type: "situation-choice"`), with `situation {uk,en}` replacing `sit`/`sitEn`.
-2. `games.js` becomes a generic runner for `situation-choice` games, picking the game by `?game=<id>` (default: first enabled game).
-3. The "Coming soon" cards on `games.html` come from the data (`status: "soon"`), not HTML.
-4. Fix: `addXP(50)` currently fires every time the end screen is rendered; award it once per completed run.
-
-**Done when:**
-- [ ] The traffic-light game plays exactly as before.
-- [ ] A course with `"games": []` hides the Games nav item and page link cleanly.
-
----
-
-## Step 8: Units page and home page from course data
+## Step 7: Units page and home page from course data
 
 **Goal:** the roadmap and unit list come from `course.json`.
 

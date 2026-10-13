@@ -1,0 +1,27 @@
+{
+  "games": [
+    {
+      "id": "greeting-traffic-light",
+      "type": "situation-choice",
+      "title": {
+        "uk": "Світлофор вітання",
+        "en": "Greeting traffic light"
+      },
+      "rounds": [
+        {
+          "icon": "sun",
+          "situation": {
+            "uk": "Ви зустрічаєте вчителя вранці.",
+            "en": "You meet a teacher in the morning."
+          },
+          "options": [
+            { "text": { "uk": "Buongiorno!", "en": "Good morning!" }, "correct": true },
+            { "text": { "uk": "Buonasera!", "en": "Good evening!" }, "correct": false },
+            { "text": { "uk": "Arrivederci!", "en": "Goodbye!" }, "correct": false }
+          ],
+          "correct": 0
+        }
+      ]
+    }
+  ]
+}

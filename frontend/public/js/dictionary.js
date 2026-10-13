@@ -1,22 +1,42 @@
-const DICT_BASE = [
-  { id: 'b1', word: 'ciao', phon: '[ча-о]', trans: 'привіт / бувай', custom: false, lesson: 'Урок 1.1', category: 'привітання та знайомство', type: 'greeting' },
-  { id: 'b2', word: 'come stai?', phon: '[ко-ме стай]', trans: 'як справи?', custom: false, lesson: 'Урок 1.1', category: 'привітання та знайомство', type: 'phrase' },
-  { id: 'b3', word: 'bene', phon: '[бе-не]', trans: 'добре', custom: false, lesson: 'Урок 1.1', category: 'привітання та знайомство', type: 'adjective' },
-  { id: 'b4', word: 'grazie', phon: '[гра-цьє]', trans: 'дякую', custom: false, lesson: 'Урок 1.1', category: 'ввічливість', type: 'phrase' },
-  { id: 'b5', word: 'prego', phon: '[пре-го]', trans: 'будь ласка / нема за що', custom: false, lesson: 'Урок 1.1', category: 'ввічливість', type: 'phrase' },
-  { id: 'b6', word: 'sì', phon: '[сі]', trans: 'так', custom: false, lesson: 'Урок 1.1', category: 'короткі відповіді', type: 'other' },
-  { id: 'b7', word: 'no', phon: '[но]', trans: 'ні', custom: false, lesson: 'Урок 1.1', category: 'короткі відповіді', type: 'other' },
-  { id: 'b8', word: 'anch\'io', phon: '[ан-кі-о]', trans: 'я теж', custom: false, lesson: 'Урок 1.1', category: 'короткі відповіді', type: 'phrase' },
-  { id: 'b9', word: 'nuovo/a', phon: '[ну-о-во/ва]', trans: 'новий / нова', custom: false, lesson: 'Урок 1.1', category: 'перший день', type: 'adjective' },
-  { id: 'b10', word: 'primo giorno', phon: '[прі-мо джор-но]', trans: 'перший день', custom: false, lesson: 'Урок 1.1', category: 'перший день', type: 'noun' },
-  { id: 'b11', word: 'benvenuto/a', phon: '[бен-ве-ну-то/та]', trans: 'ласкаво просимо', custom: false, lesson: 'Урок 1.1', category: 'привітання та знайомство', type: 'greeting' },
-  { id: 'b12', word: 'palazzo', phon: '[па-лац-цо]', trans: 'будинок (багатоповерховий)', custom: false, lesson: 'Урок 1.1', category: 'житло й будинок', type: 'noun' },
-  { id: 'b13', word: 'grazie mille', phon: '[гра-цьє міл-ле]', trans: 'дуже дякую', custom: false, lesson: 'Урок 1.1', category: 'ввічливість', type: 'phrase' }
-];
+const DICT_KEY = (typeof window.courseKey === 'function') ? window.courseKey('custom_dict') : 'ls_custom_dict';
+const LEARNED_KEY = (typeof window.courseKey === 'function') ? window.courseKey('dict_learned') : 'ls_dict_learned';
 
-const LEARNED_KEY = 'ls_dict_learned';
+function getLocalizedText(value, fallback = '') {
+  if (typeof value === 'string') return value;
+  if (value && typeof value === 'object') {
+    const lang = (typeof getSourceLanguage === 'function') ? getSourceLanguage() : 'uk';
+    return value[lang] || value.uk || value.en || fallback;
+  }
+  return fallback;
+}
+
+function normalizeWordEntry(word) {
+  const item = { ...word };
+  item.word = item.word || '';
+  item.id = item.id || `${item.word}-${Math.random().toString(36).slice(2, 8)}`;
+  item.lesson = item.lesson || '1.1';
+  item.category = item.category || item.topic || 'general';
+  item.type = item.type || 'other';
+  item.trans = item.trans || '';
+  item.phon = getLocalizedText(item.phon, item.phon || '');
+  item.custom = Boolean(item.custom);
+  return item;
+}
+
+async function getCourseDictionaryWords() {
+  if (typeof window.loadCourseData !== 'function') return [];
+  try {
+    const data = await window.loadCourseData('vocab');
+    return Array.isArray(data) ? data.map(normalizeWordEntry) : [];
+  } catch (error) {
+    return [];
+  }
+}
 
 function getLearnedIds() {
+  if (typeof window.getJSON === 'function') {
+    return Array.isArray(window.getJSON(LEARNED_KEY, [])) ? window.getJSON(LEARNED_KEY, []) : [];
+  }
   try { return JSON.parse(localStorage.getItem(LEARNED_KEY) || '[]'); } catch { return []; }
 }
 
@@ -29,7 +49,11 @@ function toggleLearned(id, evt) {
     learned.push(id);
     addXP(5);
   }
-  try { localStorage.setItem(LEARNED_KEY, JSON.stringify(learned)); } catch {}
+  if (typeof window.setJSON === 'function') {
+    window.setJSON(LEARNED_KEY, learned);
+  } else {
+    try { localStorage.setItem(LEARNED_KEY, JSON.stringify(learned)); } catch {}
+  }
   renderDictionary();
 }
 
@@ -37,6 +61,8 @@ function populateFilters(all) {
   const lessonSel = document.getElementById('filterLesson');
   const catSel = document.getElementById('filterCategory');
   const typeSel = document.getElementById('filterType');
+  if (!lessonSel || !catSel || !typeSel) return;
+
   const prevLesson = lessonSel.value, prevCat = catSel.value, prevType = typeSel.value;
 
   const lessons = [...new Set(all.map(w => w.lesson).filter(Boolean))].sort();
@@ -53,18 +79,28 @@ function populateFilters(all) {
 }
 
 function getCustomWords() {
+  if (typeof window.getJSON === 'function') {
+    return Array.isArray(window.getJSON(DICT_KEY, [])) ? window.getJSON(DICT_KEY, []) : [];
+  }
   try { return JSON.parse(localStorage.getItem(DICT_KEY) || '[]'); } catch { return []; }
 }
 
 function saveCustomWords(words) {
+  if (typeof window.setJSON === 'function') {
+    window.setJSON(DICT_KEY, words);
+    return;
+  }
   try { localStorage.setItem(DICT_KEY, JSON.stringify(words)); } catch {}
 }
 
-function renderDictionary() {
+async function renderDictionary() {
   const grid = document.getElementById('dictGrid');
+  if (!grid) return;
+
   const query = (document.getElementById('dictSearch')?.value || '').toLowerCase().trim();
-  const custom = getCustomWords();
-  const all = [...DICT_BASE, ...custom];
+  const baseWords = await getCourseDictionaryWords();
+  const custom = getCustomWords().map(item => ({ ...item, custom: true, id: item.id || `custom-${Date.now()}-${Math.random().toString(16).slice(2)}` }));
+  const all = [...baseWords, ...custom].map(normalizeWordEntry);
 
   populateFilters(all);
   const lessonFilter = document.getElementById('filterLesson').value;
@@ -73,7 +109,8 @@ function renderDictionary() {
   const learned = getLearnedIds();
 
   const filtered = all.filter(w => {
-    const matchesQuery = !query || w.word.toLowerCase().includes(query) || w.trans.toLowerCase().includes(query);
+    const text = [w.word, getLocalizedText(w.trans, '')].join(' ').toLowerCase();
+    const matchesQuery = !query || text.includes(query);
     const matchesLesson = !lessonFilter || w.lesson === lessonFilter;
     const matchesCat = !catFilter || w.category === catFilter;
     const matchesType = !typeFilter || w.type === typeFilter;
@@ -90,7 +127,7 @@ function renderDictionary() {
 
   grid.innerHTML = filtered.map(w => {
     const isLearned = learned.includes(w.id);
-    const translation = w.custom ? w.trans : getSourceTranslation(`flashcards.${w.word}`, w.trans);
+    const translation = getLocalizedText(w.trans, w.trans || '');
     return `
     <div class="dict-card ${isLearned ? 'learned' : ''}" onclick="toggleLearned('${w.id}')" title="Натисніть, щоб позначити як вивчене">
       <div>

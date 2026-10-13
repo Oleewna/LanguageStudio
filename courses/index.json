@@ -1,0 +1,12 @@
+{
+  "default": "it",
+  "courses": [
+    {
+      "id": "it",
+      "name": { "uk": "Італійська", "en": "Italian" },
+      "native": "Italiano",
+      "flag": "🇮🇹",
+      "status": "active"
+    }
+  ]
+}

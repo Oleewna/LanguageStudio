@@ -3,9 +3,9 @@
  */
 
 const XP_KEY = 'ls_xp';
-const DICT_KEY = 'ls_custom_dict';
-const SOURCE_LANGUAGE_KEY = 'ls_italian_source_language';
-const TARGET_COURSE_KEY = 'ls_target_course';
+const DICT_KEY = (typeof window.courseKey === 'function') ? window.courseKey('custom_dict') : 'ls_custom_dict';
+const SOURCE_LANGUAGE_KEY = 'ls_source_language';
+const TARGET_COURSE_KEY = 'ls_course';
 const ORIGINAL_DOCUMENT_TITLE = document.title;
 const SOURCE_LANGUAGES = [
   { code: 'device', uk: 'Мова пристрою', en: 'Device language' },
@@ -699,20 +699,7 @@ const SOURCE_TRANSLATIONS = {
   'exercises.listen.no': { uk: 'В) Ні', en: 'C) No' },
   'exercises.listen.new': { uk: 'Б) Новий', en: 'B) New' },
   'exercises.listen.building': { uk: 'В) Будинок', en: 'C) Building' },
-  'exercises.dialogue.instruction': { uk: '👤 Б: оберіть репліку, якою продовжити діалог', en: '👤 B: choose the line that continues the conversation' },
-  'flashcards.ciao': { uk: 'привіт / бувай', en: 'hello / goodbye' },
-  'flashcards.come stai?': { uk: 'як справи?', en: 'how are you?' },
-  'flashcards.bene': { uk: 'добре', en: 'well / good' },
-  'flashcards.grazie': { uk: 'дякую', en: 'thank you' },
-  'flashcards.prego': { uk: 'будь ласка / нема за що', en: 'please / you are welcome' },
-  'flashcards.sì': { uk: 'так', en: 'yes' },
-  'flashcards.no': { uk: 'ні', en: 'no' },
-  "flashcards.anch'io": { uk: 'я теж', en: 'me too' },
-  'flashcards.nuovo/a': { uk: 'новий / нова', en: 'new (masculine / feminine)' },
-  'flashcards.primo giorno': { uk: 'перший день', en: 'first day' },
-  'flashcards.benvenuto/a': { uk: 'ласкаво просимо', en: 'welcome' },
-  'flashcards.palazzo': { uk: 'будинок (багатоповерховий)', en: 'apartment building' },
-  'flashcards.grazie mille': { uk: 'дуже дякую', en: 'thank you very much' }
+  'exercises.dialogue.instruction': { uk: '👤 Б: оберіть репліку, якою продовжити діалог', en: '👤 B: choose the line that continues the conversation' }
 };
 
 function getSourceLanguage() {
@@ -724,7 +711,7 @@ function getSourceLanguage() {
 }
 
 function getSelectedSourceLanguage() {
-  const savedLanguage = localStorage.getItem(SOURCE_LANGUAGE_KEY);
+  const savedLanguage = localStorage.getItem(SOURCE_LANGUAGE_KEY) || localStorage.getItem('ls_italian_source_language');
   return SOURCE_LANGUAGES.some(language => language.code === savedLanguage) ? savedLanguage : 'device';
 }
 
@@ -758,18 +745,24 @@ function setSourceLanguage(language) {
 function getTargetCourse() {
   const params = new URLSearchParams(window.location.search);
   const paramCourse = params.get('course');
-  const savedCourse = localStorage.getItem(TARGET_COURSE_KEY);
-  const requestedCourse = paramCourse || savedCourse || 'italian';
-  return window.LS_COURSES?.[requestedCourse] ? requestedCourse : 'italian';
+  const savedCourse = localStorage.getItem(TARGET_COURSE_KEY) || localStorage.getItem('ls_target_course') || localStorage.getItem('ls_course');
+  const requestedCourse = paramCourse || savedCourse || 'it';
+  return (window.LS_COURSES && window.LS_COURSES[requestedCourse]) ? requestedCourse : 'it';
 }
 
 function setTargetCourse(courseId) {
   if (!courseId) return;
   localStorage.setItem(TARGET_COURSE_KEY, courseId);
+  localStorage.setItem('ls_course', courseId);
+  localStorage.setItem('ls_target_course', courseId);
   applyTargetCourseSettings();
   window.dispatchEvent(new CustomEvent('courseChanged', { detail: { courseId } }));
 
-  // If currently on lesson.html, reload with new course
+  if (typeof window.setCourseId === 'function') {
+    window.setCourseId(courseId);
+    return;
+  }
+
   if (window.location.pathname.includes('lesson.html')) {
     const course = window.LS_COURSES && window.LS_COURSES[courseId];
     const defaultId = course?.defaultLessonId || Object.keys(course?.lessons || {})[0];

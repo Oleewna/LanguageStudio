@@ -1,0 +1,105 @@
+{
+  "id": "it",
+  "target": {
+    "code": "it",
+    "name": { "uk": "Італійська", "en": "Italian" },
+    "tts": "it-IT",
+    "script": "latin",
+    "rtl": false
+  },
+  "tagline": {
+    "uk": "Італійська для реальних ситуацій",
+    "en": "Italian for real-life situations"
+  },
+  "features": {
+    "flashcards": true,
+    "dictionary": true,
+    "exercises": true,
+    "grammar": true,
+    "tests": true,
+    "games": ["greeting-traffic-light"],
+    "exerciseFormats": ["mcq", "blank", "match", "reorder", "listen", "dialogue", "dict"]
+  },
+  "exerciseCategories": [
+    {
+      "id": "articles",
+      "group": "grammar",
+      "icon": "pin",
+      "name": { "uk": "Іменники & Артиклі", "en": "Nouns & Articles" }
+    },
+    {
+      "id": "verbs",
+      "group": "grammar",
+      "icon": "verb",
+      "name": { "uk": "Дієслова", "en": "Verbs" }
+    },
+    {
+      "id": "pronouns",
+      "group": "grammar",
+      "icon": "chat",
+      "name": { "uk": "Займенники & Прийменники", "en": "Pronouns & Prepositions" }
+    },
+    {
+      "id": "sentence",
+      "group": "grammar",
+      "icon": "type",
+      "name": { "uk": "Структура речення", "en": "Sentence Structure" }
+    },
+    {
+      "id": "greetings",
+      "group": "situational",
+      "icon": "globe",
+      "name": { "uk": "Знайомство & Сусіди", "en": "Greetings & Meeting Neighbors" }
+    },
+    {
+      "id": "cafe",
+      "group": "situational",
+      "icon": "coffee",
+      "name": { "uk": "У кафе та барі", "en": "At the Cafe & Bar" }
+    },
+    {
+      "id": "directions",
+      "group": "situational",
+      "icon": "compass",
+      "name": { "uk": "Орієнтування в місті", "en": "Asking Directions" }
+    },
+    {
+      "id": "shopping",
+      "group": "situational",
+      "icon": "shopping",
+      "name": { "uk": "Покупки та ціни", "en": "Shopping & Prices" }
+    }
+  ],
+  "paths": [
+    {
+      "id": "foundations",
+      "icon": "👋",
+      "locked": false,
+      "defaultOpen": true,
+      "title": { "uk": "Основи спілкування", "en": "Communication basics" },
+      "subtitle": {
+        "uk": "Знайомство, привітання та базові фрази",
+        "en": "Introductions, greetings, and everyday phrases"
+      },
+      "units": [
+        {
+          "id": "foundations-1",
+          "title": { "uk": "Перші кроки", "en": "First steps" },
+          "lessons": [
+            {
+              "id": "1.1",
+              "num": { "uk": "Урок 1", "en": "Lesson 1" },
+              "title": { "uk": "Привітання", "en": "Greetings" },
+              "description": {
+                "uk": "Навчіться вітатися й представлятися",
+                "en": "Learn how to greet people and introduce yourself"
+              },
+              "time": "~15 min",
+              "status": "available"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

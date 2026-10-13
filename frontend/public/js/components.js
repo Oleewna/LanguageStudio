@@ -635,6 +635,29 @@
       }
     });
 
+    // Step 3 compatibility: support the standardized app-nav/app-footer/app-profile placeholders
+    const appNav = document.getElementById('app-nav');
+    const appFooter = document.getElementById('app-footer');
+    const appProfile = document.getElementById('app-profile');
+
+    if (appNav && !appNav.querySelector('[data-component="navbar"]')) {
+      appNav.innerHTML = '<div data-component="navbar"></div>';
+      const navHolder = appNav.querySelector('[data-component="navbar"]');
+      if (navHolder && EMBEDDED_COMPONENTS.navbar) mountComponent(navHolder, EMBEDDED_COMPONENTS.navbar);
+    }
+
+    if (appFooter && !appFooter.querySelector('[data-component="footer"]')) {
+      appFooter.innerHTML = '<div data-component="footer"></div>';
+      const footerHolder = appFooter.querySelector('[data-component="footer"]');
+      if (footerHolder && EMBEDDED_COMPONENTS.footer) mountComponent(footerHolder, EMBEDDED_COMPONENTS.footer);
+    }
+
+    if (appProfile && !appProfile.querySelector('[data-component="profile-modal"]')) {
+      appProfile.innerHTML = '<div data-component="profile-modal"></div>';
+      const modalHolder = appProfile.querySelector('[data-component="profile-modal"]');
+      if (modalHolder && EMBEDDED_COMPONENTS['profile-modal']) mountComponent(modalHolder, EMBEDDED_COMPONENTS['profile-modal']);
+    }
+
     // Ensure profile-modal is mounted if not already present
     if (!document.getElementById('profileModal') && !document.querySelector('[data-component="profile-modal"]') && EMBEDDED_COMPONENTS['profile-modal']) {
       const modalHolder = document.createElement('div');

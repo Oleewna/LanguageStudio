@@ -1,49 +1,88 @@
-const FC_DATA = [
-  { word: 'ciao', phon: '[ча-о]', trans: 'привіт / бувай', ex: 'Ciao! Come stai?', track: 'foundations', topic: 'greetings' },
-  { word: 'come stai?', phon: '[ко-ме стай]', trans: 'як справи?', ex: 'Ciao Marco, come stai?', track: 'foundations', topic: 'greetings' },
-  { word: 'bene', phon: '[бе-не]', trans: 'добре', ex: 'Bene, grazie! E tu?', track: 'foundations', topic: 'basic' },
-  { word: 'grazie', phon: '[гра-цьє]', trans: 'дякую', ex: 'Grazie mille!', track: 'foundations', topic: 'basic' },
-  { word: 'prego', phon: '[пре-го]', trans: 'будь ласка / нема за що', ex: '— Grazie! — Prego!', track: 'foundations', topic: 'basic' },
-  { word: 'sì', phon: '[сі]', trans: 'так', ex: 'Sì, sono nuova.', track: 'foundations', topic: 'basic' },
-  { word: 'no', phon: '[но]', trans: 'ні', ex: 'No, grazie.', track: 'foundations', topic: 'basic' },
-  { word: 'anch\'io', phon: '[ан-кі-о]', trans: 'я теж', ex: 'Anch\'io sto bene, grazie!', track: 'foundations', topic: 'basic' },
-  { word: 'nuovo/a', phon: '[ну-о-во/ва]', trans: 'новий / нова', ex: 'Sei nuova qui?', track: 'foundations', topic: 'basic' },
-  { word: 'primo giorno', phon: '[прі-мо джор-но]', trans: 'перший день', ex: 'È il mio primo giorno.', track: 'foundations', topic: 'basic' },
-  { word: 'benvenuto/a', phon: '[бен-ве-ну-то/та]', trans: 'ласкаво просимо', ex: 'Benvenuta nel palazzo!', track: 'foundations', topic: 'greetings' },
-  { word: 'palazzo', phon: '[па-лац-цо]', trans: 'будинок (багатоповерховий)', ex: 'Abito in questo palazzo.', track: 'foundations', topic: 'basic' },
-  { word: 'grazie mille', phon: '[гра-цьє міл-ле]', trans: 'дуже дякую', ex: 'Grazie mille per l\'aiuto!', track: 'foundations', topic: 'basic' }
-];
-
-const TRACK_LABELS = {
-  foundations: 'Основи',
-  tourist: 'Турист',
-  business: 'Бізнес'
-};
-const TRACK_ICONS = { foundations: 'handshake', tourist: 'suitcase', business: 'briefcase' };
+const DICT_KEY = (typeof window.courseKey === 'function') ? window.courseKey('custom_dict') : 'ls_custom_dict';
 
 let selectedTopic = 'all';
-let cards = [...FC_DATA];
+let cards = [];
 let currentIndex = 0;
 let isFlipped = false;
 
+function getLocalizedText(value, fallback = '') {
+  if (typeof value === 'string') return value;
+  if (value && typeof value === 'object') {
+    const lang = (typeof getSourceLanguage === 'function') ? getSourceLanguage() : 'uk';
+    return value[lang] || value.uk || value.en || fallback;
+  }
+  return fallback;
+}
+
+function normalizeFlashcard(item) {
+  const track = item.path || item.track || 'general';
+  const topic = item.topic || 'general';
+  const exampleText = item.example && typeof item.example === 'object' ? item.example.text : item.ex || item.example || '';
+  return {
+    ...item,
+    track,
+    topic,
+    word: item.word || '',
+    phon: getLocalizedText(item.phon, item.phon || ''),
+    trans: getLocalizedText(item.trans, item.trans || ''),
+    ex: exampleText,
+    custom: Boolean(item.custom)
+  };
+}
+
 function getCustomWords() {
+  if (typeof window.getJSON === 'function') {
+    return Array.isArray(window.getJSON(DICT_KEY, [])) ? window.getJSON(DICT_KEY, []) : [];
+  }
   try { return JSON.parse(localStorage.getItem(DICT_KEY) || '[]'); } catch { return []; }
 }
 
-function applyFilters() {
-  const t = document.getElementById('filterTrack').value;
-  // Custom words follow the person across every track, tagged as 'foundations' by default
-  // so they still show up when no dedicated track content exists yet.
-  const custom = getCustomWords().map(w => ({ ...w, track: 'foundations', topic: 'custom' }));
-  let list = [...FC_DATA, ...custom];
+function buildTopicChips(allWords) {
+  const chipContainer = document.querySelector('.topic-chips');
+  if (!chipContainer) return;
 
-  if (t !== 'all') {
-    list = list.filter(item => item.track === t || item.topic === 'custom');
+  const topics = ['all', ...new Set(allWords.map(item => item.topic).filter(Boolean))];
+  chipContainer.innerHTML = topics.map(topic => {
+    const label = topic === 'all' ? 'Усі' : topic.replace(/[-_]/g, ' ');
+    return `<button type="button" class="topic-chip ${selectedTopic === topic ? 'active' : ''}" data-topic="${topic}" onclick="setTopicChip('${topic}', this)">${label}</button>`;
+  }).join('');
+
+  const activeBtn = chipContainer.querySelector(`[data-topic="${selectedTopic}"]`);
+  if (activeBtn) {
+    chipContainer.querySelectorAll('.topic-chip').forEach(btn => btn.classList.toggle('active', btn === activeBtn));
+  }
+}
+
+function buildTrackOptions(allWords) {
+  const select = document.getElementById('filterTrack');
+  if (!select) return;
+
+  const tracks = ['all', ...new Set(allWords.map(item => item.path || item.track || 'general').filter(Boolean))];
+  const previous = select.value || 'all';
+  select.innerHTML = tracks.map(track => `<option value="${track}">${track === 'all' ? 'Усі' : track}</option>`).join('');
+  if (tracks.includes(previous)) select.value = previous;
+  else select.value = 'all';
+}
+
+async function applyFilters() {
+  const allCoursesWords = (typeof window.loadCourseData === 'function')
+    ? await window.loadCourseData('vocab').catch(() => [])
+    : [];
+  const baseWords = Array.isArray(allCoursesWords) ? allCoursesWords.map(normalizeFlashcard) : [];
+  const custom = getCustomWords().map(w => normalizeFlashcard({ ...w, path: 'custom', track: 'custom', topic: w.topic || 'custom' }));
+  let list = [...baseWords, ...custom];
+
+  const trackSelect = document.getElementById('filterTrack');
+  const activeTrack = trackSelect ? trackSelect.value : 'all';
+  if (activeTrack !== 'all') {
+    list = list.filter(item => item.track === activeTrack || item.topic === 'custom');
   }
   if (selectedTopic !== 'all') {
     list = list.filter(item => item.topic === selectedTopic);
   }
 
+  buildTrackOptions([...baseWords, ...custom]);
+  buildTopicChips([...baseWords, ...custom]);
   cards = list;
   currentIndex = 0;
   updateCardDisplay();
@@ -51,41 +90,52 @@ function applyFilters() {
 
 function setTopicChip(topic, btn) {
   document.querySelectorAll('.topic-chip').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
   selectedTopic = topic;
   applyFilters();
 }
 
 function updateCardDisplay() {
   const emptyNote = document.getElementById('fcEmptyNote');
+  const wordEl = document.getElementById('fcWord');
+  const phonEl = document.getElementById('fcPhon');
+  const transEl = document.getElementById('fcTrans');
+  const exampleEl = document.getElementById('fcExample');
+  const counterEl = document.getElementById('fcCounter');
+  const unitTagEl = document.getElementById('fcUnitTag');
+  const topicTagEl = document.getElementById('fcTopicTag');
+
   if (!cards.length) {
-    document.getElementById('fcWord').textContent = 'Слів не знайдено';
-    document.getElementById('fcPhon').textContent = '';
-    document.getElementById('fcTrans').textContent = 'Спробуйте змінити фільтри вище';
-    document.getElementById('fcExample').textContent = '';
-    document.getElementById('fcCounter').textContent = '0 / 0';
-    document.getElementById('fcUnitTag').textContent = '—';
-    document.getElementById('fcTopicTag').textContent = '—';
+    if (wordEl) wordEl.textContent = 'Слів не знайдено';
+    if (phonEl) phonEl.textContent = '';
+    if (transEl) transEl.textContent = 'Спробуйте змінити фільтри вище';
+    if (exampleEl) exampleEl.textContent = '';
+    if (counterEl) counterEl.textContent = '0 / 0';
+    if (unitTagEl) unitTagEl.textContent = '—';
+    if (topicTagEl) topicTagEl.textContent = '—';
     applyInterfaceLanguage();
-    emptyNote.style.display = 'block';
+    if (emptyNote) emptyNote.style.display = 'block';
     return;
   }
-  emptyNote.style.display = 'none';
+  if (emptyNote) emptyNote.style.display = 'none';
+
   const item = cards[currentIndex];
   const inner = document.getElementById('fcInner');
   if (isFlipped) {
     isFlipped = false;
-    inner.style.transform = 'rotateY(0deg)';
+    if (inner) inner.style.transform = 'rotateY(0deg)';
   }
-  document.getElementById('fcUnitTag').innerHTML = `${getIconSvg(TRACK_ICONS[item.track] || 'handshake')}<span>${TRACK_LABELS[item.track] || 'Основи'}</span>`;
-  const topicIcon = item.topic === 'greetings' ? 'handshake' : item.topic === 'custom' ? 'star' : 'type';
-  const topicLabel = item.topic === 'greetings' ? 'Привітання' : item.topic === 'custom' ? 'Власне' : 'Базове';
-  document.getElementById('fcTopicTag').innerHTML = `${getIconSvg(topicIcon)}<span>${topicLabel}</span>`;
-  document.getElementById('fcWord').textContent = item.word;
-  document.getElementById('fcPhon').textContent = item.phon || '';
-  document.getElementById('fcTrans').textContent = getSourceTranslation(`flashcards.${item.word}`, item.trans);
-  document.getElementById('fcExample').textContent = item.ex ? `«${item.ex}»` : '';
-  document.getElementById('fcCounter').textContent = `${currentIndex + 1} / ${cards.length}`;
+
+  const trackLabel = item.track === 'custom' ? 'Власне' : (item.track || 'general').replace(/[-_]/g, ' ');
+  const topicLabel = item.topic === 'custom' ? 'Власне' : (item.topic || 'general').replace(/[-_]/g, ' ');
+
+  if (unitTagEl) unitTagEl.innerHTML = `${getIconSvg('handshake')}<span>${trackLabel}</span>`;
+  if (topicTagEl) topicTagEl.innerHTML = `${getIconSvg('type')}<span>${topicLabel}</span>`;
+  if (wordEl) wordEl.textContent = item.word;
+  if (phonEl) phonEl.textContent = item.phon || '';
+  if (transEl) transEl.textContent = item.trans || '';
+  if (exampleEl) exampleEl.textContent = item.ex ? `«${item.ex}»` : '';
+  if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${cards.length}`;
   applyInterfaceLanguage();
 }
 

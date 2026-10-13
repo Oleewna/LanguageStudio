@@ -9,7 +9,7 @@ const pagesRoutes = require('./routes/pageroutes'); // Route handler for GET pag
 const authRoutes = require('./routes/auth'); // Route handler for auth POST requests
 
 const app = express();
-const port = 3000;
+const port = 3005;
 
 // Body parser configuration
 app.use(bodyParser.json());

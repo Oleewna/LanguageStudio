@@ -1,0 +1,177 @@
+{
+  "topics": [
+    {
+      "id": "articoli",
+      "icon": "newspaper",
+      "title": { "uk": "Артиклі", "en": "Articles" },
+      "blocks": [
+        {
+          "type": "table",
+          "head": [
+            { "uk": "Рід / Число", "en": "Gender / Number" },
+            "il",
+            "lo",
+            "l'"
+          ],
+          "rows": [
+            [
+              { "uk": "Чоловічий (однина)", "en": "Masculine (singular)" },
+              "**il** ragazzo",
+              "**lo** studente",
+              "**l'**amico"
+            ],
+            [
+              { "uk": "Чоловічий (множина)", "en": "Masculine (plural)" },
+              "**i** ragazzi",
+              "**gli** studenti",
+              "**gli** amici"
+            ],
+            [
+              { "uk": "Жіночий (однина)", "en": "Feminine (singular)" },
+              "**la** pizza",
+              "**la** ragazza",
+              "**l'**amica"
+            ],
+            [
+              { "uk": "Жіночий (множина)", "en": "Feminine (plural)" },
+              "**le** pizze",
+              "**le** ragazze",
+              "**le** amiche"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "icon": "lightbulb",
+          "title": { "uk": "Зверніть увагу:", "en": "Note:" },
+          "text": {
+            "uk": "Перед голосними в однині артиклі **lo** та **la** скорочуються до **l'** (l'albergo, l'ora).",
+            "en": "Before a vowel, singular **lo** and **la** contract to **l'** (l'albergo, l'ora)."
+          }
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "title": { "uk": "Приклад", "en": "Example" },
+              "text": {
+                "uk": "**Il** libro è interessante.",
+                "en": "**Il** libro è interessante."
+              }
+            },
+            {
+              "title": { "uk": "Приклад", "en": "Example" },
+              "text": {
+                "uk": "**La** casa è grande.",
+                "en": "**La** casa è grande."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "verbi",
+      "icon": "verb",
+      "title": { "uk": "Essere & Avere", "en": "Essere & Avere" },
+      "blocks": [
+        {
+          "type": "table",
+          "head": [
+            { "uk": "Особа", "en": "Person" },
+            "Essere",
+            "Avere",
+            { "uk": "Приклад", "en": "Example" }
+          ],
+          "rows": [
+            [
+              "**io** (я)",
+              "sono",
+              "ho",
+              "Io sono Sofia / Ho un gatto"
+            ],
+            [
+              "**tu** (ти)",
+              "sei",
+              "hai",
+              "Sei italiana? / Hai fame?"
+            ],
+            [
+              "**lui / lei** (він / вона)",
+              "è",
+              "ha",
+              "Lui è Marco / Lei ha una casa"
+            ],
+            [
+              "**noi** (ми)",
+              "siamo",
+              "abbiamo",
+              "Siamo a Milano / Abbiamo tempo"
+            ],
+            [
+              "**voi** (ви)",
+              "siete",
+              "avete",
+              "Siete pronti? / Avete domande?"
+            ],
+            [
+              "**loro** (вони)",
+              "sono",
+              "hanno",
+              "Sono gentili / Hanno fretta"
+            ]
+          ]
+        },
+        {
+          "type": "rules",
+          "items": [
+            { "uk": "Вік виражається через дієслово **avere**: *Ho 25 anni*.", "en": "Age is expressed with **avere**: *Ho 25 anni*." },
+            { "uk": "У італійській мові **essere** використовується для опису особи та місця.", "en": "Use **essere** to describe identity and location." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cortesia",
+      "icon": "handshake",
+      "title": { "uk": "Tu vs Lei", "en": "Tu vs Lei" },
+      "blocks": [
+        {
+          "type": "table",
+          "head": [
+            { "uk": "Ситуація", "en": "Situation" },
+            { "uk": "Неформально (tu)", "en": "Informal (tu)" },
+            { "uk": "Ввічливо (Lei)", "en": "Polite (Lei)" }
+          ],
+          "rows": [
+            [
+              { "uk": "Привітання", "en": "Greeting" },
+              "Ciao!",
+              "Buongiorno / Buonasera"
+            ],
+            [
+              { "uk": "Як справи?", "en": "How are you?" },
+              "Come stai?",
+              "Come sta?"
+            ],
+            [
+              { "uk": "Як звати?", "en": "What is your name?" },
+              "Come ti chiami?",
+              "Come si chiama?"
+            ],
+            [
+              { "uk": "Вибачте", "en": "Excuse me" },
+              "Scusa!",
+              "Scusi!"
+            ],
+            [
+              { "uk": "Прощання", "en": "Goodbye" },
+              "Ciao! / A presto!",
+              "Arrivederla! / Arrivederci!"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

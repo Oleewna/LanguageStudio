@@ -1,0 +1,1 @@
+There are some real issues with the languages that display on the planform, some are in english, some in ukrainian. Also when i click in the navbar the profile and change theme they do nothing. 

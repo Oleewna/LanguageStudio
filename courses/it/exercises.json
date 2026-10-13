@@ -1,0 +1,246 @@
+[
+  {
+    "id": "mcq-g1",
+    "format": "mcq",
+    "category": "greetings",
+    "question": {
+      "uk": "Як перекладається італійська фраза «Come stai?»",
+      "en": "What does the Italian phrase “Come stai?” mean?"
+    },
+    "options": [
+      { "text": { "uk": "А) Як тебе звати?", "en": "A) What is your name?" }, "correct": false },
+      { "text": { "uk": "Б) Як справи?", "en": "B) How are you?" }, "correct": true },
+      { "text": { "uk": "В) Звідки ти?", "en": "C) Where are you from?" }, "correct": false }
+    ],
+    "explanation": {
+      "uk": "«Come stai?» використовується для неформального запитання «Як справи?» (до однієї людини).",
+      "en": "“Come stai?” is used to informally ask “How are you?” to one person."
+    },
+    "xp": 15
+  },
+  {
+    "id": "mcq-art1",
+    "format": "mcq",
+    "category": "articles",
+    "question": {
+      "uk": "Який визначений артикль чоловічого роду вживається зі словом «ragazzo»?",
+      "en": "Which masculine definite article is used with the word “ragazzo”?"
+    },
+    "options": [
+      { "text": { "uk": "А) la", "en": "A) la" }, "correct": false },
+      { "text": { "uk": "Б) il", "en": "B) il" }, "correct": true },
+      { "text": { "uk": "В) lo", "en": "C) lo" }, "correct": false }
+    ],
+    "explanation": {
+      "uk": "Для іменників чоловічого роду, що починаються на більшість приголосних, вживається артикль «il» (il ragazzo).",
+      "en": "Nouns starting with standard consonants take “il” in the masculine singular."
+    },
+    "xp": 15
+  },
+  {
+    "id": "mcq-verb1",
+    "format": "mcq",
+    "category": "verbs",
+    "question": {
+      "uk": "Оберіть правильну форму дієслова «essere» для займенника «noi» (ми):",
+      "en": "Choose the correct form of “essere” for “noi” (we):"
+    },
+    "options": [
+      { "text": { "uk": "А) siamo", "en": "A) siamo" }, "correct": true },
+      { "text": { "uk": "Б) siete", "en": "B) siete" }, "correct": false },
+      { "text": { "uk": "В) sono", "en": "C) sono" }, "correct": false }
+    ],
+    "explanation": {
+      "uk": "Форми дієслова essere: io sono, tu sei, lui/lei è, noi siamo, voi siete, loro sono.",
+      "en": "Conjugation of essere: io sono, tu sei, lui/lei è, noi siamo, voi siete, loro sono."
+    },
+    "xp": 15
+  },
+  {
+    "id": "mcq-dir1",
+    "format": "mcq",
+    "category": "directions",
+    "question": {
+      "uk": "Що означає італійська фраза «Dov'è la stazione?»",
+      "en": "What does “Dov'è la stazione?” mean?"
+    },
+    "options": [
+      { "text": { "uk": "А) Коли прибуває потяг?", "en": "A) When does the train arrive?" }, "correct": false },
+      { "text": { "uk": "Б) Де знаходиться вокзал / станція?", "en": "B) Where is the train station?" }, "correct": true },
+      { "text": { "uk": "В) Скільки коштує квиток?", "en": "C) How much is the ticket?" }, "correct": false }
+    ],
+    "explanation": {
+      "uk": "«Dov'è...» скорочено від «Dove è...» означає «Де є...?».",
+      "en": "“Dov'è...” is a contraction of “Dove è...” meaning “Where is...?”."
+    },
+    "xp": 15
+  },
+  {
+    "id": "blk-g1",
+    "format": "blank",
+    "category": "greetings",
+    "question": {
+      "uk": "«___, come stai?»",
+      "en": "“___, come stai?”"
+    },
+    "hint": {
+      "uk": "Підказка: неформальне привітання при зустрічі",
+      "en": "Hint: informal greeting"
+    },
+    "answers": ["ciao"],
+    "explanation": {
+      "uk": "Слово «Ciao» вставляється на початку неформального привітання.",
+      "en": "“Ciao” goes at the start of an informal greeting."
+    },
+    "xp": 10
+  },
+  {
+    "id": "blk-v1",
+    "format": "blank",
+    "category": "verbs",
+    "question": {
+      "uk": "«Io ___ studente di italiano.»",
+      "en": "“Io ___ studente di italiano.”"
+    },
+    "hint": {
+      "uk": "Підказка: форма дієслова essere (я є)",
+      "en": "Hint: form of essere for “I am”"
+    },
+    "answers": ["sono"],
+    "explanation": {
+      "uk": "Перша особа однини дієслова essere: «Io sono».",
+      "en": "First person singular of essere: “Io sono”."
+    },
+    "xp": 10
+  },
+  {
+    "id": "blk-art1",
+    "format": "blank",
+    "category": "articles",
+    "question": {
+      "uk": "«___ casa è grande e luminosa.»",
+      "en": "“___ casa è grande e luminosa.”"
+    },
+    "hint": {
+      "uk": "Підказка: жіночий артикль однини",
+      "en": "Hint: feminine singular article"
+    },
+    "answers": ["la"],
+    "explanation": {
+      "uk": "Casa є іменником жіночого роду, тому артикль «la».",
+      "en": "Casa is feminine singular, so the article is “la”."
+    },
+    "xp": 10
+  },
+  {
+    "id": "match-greetings",
+    "format": "match",
+    "category": "greetings",
+    "title": {
+      "uk": "Привітання та Базові фрази",
+      "en": "Greetings & Basic Phrases"
+    },
+    "pairs": [
+      { "id": "m1", "it": "ciao", "trans": { "uk": "привіт / бувай", "en": "hello / goodbye" } },
+      { "id": "m2", "it": "grazie", "trans": { "uk": "дякую", "en": "thank you" } },
+      { "id": "m3", "it": "prego", "trans": { "uk": "будь ласка", "en": "you are welcome" } },
+      { "id": "m4", "it": "benvenuto", "trans": { "uk": "ласкаво просимо", "en": "welcome" } },
+      { "id": "m5", "it": "buongiorno", "trans": { "uk": "Доброго дня", "en": "good morning" } }
+    ],
+    "xp": 20
+  },
+  {
+    "id": "reorder-g1",
+    "format": "reorder",
+    "category": "greetings",
+    "clue": {
+      "uk": "Привіт, як справи?",
+      "en": "Hello, how are you?"
+    },
+    "words": ["Ciao,", "come", "stai?"],
+    "explanation": {
+      "uk": "Порядок слів у питанні привітання: Ciao, come stai?",
+      "en": "Word order for greeting: Ciao, come stai?"
+    },
+    "xp": 10
+  },
+  {
+    "id": "listen-g1",
+    "format": "listen",
+    "category": "greetings",
+    "audioWord": "prego",
+    "instruction": {
+      "uk": "Прослухайте аудіо та оберіть переклад слова",
+      "en": "Listen to the audio and pick the translation"
+    },
+    "options": [
+      { "text": { "uk": "А) Дякую", "en": "A) Thank you" }, "correct": false },
+      { "text": { "uk": "Б) Будь ласка / Нема за що", "en": "B) You are welcome" }, "correct": true },
+      { "text": { "uk": "В) Привіт", "en": "C) Hello" }, "correct": false }
+    ],
+    "explanation": {
+      "uk": "Озвучене слово: «Prego» (Будь ласка / Нема за що).",
+      "en": "Audio spoken: “Prego” (You are welcome)."
+    },
+    "xp": 10
+  },
+  {
+    "id": "dlg-g1",
+    "format": "dialogue",
+    "category": "greetings",
+    "lineA": "А: «Ciao! Come ti chiami?»",
+    "instruction": {
+      "uk": "Б: оберіть репліку, якою продовжити знайомство",
+      "en": "B: choose the line that continues the introduction"
+    },
+    "options": [
+      { "text": "Mi chiamo Sofia. E tu?", "correct": true },
+      { "text": "Grazie mille per l'aiuto!", "correct": false },
+      { "text": "Un caffè per favore.", "correct": false }
+    ],
+    "explanation": {
+      "uk": "На питання «Come ti chiami?» відповідь починається з «Mi chiamo...».",
+      "en": "To answer “Come ti chiami?”, start with “Mi chiamo...”."
+    },
+    "xp": 15
+  },
+  {
+    "id": "mcq-shop1",
+    "format": "mcq",
+    "category": "shopping",
+    "question": {
+      "uk": "Як правильно запитати про вартість товару італійською мовою?",
+      "en": "How do you ask for the price of an item in Italian?"
+    },
+    "options": [
+      { "text": { "uk": "А) Quanto costa?", "en": "A) Quanto costa?" }, "correct": true },
+      { "text": { "uk": "Б) Che ora è?", "en": "B) Che ora è?" }, "correct": false },
+      { "text": { "uk": "В) Chi sei?", "en": "C) Chi sei?" }, "correct": false }
+    ],
+    "explanation": {
+      "uk": "«Quanto costa?» (однина) та «Quanto costano?» (множина) — фрази для запитання про ціну.",
+      "en": "“Quanto costa?” is used to ask the price of a single item."
+    },
+    "xp": 15
+  },
+  {
+    "id": "dlg-cafe1",
+    "format": "dialogue",
+    "category": "cafe",
+    "lineA": "А: «Buongiorno! Cosa desidera?»",
+    "instruction": {
+      "uk": "Б: оберіть репліку для замовлення в барі",
+      "en": "B: choose the line to order at the cafe bar"
+    },
+    "options": [
+      { "text": "Un cappuccino e una brioche, per favore.", "correct": true },
+      { "text": "Piacere di conoscerti!", "correct": false },
+      { "text": "Sto molto bene, grazie.", "correct": false }
+    ],
+    "explanation": {
+      "uk": "В барі на питання «Cosa desidera?» замовляють їжу або напої.",
+      "en": "When asked “Cosa desidera?”, specify what you want to order."
+    },
+    "xp": 15
+  }
+]
