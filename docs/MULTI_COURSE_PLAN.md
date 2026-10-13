@@ -12,10 +12,10 @@ Goal: turn LanguageStudio from an Italian-only prototype into an **engine + cour
 - [x] Step 4: Vocabulary to JSON
 - [x] Step 5: Grammar to JSON blocks
 - [x] Step 6: Exercises to JSON
-- [ ] Step 7: Units page and home page from course data
+- [x] Step 7: Units page and home page from course data
 - [ ] Step 8: Generic lesson engine
 - [ ] Step 9: Course switcher and per-course settings
-- [ ] Step 10: Second course (Spanish) to test the schema
+- [ ] Step 10: Second course (Polish) to test the schema
 - [ ] Step 11: Validation script and authoring guide
 
 ---
@@ -309,7 +309,7 @@ Allowed block types: `table`, `note`, `examples`, `rules`. Text supports a tiny 
 
 ---
 
-## Step 11: Second course (Spanish) to test the schema
+## Step 11: Second course (Polish) to test the schema
 
 **Goal:** prove the engine is truly generic before scaling.
 
@@ -321,7 +321,7 @@ Allowed block types: `table`, `note`, `examples`, `rules`. Text supports a tiny 
 5. Update `docs/schemas.md` if the schema had to change.
 
 **Done when:**
-- [ ] Spanish works end to end with **zero course-specific code** in `js/`.
+- [ ] Polish works end to end with **zero course-specific code** in `js/`.
 - [ ] Italian is still unchanged.
 - [ ] Schema doc reflects any adjustments.
 

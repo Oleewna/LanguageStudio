@@ -712,7 +712,13 @@ function getSourceLanguage() {
 
 function getSelectedSourceLanguage() {
   const savedLanguage = localStorage.getItem(SOURCE_LANGUAGE_KEY) || localStorage.getItem('ls_italian_source_language');
-  return SOURCE_LANGUAGES.some(language => language.code === savedLanguage) ? savedLanguage : 'device';
+  if (SOURCE_LANGUAGES.some(language => language.code === savedLanguage)) {
+    return savedLanguage;
+  }
+
+  const navLang = (navigator.language || '').toLowerCase();
+  if (navLang.startsWith('uk')) return 'uk';
+  return 'uk';
 }
 
 function getSourceTranslation(key, fallback = '') {
@@ -763,11 +769,11 @@ function setTargetCourse(courseId) {
     return;
   }
 
-  if (window.location.pathname.includes('lesson.html')) {
+  if (window.location.pathname.includes('lesson')) {
     const course = window.LS_COURSES && window.LS_COURSES[courseId];
     const defaultId = course?.defaultLessonId || Object.keys(course?.lessons || {})[0];
     if (defaultId) {
-      window.location.href = `lesson.html?course=${courseId}&id=${defaultId}`;
+      window.location.href = `lesson?course=${courseId}&lesson=${defaultId}`;
     }
   }
 }

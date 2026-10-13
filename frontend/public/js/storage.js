@@ -23,12 +23,27 @@
     }
   }
 
-  function courseKey(name) {
-    if (typeof window.courseKey === 'function') {
-      return window.courseKey(name);
-    }
+  function buildCourseKey(name) {
     const courseId = (typeof window.getCourseId === 'function') ? window.getCourseId() : 'it';
-    return `ls_${courseId}_${name}`;
+    return `ls_${courseId}_${String(name ?? '')}`;
+  }
+
+  function isRecursiveCourseKey(candidate) {
+    if (typeof candidate !== 'function') return false;
+    const source = Function.prototype.toString.call(candidate);
+    return source.includes('return window.courseKey(name)');
+  }
+
+  if (isRecursiveCourseKey(window.courseKey)) {
+    window.courseKey = buildCourseKey;
+  }
+
+  function courseKey(name) {
+    const safeGlobalCourseKey = window.courseKey;
+    if (typeof safeGlobalCourseKey === 'function' && safeGlobalCourseKey !== courseKey && !isRecursiveCourseKey(safeGlobalCourseKey)) {
+      return safeGlobalCourseKey(name);
+    }
+    return buildCourseKey(name);
   }
 
   function migrateLegacyStorage() {
@@ -58,7 +73,6 @@
   Object.assign(window, {
     getJSON,
     setJSON,
-    courseKey,
     migrateLegacyStorage
   });
 

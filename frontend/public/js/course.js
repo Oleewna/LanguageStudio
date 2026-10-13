@@ -5,8 +5,19 @@
 
   function getBasePath() {
     const pathname = window.location.pathname || '';
-    if (pathname.includes('/pages/')) return '../';
-    if (pathname.includes('/lessons/')) return '../../';
+
+    if (pathname.includes('/frontend/public/pages') || pathname.includes('/frontend/public/lessons')) {
+      return '../../../';
+    }
+
+    if (pathname.includes('/pages/') || pathname.includes('/lessons/')) {
+      return '../';
+    }
+
+    if (pathname.includes('/frontend/public') || pathname.includes('/public/')) {
+      return '../../';
+    }
+
     return './';
   }
 
@@ -59,6 +70,9 @@
 
   function resolveCourseDataPath(name) {
     const rawName = String(name || '').trim();
+    // Lesson content is addressed by a stable lesson id (for example: 1.1), not by
+    // a route-like path. The file name matches the lesson ID so the course data can be
+    // loaded consistently from `courses/{courseId}/lessons/{lessonId}.json`.
     const normalizedName = rawName ? (rawName.endsWith('.json') ? rawName : `${rawName}.json`) : 'course.json';
     return `${getBasePath()}courses/${getCourseId()}/${normalizedName}`;
   }
@@ -88,7 +102,18 @@
   }
 
   function courseKey(name) {
-    return `ls_${getCourseId()}_${name}`;
+    const id = getCourseId();
+    return `ls_${id}_${String(name ?? '')}`;
+  }
+
+  function isRecursiveCourseKey(candidate) {
+    if (typeof candidate !== 'function') return false;
+    const source = Function.prototype.toString.call(candidate);
+    return source.includes('return window.courseKey(name)');
+  }
+
+  if (isRecursiveCourseKey(window.courseKey)) {
+    window.courseKey = courseKey;
   }
 
   function setCourseId(id) {

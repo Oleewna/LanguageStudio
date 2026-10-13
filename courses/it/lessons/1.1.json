@@ -1,0 +1,173 @@
+{
+  "id": "1.1",
+  "title": {
+    "uk": "Знайомство",
+    "en": "Introductions"
+  },
+  "subtitle": {
+    "uk": "Come ti chiami?",
+    "en": "Come ti chiami?"
+  },
+  "hero": {
+    "label": {
+      "uk": "Основи спілкування · Урок 1",
+      "en": "Communication basics · Lesson 1"
+    },
+    "text": {
+      "uk": "Перший урок у Мілані: знайомство, привітання й базові фрази для розмови.",
+      "en": "Your first lesson in Milan: introductions, greetings, and the basics for a first conversation."
+    },
+    "image": "../assets/images/communication-basics.jpg"
+  },
+  "blocks": [
+    {
+      "type": "dialogue",
+      "title": {
+        "uk": "Діалог у класі",
+        "en": "Classroom dialogue"
+      },
+      "story": {
+        "uk": "Софія приходить на перший урок італійської в Мілані й знайомиться з Ґретою, іншою студенткою цього курсу.",
+        "en": "Sofia arrives for her first Italian lesson in Milan and meets Greta, another student in the course."
+      },
+      "image": "../assets/images/communication-basics.jpg",
+      "lines": [
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "Buongiorno!",
+          "phon": { "uk": "[буон-джор-но]", "en": "[bwon-JOR-no]" },
+          "trans": { "uk": "Доброго дня!", "en": "Good morning!" },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Buongiorno! Come ti chiami?",
+          "phon": { "uk": "[ко-ме ті к’я-мі]", "en": "[KOH-meh tee KYAH-mee]" },
+          "trans": { "uk": "Доброго дня! Як тебе звати?", "en": "Good morning! What is your name?" },
+          "audio": true
+        },
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "Mi chiamo Sofia. E tu?",
+          "phon": { "uk": "[мі к’я-мо Со-фі-а. е ту]", "en": "[mee KYAH-moh SOH-fee-ah. eh too]" },
+          "trans": { "uk": "Мене звати Софія. А тебе?", "en": "My name is Sofia. And you?" },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Mi chiamo Greta. Piacere!",
+          "phon": { "uk": "[мі к’я-мо Ґре-та. п’я-че-ре]", "en": "[mee KYAH-moh GREH-tah. pyah-CHEH-reh]" },
+          "trans": { "uk": "Мене звати Ґрета. Приємно познайомитися!", "en": "My name is Greta. Nice to meet you!" },
+          "audio": true
+        }
+      ]
+    },
+    {
+      "type": "vocab",
+      "title": {
+        "uk": "Нові слова",
+        "en": "Vocabulary"
+      },
+      "items": [
+        {
+          "it": "buongiorno",
+          "transcription": "[буон-джор-но]",
+          "translations": {
+            "uk": "доброго дня",
+            "en": "good morning / hello"
+          }
+        },
+        {
+          "it": "come ti chiami?",
+          "transcription": "[ко-ме ті к’я-мі]",
+          "translations": {
+            "uk": "як тебе звати?",
+            "en": "what is your name?"
+          }
+        },
+        {
+          "it": "mi chiamo",
+          "transcription": "[мі к’я-мо]",
+          "translations": {
+            "uk": "мене звати",
+            "en": "my name is"
+          }
+        },
+        {
+          "it": "piacere",
+          "transcription": "[п’я-че-ре]",
+          "translations": {
+            "uk": "приємно познайомитися",
+            "en": "nice to meet you"
+          }
+        }
+      ]
+    },
+    {
+      "type": "culture",
+      "title": {
+        "uk": "Культурна нотатка",
+        "en": "Culture note"
+      },
+      "paragraphs": [
+        {
+          "uk": "У італійських класах часто починають заняття привітанням та короткою бесідою. Це не просто формальність: така розмова допомагає створити дружню атмосферу перед уроком.",
+          "en": "In Italian classrooms, lessons often begin with a greeting and a brief chat. It is more than a formality: this small exchange helps create a friendly atmosphere before the lesson begins."
+        }
+      ]
+    },
+    {
+      "type": "takeaways",
+      "title": {
+        "uk": "Що варто запам’ятати",
+        "en": "Key takeaways"
+      },
+      "items": [
+        { "uk": "Buongiorno — привітання вранці або вдень.", "en": "Buongiorno is a greeting used in the morning or during the day." },
+        { "uk": "Mi chiamo ... — «Мене звати ...».", "en": "Mi chiamo ... means “My name is ...”." },
+        { "uk": "Piacere — «Приємно познайомитися».", "en": "Piacere is the standard way to say “Nice to meet you.”" }
+      ]
+    },
+    {
+      "type": "tasks",
+      "title": {
+        "uk": "Завдання уроку",
+        "en": "Lesson tasks"
+      },
+      "items": [
+        {
+          "kind": "choice",
+          "id": "q1",
+          "q": {
+            "uk": "Як сказати «Мене звати Софія» по-італійськи?",
+            "en": "How do you say “My name is Sofia” in Italian?"
+          },
+          "options": [
+            { "text": { "uk": "Mi chiamo Sofia.", "en": "Mi chiamo Sofia." }, "correct": true },
+            { "text": { "uk": "Io sono Sofia.", "en": "Io sono Sofia." }, "correct": false },
+            { "text": { "uk": "Buongiorno, Sofia.", "en": "Buongiorno, Sofia." }, "correct": false }
+          ]
+        },
+        {
+          "kind": "truefalse",
+          "id": "q2",
+          "q": {
+            "uk": "«Piacere» означає «приємно познайомитися».",
+            "en": "“Piacere” means “nice to meet you.”"
+          },
+          "answer": true
+        },
+        {
+          "kind": "text",
+          "id": "q3",
+          "prompt": "Mi chiamo ___.",
+          "answers": ["sofia", "sofia."]
+        }
+      ]
+    }
+  ]
+}

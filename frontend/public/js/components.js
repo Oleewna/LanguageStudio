@@ -58,7 +58,7 @@
       </svg>
     </span>Learning paths
   </a>
-  <a href="pages/lesson.html?id=communication-basics-1" class="mob-nav-link" data-nav="lesson-1">
+  <a href="pages/lesson?course=it&lesson=1.1" class="mob-nav-link" data-nav="lesson-1">
     <span class="ic">
       <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/>
@@ -135,13 +135,13 @@
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Learning paths</div>
         <div class="nav-submenu">
-          <a href="pages/lesson.html?id=communication-basics-1" class="nav-dd-item nav-submenu-trigger" data-nav="lesson-1">
+          <a href="pages/lesson?course=it&lesson=1.1" class="nav-dd-item nav-submenu-trigger" data-nav="lesson-1">
             <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2h-3.8a2 2 0 0 0-1.4.6L4.3 11a1 1 0 0 0 0 1.4l5.3 5.3a1 1 0 0 0 1.4 0L17 11.7a2 2 0 0 0 .6-1.4V6"/></svg></span>Communication basics
             <span class="submenu-arrow">›</span>
           </a>
           <div class="nav-submenu-panel">
             <div class="nav-dd-header">Lesson track</div>
-            <a href="pages/lesson.html?id=communication-basics-1" class="nav-dd-item" data-nav="lesson-1"><span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>Lesson 1 · Introduction <span class="dd-tag active">Active</span></a>
+            <a href="pages/lesson?course=it&lesson=1.1" class="nav-dd-item" data-nav="lesson-1"><span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>Lesson 1 · Introduction <span class="dd-tag active">Active</span></a>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 2 · Come ti chiami?</span>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 3 · Di dove sei?</span>
             <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 4 · Consolidation</span>
@@ -297,7 +297,7 @@
       </svg>
     </span>Learning paths
   </a>
-  <a href="pages/lesson.html?id=communication-basics-1" class="mob-nav-link" data-nav="lesson-1">
+  <a href="pages/lesson?course=it&lesson=1.1" class="mob-nav-link" data-nav="lesson-1">
     <span class="ic">
       <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/>
@@ -473,7 +473,7 @@
   function getCurrentPageKey() {
     const path = window.location.pathname.toLowerCase().replace(/\\/g, '/');
     if (path.endsWith('/index.html') || path.endsWith('/') || path.endsWith('/languagestudio/')) return 'home';
-    if (path.includes('lesson.html')) return 'lesson';
+    if (path.includes('/lesson') || path.includes('lesson?')) return 'lesson';
     if (path.includes('flashcards.html')) return 'flashcards';
     if (path.includes('exercises.html')) return 'exercises';
     if (path.includes('dictionary.html')) return 'dictionary';
