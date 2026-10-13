@@ -721,6 +721,40 @@ function getSelectedSourceLanguage() {
   return 'uk';
 }
 
+function getCourseCatalog() {
+  const fallbackCourse = {
+    id: 'it',
+    flag: '🇮🇹',
+    name: { uk: 'Італійська', en: 'Italian' },
+    native: 'Italiano',
+    status: 'active'
+  };
+
+  const cachedCourses = Array.isArray(window.__LS_COURSE_INDEX?.courses) ? window.__LS_COURSE_INDEX.courses : [];
+  if (cachedCourses.length) return cachedCourses;
+  return [fallbackCourse];
+}
+
+async function refreshCourseCatalog() {
+  try {
+    const index = await window.loadCourseIndex?.();
+    if (index && Array.isArray(index.courses) && index.courses.length) {
+      window.__LS_COURSE_INDEX = index;
+    }
+    return window.__LS_COURSE_INDEX || { default: 'it', courses: getCourseCatalog() };
+  } catch (error) {
+    return { default: 'it', courses: getCourseCatalog() };
+  }
+}
+
+function getCourseMeta(courseId = getTargetCourse()) {
+  const courseCatalog = getCourseCatalog();
+  const match = courseCatalog.find(course => course.id === courseId);
+  if (match) return match;
+  const fallback = courseCatalog[0] || { id: 'it', flag: '🇮🇹', name: { uk: 'Італійська', en: 'Italian' }, status: 'active' };
+  return { ...fallback, id: courseId || fallback.id };
+}
+
 function getSourceTranslation(key, fallback = '') {
   const translations = SOURCE_TRANSLATIONS[key];
   return translations?.[getSourceLanguage()] || translations?.uk || fallback;
@@ -753,7 +787,10 @@ function getTargetCourse() {
   const paramCourse = params.get('course');
   const savedCourse = localStorage.getItem(TARGET_COURSE_KEY) || localStorage.getItem('ls_target_course') || localStorage.getItem('ls_course');
   const requestedCourse = paramCourse || savedCourse || 'it';
-  return (window.LS_COURSES && window.LS_COURSES[requestedCourse]) ? requestedCourse : 'it';
+  if (requestedCourse && typeof requestedCourse === 'string' && requestedCourse.trim()) {
+    return requestedCourse.trim();
+  }
+  return 'it';
 }
 
 function setTargetCourse(courseId) {
@@ -780,9 +817,78 @@ function setTargetCourse(courseId) {
 
 function applyTargetCourseSettings() {
   const currentCourse = getTargetCourse();
+  const courseMeta = getCourseMeta(currentCourse);
+  const courseData = window.__LS_ACTIVE_COURSE_DATA || {};
+  const target = courseData.target || {
+    code: currentCourse,
+    rtl: false,
+    script: 'latin',
+    tts: `${currentCourse}-IT`
+  };
+
+  document.documentElement.lang = target.code || courseMeta.id || currentCourse;
+  document.documentElement.dir = target.rtl ? 'rtl' : 'ltr';
+  document.documentElement.classList.forEach(className => {
+    if (className.startsWith('script-')) {
+      document.documentElement.classList.remove(className);
+    }
+  });
+  const scriptKey = (target.script || 'latin').toString().trim();
+  if (scriptKey) {
+    document.documentElement.classList.add(`script-${scriptKey}`);
+  }
+
   document.querySelectorAll('[data-target-course-select]').forEach(select => {
+    const courseOptions = getCourseCatalog();
+    select.innerHTML = courseOptions.map(course => {
+      const label = [course.flag || '', L(course.name || { uk: course.id, en: course.id })].filter(Boolean).join(' ');
+      const suffix = course.status && course.status !== 'active' ? ` · ${L({ uk: 'Незабаром', en: 'Soon' })}` : '';
+      return `<option value="${course.id}">${label}${suffix}</option>`;
+    }).join('');
     select.value = currentCourse;
   });
+
+  document.querySelectorAll('[data-course-switcher]').forEach(select => {
+    const courseOptions = getCourseCatalog();
+    select.innerHTML = courseOptions.map(course => {
+      const label = `${course.flag || ''} ${course.id.toUpperCase()}`;
+      return `<option value="${course.id}">${label}</option>`;
+    }).join('');
+    select.value = currentCourse;
+  });
+
+  const courseTitle = L(courseMeta.name || { uk: currentCourse, en: currentCourse });
+  const courseBadge = document.querySelector('[data-course-badge]');
+  if (courseBadge) {
+    courseBadge.textContent = `${courseMeta.flag || '🇮🇹'} ${courseTitle}`;
+  }
+
+  const courseNameEl = document.querySelector('[data-course-name]');
+  if (courseNameEl) {
+    courseNameEl.textContent = courseTitle;
+  }
+
+  const courseRoot = document.querySelector('[data-course-root]');
+  if (courseRoot) {
+    courseRoot.textContent = courseTitle;
+  }
+
+  if (typeof window.setCourseId === 'function' && window.location.search.indexOf('course=') === -1) {
+    window.setCourseId(currentCourse);
+  }
+}
+
+async function refreshCurrentCourseConfig() {
+  try {
+    const course = await window.loadCourse?.();
+    if (course) {
+      window.__LS_ACTIVE_COURSE_DATA = course;
+      applyTargetCourseSettings();
+      updateProfileStats();
+    }
+  } catch (error) {
+    // Silent fallback for pages without a course JSON or while loading the default course.
+  }
 }
 
 function getXP() {
@@ -961,10 +1067,20 @@ function initTestsNavigation() {
 }
 
 function ensureProfileModal() {
-  if (document.getElementById('profileModal')) return;
+  if (document.getElementById('profileModal')) {
+    const currentCourse = getCourseMeta(getTargetCourse());
+    const currentCourseLabel = `${currentCourse.flag || '🇮🇹'} ${L(currentCourse.name || { uk: currentCourse.id, en: currentCourse.id })}`;
+    const profileCourse = document.querySelector('#profileModal [data-course-label]');
+    if (profileCourse) profileCourse.textContent = currentCourseLabel;
+    syncCourseSwitchers();
+    updateProfileStats();
+    return;
+  }
   const themeIcon = (typeof LS_ICONS !== 'undefined' && LS_ICONS) ? LS_ICONS.sun : '🌓';
   const closeIcon = (typeof LS_ICONS !== 'undefined' && LS_ICONS) ? LS_ICONS.close : '✕';
   const studentIdentity = getStudentProfilePresentation();
+  const currentCourse = getCourseMeta(getTargetCourse());
+  const currentCourseLabel = `${currentCourse.flag || '🇮🇹'} ${L(currentCourse.name || { uk: currentCourse.id, en: currentCourse.id })}`;
   document.body.insertAdjacentHTML('beforeend', `
     <div class="profile-modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
       <section class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-title">
@@ -977,7 +1093,7 @@ function ensureProfileModal() {
           <div>
             <div class="pm-name">${studentIdentity.name}</div>
             <div class="pm-path">${studentIdentity.status}</div>
-            <div class="pm-path">Learning path: <b>Communication basics</b></div>
+            <div class="pm-path">Learning path: <b>${currentCourseLabel}</b></div>
           </div>
         </div>
         <section class="pm-settings" aria-labelledby="source-language-title">
@@ -985,9 +1101,7 @@ function ensureProfileModal() {
           <div class="pm-settings-grid">
             <div class="pm-setting">
               <label class="pm-setting-label" for="targetCourse">Target Course (Мова курсу)</label>
-              <select class="pm-setting-select" id="targetCourse" data-target-course-select onchange="setTargetCourse(this.value)">
-                <option value="italian">🇮🇹 Italian (Італійська)</option>
-              </select>
+              <select class="pm-setting-select" id="targetCourse" data-target-course-select onchange="setTargetCourse(this.value)"></select>
             </div>
             <div class="pm-setting">
               <label class="pm-setting-label" for="sourceLanguage">Language for translations & explanations</label>
@@ -1002,16 +1116,92 @@ function ensureProfileModal() {
           </div>
         </section>
         <div class="pm-stats-grid">
-          <div class="pm-stat-box"><div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">XP Points</div></div>
-          <div class="pm-stat-box"><div class="pm-stat-val" style="color:var(--it-gold);">1 day</div><div class="pm-stat-lbl">Daily Streak</div></div>
-          <div class="pm-stat-box"><div class="pm-stat-val">1/16</div><div class="pm-stat-lbl">Lessons Completed</div></div>
-          <div class="pm-stat-box"><div class="pm-stat-val">13</div><div class="pm-stat-lbl">Dictionary Words</div></div>
+          <div class="pm-stat-box" data-profile-stat="xp"><div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">XP Points</div></div>
+          <div class="pm-stat-box" data-profile-stat="streak"><div class="pm-stat-val" style="color:var(--it-gold);">1 day</div><div class="pm-stat-lbl">Daily Streak</div></div>
+          <div class="pm-stat-box" data-profile-stat="lessons"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Lessons Completed</div></div>
+          <div class="pm-stat-box" data-profile-stat="words"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Dictionary Words</div></div>
         </div>
         <div class="pm-footer">
           <a class="btn-primary" href="${getAuthPageHref()}">Sign in or register</a>
         </div>
       </section>
     </div>`);
+}
+
+function ensureCourseSwitcher() {
+  const navRight = document.querySelector('.nav-right');
+  if (!navRight) return;
+
+  if (navRight.querySelector('[data-course-switcher]')) {
+    syncCourseSwitchers();
+    return;
+  }
+
+  // Course switching remains available in dedicated UI surfaces, but the compact
+  // selector is intentionally not injected into the shared navbar.
+  syncCourseSwitchers();
+}
+
+function syncCourseSwitchers() {
+  const current = getTargetCourse();
+  const courseOptions = getCourseCatalog();
+  document.querySelectorAll('[data-course-switcher]').forEach(select => {
+    select.innerHTML = courseOptions.map(course => {
+      const label = `${course.flag || ''} ${course.id.toUpperCase()}`;
+      return `<option value="${course.id}">${label}</option>`;
+    }).join('');
+    select.value = current;
+  });
+  document.querySelectorAll('[data-target-course-select]').forEach(select => {
+    const courseOptions = getCourseCatalog();
+    select.innerHTML = courseOptions.map(course => {
+      const label = [course.flag || '', L(course.name || { uk: course.id, en: course.id })].filter(Boolean).join(' ');
+      return `<option value="${course.id}">${label}</option>`;
+    }).join('');
+    select.value = current;
+  });
+}
+
+async function updateProfileStats() {
+  const lessonStat = document.querySelector('[data-profile-stat="lessons"] .pm-stat-val');
+  const wordStat = document.querySelector('[data-profile-stat="words"] .pm-stat-val');
+  if (!lessonStat && !wordStat) return;
+
+  let totalLessons = 0;
+  let completedLessons = 0;
+  try {
+    const loadedCourse = window.__LS_ACTIVE_COURSE_DATA || await window.loadCourse?.();
+    const lessonIds = [];
+    if (loadedCourse?.paths) {
+      loadedCourse.paths.forEach(path => {
+        path.units?.forEach(unit => {
+          unit.lessons?.forEach(lesson => {
+            lessonIds.push(lesson.id);
+            totalLessons += 1;
+            const lessonBest = localStorage.getItem(`ls_${getTargetCourse()}_lesson_${lesson.id}_best_xp`);
+            if (lessonBest && Number(lessonBest) > 0) {
+              completedLessons += 1;
+            }
+          });
+        });
+      });
+    }
+    if (lessonStat) {
+      lessonStat.textContent = totalLessons ? `${completedLessons}/${totalLessons}` : '0';
+    }
+  } catch (error) {
+    if (lessonStat) lessonStat.textContent = '0';
+  }
+
+  try {
+    const vocab = await window.loadCourseData?.('vocab').catch(() => []);
+    const allWords = Array.isArray(vocab) ? vocab : [];
+    if (wordStat) {
+      wordStat.textContent = String(allWords.length);
+    }
+  } catch (error) {
+    if (wordStat) wordStat.textContent = '0';
+  }
 }
 
 function getStudentProfile() {
@@ -1088,10 +1278,39 @@ document.addEventListener('keydown', (e) => {
 
 // Visual audio button click handler (voice synthesis deactivated as requested)
 function speak(text, btnElement) {
+  const spokenText = typeof text === 'string' ? text.trim() : '';
+  if (!spokenText || !('speechSynthesis' in window)) {
+    if (btnElement && btnElement.classList) {
+      btnElement.classList.add('audio-playing');
+      setTimeout(() => btnElement.classList.remove('audio-playing'), 500);
+    }
+    return;
+  }
+
+  const voices = window.speechSynthesis.getVoices();
+  const preferredLocale = window.__LS_ACTIVE_COURSE_DATA?.target?.tts || 'it-IT';
+  const selectedVoice = voices.find(voice => voice.lang && voice.lang.toLowerCase() === preferredLocale.toLowerCase())
+    || voices.find(voice => voice.lang && voice.lang.toLowerCase().startsWith(preferredLocale.split('-')[0].toLowerCase()))
+    || voices.find(voice => voice.lang && voice.lang.toLowerCase().startsWith('it'))
+    || voices[0];
+
+  if (!selectedVoice) {
+    if (btnElement && btnElement.classList) {
+      btnElement.classList.add('audio-playing');
+      setTimeout(() => btnElement.classList.remove('audio-playing'), 500);
+    }
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(spokenText);
+  utterance.lang = preferredLocale;
+  utterance.voice = selectedVoice;
   if (btnElement && btnElement.classList) {
     btnElement.classList.add('audio-playing');
-    setTimeout(() => btnElement.classList.remove('audio-playing'), 500);
+    utterance.onend = () => btnElement.classList.remove('audio-playing');
   }
+  window.speechSynthesis.speak(utterance);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1099,6 +1318,8 @@ document.addEventListener('DOMContentLoaded', () => {
   ensureTestsNavigation();
   initTestsNavigation();
   ensureProfileModal();
+  ensureCourseSwitcher();
+  refreshCurrentCourseConfig();
   updateXPDisplay();
   applySourceLanguageSettings();
   initTheme();
@@ -1106,7 +1327,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('componentsLoaded', () => {
   bindNavbarInteractions();
+  ensureCourseSwitcher();
   applySourceLanguageSettings();
+  refreshCurrentCourseConfig();
   initTheme();
 });
 
@@ -1123,6 +1346,9 @@ if (typeof window !== 'undefined') {
   window.getSourceLanguage = getSourceLanguage;
   window.setTargetCourse = setTargetCourse;
   window.getTargetCourse = getTargetCourse;
+  window.refreshCourseCatalog = refreshCourseCatalog;
+  window.ensureCourseSwitcher = ensureCourseSwitcher;
+  window.updateProfileStats = updateProfileStats;
   window.applySourceLanguageSettings = applySourceLanguageSettings;
   window.applyInterfaceLanguage = applyInterfaceLanguage;
 }

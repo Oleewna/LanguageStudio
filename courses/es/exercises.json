@@ -1,0 +1,222 @@
+[
+  {
+    "id": "es-mcq-01",
+    "format": "mcq",
+    "category": "greetings",
+    "question": {
+      "uk": "Що означає «¿Cómo estás?» ?",
+      "en": "What does “¿Cómo estás?” mean?"
+    },
+    "options": [
+      { "text": { "uk": "А) Як тебе звати?", "en": "A) What is your name?" }, "correct": false },
+      { "text": { "uk": "Б) Як справи?", "en": "B) How are you?" }, "correct": true },
+      { "text": { "uk": "В) Де туалет?", "en": "C) Where is the bathroom?" }, "correct": false }
+    ],
+    "explanation": {
+      "uk": "«¿Cómo estás?» використовується для запитання: «Як справи?»",
+      "en": "“¿Cómo estás?” is used to ask “How are you?”"
+    },
+    "xp": 15
+  },
+  {
+    "id": "es-mcq-02",
+    "format": "mcq",
+    "category": "verbs",
+    "question": {
+      "uk": "Яка правильна форма «estar» для «yo»?",
+      "en": "Which is the correct form of “estar” for “yo”?"
+    },
+    "options": [
+      { "text": { "uk": "А) estoy", "en": "A) estoy" }, "correct": true },
+      { "text": { "uk": "Б) eres", "en": "B) eres" }, "correct": false },
+      { "text": { "uk": "В) son", "en": "C) son" }, "correct": false }
+    ],
+    "explanation": {
+      "uk": "Для «yo» форма дієслова estar — «estoy».",
+      "en": "For “yo”, the correct form is “estoy”."
+    },
+    "xp": 15
+  },
+  {
+    "id": "es-blank-01",
+    "format": "blank",
+    "category": "greetings",
+    "question": {
+      "uk": "«___, ¿cómo estás?»",
+      "en": "“___, ¿cómo estás?”"
+    },
+    "hint": {
+      "uk": "Підказка: неформальне привітання",
+      "en": "Hint: informal greeting"
+    },
+    "answers": ["hola"],
+    "explanation": {
+      "uk": "Початкове привітання в розмові — «hola».",
+      "en": "The common opening greeting is “hola”."
+    },
+    "xp": 10
+  },
+  {
+    "id": "es-blank-02",
+    "format": "blank",
+    "category": "articles",
+    "question": {
+      "uk": "«___ calle es tranquila.»",
+      "en": "“___ calle es tranquila.”"
+    },
+    "hint": {
+      "uk": "Підказка: жіночий однина",
+      "en": "Hint: feminine singular"
+    },
+    "answers": ["la"],
+    "explanation": {
+      "uk": "«calle» — жіночий рід, тому артикль «la».",
+      "en": "“calle” is feminine, so the correct article is “la”."
+    },
+    "xp": 10
+  },
+  {
+    "id": "es-match-01",
+    "format": "match",
+    "category": "greetings",
+    "title": {
+      "uk": "Привітання та фрази",
+      "en": "Greetings and phrases"
+    },
+    "pairs": [
+      { "id": "m1", "es": "hola", "trans": { "uk": "привіт", "en": "hello" } },
+      { "id": "m2", "es": "gracias", "trans": { "uk": "дякую", "en": "thank you" } },
+      { "id": "m3", "es": "por favor", "trans": { "uk": "будь ласка", "en": "please" } },
+      { "id": "m4", "es": "mucho gusto", "trans": { "uk": "приємно познайомитися", "en": "nice to meet you" } }
+    ],
+    "xp": 20
+  },
+  {
+    "id": "es-reorder-01",
+    "format": "reorder",
+    "category": "greetings",
+    "clue": {
+      "uk": "Привіт, як справи?",
+      "en": "Hello, how are you?"
+    },
+    "words": ["¡Hola!", "¿cómo", "estás?"],
+    "explanation": {
+      "uk": "Порядок слів: «¡Hola! ¿Cómo estás?»",
+      "en": "Correct order: “¡Hola! ¿Cómo estás?”"
+    },
+    "xp": 10
+  },
+  {
+    "id": "es-dialogue-01",
+    "format": "dialogue",
+    "category": "greetings",
+    "lineA": "A: «Buenos días, ¿cómo estás?»",
+    "instruction": {
+      "uk": "Б: оберіть відповідь",
+      "en": "B: choose the reply"
+    },
+    "options": [
+      { "text": "Estoy bien, gracias.", "correct": true },
+      { "text": "La cuenta, por favor.", "correct": false },
+      { "text": "No entiendo.", "correct": false }
+    ],
+    "explanation": {
+      "uk": "Правильна відповідь — коротка фраза про самопочуття.",
+      "en": "The right reply is a short phrase about one’s wellbeing."
+    },
+    "xp": 15
+  },
+  {
+    "id": "es-mcq-03",
+    "format": "mcq",
+    "category": "travel",
+    "question": {
+      "uk": "Яка правильна форма запиту: «Де туалет?»",
+      "en": "Which sentence asks “Where is the bathroom?”"
+    },
+    "options": [
+      { "text": { "uk": "А) ¿Dónde está el baño?", "en": "A) ¿Dónde está el baño?" }, "correct": true },
+      { "text": { "uk": "Б) ¿Qué hora es?", "en": "B) ¿Qué hora es?" }, "correct": false },
+      { "text": { "uk": "В) ¿Cómo te llamas?", "en": "C) ¿Cómo te llamas?" }, "correct": false }
+    ],
+    "explanation": {
+      "uk": "«¿Dónde está el baño?» — коректний спосіб запитати про туалет.",
+      "en": "“¿Dónde está el baño?” is the correct way to ask where the bathroom is."
+    },
+    "xp": 15
+  },
+  {
+    "id": "es-blank-03",
+    "format": "blank",
+    "category": "food",
+    "question": {
+      "uk": "«Quiero un ___, por favor.»",
+      "en": "“Quiero un ___, por favor.”"
+    },
+    "hint": {
+      "uk": "Підказка: напій",
+      "en": "Hint: a drink"
+    },
+    "answers": ["café"],
+    "explanation": {
+      "uk": "У кафе часто кажуть «Quiero un café» — «Я хочу каву».",
+      "en": "In a café, you might say “Quiero un café” — “I want a coffee.”"
+    },
+    "xp": 10
+  },
+  {
+    "id": "es-dialogue-02",
+    "format": "dialogue",
+    "category": "food",
+    "lineA": "A: «Una tapa y dos aguas, por favor.»",
+    "instruction": {
+      "uk": "Б: оберіть відповідь, яка підтверджує замовлення",
+      "en": "B: choose the reply that confirms the order"
+    },
+    "options": [
+      { "text": "Claro, aquí tienen.", "correct": true },
+      { "text": "Mucho gusto.", "correct": false },
+      { "text": "¿Dónde está el tren?", "correct": false }
+    ],
+    "explanation": {
+      "uk": "«Claro, aquí tienen» — природна відповідь на замовлення.",
+      "en": "“Claro, aquí tienen” is a natural confirmation to an order."
+    },
+    "xp": 15
+  },
+  {
+    "id": "es-mcq-04",
+    "format": "mcq",
+    "category": "verbs",
+    "question": {
+      "uk": "Як сказати «Я є Анна» по-іспанськи?",
+      "en": "How do you say “I am Ana” in Spanish?"
+    },
+    "options": [
+      { "text": { "uk": "А) Soy Ana.", "en": "A) Soy Ana." }, "correct": true },
+      { "text": { "uk": "Б) Estoy Ana.", "en": "B) Estoy Ana." }, "correct": false },
+      { "text": { "uk": "В) Vivo Ana.", "en": "C) Vivo Ana." }, "correct": false }
+    ],
+    "explanation": {
+      "uk": "«Soy» використовується для представлення себе: «Soy Ana».",
+      "en": "Use “soy” to introduce yourself: “Soy Ana.”"
+    },
+    "xp": 15
+  },
+  {
+    "id": "es-match-02",
+    "format": "match",
+    "category": "travel",
+    "title": {
+      "uk": "Подорожні фрази",
+      "en": "Travel phrases"
+    },
+    "pairs": [
+      { "id": "m5", "es": "¿dónde está el baño?", "trans": { "uk": "де знаходиться туалет?", "en": "where is the bathroom?" } },
+      { "id": "m6", "es": "el tren", "trans": { "uk": "потяг", "en": "train" } },
+      { "id": "m7", "es": "la calle", "trans": { "uk": "вулиця", "en": "street" } },
+      { "id": "m8", "es": "no entiendo", "trans": { "uk": "я не розумію", "en": "I don't understand" } }
+    ],
+    "xp": 20
+  }
+]

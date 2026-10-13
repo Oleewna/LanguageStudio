@@ -618,6 +618,54 @@
     `;
   }
 
+  function normalizeQuizTask(task, index = 0) {
+    const kind = task?.kind || task?.type || 'choice';
+    const normalizedType = kind === 'truefalse' || kind === 'true_false' ? 'true_false'
+      : kind === 'text' || kind === 'blank' || kind === 'fill_blank' ? 'fill_blank'
+      : kind === 'choice' || kind === 'mcq' ? 'choice'
+      : String(kind);
+
+    if (normalizedType === 'choice') {
+      const options = (task?.options || []).map((option, optionIndex) => {
+        const optionText = typeof option?.text === 'object' ? t(option.text, '', getCurrentLanguage()) : (option?.text || option?.label || '');
+        return {
+          text: optionText,
+          translations: option?.translations || option?.text || { uk: optionText, en: optionText },
+          correct: Boolean(option?.correct)
+        };
+      });
+      const correctIndex = Math.max(0, options.findIndex((option) => Boolean(option.correct)));
+      return {
+        id: task?.id || `q-${index}`,
+        type: 'choice',
+        question: task?.q || task?.question || '',
+        options,
+        correctIndex: correctIndex >= 0 ? correctIndex : 0,
+        category: task?.category || ''
+      };
+    }
+
+    if (normalizedType === 'true_false') {
+      return {
+        id: task?.id || `q-${index}`,
+        type: 'true_false',
+        statement: task?.q || task?.statement || '',
+        correctAnswer: Boolean(task?.answer ?? task?.correctAnswer ?? false),
+        category: task?.category || ''
+      };
+    }
+
+    return {
+      id: task?.id || `q-${index}`,
+      type: 'fill_blank',
+      placeholder: task?.prompt || task?.placeholder || uiText('enterWord', {}, getCurrentLanguage()),
+      acceptableAnswers: Array.isArray(task?.answers) ? task.answers : [task?.answer || task?.correctAnswer || ''],
+      prefix: task?.prefix || '',
+      suffix: task?.suffix || '',
+      category: task?.category || ''
+    };
+  }
+
   /**
    * Renders Quiz block: multiple choice, true/false, fill-in-the-blank questions.
    * @param {object} section
@@ -626,7 +674,7 @@
    */
   function renderQuizBlock(section, lang) {
     const title = t(section.title, 'Завдання уроку', lang);
-    const tasks = section.tasks || [];
+    const tasks = (section.tasks || section.items || []).map((task, index) => normalizeQuizTask(task, index));
 
     let currentCategoryKey = '';
     let taskNumber = 1;
@@ -730,8 +778,10 @@
     story_text: renderStoryTextBlock,
     vocab: renderVocabBlock,
     grammar_rule: renderGrammarBlock,
+    culture: renderCultureBlock,
     culture_note: renderCultureBlock,
     takeaways: renderTakeawaysBlock,
+    tasks: renderQuizBlock,
     quiz: renderQuizBlock
   };
 
@@ -774,7 +824,7 @@
     const quizSection = (lesson.sections || []).find(s => s.type === 'quiz');
     if (!quizSection || !quizSection.tasks || !quizSection.tasks.length) return null;
 
-    const tasks = quizSection.tasks;
+    const tasks = (quizSection.tasks || []).map((task, index) => normalizeQuizTask(task, index));
     const taskRoot = container.querySelector('#exercises .quiz-card') || container.querySelector('.quiz-card') || container;
     const resultBox = taskRoot.querySelector('#taskResult') || container.querySelector('#taskResult');
 

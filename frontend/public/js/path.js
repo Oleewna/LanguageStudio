@@ -35,7 +35,7 @@ function getLessonHref(lesson) {
   const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
   // Canonical lesson route is extensionless so the static server preserves the course/lesson
   // query parameters instead of forcing a redirect that drops them.
-  const pagePath = 'pages/lesson';
+  const pagePath = 'pages/lesson.html';
   const lessonId = lesson.id || '';
   return `${pagePath}?course=${encodeURIComponent(courseId)}&lesson=${encodeURIComponent(lessonId)}`;
 }
@@ -43,8 +43,12 @@ function getLessonHref(lesson) {
 function getLessonStatusLabel(lesson) {
   const isAvailable = (lesson && lesson.status) === 'available';
   const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
-  const openLabel = typeof window.getInterfaceTranslation === 'function' ? (window.getInterfaceTranslation('Open', lang) || 'Open') : 'Open';
-  const soonLabel = typeof window.getInterfaceTranslation === 'function' ? (window.getInterfaceTranslation('Soon', lang) || 'Soon') : 'Soon';
+  const openLabel = typeof window.getInterfaceTranslation === 'function'
+    ? (window.getInterfaceTranslation('Open', lang) || (lang === 'uk' ? 'Почати' : 'Open'))
+    : (lang === 'uk' ? 'Почати' : 'Open');
+  const soonLabel = typeof window.getInterfaceTranslation === 'function'
+    ? (window.getInterfaceTranslation('Soon', lang) || (lang === 'uk' ? 'Незабаром' : 'Soon'))
+    : (lang === 'uk' ? 'Незабаром' : 'Soon');
   return isAvailable ? openLabel : soonLabel;
 }
 
@@ -53,10 +57,10 @@ function buildBadgeText(category) {
   const available = (category.units || []).reduce((sum, unit) => sum + (unit.lessons || []).filter((lesson) => lesson.status === 'available').length, 0);
 
   if (category.locked) {
-    return '🔒 Locked';
+    return '🔒 Заблоковано';
   }
 
-  return `${available}/${total} lessons available`;
+  return `${available}/${total} уроків доступно`;
 }
 
 function renderLessonRow(lesson) {
@@ -164,7 +168,7 @@ function renderCategories() {
     subtitle: path.subtitle,
     locked: Boolean(path.locked),
     defaultOpen: Boolean(path.defaultOpen),
-    badgeText: path.locked ? '🔒 Locked' : `${(path.units || []).reduce((sum, unit) => sum + (unit.lessons || []).filter((lesson) => lesson.status === 'available').length, 0)}/${(path.units || []).reduce((sum, unit) => sum + (unit.lessons || []).length, 0)} lessons available`,
+    badgeText: path.locked ? '🔒 Заблоковано' : `${(path.units || []).reduce((sum, unit) => sum + (unit.lessons || []).filter((lesson) => lesson.status === 'available').length, 0)}/${(path.units || []).reduce((sum, unit) => sum + (unit.lessons || []).length, 0)} уроків доступно`,
     units: (path.units || []).map((unit) => ({
       ...unit,
       lessons: (unit.lessons || []).map((lesson) => ({

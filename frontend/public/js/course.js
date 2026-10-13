@@ -11,7 +11,7 @@
     }
 
     if (pathname.includes('/pages/') || pathname.includes('/lessons/')) {
-      return '../';
+      return '../../';
     }
 
     if (pathname.includes('/frontend/public') || pathname.includes('/public/')) {

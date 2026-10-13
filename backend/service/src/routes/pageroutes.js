@@ -49,4 +49,14 @@ router.get('/tests', (req, res) => {
     res.sendFile(path.join(__dirname, '../../../../frontend/public/pages/tests.html'));
 });
 
+// GET Lesson page (support extensionless route used by some links)
+router.get('/pages/lesson', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../../frontend/public/pages/lesson.html'));
+});
+
+// Also support simple '/lesson' route for convenience
+router.get('/lesson', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../../frontend/public/pages/lesson.html'));
+});
+
 module.exports = router;

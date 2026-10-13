@@ -1,0 +1,173 @@
+{
+  "id": "communication-basics-1",
+  "title": {
+    "uk": "Знайомство",
+    "en": "Introductions"
+  },
+  "subtitle": {
+    "uk": "Hola, ¿cómo estás?",
+    "en": "Hi, how are you?"
+  },
+  "hero": {
+    "label": {
+      "uk": "Основи спілкування · Урок 1",
+      "en": "Communication basics · Lesson 1"
+    },
+    "text": {
+      "uk": "Перший урок: привітання, представлення й базові фрази для короткої розмови.",
+      "en": "Your first lesson: greetings, introductions, and basic phrases for a short conversation."
+    },
+    "image": "../assets/images/communication-basics.jpg"
+  },
+  "blocks": [
+    {
+      "type": "dialogue",
+      "title": {
+        "uk": "Діалог у класі",
+        "en": "Classroom dialogue"
+      },
+      "story": {
+        "uk": "Ана приходить на перший урок іспанської й знайомиться з Марією.",
+        "en": "Ana arrives for her first Spanish lesson and meets María."
+      },
+      "image": "../assets/images/communication-basics.jpg",
+      "lines": [
+        {
+          "speaker": "Ana",
+          "avatar": "A",
+          "text": "¡Hola!",
+          "phon": { "uk": "[о-ла]", "en": "[OH-lah]" },
+          "trans": { "uk": "Привіт!", "en": "Hello!" },
+          "audio": true
+        },
+        {
+          "speaker": "María",
+          "avatar": "M",
+          "text": "¡Hola! ¿Cómo estás?",
+          "phon": { "uk": "[ко-мо ес-тас]", "en": "[KOH-moh ehs-TAHS]" },
+          "trans": { "uk": "Привіт! Як справи?", "en": "Hello! How are you?" },
+          "audio": true
+        },
+        {
+          "speaker": "Ana",
+          "avatar": "A",
+          "text": "Estoy bien, gracias. Soy Ana.",
+          "phon": { "uk": "[ес-той б'єн, гра-сі-ас. сой а-на]", "en": "[ehs-TOY byehn, GRAH-see-ahs. soh AH-nah]" },
+          "trans": { "uk": "Я в порядку, дякую. Я Ана.", "en": "I’m fine, thank you. I am Ana." },
+          "audio": true
+        },
+        {
+          "speaker": "María",
+          "avatar": "M",
+          "text": "Mucho gusto, Ana.",
+          "phon": { "uk": "[му-чо гу-сто, а-на]", "en": "[MOO-choh GOOS-toh, ah-NAH]" },
+          "trans": { "uk": "Приємно познайомитися, Ана.", "en": "Nice to meet you, Ana." },
+          "audio": true
+        }
+      ]
+    },
+    {
+      "type": "vocab",
+      "title": {
+        "uk": "Нові слова",
+        "en": "Vocabulary"
+      },
+      "items": [
+        {
+          "es": "hola",
+          "transcription": "[о-ла]",
+          "translations": {
+            "uk": "привіт",
+            "en": "hello"
+          }
+        },
+        {
+          "es": "¿cómo estás?",
+          "transcription": "[ко-мо ес-тас]",
+          "translations": {
+            "uk": "як справи?",
+            "en": "how are you?"
+          }
+        },
+        {
+          "es": "soy",
+          "transcription": "[сой]",
+          "translations": {
+            "uk": "я є",
+            "en": "I am"
+          }
+        },
+        {
+          "es": "mucho gusto",
+          "transcription": "[му-чо гу-сто]",
+          "translations": {
+            "uk": "приємно познайомитися",
+            "en": "nice to meet you"
+          }
+        }
+      ]
+    },
+    {
+      "type": "culture",
+      "title": {
+        "uk": "Культурна нотатка",
+        "en": "Culture note"
+      },
+      "paragraphs": [
+        {
+          "uk": "У іспанському середовищі звичайно вітатися дружньо й без зайвого формалізму; коротке «Hola» і питання «¿Cómo estás?» часто звучать дуже природно навіть на початку занять.",
+          "en": "In Spanish-speaking settings, it is common to greet each other warmly and casually. A simple “Hola” and “¿Cómo estás?” feel natural from the very first meeting."
+        }
+      ]
+    },
+    {
+      "type": "takeaways",
+      "title": {
+        "uk": "Що запам’ятати",
+        "en": "Key takeaways"
+      },
+      "items": [
+        { "uk": "Hola — це звичайне привітання на початку розмови.", "en": "Hola is a natural greeting to begin a conversation." },
+        { "uk": "¿Cómo estás? — «Як справи?»", "en": "¿Cómo estás? means “How are you?”" },
+        { "uk": "Soy ... — «Я ...», а Mucho gusto — «Приємно познайомитися».", "en": "Soy ... means “I am ...”, and Mucho gusto means “Nice to meet you.”" }
+      ]
+    },
+    {
+      "type": "tasks",
+      "title": {
+        "uk": "Завдання уроку",
+        "en": "Lesson tasks"
+      },
+      "items": [
+        {
+          "kind": "choice",
+          "id": "q1",
+          "q": {
+            "uk": "Як сказати «Мене звати Ана» по-іспанськи?",
+            "en": "How do you say “My name is Ana” in Spanish?"
+          },
+          "options": [
+            { "text": { "uk": "Soy Ana.", "en": "Soy Ana." }, "correct": true },
+            { "text": { "uk": "Estoy Ana.", "en": "Estoy Ana." }, "correct": false },
+            { "text": { "uk": "Mucho gusto.", "en": "Mucho gusto." }, "correct": false }
+          ]
+        },
+        {
+          "kind": "truefalse",
+          "id": "q2",
+          "q": {
+            "uk": "«Mucho gusto» означає «приємно познайомитися».",
+            "en": "“Mucho gusto” means “nice to meet you.”"
+          },
+          "answer": true
+        },
+        {
+          "kind": "text",
+          "id": "q3",
+          "prompt": "___, ¿cómo estás?",
+          "answers": ["hola"]
+        }
+      ]
+    }
+  ]
+}

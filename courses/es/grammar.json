@@ -1,0 +1,116 @@
+{
+  "topics": [
+    {
+      "id": "ser-estar",
+      "icon": "verb",
+      "title": { "uk": "Ser vs Estar", "en": "Ser vs Estar" },
+      "blocks": [
+        {
+          "type": "table",
+          "head": [
+            { "uk": "Випадок", "en": "Case" },
+            "Ser",
+            "Estar"
+          ],
+          "rows": [
+            [
+              { "uk": "Ідентичність", "en": "Identity" },
+              "**soy** Ana",
+              "—"
+            ],
+            [
+              { "uk": "Місце", "en": "Location" },
+              "—",
+              "**estoy** en Madrid"
+            ],
+            [
+              { "uk": "Стан/почуття", "en": "State / feeling" },
+              "—",
+              "**estoy** bien"
+            ],
+            [
+              { "uk": "Опис", "en": "Description" },
+              "**es** amable",
+              "**está** cansado"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "icon": "lightbulb",
+          "title": { "uk": "Пам’ятайте:", "en": "Remember:" },
+          "text": {
+            "uk": "**Ser** описує хто/що ви є або що щось таке; **estar** вказує на місце, стан або поточний стан.",
+            "en": "Use **ser** for identity and what something is; use **estar** for location, condition, and temporary states."
+          }
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "title": { "uk": "Приклад", "en": "Example" },
+              "text": {
+                "uk": "**Soy** Ana. **Estoy** en Madrid.",
+                "en": "**Soy** Ana. **Estoy** en Madrid."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "articulos",
+      "icon": "newspaper",
+      "title": { "uk": "Артиклі", "en": "Articles" },
+      "blocks": [
+        {
+          "type": "table",
+          "head": [
+            { "uk": "Рід / Число", "en": "Gender / Number" },
+            "el",
+            "la",
+            "los",
+            "las"
+          ],
+          "rows": [
+            [
+              { "uk": "Чоловічий (однина)", "en": "Masculine (singular)" },
+              "**el** libro",
+              "—",
+              "—",
+              "—"
+            ],
+            [
+              { "uk": "Жіночий (однина)", "en": "Feminine (singular)" },
+              "—",
+              "**la** calle",
+              "—",
+              "—"
+            ],
+            [
+              { "uk": "Чоловічий (множина)", "en": "Masculine (plural)" },
+              "—",
+              "—",
+              "**los** libros",
+              "—"
+            ],
+            [
+              { "uk": "Жіночий (множина)", "en": "Feminine (plural)" },
+              "—",
+              "—",
+              "—",
+              "**las** calles"
+            ]
+          ]
+        },
+        {
+          "type": "rules",
+          "items": [
+            { "uk": "**El** вживається перед чоловічими іменниками в однині, **la** — перед жіночими.", "en": "**El** is used before singular masculine nouns, **la** before feminine ones." },
+            { "uk": "Множина утворюється за допомогою **los** та **las**.", "en": "Plural is formed with **los** and **las**." }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -3,6 +3,18 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<script>
+  (function () {
+    var pathname = window.location.pathname.replace(/\/+$/, '');
+    if (pathname === '/frontend/public' || pathname.endsWith('/public')) {
+      var nextUrl = new URL(window.location.href);
+      nextUrl.pathname = pathname + '/';
+      if (nextUrl.href !== window.location.href) {
+        window.location.replace(nextUrl.href);
+      }
+    }
+  })();
+</script>
 <link rel="icon" type="image/png" href="assets/images/icon.png" />
 <title>LanguageStudio — Italian for real-life situations</title>
 <meta name="description" content="LanguageStudio — a practical Italian course for real goals: travel, work, business. Flashcards and a personal dictionary." />

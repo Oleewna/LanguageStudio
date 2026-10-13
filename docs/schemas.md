@@ -1,4 +1,4 @@
-# Course schema reference
+﻿# Course schema reference
 
 This document describes the JSON contracts used by the course-engine architecture. Each language course is loaded from `courses/<id>/...` and uses localized text objects in the form `{ "uk": "...", "en": "..." }`.
 
@@ -24,7 +24,7 @@ Lists the available courses and the default course.
 Notes:
 - `default` is the fallback when no course is selected.
 - `status` can be `active`, `soon`, or `locked`.
-- `name` is shown in the UI and should always include `uk` and `en`.
+- `name` should always include `uk` and `en`.
 
 ## 2) `courses/<id>/course.json`
 
@@ -47,7 +47,6 @@ Describes the learning structure and feature set for one course.
     "exercises": true,
     "grammar": true,
     "tests": true,
-    "games": ["greeting-traffic-light"],
     "exerciseFormats": ["mcq", "blank", "match", "reorder", "listen", "dialogue", "dict"]
   },
   "exerciseCategories": [
@@ -65,6 +64,7 @@ Describes the learning structure and feature set for one course.
       "locked": false,
       "defaultOpen": true,
       "title": { "uk": "Основи спілкування", "en": "Communication basics" },
+      "subtitle": { "uk": "...", "en": "..." },
       "units": [
         {
           "id": "foundations-1",
@@ -88,13 +88,12 @@ Describes the learning structure and feature set for one course.
 
 Notes:
 - `target.code` is the course language code such as `it` or `es`.
-- `features.games` is a list of enabled game ids.
 - `exerciseFormats` is the whitelist of formats available for the course.
-- `paths -> units -> lessons` follows the renderer contract used by the unit pages.
+- `paths` controls the roadmap and lesson grouping in the app.
 
 ## 3) `courses/<id>/vocab.json`
 
-A shared vocabulary list used by the dictionary, flashcards, and dictionary quiz.
+Array of vocabulary rows used by dictionary, flashcards, and quiz generation.
 
 ```json
 [
@@ -105,7 +104,7 @@ A shared vocabulary list used by the dictionary, flashcards, and dictionary quiz
     "trans": { "uk": "привіт / бувай", "en": "hello / goodbye" },
     "example": {
       "text": "Ciao! Come stai?",
-      "trans": { "uk": "Привіт! Як справи?", "en": "Hi! How are you?" }
+      "trans": { "uk": "...", "en": "..." }
     },
     "lesson": "1.1",
     "path": "foundations",
@@ -116,14 +115,9 @@ A shared vocabulary list used by the dictionary, flashcards, and dictionary quiz
 ]
 ```
 
-Notes:
-- `id` must be stable and unique within the course.
-- `phon`, `example`, `category`, and `type` are optional.
-- `trans` is localized as `{ "uk": ..., "en": ... }`.
-
 ## 4) `courses/<id>/grammar.json`
 
-Defines grammar topics and block content.
+Grammar topics and the blocks they contain.
 
 ```json
 {
@@ -150,6 +144,7 @@ Defines grammar topics and block content.
         },
         {
           "type": "note",
+          "icon": "lightbulb",
           "title": { "uk": "Зверніть увагу:", "en": "Note:" },
           "text": { "uk": "...", "en": "..." }
         }
@@ -165,107 +160,51 @@ Allowed block types:
 - `examples`
 - `rules`
 
-Markup support:
-- `**bold**` → bold text
-- `*italic*` → italic text
-- all other text is escaped safely
-
 ## 5) `courses/<id>/exercises.json`
 
-Stores all exercise items for a course, including category metadata and format-specific data.
+Exercise bank for the course. Exercise items keep the same basic shape as the previous TASK_BANK, with localized text and stable IDs.
 
 ```json
 [
   {
-    "id": "it-ex-001",
+    "id": "es-mcq-01",
     "format": "mcq",
-    "category": "articles",
-    "prompt": { "uk": "Виберіть правильний артикль.", "en": "Choose the correct article." },
+    "category": "greetings",
+    "question": { "uk": "Що означає «¿Cómo estás?» ?", "en": "What does “¿Cómo estás?” mean?" },
     "options": [
-      { "text": { "uk": "il", "en": "il" }, "correct": true },
-      { "text": { "uk": "lo", "en": "lo" }, "correct": false }
+      { "text": { "uk": "А) Як тебе звати?", "en": "A) What is your name?" }, "correct": false },
+      { "text": { "uk": "Б) Як справи?", "en": "B) How are you?" }, "correct": true }
     ],
-    "xp": 10
+    "explanation": { "uk": "...", "en": "..." },
+    "xp": 15
   }
 ]
 ```
 
 Notes:
-- `format` is one of the allowed exercise types such as `mcq`, `blank`, `match`, `reorder`, `listen`, `dialogue`, or `dict`.
-- `match` items use `trans: { "uk": ..., "en": ... }` for pairs.
-- Every item should include `id`, `format`, and `category`.
+- `format` is a course-level allowed value from `features.exerciseFormats`.
+- `category` must match an entry in `course.json` -> `exerciseCategories`.
+- For `match` items, pairs are normalized to `trans: { "uk": "...", "en": "..." }`.
 
-## 6) `courses/<id>/games.json`
+## 6) `courses/<id>/lessons/<lessonId>.json`
 
-Defines games that are enabled for a course.
-
-```json
-{
-  "games": [
-    {
-      "id": "greeting-traffic-light",
-      "type": "situation-choice",
-      "title": { "uk": "Світлофор грубих вітань", "en": "Greeting traffic light" },
-      "rounds": [
-        {
-          "icon": "sun",
-          "situation": { "uk": "Ви зустрічаєте вчителя вранці.", "en": "You meet a teacher in the morning." },
-          "options": [
-            { "text": { "uk": "Buongiorno!", "en": "Good morning!" }, "correct": true },
-            { "text": { "uk": "Buonasera!", "en": "Good evening!" }, "correct": false }
-          ],
-          "correct": 0
-        }
-      ]
-    }
-  ]
-}
-```
-
-Notes:
-- `games` is an array so a course can expose zero or more playable mini-games.
-- `type` is the runner type used by the generic game engine.
-
-## 7) `courses/<id>/lessons/*.json`
-
-One lesson file contains the lesson card, its blocks, and task data.
+Lesson content is a separate JSON file referenced by `course.json` and rendered by the generic lesson engine.
 
 ```json
 {
   "id": "1.1",
   "title": { "uk": "Привітання", "en": "Greetings" },
-  "hero": {
-    "label": { "uk": "Урок 1", "en": "Lesson 1" },
-    "text": { "uk": "Знайомство з базовими вітаннями", "en": "Meet the basics of greetings" },
-    "image": "assets/images/communication-basics.jpg"
-  },
   "blocks": [
-    {
-      "type": "dialogue",
-      "story": { "uk": "Зустріч двох друзів", "en": "Two friends meet" },
-      "lines": [
-        { "speaker": "Sara", "side": "a", "text": "Buongiorno!", "trans": { "uk": "Доброго дня!", "en": "Good morning!" } }
-      ]
-    }
+    { "type": "dialogue", "lines": [ "A: Hola!", "B: ¡Hola!" ] },
+    { "type": "vocab", "items": ["hola", "buenos días"] },
+    { "type": "takeaways", "items": ["Use Hola to greet someone."] }
   ]
 }
 ```
 
-Notes:
-- The lesson file is identified by `course.json` entries under `paths -> units -> lessons`.
-- The engine loads a lesson by `?course=<id>&lesson=<id>`.
-- Lesson content may include dialogue, vocab, culture, takeaways, and task blocks.
-
 ## Shared rules
 
-- Use only stable string IDs (for example: `it-vocab-001` or `1.1`).
-- Never store array indexes as the source of truth for progress.
-- All interface text uses localized objects rather than hard-coded language strings.
-- Keep target-language data separate from source-language UI translations.
-
-## Validation checklist for Step 1
-
-- [ ] `courses/` exists with the required structure.
-- [ ] All JSON files parse correctly.
-- [ ] All localized objects contain both `uk` and `en`.
-- [ ] Course metadata is driven by `courses/index.json` and `course.json` rather than hard-coded page logic.
+- Localized text is always an object with `uk` and `en` keys.
+- IDs are stable strings and never array indices.
+- Course data is loaded via `fetch()` from the active course folder.
+- The app must work when a course is missing or has a partial data set; invalid or empty sections should fail gracefully.

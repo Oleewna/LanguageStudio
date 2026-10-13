@@ -17,7 +17,6 @@
     "exercises": true,
     "grammar": true,
     "tests": true,
-    "games": ["greeting-traffic-light"],
     "exerciseFormats": ["mcq", "blank", "match", "reorder", "listen", "dialogue", "dict"]
   },
   "exerciseCategories": [
@@ -85,9 +84,9 @@
         {
           "id": "foundations-1",
           "title": { "uk": "Перші кроки", "en": "First steps" },
-          "lessons": [
+            "lessons": [
             {
-              "id": "1.1",
+              "id": "communication-basics-1",
               "num": { "uk": "Урок 1", "en": "Lesson 1" },
               "title": { "uk": "Привітання", "en": "Greetings" },
               "description": {

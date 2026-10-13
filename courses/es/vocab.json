@@ -1,0 +1,227 @@
+[
+  {
+    "id": "es-001",
+    "word": "hola",
+    "phon": { "uk": "[о-ла]", "en": "[OH-lah]" },
+    "trans": { "uk": "привіт", "en": "hello" },
+    "example": {
+      "text": "¡Hola! ¿Cómo estás?",
+      "trans": { "uk": "Привіт! Як справи?", "en": "Hi! How are you?" }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "greetings",
+    "category": "greetings",
+    "type": "greeting"
+  },
+  {
+    "id": "es-002",
+    "word": "buenos días",
+    "phon": { "uk": "[буе-нос ді-ас]", "en": "[BWEH-nohs DEE-ahs]" },
+    "trans": { "uk": "доброго дня", "en": "good morning" },
+    "example": {
+      "text": "Buenos días, señor.",
+      "trans": { "uk": "Доброго дня, пане.", "en": "Good morning, sir." }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "greetings",
+    "category": "greetings",
+    "type": "phrase"
+  },
+  {
+    "id": "es-003",
+    "word": "gracias",
+    "phon": { "uk": "[гра-сі-ас]", "en": "[GRAH-see-ahs]" },
+    "trans": { "uk": "дякую", "en": "thank you" },
+    "example": {
+      "text": "Gracias por tu ayuda.",
+      "trans": { "uk": "Дякую за твою допомогу.", "en": "Thank you for your help." }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "courtesy",
+    "type": "phrase"
+  },
+  {
+    "id": "es-004",
+    "word": "por favor",
+    "phon": { "uk": "[пор фа-вор]", "en": "[pohr fah-BOR]" },
+    "trans": { "uk": "будь ласка", "en": "please" },
+    "example": {
+      "text": "Una taza, por favor.",
+      "trans": { "uk": "Чашку, будь ласка.", "en": "A cup, please." }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "courtesy",
+    "type": "phrase"
+  },
+  {
+    "id": "es-005",
+    "word": "¿cómo estás?",
+    "phon": { "uk": "[ко-мо ес-тас]", "en": "[KOH-moh ehs-TAHS]" },
+    "trans": { "uk": "як справи?", "en": "how are you?" },
+    "example": {
+      "text": "¿Cómo estás hoy?",
+      "trans": { "uk": "Як справи сьогодні?", "en": "How are you today?" }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "greetings",
+    "category": "greetings",
+    "type": "phrase"
+  },
+  {
+    "id": "es-006",
+    "word": "estoy bien",
+    "phon": { "uk": "[ес-той б'єн]", "en": "[ehs-TOY byehn]" },
+    "trans": { "uk": "я в порядку", "en": "I am well" },
+    "example": {
+      "text": "Estoy bien, gracias.",
+      "trans": { "uk": "Я в порядку, дякую.", "en": "I’m fine, thank you." }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "feelings",
+    "type": "phrase"
+  },
+  {
+    "id": "es-007",
+    "word": "soy",
+    "phon": { "uk": "[сой]", "en": "[soh]" },
+    "trans": { "uk": "я є / я являюсь", "en": "I am" },
+    "example": {
+      "text": "Soy Ana.",
+      "trans": { "uk": "Я Ана.", "en": "I am Ana." }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "identity",
+    "type": "verb"
+  },
+  {
+    "id": "es-008",
+    "word": "mucho gusto",
+    "phon": { "uk": "[му-чо гу-сто]", "en": "[MOO-choh GOOS-toh]" },
+    "trans": { "uk": "приємно познайомитися", "en": "nice to meet you" },
+    "example": {
+      "text": "Mucho gusto, Marta.",
+      "trans": { "uk": "Приємно познайомитися, Марто.", "en": "Nice to meet you, Marta." }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "greetings",
+    "category": "greetings",
+    "type": "phrase"
+  },
+  {
+    "id": "es-009",
+    "word": "necesito ayuda",
+    "phon": { "uk": "[не-се-си-то а-ю-да]", "en": "[neh-seh-SEE-toh ah-YOO-dah]" },
+    "trans": { "uk": "мені потрібна допомога", "en": "I need help" },
+    "example": {
+      "text": "Necesito ayuda, por favor.",
+      "trans": { "uk": "Мені потрібна допомога, будь ласка.", "en": "I need help, please." }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "travel",
+    "category": "travel",
+    "type": "phrase"
+  },
+  {
+    "id": "es-010",
+    "word": "¿dónde está el baño?",
+    "phon": { "uk": "[дон-де ес-та ель ба-ньо]", "en": "[DOHN-deh ehs-TAH ehl BAHN-yoh]" },
+    "trans": { "uk": "де знаходиться туалет?", "en": "where is the bathroom?" },
+    "example": {
+      "text": "¿Dónde está el baño?",
+      "trans": { "uk": "Де знаходиться туалет?", "en": "Where is the bathroom?" }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "travel",
+    "category": "travel",
+    "type": "question"
+  },
+  {
+    "id": "es-011",
+    "word": "quiero un café",
+    "phon": { "uk": "[кі-є-ро ун ка-фе]", "en": "[KYEH-roh oon kah-FEH]" },
+    "trans": { "uk": "я хочу каву", "en": "I want a coffee" },
+    "example": {
+      "text": "Quiero un café, por favor.",
+      "trans": { "uk": "Я хочу каву, будь ласка.", "en": "I want a coffee, please." }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "food",
+    "category": "food",
+    "type": "phrase"
+  },
+  {
+    "id": "es-012",
+    "word": "la cuenta",
+    "phon": { "uk": "[ла ку-єн-та]", "en": "[lah KWEN-tah]" },
+    "trans": { "uk": "рахунок", "en": "the bill" },
+    "example": {
+      "text": "La cuenta, por favor.",
+      "trans": { "uk": "Рахунок, будь ласка.", "en": "The bill, please." }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "food",
+    "category": "food",
+    "type": "noun"
+  },
+  {
+    "id": "es-013",
+    "word": "la calle",
+    "phon": { "uk": "[ла ка-є]", "en": "[lah KAH-yeh]" },
+    "trans": { "uk": "вулиця", "en": "street" },
+    "example": {
+      "text": "La calle es tranquila.",
+      "trans": { "uk": "Вулиця спокійна.", "en": "The street is quiet." }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "travel",
+    "category": "travel",
+    "type": "noun"
+  },
+  {
+    "id": "es-014",
+    "word": "el tren",
+    "phon": { "uk": "[ель трен]", "en": "[ehl trehn]" },
+    "trans": { "uk": "потяг", "en": "train" },
+    "example": {
+      "text": "El tren llega tarde.",
+      "trans": { "uk": "Потяг прибуває пізно.", "en": "The train arrives late." }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "travel",
+    "category": "travel",
+    "type": "noun"
+  },
+  {
+    "id": "es-015",
+    "word": "no entiendo",
+    "phon": { "uk": "[но ен-тьєн-до]", "en": "[noh ehn-TYEN-doh]" },
+    "trans": { "uk": "я не розумію", "en": "I don't understand" },
+    "example": {
+      "text": "No entiendo, ¿puedes repetir?",
+      "trans": { "uk": "Я не розумію, чи можеш повторити?", "en": "I don't understand, can you repeat?" }
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "travel",
+    "type": "phrase"
+  }
+]

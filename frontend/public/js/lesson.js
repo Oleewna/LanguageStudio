@@ -29,8 +29,9 @@
 
   function getCourseBasePath() {
     const path = window.location.pathname || '';
-    if (path.includes('/pages/')) return '../';
-    if (path.includes('/lessons/')) return '../';
+    if (path.includes('/frontend/public/pages') || path.includes('/frontend/public/lessons')) return '../../../';
+    if (path.includes('/pages/') || path.includes('/lessons/')) return '../../';
+    if (path.includes('/frontend/public') || path.includes('/public/')) return '../../';
     return './';
   }
 
@@ -167,7 +168,7 @@
 
   function normalizeLesson(rawLesson, course, lessonId, courseLessonMeta) {
     const lessonMeta = courseLessonMeta || {};
-    const safeId = rawLesson?.id || lessonId || '1.1';
+    const safeId = rawLesson?.id || lessonId || 'communication-basics-1';
     const sections = (rawLesson?.blocks || rawLesson?.sections || []).map((block) => normalizeSection(block, {})).filter(Boolean);
     const title = rawLesson?.title || lessonMeta.title || { uk: 'Урок', en: 'Lesson' };
     const subtitle = rawLesson?.subtitle || lessonMeta.subtitle || { uk: '', en: '' };
@@ -341,7 +342,7 @@
         return;
       }
 
-      const fallbackLessonId = lessonMeta?.id || rawLesson?.id || lessonId || (lessonList[0] && lessonList[0].id) || '1.1';
+      const fallbackLessonId = lessonMeta?.id || rawLesson?.id || lessonId || (lessonList[0] && lessonList[0].id) || 'communication-basics-1';
       const normalized = normalizeLesson(rawLesson || {}, course, fallbackLessonId, lessonMeta || {});
       const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
 

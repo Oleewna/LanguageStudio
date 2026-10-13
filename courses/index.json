@@ -7,6 +7,13 @@
       "native": "Italiano",
       "flag": "🇮🇹",
       "status": "active"
+    },
+    {
+      "id": "es",
+      "name": { "uk": "Іспанська", "en": "Spanish" },
+      "native": "Español",
+      "flag": "🇪🇸",
+      "status": "active"
     }
   ]
 }

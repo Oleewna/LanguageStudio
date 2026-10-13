@@ -26,14 +26,14 @@
         en: 'Introductions',
       },
       subtitle: {
-        uk: 'Come ti chiami?',
-        en: 'Come ti chiami?',
+        uk: 'Primo incontro in classe',
+        en: 'First meeting in class',
       },
       description: {
-        uk: 'Софія приходить на перший урок італійської в Мілані. Вона знайомиться з Ґретою, студенткою того самого курсу.',
-        en: 'Sofia arrives for her first Italian lesson in Milan and meets Greta, a student in the same course.',
+        uk: 'Софія приходить раніше на урок і не впевнена, яке місце вільне. Ґрета допомагає і вони дізнаються, що обидві нові в курсі. Вчитель проводить коротке представлення: ім’я і країна.',
+        en: 'Sofia arrives early and is unsure which seat is free. Greta helps her and they learn they are both new to the course. The teacher leads a short introduction round: name and country.',
       },
-      duration: '15 хв',
+      duration: '20 хв',
       xpReward: 50,
       nextLessonId: 'communication-basics-2',
       prevLessonId: null,
@@ -43,140 +43,149 @@
         {
           type: 'dialogue',
           title: {
-            uk: 'Діалог у класі',
-            en: 'Classroom dialogue'
+            uk: 'Діалог',
+            en: 'Dialogue'
           },
           story: {
-            uk: 'Софія приходить на перший урок італійської в Мілані й знайомиться з Ґретою, іншою студенткою цього курсу.',
-            en: 'Sofia arrives for her first Italian lesson in Milan and meets Greta, another student in the course.'
+            uk: 'Софія приходить раніше до класу і шукає вільне місце; Ґрета допомагає. Коли починається заняття, учитель просить коротко назвати ім’я і країну.',
+            en: 'Sofia arrives early looking for a free seat; Greta helps. When class begins the teacher asks everyone to give a quick name-and-country introduction.'
           },
           image: '../assets/images/communication-basics.jpg',
           imageAlt: {
-            uk: 'Студенти в італійському класі знайомляться',
-            en: 'Students in an Italian classroom getting to know each other'
+            uk: 'Студентки знайомляться в класі',
+            en: 'Students meeting in a classroom'
           },
           lines: [
             {
               speaker: 'Sofia',
               avatar: 'S',
-              it: 'Buongiorno!',
-              phonetic: '[буон-джор-но]',
+              it: 'Scusa, questo posto è libero?',
               translations: {
-                uk: 'Доброго дня!',
-                en: 'Good morning!',
+                uk: 'Вибачте, це місце вільне?',
+                en: 'Excuse me, is this seat free?'
               },
               audio: true
             },
             {
               speaker: 'Greta',
               avatar: 'G',
-              it: 'Buongiorno! Come ti chiami?',
-              phonetic: '[ко-ме ті к’я-мі]',
+              it: 'Sì, certo. Anche tu sei qui per il corso d\'italiano?',
               translations: {
-                uk: 'Доброго дня! Як тебе звати?',
-                en: 'Good morning! What is your name?',
+                uk: 'Так, звісно. Ти теж на курсі італійської?',
+                en: 'Yes, of course. Are you here for the Italian course too?'
               },
               audio: true
             },
             {
               speaker: 'Sofia',
               avatar: 'S',
-              it: 'Mi chiamo Sofia. E tu?',
-              phonetic: '[мі к’я-мо Со-фі-а. е ту]',
+              it: 'Sì, è la mia prima lezione. Mi chiamo Sofia.',
               translations: {
-                uk: 'Мене звати Софія. А тебе?',
-                en: 'My name is Sofia. And you?',
+                uk: 'Так, це моє перше заняття. Мене звати Софія.',
+                en: "Yes, it's my first lesson. My name is Sofia."
               },
               audio: true
             },
             {
               speaker: 'Greta',
               avatar: 'G',
-              it: 'Mi chiamo Greta. Piacere!',
-              phonetic: '[мі к’я-мо Ґре-та. п’я-че-ре]',
+              it: 'Piacere, Sofia. Io sono Greta.',
               translations: {
-                uk: 'Мене звати Ґрета. Приємно познайомитися!',
-                en: 'My name is Greta. Nice to meet you!',
+                uk: 'Приємно, Софіє. Я — Ґрета.',
+                en: 'Nice to meet you, Sofia. I am Greta.'
+              },
+              audio: true
+            },
+            {
+              speaker: 'Insegnante',
+              avatar: 'I',
+              it: 'Buongiorno a tutti. Cominciamo con un giro veloce: nome e paese.',
+              translations: {
+                uk: 'Доброго дня всім. Розпочнемо швидкий круг: ім’я і країна.',
+                en: 'Good morning everyone. Let’s start a quick round: name and country.'
               },
               audio: true
             },
             {
               speaker: 'Sofia',
               avatar: 'S',
-              it: 'Piacere, Greta!',
-              phonetic: '[п’я-че-ре, Ґре-та]',
+              it: 'Sono Sofia. Vengo dall\'Ucraina.',
               translations: {
-                uk: 'Приємно, Ґрето!',
-                en: 'Nice to meet you, Greta!',
+                uk: 'Я — Софія. Я з України.',
+                en: 'I am Sofia. I come from Ukraine.'
+              },
+              audio: true
+            },
+            {
+              speaker: 'Insegnante',
+              avatar: 'I',
+              it: 'Benvenuta, Sofia. Greta?',
+              translations: {
+                uk: 'Ласкаво просимо, Софіє. Ґрета?',
+                en: 'Welcome, Sofia. Greta?'
               },
               audio: true
             },
             {
               speaker: 'Greta',
               avatar: 'G',
-              it: 'Di dove sei?',
-              phonetic: '[ді до-ве сей]',
+              it: 'Vengo dalla Germania. Sono tedesca.',
               translations: {
-                uk: 'Звідки ти?',
-                en: 'Where are you from?',
+                uk: 'Я з Німеччини. Я німкеня.',
+                en: 'I come from Germany. I am German.'
               },
               audio: true
             },
             {
               speaker: 'Sofia',
               avatar: 'S',
-              it: 'Sono americana. E tu?',
-              phonetic: '[со-но а-ме-рі-ка-на. е ту]',
+              it: 'Ah, che bello!',
               translations: {
-                uk: 'Я американка. А ти?',
-                en: "I'm American. And you?"
+                uk: 'О, як чудово!',
+                en: 'Ah, how nice!'
               },
               audio: true
             },
             {
               speaker: 'Greta',
               avatar: 'G',
-              it: 'Sono tedesca.',
-              phonetic: '[со-но те-де-ска]',
+              it: 'E tu?',
               translations: {
-                uk: 'Я німкеня.',
-                en: "I'm German."
+                uk: 'А ти?',
+                en: 'And you?'
               },
               audio: true
             },
             {
               speaker: 'Sofia',
               avatar: 'S',
-              it: 'Anche tu fai il corso d’italiano?',
-              phonetic: '[ан-ке ту фай іль кор-со ді-та-лья-но]',
+              it: 'Sono ucraina.',
               translations: {
-                uk: 'Ти теж ходиш на курс італійської?',
-                en: 'Are you taking the Italian course too?',
+                uk: 'Я — українка.',
+                en: 'I am Ukrainian.'
               },
               audio: true
             },
             {
-              speaker: 'Greta',
-              avatar: 'G',
-              it: 'Sì, oggi è la mia prima lezione.',
-              phonetic: '[сі, од-джі е ла мі-а прі-ма ле-цьо-не]',
+              speaker: 'Insegnante',
+              avatar: 'I',
+              it: 'E tu, Luca?',
               translations: {
-                uk: 'Так, сьогодні моє перше заняття.',
-                en: "Yes, today's my first class."
+                uk: 'А ти, Луко?',
+                en: 'And you, Luca?'
               },
               audio: true
             },
             {
-              speaker: 'Sofia',
-              avatar: 'S',
-              it: 'Anche per me!',
-              phonetic: '[ан-ке пер ме]',
+              speaker: 'Luca',
+              avatar: 'L',
+              it: 'Sono francese, vengo dalla Francia.',
               translations: {
-                uk: 'У мене теж!',
-                en: 'Mine too!'
+                uk: 'Я — француз, я з Франції.',
+                en: 'I am French, I come from France.'
               },
-              audio: false
-            },
+              audio: true
+            }
           ]
         },
 
@@ -184,330 +193,84 @@
         {
           type: 'vocab',
           title: {
-            uk: 'Нові слова',
+            uk: 'Словник',
             en: 'Vocabulary'
           },
           items: [
-            {
-              it: 'buongiorno',
-              transcription: '[буон-джор-но]',
-              translations: {
-                uk: 'доброго дня',
-                en: 'good morning / hello'
-              }
-            },
-            {
-              it: 'come ti chiami?',
-              transcription: '[ко-ме ті к’я-мі]',
-              translations: {
-                uk: 'як тебе звати?',
-                en: 'what is your name?'
-              }
-            },
-            {
-              it: 'mi chiamo',
-              transcription: '[мі к’я-мо]',
-              translations: {
-                uk: 'мене звати',
-                en: 'my name is'
-              }
-            },
-            {
-              it: 'io sono',
-              transcription: '[і-о со-но]',
-              translations: {
-                uk: 'я є / я',
-                en: 'I am'
-              }
-            },
-            {
-              it: 'piacere',
-              transcription: '[п’я-че-ре]',
-              translations: {
-                uk: 'приємно познайомитися',
-                en: 'nice to meet you'
-              }
-            },
-            {
-              it: 'di dove sei?',
-              transcription: '[ді до-ве сей]',
-              translations: {
-                uk: 'звідки ти?',
-                en: 'where are you from?'
-              }
-            },
-            {
-              it: 'americana / tedesca',
-              transcription: '[а-ме-рі-ка-на / те-де-ска]',
-              translations: {
-                uk: 'американка / німкеня',
-                en: 'American / German (feminine)'
-              }
-            },
-            {
-              it: "corso d'italiano",
-              transcription: '[кор-со ді-та-лья-но]',
-              translations: {
-                uk: 'курс італійської',
-                en: 'Italian course'
-              }
-            },
-            {
-              it: 'prima lezione',
-              transcription: '[прі-ма ле-цьо-не]',
-              translations: {
-                uk: 'перше заняття',
-                en: 'first lesson'
-              }
-            },
-            {
-              it: 'grazie',
-              transcription: '[гра-цьє]',
-              translations: {
-                uk: 'дякую',
-                en: 'thank you'
-              }
-            },
-            {
-              it: 'prego',
-              transcription: '[пре-го]',
-              translations: {
-                uk: 'будь ласка',
-                en: "you're welcome"
-              }
-            },
+            { it: "questo posto è libero?", translations: { uk: 'це місце вільне?', en: 'is this seat free?' } },
+            { it: 'certo', translations: { uk: 'звісно', en: 'of course' } },
+            { it: 'anche tu?', translations: { uk: 'ти теж?', en: 'you too?' } },
+            { it: "il corso d'italiano", translations: { uk: 'курс італійської', en: 'Italian course' } },
+            { it: 'la prima lezione', translations: { uk: 'перше заняття', en: 'the first lesson' } },
+            { it: 'piacere', translations: { uk: 'приємно познайомитися', en: 'nice to meet you' } },
+            { it: 'il paese', translations: { uk: 'країна', en: 'country' } },
+            { it: 'venire da', translations: { uk: 'бути родом із', en: 'to come from' } },
+            { it: "l'Ucraina, la Germania, la Francia", translations: { uk: 'Україна, Німеччина, Франція', en: 'Ukraine, Germany, France' } },
+            { it: 'ucraino/a, tedesco/a, francese', translations: { uk: 'українець/українка, німець/німкеня, француз/француженка', en: 'Ukrainian, German, French' } },
+            { it: 'che bello!', translations: { uk: 'як чудово!', en: 'how nice!' } }
           ],
           notes: [
             {
               type: 'default',
               title: { uk: 'Нотатка', en: 'Note' },
               text: {
-                uk: 'Щоб назвати ім’я, можна сказати <i>Mi chiamo Sofia</i> або <i>Io sono Sofia</i>. Обидва варіанти правильні.',
-                en: 'To state your name, you can say <i>Mi chiamo Sofia</i> or <i>Io sono Sofia</i>. Both options are correct.'
-              }
-            },
-            {
-              type: 'accent',
-              title: { uk: 'Нотатка', en: 'Note' },
-              text: {
-                uk: '<i>Piacere</i> кажуть одразу після знайомства.',
-                en: '<i>Piacere</i> is said right after introductions.'
+                uk: 'Про країни зверніть увагу на прийменники: «vengo dall\'Ucraina», «dalla Germania», «dalla Francia».',
+                en: "Note the country prepositions: 'vengo dall\'Ucraina', 'dalla Germania', 'dalla Francia'."
               }
             }
           ]
         },
 
-        // ── Block 3: Cultural Note ───────────────────────────────────────
-        {
-          type: 'culture_note',
-          title: {
-            uk: 'Маленька культурна нотатка',
-            en: 'Cultural note'
-          },
-          paragraphs: [
-            {
-              uk: 'На рецепції, у школі чи магазині доречно починати розмову з <i>Buongiorno</i> — це просте й ввічливе «доброго дня».',
-              en: "At reception, at school or in a shop, it's polite to start a conversation with <i>Buongiorno</i> — a simple and polite 'good day'."
-            },
-            {
-              uk: 'Після знайомства італійці часто кажуть <i>Piacere</i>. У відповідь можна повторити: <i>Piacere!</i>',
-              en: 'After introductions, Italians often say <i>Piacere</i>. In response, you can repeat: <i>Piacere!</i>'
-            }
-          ]
-        },
-
-        // ── Block 4: Takeaways ──────────────────────────────────────────
+        // ── Block 3: Takeaways ──────────────────────────────────────────
         {
           type: 'takeaways',
           title: {
-            uk: 'Що варто запам’ятати',
+            uk: 'Що запам’ятати',
             en: 'Key takeaways'
           },
           items: [
-            {
-              uk: '<i>Come ti chiami?</i> — «Як тебе звати?».',
-              en: '<i>Come ti chiami?</i> — "What is your name?".'
-            },
-            {
-              uk: '<i>Mi chiamo…</i> — «Мене звати…».',
-              en: '<i>Mi chiamo…</i> — "My name is…".'
-            },
-            {
-              uk: 'Після знайомства скажіть <i>Piacere!</i>.',
-              en: 'After introductions, say <i>Piacere!</i>.'
-            },
-            {
-              uk: '<i>Di dove sei?</i> — «Звідки ти?». <i>Sono americana/tedesca</i> — «Я американка/німкеня».',
-              en: '<i>Di dove sei?</i> means "Where are you from?". <i>Sono americana/tedesca</i> means "I am American/German".'
-            }
+            { uk: '<i>Scusa, questo posto è libero?</i> — ввічливий спосіб запитати про місце.', en: '<i>Scusa, questo posto è libero?</i> — polite way to ask about a seat.' },
+            { uk: '<i>Sono ... / Vengo da ...</i> — скажіть ім’я та звідки ви.', en: '<i>Sono ... / Vengo da ...</i> — give your name and where you come from.' },
+            { uk: 'Використовуйте правильний артикль при назві країни: «dall\'Ucraina», «dalla Germania».', en: 'Use the correct article for countries: "dall\'Ucraina", "dalla Germania".' }
           ]
         },
 
-        // ── Block 5: Quiz ───────────────────────────────────────────────
+        // ── Block 4: Quiz ───────────────────────────────────────────────
         {
           type: 'quiz',
           title: {
-            uk: 'Завдання уроку',
-            en: 'Lesson practice'
+            uk: 'Практика',
+            en: 'Practice'
           },
           tasks: [
-            // Multiple choice tasks
             {
-              id: 'q1',
+              id: 'cb1_q1',
               type: 'choice',
               category: { uk: 'Множинний вибір', en: 'Multiple choice' },
-              question: {
-                uk: 'Як перекладається «Come ti chiami?»?',
-                en: "How do you translate 'Come ti chiami?'?"
-              },
+              question: { uk: 'Як перекладається «questo posto è libero?»', en: 'How do you translate "questo posto è libero?"' },
               options: [
-                { translations: { uk: 'Як тебе звати?', en: 'What is your name?' } },
-                { translations: { uk: 'Як справи?', en: 'How are you?' } },
-                { translations: { uk: 'Де курс?', en: 'Where is the course?' } }
+                { translations: { uk: 'Це місце вільне?', en: 'Is this seat free?' } },
+                { translations: { uk: 'Це моє місце?', en: 'Is this my seat?' } },
+                { translations: { uk: 'Тут тепло?', en: 'Is it warm here?' } }
               ],
               correctIndex: 0
             },
             {
-              id: 'q2',
+              id: 'cb1_q2',
               type: 'choice',
               category: { uk: 'Множинний вибір', en: 'Multiple choice' },
-              question: {
-                uk: 'Що означає «Mi chiamo Greta»?',
-                en: "What does 'Mi chiamo Greta' mean?"
-              },
-              options: [
-                { translations: { uk: 'Мене звати Ґрета', en: 'My name is Greta' } },
-                { translations: { uk: 'Це Ґрета', en: 'This is Greta' } },
-                { translations: { uk: 'До побачення, Ґрето', en: 'Goodbye, Greta' } }
-              ],
+              question: { uk: 'Що означає «Piacere» після знайомства?', en: 'What does "Piacere" mean after introductions?' },
+              options: [ { translations: { uk: 'Приємно познайомитися', en: 'Nice to meet you' } }, { translations: { uk: 'До зустрічі', en: 'See you' } }, { translations: { uk: 'Дякую', en: 'Thank you' } } ],
               correctIndex: 0
             },
             {
-              id: 'q3',
-              type: 'choice',
-              category: { uk: 'Множинний вибір', en: 'Multiple choice' },
-              question: {
-                uk: 'Що кажуть після знайомства?',
-                en: 'What do you say after introductions?'
-              },
-              options: [
-                { text: 'Piacere' },
-                { text: 'Prego' },
-                { text: 'Buona notte' }
-              ],
-              correctIndex: 0
-            },
-            {
-              id: 'q4',
-              type: 'choice',
-              category: { uk: 'Множинний вибір', en: 'Multiple choice' },
-              question: {
-                uk: 'Що означає «tedesca»?',
-                en: "What does 'tedesca' mean?"
-              },
-              options: [
-                { translations: { uk: 'Німкеня', en: 'German (feminine)' } },
-                { translations: { uk: 'Американка', en: 'American (feminine)' } },
-                { translations: { uk: 'Італійка', en: 'Italian (feminine)' } }
-              ],
-              correctIndex: 0
-            },
-            {
-              id: 'q5',
-              type: 'choice',
-              category: { uk: 'Множинний вибір', en: 'Multiple choice' },
-              question: {
-                uk: 'Як відповісти на «Grazie»?',
-                en: "How do you reply to 'Grazie'?"
-              },
-              options: [
-                { text: 'Prego' },
-                { text: 'Piacere' },
-                { text: 'Sì' }
-              ],
-              correctIndex: 0
-            },
-
-            // True / False tasks
-            {
-              id: 'q6',
-              type: 'true_false',
-              category: { uk: 'Правда чи ні', en: 'True or False' },
-              statement: {
-                uk: '«Buongiorno» — ввічливе привітання вдень.',
-                en: "'Buongiorno' is a polite daytime greeting."
-              },
-              correctAnswer: true
-            },
-            {
-              id: 'q7',
-              type: 'true_false',
-              category: { uk: 'Правда чи ні', en: 'True or False' },
-              statement: {
-                uk: 'Софія — американка.',
-                en: 'Sofia is American.'
-              },
-              correctAnswer: true
-            },
-            {
-              id: 'q8',
-              type: 'true_false',
-              category: { uk: 'Правда чи ні', en: 'True or False' },
-              statement: {
-                uk: 'Ґрета — німкеня.',
-                en: 'Greta is German.'
-              },
-              correctAnswer: true
-            },
-
-            // Fill blank tasks
-            {
-              id: 'q9',
-              type: 'fill_blank',
-              category: { uk: 'Встав слово', en: 'Fill in the blank' },
-              prefix: 'Mi chiamo',
-              suffix: '.',
-              placeholder: {
-                uk: 'встав ім’я',
-                en: 'enter name'
-              },
-              acceptableAnswers: ['Sofia', 'Софія']
-            },
-            {
-              id: 'q10',
-              type: 'fill_blank',
-              category: { uk: 'Встав слово', en: 'Fill in the blank' },
-              prefix: 'Io',
-              suffix: 'Sofia.',
-              placeholder: {
-                uk: 'встав слово',
-                en: 'enter word'
-              },
-              acceptableAnswers: ['sono']
-            },
-            {
-              id: 'q11',
+              id: 'cb1_q3',
               type: 'fill_blank',
               category: { uk: 'Встав слово', en: 'Fill in the blank' },
               prefix: 'Sono',
               suffix: '.',
-              placeholder: {
-                uk: 'встав слово',
-                en: 'enter word'
-              },
-              acceptableAnswers: ['tedesca']
-            },
-            {
-              id: 'q12',
-              type: 'fill_blank',
-              category: { uk: 'Встав слово', en: 'Fill in the blank' },
-              prefix: 'Grazie! —',
-              suffix: '.',
-              placeholder: {
-                uk: 'встав слово',
-                en: 'enter word'
-              },
-              acceptableAnswers: ['Prego', 'prego']
+              placeholder: { uk: 'вставте національність', en: 'enter nationality' },
+              acceptableAnswers: ['ucraina', 'ucraino', 'tedesca', 'tedesco', 'francese']
             }
           ]
         }

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * LanguageStudio - Component Loader
  * Loads reusable HTML components into data-component placeholders
  * with automatic relative path resolution, active link detection,
@@ -20,9 +20,72 @@
 
   const PREFIX = getDepthPrefix();
 
+  function localizeEmbeddedTemplate(template) {
+    const replacements = [
+      ['Home', 'Головна'],
+      ['Learning paths', 'Напрями навчання'],
+      ['Basics · Lesson 1', 'Основи · Урок 1'],
+      ['Communication basics', 'Основи спілкування'],
+      ['Lesson 1 · Introduction', 'Урок 1 · Знайомство'],
+      ['Browse all paths', 'Переглянути всі напрями'],
+      ['Flashcards', 'Флешкарти'],
+      ['Exercises', 'Вправи'],
+      ['My dictionary', 'Мій словник'],
+      ['Grammar guide', 'Довідник граматики'],
+      ['Tests', 'Тести'],
+      ['Main', 'Головне'],
+      ['Practice', 'Практика'],
+      ['Switch theme', 'Змінити тему'],
+      ['Student profile', 'Профіль студента'],
+      ['Learning path: ', 'Напрям навчання: '],
+      ['Learning & Interface Settings', 'Налаштування навчання та інтерфейсу'],
+      ['Language for translations & explanations', 'Мова перекладів та пояснень'],
+      ['Device language', 'Мова пристрою'],
+      ['Target Course (Мова курсу)', 'Цільовий курс (Мова курсу)'],
+      ['Interface Theme', 'Тема інтерфейсу'],
+      ['XP Points', 'Очки XP'],
+      ['Daily Streak', 'Щоденна серія'],
+      ['Lessons Completed', 'Уроків пройдено'],
+      ['Dictionary Words', 'Слів у словнику'],
+      ['Sign in or register', 'Увійти або зареєструватися'],
+      ['Close', 'Закрити'],
+      ['Paths', 'Напрямки'],
+      ['Guide', 'Довідник'],
+      ['Student Profile', 'Профіль студента'],
+      ['View all learning paths', 'Переглянути всі напрями'],
+      ['All paths →', 'Усі напрями →'],
+      ['Open', 'Відкрити'],
+      ['Soon', 'Незабаром'],
+      ['Locked', 'Заблоковано'],
+      ['Ready', 'Готово'],
+      ['Current course', 'Поточний курс'],
+      ['Switch to this course', 'Перейти на цей курс'],
+      ['Word trainer', 'Тренажер слів'],
+      ['Greetings and basics (13 words)', 'Привітання та база (13 слів)'],
+      ['My saved words', 'Мої збережені слова'],
+      ['Practice drills', 'Практичні вправи'],
+      ['All exercises and quizzes', 'Усі вправи та тести'],
+      ['Grammar trainer', 'Тренажер граматики'],
+      ['Situational exercises', 'Ситуаційні вправи'],
+      ['Your word bank', 'Ваш словниковий банк'],
+      ['Search the word base', 'Пошук у базі слів'],
+      ['Add your own word', 'Додати своє слово'],
+      ['Grammar cheat sheets', 'Шпаргалки з граматики'],
+      ['Definite articles', 'Означені артиклі'],
+      ['Essere and Avere', 'Essere та Avere'],
+      ['Tu vs Lei (Etiquette)', 'Tu vs Lei (Етикет)'],
+      ['Lessons', 'Уроки'],
+      ['Lesson track', 'Панель уроків'],
+      ['Active', 'Активний'],
+      ['Menu', 'Меню'],
+      ['LanguageStudio home', 'Головна LanguageStudio']
+    ];
+    return replacements.reduce((result, [from, to]) => result.split(from).join(to), template);
+  }
+
   // Embedded component templates for instant zero-FOUC rendering & file:// CORS fallback
   const EMBEDDED_COMPONENTS = {
-    'navbar': `
+    'navbar': localizeEmbeddedTemplate(`
 <div class="mob-overlay" id="mobOverlay"></div>
 <nav class="mob-nav" id="mobNav" aria-label="Mobile navigation">
   <div class="mob-nav-header">
@@ -58,12 +121,12 @@
       </svg>
     </span>Learning paths
   </a>
-  <a href="pages/lesson?course=it&lesson=1.1" class="mob-nav-link" data-nav="lesson-1">
+  <a href="pages/lesson.html?course=it&lesson=communication-basics-1" class="mob-nav-link" data-nav="lesson-1">
     <span class="ic">
       <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/>
       </svg>
-    </span>Basics · Lesson 1
+    </span>Basics Â· Lesson 1
   </a>
   
   <div class="mob-section-label">Practice</div>
@@ -135,17 +198,17 @@
       <div class="nav-dd-menu">
         <div class="nav-dd-header">Learning paths</div>
         <div class="nav-submenu">
-          <a href="pages/lesson?course=it&lesson=1.1" class="nav-dd-item nav-submenu-trigger" data-nav="lesson-1">
+          <a href="pages/lesson.html?course=it&lesson=communication-basics-1" class="nav-dd-item nav-submenu-trigger" data-nav="lesson-1">
             <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2h-3.8a2 2 0 0 0-1.4.6L4.3 11a1 1 0 0 0 0 1.4l5.3 5.3a1 1 0 0 0 1.4 0L17 11.7a2 2 0 0 0 .6-1.4V6"/></svg></span>Communication basics
             <span class="submenu-arrow">›</span>
           </a>
           <div class="nav-submenu-panel">
             <div class="nav-dd-header">Lesson track</div>
-            <a href="pages/lesson?course=it&lesson=1.1" class="nav-dd-item" data-nav="lesson-1"><span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>Lesson 1 · Introduction <span class="dd-tag active">Active</span></a>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 2 · Come ti chiami?</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 3 · Di dove sei?</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 4 · Consolidation</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">○</span>Lesson 5 · Practice recap</span>
+            <a href="pages/lesson.html?course=it&lesson=communication-basics-1" class="nav-dd-item" data-nav="lesson-1"><span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>Lesson 1 · Introduction <span class="dd-tag active">Active</span></a>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">■</span>Lesson 2 · Come ti chiami?</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">■</span>Lesson 3 · Di dove sei?</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">■</span>Lesson 4 · Consolidation</span>
+            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">■</span>Lesson 5 · Practice recap</span>
           </div>
         </div>
         <a href="pages/path.html" class="nav-dd-item" data-nav="path">
@@ -259,9 +322,9 @@
     </button>
     <button class="menu-toggle" type="button" aria-label="Menu">☰</button>
   </div>
-</header>`,
+</header>`),
 
-    'mobile-nav': `
+    'mobile-nav': localizeEmbeddedTemplate(`
 <div class="mob-overlay" id="mobOverlay"></div>
 <nav class="mob-nav" id="mobNav" aria-label="Mobile navigation">
   <div class="mob-nav-header">
@@ -297,12 +360,12 @@
       </svg>
     </span>Learning paths
   </a>
-  <a href="pages/lesson?course=it&lesson=1.1" class="mob-nav-link" data-nav="lesson-1">
+  <a href="pages/lesson.html?course=it&lesson=communication-basics-1" class="mob-nav-link" data-nav="lesson-1">
     <span class="ic">
       <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/>
       </svg>
-    </span>Basics · Lesson 1
+    </span>Basics Â· Lesson 1
   </a>
   
   <div class="mob-section-label">Practice</div>
@@ -357,9 +420,9 @@
       </svg>
     </span>Tests
   </a>
-</nav>`,
+</nav>`),
 
-    'footer': `
+    'footer': localizeEmbeddedTemplate(`
 <footer class="site-footer">
   <div class="footer-inner">
     <div>
@@ -382,9 +445,9 @@
       <a href="pages/tests.html" data-nav="tests">Tests</a>
     </div>
   </div>
-</footer>`,
+</footer>`),
 
-    'profile-modal': `
+    'profile-modal': localizeEmbeddedTemplate(`
 <div class="profile-modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
   <section class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-title">
     <div class="pm-topline">
@@ -396,7 +459,7 @@
       <div>
         <div class="pm-name">Student</div>
         <div class="pm-path">Guest profile · progress is saved on this device</div>
-        <div class="pm-path">Learning path: <b>Communication basics</b></div>
+        <div class="pm-path">Learning path: <b data-course-label>Communication basics</b></div>
       </div>
     </div>
     <section class="pm-settings" aria-labelledby="source-language-title">
@@ -405,7 +468,7 @@
         <div class="pm-setting">
           <label class="pm-setting-label" for="targetCourse">Target Course (Мова курсу)</label>
           <select class="pm-setting-select" id="targetCourse" data-target-course-select onchange="setTargetCourse(this.value)">
-            <option value="italian">🇮🇹 Italian (Італійська)</option>
+            <option value="it">🇮🇹 Italian (Італійська)</option>
           </select>
         </div>
         <div class="pm-setting">
@@ -419,24 +482,24 @@
         <div class="pm-setting">
           <div class="pm-setting-label">Interface Theme</div>
           <button type="button" class="btn-ghost pm-theme-button" onclick="toggleTheme()">
-            🌓 Switch theme
+            🌙 Switch theme
           </button>
         </div>
       </div>
     </section>
     <div class="pm-stats-grid">
-      <div class="pm-stat-box"><div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">XP Points</div></div>
-      <div class="pm-stat-box"><div class="pm-stat-val" style="color:var(--it-gold);">1 day</div><div class="pm-stat-lbl">Daily Streak</div></div>
-      <div class="pm-stat-box"><div class="pm-stat-val">1/16</div><div class="pm-stat-lbl">Lessons Completed</div></div>
-      <div class="pm-stat-box"><div class="pm-stat-val">13</div><div class="pm-stat-lbl">Dictionary Words</div></div>
+      <div class="pm-stat-box" data-profile-stat="xp"><div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">XP Points</div></div>
+      <div class="pm-stat-box" data-profile-stat="streak"><div class="pm-stat-val" style="color:var(--it-gold);">1 day</div><div class="pm-stat-lbl">Daily Streak</div></div>
+      <div class="pm-stat-box" data-profile-stat="lessons"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Lessons Completed</div></div>
+      <div class="pm-stat-box" data-profile-stat="words"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Dictionary Words</div></div>
     </div>
     <div class="pm-footer">
       <a class="btn-primary" href="pages/auth.html" data-nav="auth">Sign in or register</a>
     </div>
   </section>
-</div>`,
+</div>`),
 
-    'auth-header': `
+    'auth-header': localizeEmbeddedTemplate(`
 <header class="auth-topbar">
   <a href="index.html" class="auth-brand" aria-label="LanguageStudio home">
     <img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
@@ -449,7 +512,7 @@
     </button>
     <a class="btn-ghost auth-home" href="index.html">← Home</a>
   </div>
-</header>`
+</header>`)
   };
 
   /**
@@ -693,3 +756,4 @@
     prefix: PREFIX
   };
 })();
+
