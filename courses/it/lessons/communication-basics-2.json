@@ -1,0 +1,231 @@
+{
+  "id": "communication-basics-2",
+  "title": {
+    "uk": "Навчання, робота і мови",
+    "en": "Study, work, and languages"
+  },
+  "subtitle": {
+    "uk": "Робота в парах",
+    "en": "A pair activity"
+  },
+  "description": {
+    "uk": "На наступному занятті Софія й Ґрета працюють у парах: розповідають про навчання, роботу, мови та, за бажанням, близьких людей.",
+    "en": "In their next class, Sofia and Greta work in pairs, talking about study, work, languages, and, if they choose, people close to them."
+  },
+  "duration": {
+    "uk": "20 хв",
+    "en": "20 min"
+  },
+  "xpReward": 50,
+  "prevLessonId": "communication-basics-1",
+  "nextLessonId": "communication-basics-3",
+  "blocks": [
+    {
+      "type": "dialogue",
+      "title": {
+        "uk": "Діалог у парах",
+        "en": "Pair-work dialogue"
+      },
+      "story": {
+        "uk": "На наступному занятті вчитель просить студентів попрацювати в парах і скласти короткий профіль. Софія вирішує показати Ґреті фотографію сестри.",
+        "en": "In the next class, the teacher asks students to work in pairs and make a short profile. Sofia chooses to show Greta a photo of her sister."
+      },
+      "image": "../assets/images/communication-basics.jpg",
+      "imageAlt": {
+        "uk": "Студентки обговорюють завдання в парах",
+        "en": "Students discussing a pair activity"
+      },
+      "lines": [
+        {
+          "speaker": { "uk": "Учитель", "en": "Teacher" },
+          "avatar": "I",
+          "text": "Lavorate a coppie. Parlate di cosa fate, che lingue parlate e perché studiate italiano.",
+          "trans": {
+            "uk": "Працюйте в парах. Розкажіть, чим займаєтеся, якими мовами розмовляєте і чому вивчаєте італійську.",
+            "en": "Work in pairs. Talk about what you do, which languages you speak, and why you study Italian."
+          },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Studi o lavori, Sofia?",
+          "trans": { "uk": "Ти навчаєшся чи працюєш, Софіє?", "en": "Do you study or work, Sofia?" },
+          "audio": true
+        },
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "Studio medicina. E tu?",
+          "trans": { "uk": "Я вивчаю медицину. А ти?", "en": "I study medicine. And you?" },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Studio architettura e il sabato lavoro in libreria.",
+          "trans": { "uk": "Я вивчаю архітектуру, а щосуботи працюю в книгарні.", "en": "I study architecture, and I work in a bookshop on Saturdays." },
+          "audio": true
+        },
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "Ti piace il lavoro?",
+          "trans": { "uk": "Тобі подобається робота?", "en": "Do you like the job?" },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Sì, molto. E tu, che lingue parli?",
+          "trans": { "uk": "Так, дуже. А ти якими мовами розмовляєш?", "en": "Yes, very much. And you, what languages do you speak?" },
+          "audio": true
+        },
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "Ucraino e inglese. Studio italiano perché vivo qui con la mia famiglia.",
+          "trans": { "uk": "Українською та англійською. Я вивчаю італійську, бо живу тут із родиною.", "en": "Ukrainian and English. I study Italian because I live here with my family." },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Che bello! Io invece studio italiano per lavorare.",
+          "trans": { "uk": "Як чудово! А я вивчаю італійську, щоб працювати.", "en": "How nice! I study Italian to work." },
+          "audio": true
+        },
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "Guarda, questa è mia sorella Olena.",
+          "trans": { "uk": "Дивись, це моя сестра Олена.", "en": "Look, this is my sister Olena." },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Che bella foto! Vive in Ucraina?",
+          "trans": { "uk": "Яке гарне фото! Вона живе в Україні?", "en": "What a lovely photo! Does she live in Ukraine?" },
+          "audio": true
+        },
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "No, vive anche lei qui a Milano. E tu, hai fratelli o sorelle?",
+          "trans": { "uk": "Ні, вона теж живе тут, у Мілані. А в тебе є брати чи сестри?", "en": "No, she lives here in Milan too. And do you have any brothers or sisters?" },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "No, sono figlia unica. Però ho una cugina qui a Milano.",
+          "trans": { "uk": "Ні, я єдина дитина в сім’ї. Але в мене є двоюрідна сестра тут, у Мілані.", "en": "No, I am an only child. But I have a cousin here in Milan." },
+          "audio": true
+        }
+      ]
+    },
+    {
+      "type": "vocab",
+      "title": { "uk": "Словник", "en": "Vocabulary" },
+      "items": [
+        { "it": "lavorare a coppie", "translations": { "uk": "працювати в парах", "en": "to work in pairs" } },
+        { "it": "studiare", "translations": { "uk": "навчатися", "en": "to study" } },
+        { "it": "lavorare", "translations": { "uk": "працювати", "en": "to work" } },
+        { "it": "studio... / lavoro...", "translations": { "uk": "я навчаюся... / я працюю...", "en": "I study... / I work..." } },
+        { "it": "studio e lavoro", "translations": { "uk": "я навчаюся і працюю", "en": "I study and work" } },
+        { "it": "non lavoro al momento", "translations": { "uk": "зараз я не працюю", "en": "I am not working at the moment" } },
+        { "it": "in libreria", "translations": { "uk": "у книгарні", "en": "in a bookshop" } },
+        { "it": "ti piace...?", "translations": { "uk": "тобі подобається...?", "en": "do you like...?" } },
+        { "it": "che lingue parli?", "translations": { "uk": "якими мовами ти розмовляєш?", "en": "what languages do you speak?" } },
+        { "it": "parlo...", "translations": { "uk": "я розмовляю...", "en": "I speak..." } },
+        { "it": "per lavorare", "translations": { "uk": "щоб працювати", "en": "in order to work" } },
+        { "it": "perché vivo qui", "translations": { "uk": "бо я живу тут", "en": "because I live here" } },
+        { "it": "la famiglia", "translations": { "uk": "родина", "en": "family" } },
+        { "it": "vivere", "translations": { "uk": "жити", "en": "to live" } },
+        { "it": "la sorella / il fratello", "translations": { "uk": "сестра / брат", "en": "sister / brother" } },
+        { "it": "la foto", "translations": { "uk": "фотографія", "en": "photo" } },
+        { "it": "figlia unica", "translations": { "uk": "єдина дитина (про дівчину)", "en": "an only child (female)" } },
+        { "it": "la cugina", "translations": { "uk": "двоюрідна сестра", "en": "female cousin" } }
+      ]
+    },
+    {
+      "type": "takeaways",
+      "title": { "uk": "Корисні фрази", "en": "Useful phrases" },
+      "items": [
+        {
+          "text": {
+            "uk": "<i>Studio...</i> — скажіть, що ви навчаєтеся; <i>Lavoro...</i> — що працюєте.",
+            "en": "<i>Studio...</i> means you study; <i>Lavoro...</i> means you work."
+          }
+        },
+        {
+          "text": {
+            "uk": "Якщо ви поєднуєте навчання й роботу, скажіть: <i>Studio e lavoro.</i>",
+            "en": "If you combine study and work, say: <i>Studio e lavoro.</i>"
+          }
+        },
+        {
+          "text": {
+            "uk": "Якщо зараз не працюєте: <i>Non lavoro al momento.</i> Особисті подробиці можна замінити вигаданими.",
+            "en": "If you are not working now, say: <i>Non lavoro al momento.</i> You can use an imaginary profile instead of personal details."
+          }
+        },
+        {
+          "text": {
+            "uk": "<i>Perché...</i> називає причину, а <i>per + інфінітив</i> — мету: <i>perché vivo qui</i>, <i>per lavorare</i>.",
+            "en": "<i>Perché...</i> gives a reason, while <i>per + infinitive</i> gives a purpose: <i>perché vivo qui</i>, <i>per lavorare</i>."
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": { "uk": "Практика", "en": "Practice" },
+      "items": [
+        {
+          "id": "cb2_q1",
+          "kind": "choice",
+          "category": { "uk": "Множинний вибір", "en": "Multiple choice" },
+          "q": { "uk": "Що означає «Lavorate a coppie»?", "en": "What does \"Lavorate a coppie\" mean?" },
+          "options": [
+            { "text": { "uk": "Працюйте в парах", "en": "Work in pairs" }, "correct": true },
+            { "text": { "uk": "Читайте по черзі", "en": "Take turns reading" }, "correct": false },
+            { "text": { "uk": "Працюйте самостійно", "en": "Work independently" }, "correct": false }
+          ]
+        },
+        {
+          "id": "cb2_q2",
+          "kind": "choice",
+          "category": { "uk": "Розуміння діалогу", "en": "Dialogue comprehension" },
+          "q": { "uk": "Що вивчає Софія?", "en": "What does Sofia study?" },
+          "options": [
+            { "text": { "uk": "Медицину", "en": "Medicine" }, "correct": true },
+            { "text": { "uk": "Архітектуру", "en": "Architecture" }, "correct": false },
+            { "text": { "uk": "Італійську мову", "en": "Italian" }, "correct": false }
+          ]
+        },
+        {
+          "id": "cb2_q3",
+          "kind": "text",
+          "category": { "uk": "Встав слово", "en": "Fill in the blank" },
+          "prefix": "Studio italiano",
+          "suffix": "lavorare.",
+          "prompt": { "uk": "вставте прийменник", "en": "enter the preposition" },
+          "answers": ["per"]
+        },
+        {
+          "id": "cb2_q4",
+          "kind": "choice",
+          "category": { "uk": "Мовлення", "en": "Speaking" },
+          "q": { "uk": "Яка фраза підходить, якщо ви навчаєтеся і працюєте?", "en": "Which phrase fits if you study and work?" },
+          "options": [
+            { "text": { "uk": "Studio e lavoro.", "en": "I study and work." }, "correct": true },
+            { "text": { "uk": "Sono figlia unica.", "en": "I am an only child." }, "correct": false },
+            { "text": { "uk": "Parlo in libreria.", "en": "I speak in a bookshop." }, "correct": false }
+          ]
+        }
+      ]
+    }
+  ]
+}

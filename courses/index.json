@@ -5,14 +5,14 @@
       "id": "it",
       "name": { "uk": "Італійська", "en": "Italian" },
       "native": "Italiano",
-      "flag": "🇮🇹",
+      "flag": "flag-it",
       "status": "active"
     },
     {
       "id": "es",
       "name": { "uk": "Іспанська", "en": "Spanish" },
       "native": "Español",
-      "flag": "🇪🇸",
+      "flag": "flag-es",
       "status": "active"
     }
   ]

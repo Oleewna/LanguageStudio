@@ -82,21 +82,13 @@ const UI_TRANSLATIONS = {
   'Повторіть основи, а потім перевірте себе на коротких тестах.': 'Review the basics, then check your skills with short tests.',
   'Основи · Урок 1 · Знайомство': 'Basics · Lesson 1 · Introductions',
   'Основи спілкування · Урок 1': 'Communication basics · Lesson 1',
-  'Основи спілкування ›': 'Communication basics ›',
   'Основи спілкування · Урок 1 — LanguageStudio, Італійська': 'Communication basics · Lesson 1 — LanguageStudio, Italian',
   'Знайомство — Come ti chiami?': 'Introductions — Come ti chiami?',
   'Софія приходить на перший урок італійської в Мілані. Вона знайомиться з Ґретою, студенткою того самого курсу.': 'Sofia arrives for her first Italian lesson in Milan and meets Greta, a student in the same course.',
   'Студенти в італійському класі знайомляться': 'Students meeting in an Italian classroom',
-  '📚 Розділи': '📚 Learning paths',
-  '🃏 Флешкартки': '🃏 Flashcards',
-  '✏️ Завдання': '✏️ Exercises',
-  '📖 Словник': '📖 Dictionary',
-  '📋 Довідник': '📋 Grammar guide',
-  '🧭 Напрямки': '🧭 Learning paths',
   'Переглянути всі напрямки': 'View all learning paths',
   'Вправи до Уроку 1': 'Lesson 1 exercises',
   'Банк завдань': 'Question bank',
-  '➕ Нове слово': '➕ New word',
   'Essere та Avere': 'Essere and Avere',
   'Alla stazione (На вокзалі та в аеропорту)': 'Alla stazione (At the train station and airport)',
   'In albergo (Заселення в готель)': 'In albergo (Checking into a hotel)',
@@ -131,14 +123,13 @@ const UI_TRANSLATIONS = {
   '[буон-джор-но]': '[bwon-JOR-no]',
   'ГОЛОВНЕ': 'MAIN',
   'Головне': 'Main',
-  'Головна': 'Home',
   'LanguageStudio — Італійська для реальних ситуацій': 'LanguageStudio — Italian for real-life situations',
   'Мій профіль студента': 'My student profile',
   'Особистий кабінет': 'Your account',
   'Вхід та реєстрація': 'Sign in or create an account',
   'Ця демо-сторінка показує майбутній вхід і реєстрацію. Поки що профіль та прогрес зберігаються лише на цьому пристрої.': 'This demo shows the planned sign-in and registration flow. For now, your profile and progress stay on this device only.',
-  '🔑 Вхід': '🔑 Sign in',
-  '✨ Реєстрація': '✨ Create account',
+  'Вхід': 'Sign in',
+  'Реєстрація': 'Create account',
   'Раді бачити вас знову. Введіть дані, щоб продовжити навчання.': 'Welcome back. Enter your details to continue learning.',
   'Електронна пошта': 'Email address',
   'Ваш пароль': 'Your password',
@@ -159,14 +150,14 @@ const UI_TRANSLATIONS = {
   'Погоджуюся з умовами використання та політикою конфіденційності': 'I agree to the terms of use and privacy policy',
   'Створити акаунт': 'Create account',
   'Вже маєте акаунт?': 'Already have an account?',
-  '💡 Важливо:': '💡 Note:',
+  'Важливо:': 'Note:',
   'Демо-профіль: акаунти ще не підключені; прогрес зберігається лише в цьому браузері.': 'Demo profile: accounts are not connected yet; progress is saved in this browser only.',
   'Увійти або зареєструватися': 'Sign in or create an account',
   'Студент': 'Student',
   'Гостьовий профіль · прогрес зберігається на цьому пристрої': 'Guest profile · progress is saved on this device',
   'Профіль студента': 'Student profile',
   'Розділи': 'Learning paths',
-  '← Головна': '← Home',
+  'Головна': 'Home',
   'Розділ 1 · Урок 1': 'Unit 1 · Lesson 1',
   'РОЗДІЛ 1 · УРОК 1': 'UNIT 1 · LESSON 1',
   'Софія приходить на перший урок італійської в Мілані та знайомиться з Ґретою, однокурсницею.': 'Sofia arrives for her first Italian lesson in Milan and meets Greta, her classmate.',
@@ -225,19 +216,18 @@ const UI_TRANSLATIONS = {
   'Перемішати': 'Shuffle',
   'Натисніть, щоб позначити як вивчене': 'Click to mark as learned',
   'Аудіо': 'Audio',
-  '🇮🇹 Італійська для реальних ситуацій': '🇮🇹 Italian for real-life situations',
+  'Італійська для реальних ситуацій': 'Italian for real-life situations',
   'Оберіть напрямок, що відповідає вашій меті — подорожі, робота чи бізнес — і вивчайте саме ту італійську, яка вам справді потрібна.': 'Choose a path that fits your goals, from travel to work and business, and learn the Italian you actually need.',
   'Оберіть свою мету': 'Choose your goal',
   '3D тренажер': '3D practice deck',
   'Бліц-тести': 'Quick quizzes',
   'Власні слова': 'Your saved words',
   'Таблиці правил': 'Grammar reference',
-  'Усі напрямки →': 'All learning paths →',
-  'Розпочати ▶': 'Start ▶',
+  'Розпочати': 'Start',
   'Обрати свою мету': 'Choose your goal',
   'Оберіть свою мету': 'Choose your goal',
   'Кожен напрямок будує словниковий запас і фрази навколо конкретної ситуації — від подорожі до перемовин в офісі. Почніть з основ, а тоді переходьте до свого напрямку.': 'Each learning path builds vocabulary and phrases around a real situation, from travel to office meetings. Start with the basics, then choose your path.',
-  '🟢 Основи спілкування · Активний': '🟢 Communication basics · Active',
+  'Основи спілкування · Активний': 'Communication basics · Active',
   'Основи спілкування': 'Communication basics',
   'Привітання, знайомство, числа 0–100, дієслова essere & avere — база для будь-якого напрямку': 'Greetings, introductions, numbers 0–100, and the verbs essere & avere: a foundation for every path.',
   'Привітання, перший діалог у Мілані, знайомство та базові дієслова — фундамент, потрібний для будь-якого напрямку нижче': 'Greetings, your first dialogue in Milan, introductions, and essential verbs: a foundation for every path below.',
@@ -269,49 +259,32 @@ const UI_TRANSLATIONS = {
   'Комплексний тест та створення власної сценки діалогу': 'A review quiz and creating your own dialogue scene.',
   'Комплексний тест та створення власного діалогу': 'A review quiz and creating your own dialogue.',
   '~25 хв': '~25 min',
-  '🔒 Скоро': '🔒 Coming soon',
-  '🎓 Підсумок': '🎓 Review',
-  '🔒 Незабаром': '🔒 Coming soon',
   '1/5 уроків відкрито': '1/5 lessons available',
   'LanguageStudio · Італійська для реальних ситуацій': 'LanguageStudio · Italian for real-life situations',
   'Всі розділи курсу': 'All course path',
-  '▶ Відкрити': '▶ Open',
+  'Відкрити': 'Open',
   'Туристична італійська': 'Italian for travel',
   'Готелі, ресторани, транспорт, шопінг та фрази на випадок форс-мажору в подорожі': 'Hotels, restaurants, transport, shopping, and phrases for travel emergencies.',
-  '🔒 Заблоковано': '🔒 Locked',
   'Італійська для роботи та бізнесу': 'Italian for work and business',
-  '💼 Італійська для роботи та бізнесу': '💼 Italian for work and business',
   'Офісне спілкування, зустрічі, електронні листи та small talk з колегами': 'Office conversations, meetings, emails, and small talk with colleagues.',
   'Ділові зустрічі, електронні листи, small talk з колегами та професійна лексика': 'Business meetings, emails, small talk with colleagues, and professional vocabulary.',
   'Словниковий тренажер': 'Vocabulary trainer',
   'Фільтруйте слова за напрямком навчання чи тематикою. Перевертайте картку та тренуйте пам\'ять.': 'Filter words by learning path or topic. Flip each card to practice recall.',
-  '🧭 Напрямок': '🧭 Learning path',
   'Напрямок': 'Learning path',
   'Усі напрямки': 'All learning paths',
   'Всі тематики': 'All topics',
-  '👋 Основи': '👋 Basics',
   'Основи': 'Basics',
-  '👋 Основи спілкування': '👋 Communication basics',
-  '🧳 Туристична італійська': '🧳 Italian for travel',
-  '💼 Робота та бізнес': '💼 Work and business',
   'Робота та бізнес': 'Work and business',
   'Турист': 'Travel',
   'Бізнес': 'Business',
-  '👋 Привітання': '👋 Greetings',
-  '🔤 Базові фрази': '🔤 Basic phrases',
   'Базові фрази': 'Basic phrases',
-  '⭐ Власні збережені': '⭐ Saved words',
   'Власні збережені': 'Saved words',
-  '🔤 Базове': '🔤 Basics',
   'Базове': 'Basics',
-  '⭐ Власне': '⭐ Custom',
   'Власне': 'Custom',
-  '👆 Натисніть, щоб побачити переклад': '👆 Tap to reveal the translation',
   'Натисніть, щоб побачити переклад': 'Tap to reveal the translation',
-  '👆 Натисніть знову для звороту': '👆 Tap again to flip back',
   'Натисніть знову для звороту': 'Tap again to flip back',
-  '← Назад': '← Previous',
-  'Вперед →': 'Next →',
+  'Назад': 'Previous',
+  'Вперед': 'Next',
   'Для цього напрямку слова ще готуються — спробуйте «Основи спілкування» або власні збережені слова.': 'Words for this path are coming soon. Try Communication basics or your saved words.',
   'Практика & Перевірка': 'Practice & Review',
   'Практичні вправи': 'Exercises',
@@ -366,15 +339,7 @@ const UI_TRANSLATIONS = {
   'Означені артиклі': 'Definite articles',
   'Essere та Avere': 'Essere and Avere',
   'Tu vs Lei (Етикет)': 'Tu vs Lei (Etiquette)',
-  '🧠 Вибір відповіді': '🧠 Multiple choice',
-  '✍️ Заповни пропуск': '✍️ Fill in the blank',
-  '🔗 Зіставлення': '🔗 Matching',
-  '🔀 Порядок слів': '🔀 Word order',
-  '🌐 Переклад': '🌐 Translation',
-  '📖 Зі словника': '📖 Dictionary quiz',
-  '🔊 Аудіювання': '🔊 Listening',
   'Аудіювання': 'Listening',
-  '💬 Діалог': '💬 Dialogue',
   'Питання 1 з 4': 'Question 1 of 4',
   'Питання 2 з 4': 'Question 2 of 4',
   'Питання 3 з 4': 'Question 3 of 4',
@@ -413,7 +378,6 @@ const UI_TRANSLATIONS = {
   'Дієслово': 'Verb',
   'Прикметник': 'Adjective',
   'Інше': 'Other',
-  '➕ Додати нове слово': '➕ Add a word',
   'Слів не знайдено': 'No words found',
   'Позначити як вивчене': 'Mark as learned',
   'Вивчено': 'Learned',
@@ -431,7 +395,6 @@ const UI_I18N = [
   { en: 'Learning paths', uk: 'Напрямки навчання' },
   { en: 'Learning path', uk: 'Напрямок навчання' },
   { en: 'Learning path:', uk: 'Напрямок навчання:' },
-  { en: 'All paths →', uk: 'Усі напрямки →' },
   { en: 'All paths', uk: 'Усі напрямки' },
   { en: 'Browse all paths', uk: 'Всі напрямки' },
   { en: 'Paths', uk: 'Напрямки' },
@@ -486,7 +449,6 @@ const UI_I18N = [
   { en: 'Learning path: Communication basics', uk: 'Напрямок: Основи спілкування' },
   { en: 'Learning & Interface Settings', uk: 'Налаштування навчання та інтерфейсу' },
   { en: 'Italian Learning Settings', uk: 'Налаштування навчання' },
-  { en: 'Target Course (Мова курсу)', uk: 'Курс для вивчення' },
   { en: 'Target Course', uk: 'Курс для вивчення' },
   { en: 'Language for translations & explanations', uk: 'Мова перекладів та пояснень' },
   { en: 'XP Points', uk: 'Бали досвіду' },
@@ -508,7 +470,7 @@ const UI_I18N = [
 
   // Roadmap & units
   { en: 'Communication basics', uk: 'Основи спілкування' },
-  { en: '🟢 Communication basics · Active', uk: '🟢 Основи спілкування · Активний' },
+  { en: 'Communication basics · Active', uk: 'Основи спілкування · Активний' },
   { en: 'Greetings, your first Milanese dialogue, introductions, and basic verbs — the foundation that supports every path below.', uk: 'Привітання, ваш перший діалог у Мілані, знайомство та базові дієслова — основа для всіх подальших напрямків.' },
   { en: 'Lesson 1.1 · Available', uk: 'Урок 1.1 · Доступно' },
   { en: 'Introduction — “Come ti chiami?”', uk: 'Знайомство — «Come ti chiami?»' },
@@ -532,7 +494,7 @@ const UI_I18N = [
   { en: 'Office communication, meetings, emails, and small talk with colleagues', uk: 'Спілкування в офісі, зустрічі, електронні листи та невимушені розмови з колегами' },
   { en: 'Meetings, email, workplace small talk, and professional vocabulary.', uk: 'Зустрічі, електронне листування, неформальне спілкування на роботі та професійна лексика.' },
   { en: '1/5 lessons available', uk: '1/5 уроків доступно' },
-  { en: '🔒 Locked', uk: '🔒 Заблоковано' },
+  { en: 'Locked', uk: 'Заблоковано' },
   { en: 'Each path builds vocabulary and phrases around a real-life situation — from travel to office conversations. Start with the basics, then move into your chosen path.', uk: 'Кожен напрямок допомагає вивчати лексику й фрази для реальних ситуацій — від подорожей до розмов в офісі. Почніть з основ, а потім переходьте до обраного напрямку.' },
   { en: 'Greetings, introductions, numbers 0–100, and the verbs essere & avere — the foundation for every path', uk: 'Привітання, знайомство, числа від 0 до 100 та дієслова essere й avere — основа для будь-якого напрямку' },
   { en: 'Your first Milan dialogue, new words, and conversational culture', uk: 'Ваш перший діалог у Мілані, нові слова та культура спілкування' },
@@ -546,10 +508,10 @@ const UI_I18N = [
   { en: 'Table of contents', uk: 'Зміст розділу' },
   { en: 'Navigation', uk: 'Навігація' },
   { en: 'Lesson', uk: 'Урок' },
-  { en: '← Previous lesson', uk: '← Попередній урок' },
-  { en: 'Next lesson →', uk: 'Наступний урок →' },
-  { en: '← Back', uk: '← Назад' },
-  { en: 'All lessons →', uk: 'Всі уроки →' },
+  { en: 'Previous lesson', uk: 'Попередній урок' },
+  { en: 'Next lesson', uk: 'Наступний урок' },
+  { en: 'Back', uk: 'Назад' },
+  { en: 'All lessons', uk: 'Всі уроки' },
   { en: 'Check answers', uk: 'Перевірити завдання' },
   { en: 'Show translation', uk: 'Показати переклад' },
   { en: 'Hide translation', uk: 'Сховати переклад' },
@@ -699,7 +661,7 @@ const SOURCE_TRANSLATIONS = {
   'exercises.listen.no': { uk: 'В) Ні', en: 'C) No' },
   'exercises.listen.new': { uk: 'Б) Новий', en: 'B) New' },
   'exercises.listen.building': { uk: 'В) Будинок', en: 'C) Building' },
-  'exercises.dialogue.instruction': { uk: '👤 Б: оберіть репліку, якою продовжити діалог', en: '👤 B: choose the line that continues the conversation' }
+  'exercises.dialogue.instruction': { uk: 'Б: оберіть репліку, якою продовжити діалог', en: 'B: choose the line that continues the conversation' }
 };
 
 function getSourceLanguage() {
@@ -724,7 +686,7 @@ function getSelectedSourceLanguage() {
 function getCourseCatalog() {
   const fallbackCourse = {
     id: 'it',
-    flag: '🇮🇹',
+    flag: 'flag-it',
     name: { uk: 'Італійська', en: 'Italian' },
     native: 'Italiano',
     status: 'active'
@@ -751,8 +713,15 @@ function getCourseMeta(courseId = getTargetCourse()) {
   const courseCatalog = getCourseCatalog();
   const match = courseCatalog.find(course => course.id === courseId);
   if (match) return match;
-  const fallback = courseCatalog[0] || { id: 'it', flag: '🇮🇹', name: { uk: 'Італійська', en: 'Italian' }, status: 'active' };
+  const fallback = courseCatalog[0] || { id: 'it', flag: 'flag-it', name: { uk: 'Італійська', en: 'Italian' }, status: 'active' };
   return { ...fallback, id: courseId || fallback.id };
+}
+
+function setCourseLabel(element, course) {
+  if (!element) return;
+  element.innerHTML = getIconSvg(course.flag || `flag-${course.id || 'it'}`);
+  element.append(document.createTextNode(` ${L(course.name || { uk: course.id, en: course.id })}`));
+  window.renderRegisteredIcons?.(element);
 }
 
 function getSourceTranslation(key, fallback = '') {
@@ -841,7 +810,7 @@ function applyTargetCourseSettings() {
   document.querySelectorAll('[data-target-course-select]').forEach(select => {
     const courseOptions = getCourseCatalog();
     select.innerHTML = courseOptions.map(course => {
-      const label = [course.flag || '', L(course.name || { uk: course.id, en: course.id })].filter(Boolean).join(' ');
+      const label = L(course.name || { uk: course.id, en: course.id });
       const suffix = course.status && course.status !== 'active' ? ` · ${L({ uk: 'Незабаром', en: 'Soon' })}` : '';
       return `<option value="${course.id}">${label}${suffix}</option>`;
     }).join('');
@@ -851,7 +820,7 @@ function applyTargetCourseSettings() {
   document.querySelectorAll('[data-course-switcher]').forEach(select => {
     const courseOptions = getCourseCatalog();
     select.innerHTML = courseOptions.map(course => {
-      const label = `${course.flag || ''} ${course.id.toUpperCase()}`;
+      const label = course.id.toUpperCase();
       return `<option value="${course.id}">${label}</option>`;
     }).join('');
     select.value = currentCourse;
@@ -860,7 +829,7 @@ function applyTargetCourseSettings() {
   const courseTitle = L(courseMeta.name || { uk: currentCourse, en: currentCourse });
   const courseBadge = document.querySelector('[data-course-badge]');
   if (courseBadge) {
-    courseBadge.textContent = `${courseMeta.flag || '🇮🇹'} ${courseTitle}`;
+    setCourseLabel(courseBadge, courseMeta);
   }
 
   const courseNameEl = document.querySelector('[data-course-name]');
@@ -951,7 +920,7 @@ function toggleTheme() {
 
 function updateThemeToggleButtons(themeName) {
   const btns = document.querySelectorAll('.theme-toggle-btn');
-  const icon = (typeof LS_ICONS !== 'undefined' && LS_ICONS) ? (themeName === 'dark' ? LS_ICONS.sun : LS_ICONS.moon) : (themeName === 'dark' ? '☀️' : '🌙');
+  const icon = getIconSvg(themeName === 'dark' ? 'sun' : 'moon');
   const isEnglish = getSourceLanguage() === 'en';
   const labelText = isEnglish
     ? (themeName === 'dark' ? 'Enable light theme' : 'Enable dark theme')
@@ -973,6 +942,8 @@ function updateThemeToggleButtons(themeName) {
   pmBtns.forEach(btn => {
     btn.innerHTML = `${icon} ${pmLabel}`;
   });
+
+  window.renderRegisteredIcons?.();
 }
 
 function initTheme() {
@@ -981,15 +952,6 @@ function initTheme() {
 
 // Immediately apply saved theme on script parse to prevent FOUC
 initTheme();
-
-function renderRegisteredIcons(root = document) {
-  if (typeof getIconSvg !== 'function') return;
-  root.querySelectorAll('[data-icon]').forEach(element => {
-    element.innerHTML = getIconSvg(element.dataset.icon);
-  });
-}
-
-renderRegisteredIcons();
 
 function ensureTestsNavigation() {
   const currentDirectory = location.pathname.split('/').at(-2);
@@ -1067,20 +1029,18 @@ function initTestsNavigation() {
 }
 
 function ensureProfileModal() {
-  if (document.getElementById('profileModal')) {
+  if (document.getElementById('profileModal') || document.querySelector('[data-component="profile-modal"]')) {
     const currentCourse = getCourseMeta(getTargetCourse());
-    const currentCourseLabel = `${currentCourse.flag || '🇮🇹'} ${L(currentCourse.name || { uk: currentCourse.id, en: currentCourse.id })}`;
     const profileCourse = document.querySelector('#profileModal [data-course-label]');
-    if (profileCourse) profileCourse.textContent = currentCourseLabel;
+    setCourseLabel(profileCourse, currentCourse);
     syncCourseSwitchers();
     updateProfileStats();
     return;
   }
-  const themeIcon = (typeof LS_ICONS !== 'undefined' && LS_ICONS) ? LS_ICONS.sun : '🌓';
-  const closeIcon = (typeof LS_ICONS !== 'undefined' && LS_ICONS) ? LS_ICONS.close : '✕';
+  const themeIcon = getIconSvg('sun');
+  const closeIcon = getIconSvg('close');
   const studentIdentity = getStudentProfilePresentation();
   const currentCourse = getCourseMeta(getTargetCourse());
-  const currentCourseLabel = `${currentCourse.flag || '🇮🇹'} ${L(currentCourse.name || { uk: currentCourse.id, en: currentCourse.id })}`;
   document.body.insertAdjacentHTML('beforeend', `
     <div class="profile-modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
       <section class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-title">
@@ -1093,14 +1053,14 @@ function ensureProfileModal() {
           <div>
             <div class="pm-name">${studentIdentity.name}</div>
             <div class="pm-path">${studentIdentity.status}</div>
-            <div class="pm-path">Learning path: <b>${currentCourseLabel}</b></div>
+            <div class="pm-path">Learning path: <b data-course-label></b></div>
           </div>
         </div>
         <section class="pm-settings" aria-labelledby="source-language-title">
           <h3 class="pm-settings-title" id="source-language-title">Learning & Interface Settings</h3>
           <div class="pm-settings-grid">
             <div class="pm-setting">
-              <label class="pm-setting-label" for="targetCourse">Target Course (Мова курсу)</label>
+              <label class="pm-setting-label" for="targetCourse">Target Course</label>
               <select class="pm-setting-select" id="targetCourse" data-target-course-select onchange="setTargetCourse(this.value)"></select>
             </div>
             <div class="pm-setting">
@@ -1126,6 +1086,9 @@ function ensureProfileModal() {
         </div>
       </section>
     </div>`);
+  const profileModal = document.getElementById('profileModal');
+  setCourseLabel(profileModal?.querySelector('[data-course-label]'), currentCourse);
+  window.renderRegisteredIcons?.(profileModal);
 }
 
 function ensureCourseSwitcher() {

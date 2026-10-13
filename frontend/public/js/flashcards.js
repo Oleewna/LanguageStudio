@@ -1,4 +1,4 @@
-const DICT_KEY = (typeof window.courseKey === 'function') ? window.courseKey('custom_dict') : 'ls_custom_dict';
+const FLASHCARDS_STORAGE_KEY = (typeof window.courseKey === 'function') ? window.courseKey('custom_dict') : 'ls_custom_dict';
 
 let selectedTopic = 'all';
 let cards = [];
@@ -32,9 +32,9 @@ function normalizeFlashcard(item) {
 
 function getCustomWords() {
   if (typeof window.getJSON === 'function') {
-    return Array.isArray(window.getJSON(DICT_KEY, [])) ? window.getJSON(DICT_KEY, []) : [];
+    return Array.isArray(window.getJSON(FLASHCARDS_STORAGE_KEY, [])) ? window.getJSON(FLASHCARDS_STORAGE_KEY, []) : [];
   }
-  try { return JSON.parse(localStorage.getItem(DICT_KEY) || '[]'); } catch { return []; }
+  try { return JSON.parse(localStorage.getItem(FLASHCARDS_STORAGE_KEY) || '[]'); } catch { return []; }
 }
 
 function buildTopicChips(allWords) {
@@ -129,7 +129,7 @@ function updateCardDisplay() {
   const trackLabel = item.track === 'custom' ? 'Власне' : (item.track || 'general').replace(/[-_]/g, ' ');
   const topicLabel = item.topic === 'custom' ? 'Власне' : (item.topic || 'general').replace(/[-_]/g, ' ');
 
-  if (unitTagEl) unitTagEl.innerHTML = `${getIconSvg('handshake')}<span>${trackLabel}</span>`;
+  if (unitTagEl) unitTagEl.innerHTML = `${getIconSvg('greeting')}<span>${trackLabel}</span>`;
   if (topicTagEl) topicTagEl.innerHTML = `${getIconSvg('type')}<span>${topicLabel}</span>`;
   if (wordEl) wordEl.textContent = item.word;
   if (phonEl) phonEl.textContent = item.phon || '';

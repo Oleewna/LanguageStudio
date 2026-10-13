@@ -1,60 +1,107 @@
-/**
- * LanguageStudio - Vector SVG Icon Registry
- */
-const LS_ICONS = {
-  home: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
-  path: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>`,
-  play: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>`,
-  cards: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="18" x="7" y="3" rx="2"/><path d="M3 7v12a2 2 0 0 0 2 2h12"/></svg>`,
-  exercises: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>`,
-  dictionary: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/></svg>`,
-  grammar: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>`,
-  fire: `<svg class="ls-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 22c5.523 0 10-4.477 10-10 0-4.58-3.08-8.44-7.29-9.58A.75.75 0 0 0 13.8 3.3c-.02 1.48-.48 2.87-1.3 4.02C11.67 8.47 10.4 9 9 9c-1.33 0-2.52.54-3.37 1.41C4.78 11.27 4 12.54 4 14a8 8 0 0 0 8 8Z"/></svg>`,
-  star: `<svg class="ls-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
-  search: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>`,
-  plus: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>`,
-  traffic: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="18" x="8" y="3" rx="4"/><circle cx="12" cy="7" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="17" r="1.5" fill="currentColor"/></svg>`,
-  newspaper: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8z"/></svg>`,
-  verb: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.4l8.6 8.6a2.41 2.41 0 0 0 3.4 0l8.6-8.6a2.41 2.41 0 0 0 0-3.4l-8.6-8.6a2.41 2.41 0 0 0-3.4 0l-8.6 8.6z"/></svg>`,
-  handshake: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2-2"/><path d="m14 14 2.5 2.5"/><path d="m12.5 12.5 2 2"/><path d="M18 11V6a2 2 0 0 0-2-2h-3.8a2 2 0 0 0-1.4.6L4.3 11a1 1 0 0 0 0 1.4l5.3 5.3a1 1 0 0 0 1.4 0L17 11.7a2 2 0 0 0 .6-1.4V6"/></svg>`,
-  target: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`,
-  pin: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="17" y2="22"/><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"/></svg>`,
-  chat: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>`,
-  coffee: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg>`,
-  directions: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 19 21 12 17 5 21 12 2"/></svg>`,
-  shopping: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>`,
-  brain: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M12 5v13"/></svg>`,
-  pencil: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>`,
-  match: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
-  reorder: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.5-.6-3.3-1.7l-.5-.8"/><path d="m18 14 4 4-4 4"/></svg>`,
-  audio: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`,
-  dice: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="M12 12h.01"/><path d="M8 8h.01"/><path d="M16 16h.01"/><path d="M16 8h.01"/><path d="M8 16h.01"/></svg>`,
-  sun: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`,
-  moon: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`,
-  globe: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>`,
-  compass: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`,
-  wave: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2h-3.8a2 2 0 0 0-1.4.6L4.3 11a1 1 0 0 0 0 1.4l5.3 5.3a1 1 0 0 0 1.4 0L17 11.7a2 2 0 0 0 .6-1.4V6"/></svg>`,
-  suitcase: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="6" rx="2"/><path d="M16 21V6a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v15"/></svg>`,
-  briefcase: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,
-  lock: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
-  check: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
-  close: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
-  chevronDown: `<svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>`,
-  layers: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
-  sparkles: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>`,
-  menu: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>`,
-  shuffle: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 14 4 4-4 4"/><path d="M18 2l4 4-4 4"/><path d="M2 18h2.5a6 6 0 0 0 4.24-1.76l6.52-6.52A6 6 0 0 1 19.5 8H22"/><path d="M2 6h2.5a6 6 0 0 1 4.24 1.76l1.2 1.2M14 14l1.26 1.26A6 6 0 0 0 19.5 17H22"/></svg>`,
-  pointer: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 11-7 1-3 6-4-18z"/></svg>`,
-  lightbulb: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M8.5 14.5A7 7 0 1 1 15.5 14.5c-.9.7-1.3 1.5-1.5 2.5h-4c-.2-1-.6-1.8-1.5-2.5z"/></svg>`,
-  trash: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m4 4v6m6-6v6"/></svg>`,
-  type: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3M9 20h6M12 4v16M18 20h4M19 17v-3a2 2 0 0 0-4 0v3m0-1h4"/></svg>`,
-  trophy: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4v2a4 4 0 0 0 4 4m9-6h3v2a4 4 0 0 1-4 4"/></svg>`,
-  clock: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
-  tag: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 11 3H4v7l10.6 10.6a2 2 0 0 0 2.8 0l3.2-3.2a2 2 0 0 0 0-2.8Z"/><circle cx="7.5" cy="7.5" r=".5"/></svg>`,
-  user: `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg>`
+const ICON_MAP_URL = new URL('../assets/icons/icons.json', document.currentScript.src).href;
+const ICON_ASSET_BASE_URL = new URL('.', ICON_MAP_URL).href;
+const ICON_ALIASES = {
+  path: 'paths',
+  cards: 'flashcards',
+  fire: 'streak',
+  plus: 'add',
+  traffic: 'traffic-light',
+  newspaper: 'article',
+  handshake: 'greeting',
+  coffee: 'cafe',
+  compass: 'paths',
+  pointer: 'tap',
+  brain: 'mcq',
+  pencil: 'blank',
+  dice: 'shuffle',
+  trash: 'delete',
+  chevronDown: 'chevron-down'
 };
 
-function getIconSvg(name) {
-  return LS_ICONS[name] || '';
+let iconRegistryPromise;
+let iconRegistry = null;
+const warnedIconNames = new Set();
+
+function loadIconRegistry() {
+  if (!iconRegistryPromise) {
+    iconRegistryPromise = fetch(ICON_MAP_URL)
+      .then(response => {
+        if (!response.ok) throw new Error(`Icon map request failed: ${response.status}`);
+        return response.json();
+      })
+      .then(registry => {
+        iconRegistry = registry;
+        renderRegisteredIcons();
+        return registry;
+      })
+      .catch(error => {
+        console.warn('Could not load icon map:', error);
+        iconRegistry = { placeholder: { file: '_placeholder.svg', mode: 'mask' } };
+        renderRegisteredIcons();
+        return iconRegistry;
+      });
+  }
+
+  return iconRegistryPromise;
 }
 
+function resolveIconName(name) {
+  return ICON_ALIASES[name] || name;
+}
+
+function getIconSvg(name) {
+  const iconName = resolveIconName(name);
+  const entry = iconRegistry?.[iconName];
+
+  if (!entry) {
+    if (iconRegistry && !warnedIconNames.has(iconName)) {
+      warnedIconNames.add(iconName);
+      console.warn(`Icon "${iconName}" not found`);
+    }
+    const fallback = iconRegistry?.placeholder;
+    const fallbackAttributes = fallback
+      ? ` data-name="placeholder" data-icon-missing style="--icon: url('${ICON_ASSET_BASE_URL}${fallback.file}')"`
+      : '';
+    return `<span class="ls-icon" data-icon="${iconName}"${fallbackAttributes} aria-hidden="true"></span>`;
+  }
+
+  const assetName = entry.file === iconRegistry.placeholder?.file ? 'placeholder' : iconName;
+  return `<span class="ls-icon" data-icon="${iconName}" data-name="${assetName}" style="--icon: url('${ICON_ASSET_BASE_URL}${entry.file}')" aria-hidden="true"></span>`;
+}
+
+function renderRegisteredIcons(root = document) {
+  if (!iconRegistry || !root?.querySelectorAll) return;
+  const icons = [];
+  if (root.matches?.('[data-icon]')) icons.push(root);
+  icons.push(...root.querySelectorAll('[data-icon]'));
+
+  icons.forEach(element => {
+    const requestedName = element.dataset.icon;
+    const iconName = resolveIconName(requestedName);
+    const entry = iconRegistry[iconName];
+    const isMissing = !entry;
+    const resolvedEntry = entry || iconRegistry.placeholder;
+    const isPlaceholder = isMissing || resolvedEntry.file === iconRegistry.placeholder?.file;
+
+    if (isMissing && !warnedIconNames.has(iconName)) {
+      warnedIconNames.add(iconName);
+      console.warn(`Icon "${iconName}" not found`);
+    }
+
+    element.classList.add('ls-icon');
+    element.dataset.name = isPlaceholder ? 'placeholder' : iconName;
+    if (isMissing) element.dataset.iconMissing = '';
+    else delete element.dataset.iconMissing;
+    element.style.setProperty('--icon', `url("${ICON_ASSET_BASE_URL}${resolvedEntry.file}")`);
+    element.setAttribute('aria-hidden', 'true');
+  });
+}
+
+function getIconNames() {
+  return Object.keys(iconRegistry || {});
+}
+
+window.loadIconRegistry = loadIconRegistry;
+window.renderRegisteredIcons = renderRegisteredIcons;
+window.getIconNames = getIconNames;
+loadIconRegistry();

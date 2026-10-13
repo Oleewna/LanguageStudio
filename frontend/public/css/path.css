@@ -3,6 +3,14 @@
     flex-direction: column;
     gap: 1.25rem;
   }
+  .path-message {
+    margin: 0;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--ink-soft);
+  }
   .unit-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -274,5 +282,16 @@
     }
     .unit-group-header {
       padding-left: 1.25rem;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .lesson-row {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .lesson-right {
+      width: 100%;
+      justify-content: space-between;
     }
   }

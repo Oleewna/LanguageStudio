@@ -183,13 +183,13 @@
     };
 
     const iconMap = {
-      mcq: 'brain',
-      blank: 'pencil',
+      mcq: 'mcq',
+      blank: 'blank',
       match: 'match',
       reorder: 'reorder',
-      listen: 'audio',
+      listen: 'listen',
       dialogue: 'chat',
-      dict: 'dictionary'
+      dict: 'from-dictionary'
     };
 
     tabs.innerHTML = runtimeFormats.map((format) => {
@@ -289,7 +289,7 @@
   function renderEmptyState() {
     return `
       <div class="empty-state">
-        <div class="empty-state-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg></div>
+        <div class="empty-state-icon">${getIconSvg('search')}</div>
         <h3>${getText({ uk: 'Вправ не знайдено', en: 'No exercises found' })}</h3>
         <p>${getText({ uk: 'Спробуйте змінити категорії або скинути фільтри.', en: 'Try adjusting your filters or search keywords.' })}</p>
       </div>
@@ -354,7 +354,7 @@
       const correctOpt = [...opts].find((option) => option.dataset.correct === 'true');
       if (correctOpt) correctOpt.classList.add('correct');
       fb.className = 'quiz-feedback show-wrong';
-      fb.innerHTML = `${getIconSvg('close')} <b>${getText({ uk: 'Не зовсім.', en: 'Not quite.' })}</b> ${getText({ uk: 'Подивіться правильний варіант вище.', en: 'The correct answer is highlighted.' })}`;
+      fb.innerHTML = `${getIconSvg('wrong')} <b>${getText({ uk: 'Не зовсім.', en: 'Not quite.' })}</b> ${getText({ uk: 'Подивіться правильний варіант вище.', en: 'The correct answer is highlighted.' })}`;
     }
 
     if (task && task.explanation) {
@@ -414,7 +414,7 @@
     } else {
       fb.className = 'quiz-feedback show-wrong';
       const answerText = Array.isArray(task.answers) ? task.answers[0] : task.answer || '';
-      fb.innerHTML = `${getIconSvg('close')} <b>${getText({ uk: 'Спробуйте ще раз.', en: 'Try again.' })}</b> (${getText({ uk: 'Правильна відповідь:', en: 'Correct:' })} <b>${answerText}</b>)`;
+      fb.innerHTML = `${getIconSvg('wrong')} <b>${getText({ uk: 'Спробуйте ще раз.', en: 'Try again.' })}</b> (${getText({ uk: 'Правильна відповідь:', en: 'Correct:' })} <b>${answerText}</b>)`;
     }
 
     if (task.explanation) {
@@ -684,7 +684,7 @@
       if (typeof addXP === 'function') addXP(xpValue);
     } else {
       fb.className = 'quiz-feedback show-wrong';
-      fb.innerHTML = `${getIconSvg('close')} <b>${getText({ uk: 'Ще не так.', en: 'Not quite right.' })}</b> ${getText({ uk: 'Спробуйте ще раз.', en: 'Check the word order.' })}`;
+      fb.innerHTML = `${getIconSvg('wrong')} <b>${getText({ uk: 'Ще не так.', en: 'Not quite right.' })}</b> ${getText({ uk: 'Спробуйте ще раз.', en: 'Check the word order.' })}`;
     }
 
     if (task.explanation) {

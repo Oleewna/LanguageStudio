@@ -47,6 +47,7 @@ Before shipping or adding a new course, run the validator:
 
 ```bash
 node scripts/validate-courses.mjs
+node scripts/check-icons.mjs
 ```
 
 This checks:
@@ -55,6 +56,8 @@ This checks:
 - localized text fields
 - course registry consistency
 - lesson references and exercise formats
+- icon references, legacy icon symbols, and inline SVG markup
+- icon registry entries mapped to placeholders and unused icon files
 
 ## Project structure
 

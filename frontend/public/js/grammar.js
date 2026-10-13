@@ -50,7 +50,7 @@ async function initGrammarTabs() {
       button.type = 'button';
       button.className = 'gr-tab-btn';
       button.dataset.topic = topic.id;
-      button.innerHTML = `<span data-icon="${topic.icon || 'newspaper'}"></span> <span>${L(topic.title)}</span>`;
+      button.innerHTML = `${getIconSvg(topic.icon || 'article')} <span>${L(topic.title)}</span>`;
       button.addEventListener('click', () => switchGrTab(topic.id, button));
       tabContainer.appendChild(button);
     });

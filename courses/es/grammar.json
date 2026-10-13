@@ -60,7 +60,7 @@
     },
     {
       "id": "articulos",
-      "icon": "newspaper",
+      "icon": "article",
       "title": { "uk": "Артиклі", "en": "Articles" },
       "blocks": [
         {

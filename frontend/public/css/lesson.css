@@ -169,6 +169,15 @@ body {
   flex-shrink: 0;
 }
 
+.lesson-rules-button[hidden] {
+  display: none;
+}
+
+.lesson-rules-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .content {
   max-width: 48rem;
   width: 100%;
@@ -611,7 +620,8 @@ table.vocab-table tr:last-child td {
     width: 100%;
   }
 
-  .lesson-topbar-actions > a {
+  .lesson-topbar-actions > a,
+  .lesson-topbar-actions > button {
     flex: 1 1 0;
     min-width: 0;
     padding-inline: 0.65rem;
@@ -619,20 +629,9 @@ table.vocab-table tr:last-child td {
   }
 
   @media (max-width: 280px) {
-    .lesson-topbar-actions > a {
-      font-size: 0;
-    }
-
-    .lesson-topbar-actions > a::before {
-      font-size: 1rem;
-    }
-
-    .lesson-topbar-actions > a:first-child::before {
-      content: "←";
-    }
-
-    .lesson-topbar-actions > a:last-child::before {
-      content: "→";
+    .lesson-topbar-actions > a,
+    .lesson-topbar-actions > button {
+      font-size: 0.65rem;
     }
   }
 
@@ -920,6 +919,26 @@ table.vocab-table tr:last-child td {
   margin-bottom: 0.35rem;
   font-size: 1rem;
   line-height: 1.7;
+}
+
+.story-audio-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.story-audio-btn:hover {
+  border-color: var(--it-green);
+  color: var(--it-green);
 }
 
 .story-trans-toggle {

@@ -14,7 +14,7 @@ Lists the available courses and the default course.
       "id": "it",
       "name": { "uk": "Італійська", "en": "Italian" },
       "native": "Italiano",
-      "flag": "🇮🇹",
+      "flag": "flag-it",
       "status": "active"
     }
   ]
@@ -25,6 +25,7 @@ Notes:
 - `default` is the fallback when no course is selected.
 - `status` can be `active`, `soon`, or `locked`.
 - `name` should always include `uk` and `en`.
+- `flag` is a semantic name registered in `frontend/public/assets/icons/icons.json`.
 
 ## 2) `courses/<id>/course.json`
 
@@ -60,7 +61,7 @@ Describes the learning structure and feature set for one course.
   "paths": [
     {
       "id": "foundations",
-      "icon": "👋",
+      "icon": "greeting",
       "locked": false,
       "defaultOpen": true,
       "title": { "uk": "Основи спілкування", "en": "Communication basics" },
@@ -90,6 +91,7 @@ Notes:
 - `target.code` is the course language code such as `it` or `es`.
 - `exerciseFormats` is the whitelist of formats available for the course.
 - `paths` controls the roadmap and lesson grouping in the app.
+- Every `icon` value is a semantic name registered in `frontend/public/assets/icons/icons.json`; do not use filenames, emoji, or inline markup.
 
 ## 3) `courses/<id>/vocab.json`
 
@@ -124,7 +126,7 @@ Grammar topics and the blocks they contain.
   "topics": [
     {
       "id": "articoli",
-      "icon": "newspaper",
+      "icon": "article",
       "title": { "uk": "Артиклі", "en": "Articles" },
       "blocks": [
         {
@@ -207,4 +209,5 @@ Lesson content is a separate JSON file referenced by `course.json` and rendered 
 - Localized text is always an object with `uk` and `en` keys.
 - IDs are stable strings and never array indices.
 - Course data is loaded via `fetch()` from the active course folder.
+- All course `icon` and `flag` fields use registered semantic names; emoji are not allowed in these fields.
 - The app must work when a course is missing or has a partial data set; invalid or empty sections should fail gracefully.

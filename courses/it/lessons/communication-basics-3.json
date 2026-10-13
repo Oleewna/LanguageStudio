@@ -1,0 +1,233 @@
+{
+  "id": "communication-basics-3",
+  "title": {
+    "uk": "Інтереси й повсякденне життя",
+    "en": "Interests and everyday life"
+  },
+  "subtitle": {
+    "uk": "Розмова про вільний час",
+    "en": "Talking about free time"
+  },
+  "description": {
+    "uk": "Софія, Ґрета й Лука обговорюють захоплення та плани на вихідні, а потім готуються представитися новій групі.",
+    "en": "Sofia, Greta, and Luca discuss their interests and weekend plans, then prepare to introduce themselves to a new group."
+  },
+  "duration": {
+    "uk": "20 хв",
+    "en": "20 min"
+  },
+  "xpReward": 50,
+  "prevLessonId": "communication-basics-2",
+  "nextLessonId": null,
+  "blocks": [
+    {
+      "type": "dialogue",
+      "title": {
+        "uk": "Розмова в групі",
+        "en": "Group conversation"
+      },
+      "story": {
+        "uk": "Учитель ділить студентів на невеликі групи й дає їм картку з темою «Вільний час». Софія, Ґрета й Лука знаходять спільні інтереси та домовляються про зустріч.",
+        "en": "The teacher puts students into small groups and gives them a card about free time. Sofia, Greta, and Luca find common interests and make a plan to meet."
+      },
+      "image": "../assets/images/communication-basics.jpg",
+      "imageAlt": {
+        "uk": "Студенти обговорюють захоплення в невеликій групі",
+        "en": "Students discussing their interests in a small group"
+      },
+      "lines": [
+        {
+          "speaker": { "uk": "Учитель", "en": "Teacher" },
+          "avatar": "I",
+          "text": "In piccoli gruppi, parlate di cosa vi piace fare nel tempo libero.",
+          "trans": {
+            "uk": "У невеликих групах поговоріть про те, що вам подобається робити у вільний час.",
+            "en": "In small groups, talk about what you like to do in your free time."
+          },
+          "audio": true
+        },
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "Mi piace cucinare. E a voi?",
+          "trans": { "uk": "Мені подобається готувати. А вам?", "en": "I like cooking. What about you?" },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "A me piace ascoltare la musica.",
+          "trans": { "uk": "А мені подобається слухати музику.", "en": "As for me, I like listening to music." },
+          "audio": true
+        },
+        {
+          "speaker": "Luca",
+          "avatar": "L",
+          "text": "Anch'io! Che musica ascolti?",
+          "trans": { "uk": "Я теж! Яку музику ти слухаєш?", "en": "Me too! What music do you listen to?" },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Mi piace il pop. E tu, Sofia?",
+          "trans": { "uk": "Мені подобається попмузика. А тобі, Софіє?", "en": "I like pop music. What about you, Sofia?" },
+          "audio": true
+        },
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "Mi piace leggere e cucinare.",
+          "trans": { "uk": "Мені подобається читати й готувати.", "en": "I like reading and cooking." },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Davvero? Qual è il tuo piatto preferito?",
+          "trans": { "uk": "Справді? Яка твоя улюблена страва?", "en": "Really? What is your favorite dish?" },
+          "audio": true
+        },
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "Un piatto tradizionale ucraino: il borshch.",
+          "trans": { "uk": "Традиційна українська страва: борщ.", "en": "A traditional Ukrainian dish: borshch." },
+          "audio": true
+        },
+        {
+          "speaker": "Luca",
+          "avatar": "L",
+          "text": "Buono! Cosa fate di solito nel fine settimana?",
+          "trans": { "uk": "Звучить смачно! Що ви зазвичай робите на вихідних?", "en": "That sounds delicious! What do you usually do at the weekend?" },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Il sabato incontro gli amici. La domenica resto a casa.",
+          "trans": { "uk": "У суботу я зустрічаюся з друзями. У неділю залишаюся вдома.", "en": "On Saturdays I meet friends. On Sundays I stay at home." },
+          "audio": true
+        },
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "Ti va di prendere un caffè sabato?",
+          "trans": { "uk": "Хочеш випити кави в суботу?", "en": "Would you like to get a coffee on Saturday?" },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Volentieri! A che ora?",
+          "trans": { "uk": "Із задоволенням! О котрій?", "en": "Gladly! What time?" },
+          "audio": true
+        },
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "Alle tre?",
+          "trans": { "uk": "О третій?", "en": "At three?" },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Perfetto!",
+          "trans": { "uk": "Чудово!", "en": "Perfect!" },
+          "audio": true
+        }
+      ]
+    },
+    {
+      "type": "vocab",
+      "title": { "uk": "Словник", "en": "Vocabulary" },
+      "items": [
+        { "it": "nel tempo libero", "translations": { "uk": "у вільний час", "en": "in your free time" } },
+        { "it": "mi piace...", "translations": { "uk": "мені подобається...", "en": "I like..." } },
+        { "it": "a me piace...", "translations": { "uk": "а мені подобається...", "en": "as for me, I like..." } },
+        { "it": "anch'io", "translations": { "uk": "я теж", "en": "me too" } },
+        { "it": "ascoltare la musica", "translations": { "uk": "слухати музику", "en": "to listen to music" } },
+        { "it": "il pop", "translations": { "uk": "попмузика", "en": "pop music" } },
+        { "it": "leggere", "translations": { "uk": "читати", "en": "to read" } },
+        { "it": "cucinare", "translations": { "uk": "готувати", "en": "to cook" } },
+        { "it": "un piatto tradizionale", "translations": { "uk": "традиційна страва", "en": "a traditional dish" } },
+        { "it": "il piatto preferito", "translations": { "uk": "улюблена страва", "en": "favorite dish" } },
+        { "it": "davvero?", "translations": { "uk": "справді?", "en": "really?" } },
+        { "it": "nel fine settimana", "translations": { "uk": "на вихідних", "en": "at the weekend" } },
+        { "it": "di solito", "translations": { "uk": "зазвичай", "en": "usually" } },
+        { "it": "incontrare gli amici", "translations": { "uk": "зустрічатися з друзями", "en": "to meet friends" } },
+        { "it": "restare a casa", "translations": { "uk": "залишатися вдома", "en": "to stay at home" } },
+        { "it": "ti va di...?", "translations": { "uk": "хочеш...?", "en": "would you like to...?" } },
+        { "it": "volentieri!", "translations": { "uk": "із задоволенням!", "en": "gladly!" } },
+        { "it": "a che ora?", "translations": { "uk": "о котрій?", "en": "at what time?" } }
+      ]
+    },
+    {
+      "type": "takeaways",
+      "title": { "uk": "Твоя черга говорити", "en": "Your turn to speak" },
+      "items": [
+        {
+          "text": {
+            "uk": "Підготуй коротке представлення: <i>Mi chiamo...</i>, <i>Vengo da...</i>, <i>Sono...</i>, <i>Studio... / Lavoro...</i>, <i>Parlo...</i>, <i>Mi piace...</i>. Можна використати вигадані подробиці.",
+            "en": "Prepare a short introduction: <i>Mi chiamo...</i>, <i>Vengo da...</i>, <i>Sono...</i>, <i>Studio... / Lavoro...</i>, <i>Parlo...</i>, <i>Mi piace...</i>. You can use fictional details."
+          }
+        },
+        {
+          "text": {
+            "uk": "Представся новій групі, розкажи про одне захоплення й постав співрозмовнику запитання про те, що він або вона любить робити.",
+            "en": "Introduce yourself to a new group, share one interest, and ask someone what they like to do."
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": { "uk": "Практика", "en": "Practice" },
+      "items": [
+        {
+          "id": "cb3_q1",
+          "kind": "choice",
+          "category": { "uk": "Розуміння фраз", "en": "Phrase comprehension" },
+          "q": { "uk": "Що означає «Anch'io!»?", "en": "What does \"Anch'io!\" mean?" },
+          "options": [
+            { "text": { "uk": "Я теж!", "en": "Me too!" }, "correct": true },
+            { "text": { "uk": "Мені подобається!", "en": "I like it!" }, "correct": false },
+            { "text": { "uk": "О котрій?", "en": "At what time?" }, "correct": false }
+          ]
+        },
+        {
+          "id": "cb3_q2",
+          "kind": "choice",
+          "category": { "uk": "Розуміння діалогу", "en": "Dialogue comprehension" },
+          "q": { "uk": "Що Софія любить робити?", "en": "What does Sofia like to do?" },
+          "options": [
+            { "text": { "uk": "Читати й готувати", "en": "Read and cook" }, "correct": true },
+            { "text": { "uk": "Слухати попмузику", "en": "Listen to pop music" }, "correct": false },
+            { "text": { "uk": "Зустрічатися з друзями щонеділі", "en": "Meet friends every Sunday" }, "correct": false }
+          ]
+        },
+        {
+          "id": "cb3_q3",
+          "kind": "text",
+          "category": { "uk": "Встав слово", "en": "Fill in the blank" },
+          "prefix": "La domenica",
+          "suffix": "a casa.",
+          "prompt": { "uk": "встав дієслово з діалогу", "en": "enter the verb from the dialogue" },
+          "answers": ["resto"]
+        },
+        {
+          "id": "cb3_q4",
+          "kind": "choice",
+          "category": { "uk": "Запрошення", "en": "Invitations" },
+          "q": { "uk": "Яка відповідь приймає запрошення Софії?", "en": "Which response accepts Sofia's invitation?" },
+          "options": [
+            { "text": { "uk": "Volentieri!", "en": "Gladly!" }, "correct": true },
+            { "text": { "uk": "Davvero?", "en": "Really?" }, "correct": false },
+            { "text": { "uk": "A me piace...", "en": "As for me, I like..." }, "correct": false }
+          ]
+        }
+      ]
+    }
+  ]
+}

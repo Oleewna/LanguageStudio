@@ -35,26 +35,26 @@
     {
       "id": "greetings",
       "group": "situational",
-      "icon": "globe",
+      "icon": "greeting",
       "name": { "uk": "Привітання", "en": "Greetings" }
     },
     {
       "id": "food",
       "group": "situational",
-      "icon": "coffee",
+      "icon": "cafe",
       "name": { "uk": "Їжа та кафе", "en": "Food & cafe" }
     },
     {
       "id": "travel",
       "group": "situational",
-      "icon": "compass",
+      "icon": "travel",
       "name": { "uk": "Подорожі", "en": "Travel" }
     }
   ],
   "paths": [
     {
       "id": "foundations",
-      "icon": "👋",
+      "icon": "greeting",
       "locked": false,
       "defaultOpen": true,
       "title": { "uk": "Основи спілкування", "en": "Communication basics" },

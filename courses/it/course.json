@@ -47,19 +47,19 @@
     {
       "id": "greetings",
       "group": "situational",
-      "icon": "globe",
+      "icon": "greeting",
       "name": { "uk": "Знайомство & Сусіди", "en": "Greetings & Meeting Neighbors" }
     },
     {
       "id": "cafe",
       "group": "situational",
-      "icon": "coffee",
+      "icon": "cafe",
       "name": { "uk": "У кафе та барі", "en": "At the Cafe & Bar" }
     },
     {
       "id": "directions",
       "group": "situational",
-      "icon": "compass",
+      "icon": "directions",
       "name": { "uk": "Орієнтування в місті", "en": "Asking Directions" }
     },
     {
@@ -72,28 +72,50 @@
   "paths": [
     {
       "id": "foundations",
-      "icon": "👋",
+      "icon": "greeting",
       "locked": false,
       "defaultOpen": true,
       "title": { "uk": "Основи спілкування", "en": "Communication basics" },
       "subtitle": {
-        "uk": "Знайомство, привітання та базові фрази",
-        "en": "Introductions, greetings, and everyday phrases"
+        "uk": "Знайомство та розмови на повсякденні теми",
+        "en": "Introductions and everyday conversations"
       },
       "units": [
         {
           "id": "foundations-1",
           "title": { "uk": "Перші кроки", "en": "First steps" },
-            "lessons": [
+          "lessons": [
             {
               "id": "communication-basics-1",
               "num": { "uk": "Урок 1", "en": "Lesson 1" },
-              "title": { "uk": "Привітання", "en": "Greetings" },
+              "title": { "uk": "Знайомство", "en": "Introductions" },
               "description": {
-                "uk": "Навчіться вітатися й представлятися",
-                "en": "Learn how to greet people and introduce yourself"
+                "uk": "Софія приходить раніше на урок і не впевнена, яке місце вільне. Ґрета допомагає і вони дізнаються, що обидві нові в курсі. Вчитель проводить коротке представлення: ім’я і країна.",
+                "en": "Sofia arrives early and is unsure which seat is free. Greta helps her and they learn they are both new to the course. The teacher leads a short introduction round: name and country."
               },
-              "time": "~15 min",
+              "time": { "uk": "20 хв", "en": "20 min" },
+              "status": "available"
+            },
+            {
+              "id": "communication-basics-2",
+              "num": { "uk": "Урок 2", "en": "Lesson 2" },
+              "title": { "uk": "Навчання, робота і мови", "en": "Study, work, and languages" },
+              "description": {
+                "uk": "На наступному занятті Софія й Ґрета працюють у парах: розповідають про навчання, роботу, мови та, за бажанням, близьких людей.",
+                "en": "In their next class, Sofia and Greta work in pairs, talking about study, work, languages, and, if they choose, people close to them."
+              },
+              "time": { "uk": "20 хв", "en": "20 min" },
+              "status": "available"
+            },
+            {
+              "id": "communication-basics-3",
+              "num": { "uk": "Урок 3", "en": "Lesson 3" },
+              "title": { "uk": "Інтереси й повсякденне життя", "en": "Interests and everyday life" },
+              "description": {
+                "uk": "Софія, Ґрета й Лука обговорюють захоплення та плани на вихідні, а потім готуються представитися новій групі.",
+                "en": "Sofia, Greta, and Luca discuss their interests and weekend plans, then prepare to introduce themselves to a new group."
+              },
+              "time": { "uk": "20 хв", "en": "20 min" },
               "status": "available"
             }
           ]

@@ -15,7 +15,160 @@ function escapeHtml(str) {
 
 function getCoursePaths() {
   const courseData = window.__LS_COURSE_DATA || {};
-  return Array.isArray(courseData.paths) ? courseData.paths : [];
+  const paths = Array.isArray(courseData.paths) ? courseData.paths : [];
+  const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+
+  if (courseId !== 'it') return paths;
+
+  return paths.concat({
+    id: 'italian-reading',
+    icon: 'paths',
+    locked: false,
+    defaultOpen: false,
+    title: { uk: 'Читання італійською', en: 'Italian reading' },
+    subtitle: {
+      uk: 'Від перших звуків до коротких текстів',
+      en: 'From first sounds to short texts'
+    },
+    units: [{
+      id: 'italian-reading',
+      title: { uk: 'Шлях читання італійською', en: 'Italian reading path' },
+      lessons: [
+        {
+          id: 'italian-reading-1',
+          num: { uk: 'Урок 1', en: 'Lesson 1' },
+          title: { uk: 'Голосні, приголосні та склади', en: 'Vowels, consonants, and syllables' },
+          description: {
+            uk: 'Поєднуй прості звуки та діли слова на склади.',
+            en: 'Blend simple sounds and divide words into syllables.'
+          },
+          time: { uk: '12 хв', en: '12 min' },
+          status: 'available'
+        },
+        {
+          id: 'italian-reading-2',
+          num: { uk: 'Урок 2', en: 'Lesson 2' },
+          title: { uk: 'Тверда C: ca, co, cu', en: 'Hard C: ca, co, cu' },
+          description: {
+            uk: 'Читай слова з твердим звуком C перед A, O та U.',
+            en: 'Read words with hard C before A, O, and U.'
+          },
+          time: { uk: '12 хв', en: '12 min' },
+          status: 'available'
+        },
+        {
+          id: 'italian-reading-3',
+          num: { uk: 'Урок 3', en: 'Lesson 3' },
+          title: { uk: 'М’яка C і CH: ce, ci, che, chi', en: 'Soft C and CH: ce, ci, che, chi' },
+          description: {
+            uk: 'Розрізняй м’яку C та написання CH із твердим звуком.',
+            en: 'Distinguish soft C from CH spellings with the hard sound.'
+          },
+          time: { uk: '12 хв', en: '12 min' },
+          status: 'available'
+        },
+        {
+          id: 'italian-reading-4',
+          num: { uk: 'Урок 4', en: 'Lesson 4' },
+          title: { uk: 'Тверда G: ga, go, gu', en: 'Hard G: ga, go, gu' },
+          description: {
+            uk: 'Читай слова з твердим звуком G перед A, O та U.',
+            en: 'Read words with hard G before A, O, and U.'
+          },
+          time: { uk: '12 хв', en: '12 min' },
+          status: 'available'
+        },
+        {
+          id: 'italian-reading-5',
+          num: { uk: 'Урок 5', en: 'Lesson 5' },
+          title: { uk: 'М’яка G і GH: ge, gi, ghe, ghi', en: 'Soft G and GH: ge, gi, ghe, ghi' },
+          description: {
+            uk: 'Порівнюй м’який звук G із твердим звуком у сполуках GH.',
+            en: 'Compare soft G with the hard sound in GH spellings.'
+          },
+          time: { uk: '12 хв', en: '12 min' },
+          status: 'available'
+        },
+        {
+          id: 'italian-reading-6',
+          num: { uk: 'Урок 6', en: 'Lesson 6' },
+          title: { uk: 'Звуки сполуки SC', en: 'The sounds of SC' },
+          description: {
+            uk: 'Слухай і розрізняй основні написання SC.',
+            en: 'Listen for and distinguish the main SC spellings.'
+          },
+          time: { uk: '12 хв', en: '12 min' },
+          status: 'available'
+        },
+        {
+          id: 'italian-reading-7',
+          num: { uk: 'Урок 7', en: 'Lesson 7' },
+          title: { uk: 'Сполука GN', en: 'The GN combination' },
+          description: {
+            uk: 'Розпізнавай GN як одну звукову сполуку в словах.',
+            en: 'Recognize GN as a single sound pattern in words.'
+          },
+          time: { uk: '12 хв', en: '12 min' },
+          status: 'available'
+        },
+        {
+          id: 'italian-reading-8',
+          num: { uk: 'Урок 8', en: 'Lesson 8' },
+          title: { uk: 'Сполука GLI', en: 'The GLI combination' },
+          description: {
+            uk: 'Слухай і повторюй слова зі сполукою GLI.',
+            en: 'Listen and repeat words with the GLI combination.'
+          },
+          time: { uk: '12 хв', en: '12 min' },
+          status: 'available'
+        },
+        {
+          id: 'italian-reading-9',
+          num: { uk: 'Урок 9', en: 'Lesson 9' },
+          title: { uk: 'QU в італійських словах', en: 'QU in Italian words' },
+          description: {
+            uk: 'Читай поширені слова та короткі фрази зі сполукою QU.',
+            en: 'Read common words and short phrases with QU.'
+          },
+          time: { uk: '12 хв', en: '12 min' },
+          status: 'available'
+        },
+        {
+          id: 'italian-reading-10',
+          num: { uk: 'Урок 10', en: 'Lesson 10' },
+          title: { uk: 'Подвоєні приголосні', en: 'Double consonants' },
+          description: {
+            uk: 'Помічай подвоєні приголосні та чуй різницю у вимові.',
+            en: 'Notice doubled consonants and hear the pronunciation contrast.'
+          },
+          time: { uk: '12 хв', en: '12 min' },
+          status: 'available'
+        },
+        {
+          id: 'italian-reading-11',
+          num: { uk: 'Урок 11', en: 'Lesson 11' },
+          title: { uk: 'Наголос і письмові акценти', en: 'Word stress and written accents' },
+          description: {
+            uk: 'Звертай увагу на наголос і письмові акценти у словах.',
+            en: 'Notice word stress and written accents in Italian words.'
+          },
+          time: { uk: '12 хв', en: '12 min' },
+          status: 'available'
+        },
+        {
+          id: 'italian-reading-12',
+          num: { uk: 'Урок 12', en: 'Lesson 12' },
+          title: { uk: 'Читаємо короткий текст', en: 'Let’s read a short text' },
+          description: {
+            uk: 'Поєднуй знайомі закономірності читання в короткій історії.',
+            en: 'Bring familiar reading patterns together in a short story.'
+          },
+          time: { uk: '18 хв', en: '18 min' },
+          status: 'available'
+        }
+      ]
+    }]
+  });
 }
 
 function getLocalizedText(value) {
@@ -26,6 +179,20 @@ function getLocalizedText(value) {
     return value.uk || value.en || '';
   }
   return value || '';
+}
+
+function getPathLanguage() {
+  return typeof window.getSourceLanguage === 'function' && window.getSourceLanguage() === 'en'
+    ? 'en'
+    : 'uk';
+}
+
+function getPathBadgeText(total, available, locked = false) {
+  const lang = getPathLanguage();
+  if (locked) return lang === 'en' ? 'Locked' : 'Заблоковано';
+  return lang === 'en'
+    ? `${available}/${total} lessons available`
+    : `${available}/${total} уроків доступно`;
 }
 
 function getLessonHref(lesson) {
@@ -55,12 +222,7 @@ function getLessonStatusLabel(lesson) {
 function buildBadgeText(category) {
   const total = (category.units || []).reduce((sum, unit) => sum + (unit.lessons || []).length, 0);
   const available = (category.units || []).reduce((sum, unit) => sum + (unit.lessons || []).filter((lesson) => lesson.status === 'available').length, 0);
-
-  if (category.locked) {
-    return '🔒 Заблоковано';
-  }
-
-  return `${available}/${total} уроків доступно`;
+  return getPathBadgeText(total, available, category.locked);
 }
 
 function renderLessonRow(lesson) {
@@ -70,11 +232,12 @@ function renderLessonRow(lesson) {
   const title = getLocalizedText(lesson.title);
   const description = getLocalizedText(lesson.description);
   const lessonNum = getLocalizedText(lesson.num);
-  const statusText = isAvailable ? `<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg> ${escapeHtml(getLessonStatusLabel(lesson))}` : escapeHtml(getLessonStatusLabel(lesson));
+  const time = getLocalizedText(lesson.time);
+  const statusText = `${getIconSvg(isAvailable ? 'lesson' : 'lock')} ${escapeHtml(getLessonStatusLabel(lesson))}`;
 
   const numHtml = lessonNum ? `<div class="lesson-num">${escapeHtml(lessonNum)}</div>` : '';
   const descHtml = description ? `<div class="lesson-it">${escapeHtml(description)}</div>` : '';
-  const timeHtml = lesson.time ? `<span class="lesson-time">${escapeHtml(lesson.time)}</span>` : '';
+  const timeHtml = time ? `<span class="lesson-time">${escapeHtml(time)}</span>` : '';
 
   const inner = `
         <div>
@@ -116,7 +279,7 @@ function renderUnitGroup(unit, totalUnitsInCategory) {
         <div class="unit-group-title">${escapeHtml(getLocalizedText(unit.title))}</div>
         <div class="unit-group-meta">
           ${unit.badgeText ? `<span class="unit-group-badge${unit.locked ? '' : ' active-badge'}">${escapeHtml(unit.badgeText)}</span>` : ''}
-          <span class="unit-group-chevron"><svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          <span class="unit-group-chevron">${getIconSvg('chevron-down')}</span>
         </div>
       </div>
       <div class="lessons-list">
@@ -139,15 +302,15 @@ function renderCategoryCard(category, index) {
     <div class="unit-card${openClass}" data-category-id="${escapeHtml(category.id)}" onclick="toggleUnit(this)">
       <div class="unit-header">
         <div class="unit-header-left">
-          <div class="unit-num ${numClass}">${escapeHtml(category.icon || '')}</div>
+          <div class="unit-num ${numClass}">${getIconSvg(category.icon || 'paths')}</div>
           <div>
             <div class="unit-title">${escapeHtml(title)}</div>
             <div class="unit-sub">${escapeHtml(subtitle)}</div>
           </div>
         </div>
         <div class="unit-meta">
-          <span class="${badgeClass}">${escapeHtml(badgeText)}</span>
-          <span class="unit-chevron"><svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          <span class="${badgeClass}">${getIconSvg(category.locked ? 'lock' : 'status-dot')} ${escapeHtml(badgeText)}</span>
+          <span class="unit-chevron">${getIconSvg('chevron-down')}</span>
         </div>
       </div>
       <div class="category-body" onclick="event.stopPropagation()">
@@ -163,12 +326,12 @@ function renderCategories() {
 
   const categories = getCoursePaths().map((path) => ({
     id: path.id,
-    icon: path.icon || '📚',
+    icon: path.icon || 'paths',
     title: path.title,
     subtitle: path.subtitle,
     locked: Boolean(path.locked),
     defaultOpen: Boolean(path.defaultOpen),
-    badgeText: path.locked ? '🔒 Заблоковано' : `${(path.units || []).reduce((sum, unit) => sum + (unit.lessons || []).filter((lesson) => lesson.status === 'available').length, 0)}/${(path.units || []).reduce((sum, unit) => sum + (unit.lessons || []).length, 0)} уроків доступно`,
+    badgeText: buildBadgeText(path),
     units: (path.units || []).map((unit) => ({
       ...unit,
       lessons: (unit.lessons || []).map((lesson) => ({
@@ -178,6 +341,12 @@ function renderCategories() {
     }))
   }));
 
+  if (!categories.length) {
+    const lang = getPathLanguage();
+    container.innerHTML = `<p class="path-message" role="status">${lang === 'en' ? 'No learning paths are available for this course yet.' : 'Для цього курсу поки немає доступних напрямків навчання.'}</p>`;
+    return;
+  }
+
   container.innerHTML = categories.map(renderCategoryCard).join('');
   applySourceLanguageSettings();
 }
@@ -185,10 +354,23 @@ function renderCategories() {
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     if (typeof window.loadCourse === 'function') {
-      window.__LS_COURSE_DATA = await window.loadCourse();
+      try {
+        window.__LS_COURSE_DATA = await window.loadCourse();
+      } catch (error) {
+        const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+        const response = await fetch(`/courses/${encodeURIComponent(courseId)}/course.json`, { cache: 'no-store' });
+        if (!response.ok) throw error;
+        window.__LS_COURSE_DATA = await response.json();
+      }
     }
   } catch (error) {
     console.warn('Could not load course data for paths:', error);
+    const container = document.getElementById('pathContainer');
+    const lang = getPathLanguage();
+    if (container) {
+      container.innerHTML = `<p class="path-message" role="alert">${lang === 'en' ? 'Learning paths could not be loaded. Please check your connection and try again.' : 'Не вдалося завантажити напрямки навчання. Перевірте з’єднання та спробуйте ще раз.'}</p>`;
+    }
+    return;
   }
   renderCategories();
 });

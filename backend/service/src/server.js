@@ -24,6 +24,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/courses', express.static(path.join(__dirname, '../../../courses')));
 app.use(express.static(path.join(__dirname, '../../../frontend/public')));
 
 // Route handling

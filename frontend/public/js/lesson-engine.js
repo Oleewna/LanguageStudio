@@ -64,7 +64,7 @@
     uk: {
       checkTasks: 'Перевірити завдання',
       checkAllPrompt: 'Будь ласка, дайте відповідь на всі запитання перед перевіркою.',
-      correct: '✓ Правильно',
+      correct: 'Правильно',
       correctAnswer: 'Правильна відповідь:',
       scorePassed: 'Чудово! Урок успішно пройдено!',
       scoreRetry: 'Спробуйте ще раз, щоб покращити результат (необхідно від 70%).',
@@ -89,7 +89,7 @@
     en: {
       checkTasks: 'Check answers',
       checkAllPrompt: 'Please answer all questions before checking.',
-      correct: '✓ Correct',
+      correct: 'Correct',
       correctAnswer: 'Correct answer:',
       scorePassed: 'Great job! Lesson completed successfully!',
       scoreRetry: 'Try again to improve your score (70%+ needed to pass).',
@@ -256,18 +256,16 @@
     const story = section.story ? `<p class="story-text">${t(section.story, '', lang)}</p>` : '';
 
     const lines = (section.lines || []).map((line, idx) => {
-      const speakerName = escapeHtml(line.speaker || `Speaker ${idx + 1}`);
-      const avatarLetter = escapeHtml(line.avatar || line.speaker?.charAt(0) || '💬');
+      const speakerName = escapeHtml(t(line.speaker, `Speaker ${idx + 1}`, lang));
+      const speakerValue = typeof line.speaker === 'string' ? line.speaker : '';
+      const avatarLetter = escapeHtml(line.avatar || speakerValue.charAt(0) || 'U');
       const avatarClass = (line.avatar === 'S' || line.speaker === 'Sofia')
         ? 'av-student'
         : 'av-marco';
 
       const audioBtn = line.audio !== false ? `
         <button class="audio-btn" type="button" aria-label="${escapeAttr(uiText('listen', {}, lang))}" data-speak-text="${escapeAttr(line.it || '')}">
-          <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 9v6h4l5 4V5L8 9z"/>
-            <path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/>
-          </svg>
+          ${getIconSvg('audio')}
         </button>
       ` : '';
 
@@ -298,7 +296,7 @@
 
     return `
       <section class="lesson-section lesson-section-dialogue" data-section-type="dialogue">
-        <h2 class="section-title"><span class="ic">💬</span>${escapeHtml(title)}</h2>
+        <h2 class="section-title"><span class="ic">${getIconSvg('chat')}</span>${escapeHtml(title)}</h2>
         <div class="card">
           <div class="dialogue-layout">
             <div class="dialogue-copy dialogue-content">
@@ -370,14 +368,20 @@
     const paragraphsHtml = (section.paragraphs || []).map((p, idx) => {
       const enrichedItalian = enrichStoryWithVocabHints(p.it || '', vocabHints, lang);
       const trans = t(p.translations, '', lang);
+      const audioButton = section.audio === true ? `
+        <button type="button" class="audio-btn story-audio-btn" aria-label="${escapeAttr(uiText('listen', {}, lang))}" title="${escapeAttr(uiText('listen', {}, lang))}" data-speak-text="${escapeAttr(p.it || '')}">
+          ${getIconSvg('audio')}
+        </button>
+      ` : '';
 
       return `
         <div class="story-paragraph-item" data-paragraph-index="${idx}">
           <div class="story-paragraph-row">
             <p class="story-text story-it">${enrichedItalian}</p>
+            ${audioButton}
             ${trans ? `
               <button type="button" class="story-trans-toggle" aria-expanded="false" title="${escapeAttr(uiText('showTranslation', {}, lang))}" aria-label="${escapeAttr(uiText('showTranslation', {}, lang))}">
-                🌐
+                ${getIconSvg('globe')}
               </button>
             ` : ''}
           </div>
@@ -402,7 +406,7 @@
       hintsBarHtml = `
         <div class="vocab-hints-box">
           <div class="vocab-hints-header">
-            <span class="ic">💡</span>
+            <span class="ic">${getIconSvg('lightbulb')}</span>
             <b>${escapeHtml(uiText('hintsTitle', {}, lang))}</b>
             <span class="vocab-hints-subtitle">${escapeHtml(uiText('tapForHint', {}, lang))}</span>
           </div>
@@ -421,7 +425,7 @@
 
     return `
       <section class="lesson-section lesson-section-story" data-section-type="story_text">
-        <h2 class="section-title"><span class="ic">📖</span>${escapeHtml(title)}</h2>
+        <h2 class="section-title"><span class="ic">${getIconSvg('dictionary')}</span>${escapeHtml(title)}</h2>
         <div class="card story-card">
           ${imageHtml}
           <div class="story-body">
@@ -454,10 +458,7 @@
             <div class="vocab-word-cell">
               <b>${it}</b>
               <button class="audio-btn" type="button" aria-label="${escapeAttr(uiText('listen', {}, lang))}" data-speak-text="${escapeAttr(item.it || '')}">
-                <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 9v6h4l5 4V5L8 9z"/>
-                  <path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/>
-                </svg>
+                ${getIconSvg('audio')}
               </button>
             </div>
           </td>
@@ -480,7 +481,7 @@
 
     return `
       <section class="lesson-section lesson-section-vocab" data-section-type="vocab">
-        <h2 class="section-title"><span class="ic">🔤</span>${escapeHtml(title)}</h2>
+        <h2 class="section-title"><span class="ic">${getIconSvg('dictionary')}</span>${escapeHtml(title)}</h2>
         <div class="card">
           <div class="table-responsive">
             <table class="vocab-table">
@@ -546,7 +547,7 @@
 
     return `
       <section class="lesson-section lesson-section-grammar" data-section-type="grammar_rule">
-        <h2 class="section-title"><span class="ic">📐</span>${escapeHtml(title)}</h2>
+        <h2 class="section-title"><span class="ic">${getIconSvg('article')}</span>${escapeHtml(title)}</h2>
         <div class="card grammar-card">
           ${explanation ? `<div class="grammar-explanation">${explanation}</div>` : ''}
           ${tableHtml}
@@ -575,7 +576,7 @@
 
     return `
       <section class="lesson-section lesson-section-culture" data-section-type="culture_note">
-        <h2 class="section-title"><span class="ic">🇮🇹</span>${escapeHtml(title)}</h2>
+        <h2 class="section-title"><span class="ic">${getIconSvg('globe')}</span>${escapeHtml(title)}</h2>
         <div class="culture-card">
           ${paragraphsHtml}
         </div>
@@ -594,7 +595,7 @@
 
     const itemsHtml = (section.items || []).map(item => `
       <li>
-        <span class="ic">✔</span>
+        <span class="ic">${getIconSvg('check')}</span>
         <span>${t(item, '', lang)}</span>
       </li>
     `).join('');
@@ -602,11 +603,7 @@
     return `
       <section class="lesson-section lesson-section-takeaways" data-section-type="takeaways">
         <h2 class="section-title">
-          <span class="ic">
-            <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/>
-            </svg>
-          </span>
+          <span class="ic">${getIconSvg('check')}</span>
           ${escapeHtml(title)}
         </h2>
         <div class="card">
@@ -745,15 +742,7 @@
     return `
       <section class="lesson-section lesson-section-quiz" id="exercises" data-section-type="quiz">
         <h2 class="section-title">
-          <span class="ic">
-            <svg class="ls-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="11" fill="var(--it-red, #cd212a)"/>
-              <path d="M6 8l1.3 1.3L9.5 7" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              <line x1="11" y1="8" x2="17.2" y2="8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
-              <path d="M6 12.3l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              <line x1="11" y1="12.3" x2="17.2" y2="12.3" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
-            </svg>
-          </span>
+          <span class="ic">${getIconSvg('tests')}</span>
           ${escapeHtml(title)}
         </h2>
         <div class="card quiz-card">
@@ -805,9 +794,10 @@
     feedback.className = 'task-feedback';
 
     if (isCorrect) {
-      feedback.textContent = uiText('correct', {}, lang);
+      feedback.innerHTML = `${getIconSvg('check')} ${escapeHtml(uiText('correct', {}, lang))}`;
     } else {
-      feedback.textContent = `${uiText('correctAnswer', {}, lang)} ${correctAnswerText}`;
+      const incorrectLabel = lang === 'en' ? 'Incorrect' : 'Неправильно';
+      feedback.innerHTML = `${getIconSvg('wrong')} ${incorrectLabel}: ${escapeHtml(uiText('correctAnswer', {}, lang))} ${escapeHtml(correctAnswerText)}`;
     }
     taskEl.appendChild(feedback);
   }

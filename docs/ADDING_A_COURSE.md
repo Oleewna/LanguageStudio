@@ -13,7 +13,7 @@ Then add a record to `courses/index.json`:
   "id": "fr",
   "name": { "uk": "Французька", "en": "French" },
   "native": "Français",
-  "flag": "🇫🇷",
+  "flag": "flag-fr",
   "status": "active"
 }
 ```
@@ -21,7 +21,9 @@ Then add a record to `courses/index.json`:
 Rules:
 - `id` must match the folder name under `courses/`.
 - `name` is always a localized object with `uk` and `en` keys.
+- `flag` and all course `icon` fields use semantic names from `frontend/public/assets/icons/icons.json`, never emoji, filenames, or markup.
 - `default` in the index file is only set once and should remain the current default course.
+- If a course flag icon is missing, request the `flag-<course-id>` name and a matching asset; keep the name mapped to the placeholder and listed in `frontend/public/assets/icons/MISSING.md` until the asset is added.
 
 ## 2) Create the course folder
 
@@ -83,7 +85,7 @@ A minimal valid example:
   "paths": [
     {
       "id": "foundations",
-      "icon": "👋",
+      "icon": "greeting",
       "locked": false,
       "defaultOpen": true,
       "title": { "uk": "Основи", "en": "Foundations" },

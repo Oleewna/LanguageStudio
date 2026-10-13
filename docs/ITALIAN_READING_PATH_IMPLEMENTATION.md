@@ -10,6 +10,26 @@ Implement only the numbered step requested. Steps 1–12 each add one lesson usi
 
 Use the existing data-driven lesson engine and its supported section types. Keep the course lesson IDs, unit ID, section types, and navigation metadata as specified here. “Step” means implementation order, not a lesson type.
 
+## Progress
+
+- [x] Step 1: Vowels, consonants, and syllables
+- [x] Step 2: Hard C
+- [x] Step 3: Soft C and CH
+- [x] Step 4: Hard G
+- [x] Step 5: Soft G and GH
+- [x] Step 6: The SC patterns
+- [x] Step 7: GN
+- [x] Step 8: GLI
+- [x] Step 9: QU
+- [x] Step 10: Double consonants
+- [x] Step 11: Word stress and written accents
+- [x] Step 12: Read a short text
+- [x] Step 13: Connect the Reading path
+- [x] Step 14: Rules button prototype
+- [x] Step 15: Integration and quality check
+
+Audio verification note: The browser had no installed speech voices. A mocked Italian voice confirmed exact lesson text and `it-IT` selection.
+
 ## Shared Lesson Requirements
 
 Every lesson must:

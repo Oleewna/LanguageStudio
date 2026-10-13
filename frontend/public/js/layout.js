@@ -1,5 +1,5 @@
 (function () {
-  function mountLayoutTargets() {
+  async function mountLayoutTargets() {
     if (!document) return;
 
     const appNav = document.getElementById('app-nav');
@@ -21,16 +21,15 @@
       appProfile.innerHTML = '<div data-component="profile-modal"></div>';
     }
 
+    if (typeof window.loadIconRegistry === 'function') {
+      await window.loadIconRegistry();
+    }
     if (typeof window.LSComponents?.load === 'function') {
-      window.LSComponents.load();
+      await window.LSComponents.load();
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', mountLayoutTargets, { once: true });
-  } else {
-    mountLayoutTargets();
-  }
+  mountLayoutTargets();
 
   window.LSLayout = {
     mount: mountLayoutTargets

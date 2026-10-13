@@ -15,16 +15,29 @@
     return params.get('lesson') || params.get('id') || window.location.hash.replace(/^#/, '') || '';
   }
 
-  function readText(value, fallback = '') {
+  function readText(value, fallback = '', lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk') {
     if (!value) return fallback;
     if (typeof value === 'string') return value;
     if (typeof value === 'object') {
+      if (typeof value[lang] !== 'undefined') return value[lang];
       if (typeof value.uk !== 'undefined') return value.uk;
       if (typeof value.en !== 'undefined') return value.en;
       const first = Object.values(value).find((item) => typeof item === 'string');
       return first || fallback;
     }
     return String(value);
+  }
+
+  function getLessonNumberLabel(lesson, lang) {
+    const rawNumber = lesson.lessonNum ?? lesson.num;
+    const localizedNumber = rawNumber && typeof rawNumber === 'object'
+      ? readText(rawNumber, '', lang)
+      : '';
+    if (localizedNumber) return localizedNumber;
+
+    const prefix = lang === 'en' ? 'Lesson' : 'Урок';
+    const number = String(rawNumber || lesson.id || '').match(/(\d+)$/)?.[1];
+    return `${prefix} ${number || rawNumber || lesson.id || ''}`;
   }
 
   function getCourseBasePath() {
@@ -44,15 +57,30 @@
   }
 
   function getLessonList(course) {
-    if (!course || !Array.isArray(course.paths)) return [];
-    return course.paths.flatMap((path) => (path.units || []).flatMap((unit) => (unit.lessons || []).map((lesson) => ({
+    const courseLessons = course && Array.isArray(course.paths)
+      ? course.paths.flatMap((path) => (path.units || []).flatMap((unit) => (unit.lessons || []).map((lesson) => ({
       ...lesson,
       pathId: path.id,
       pathTitle: path.title,
       unitId: unit.id,
       unitTitle: unit.title,
       status: lesson.status || 'locked'
-    }))));
+      }))))
+      : [];
+    const existingIds = new Set(courseLessons.map((lesson) => lesson.id));
+    const readingLessons = (course?.id || getCurrentCourseId()) === 'it'
+      ? Object.values(window.LS_LESSONS || {})
+        .filter((lesson) => lesson && lesson.unitId === 'italian-reading' && lesson.id && !existingIds.has(lesson.id))
+        .sort((first, second) => Number(first.lessonNum) - Number(second.lessonNum))
+        .map((lesson) => ({
+          ...lesson,
+          pathId: 'italian-reading',
+          pathTitle: lesson.unitTitle,
+          status: 'available'
+        }))
+      : [];
+
+    return [...courseLessons, ...readingLessons];
   }
 
   function normalizeLocalized(value, fallback = '') {
@@ -76,9 +104,10 @@
         title: block.title || { uk: 'Діалог', en: 'Dialogue' },
         story: block.story || { uk: '', en: '' },
         image: block.image || '',
+        imageAlt: block.imageAlt || '',
         lines: (block.lines || []).map((line) => ({
           speaker: line.speaker || 'Speaker',
-          avatar: line.avatar || (line.speaker || '').charAt(0).toUpperCase() || '💬',
+          avatar: line.avatar || (line.speaker || 'U').charAt(0).toUpperCase(),
           it: line.text || line.it || '',
           phonetic: typeof line.phon === 'object' ? readText(line.phon, '') : (line.phon || line.phonetic || ''),
           translations: line.trans || line.translations || {},
@@ -123,7 +152,7 @@
     }
 
     if (block.type === 'tasks' || block.type === 'quiz') {
-      const tasks = (block.items || []).map((task) => {
+      const tasks = (block.items || block.tasks || []).map((task) => {
         const kind = task.kind || task.type || 'choice';
         if (kind === 'choice') {
           const options = (task.options || []).map((option) => ({
@@ -131,32 +160,39 @@
             translations: option.translations || option.text || { uk: '', en: '' },
             correct: Boolean(option.correct)
           }));
-          const correctIndex = options.findIndex((option) => Boolean(option.correct));
+          const optionCorrectIndex = options.findIndex((option) => Boolean(option.correct));
+          const explicitCorrectIndex = Number.isInteger(task.correctIndex) ? task.correctIndex : -1;
+          const correctIndex = explicitCorrectIndex >= 0 && explicitCorrectIndex < options.length
+            ? explicitCorrectIndex
+            : optionCorrectIndex;
           return {
             id: task.id || 'choice-task',
             type: 'choice',
             question: task.q || task.question || { uk: 'Question', en: 'Question' },
             options,
-            correctIndex: correctIndex >= 0 ? correctIndex : 0
+            correctIndex: correctIndex >= 0 ? correctIndex : 0,
+            category: task.category || ''
           };
         }
 
-        if (kind === 'truefalse') {
+        if (kind === 'truefalse' || kind === 'true_false') {
           return {
             id: task.id || 'truefalse-task',
             type: 'true_false',
-            statement: task.q || task.statement || { uk: 'Question', en: 'Question' },
-            correctAnswer: Boolean(task.answer)
+            statement: task.q || task.statement || task.question || { uk: 'Question', en: 'Question' },
+            correctAnswer: Boolean(task.correctAnswer ?? task.answer),
+            category: task.category || ''
           };
         }
 
         return {
           id: task.id || 'fillblank-task',
           type: 'fill_blank',
-          prefix: '',
-          suffix: '',
+          prefix: task.prefix || '',
+          suffix: task.suffix || '',
           placeholder: task.prompt || { uk: 'введіть слово', en: 'enter word' },
-          acceptableAnswers: Array.isArray(task.answers) ? task.answers : [task.answer || '']
+          acceptableAnswers: Array.isArray(task.answers) ? task.answers : [task.answer || ''],
+          category: task.category || ''
         };
       });
 
@@ -204,20 +240,24 @@
     const titleText = readText(lesson.title, 'Lesson');
     const subtitleText = readText(lesson.subtitle, '');
     const descriptionText = readText(lesson.description, '');
-    const labelText = readText(lesson.hero?.label || { uk: `${readText(lesson.unitTitle, 'Unit')} · ${lang === 'en' ? 'Lesson' : 'Урок'} ${lesson.lessonNum || lesson.id}`, en: `${readText(lesson.unitTitle, 'Unit')} · Lesson ${lesson.lessonNum || lesson.id}` }, '');
+    const lessonNumberLabel = getLessonNumberLabel(lesson, lang);
+    const labelText = readText(lesson.hero?.label, `${readText(lesson.unitTitle, 'Unit', lang)} · ${lessonNumberLabel}`, lang);
 
     if (titleEl) titleEl.textContent = subtitleText ? `${titleText} — ${subtitleText}` : titleText;
     if (descEl) descEl.textContent = descriptionText;
     if (labelEl) labelEl.textContent = labelText;
     if (unitEl) unitEl.textContent = readText(lesson.unitTitle, 'Unit');
-    if (lessonEl) lessonEl.textContent = `${lang === 'en' ? 'Lesson' : 'Урок'} ${lesson.lessonNum || lesson.id}`;
+    if (lessonEl) lessonEl.textContent = lessonNumberLabel;
 
     if (metaEl) {
       const badge = (lang === 'en' ? 'Lesson' : 'Урок');
       const xpText = Number(lesson.xpReward) ? `+${lesson.xpReward} XP` : '';
+      const durationText = typeof lesson.duration === 'object'
+        ? (lesson.duration[lang] || lesson.duration.uk || lesson.duration.en || '')
+        : lesson.duration;
       metaEl.innerHTML = `
         <div style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(0,140,69,.12);color:#008c45;font-size:0.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.3rem .75rem;border-radius:999px;">${badge}</div>
-        ${lesson.duration ? `<div style="font-size:0.8rem;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:.3rem;">${lesson.duration}</div>` : ''}
+        ${durationText ? `<div style="font-size:0.8rem;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:.3rem;">${durationText}</div>` : ''}
         ${xpText ? `<div style="font-size:0.8rem;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:.3rem;">${xpText}</div>` : ''}
       `;
     }
@@ -230,12 +270,22 @@
 
   function renderNavigation(lessons, currentLessonId) {
     const currentIndex = lessons.findIndex((item) => item.id === currentLessonId);
-    const prev = lessons[currentIndex - 1];
-    const next = lessons[currentIndex + 1];
+    const currentLesson = lessons[currentIndex];
+    const hasPreviousMetadata = currentLesson && Object.prototype.hasOwnProperty.call(currentLesson, 'prevLessonId');
+    const hasNextMetadata = currentLesson && Object.prototype.hasOwnProperty.call(currentLesson, 'nextLessonId');
+    const prev = hasPreviousMetadata
+      ? lessons.find((item) => item.id === currentLesson.prevLessonId)
+      : lessons[currentIndex - 1];
+    const next = hasNextMetadata
+      ? lessons.find((item) => item.id === currentLesson.nextLessonId)
+      : lessons[currentIndex + 1];
     const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
 
-    const prevText = lang === 'en' ? '← Previous lesson' : '← Попередній урок';
-    const nextText = lang === 'en' ? 'Next lesson →' : 'Наступний урок →';
+    const prevText = lang === 'en' ? 'Back' : 'Назад';
+    const prevAccessibleText = lang === 'en' ? 'Previous lesson' : 'Попередній урок';
+    const nextText = lang === 'en' ? 'Next' : 'Далі';
+    const nextAccessibleText = lang === 'en' ? 'Next lesson' : 'Наступний урок';
+    const allLessonsText = lang === 'en' ? 'All lessons' : 'Всі уроки';
 
     const prevLink = document.getElementById('btnPrevLesson');
     const prevBottom = document.getElementById('btnPrevLessonBottom');
@@ -252,22 +302,73 @@
 
     if (prevLink) {
       prevLink.href = prev ? makeHref(prev.id) : 'path.html';
-      prevLink.textContent = prev ? prevText : (lang === 'en' ? '← Back' : '← Назад');
+      prevLink.innerHTML = `${getIconSvg('arrow-left')} ${prev ? prevText : (lang === 'en' ? 'Back' : 'Назад')}`;
+      const accessibleText = prev ? prevAccessibleText : (lang === 'en' ? 'Back to learning paths' : 'Повернутися до напрямків');
+      prevLink.setAttribute('aria-label', accessibleText);
+      prevLink.title = accessibleText;
     }
     if (prevBottom) {
       prevBottom.href = prev ? makeHref(prev.id) : 'path.html';
       prevBottom.style.display = prev ? '' : 'none';
-      prevBottom.textContent = prevText;
+      prevBottom.innerHTML = `${getIconSvg('arrow-left')} ${prevAccessibleText}`;
     }
     if (nextLink) {
       nextLink.href = next ? makeHref(next.id) : 'path.html';
-      nextLink.textContent = next ? nextText : (lang === 'en' ? 'All lessons →' : 'Всі уроки →');
+      nextLink.innerHTML = `${next ? nextText : (lang === 'en' ? 'All' : 'Усі')} ${getIconSvg('arrow-right')}`;
+      const accessibleText = next ? nextAccessibleText : allLessonsText;
+      nextLink.setAttribute('aria-label', accessibleText);
+      nextLink.title = accessibleText;
     }
     if (nextBottom) {
       nextBottom.href = next ? makeHref(next.id) : 'path.html';
       nextBottom.style.display = next ? '' : 'none';
-      nextBottom.textContent = nextText;
+      nextBottom.innerHTML = `${nextAccessibleText} ${getIconSvg('arrow-right')}`;
     }
+  }
+
+  function updateRulesButtonState() {
+    const button = document.getElementById('btnLessonRules');
+    if (!button || button.hidden) return;
+
+    const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
+    const completed = typeof window.LessonEngine?.isLessonCompleted === 'function'
+      && window.LessonEngine.isLessonCompleted(button.dataset.lessonId);
+    const label = lang === 'en' ? 'Rules' : 'Правила';
+    const labelElement = document.getElementById('btnLessonRulesLabel');
+
+    if (labelElement) labelElement.textContent = label;
+    button.disabled = !completed;
+    button.setAttribute('aria-label', completed
+      ? (lang === 'en' ? 'Rules reference planned' : 'Довідник правил заплановано')
+      : (lang === 'en' ? 'Rules reference, locked until lesson completion' : 'Довідник правил заблоковано до завершення уроку'));
+    button.title = completed
+      ? (lang === 'en' ? 'Rules reference planned' : 'Довідник правил заплановано')
+      : (lang === 'en' ? 'Available after you complete this lesson' : 'Стане доступним після завершення уроку');
+  }
+
+  function setupRulesButton(lesson) {
+    const button = document.getElementById('btnLessonRules');
+    if (!button) return;
+
+    const isRulesLesson = lesson.unitId === 'italian-reading'
+      && /^italian-reading-(?:[2-9]|1[01])$/.test(lesson.id);
+    button.hidden = !isRulesLesson;
+    button.dataset.lessonId = isRulesLesson ? lesson.id : '';
+    if (!isRulesLesson) return;
+
+    if (!button.dataset.listenersReady) {
+      button.dataset.listenersReady = 'true';
+      button.addEventListener('click', () => {
+        if (!window.LessonEngine?.isLessonCompleted(button.dataset.lessonId)) return;
+        const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
+        window.alert(lang === 'en' ? 'The rules reference is planned.' : 'Довідник правил заплановано.');
+      });
+      window.addEventListener('lessonCompleted', (event) => {
+        if (event.detail?.lessonId === button.dataset.lessonId) updateRulesButtonState();
+      });
+    }
+
+    updateRulesButtonState();
   }
 
   function renderSidebar(course, lesson, lessons, lang) {
@@ -284,12 +385,12 @@
     const items = unitLessons.map((item) => {
       const active = item.id === lesson.id;
       const isDone = typeof window.isLessonCompleted === 'function' && window.isLessonCompleted(item.id);
-      const prefix = lang === 'en' ? 'Lesson' : 'Урок';
-      const badge = active ? '<span class="ic">▶</span>' : (isDone ? '<span class="ic">✓</span>' : '<span class="ic">○</span>');
+      const lessonNumberLabel = getLessonNumberLabel(item, lang);
+      const badge = getIconSvg(active ? 'lesson' : (isDone ? 'check' : 'circle'));
       return `
         <a href="${window.location.pathname}?course=${encodeURIComponent(getCurrentCourseId())}&lesson=${encodeURIComponent(item.id)}" class="sb-lesson ${active ? 'active' : ''}" aria-current="${active ? 'page' : 'false'}">
           <span class="ic">${badge}</span>
-          <span>${prefix} ${item.lessonNum || item.id} · ${readText(item.title, item.id)}</span>
+          <span>${lessonNumberLabel} · ${readText(item.title, item.id, lang)}</span>
         </a>
       `;
     }).join('');
@@ -330,10 +431,13 @@
       let rawLesson = null;
 
       if (lessonId) {
-        try {
-          rawLesson = await window.loadCourseData(`lessons/${lessonId}`);
-        } catch (error) {
-          rawLesson = null;
+        rawLesson = courseId === 'it' ? window.LS_LESSONS?.[lessonId] || null : null;
+        if (!rawLesson) {
+          try {
+            rawLesson = await window.loadCourseData(`lessons/${lessonId}`);
+          } catch (error) {
+            rawLesson = null;
+          }
         }
       }
 
@@ -362,6 +466,7 @@
 
       document.documentElement.lang = lang;
       if (typeof window.applySourceLanguageSettings === 'function') window.applySourceLanguageSettings();
+      setupRulesButton(normalized);
     } catch (error) {
       console.warn('Could not initialize lesson page:', error);
       const lessonId = getCurrentLessonId();

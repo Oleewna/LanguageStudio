@@ -2,7 +2,7 @@
   "topics": [
     {
       "id": "articoli",
-      "icon": "newspaper",
+      "icon": "article",
       "title": { "uk": "Артиклі", "en": "Articles" },
       "blocks": [
         {
@@ -133,7 +133,7 @@
     },
     {
       "id": "cortesia",
-      "icon": "handshake",
+      "icon": "greeting",
       "title": { "uk": "Tu vs Lei", "en": "Tu vs Lei" },
       "blocks": [
         {

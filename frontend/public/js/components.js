@@ -1,34 +1,21 @@
-﻿/**
- * LanguageStudio - Component Loader
- * Loads reusable HTML components into data-component placeholders
- * with automatic relative path resolution, active link detection,
- * zero-FOUC instant rendering, and reliable offline/file:// protocol fallback.
- */
-
 (function () {
   'use strict';
 
-  // Calculate current directory depth relative to the project root
-  function getDepthPrefix() {
-    const pathname = window.location.pathname.replace(/\\/g, '/');
-    const pagesIndex = pathname.indexOf('/pages/');
-    if (pagesIndex === -1) return '';
-    const subPath = pathname.slice(pagesIndex + '/pages/'.length);
-    const depth = subPath.split('/').length;
-    return '../'.repeat(depth);
-  }
-
-  const PREFIX = getDepthPrefix();
+  const pathname = window.location.pathname.replace(/\\/g, '/');
+  const pagesIndex = pathname.indexOf('/pages/');
+  const PREFIX = pagesIndex === -1 ? '' : '../'.repeat(pathname.slice(pagesIndex + 7).split('/').length);
+  const icon = name => `<span data-icon="${name}"></span>`;
+  let loadingComponents;
 
   function localizeEmbeddedTemplate(template) {
     const replacements = [
-      ['Home', 'Головна'],
       ['Learning paths', 'Напрями навчання'],
+      ['Dictionary', 'Словник'],
       ['Basics · Lesson 1', 'Основи · Урок 1'],
       ['Communication basics', 'Основи спілкування'],
       ['Lesson 1 · Introduction', 'Урок 1 · Знайомство'],
       ['Browse all paths', 'Переглянути всі напрями'],
-      ['Flashcards', 'Флешкарти'],
+      ['Flashcards', 'Флешкартки'],
       ['Exercises', 'Вправи'],
       ['My dictionary', 'Мій словник'],
       ['Grammar guide', 'Довідник граматики'],
@@ -37,11 +24,13 @@
       ['Practice', 'Практика'],
       ['Switch theme', 'Змінити тему'],
       ['Student profile', 'Профіль студента'],
+      ['Student Profile', 'Профіль студента'],
+      ['LanguageStudio home', 'Головна LanguageStudio'],
+      ['Guest profile · progress is saved on this device', 'Гостьовий профіль · прогрес зберігається на цьому пристрої'],
       ['Learning path: ', 'Напрям навчання: '],
       ['Learning & Interface Settings', 'Налаштування навчання та інтерфейсу'],
       ['Language for translations & explanations', 'Мова перекладів та пояснень'],
-      ['Device language', 'Мова пристрою'],
-      ['Target Course (Мова курсу)', 'Цільовий курс (Мова курсу)'],
+      ['Target Course', 'Цільовий курс'],
       ['Interface Theme', 'Тема інтерфейсу'],
       ['XP Points', 'Очки XP'],
       ['Daily Streak', 'Щоденна серія'],
@@ -50,621 +39,172 @@
       ['Sign in or register', 'Увійти або зареєструватися'],
       ['Close', 'Закрити'],
       ['Paths', 'Напрямки'],
-      ['Guide', 'Довідник'],
-      ['Student Profile', 'Профіль студента'],
-      ['View all learning paths', 'Переглянути всі напрями'],
-      ['All paths →', 'Усі напрями →'],
-      ['Open', 'Відкрити'],
-      ['Soon', 'Незабаром'],
-      ['Locked', 'Заблоковано'],
-      ['Ready', 'Готово'],
-      ['Current course', 'Поточний курс'],
-      ['Switch to this course', 'Перейти на цей курс'],
-      ['Word trainer', 'Тренажер слів'],
-      ['Greetings and basics (13 words)', 'Привітання та база (13 слів)'],
-      ['My saved words', 'Мої збережені слова'],
-      ['Practice drills', 'Практичні вправи'],
-      ['All exercises and quizzes', 'Усі вправи та тести'],
       ['Grammar trainer', 'Тренажер граматики'],
       ['Situational exercises', 'Ситуаційні вправи'],
+      ['All exercises and quizzes', 'Усі вправи та тести'],
+      ['Greetings and basics (13 words)', 'Привітання та база (13 слів)'],
+      ['My saved words', 'Мої збережені слова'],
       ['Your word bank', 'Ваш словниковий банк'],
-      ['Search the word base', 'Пошук у базі слів'],
-      ['Add your own word', 'Додати своє слово'],
       ['Grammar cheat sheets', 'Шпаргалки з граматики'],
+      ['Search the word base', 'Пошук у базі слів'],
+      ['Add your own word', 'Додати власне слово'],
       ['Definite articles', 'Означені артиклі'],
       ['Essere and Avere', 'Essere та Avere'],
       ['Tu vs Lei (Etiquette)', 'Tu vs Lei (Етикет)'],
-      ['Lessons', 'Уроки'],
-      ['Lesson track', 'Панель уроків'],
       ['Active', 'Активний'],
       ['Menu', 'Меню'],
-      ['LanguageStudio home', 'Головна LanguageStudio']
+      ['Home', 'Головна']
     ];
     return replacements.reduce((result, [from, to]) => result.split(from).join(to), template);
   }
 
-  // Embedded component templates for instant zero-FOUC rendering & file:// CORS fallback
+  const mobileLinks = [
+    ['index.html', 'home', 'home', 'Home'],
+    ['pages/path.html', 'path', 'paths', 'Learning paths'],
+    ['pages/lesson.html?course=it&lesson=1.1', 'lesson-1', 'lesson', 'Basics · Lesson 1'],
+    ['pages/flashcards.html', 'flashcards', 'flashcards', 'Flashcards'],
+    ['pages/exercises.html', 'exercises', 'exercises', 'Exercises'],
+    ['pages/dictionary.html', 'dictionary', 'dictionary', 'My dictionary'],
+    ['pages/grammar.html', 'grammar', 'grammar', 'Grammar guide'],
+    ['pages/tests.html', 'tests', 'tests', 'Tests']
+  ];
+
+  function mobileNavigation() {
+    const links = mobileLinks.map(([href, key, iconName, label]) =>
+      `<a href="${href}" class="mob-nav-link" data-nav="${key}"${key === 'tests' ? ' data-tests-link' : ''}><span class="ic">${icon(iconName)}</span>${label}</a>`
+    );
+
+    return `<div class="mob-overlay" id="mobOverlay"></div>
+      <nav class="mob-nav" id="mobNav" aria-label="Mobile navigation">
+        <div class="mob-nav-header"><a href="index.html" class="mob-nav-brand" aria-label="LanguageStudio home"><img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" /></a><button class="mob-close-btn" type="button" aria-label="Close">${icon('close')}</button></div>
+        <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}<span class="mob-theme-label">Switch theme</span></button>
+        <div class="mob-section-label">Main</div>${links.slice(0, 3).join('')}
+        <div class="mob-section-label">Practice</div>${links.slice(3).join('')}
+      </nav>`;
+  }
+
+  const dropdowns = [
+    ['path', 'paths', 'Learning paths', [
+      ['pages/lesson.html?course=it&lesson=1.1', 'lesson-1', 'lesson', 'Lesson 1 · Introduction'],
+      ['pages/path.html', 'path', 'layers', 'Browse all paths']
+    ]],
+    ['flashcards', 'flashcards', 'Flashcards', [
+      ['pages/flashcards.html', 'flashcards', 'greeting', 'Greetings and basics (13 words)'],
+      ['pages/flashcards.html?topic=custom', '', 'star', 'My saved words']
+    ]],
+    ['exercises', 'exercises', 'Exercises', [
+      ['pages/exercises.html', 'exercises', 'target', 'All exercises and quizzes'],
+      ['pages/exercises.html?group=grammar', '', 'grammar', 'Grammar trainer'],
+      ['pages/exercises.html?group=situational', '', 'chat', 'Situational exercises']
+    ]],
+    ['dictionary', 'dictionary', 'Dictionary', [
+      ['pages/dictionary.html', 'dictionary', 'search', 'Search the word base'],
+      ['pages/dictionary.html?add=1', '', 'add', 'Add your own word']
+    ]],
+    ['grammar', 'grammar', 'Grammar guide', [
+      ['pages/grammar.html?tab=articoli', '', 'article', 'Definite articles'],
+      ['pages/grammar.html?tab=verbi', '', 'verb', 'Essere and Avere'],
+      ['pages/grammar.html?tab=cortesia', '', 'greeting', 'Tu vs Lei (Etiquette)']
+    ]]
+  ];
+
+  function desktopNavigation() {
+    const groups = dropdowns.map(([key, iconName, label, items]) => {
+      const menuItems = items.map(([href, navKey, itemIcon, itemLabel]) =>
+        `<a href="${href}" class="nav-dd-item"${navKey ? ` data-nav="${navKey}"` : ''}><span class="dd-icon">${icon(itemIcon)}</span>${itemLabel}</a>`
+      ).join('');
+      return `<div class="nav-dd"><a href="pages/${key}.html" class="nav-dd-btn" data-nav-btn="${key}">${icon(iconName)} ${label} ${icon('chevron-down')}</a><div class="nav-dd-menu">${menuItems}</div></div>`;
+    }).join('');
+
+    return `${groups}<a href="pages/tests.html" class="nav-dd-btn" data-nav-btn="tests" data-tests-link><span class="dd-icon">${icon('tests')}</span> Tests</a>`;
+  }
+
   const EMBEDDED_COMPONENTS = {
-    'navbar': localizeEmbeddedTemplate(`
-<div class="mob-overlay" id="mobOverlay"></div>
-<nav class="mob-nav" id="mobNav" aria-label="Mobile navigation">
-  <div class="mob-nav-header">
-    <a href="index.html" class="mob-nav-brand" aria-label="LanguageStudio home">
-      <img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
-    </a>
-    <button class="mob-close-btn" type="button" aria-label="Close">
-      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 5l14 14M19 5L5 19"/>
-      </svg>
-    </button>
-  </div>
-
-  <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">
-    <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-    </svg>
-    <span class="mob-theme-label">Switch theme</span>
-  </button>
-  
-  <div class="mob-section-label">Main</div>
-  <a href="index.html" class="mob-nav-link" data-nav="home">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/>
-      </svg>
-    </span>Home
-  </a>
-  <a href="pages/path.html" class="mob-nav-link" data-nav="path">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-      </svg>
-    </span>Learning paths
-  </a>
-  <a href="pages/lesson.html?course=it&lesson=communication-basics-1" class="mob-nav-link" data-nav="lesson-1">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/>
-      </svg>
-    </span>Basics Â· Lesson 1
-  </a>
-  
-  <div class="mob-section-label">Practice</div>
-  <a href="pages/flashcards.html" class="mob-nav-link" data-nav="flashcards">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24">
-        <rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/>
-        <rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/>
-        <line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
-      </svg>
-    </span>Flashcards
-  </a>
-  <a href="pages/exercises.html" class="mob-nav-link" data-nav="exercises">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="11" fill="#cd212a"/>
-        <path d="M6 8l1.3 1.3L9.5 7" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="11" y1="8" x2="17.2" y2="8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
-        <path d="M6 12.3l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="11" y1="12.3" x2="17.2" y2="12.3" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
-        <path d="M6 16.6l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/>
-        <line x1="11" y1="16.6" x2="15" y2="16.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/>
-      </svg>
-    </span>Exercises
-  </a>
-  <a href="pages/dictionary.html" class="mob-nav-link" data-nav="dictionary">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24">
-        <path d="M12 6.5C10 5 7.3 4.3 4.5 4.3v14c2.8 0 5.5.7 7.5 2.2z" fill="#008c45"/>
-        <path d="M12 6.5C14 5 16.7 4.3 19.5 4.3v14c-2.8 0-5.5.7-7.5 2.2z" fill="#d97706"/>
-        <line x1="12" y1="6.5" x2="12" y2="20.5" stroke="#172033" stroke-width="1.2"/>
-      </svg>
-    </span>My dictionary
-  </a>
-  <a href="pages/grammar.html" class="mob-nav-link" data-nav="grammar">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24">
-        <rect x="5" y="4.5" width="14" height="16.5" rx="2" fill="#fff" stroke="#172033" stroke-width="1.5"/>
-        <rect x="9" y="2.7" width="6" height="3" rx="1" fill="#d97706"/>
-        <path d="M8 11.3l1.1 1.1 2-2.1" stroke="#008c45" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="12.7" y1="11" x2="16.7" y2="11" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
-        <line x1="8" y1="14.7" x2="16.7" y2="14.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
-        <line x1="8" y1="17.7" x2="14" y2="17.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
-      </svg>
-    </span>Grammar guide
-  </a>
-  <a href="pages/tests.html" class="mob-nav-link" data-nav="tests" data-tests-link="">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-      </svg>
-    </span>Tests
-  </a>
-</nav>
-
-<header class="topnav">
-  <a href="index.html" class="nav-brand" aria-label="LanguageStudio home">
-    <img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
-  </a>
-
-  <nav class="nav-links" aria-label="Main navigation">
-    
-    <!-- Learning paths dropdown -->
-    <div class="nav-dd">
-      <a href="pages/path.html" class="nav-dd-btn" data-nav-btn="path">
-        <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Learning paths <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </a>
-      <div class="nav-dd-menu">
-        <div class="nav-dd-header">Learning paths</div>
-        <div class="nav-submenu">
-          <a href="pages/lesson.html?course=it&lesson=communication-basics-1" class="nav-dd-item nav-submenu-trigger" data-nav="lesson-1">
-            <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2h-3.8a2 2 0 0 0-1.4.6L4.3 11a1 1 0 0 0 0 1.4l5.3 5.3a1 1 0 0 0 1.4 0L17 11.7a2 2 0 0 0 .6-1.4V6"/></svg></span>Communication basics
-            <span class="submenu-arrow">›</span>
-          </a>
-          <div class="nav-submenu-panel">
-            <div class="nav-dd-header">Lesson track</div>
-            <a href="pages/lesson.html?course=it&lesson=communication-basics-1" class="nav-dd-item" data-nav="lesson-1"><span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>Lesson 1 · Introduction <span class="dd-tag active">Active</span></a>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">■</span>Lesson 2 · Come ti chiami?</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">■</span>Lesson 3 · Di dove sei?</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">■</span>Lesson 4 · Consolidation</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">■</span>Lesson 5 · Practice recap</span>
-          </div>
-        </div>
-        <a href="pages/path.html" class="nav-dd-item" data-nav="path">
-          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>Browse all paths
-        </a>
-      </div>
-    </div>
-
-    <!-- Flashcards dropdown -->
-    <div class="nav-dd">
-      <a href="pages/flashcards.html" class="nav-dd-btn" data-nav-btn="flashcards">
-        <svg class="ls-icon" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/><rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/><line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/></svg> Flashcards <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </a>
-      <div class="nav-dd-menu">
-        <div class="nav-dd-header">Word trainer</div>
-        <a href="pages/flashcards.html" class="nav-dd-item" data-nav="flashcards">
-          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2h-3.8a2 2 0 0 0-1.4.6L4.3 11a1 1 0 0 0 0 1.4l5.3 5.3a1 1 0 0 0 1.4 0L17 11.7a2 2 0 0 0 .6-1.4V6"/></svg></span>Greetings and basics (13 words)
-        </a>
-        <a href="pages/flashcards.html?topic=custom" class="nav-dd-item">
-          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/></svg></span>My saved words
-        </a>
-      </div>
-    </div>
-
-    <!-- Exercises dropdown -->
-    <div class="nav-dd">
-      <a href="pages/exercises.html" class="nav-dd-btn" data-nav-btn="exercises">
-        <svg class="ls-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#cd212a"/><path d="M6 8l1.3 1.3L9.5 7" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="8" x2="17.2" y2="8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 12.3l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="11" y1="12.3" x2="17.2" y2="12.3" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><path d="M6 16.6l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><line x1="11" y1="16.6" x2="15" y2="16.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/></svg> Exercises <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </a>
-      <div class="nav-dd-menu">
-        <div class="nav-dd-header">Practice drills</div>
-        <a href="pages/exercises.html" class="nav-dd-item" data-nav="exercises">
-          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="6"/><circle cx="12" cy="2"/></svg></span>All exercises and quizzes
-        </a>
-        <a href="pages/exercises.html?group=grammar" class="nav-dd-item">
-          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="17" x2="12" y2="22"/><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"/></svg></span>Grammar trainer
-        </a>
-        <a href="pages/exercises.html?group=situational" class="nav-dd-item">
-          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></span>Situational exercises
-        </a>
-      </div>
-    </div>
-
-    <!-- Dictionary dropdown -->
-    <div class="nav-dd">
-      <a href="pages/dictionary.html" class="nav-dd-btn" data-nav-btn="dictionary">
-        <svg class="ls-icon" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7.3 4.3 4.5 4.3v14c2.8 0 5.5.7 7.5 2.2z" fill="#008c45"/><path d="M12 6.5C14 5 16.7 4.3 19.5 4.3v14c-2.8 0-5.5.7-7.5 2.2z" fill="#d97706"/><line x1="12" y1="6.5" x2="12" y2="20.5" stroke="#172033" stroke-width="1.2"/></svg> Dictionary <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </a>
-      <div class="nav-dd-menu">
-        <div class="nav-dd-header">Your word bank</div>
-        <a href="pages/dictionary.html" class="nav-dd-item" data-nav="dictionary">
-          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg></span>Search the word base
-        </a>
-        <a href="pages/dictionary.html?add=1" class="nav-dd-item">
-          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>Add your own word
-        </a>
-      </div>
-    </div>
-
-    <!-- Grammar dropdown -->
-    <div class="nav-dd">
-      <a href="pages/grammar.html" class="nav-dd-btn" data-nav-btn="grammar">
-        <svg class="ls-icon" viewBox="0 0 24 24"><rect x="5" y="4.5" width="14" height="16.5" rx="2" fill="#fff" stroke="#172033" stroke-width="1.5"/><rect x="9" y="2.7" width="6" height="3" rx="1" fill="#d97706"/><path d="M8 11.3l1.1 1.1 2-2.1" stroke="#008c45" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="12.7" y1="11" x2="16.7" y2="11" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
-        <line x1="8" y1="14.7" x2="16.7" y2="14.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
-        <line x1="8" y1="17.7" x2="14" y2="17.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
-      </svg> Grammar guide <svg class="ls-icon ls-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </a>
-      <div class="nav-dd-menu">
-        <div class="nav-dd-header">Grammar cheat sheets</div>
-        <a href="pages/grammar.html?tab=articoli" class="nav-dd-item">
-          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8z"/></svg></span>Definite articles
-        </a>
-        <a href="pages/grammar.html?tab=verbi" class="nav-dd-item">
-          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.4l8.6 8.6a2.41 2.41 0 0 0 3.4 0l8.6-8.6a2.41 2.41 0 0 0 0-3.4l-8.6-8.6a2.41 2.41 0 0 0-3.4 0l-8.6 8.6z"/></svg></span>Essere and Avere
-        </a>
-        <a href="pages/grammar.html?tab=cortesia" class="nav-dd-item">
-          <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2-2"/><path d="m14 14 2.5 2.5"/><path d="m12.5 12.5 2 2"/><path d="M18 11V6a2 2 0 0 0-2-2h-3.8a2 2 0 0 0-1.4.6L4.3 11a1 1 0 0 0 0 1.4l5.3 5.3a1 1 0 0 0 1.4 0L17 11.7a2 2 0 0 0 .6-1.4V6"/></svg></span>Tu vs Lei (Etiquette)
-        </a>
-      </div>
-    </div>
-
-    <!-- Tests link -->
-    <a href="pages/tests.html" class="nav-dd-btn" data-nav-btn="tests" data-tests-link="">
-      <span class="dd-icon"><svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span> Tests
-    </a>
-
-  </nav>
-
-  <!-- Right: Student Profile Widget & Menu Button -->
-  <div class="nav-right">
-    <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">
-      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-      </svg>
-    </button>
-    <button type="button" class="student-widget" title="Student profile" aria-label="Student profile">
-      <div class="student-stats">
-        <div class="streak-badge">
-          <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 21c4 0 6.5-2.6 6.5-6 0-2-1-3.4-2-4.6.2 1.6-.6 2.6-1.4 3-.2-2.6-1.5-4.8-3.6-6.2.5 2 .1 3.6-1 4.7-.9.9-1.6 2-1.6 3.4 0 2.6 1.5 5.7 3.1 5.7z"/>
-          </svg> <span>1</span>
-        </div>
-        <div class="xp-badge">
-          <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3.5l2.6 5.3 5.9.8-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/>
-          </svg> <span class="xp-val-display">0</span> <span>XP</span>
-        </div>
-      </div>
-      <div class="student-avatar">S</div>
-    </button>
-    <button class="menu-toggle" type="button" aria-label="Menu">☰</button>
-  </div>
-</header>`),
-
-    'mobile-nav': localizeEmbeddedTemplate(`
-<div class="mob-overlay" id="mobOverlay"></div>
-<nav class="mob-nav" id="mobNav" aria-label="Mobile navigation">
-  <div class="mob-nav-header">
-    <a href="index.html" class="mob-nav-brand" aria-label="LanguageStudio home">
-      <img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
-    </a>
-    <button class="mob-close-btn" type="button" aria-label="Close">
-      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 5l14 14M19 5L5 19"/>
-      </svg>
-    </button>
-  </div>
-
-  <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">
-    <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-    </svg>
-    <span class="mob-theme-label">Switch theme</span>
-  </button>
-  
-  <div class="mob-section-label">Main</div>
-  <a href="index.html" class="mob-nav-link" data-nav="home">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/>
-      </svg>
-    </span>Home
-  </a>
-  <a href="pages/path.html" class="mob-nav-link" data-nav="path">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-      </svg>
-    </span>Learning paths
-  </a>
-  <a href="pages/lesson.html?course=it&lesson=communication-basics-1" class="mob-nav-link" data-nav="lesson-1">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/>
-      </svg>
-    </span>Basics Â· Lesson 1
-  </a>
-  
-  <div class="mob-section-label">Practice</div>
-  <a href="pages/flashcards.html" class="mob-nav-link" data-nav="flashcards">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24">
-        <rect x="3.5" y="7.5" width="13" height="14" rx="2.5" transform="rotate(-8 10 14.5)" fill="#fff3d6" stroke="#d97706" stroke-width="1.1"/>
-        <rect x="7" y="4" width="14" height="16" rx="2.5" fill="#00a352"/>
-        <line x1="10" y1="9" x2="18" y2="9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="10" y1="13" x2="16" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
-      </svg>
-    </span>Flashcards
-  </a>
-  <a href="pages/exercises.html" class="mob-nav-link" data-nav="exercises">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="11" fill="#cd212a"/>
-        <path d="M6 8l1.3 1.3L9.5 7" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="11" y1="8" x2="17.2" y2="8" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
-        <path d="M6 12.3l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="11" y1="12.3" x2="17.2" y2="12.3" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
-        <path d="M6 16.6l1.3 1.3 2.2-2.3" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/>
-        <line x1="11" y1="16.6" x2="15" y2="16.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round" opacity="0.55"/>
-      </svg>
-    </span>Exercises
-  </a>
-  <a href="pages/dictionary.html" class="mob-nav-link" data-nav="dictionary">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24">
-        <path d="M12 6.5C10 5 7.3 4.3 4.5 4.3v14c2.8 0 5.5.7 7.5 2.2z" fill="#008c45"/>
-        <path d="M12 6.5C14 5 16.7 4.3 19.5 4.3v14c-2.8 0-5.5.7-7.5 2.2z" fill="#d97706"/>
-        <line x1="12" y1="6.5" x2="12" y2="20.5" stroke="#172033" stroke-width="1.2"/>
-      </svg>
-    </span>My dictionary
-  </a>
-  <a href="pages/grammar.html" class="mob-nav-link" data-nav="grammar">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24">
-        <rect x="5" y="4.5" width="14" height="16.5" rx="2" fill="#fff" stroke="#172033" stroke-width="1.5"/>
-        <rect x="9" y="2.7" width="6" height="3" rx="1" fill="#d97706"/>
-        <path d="M8 11.3l1.1 1.1 2-2.1" stroke="#008c45" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="12.7" y1="11" x2="16.7" y2="11" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
-        <line x1="8" y1="14.7" x2="16.7" y2="14.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
-        <line x1="8" y1="17.7" x2="14" y2="17.7" stroke="#64748b" stroke-width="1.3" stroke-linecap="round"/>
-      </svg>
-    </span>Grammar guide
-  </a>
-  <a href="pages/tests.html" class="mob-nav-link" data-nav="tests" data-tests-link="">
-    <span class="ic">
-      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-      </svg>
-    </span>Tests
-  </a>
-</nav>`),
-
-    'footer': localizeEmbeddedTemplate(`
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div>
-      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
-        <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
-        <line x1="6" x2="6" y1="2" y2="4"/>
-        <line x1="10" x2="10" y1="2" y2="4"/>
-        <line x1="14" x2="14" y1="2" y2="4"/>
-      </svg>
-      <b>LanguageStudio</b> · Italian for real-life situations
-    </div>
-    <div class="footer-links">
-      <a href="index.html" data-nav="home">Home</a>
-      <a href="pages/path.html" data-nav="path">Paths</a>
-      <a href="pages/flashcards.html" data-nav="flashcards">Flashcards</a>
-      <a href="pages/exercises.html" data-nav="exercises">Exercises</a>
-      <a href="pages/dictionary.html" data-nav="dictionary">Dictionary</a>
-      <a href="pages/grammar.html" data-nav="grammar">Guide</a>
-      <a href="pages/tests.html" data-nav="tests">Tests</a>
-    </div>
-  </div>
-</footer>`),
-
-    'profile-modal': localizeEmbeddedTemplate(`
-<div class="profile-modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
-  <section class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-title">
-    <div class="pm-topline">
-      <div class="pm-eyebrow" id="profile-title">Student Profile</div>
-      <button type="button" class="pm-close" onclick="closeProfileModal()" aria-label="Close">✕</button>
-    </div>
-    <div class="pm-header">
-      <div class="pm-avatar">S</div>
-      <div>
-        <div class="pm-name">Student</div>
-        <div class="pm-path">Guest profile · progress is saved on this device</div>
-        <div class="pm-path">Learning path: <b data-course-label>Communication basics</b></div>
-      </div>
-    </div>
-    <section class="pm-settings" aria-labelledby="source-language-title">
-      <h3 class="pm-settings-title" id="source-language-title">Learning & Interface Settings</h3>
-      <div class="pm-settings-grid">
-        <div class="pm-setting">
-          <label class="pm-setting-label" for="targetCourse">Target Course (Мова курсу)</label>
-          <select class="pm-setting-select" id="targetCourse" data-target-course-select onchange="setTargetCourse(this.value)">
-            <option value="it">🇮🇹 Italian (Італійська)</option>
-          </select>
-        </div>
-        <div class="pm-setting">
-          <label class="pm-setting-label" for="sourceLanguage">Language for translations & explanations</label>
-          <select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)">
-            <option value="device">Device language</option>
-            <option value="uk">Українська</option>
-            <option value="en">English</option>
-          </select>
-        </div>
-        <div class="pm-setting">
-          <div class="pm-setting-label">Interface Theme</div>
-          <button type="button" class="btn-ghost pm-theme-button" onclick="toggleTheme()">
-            🌙 Switch theme
-          </button>
-        </div>
-      </div>
-    </section>
-    <div class="pm-stats-grid">
-      <div class="pm-stat-box" data-profile-stat="xp"><div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">XP Points</div></div>
-      <div class="pm-stat-box" data-profile-stat="streak"><div class="pm-stat-val" style="color:var(--it-gold);">1 day</div><div class="pm-stat-lbl">Daily Streak</div></div>
-      <div class="pm-stat-box" data-profile-stat="lessons"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Lessons Completed</div></div>
-      <div class="pm-stat-box" data-profile-stat="words"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Dictionary Words</div></div>
-    </div>
-    <div class="pm-footer">
-      <a class="btn-primary" href="pages/auth.html" data-nav="auth">Sign in or register</a>
-    </div>
-  </section>
-</div>`),
-
-    'auth-header': localizeEmbeddedTemplate(`
-<header class="auth-topbar">
-  <a href="index.html" class="auth-brand" aria-label="LanguageStudio home">
-    <img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
-  </a>
-  <div class="auth-actions">
-    <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">
-      <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-      </svg>
-    </button>
-    <a class="btn-ghost auth-home" href="index.html">← Home</a>
-  </div>
-</header>`)
+    navbar: `${mobileNavigation()}<header class="topnav">
+      <a href="index.html" class="nav-brand" aria-label="LanguageStudio home"><img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" /></a>
+      <nav class="nav-links" aria-label="Main navigation">${desktopNavigation()}</nav>
+      <div class="nav-right"><button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}</button>
+        <button type="button" class="student-widget" title="Student profile" aria-label="Student profile"><div class="student-stats"><div class="streak-badge">${icon('streak')}<span>1</span></div><div class="xp-badge">${icon('xp')}<span class="xp-val-display">0</span><span>XP</span></div></div><div class="student-avatar">S</div></button>
+        <button class="menu-toggle" type="button" aria-label="Menu">${icon('menu')}</button>
+      </div></header>`,
+    'mobile-nav': mobileNavigation(),
+    footer: `<footer class="site-footer"><div class="footer-inner"><div>${icon('cafe')} <b>LanguageStudio</b> · Italian for real-life situations</div><div class="footer-links">${mobileLinks.filter(([, key]) => key !== 'lesson-1').map(([href, key, , label]) => `<a href="${href}" data-nav="${key}">${label}</a>`).join('')}</div></div></footer>`,
+    'profile-modal': `<div class="profile-modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()"><section class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-title"><div class="pm-topline"><div class="pm-eyebrow" id="profile-title">Student Profile</div><button type="button" class="pm-close" onclick="closeProfileModal()" aria-label="Close">${icon('close')}</button></div><div class="pm-header"><div class="pm-avatar">S</div><div><div class="pm-name">Student</div><div class="pm-path">Guest profile · progress is saved on this device</div><div class="pm-path">Learning path: <b data-course-label>Communication basics</b></div></div></div><section class="pm-settings" aria-labelledby="source-language-title"><h3 class="pm-settings-title" id="source-language-title">Learning & Interface Settings</h3><div class="pm-settings-grid"><div class="pm-setting"><label class="pm-setting-label" for="targetCourse">Target Course</label><select class="pm-setting-select" id="targetCourse" data-target-course-select onchange="setTargetCourse(this.value)"></select></div><div class="pm-setting"><label class="pm-setting-label" for="sourceLanguage">Language for translations & explanations</label><select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select></div><div class="pm-setting"><div class="pm-setting-label">Interface Theme</div><button type="button" class="btn-ghost pm-theme-button" onclick="toggleTheme()">${icon('sun')} Switch theme</button></div></div></section><div class="pm-stats-grid"><div class="pm-stat-box" data-profile-stat="xp"><div class="pm-stat-val"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">XP Points</div></div><div class="pm-stat-box" data-profile-stat="streak"><div class="pm-stat-val">1 day</div><div class="pm-stat-lbl">Daily Streak</div></div><div class="pm-stat-box" data-profile-stat="lessons"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Lessons Completed</div></div><div class="pm-stat-box" data-profile-stat="words"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Dictionary Words</div></div></div><div class="pm-footer"><a class="btn-primary" href="pages/auth.html" data-nav="auth">Sign in or register</a></div></section></div>`,
+    'auth-header': `<header class="auth-topbar"><a href="index.html" class="auth-brand" aria-label="LanguageStudio home"><img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" /></a><div class="auth-actions"><button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}</button><a class="btn-ghost auth-home" href="index.html">${icon('arrow-left')} Home</a></div></header>`
   };
 
-  /**
-   * Adjust relative URLs in the HTML string based on the current page depth
-   */
-  function adaptPaths(html, prefix) {
-    if (!prefix) return html;
-
-    // Adapt href and src attributes that point to project root paths
-    return html.replace(/(href|src)="([^"#:]+)"/g, function (match, attr, url) {
-      if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//') || url.startsWith('#') || url.startsWith('javascript:')) {
-        return match;
-      }
-      return `${attr}="${prefix}${url}"`;
+  function adaptPaths(html) {
+    if (!PREFIX) return html;
+    return html.replace(/(href|src)="([^"#:]+)"/g, (match, attr, url) => {
+      if (/^(https?:|\/\/|javascript:)/.test(url)) return match;
+      return `${attr}="${PREFIX}${url}"`;
     });
   }
 
-  /**
-   * Detect current active page key
-   */
   function getCurrentPageKey() {
     const path = window.location.pathname.toLowerCase().replace(/\\/g, '/');
-    if (path.endsWith('/index.html') || path.endsWith('/') || path.endsWith('/languagestudio/')) return 'home';
-    if (path.includes('/lesson') || path.includes('lesson?')) return 'lesson';
-    if (path.includes('flashcards.html')) return 'flashcards';
-    if (path.includes('exercises.html')) return 'exercises';
-    if (path.includes('dictionary.html')) return 'dictionary';
-    if (path.includes('grammar.html')) return 'grammar';
-    if (path.includes('tests.html')) return 'tests';
-    if (path.includes('path.html')) return 'path';
-    if (path.includes('auth.html')) return 'auth';
+    if (path.endsWith('/index.html') || path.endsWith('/')) return 'home';
+    for (const key of ['lesson', 'flashcards', 'exercises', 'dictionary', 'grammar', 'tests', 'path', 'auth']) {
+      if (path.includes(`${key}.html`)) return key === 'lesson' ? 'lesson' : key;
+    }
     return '';
   }
 
-  /**
-   * Highlight active links in the mounted component
-   */
-  function highlightActiveLinks(container) {
+  function highlightActiveLinks() {
     const pageKey = getCurrentPageKey();
     if (!pageKey) return;
-
-    // Links matching current page
-    const matchedLinks = container.querySelectorAll(`[data-nav="${pageKey}"]`);
-    matchedLinks.forEach(link => {
-      link.classList.add('active');
-    });
-
-    // Special handling for lesson pages:
-    // Highlight lesson-1 link, specific lesson IDs, and the parent learning paths button
-    if (pageKey === 'lesson' || pageKey === 'lesson-1') {
-      const lessonParams = new URLSearchParams(window.location.search);
-      const lessonId = lessonParams.get('id') || '';
-
-      container.querySelectorAll('[data-nav="lesson"]').forEach(link => link.classList.add('active'));
-
-      if (!lessonId || lessonId === 'communication-basics-1') {
-        container.querySelectorAll('[data-nav="lesson-1"]').forEach(link => link.classList.add('active'));
-      }
-      if (lessonId) {
-        container.querySelectorAll(`[data-nav="${lessonId}"]`).forEach(link => link.classList.add('active'));
-      }
-
-      // Highlight parent dropdown button for learning paths
-      const pathBtn = container.querySelector('[data-nav-btn="path"]');
-      if (pathBtn) pathBtn.classList.add('active');
-    }
-
-    // Dropdown button matching current section
-    const navBtn = container.querySelector(`[data-nav-btn="${pageKey}"]`);
-    if (navBtn) {
-      navBtn.classList.add('active');
+    document.querySelectorAll(`[data-nav="${pageKey}"]`).forEach(link => link.classList.add('active'));
+    document.querySelector(`[data-nav-btn="${pageKey}"]`)?.classList.add('active');
+    if (pageKey === 'lesson') {
+      document.querySelectorAll('[data-nav="lesson-1"]').forEach(link => link.classList.add('active'));
+      document.querySelector('[data-nav-btn="path"]')?.classList.add('active');
     }
   }
 
-  /**
-   * Fetch component HTML or fallback to embedded template
-   */
   async function fetchComponent(name) {
-    const componentUrl = `${PREFIX}components/${name}.html`;
-
-    // Attempt HTTP/HTTPS fetch first if not on local file:// with restricted CORS
     if (window.location.protocol !== 'file:') {
       try {
-        const response = await fetch(componentUrl);
-        if (response.ok) {
-          const text = await response.text();
-          if (text && text.trim()) return text;
-        }
-      } catch (e) {
-        // Fallback to embedded templates on fetch error
+        const response = await fetch(`${PREFIX}components/${name}.html`);
+        if (response.ok) return await response.text();
+      } catch (error) {
+        // Fall through to the embedded template when the component request fails.
       }
     }
-
-    if (EMBEDDED_COMPONENTS[name]) {
-      return EMBEDDED_COMPONENTS[name];
-    }
-
-    return null;
+    return EMBEDDED_COMPONENTS[name] ? localizeEmbeddedTemplate(EMBEDDED_COMPONENTS[name]) : '';
   }
 
-  /**
-   * Mount a component into a DOM element
-   */
-  function mountComponent(el, rawHtml) {
-    const adaptedHtml = adaptPaths(rawHtml, PREFIX);
-    el.outerHTML = adaptedHtml;
+  function ensureComponentTarget(id, name) {
+    const target = document.getElementById(id);
+    if (target && !target.querySelector('[data-component]')) {
+      target.innerHTML = `<div data-component="${name}"></div>`;
+    }
   }
 
-  /**
-   * Re-bind application interactive events
-   */
-  function attachEventBindings() {
-    highlightActiveLinks(document);
-
-    if (typeof window.renderRegisteredIcons === 'function') {
-      window.renderRegisteredIcons();
-    }
-    if (typeof window.updateXPDisplay === 'function') {
-      window.updateXPDisplay();
-    }
-    if (typeof window.applySourceLanguageSettings === 'function') {
-      window.applySourceLanguageSettings();
-    }
-
-    // Attach menu-toggle handler
-    document.querySelectorAll('.menu-toggle').forEach(btn => {
-      btn.removeEventListener('click', openMobNavProxy);
-      btn.addEventListener('click', openMobNavProxy);
+  function bindEvents() {
+    highlightActiveLinks();
+    window.renderRegisteredIcons?.();
+    window.updateXPDisplay?.();
+    window.applySourceLanguageSettings?.();
+    document.querySelectorAll('.menu-toggle').forEach(button => {
+      button.removeEventListener('click', openMobNavProxy);
+      button.addEventListener('click', openMobNavProxy);
     });
-
-    // Attach mob-close-btn and mobOverlay
-    document.querySelectorAll('.mob-close-btn').forEach(btn => {
-      btn.removeEventListener('click', closeMobNavProxy);
-      btn.addEventListener('click', closeMobNavProxy);
+    document.querySelectorAll('.mob-close-btn').forEach(button => {
+      button.removeEventListener('click', closeMobNavProxy);
+      button.addEventListener('click', closeMobNavProxy);
     });
     const overlay = document.getElementById('mobOverlay');
     if (overlay) {
       overlay.removeEventListener('click', closeMobNavProxy);
       overlay.addEventListener('click', closeMobNavProxy);
     }
-
-    // Ensure all data-nav-btn buttons/links navigate smoothly
-    document.querySelectorAll('[data-nav-btn]').forEach(el => {
-      if (el.tagName === 'BUTTON') {
-        el.addEventListener('click', () => {
-          const key = el.getAttribute('data-nav-btn');
-          const targetUrl = key === 'home' ? 'index.html' : `pages/${key}.html`;
-          window.location.href = `${PREFIX}${targetUrl}`;
-        });
-      }
+    document.querySelectorAll('[data-nav-btn]').forEach(button => {
+      if (button.tagName !== 'BUTTON') return;
+      button.addEventListener('click', () => {
+        const key = button.getAttribute('data-nav-btn');
+        window.location.href = `${PREFIX}${key === 'home' ? 'index.html' : `pages/${key}.html`}`;
+      });
     });
-
     window.dispatchEvent(new CustomEvent('componentsLoaded'));
   }
 
@@ -684,76 +224,40 @@
     }
   }
 
-  /**
-   * Load and mount all components declared via [data-component]
-   */
   async function loadComponents() {
-    const placeholders = Array.from(document.querySelectorAll('[data-component]'));
-    
-    // Instant synchronous mounting for embedded templates to eliminate FOUC
-    placeholders.forEach(el => {
-      const name = el.getAttribute('data-component');
-      if (EMBEDDED_COMPONENTS[name]) {
-        mountComponent(el, EMBEDDED_COMPONENTS[name]);
+    if (loadingComponents) await loadingComponents;
+    const currentLoad = (async () => {
+      await window.loadIconRegistry?.();
+      ensureComponentTarget('app-nav', 'navbar');
+      ensureComponentTarget('app-footer', 'footer');
+      ensureComponentTarget('app-profile', 'profile-modal');
+
+      if (!document.getElementById('profileModal') && !document.querySelector('[data-component="profile-modal"]')) {
+        const profileHolder = document.createElement('div');
+        profileHolder.dataset.component = 'profile-modal';
+        document.body.appendChild(profileHolder);
       }
-    });
 
-    // Step 3 compatibility: support the standardized app-nav/app-footer/app-profile placeholders
-    const appNav = document.getElementById('app-nav');
-    const appFooter = document.getElementById('app-footer');
-    const appProfile = document.getElementById('app-profile');
-
-    if (appNav && !appNav.querySelector('[data-component="navbar"]')) {
-      appNav.innerHTML = '<div data-component="navbar"></div>';
-      const navHolder = appNav.querySelector('[data-component="navbar"]');
-      if (navHolder && EMBEDDED_COMPONENTS.navbar) mountComponent(navHolder, EMBEDDED_COMPONENTS.navbar);
-    }
-
-    if (appFooter && !appFooter.querySelector('[data-component="footer"]')) {
-      appFooter.innerHTML = '<div data-component="footer"></div>';
-      const footerHolder = appFooter.querySelector('[data-component="footer"]');
-      if (footerHolder && EMBEDDED_COMPONENTS.footer) mountComponent(footerHolder, EMBEDDED_COMPONENTS.footer);
-    }
-
-    if (appProfile && !appProfile.querySelector('[data-component="profile-modal"]')) {
-      appProfile.innerHTML = '<div data-component="profile-modal"></div>';
-      const modalHolder = appProfile.querySelector('[data-component="profile-modal"]');
-      if (modalHolder && EMBEDDED_COMPONENTS['profile-modal']) mountComponent(modalHolder, EMBEDDED_COMPONENTS['profile-modal']);
-    }
-
-    // Ensure profile-modal is mounted if not already present
-    if (!document.getElementById('profileModal') && !document.querySelector('[data-component="profile-modal"]') && EMBEDDED_COMPONENTS['profile-modal']) {
-      const modalHolder = document.createElement('div');
-      modalHolder.setAttribute('data-component', 'profile-modal');
-      document.body.appendChild(modalHolder);
-      mountComponent(modalHolder, EMBEDDED_COMPONENTS['profile-modal']);
-    }
-
-    attachEventBindings();
-
-    // If running over HTTP/HTTPS, fetch fresh versions in background
-    if (window.location.protocol !== 'file:') {
-      // Async refresh if needed
+      const holders = Array.from(document.querySelectorAll('[data-component]'));
+      await Promise.all(holders.map(async holder => {
+        const name = holder.dataset.component;
+        const html = await fetchComponent(name);
+        if (html) holder.outerHTML = adaptPaths(html);
+      }));
+      bindEvents();
+    })();
+    loadingComponents = currentLoad;
+    try {
+      await currentLoad;
+    } finally {
+      if (loadingComponents === currentLoad) loadingComponents = null;
     }
   }
 
-  // Synchronously execute if DOM elements are already available
-  if (document.querySelector('[data-component]')) {
-    loadComponents();
-  }
+  window.LSComponents = { load: loadComponents, fetch: fetchComponent, prefix: PREFIX };
 
-  // Also hook to DOMContentLoaded
+  if (document.querySelector('[data-component]')) loadComponents();
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadComponents);
-  } else {
-    loadComponents();
+    document.addEventListener('DOMContentLoaded', loadComponents, { once: true });
   }
-
-  // Export utility for manual usage
-  window.LSComponents = {
-    load: loadComponents,
-    fetch: fetchComponent,
-    prefix: PREFIX
-  };
 })();
-

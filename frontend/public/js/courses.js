@@ -3,7 +3,7 @@
     const list = document.getElementById('courseList');
     if (!list) return;
 
-    const index = await window.loadCourseIndex?.().catch(() => ({ default: 'it', courses: [{ id: 'it', flag: '🇮🇹', name: { uk: 'Італійська', en: 'Italian' }, status: 'active' }] }));
+    const index = await window.loadCourseIndex?.().catch(() => ({ default: 'it', courses: [{ id: 'it', flag: 'flag-it', name: { uk: 'Італійська', en: 'Italian' }, status: 'active' }] }));
     const courses = Array.isArray(index?.courses) ? index.courses : [];
     const currentCourseId = window.getCourseId?.() || localStorage.getItem('ls_course') || 'it';
 
@@ -17,7 +17,7 @@
       return `
         <article class="course-card ${active ? 'active' : ''} ${disabled ? 'locked' : ''}">
           <div class="course-card-head">
-            <div class="course-flag">${course.flag || '🌍'}</div>
+            <div class="course-flag">${getIconSvg(course.flag || 'globe')}</div>
             <div>
               <div class="course-status">${status}</div>
               <h2>${name}</h2>

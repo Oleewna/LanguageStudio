@@ -21,8 +21,12 @@ function renderRoadmap(course) {
     const title = getLocalizedText(path.title);
     const subtitle = getLocalizedText(path.subtitle);
     const badgeClass = isLocked ? 'ub-locked' : 'ub-active';
-    const badgeText = isLocked ? '🔒 Заблоковано' : `🟢 ${title} · Активний`;
-    const summary = isLocked ? 'Незабаром' : `${availableLessons}/${totalLessons} уроків доступно`;
+    const badgeText = isLocked
+      ? getLocalizedText({ uk: 'Заблоковано', en: 'Locked' })
+      : `${title} · ${getLocalizedText({ uk: 'Активний', en: 'Active' })}`;
+    const summary = isLocked
+      ? getLocalizedText({ uk: 'Незабаром', en: 'Coming soon' })
+      : `${availableLessons}/${totalLessons} ${getLocalizedText({ uk: 'уроків доступно', en: 'lessons available' })}`;
 
     const unitsHtml = (path.units || []).map((unit) => {
       const lessonRows = (unit.lessons || []).map((lesson) => {
@@ -31,7 +35,9 @@ function renderRoadmap(course) {
         const lessonNum = getLocalizedText(lesson.num) || '';
         const isAvailable = Boolean(lesson.status === 'available');
         const lessonHref = lesson.href || `pages/lesson.html?course=${encodeURIComponent(course.id || 'it')}&lesson=${encodeURIComponent(lesson.id || '')}`;
-        const badge = isAvailable ? 'Почати' : 'Незабаром';
+        const badge = isAvailable
+          ? getLocalizedText({ uk: 'Почати', en: 'Open' })
+          : getLocalizedText({ uk: 'Незабаром', en: 'Coming soon' });
         const item = `
           <div class="tree-node-item">
             <div class="node-bullet ${isAvailable ? 'nb-current' : 'nb-locked'}">${escapeHtml(lessonNum || lesson.id || '')}</div>
@@ -41,7 +47,7 @@ function renderRoadmap(course) {
                 <div class="node-title">${escapeHtml(lessonTitle)}</div>
                 <div class="node-sub">${escapeHtml(lessonDescription || '')}</div>
               </div>
-              <span class="node-btn ${isAvailable ? 'nb-btn-active' : 'nb-btn-locked'}">${isAvailable ? `Почати <svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>` : '<svg class="ls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Незабаром'}</span>
+              <span class="node-btn ${isAvailable ? 'nb-btn-active' : 'nb-btn-locked'}">${isAvailable ? `Почати ${getIconSvg('play')}` : `${getIconSvg('lock')} Незабаром`}</span>
             ${isAvailable ? '</a>' : '</div>'}
           </div>
         `;
@@ -55,11 +61,11 @@ function renderRoadmap(course) {
       <div class="unit-tree-card">
         <div class="unit-tree-header">
           <div>
-            <span class="unit-badge-main ${badgeClass}">${escapeHtml(badgeText)}</span>
-            <div class="unit-tree-title">${escapeHtml(path.icon || '')} ${escapeHtml(title)}</div>
+            <span class="unit-badge-main ${badgeClass}">${getIconSvg(isLocked ? 'lock' : 'status-dot')} ${escapeHtml(badgeText)}</span>
+            <div class="unit-tree-title">${getIconSvg(path.icon || 'paths')} ${escapeHtml(title)}</div>
             <div class="unit-tree-desc">${escapeHtml(subtitle)}</div>
           </div>
-          ${!isLocked ? '<a href="pages/path.html" class="btn-ghost" id="external-style-index-1">Усі напрямки →</a>' : ''}
+          ${!isLocked ? `<a href="pages/path.html" class="btn-ghost" id="external-style-index-1">${getLocalizedText({ uk: 'Усі напрямки', en: 'All paths' })} ${getIconSvg('arrow-right')}</a>` : ''}
         </div>
         ${unitsHtml}
       </div>
