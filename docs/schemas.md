@@ -92,7 +92,7 @@ Notes:
 - `exerciseFormats` is the whitelist of formats available for the course.
 - `paths` controls the roadmap and lesson grouping in the app.
 - Every `icon` value is a semantic name registered in `frontend/public/assets/icons/icons.json`; do not use filenames, emoji, or inline markup.
-- A lesson entry may contain an optional `sublessons` array. Each sublesson has its own stable ID and lesson JSON file, appears nested under its parent, and keeps independent completion and XP. See [Adding a Path, Lessons, and Sublessons](ADDING_A_PATH_AND_SUBLESSONS.md) for the full authoring contract.
+- A lesson entry may contain an optional `sublessons` array. Each sublesson has its own stable ID and lesson JSON file, appears nested under its parent, and keeps independent completion and XP. See [Adding a Path, Lessons, and Sublessons](ADDING_A_PATH.md) for the full authoring contract.
 
 Sublesson metadata example:
 

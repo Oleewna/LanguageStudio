@@ -111,7 +111,7 @@ A minimal valid example:
 }
 ```
 
-For optional child lessons nested beneath a main lesson, see [Adding a Path, Lessons, and Sublessons](ADDING_A_PATH_AND_SUBLESSONS.md).
+For optional child lessons nested beneath a main lesson, see [Adding a Path, Lessons, and Sublessons](ADDING_A_PATH.md).
 
 ## 4) Add vocabulary
 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f9fc" />
+  <title>Lesson flow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./lesson-style-test-flow.css" />
+  <script src="../js/lesson-style-test.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../index.html" aria-label="LanguageStudio">
+      <span class="brand-mark" aria-hidden="true">LS</span>
+      <span>LanguageStudio</span>
+    </a>
+    <div class="topbar-actions">
+      <span class="course-context" data-copy="courseContext"></span>
+      <a class="back-link" href="../pages/lesson.html?course=it&amp;lesson=communication-basics-1" data-copy="back"></a>
+      <button class="language-toggle" id="languageToggle" type="button" aria-label="Switch language">EN</button>
+    </div>
+  </header>
+
+  <main id="lessonApp" class="lesson-app" aria-live="polite">
+    <p class="loading-message" data-copy="loading"></p>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const labels = { uk: 'ІТАЛІЙСЬКА · A1', en: 'ITALIAN · A1' };
+      const context = document.querySelector('.course-context');
+      const toggle = document.getElementById('languageToggle');
+      const updateContext = () => { context.textContent = labels[document.documentElement.lang] || labels.uk; };
+      updateContext();
+      toggle.addEventListener('click', () => requestAnimationFrame(updateContext));
+    });
+  </script>
+</body>
+</html>
