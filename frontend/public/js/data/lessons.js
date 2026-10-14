@@ -30,12 +30,12 @@
         en: 'First meeting in class',
       },
       description: {
-        uk: 'Софія приходить раніше на урок і не впевнена, яке місце вільне. Ґрета допомагає і вони дізнаються, що обидві нові в курсі. Вчитель проводить коротке представлення: ім’я і країна.',
-        en: 'Sofia arrives early and is unsure which seat is free. Greta helps her and they learn they are both new to the course. The teacher leads a short introduction round: name and country.',
+        uk: 'Навчіться вітатися, називати своє ім’я та країну й підтримувати коротке знайомство.',
+        en: 'Learn to greet someone, say your name and country, and start a short conversation.',
       },
       duration: '20 хв',
       xpReward: 50,
-      nextLessonId: 'communication-basics-2',
+      nextLessonId: 'communication-basics-1-practice',
       prevLessonId: null,
 
       sections: [
@@ -298,13 +298,13 @@
         en: 'A pair activity',
       },
       description: {
-        uk: 'На наступному занятті Софія й Ґрета працюють у парах: розповідають про навчання, роботу, мови та, за бажанням, близьких людей.',
-        en: 'In their next class, Sofia and Greta work in pairs, talking about study, work, languages, and, if they choose, people close to them.',
+        uk: 'Навчіться розповідати про навчання, роботу, мови й родину та ставити прості запитання.',
+        en: 'Learn to talk about study, work, languages, and family, and ask simple questions.',
       },
       duration: { uk: '20 хв', en: '20 min' },
       xpReward: 50,
       nextLessonId: 'communication-basics-3',
-      prevLessonId: 'communication-basics-1',
+      prevLessonId: 'communication-basics-1-practice',
 
       sections: [
         // ── Block 1: Pair dialogue ──────────────────────────────────────
@@ -517,15 +517,15 @@
             {
               id: 'cb2_q2',
               type: 'choice',
-              category: { uk: 'Розуміння діалогу', en: 'Dialogue comprehension' },
+              category: { uk: 'Побудова фраз', en: 'Building phrases' },
               question: {
-                uk: 'Що вивчає Софія?',
-                en: 'What does Sofia study?'
+                uk: 'Як сказати «Я вивчаю медицину»?',
+                en: 'How do you say “I study medicine”?'
               },
               options: [
-                { translations: { uk: 'Медицину', en: 'Medicine' } },
-                { translations: { uk: 'Архітектуру', en: 'Architecture' } },
-                { translations: { uk: 'Італійську мову', en: 'Italian' } }
+                { translations: { uk: 'Studio medicina.', en: 'Studio medicina.' } },
+                { translations: { uk: 'Lavoro medicina.', en: 'Lavoro medicina.' } },
+                { translations: { uk: 'Parlo medicina.', en: 'Parlo medicina.' } }
               ],
               correctIndex: 0
             },
@@ -538,21 +538,6 @@
               placeholder: { uk: 'вставте прийменник', en: 'enter the preposition' },
               acceptableAnswers: ['per']
             },
-            {
-              id: 'cb2_q4',
-              type: 'choice',
-              category: { uk: 'Мовлення', en: 'Speaking' },
-              question: {
-                uk: 'Яка фраза підходить, якщо ви навчаєтеся і працюєте?',
-                en: 'Which phrase fits if you study and work?'
-              },
-              options: [
-                { translations: { uk: 'Studio e lavoro.', en: 'I study and work.' } },
-                { translations: { uk: 'Sono figlia unica.', en: 'I am an only child.' } },
-                { translations: { uk: 'Parlo in libreria.', en: 'I speak in a bookshop.' } }
-              ],
-              correctIndex: 0
-            }
           ]
         }
       ]
@@ -579,8 +564,8 @@
         en: 'Talking about free time',
       },
       description: {
-        uk: 'Софія, Ґрета й Лука обговорюють захоплення та плани на вихідні, а потім готуються представитися новій групі.',
-        en: 'Sofia, Greta, and Luca discuss their interests and weekend plans, then prepare to introduce themselves to a new group.',
+        uk: 'Навчіться говорити про захоплення та вільний час і домовлятися про зустріч.',
+        en: 'Learn to talk about your interests and free time, and make plans to meet.',
       },
       duration: { uk: '20 хв', en: '20 min' },
       xpReward: 50,
@@ -822,15 +807,15 @@
             {
               id: 'cb3_q2',
               type: 'choice',
-              category: { uk: 'Розуміння діалогу', en: 'Dialogue comprehension' },
+              category: { uk: 'Побудова фраз', en: 'Building phrases' },
               question: {
-                uk: 'Що Софія любить робити?',
-                en: 'What does Sofia like to do?'
+                uk: 'Як сказати «Мені подобається читати й готувати»?',
+                en: 'How do you say “I like reading and cooking”?'
               },
               options: [
-                { translations: { uk: 'Читати й готувати', en: 'Read and cook' } },
-                { translations: { uk: 'Слухати попмузику', en: 'Listen to pop music' } },
-                { translations: { uk: 'Зустрічатися з друзями щонеділі', en: 'Meet friends every Sunday' } }
+                { translations: { uk: 'Mi piace leggere e cucinare.', en: 'Mi piace leggere e cucinare.' } },
+                { translations: { uk: 'Mi piace ascoltare la musica.', en: 'Mi piace ascoltare la musica.' } },
+                { translations: { uk: 'Mi piace lavorare.', en: 'Mi piace lavorare.' } }
               ],
               correctIndex: 0
             },
@@ -838,26 +823,11 @@
               id: 'cb3_q3',
               type: 'fill_blank',
               category: { uk: 'Встав слово', en: 'Fill in the blank' },
-              prefix: 'La domenica',
-              suffix: 'a casa.',
-              placeholder: { uk: 'встав дієслово з діалогу', en: 'enter the verb from the dialogue' },
-              acceptableAnswers: ['resto']
+              prefix: 'Mi piace',
+              suffix: 'e cucinare.',
+              placeholder: { uk: 'вставте дієслово', en: 'enter the verb' },
+              acceptableAnswers: ['leggere']
             },
-            {
-              id: 'cb3_q4',
-              type: 'choice',
-              category: { uk: 'Запрошення', en: 'Invitations' },
-              question: {
-                uk: 'Яка відповідь приймає запрошення Софії?',
-                en: 'Which response accepts Sofia\'s invitation?'
-              },
-              options: [
-                { translations: { uk: 'Volentieri!', en: 'Gladly!' } },
-                { translations: { uk: 'Davvero?', en: 'Really?' } },
-                { translations: { uk: 'A me piace...', en: 'As for me, I like...' } }
-              ],
-              correctIndex: 0
-            }
           ]
         }
       ]

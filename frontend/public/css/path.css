@@ -54,7 +54,7 @@
   .u3 { background: var(--it-gold-light); color: var(--it-gold); }
 
   .unit-title {
-    font-family: 'Fraunces', serif;
+    font-family: var(--font-serif);
     font-weight: 700;
     font-size: 1.08rem;
     color: var(--ink);
@@ -199,6 +199,39 @@
     cursor: not-allowed;
     background: var(--surface);
   }
+  .sublessons-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    width: 100%;
+    padding: 0.55rem 1.5rem 0.55rem 4.75rem;
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--pine);
+    font: inherit;
+    font-size: 0.78rem;
+    text-align: left;
+    cursor: pointer;
+  }
+  .sublessons-toggle:hover,
+  .sublessons-toggle:focus-visible {
+    background: var(--card-sub-bg);
+  }
+  .sublessons-chevron {
+    display: inline-flex;
+    transition: transform 0.2s ease;
+  }
+  .sublessons-toggle[aria-expanded="true"] .sublessons-chevron {
+    transform: rotate(180deg);
+  }
+  .lesson-sublist[hidden] {
+    display: none;
+  }
+  .lesson-row-sublesson {
+    padding-left: 6.25rem;
+    background: var(--bg);
+  }
   .lesson-num {
     font-size: 0.72rem;
     font-weight: 700;
@@ -276,6 +309,12 @@
     .lesson-row {
       padding-left: 1rem;
       padding-right: 1rem;
+    }
+    .sublessons-toggle {
+      padding-left: 1rem;
+    }
+    .lesson-row-sublesson {
+      padding-left: 2.5rem;
     }
     .unit-header {
       padding: 1rem;

@@ -58,14 +58,24 @@
 
   function getLessonList(course) {
     const courseLessons = course && Array.isArray(course.paths)
-      ? course.paths.flatMap((path) => (path.units || []).flatMap((unit) => (unit.lessons || []).map((lesson) => ({
-      ...lesson,
-      pathId: path.id,
-      pathTitle: path.title,
-      unitId: unit.id,
-      unitTitle: unit.title,
-      status: lesson.status || 'locked'
-      }))))
+      ? course.paths.flatMap((path) => (path.units || []).flatMap((unit) => (unit.lessons || []).flatMap((lesson) => {
+        const sharedMetadata = {
+          pathId: path.id,
+          pathTitle: path.title,
+          unitId: unit.id,
+          unitTitle: unit.title
+        };
+        return [
+          { ...lesson, ...sharedMetadata, parentLessonId: null, status: lesson.status || 'locked' },
+          ...(lesson.sublessons || []).map((sublesson) => ({
+            ...sublesson,
+            ...sharedMetadata,
+            parentLessonId: lesson.id,
+            parentLessonTitle: lesson.title,
+            status: sublesson.status || 'locked'
+          }))
+        ];
+      })))
       : [];
     const existingIds = new Set(courseLessons.map((lesson) => lesson.id));
     const readingLessons = (course?.id || getCurrentCourseId()) === 'it'
@@ -191,7 +201,11 @@
           prefix: task.prefix || '',
           suffix: task.suffix || '',
           placeholder: task.prompt || { uk: 'введіть слово', en: 'enter word' },
-          acceptableAnswers: Array.isArray(task.answers) ? task.answers : [task.answer || ''],
+          acceptableAnswers: Array.isArray(task.acceptableAnswers)
+            ? task.acceptableAnswers
+            : Array.isArray(task.answers)
+              ? task.answers
+              : [task.answer || ''],
           category: task.category || ''
         };
       });
@@ -204,6 +218,10 @@
 
   function normalizeLesson(rawLesson, course, lessonId, courseLessonMeta) {
     const lessonMeta = courseLessonMeta || {};
+    const hasNextLessonMetadata = Object.prototype.hasOwnProperty.call(rawLesson || {}, 'nextLessonId')
+      || Object.prototype.hasOwnProperty.call(lessonMeta, 'nextLessonId');
+    const hasPreviousLessonMetadata = Object.prototype.hasOwnProperty.call(rawLesson || {}, 'prevLessonId')
+      || Object.prototype.hasOwnProperty.call(lessonMeta, 'prevLessonId');
     const safeId = rawLesson?.id || lessonId || 'communication-basics-1';
     const sections = (rawLesson?.blocks || rawLesson?.sections || []).map((block) => normalizeSection(block, {})).filter(Boolean);
     const title = rawLesson?.title || lessonMeta.title || { uk: 'Урок', en: 'Lesson' };
@@ -223,8 +241,12 @@
       description,
       duration: rawLesson?.duration || lessonMeta.time || '~15 min',
       xpReward: rawLesson?.xpReward || lessonMeta.xpReward || 50,
-      nextLessonId: rawLesson?.nextLessonId || lessonMeta.nextLessonId || null,
-      prevLessonId: rawLesson?.prevLessonId || lessonMeta.prevLessonId || null,
+      nextLessonId: hasNextLessonMetadata
+        ? (rawLesson?.nextLessonId ?? lessonMeta.nextLessonId ?? null)
+        : undefined,
+      prevLessonId: hasPreviousLessonMetadata
+        ? (rawLesson?.prevLessonId ?? lessonMeta.prevLessonId ?? null)
+        : undefined,
       sections
     };
   }
@@ -271,8 +293,8 @@
   function renderNavigation(lessons, currentLessonId) {
     const currentIndex = lessons.findIndex((item) => item.id === currentLessonId);
     const currentLesson = lessons[currentIndex];
-    const hasPreviousMetadata = currentLesson && Object.prototype.hasOwnProperty.call(currentLesson, 'prevLessonId');
-    const hasNextMetadata = currentLesson && Object.prototype.hasOwnProperty.call(currentLesson, 'nextLessonId');
+    const hasPreviousMetadata = currentLesson && currentLesson.prevLessonId !== undefined;
+    const hasNextMetadata = currentLesson && currentLesson.nextLessonId !== undefined;
     const prev = hasPreviousMetadata
       ? lessons.find((item) => item.id === currentLesson.prevLessonId)
       : lessons[currentIndex - 1];
@@ -384,11 +406,12 @@
 
     const items = unitLessons.map((item) => {
       const active = item.id === lesson.id;
+      const isSublesson = Boolean(item.parentLessonId);
       const isDone = typeof window.isLessonCompleted === 'function' && window.isLessonCompleted(item.id);
       const lessonNumberLabel = getLessonNumberLabel(item, lang);
       const badge = getIconSvg(active ? 'lesson' : (isDone ? 'check' : 'circle'));
       return `
-        <a href="${window.location.pathname}?course=${encodeURIComponent(getCurrentCourseId())}&lesson=${encodeURIComponent(item.id)}" class="sb-lesson ${active ? 'active' : ''}" aria-current="${active ? 'page' : 'false'}">
+        <a href="${window.location.pathname}?course=${encodeURIComponent(getCurrentCourseId())}&lesson=${encodeURIComponent(item.id)}" class="sb-lesson${isSublesson ? ' sb-sublesson' : ''} ${active ? 'active' : ''}" aria-current="${active ? 'page' : 'false'}">
           <span class="ic">${badge}</span>
           <span>${lessonNumberLabel} · ${readText(item.title, item.id, lang)}</span>
         </a>

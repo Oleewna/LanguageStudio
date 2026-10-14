@@ -421,6 +421,13 @@ const UI_I18N = [
   { en: 'Your word bank', uk: 'Ваш банк слів' },
   { en: 'Grammar cheat sheets', uk: 'Шпаргалки з граматики' },
   { en: 'Switch theme', uk: 'Змінити тему' },
+  { en: 'Settings', uk: 'Налаштування' },
+  { en: 'Preferences', uk: 'Налаштування' },
+  { en: 'Guest profile', uk: 'Гостьовий профіль' },
+  { en: 'Progress is saved on this device.', uk: 'Прогрес зберігається на цьому пристрої.' },
+  { en: 'Target course', uk: 'Цільовий курс' },
+  { en: 'Language for translations & explanations', uk: 'Мова перекладів та пояснень' },
+  { en: 'Interface theme', uk: 'Тема інтерфейсу' },
   { en: 'Interface Theme', uk: 'Тема інтерфейсу' },
   { en: 'Greetings and basics (13 words)', uk: 'Привітання та основи (13 слів)' },
   { en: 'My saved words', uk: 'Мої збережені слова' },
@@ -438,6 +445,7 @@ const UI_I18N = [
   { en: 'Start', uk: 'Почати' },
   { en: 'Open', uk: 'Відкрити' },
   { en: 'Close', uk: 'Закрити' },
+  { en: 'Introduction', uk: 'Вступ' },
   { en: 'Filters', uk: 'Фільтри' },
   { en: 'LanguageStudio home', uk: 'На головну LanguageStudio' },
   { en: 'Mobile menu', uk: 'Мобільне меню' },
@@ -447,7 +455,6 @@ const UI_I18N = [
   { en: 'Student', uk: 'Студент' },
   { en: 'Guest profile · progress is saved on this device', uk: 'Гість · прогрес зберігається на цьому пристрої' },
   { en: 'Learning path: Communication basics', uk: 'Напрямок: Основи спілкування' },
-  { en: 'Learning & Interface Settings', uk: 'Налаштування навчання та інтерфейсу' },
   { en: 'Italian Learning Settings', uk: 'Налаштування навчання' },
   { en: 'Target Course', uk: 'Курс для вивчення' },
   { en: 'Language for translations & explanations', uk: 'Мова перекладів та пояснень' },
@@ -464,6 +471,7 @@ const UI_I18N = [
   { en: 'Quick drills', uk: 'Швидкі вправи' },
   { en: 'Your saved words', uk: 'Збережені слова' },
   { en: 'Rules reference', uk: 'Довідник правил' },
+  { en: 'Quick access to essential Italian grammar rules: articles, verb forms, and polite expressions.', uk: 'Швидкий доступ до основних правил італійської мови: артиклі, форми дієслів та етикетні вирази.' },
   { en: 'Check your progress', uk: 'Перевірте свій прогрес' },
   { en: 'Italian for real-life situations', uk: 'Італійська для реальних ситуацій' },
   { en: 'Choose your goal', uk: 'Оберіть свою мету' },
@@ -895,6 +903,12 @@ function closeMobNav() {
 
 /* ── Theme Management (Dark Mode / Light Mode) ── */
 const THEME_KEY = 'ls_theme';
+let systemThemeListenerBound = false;
+
+function hasThemeOverride() {
+  const saved = localStorage.getItem(THEME_KEY);
+  return saved === 'dark' || saved === 'light';
+}
 
 function getTheme() {
   const saved = localStorage.getItem(THEME_KEY);
@@ -902,20 +916,26 @@ function getTheme() {
   return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-function setTheme(themeName) {
+function setTheme(themeName, persist = true) {
   const finalTheme = themeName === 'dark' ? 'dark' : 'light';
   document.documentElement.setAttribute('data-theme', finalTheme);
-  localStorage.setItem(THEME_KEY, finalTheme);
+  if (persist) localStorage.setItem(THEME_KEY, finalTheme);
   updateThemeToggleButtons(finalTheme);
 
   if (typeof window.updateBrandLogos === 'function') {
     window.updateBrandLogos(finalTheme);
   }
+  window.dispatchEvent(new Event('themeChanged'));
 }
 
 function toggleTheme() {
   const current = getTheme();
   setTheme(current === 'dark' ? 'light' : 'dark');
+}
+
+function useSystemTheme() {
+  localStorage.removeItem(THEME_KEY);
+  setTheme(getTheme(), false);
 }
 
 function updateThemeToggleButtons(themeName) {
@@ -935,19 +955,26 @@ function updateThemeToggleButtons(themeName) {
     btn.setAttribute('aria-label', labelText);
   });
 
-  const pmBtns = document.querySelectorAll('.pm-theme-button');
-  const pmLabel = isEnglish
-    ? (themeName === 'dark' ? 'Switch to light theme' : 'Switch to dark theme')
-    : (themeName === 'dark' ? 'Перемкнути на світлу тему' : 'Перемкнути на темну тему');
-  pmBtns.forEach(btn => {
-    btn.innerHTML = `${icon} ${pmLabel}`;
-  });
-
   window.renderRegisteredIcons?.();
 }
 
 function initTheme() {
-  setTheme(getTheme());
+  setTheme(getTheme(), false);
+  if (systemThemeListenerBound) return;
+
+  const mediaQuery = window.matchMedia?.('(prefers-color-scheme: dark)');
+  if (!mediaQuery) return;
+
+  const applySystemTheme = (event) => {
+    if (!hasThemeOverride()) setTheme(event.matches ? 'dark' : 'light', false);
+  };
+
+  if (mediaQuery.addEventListener) {
+    mediaQuery.addEventListener('change', applySystemTheme);
+  } else if (mediaQuery.addListener) {
+    mediaQuery.addListener(applySystemTheme);
+  }
+  systemThemeListenerBound = true;
 }
 
 // Immediately apply saved theme on script parse to prevent FOUC
@@ -1037,7 +1064,6 @@ function ensureProfileModal() {
     updateProfileStats();
     return;
   }
-  const themeIcon = getIconSvg('sun');
   const closeIcon = getIconSvg('close');
   const studentIdentity = getStudentProfilePresentation();
   const currentCourse = getCourseMeta(getTargetCourse());
@@ -1056,25 +1082,6 @@ function ensureProfileModal() {
             <div class="pm-path">Learning path: <b data-course-label></b></div>
           </div>
         </div>
-        <section class="pm-settings" aria-labelledby="source-language-title">
-          <h3 class="pm-settings-title" id="source-language-title">Learning & Interface Settings</h3>
-          <div class="pm-settings-grid">
-            <div class="pm-setting">
-              <label class="pm-setting-label" for="targetCourse">Target Course</label>
-              <select class="pm-setting-select" id="targetCourse" data-target-course-select onchange="setTargetCourse(this.value)"></select>
-            </div>
-            <div class="pm-setting">
-              <label class="pm-setting-label" for="sourceLanguage">Language for translations & explanations</label>
-              <select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select>
-            </div>
-            <div class="pm-setting">
-              <div class="pm-setting-label">Interface Theme</div>
-              <button type="button" class="btn-ghost pm-theme-button" onclick="toggleTheme()">
-                ${themeIcon} Switch theme
-              </button>
-            </div>
-          </div>
-        </section>
         <div class="pm-stats-grid">
           <div class="pm-stat-box" data-profile-stat="xp"><div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">XP Points</div></div>
           <div class="pm-stat-box" data-profile-stat="streak"><div class="pm-stat-val" style="color:var(--it-gold);">1 day</div><div class="pm-stat-lbl">Daily Streak</div></div>
@@ -1276,7 +1283,57 @@ function speak(text, btnElement) {
   window.speechSynthesis.speak(utterance);
 }
 
+function initPageHeroNotices() {
+  document.querySelectorAll('.page-hero').forEach(hero => {
+    const inner = hero.querySelector('.page-hero-inner');
+    const description = inner?.querySelector('p');
+    if (!inner || !description) return;
+
+    const label = inner.querySelector('.page-hero-label');
+    const heading = inner.querySelector('h1');
+    const hasRetainedContent = Array.from(inner.children).some(child =>
+      child !== label && child !== heading && child !== description
+    );
+    const pagePath = window.location.pathname.replace(/\/+$/, '') || '/';
+    const storageKey = `ls_page_intro_seen:${pagePath}`;
+    const legacyHomeKey = pagePath.endsWith('/index.html') ? 'ls_home_intro_seen' : null;
+    let hasSeenNotice = false;
+
+    hero.classList.add('page-hero--notice');
+    hero.setAttribute('aria-label', 'Introduction');
+
+    let closeButton = hero.querySelector('.page-hero-close');
+    if (!closeButton) {
+      closeButton = document.createElement('button');
+      closeButton.className = 'page-hero-close';
+      closeButton.type = 'button';
+      closeButton.setAttribute('aria-label', 'Close');
+      closeButton.title = 'Close';
+      closeButton.innerHTML = '<span aria-hidden="true">×</span>';
+      hero.append(closeButton);
+    }
+
+    const dismissNotice = () => {
+      hero.classList.add('page-hero--notice-dismissed');
+      if (!hasRetainedContent) hero.hidden = true;
+      try {
+        localStorage.setItem(storageKey, 'true');
+      } catch {}
+    };
+
+    try {
+      hasSeenNotice = localStorage.getItem(storageKey) === 'true'
+        || (legacyHomeKey && localStorage.getItem(legacyHomeKey) === 'true');
+      localStorage.setItem(storageKey, 'true');
+    } catch {}
+
+    closeButton.addEventListener('click', dismissNotice);
+    if (hasSeenNotice) dismissNotice();
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initPageHeroNotices();
   bindNavbarInteractions();
   ensureTestsNavigation();
   initTestsNavigation();
@@ -1301,6 +1358,7 @@ if (typeof window !== 'undefined') {
   window.getTheme = getTheme;
   window.setTheme = setTheme;
   window.toggleTheme = toggleTheme;
+  window.useSystemTheme = useSystemTheme;
   window.bindThemeButtons = bindThemeButtons;
   window.openProfileModal = openProfileModal;
   window.closeProfileModal = closeProfileModal;

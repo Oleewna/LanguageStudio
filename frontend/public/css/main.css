@@ -44,8 +44,8 @@
   --shadow-md: 0 12px 28px rgba(19, 57, 38, 0.11);
   --shadow-lg: 0 16px 36px rgba(19, 57, 38, 0.15);
   
-  --font-serif: 'Fraunces', Georgia, serif;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Lora', Georgia, serif;
+  --font-sans: 'Nunito Sans', system-ui, -apple-system, sans-serif;
 }
 
 /* ── DARK THEME OVERRIDES (FULL PLATFORM) ── */
@@ -938,6 +938,56 @@ body.profile-modal-open {
   color: #d9f7e4;
   max-width: 42rem;
   line-height: 1.55;
+}
+
+.page-hero[hidden] {
+  display: none;
+}
+
+.page-hero--notice {
+  padding-right: 4rem;
+}
+
+.page-hero--notice .page-hero-label,
+.page-hero--notice h1,
+.page-hero--notice-dismissed .page-hero-label,
+.page-hero--notice-dismissed h1,
+.page-hero--notice-dismissed p,
+.page-hero--notice-dismissed .page-hero-close {
+  display: none;
+}
+
+.page-hero--notice p {
+  max-width: 58rem;
+  margin: 0;
+}
+
+.page-hero-close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid rgba(247, 250, 248, 0.45);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: #f7faf8;
+  font: inherit;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.page-hero-close:hover {
+  background: rgba(247, 250, 248, 0.14);
+}
+
+.page-hero-close:focus-visible {
+  outline: 2px solid #f7faf8;
+  outline-offset: 2px;
 }
 
 /* ── MAIN CONTENT CONTAINER ── */

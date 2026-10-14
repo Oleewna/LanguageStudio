@@ -15,32 +15,6 @@
       </div>
     </div>
     
-    <section class="pm-settings" aria-labelledby="source-language-title">
-      <h3 class="pm-settings-title" id="source-language-title">Learning & Interface Settings</h3>
-      <div class="pm-settings-grid">
-        <div class="pm-setting">
-          <label class="pm-setting-label" for="targetCourse">Target Course</label>
-          <select class="pm-setting-select" id="targetCourse" data-target-course-select onchange="setTargetCourse(this.value)">
-            <option value="italian">Italian (Італійська)</option>
-          </select>
-        </div>
-        <div class="pm-setting">
-          <label class="pm-setting-label" for="sourceLanguage">Language for translations & explanations</label>
-          <select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)">
-            <option value="device">Device language</option>
-            <option value="uk">Українська</option>
-            <option value="en">English</option>
-          </select>
-        </div>
-        <div class="pm-setting">
-          <div class="pm-setting-label">Interface Theme</div>
-          <button type="button" class="btn-ghost pm-theme-button" onclick="toggleTheme()">
-            <span data-icon="sun"></span> Switch theme
-          </button>
-        </div>
-      </div>
-    </section>
-    
     <div class="pm-stats-grid">
       <div class="pm-stat-box">
         <div class="pm-stat-val" style="color:var(--it-green);"><span class="xp-val-display">0</span></div>
@@ -61,6 +35,7 @@
     </div>
     
     <div class="pm-footer">
+      <a class="btn-ghost" href="pages/settings.html" data-nav="settings">Settings</a>
       <a class="btn-primary" href="pages/auth.html" data-nav="auth">Sign in or register</a>
     </div>
   </section>

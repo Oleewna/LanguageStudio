@@ -90,19 +90,33 @@
               "num": { "uk": "Урок 1", "en": "Lesson 1" },
               "title": { "uk": "Знайомство", "en": "Introductions" },
               "description": {
-                "uk": "Софія приходить раніше на урок і не впевнена, яке місце вільне. Ґрета допомагає і вони дізнаються, що обидві нові в курсі. Вчитель проводить коротке представлення: ім’я і країна.",
-                "en": "Sofia arrives early and is unsure which seat is free. Greta helps her and they learn they are both new to the course. The teacher leads a short introduction round: name and country."
+                "uk": "Навчіться вітатися, називати своє ім’я та країну й підтримувати коротке знайомство.",
+                "en": "Learn to greet someone, say your name and country, and start a short conversation."
               },
               "time": { "uk": "20 хв", "en": "20 min" },
-              "status": "available"
+              "status": "available",
+              "sublessons": [
+                {
+                  "id": "communication-basics-1-practice",
+                  "num": { "uk": "Додаткова практика", "en": "Extra practice" },
+                  "title": { "uk": "Знайомство: більше фраз", "en": "Introductions: more phrases" },
+                  "description": {
+                    "uk": "Закріпіть фрази для знайомства, розповіді про себе та запитань співрозмовнику.",
+                    "en": "Practice introducing yourself, sharing a few details, and asking follow-up questions."
+                  },
+                  "time": { "uk": "8 хв", "en": "8 min" },
+                  "status": "available",
+                  "xpReward": 20
+                }
+              ]
             },
             {
               "id": "communication-basics-2",
               "num": { "uk": "Урок 2", "en": "Lesson 2" },
               "title": { "uk": "Навчання, робота і мови", "en": "Study, work, and languages" },
               "description": {
-                "uk": "На наступному занятті Софія й Ґрета працюють у парах: розповідають про навчання, роботу, мови та, за бажанням, близьких людей.",
-                "en": "In their next class, Sofia and Greta work in pairs, talking about study, work, languages, and, if they choose, people close to them."
+                "uk": "Навчіться розповідати про навчання, роботу, мови й родину та ставити прості запитання.",
+                "en": "Learn to talk about study, work, languages, and family, and ask simple questions."
               },
               "time": { "uk": "20 хв", "en": "20 min" },
               "status": "available"
@@ -112,8 +126,8 @@
               "num": { "uk": "Урок 3", "en": "Lesson 3" },
               "title": { "uk": "Інтереси й повсякденне життя", "en": "Interests and everyday life" },
               "description": {
-                "uk": "Софія, Ґрета й Лука обговорюють захоплення та плани на вихідні, а потім готуються представитися новій групі.",
-                "en": "Sofia, Greta, and Luca discuss their interests and weekend plans, then prepare to introduce themselves to a new group."
+                "uk": "Навчіться говорити про захоплення та вільний час і домовлятися про зустріч.",
+                "en": "Learn to talk about your interests and free time, and make plans to meet."
               },
               "time": { "uk": "20 хв", "en": "20 min" },
               "status": "available"

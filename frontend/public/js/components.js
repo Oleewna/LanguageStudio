@@ -28,10 +28,11 @@
       ['LanguageStudio home', 'Головна LanguageStudio'],
       ['Guest profile · progress is saved on this device', 'Гостьовий профіль · прогрес зберігається на цьому пристрої'],
       ['Learning path: ', 'Напрям навчання: '],
-      ['Learning & Interface Settings', 'Налаштування навчання та інтерфейсу'],
       ['Language for translations & explanations', 'Мова перекладів та пояснень'],
       ['Target Course', 'Цільовий курс'],
       ['Interface Theme', 'Тема інтерфейсу'],
+      ['Settings', 'Налаштування'],
+      ['Preferences', 'Налаштування'],
       ['XP Points', 'Очки XP'],
       ['Daily Streak', 'Щоденна серія'],
       ['Lessons Completed', 'Уроків пройдено'],
@@ -60,8 +61,9 @@
 
   const mobileLinks = [
     ['index.html', 'home', 'home', 'Home'],
+    ['pages/settings.html', 'settings', 'cog', 'Settings'],
     ['pages/path.html', 'path', 'paths', 'Learning paths'],
-    ['pages/lesson.html?course=it&lesson=1.1', 'lesson-1', 'lesson', 'Basics · Lesson 1'],
+    ['pages/lesson.html?course=it&lesson=communication-basics-1', 'lesson-1', 'lesson', 'Basics · Lesson 1'],
     ['pages/flashcards.html', 'flashcards', 'flashcards', 'Flashcards'],
     ['pages/exercises.html', 'exercises', 'exercises', 'Exercises'],
     ['pages/dictionary.html', 'dictionary', 'dictionary', 'My dictionary'],
@@ -85,7 +87,7 @@
 
   const dropdowns = [
     ['path', 'paths', 'Learning paths', [
-      ['pages/lesson.html?course=it&lesson=1.1', 'lesson-1', 'lesson', 'Lesson 1 · Introduction'],
+      ['pages/lesson.html?course=it&lesson=communication-basics-1', 'lesson-1', 'lesson', 'Lesson 1 · Introduction'],
       ['pages/path.html', 'path', 'layers', 'Browse all paths']
     ]],
     ['flashcards', 'flashcards', 'Flashcards', [
@@ -113,10 +115,10 @@
       const menuItems = items.map(([href, navKey, itemIcon, itemLabel]) =>
         `<a href="${href}" class="nav-dd-item"${navKey ? ` data-nav="${navKey}"` : ''}><span class="dd-icon">${icon(itemIcon)}</span>${itemLabel}</a>`
       ).join('');
-      return `<div class="nav-dd"><a href="pages/${key}.html" class="nav-dd-btn" data-nav-btn="${key}">${icon(iconName)} ${label} ${icon('chevron-down')}</a><div class="nav-dd-menu">${menuItems}</div></div>`;
+      return `<div class="nav-dd"><a href="pages/${key}.html" class="nav-dd-btn" data-nav-btn="${key}">${icon(iconName)} ${label} ${icon('chevron-down')}</a><div class="nav-dd-menu"${key === 'path' ? ' data-learning-path-menu' : ''}>${menuItems}</div></div>`;
     }).join('');
 
-    return `${groups}<a href="pages/tests.html" class="nav-dd-btn" data-nav-btn="tests" data-tests-link><span class="dd-icon">${icon('tests')}</span> Tests</a>`;
+    return `${groups}<a href="pages/settings.html" class="nav-dd-btn" data-nav-btn="settings"><span class="dd-icon">${icon('cog')}</span> Settings</a><a href="pages/tests.html" class="nav-dd-btn" data-nav-btn="tests" data-tests-link><span class="dd-icon">${icon('tests')}</span> Tests</a>`;
   }
 
   const EMBEDDED_COMPONENTS = {
@@ -125,6 +127,7 @@
       <nav class="nav-links" aria-label="Main navigation">${desktopNavigation()}</nav>
       <div class="nav-right"><button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}</button>
         <button type="button" class="student-widget" title="Student profile" aria-label="Student profile"><div class="student-stats"><div class="streak-badge">${icon('streak')}<span>1</span></div><div class="xp-badge">${icon('xp')}<span class="xp-val-display">0</span><span>XP</span></div></div><div class="student-avatar">S</div></button>
+        <a href="pages/settings.html" class="settings-link" title="Settings" aria-label="Settings" data-nav="settings">${icon('cog')}</a>
         <button class="menu-toggle" type="button" aria-label="Menu">${icon('menu')}</button>
       </div></header>`,
     'mobile-nav': mobileNavigation(),
@@ -132,6 +135,9 @@
     'profile-modal': `<div class="profile-modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()"><section class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-title"><div class="pm-topline"><div class="pm-eyebrow" id="profile-title">Student Profile</div><button type="button" class="pm-close" onclick="closeProfileModal()" aria-label="Close">${icon('close')}</button></div><div class="pm-header"><div class="pm-avatar">S</div><div><div class="pm-name">Student</div><div class="pm-path">Guest profile · progress is saved on this device</div><div class="pm-path">Learning path: <b data-course-label>Communication basics</b></div></div></div><section class="pm-settings" aria-labelledby="source-language-title"><h3 class="pm-settings-title" id="source-language-title">Learning & Interface Settings</h3><div class="pm-settings-grid"><div class="pm-setting"><label class="pm-setting-label" for="targetCourse">Target Course</label><select class="pm-setting-select" id="targetCourse" data-target-course-select onchange="setTargetCourse(this.value)"></select></div><div class="pm-setting"><label class="pm-setting-label" for="sourceLanguage">Language for translations & explanations</label><select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select></div><div class="pm-setting"><div class="pm-setting-label">Interface Theme</div><button type="button" class="btn-ghost pm-theme-button" onclick="toggleTheme()">${icon('sun')} Switch theme</button></div></div></section><div class="pm-stats-grid"><div class="pm-stat-box" data-profile-stat="xp"><div class="pm-stat-val"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">XP Points</div></div><div class="pm-stat-box" data-profile-stat="streak"><div class="pm-stat-val">1 day</div><div class="pm-stat-lbl">Daily Streak</div></div><div class="pm-stat-box" data-profile-stat="lessons"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Lessons Completed</div></div><div class="pm-stat-box" data-profile-stat="words"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Dictionary Words</div></div></div><div class="pm-footer"><a class="btn-primary" href="pages/auth.html" data-nav="auth">Sign in or register</a></div></section></div>`,
     'auth-header': `<header class="auth-topbar"><a href="index.html" class="auth-brand" aria-label="LanguageStudio home"><img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" /></a><div class="auth-actions"><button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}</button><a class="btn-ghost auth-home" href="index.html">${icon('arrow-left')} Home</a></div></header>`
   };
+
+  EMBEDDED_COMPONENTS['profile-modal'] = EMBEDDED_COMPONENTS['profile-modal']
+    .replace(/<section class="pm-settings"[\s\S]*?<\/section>/, '');
 
   function adaptPaths(html) {
     if (!PREFIX) return html;
@@ -144,7 +150,7 @@
   function getCurrentPageKey() {
     const path = window.location.pathname.toLowerCase().replace(/\\/g, '/');
     if (path.endsWith('/index.html') || path.endsWith('/')) return 'home';
-    for (const key of ['lesson', 'flashcards', 'exercises', 'dictionary', 'grammar', 'tests', 'path', 'auth']) {
+    for (const key of ['lesson', 'flashcards', 'exercises', 'dictionary', 'grammar', 'settings', 'tests', 'path', 'auth']) {
       if (path.includes(`${key}.html`)) return key === 'lesson' ? 'lesson' : key;
     }
     return '';
@@ -156,8 +162,72 @@
     document.querySelectorAll(`[data-nav="${pageKey}"]`).forEach(link => link.classList.add('active'));
     document.querySelector(`[data-nav-btn="${pageKey}"]`)?.classList.add('active');
     if (pageKey === 'lesson') {
-      document.querySelectorAll('[data-nav="lesson-1"]').forEach(link => link.classList.add('active'));
+      const currentLessonId = new URLSearchParams(window.location.search).get('lesson');
+      document.querySelectorAll('[data-nav="lesson-1"]').forEach(link => {
+        const linkLessonId = new URL(link.href, window.location.href).searchParams.get('lesson');
+        link.classList.toggle('active', Boolean(currentLessonId && linkLessonId === currentLessonId));
+      });
       document.querySelector('[data-nav-btn="path"]')?.classList.add('active');
+    }
+  }
+
+  function escapeHtml(value) {
+    const element = document.createElement('div');
+    element.textContent = value == null ? '' : String(value);
+    return element.innerHTML;
+  }
+
+  function localize(value, fallback = '') {
+    if (typeof window.L === 'function') return window.L(value) || fallback;
+    if (value && typeof value === 'object') return value.uk || value.en || fallback;
+    return value || fallback;
+  }
+
+  async function renderLearningPathMenu() {
+    const menu = document.querySelector('[data-nav-btn="path"]')?.parentElement.querySelector('.nav-dd-menu');
+    if (!menu || typeof window.loadCourse !== 'function') return;
+
+    try {
+      const course = await window.loadCourse();
+      const paths = Array.isArray(course?.paths) ? course.paths : [];
+      const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
+      const statusText = (status) => {
+        if (status === 'active' || status === 'available') return lang === 'en' ? 'Active' : 'Активний';
+        if (status === 'completed' || status === 'complete') return lang === 'en' ? 'Completed' : 'Завершено';
+        if (status === 'locked') return lang === 'en' ? 'Locked' : 'Заблоковано';
+        return lang === 'en' ? 'Soon' : 'Незабаром';
+      };
+      const pathItems = paths.map((path) => {
+        const lessons = (path.units || []).flatMap((unit) => unit.lessons || []);
+        const availableLessons = lessons.filter((lesson) => lesson.status === 'available');
+        const pathStatus = String(path.status || (path.locked ? 'locked' : availableLessons.length ? 'active' : 'soon')).toLowerCase();
+        const isActive = pathStatus === 'active' || pathStatus === 'available';
+        const pathTitle = localize(path.title, path.id);
+        const firstAvailable = availableLessons[0];
+        const pathHref = firstAvailable
+          ? `${PREFIX}pages/lesson.html?course=${encodeURIComponent(course.id || 'it')}&lesson=${encodeURIComponent(firstAvailable.id || '')}`
+          : `${PREFIX}pages/path.html`;
+        const lessonItems = lessons.map((lesson) => {
+          const lessonTitle = localize(lesson.title, lesson.id);
+          const lessonNumber = localize(lesson.num, '');
+          const label = `${lessonNumber ? `${lessonNumber} · ` : ''}${lessonTitle}`;
+          if (lesson.status !== 'available') {
+            return `<span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon">${icon('lock')}</span>${escapeHtml(label)}<span class="dd-tag">${escapeHtml(statusText('locked'))}</span></span>`;
+          }
+          const href = `${PREFIX}pages/lesson.html?course=${encodeURIComponent(course.id || 'it')}&lesson=${encodeURIComponent(lesson.id || '')}`;
+          return `<a href="${escapeHtml(href)}" class="nav-dd-item" data-nav="lesson-1"><span class="dd-icon">${icon('lesson')}</span>${escapeHtml(label)}<span class="dd-tag active">${escapeHtml(statusText('active'))}</span></a>`;
+        }).join('');
+
+        return `<div class="nav-submenu"><a href="${escapeHtml(pathHref)}" class="nav-dd-item nav-submenu-trigger"><span class="dd-icon">${icon(path.icon || 'paths')}</span>${escapeHtml(pathTitle)}<span class="dd-tag${isActive ? ' active' : ''}">${escapeHtml(statusText(pathStatus))}</span><span class="submenu-arrow">${icon('chevron-right')}</span></a><div class="nav-submenu-panel"><div class="nav-dd-header">${escapeHtml(pathTitle)}</div>${lessonItems || `<span class="nav-dd-item nav-dd-item-disabled">${escapeHtml(lang === 'en' ? 'No lessons yet' : 'Уроків поки немає')}</span>`}</div></div>`;
+      }).join('');
+
+      const header = lang === 'en' ? 'Learning paths' : 'Напрями навчання';
+      const browse = lang === 'en' ? 'Browse all paths' : 'Усі напрями';
+      menu.innerHTML = `<div class="nav-dd-header">${header}</div>${pathItems}<a href="${PREFIX}pages/path.html" class="nav-dd-item" data-nav="path"><span class="dd-icon">${icon('layers')}</span>${browse}</a>`;
+      window.renderRegisteredIcons?.();
+      highlightActiveLinks();
+    } catch (error) {
+      // Keep the template links available if course data cannot be loaded.
     }
   }
 
@@ -182,6 +252,7 @@
 
   function bindEvents() {
     highlightActiveLinks();
+    renderLearningPathMenu();
     window.renderRegisteredIcons?.();
     window.updateXPDisplay?.();
     window.applySourceLanguageSettings?.();
@@ -255,6 +326,7 @@
   }
 
   window.LSComponents = { load: loadComponents, fetch: fetchComponent, prefix: PREFIX };
+  window.addEventListener('sourceLanguageChanged', renderLearningPathMenu);
 
   if (document.querySelector('[data-component]')) loadComponents();
   if (document.readyState === 'loading') {

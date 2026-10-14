@@ -33,6 +33,7 @@ function renderRoadmap(course) {
         const lessonTitle = getLocalizedText(lesson.title);
         const lessonDescription = getLocalizedText(lesson.description);
         const lessonNum = getLocalizedText(lesson.num) || '';
+        const lessonMarker = String(lessonNum || lesson.id || '').match(/\d+/)?.[0] || '•';
         const isAvailable = Boolean(lesson.status === 'available');
         const lessonHref = lesson.href || `pages/lesson.html?course=${encodeURIComponent(course.id || 'it')}&lesson=${encodeURIComponent(lesson.id || '')}`;
         const badge = isAvailable
@@ -40,7 +41,7 @@ function renderRoadmap(course) {
           : getLocalizedText({ uk: 'Незабаром', en: 'Coming soon' });
         const item = `
           <div class="tree-node-item">
-            <div class="node-bullet ${isAvailable ? 'nb-current' : 'nb-locked'}">${escapeHtml(lessonNum || lesson.id || '')}</div>
+            <div class="node-bullet ${isAvailable ? 'nb-current' : 'nb-locked'}">${escapeHtml(lessonMarker)}</div>
             ${isAvailable ? `<a href="${escapeHtml(lessonHref)}" class="node-content-card">` : `<div class="node-content-card locked-card">`}
               <div>
                 <div class="node-tag">${escapeHtml(lessonNum ? `${lessonNum} · ${badge}` : `${badge}`)}</div>

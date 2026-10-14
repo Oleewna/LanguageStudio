@@ -15,8 +15,8 @@
   --border: #E5E2D8;
   --sidebar-bg: #1E1E19;
   
-  --font-serif: 'Fraunces', Georgia, serif;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Lora', Georgia, serif;
+  --font-sans: 'Nunito Sans', system-ui, -apple-system, sans-serif;
 }
 
 [data-theme="dark"] {
@@ -108,6 +108,11 @@ body {
   transition: background 0.15s, color 0.15s;
 }
 
+.sb-lesson.sb-sublesson {
+  margin-left: 0.85rem;
+  font-size: 0.8rem;
+}
+
 .sb-lesson:hover {
   background: var(--it-green-light);
   color: var(--it-green);
@@ -118,6 +123,14 @@ body {
   color: var(--it-green);
   font-weight: 600;
   border-left: 3px solid var(--it-red);
+}
+
+.lesson-exercises-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.85rem 0 1.5rem;
+  text-decoration: none;
 }
 
 .sb-lesson .ic {

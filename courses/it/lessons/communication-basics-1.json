@@ -8,14 +8,15 @@
     "uk": "Come ti chiami?",
     "en": "Come ti chiami?"
   },
+  "nextLessonId": "communication-basics-1-practice",
   "hero": {
     "label": {
       "uk": "Основи спілкування · Урок 1",
       "en": "Communication basics · Lesson 1"
     },
     "text": {
-      "uk": "Перший урок у Мілані: знайомство, привітання й базові фрази для розмови.",
-      "en": "Your first lesson in Milan: introductions, greetings, and the basics for a first conversation."
+      "uk": "Навчіться вітатися, називати своє ім’я та країну й підтримувати коротке знайомство.",
+      "en": "Learn to greet someone, say your name and country, and start a short conversation."
     },
     "image": "../assets/images/communication-basics.jpg"
   },

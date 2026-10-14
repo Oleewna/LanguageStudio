@@ -289,6 +289,49 @@ function validateCourse(courseId) {
   }
 
   const referencedLessons = new Set();
+
+  function validateLessonReference(lesson, parentLessonId = null) {
+    if (!lesson || typeof lesson !== 'object') {
+      fail(`Course '${courseId}' contains a malformed lesson entry.`);
+    }
+    if (typeof lesson.id !== 'string' || !lesson.id.trim()) {
+      fail(`Course '${courseId}' contains a lesson without a valid id.`);
+    }
+    if (referencedLessons.has(lesson.id)) {
+      fail(`Course '${courseId}' contains a duplicate lesson id '${lesson.id}'.`);
+    }
+    referencedLessons.add(lesson.id);
+
+    if (parentLessonId) {
+      for (const field of ['num', 'title', 'description']) {
+        assertLocalizedText(lesson[field], `Sublesson ${lesson.id} ${field}`);
+      }
+      if (typeof lesson.time === 'object' && lesson.time !== null) {
+        assertLocalizedText(lesson.time, `Sublesson ${lesson.id} time`);
+      } else if (typeof lesson.time !== 'string' || !lesson.time.trim()) {
+        fail(`Sublesson '${lesson.id}' must define a non-empty time.`);
+      }
+      if (lesson.status && !['available', 'locked', 'soon'].includes(lesson.status)) {
+        fail(`Sublesson '${lesson.id}' has an unsupported status: ${lesson.status}`);
+      }
+      if (lesson.sublessons !== undefined) {
+        fail(`Sublesson '${lesson.id}' cannot contain nested sublessons.`);
+      }
+    }
+
+    const lessonFile = path.join(lessonsDir, `${lesson.id}.json`);
+    if (!fs.existsSync(lessonFile)) {
+      fail(`Course '${courseId}' references lesson '${lesson.id}' but no file exists at courses/${courseId}/lessons/${lesson.id}.json`);
+    }
+    const lessonData = readJson(lessonFile);
+    if (!lessonData || typeof lessonData !== 'object') {
+      fail(`Lesson '${lesson.id}' in course '${courseId}' must contain a JSON object.`);
+    }
+    if (lessonData.id && lessonData.id !== lesson.id) {
+      fail(`Lesson file ${lesson.id}.json declares id '${lessonData.id}', which does not match its filename.`);
+    }
+  }
+
   for (const pathEntry of course.paths || []) {
     if (!pathEntry || typeof pathEntry !== 'object') {
       fail(`Course '${courseId}' contains a malformed path entry.`);
@@ -298,23 +341,14 @@ function validateCourse(courseId) {
         fail(`Course '${courseId}' path '${pathEntry.id || 'unknown'}' contains a malformed unit.`);
       }
       for (const lesson of unit.lessons) {
-        if (!lesson || typeof lesson !== 'object') {
-          fail(`Course '${courseId}' contains a malformed lesson entry.`);
-        }
-        if (typeof lesson.id !== 'string' || !lesson.id.trim()) {
-          fail(`Course '${courseId}' contains a lesson without a valid id.`);
-        }
-        referencedLessons.add(lesson.id);
-        const lessonFile = path.join(lessonsDir, `${lesson.id}.json`);
-        if (!fs.existsSync(lessonFile)) {
-          fail(`Course '${courseId}' references lesson '${lesson.id}' but no file exists at courses/${courseId}/lessons/${lesson.id}.json`);
-        }
-        const lessonData = readJson(lessonFile);
-        if (!lessonData || typeof lessonData !== 'object') {
-          fail(`Lesson '${lesson.id}' in course '${courseId}' must contain a JSON object.`);
-        }
-        if (lessonData.id && lessonData.id !== lesson.id) {
-          fail(`Lesson file ${lesson.id}.json declares id '${lessonData.id}', which does not match its filename.`);
+        validateLessonReference(lesson);
+        if (lesson.sublessons !== undefined) {
+          if (!Array.isArray(lesson.sublessons)) {
+            fail(`Lesson '${lesson.id}' sublessons must be an array.`);
+          }
+          for (const sublesson of lesson.sublessons) {
+            validateLessonReference(sublesson, lesson.id);
+          }
         }
       }
     }

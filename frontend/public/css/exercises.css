@@ -146,27 +146,6 @@
     border-color: var(--pine);
   }
 
-  /* ── Stats Hero Highlights ── */
-  .exercises-hero-stats {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: 1.2rem;
-  }
-  .stat-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.45rem 0.9rem;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(4px);
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #fff;
-    white-space: nowrap;
-  }
-
   /* ── Exercise Badges & Cards ── */
   .quiz-card {
     background: var(--surface);

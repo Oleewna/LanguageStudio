@@ -17,28 +17,28 @@ LanguageStudio is a static multi-course language learning platform. The app load
 | Course id | Name | Status |
 | --- | --- | --- |
 | `it` | Italian | active |
-| `es` | Spanish | active |
+| `es` | Spanish | inactive (present, not currently used) |
 
 ## Local run instructions
 
-Because the app uses `fetch()` to load course JSON, it must be served over a local HTTP server rather than opened as `file://`.
+Run the backend scripts from the project root in Command Prompt or PowerShell. Install dependencies once:
 
-From the project root:
-
-```bash
-python -m http.server 8000
+```bat
+cd backend\service
+install.bat
 ```
 
-Then open:
+Then start the app:
+
+```bat
+cd backend\service
+start_server.bat
+```
+
+Open the URL printed by the server:
 
 ```text
-http://localhost:8000/frontend/public/
-```
-
-Alternative:
-
-```bash
-npx serve .
+http://localhost:3005/
 ```
 
 ## Validation
@@ -81,10 +81,14 @@ LanguageStudio/
 │       ├── exercises.json
 │       └── lessons/
 ├── docs/
+│   ├── INDEX.md
 │   ├── ADDING_A_COURSE.md
-│   ├── MULTI_COURSE_PLAN.md
+│   ├── ADDING_A_PATH.md
+│   ├── ADDING_AN_ICON.md
+│   ├── MISSING_ICONS_GUIDE.md
+│   ├── SETTINGS_PAGE_PLAN.md
 │   ├── schemas.md
-│   └── ...
+│   └── Problems.txt
 ├── frontend/
 │   └── public/
 │       ├── components/
@@ -105,6 +109,14 @@ LanguageStudio/
 - The app is designed to stay generic: a new course should load without special-case code in the front-end.
 - The shared engine should handle missing or partial content gracefully.
 
-## Authoring a course
+## Documentation
 
-See [docs/ADDING_A_COURSE.md](docs/ADDING_A_COURSE.md) for a step-by-step walkthrough.
+See the [documentation index](docs/INDEX.md) for the full list of project notes and guides. Useful starting points:
+
+- [Adding a course](docs/ADDING_A_COURSE.md) explains how to create a language pack.
+- [Adding a path](docs/ADDING_A_PATH.md) covers course paths and sublessons.
+- [Adding an icon](docs/ADDING_AN_ICON.md) covers adding and registering icon assets.
+- [Course data schemas](docs/schemas.md) describes the expected JSON structures.
+- [Missing icons guide](docs/MISSING_ICONS_GUIDE.md) explains how to investigate icon gaps.
+- [Settings page plan](docs/SETTINGS_PAGE_PLAN.md) records the settings page design and implementation plan.
+- [Problems and working notes](docs/Problems.txt) tracks current issues and cleanup tasks.

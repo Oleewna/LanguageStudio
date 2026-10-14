@@ -131,19 +131,6 @@
     return map;
   }
 
-  function updateExerciseHeroStats() {
-    const stats = document.querySelectorAll('.exercises-hero-stats .stat-pill');
-    if (!stats.length) return;
-
-    const totalExercises = taskBank.length;
-    const totalCategories = Object.keys(categoryMap).length;
-    const totalFormats = runtimeFormats.length;
-
-    stats[0].innerHTML = `<span data-icon="target"></span> <span><b>${totalExercises}</b> ${getText({ uk: 'вправ у базі', en: 'exercises in the bank' })}</span>`;
-    stats[1].innerHTML = `<span data-icon="tag"></span> <span><b>${totalCategories}</b> ${getText({ uk: 'категорій знань', en: 'knowledge categories' })}</span>`;
-    stats[2].innerHTML = `<span data-icon="layers"></span> <span><b>${totalFormats}</b> ${getText({ uk: 'форматів вправ', en: 'exercise formats' })}</span>`;
-  }
-
   function renderCategoryPills() {
     const wrap = document.getElementById('catPillsWrap');
     if (!wrap) return;
@@ -782,7 +769,6 @@
       categoryMap = buildCategoryMap(course.exerciseCategories || []);
       currentTab = runtimeFormats.includes(currentTab) ? currentTab : runtimeFormats[0] || 'mcq';
 
-      updateExerciseHeroStats();
       renderCategoryPills();
       renderFormatTabs();
       applyFiltersAndSort();

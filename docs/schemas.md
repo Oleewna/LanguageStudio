@@ -92,6 +92,23 @@ Notes:
 - `exerciseFormats` is the whitelist of formats available for the course.
 - `paths` controls the roadmap and lesson grouping in the app.
 - Every `icon` value is a semantic name registered in `frontend/public/assets/icons/icons.json`; do not use filenames, emoji, or inline markup.
+- A lesson entry may contain an optional `sublessons` array. Each sublesson has its own stable ID and lesson JSON file, appears nested under its parent, and keeps independent completion and XP. See [Adding a Path, Lessons, and Sublessons](ADDING_A_PATH_AND_SUBLESSONS.md) for the full authoring contract.
+
+Sublesson metadata example:
+
+```json
+{
+  "id": "1.1-practice",
+  "num": { "uk": "Додаткова практика", "en": "Extra practice" },
+  "title": { "uk": "Більше фраз", "en": "More phrases" },
+  "description": { "uk": "Потренуйте корисні фрази.", "en": "Practice useful phrases." },
+  "time": { "uk": "8 хв", "en": "8 min" },
+  "status": "available",
+  "xpReward": 20
+}
+```
+
+Sublessons are limited to one nesting level and use the same `lessons/` directory as their parent course.
 
 ## 3) `courses/<id>/vocab.json`
 
@@ -178,6 +195,7 @@ Exercise bank for the course. Exercise items keep the same basic shape as the pr
       { "text": { "uk": "Б) Як справи?", "en": "B) How are you?" }, "correct": true }
     ],
     "explanation": { "uk": "...", "en": "..." },
+    "vocabRefs": ["it-001"],
     "xp": 15
   }
 ]
@@ -186,6 +204,7 @@ Exercise bank for the course. Exercise items keep the same basic shape as the pr
 Notes:
 - `format` is a course-level allowed value from `features.exerciseFormats`.
 - `category` must match an entry in `course.json` -> `exerciseCategories`.
+- `vocabRefs` is optional and lists the word IDs tested by the item so weak-word tracking can update the relevant `wordStats` records.
 - For `match` items, pairs are normalized to `trans: { "uk": "...", "en": "..." }`.
 
 ## 6) `courses/<id>/lessons/<lessonId>.json`
@@ -203,6 +222,109 @@ Lesson content is a separate JSON file referenced by `course.json` and rendered 
   ]
 }
 ```
+
+## 7) Progress data (learner progress)
+
+Progress data stays separate from course content and is stored under a user-scoped local adapter. These collections are the future database tables and are intentionally keyed by stable IDs rather than display text.
+
+### `profile` (global, one record per user)
+
+```json
+{
+  "userId": "local",
+  "createdAt": "2026-10-14T12:00:00.000Z",
+  "timezone": "Europe/Kyiv",
+  "sourceLanguage": "uk",
+  "activeCourseId": "it",
+  "dailyGoalXp": 50,
+  "effectsEnabled": true,
+  "totalXp": 240,
+  "lastCelebratedLevel": 2,
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-14T12:05:00.000Z"
+}
+```
+
+### `daily` (global, one record per user per local calendar day)
+
+```json
+{
+  "date": "2026-10-14",
+  "xp": 60,
+  "xpByCourse": { "it": 40, "es": 20 },
+  "lessonsCompleted": 1,
+  "wordsLearned": 3,
+  "exercisesAnswered": 25,
+  "exercisesCorrect": 18,
+  "goalXp": 50,
+  "goalMet": true,
+  "updatedAt": "2026-10-14T12:05:00.000Z"
+}
+```
+
+### `lessonProgress` (per user, per course, per lesson)
+
+```json
+{
+  "courseId": "it",
+  "lessonId": "1.1",
+  "state": "completed",
+  "bestScore": 0.9,
+  "lastScore": 0.9,
+  "attempts": 2,
+  "bestXp": 35,
+  "firstOpenedAt": "2026-10-14T10:00:00.000Z",
+  "lastOpenedAt": "2026-10-14T10:20:00.000Z",
+  "completedAt": "2026-10-14T10:20:00.000Z",
+  "updatedAt": "2026-10-14T12:00:00.000Z"
+}
+```
+
+### `wordStats` (per user, per course, per vocab item)
+
+```json
+{
+  "courseId": "it",
+  "vocabId": "it-001",
+  "learned": true,
+  "correct": 7,
+  "wrong": 2,
+  "correctInRow": 2,
+  "lastResult": "correct",
+  "lastSeenAt": "2026-10-14T09:30:00.000Z",
+  "lastWrongAt": "2026-10-13T18:00:00.000Z",
+  "updatedAt": "2026-10-14T09:30:00.000Z"
+}
+```
+
+### `position` (per user, per course)
+
+```json
+{
+  "courseId": "it",
+  "type": "lesson",
+  "refId": "1.1",
+  "url": "/lesson.html?id=1.1",
+  "at": "2026-10-14T12:04:00.000Z"
+}
+```
+
+### `customWords`
+
+Learner-created entries stay in the same course namespace, using an id like `c_1715000000000`, with the same core fields as vocab plus `createdAt`.
+
+### Future database mapping
+
+| Collection | Future table | Primary key |
+| --- | --- | --- |
+| `profile` | `users` / `profiles` | `userId` |
+| `daily` | `daily_activity` | (`userId`, `date`) |
+| `lessonProgress` | `lesson_progress` | (`userId`, `courseId`, `lessonId`) |
+| `wordStats` | `word_stats` | (`userId`, `courseId`, `vocabId`) |
+| `position` | `last_position` | (`userId`, `courseId`) |
+| `customWords` | `custom_words` | (`userId`, `courseId`, `wordId`) |
+
+When syncing later, the conflict policy is: newer `updatedAt` wins for scalar fields, counters keep the maximum value, and `bestScore` keeps the maximum value.
 
 ## Shared rules
 

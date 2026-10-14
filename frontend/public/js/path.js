@@ -200,9 +200,7 @@ function getLessonHref(lesson) {
   if (lesson.href) return lesson.href;
 
   const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
-  // Canonical lesson route is extensionless so the static server preserves the course/lesson
-  // query parameters instead of forcing a redirect that drops them.
-  const pagePath = 'pages/lesson.html';
+  const pagePath = `${window.LSComponents?.prefix || '../'}pages/lesson.html`;
   const lessonId = lesson.id || '';
   return `${pagePath}?course=${encodeURIComponent(courseId)}&lesson=${encodeURIComponent(lessonId)}`;
 }
@@ -220,14 +218,18 @@ function getLessonStatusLabel(lesson) {
 }
 
 function buildBadgeText(category) {
-  const total = (category.units || []).reduce((sum, unit) => sum + (unit.lessons || []).length, 0);
-  const available = (category.units || []).reduce((sum, unit) => sum + (unit.lessons || []).filter((lesson) => lesson.status === 'available').length, 0);
+  const lessons = (category.units || []).flatMap((unit) => (unit.lessons || []).flatMap((lesson) => [
+    lesson,
+    ...(lesson.sublessons || [])
+  ]));
+  const total = lessons.length;
+  const available = lessons.filter((lesson) => lesson.status === 'available').length;
   return getPathBadgeText(total, available, category.locked);
 }
 
-function renderLessonRow(lesson) {
+function renderLessonRow(lesson, isSublesson = false) {
   const isAvailable = lesson.status === 'available';
-  const rowClass = isAvailable ? 'lesson-row active-lesson' : 'lesson-row locked';
+  const rowClass = `lesson-row${isSublesson ? ' lesson-row-sublesson' : ''} ${isAvailable ? 'active-lesson' : 'locked'}`;
   const statusClass = isAvailable ? 'lesson-status ls-available' : 'lesson-status ls-soon';
   const title = getLocalizedText(lesson.title);
   const description = getLocalizedText(lesson.description);
@@ -252,15 +254,51 @@ function renderLessonRow(lesson) {
   `;
 
   const href = getLessonHref(lesson);
-  if (href && href !== '#') {
-    return `<a href="${escapeHtml(href)}" class="${rowClass}">${inner}</a>`;
+  const row = href && href !== '#'
+    ? `<a href="${escapeHtml(href)}" class="${rowClass}">${inner}</a>`
+    : `<div class="${rowClass}">${inner}</div>`;
+
+  if (isSublesson || !Array.isArray(lesson.sublessons) || lesson.sublessons.length === 0) {
+    return row;
   }
 
-  return `<div class="${rowClass}">${inner}</div>`;
+  const lang = getPathLanguage();
+  const sublessonCount = lesson.sublessons.length;
+  const toggleLabel = lang === 'en'
+    ? `Extra practice (${sublessonCount})`
+    : `Додаткова практика (${sublessonCount})`;
+  const accessibleLabel = lang === 'en'
+    ? `Show ${sublessonCount} sublesson${sublessonCount === 1 ? '' : 's'}`
+    : `Показати додаткові уроки: ${sublessonCount}`;
+  const expandedLabel = lang === 'en'
+    ? `Hide ${sublessonCount} sublesson${sublessonCount === 1 ? '' : 's'}`
+    : `Сховати додаткові уроки: ${sublessonCount}`;
+  const sublessonsHtml = lesson.sublessons.map((sublesson) => renderLessonRow(sublesson, true)).join('');
+
+  return `
+    <div class="lesson-tree-node" data-parent-lesson="${escapeHtml(lesson.id)}">
+      ${row}
+      <button type="button" class="sublessons-toggle" aria-expanded="false" aria-label="${escapeHtml(accessibleLabel)}" data-collapsed-label="${escapeHtml(accessibleLabel)}" data-expanded-label="${escapeHtml(expandedLabel)}" onclick="toggleSublessons(this)">
+        <span class="sublessons-chevron">${getIconSvg('chevron-down')}</span>
+        <span>${escapeHtml(toggleLabel)}</span>
+      </button>
+      <div class="lesson-sublist" hidden>${sublessonsHtml}</div>
+    </div>
+  `;
+}
+
+function toggleSublessons(button) {
+  const sublessonList = button.nextElementSibling;
+  if (!sublessonList) return;
+
+  const expanded = button.getAttribute('aria-expanded') === 'true';
+  button.setAttribute('aria-expanded', String(!expanded));
+  button.setAttribute('aria-label', expanded ? button.dataset.collapsedLabel : button.dataset.expandedLabel);
+  sublessonList.hidden = expanded;
 }
 
 function renderUnitGroup(unit, totalUnitsInCategory) {
-  const lessonsHtml = (unit.lessons || []).map(renderLessonRow).join('');
+  const lessonsHtml = (unit.lessons || []).map((lesson) => renderLessonRow(lesson)).join('');
   const singleUnit = totalUnitsInCategory === 1;
 
   if (singleUnit) {
@@ -336,7 +374,11 @@ function renderCategories() {
       ...unit,
       lessons: (unit.lessons || []).map((lesson) => ({
         ...lesson,
-        href: getLessonHref(lesson)
+        href: getLessonHref(lesson),
+        sublessons: (lesson.sublessons || []).map((sublesson) => ({
+          ...sublesson,
+          href: getLessonHref(sublesson)
+        }))
       }))
     }))
   }));

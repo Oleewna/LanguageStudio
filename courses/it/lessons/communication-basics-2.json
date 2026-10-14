@@ -9,15 +9,15 @@
     "en": "A pair activity"
   },
   "description": {
-    "uk": "На наступному занятті Софія й Ґрета працюють у парах: розповідають про навчання, роботу, мови та, за бажанням, близьких людей.",
-    "en": "In their next class, Sofia and Greta work in pairs, talking about study, work, languages, and, if they choose, people close to them."
+    "uk": "Навчіться розповідати про навчання, роботу, мови й родину та ставити прості запитання.",
+    "en": "Learn to talk about study, work, languages, and family, and ask simple questions."
   },
   "duration": {
     "uk": "20 хв",
     "en": "20 min"
   },
   "xpReward": 50,
-  "prevLessonId": "communication-basics-1",
+  "prevLessonId": "communication-basics-1-practice",
   "nextLessonId": "communication-basics-3",
   "blocks": [
     {
@@ -197,12 +197,12 @@
         {
           "id": "cb2_q2",
           "kind": "choice",
-          "category": { "uk": "Розуміння діалогу", "en": "Dialogue comprehension" },
-          "q": { "uk": "Що вивчає Софія?", "en": "What does Sofia study?" },
+          "category": { "uk": "Побудова фраз", "en": "Building phrases" },
+          "q": { "uk": "Як сказати «Я вивчаю медицину»?", "en": "How do you say “I study medicine”?" },
           "options": [
-            { "text": { "uk": "Медицину", "en": "Medicine" }, "correct": true },
-            { "text": { "uk": "Архітектуру", "en": "Architecture" }, "correct": false },
-            { "text": { "uk": "Італійську мову", "en": "Italian" }, "correct": false }
+            { "text": { "uk": "Studio medicina.", "en": "Studio medicina." }, "correct": true },
+            { "text": { "uk": "Lavoro medicina.", "en": "Lavoro medicina." }, "correct": false },
+            { "text": { "uk": "Parlo medicina.", "en": "Parlo medicina." }, "correct": false }
           ]
         },
         {
@@ -213,17 +213,6 @@
           "suffix": "lavorare.",
           "prompt": { "uk": "вставте прийменник", "en": "enter the preposition" },
           "answers": ["per"]
-        },
-        {
-          "id": "cb2_q4",
-          "kind": "choice",
-          "category": { "uk": "Мовлення", "en": "Speaking" },
-          "q": { "uk": "Яка фраза підходить, якщо ви навчаєтеся і працюєте?", "en": "Which phrase fits if you study and work?" },
-          "options": [
-            { "text": { "uk": "Studio e lavoro.", "en": "I study and work." }, "correct": true },
-            { "text": { "uk": "Sono figlia unica.", "en": "I am an only child." }, "correct": false },
-            { "text": { "uk": "Parlo in libreria.", "en": "I speak in a bookshop." }, "correct": false }
-          ]
         }
       ]
     }

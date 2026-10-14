@@ -257,7 +257,7 @@
 
 #external-style-dictionary-1 { display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem; }
 
-#external-style-dictionary-2 { font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700; }
+#external-style-dictionary-2 { font-family:var(--font-serif);font-size:1.15rem;font-weight:700; }
 
 #external-style-dictionary-3 { background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--ink-soft); }
 

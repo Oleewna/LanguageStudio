@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="icon" type="image/png" href="../assets/images/icon.png" />
+  <title>Settings — LanguageStudio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito+Sans:ital,opsz,wght@0,6..12,400..800;1,6..12,400..700&display=swap" rel="stylesheet">
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/main.css">
+  <style>
+    .settings-shell {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.9fr);
+      gap: 1.25rem;
+      align-items: start;
+      width: min(1100px, calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .settings-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: 1.25rem;
+    }
+
+    .settings-sidebar {
+      display: grid;
+      gap: 0.85rem;
+      position: sticky;
+      top: 1rem;
+    }
+
+    .settings-sidebar-head {
+      display: grid;
+      gap: 0.2rem;
+    }
+
+    .settings-sidebar-head .settings-label {
+      color: var(--it-green);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .settings-sidebar-head h2 {
+      font-size: 1.45rem;
+      line-height: 1.2;
+      color: var(--ink);
+      font-family: var(--font-serif);
+    }
+
+    .settings-nav {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .settings-category {
+      position: relative;
+      width: 100%;
+      text-align: left;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--ink);
+      border-radius: var(--radius-sm);
+      padding: 0.8rem 0.9rem;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    }
+
+    .settings-category:hover {
+      background: var(--card-sub-bg);
+      border-color: var(--border);
+    }
+
+    .settings-category.active {
+      background: var(--it-green-light);
+      border-color: var(--it-green-border);
+      color: var(--it-green);
+    }
+
+    .settings-category:focus-visible,
+    .settings-toggle:focus-within {
+      outline: 3px solid var(--it-green-border);
+      outline-offset: 2px;
+    }
+
+    .settings-main {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .settings-section {
+      display: none;
+      gap: 1rem;
+    }
+
+    .settings-section.active {
+      display: grid;
+    }
+
+    .settings-profile {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .settings-avatar {
+      display: grid;
+      place-items: center;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--it-green), #2cad68);
+      color: white;
+      font-weight: 700;
+      font-size: 1.5rem;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .settings-profile-copy {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .settings-label {
+      color: var(--it-green);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .settings-profile-copy h2,
+    .settings-header h2,
+    .settings-card h3 {
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+      line-height: 1.2;
+      color: var(--ink);
+      font-family: var(--font-serif);
+    }
+
+    .settings-profile-copy p,
+    .settings-meta,
+    .settings-card p,
+    .settings-hint {
+      color: var(--ink-soft);
+      font-size: 0.96rem;
+    }
+
+    .settings-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .settings-meta [data-course-badge] {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--it-green-light);
+      border: 1px solid var(--it-green-border);
+      border-radius: 999px;
+      padding: 0.35rem 0.7rem;
+      color: var(--it-green);
+      font-weight: 600;
+    }
+
+    .settings-header {
+      margin-bottom: 0.25rem;
+    }
+
+    .settings-form,
+    .settings-card-grid,
+    .settings-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .settings-theme-controls {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .settings-theme-status {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+    }
+
+    .settings-theme-btn:disabled {
+      cursor: default;
+      opacity: 0.72;
+      transform: none;
+    }
+
+    .settings-card {
+      display: grid;
+      gap: 0.7rem;
+      padding: 1rem;
+      background: var(--card-sub-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .settings-field {
+      display: grid;
+      gap: 0.5rem;
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--card-sub-bg);
+    }
+
+    .settings-field label,
+    .settings-field .settings-field-label {
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 0.96rem;
+    }
+
+    .settings-field select,
+    .settings-theme-btn,
+    .settings-toggle {
+      width: 100%;
+      min-height: 2.9rem;
+      padding: 0.75rem 0.9rem;
+      border-radius: 0.9rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink);
+      font: inherit;
+    }
+
+    .settings-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      width: auto;
+      min-height: 3rem;
+      cursor: pointer;
+    }
+
+    .settings-toggle-copy {
+      display: grid;
+      gap: 0.2rem;
+    }
+
+    .settings-toggle-copy strong {
+      color: var(--ink);
+      font-size: 0.96rem;
+    }
+
+    .settings-toggle-copy span {
+      color: var(--ink-soft);
+      font-size: 0.86rem;
+    }
+
+    .settings-switch {
+      position: relative;
+      flex: 0 0 auto;
+      width: 2.75rem;
+      height: 1.55rem;
+      margin: 0;
+      appearance: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      background: var(--ink-muted);
+      cursor: pointer;
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .settings-switch::after {
+      position: absolute;
+      top: 0.16rem;
+      left: 0.16rem;
+      width: 1.1rem;
+      height: 1.1rem;
+      border-radius: 50%;
+      background: var(--surface);
+      content: "";
+      transition: transform 0.18s ease;
+    }
+
+    .settings-switch:checked {
+      background: var(--it-green);
+      border-color: var(--it-green);
+    }
+
+    .settings-switch:checked::after {
+      transform: translateX(1.18rem);
+    }
+
+    .settings-switch:focus-visible {
+      outline: 3px solid var(--it-green-border);
+      outline-offset: 3px;
+    }
+
+    .settings-theme-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .settings-theme-btn:hover {
+      border-color: var(--it-green-border);
+      transform: translateY(-1px);
+    }
+
+    .settings-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: 999px;
+      background: var(--it-green-light);
+      color: var(--it-green);
+      border: 1px solid var(--it-green-border);
+      padding: 0.35rem 0.7rem;
+      font-weight: 600;
+      font-size: 0.78rem;
+      width: fit-content;
+    }
+
+    .settings-billing-box {
+      padding: 1rem;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-md);
+      background: transparent;
+    }
+
+    @media (max-width: 820px) {
+      .settings-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-sidebar {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div data-component="navbar"></div>
+
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-label" id="settingsPageLabel">Preferences</div>
+      <h1 id="settingsPageTitle">Settings</h1>
+      <p id="settingsPageSubtitle">Choose your language, theme, and learning course. Your preferences are saved on this device.</p>
+    </div>
+  </section>
+
+  <main class="page-container">
+    <div class="settings-shell">
+      <aside class="settings-panel settings-sidebar" id="settingsCategoryNav" aria-label="Settings categories">
+        <div class="settings-sidebar-head">
+          <div class="settings-label" id="settingsSidebarLabel">Preferences</div>
+          <h2 id="settingsSidebarTitle">Settings</h2>
+        </div>
+
+        <div class="settings-nav">
+          <button class="settings-category active" data-settings-category="profile" type="button">Profile</button>
+          <button class="settings-category" data-settings-category="general" type="button">General</button>
+          <button class="settings-category" data-settings-category="payments" type="button">Payments</button>
+          <button class="settings-category" data-settings-category="notifications" type="button">Notifications</button>
+        </div>
+      </aside>
+
+      <section class="settings-panel settings-main" aria-live="polite">
+        <div class="settings-section active" data-settings-section="profile">
+          <div class="settings-profile">
+            <div class="settings-avatar">S</div>
+            <div class="settings-profile-copy">
+              <div class="settings-label" id="settingsStudentLabel">Student</div>
+              <h2 id="settingsProfileTitle">Guest profile</h2>
+              <p id="settingsProfileNote">Progress is saved on this device.</p>
+            </div>
+            <div class="settings-meta">
+              <span data-course-badge></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-section" data-settings-section="general">
+          <div class="settings-header">
+            <h2 id="settingsGeneralTitle">General</h2>
+          </div>
+
+          <div class="settings-form">
+            <div class="settings-field">
+              <label for="settingsCourse" id="settingsCourseLabel">Target course</label>
+              <select id="settingsCourse" data-target-course-select onchange="setTargetCourse(this.value)"></select>
+            </div>
+
+            <div class="settings-field">
+              <label for="settingsLanguage" id="settingsLanguageLabel">Language for translations & explanations</label>
+              <select id="settingsLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select>
+            </div>
+
+            <div class="settings-field">
+              <div class="settings-field-label" id="settingsThemeLabel">Interface theme</div>
+              <div class="settings-theme-controls">
+                <button type="button" class="settings-theme-btn btn-ghost" id="settingsThemeToggle" aria-label="Switch theme"></button>
+                <button type="button" class="settings-theme-btn btn-ghost" id="settingsThemeSystem" aria-pressed="false">Use device theme</button>
+                <p class="settings-theme-status" id="settingsThemeStatus" role="status"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-section" data-settings-section="payments">
+          <div class="settings-header">
+            <h2 id="settingsPaymentsTitle">Payments</h2>
+          </div>
+
+          <div class="settings-card-grid">
+            <div class="settings-card">
+              <div class="settings-status" id="settingsPaymentStatus">Demo</div>
+              <h3 id="settingsPlanTitle">LanguageStudio demo plan</h3>
+              <p id="settingsPlanNote">This is a local learning app and does not require payment for access to the current course content.</p>
+            </div>
+            <div class="settings-card settings-billing-box">
+              <h3 id="settingsBillingTitle">Billing history</h3>
+              <p class="settings-hint" id="settingsBillingNote">No active subscriptions or payment records are connected in this demo build.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-section" data-settings-section="notifications">
+          <div class="settings-header">
+            <h2 id="settingsNotificationsTitle">Notifications</h2>
+          </div>
+
+          <div class="settings-list">
+            <div class="settings-card">
+              <label class="settings-toggle">
+                <span class="settings-toggle-copy"><strong data-notification-title="reminders">Daily practice reminders</strong><span data-notification-description="reminders">A gentle nudge to keep your learning streak going.</span></span>
+                <input class="settings-switch" type="checkbox" data-notification-pref="reminders" />
+              </label>
+            </div>
+            <div class="settings-card">
+              <label class="settings-toggle">
+                <span class="settings-toggle-copy"><strong data-notification-title="summaries">Lesson progress summaries</strong><span data-notification-description="summaries">A recap of your completed lessons.</span></span>
+                <input class="settings-switch" type="checkbox" data-notification-pref="summaries" />
+              </label>
+            </div>
+            <div class="settings-card">
+              <label class="settings-toggle">
+                <span class="settings-toggle-copy"><strong data-notification-title="vocabulary">New vocabulary alerts</strong><span data-notification-description="vocabulary">Updates when new words are added to your course.</span></span>
+                <input class="settings-switch" type="checkbox" data-notification-pref="vocabulary" />
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div data-component="footer"></div>
+  <div data-component="profile-modal"></div>
+
+  <script src="../js/icons.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/course.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/progress-store.js"></script>
+  <script src="../js/progress.js"></script>
+  <script src="../js/layout.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    const SETTINGS_PAGE_COPY = {
+      uk: {
+        pageLabel: 'Налаштування',
+        title: 'Налаштування',
+        subtitle: 'Виберіть мову, тему та курс навчання. Ваші налаштування зберігаються на цьому пристрої.',
+        student: 'Студент',
+        profile: 'Гостьовий профіль',
+        note: 'Прогрес зберігається на цьому пристрої.',
+        preferences: 'Налаштування',
+        target: 'Цільовий курс',
+        language: 'Мова перекладів та пояснень',
+        theme: 'Тема інтерфейсу',
+        useDeviceTheme: 'Використовувати тему пристрою',
+        systemThemeActive: 'Тема відповідає налаштуванням пристрою.',
+        customThemeActive: 'Використовується вибрана тема.',
+        sidebar: 'Налаштування',
+        general: 'Загальні',
+        payments: 'Оплата',
+        notifications: 'Повідомлення',
+        categoryProfile: 'Профіль',
+        categoryGeneral: 'Загальні',
+        categoryPayments: 'Оплата',
+        categoryNotifications: 'Повідомлення',
+        planStatus: 'Демо',
+        planTitle: 'Демо-план LanguageStudio',
+        planNote: 'Це локальний навчальний застосунок, і доступ до поточних матеріалів курсу безкоштовний.',
+        billingTitle: 'Історія оплат',
+        billingNote: 'У цій демоверсії немає підписок або платіжних записів.',
+        remindersTitle: 'Нагадування про щоденну практику',
+        remindersDescription: 'Нагадування, щоб підтримувати регулярність навчання.',
+        summariesTitle: 'Підсумки прогресу уроків',
+        summariesDescription: 'Огляд завершених уроків.',
+        vocabularyTitle: 'Сповіщення про нові слова',
+        vocabularyDescription: 'Новини про нові слова у вашому курсі.',
+        notificationsLabel: 'Налаштування сповіщень',
+        categoriesLabel: 'Категорії налаштувань'
+      },
+      en: {
+        pageLabel: 'Preferences',
+        title: 'Settings',
+        subtitle: 'Choose your language, theme, and learning course. Your preferences are saved on this device.',
+        student: 'Student',
+        profile: 'Guest profile',
+        note: 'Progress is saved on this device.',
+        preferences: 'Preferences',
+        target: 'Target course',
+        language: 'Language for translations & explanations',
+        theme: 'Interface theme',
+        useDeviceTheme: 'Use device theme',
+        systemThemeActive: 'Following your device appearance setting.',
+        customThemeActive: 'Using your selected theme.',
+        sidebar: 'Preferences',
+        general: 'General',
+        payments: 'Payments',
+        notifications: 'Notifications',
+        categoryProfile: 'Profile',
+        categoryGeneral: 'General',
+        categoryPayments: 'Payments',
+        categoryNotifications: 'Notifications',
+        planStatus: 'Demo',
+        planTitle: 'LanguageStudio demo plan',
+        planNote: 'This is a local learning app and access to the current course content is free.',
+        billingTitle: 'Billing history',
+        billingNote: 'No subscriptions or payment records are connected in this demo build.',
+        remindersTitle: 'Daily practice reminders',
+        remindersDescription: 'A gentle nudge to keep your learning routine going.',
+        summariesTitle: 'Lesson progress summaries',
+        summariesDescription: 'A recap of your completed lessons.',
+        vocabularyTitle: 'New vocabulary alerts',
+        vocabularyDescription: 'Updates when new words are added to your course.',
+        notificationsLabel: 'Notification preferences',
+        categoriesLabel: 'Settings categories'
+      }
+    };
+
+    const SETTINGS_NOTIFICATION_KEY = 'ls_notification_preferences';
+    const SETTINGS_NOTIFICATION_DEFAULTS = {
+      reminders: true,
+      summaries: false,
+      vocabulary: true
+    };
+
+    function getSettingsNotificationPreferences() {
+      const stored = typeof window.getJSON === 'function'
+        ? window.getJSON(SETTINGS_NOTIFICATION_KEY, {})
+        : {};
+      return { ...SETTINGS_NOTIFICATION_DEFAULTS, ...(stored || {}) };
+    }
+
+    function initSettingsNotificationPreferences() {
+      const preferences = getSettingsNotificationPreferences();
+      document.querySelectorAll('[data-notification-pref]').forEach((input) => {
+        const preference = input.dataset.notificationPref;
+        input.checked = Boolean(preferences[preference]);
+        input.addEventListener('change', () => {
+          const updated = getSettingsNotificationPreferences();
+          updated[preference] = input.checked;
+          if (typeof window.setJSON === 'function') {
+            window.setJSON(SETTINGS_NOTIFICATION_KEY, updated);
+          }
+        });
+      });
+    }
+
+    function setActiveSettingsCategory(category) {
+      const buttons = document.querySelectorAll('.settings-category');
+      const sections = document.querySelectorAll('.settings-section');
+
+      buttons.forEach((button) => {
+        const isActive = button.dataset.settingsCategory === category;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+
+      sections.forEach((section) => {
+        const isActive = section.dataset.settingsSection === category;
+        section.classList.toggle('active', isActive);
+      });
+    }
+
+    function renderSettingsThemeButton() {
+      const button = document.getElementById('settingsThemeToggle');
+      if (!button) return;
+
+      const currentTheme = typeof getTheme === 'function' ? getTheme() : 'light';
+      const savedTheme = localStorage.getItem('ls_theme');
+      const hasThemeOverride = savedTheme === 'dark' || savedTheme === 'light';
+      const isEnglish = typeof getSourceLanguage === 'function' ? getSourceLanguage() === 'en' : false;
+      const copy = SETTINGS_PAGE_COPY[isEnglish ? 'en' : 'uk'];
+      const label = currentTheme === 'dark'
+        ? (isEnglish ? 'Switch to light theme' : 'Перемкнути на світлу тему')
+        : (isEnglish ? 'Switch to dark theme' : 'Перемкнути на темну тему');
+
+      button.innerHTML = `${getIconSvg(currentTheme === 'dark' ? 'sun' : 'moon')} <span>${label}</span>`;
+      button.setAttribute('title', label);
+      button.setAttribute('aria-label', label);
+
+      const systemButton = document.getElementById('settingsThemeSystem');
+      const status = document.getElementById('settingsThemeStatus');
+      if (systemButton) {
+        systemButton.textContent = copy.useDeviceTheme;
+        systemButton.disabled = !hasThemeOverride;
+        systemButton.setAttribute('aria-pressed', String(!hasThemeOverride));
+      }
+      if (status) status.textContent = hasThemeOverride ? copy.customThemeActive : copy.systemThemeActive;
+    }
+
+    function applySettingsPageLanguage() {
+      const lang = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+      const copy = SETTINGS_PAGE_COPY[lang] || SETTINGS_PAGE_COPY.uk;
+
+      const pageLabel = document.getElementById('settingsPageLabel');
+      const pageTitle = document.getElementById('settingsPageTitle');
+      const pageSubtitle = document.getElementById('settingsPageSubtitle');
+      const studentLabel = document.getElementById('settingsStudentLabel');
+      const profileTitle = document.getElementById('settingsProfileTitle');
+      const profileNote = document.getElementById('settingsProfileNote');
+      const sidebarLabel = document.getElementById('settingsSidebarLabel');
+      const sidebarTitle = document.getElementById('settingsSidebarTitle');
+      const generalTitle = document.getElementById('settingsGeneralTitle');
+      const paymentsTitle = document.getElementById('settingsPaymentsTitle');
+      const notificationsTitle = document.getElementById('settingsNotificationsTitle');
+      const paymentStatus = document.getElementById('settingsPaymentStatus');
+      const planTitle = document.getElementById('settingsPlanTitle');
+      const planNote = document.getElementById('settingsPlanNote');
+      const billingTitle = document.getElementById('settingsBillingTitle');
+      const billingNote = document.getElementById('settingsBillingNote');
+      const courseLabel = document.getElementById('settingsCourseLabel');
+      const languageLabel = document.getElementById('settingsLanguageLabel');
+      const themeLabel = document.getElementById('settingsThemeLabel');
+      const systemThemeButton = document.getElementById('settingsThemeSystem');
+
+      if (pageLabel) pageLabel.textContent = copy.pageLabel;
+      if (pageTitle) pageTitle.textContent = copy.title;
+      if (pageSubtitle) pageSubtitle.textContent = copy.subtitle;
+      if (studentLabel) studentLabel.textContent = copy.student;
+      if (profileTitle) profileTitle.textContent = copy.profile;
+      if (profileNote) profileNote.textContent = copy.note;
+      if (sidebarLabel) sidebarLabel.textContent = copy.sidebar;
+      if (sidebarTitle) sidebarTitle.textContent = copy.title;
+      if (generalTitle) generalTitle.textContent = copy.general;
+      if (paymentsTitle) paymentsTitle.textContent = copy.payments;
+      if (notificationsTitle) notificationsTitle.textContent = copy.notifications;
+      if (paymentStatus) paymentStatus.textContent = copy.planStatus;
+      if (planTitle) planTitle.textContent = copy.planTitle;
+      if (planNote) planNote.textContent = copy.planNote;
+      if (billingTitle) billingTitle.textContent = copy.billingTitle;
+      if (billingNote) billingNote.textContent = copy.billingNote;
+      if (courseLabel) courseLabel.textContent = copy.target;
+      if (languageLabel) languageLabel.textContent = copy.language;
+      if (themeLabel) themeLabel.textContent = copy.theme;
+      if (systemThemeButton) systemThemeButton.textContent = copy.useDeviceTheme;
+
+      document.querySelectorAll('.settings-category').forEach((button) => {
+        const key = button.dataset.settingsCategory;
+        if (key === 'profile') button.textContent = copy.categoryProfile;
+        if (key === 'general') button.textContent = copy.categoryGeneral;
+        if (key === 'payments') button.textContent = copy.categoryPayments;
+        if (key === 'notifications') button.textContent = copy.categoryNotifications;
+      });
+
+      document.querySelectorAll('[data-notification-title]').forEach((title) => {
+        const preference = title.dataset.notificationTitle;
+        title.textContent = copy[`${preference}Title`];
+      });
+      document.querySelectorAll('[data-notification-description]').forEach((description) => {
+        const preference = description.dataset.notificationDescription;
+        description.textContent = copy[`${preference}Description`];
+      });
+      const notificationsSection = document.querySelector('[data-settings-section="notifications"]');
+      if (notificationsSection) notificationsSection.setAttribute('aria-label', copy.notificationsLabel);
+      const categoryNav = document.getElementById('settingsCategoryNav');
+      if (categoryNav) categoryNav.setAttribute('aria-label', copy.categoriesLabel);
+
+      document.title = `${copy.title} — LanguageStudio`;
+      renderSettingsThemeButton();
+    }
+
+    function initSettingsPage() {
+      if (typeof window.applySourceLanguageSettings === 'function') window.applySourceLanguageSettings();
+      if (typeof window.applyTargetCourseSettings === 'function') window.applyTargetCourseSettings();
+      applySettingsPageLanguage();
+
+      document.querySelectorAll('.settings-category').forEach((button) => {
+        button.addEventListener('click', () => {
+          setActiveSettingsCategory(button.dataset.settingsCategory);
+        });
+      });
+
+      setActiveSettingsCategory('profile');
+      initSettingsNotificationPreferences();
+
+      const button = document.getElementById('settingsThemeToggle');
+      if (button && !button.dataset.bound) {
+        button.dataset.bound = 'true';
+        button.addEventListener('click', () => {
+          if (typeof window.toggleTheme === 'function') {
+            window.toggleTheme();
+            renderSettingsThemeButton();
+          }
+        });
+      }
+
+      const systemButton = document.getElementById('settingsThemeSystem');
+      if (systemButton) {
+        systemButton.addEventListener('click', () => {
+          if (typeof window.useSystemTheme === 'function') window.useSystemTheme();
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initSettingsPage);
+    window.addEventListener('sourceLanguageChanged', applySettingsPageLanguage);
+    window.addEventListener('themeChanged', renderSettingsThemeButton);
+  </script>
+</body>
+</html>

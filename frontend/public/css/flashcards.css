@@ -133,7 +133,7 @@
     color: var(--ink-soft);
   }
   .fc-word {
-    font-family: 'Fraunces', serif;
+    font-family: var(--font-serif);
     font-size: clamp(1.8rem, 5vw, 2.4rem);
     font-weight: 700;
     color: var(--ink);
@@ -151,7 +151,7 @@
     opacity: 0.8;
   }
   .fc-trans {
-    font-family: 'Fraunces', serif;
+    font-family: var(--font-serif);
     font-size: clamp(1.4rem, 4vw, 1.85rem);
     font-weight: 700;
     margin-bottom: 0.6rem;

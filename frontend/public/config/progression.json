@@ -1,0 +1,17 @@
+{
+  "dailyGoalDefault": 50,
+  "dailyGoalOptions": [20, 50, 100],
+  "passScore": 0.7,
+  "levels": { "type": "linear", "xpPerLevel": 100 },
+  "xp": {
+    "mcq": 15,
+    "blank": 10,
+    "reorder": 10,
+    "match": 20,
+    "gameComplete": 50,
+    "wordLearned": 5,
+    "customWordAdded": 25
+  },
+  "weakWords": { "weakMinWrong": 2, "weakClearStreak": 2 },
+  "dayStartsAtHour": 0
+}

@@ -1,0 +1,182 @@
+{
+  "id": "communication-basics-1-practice",
+  "title": {
+    "uk": "Знайомство: більше фраз",
+    "en": "Introductions: more phrases"
+  },
+  "subtitle": {
+    "uk": "Коротка практика без сценарію",
+    "en": "Short practice without a story"
+  },
+  "description": {
+    "uk": "Закріпіть фрази для знайомства, розповіді про себе та запитань співрозмовнику.",
+    "en": "Practice introducing yourself, sharing a few details, and asking follow-up questions."
+  },
+  "duration": {
+    "uk": "8 хв",
+    "en": "8 min"
+  },
+  "xpReward": 20,
+  "blocks": [
+    {
+      "type": "vocab",
+      "title": {
+        "uk": "Приклади для знайомства",
+        "en": "Introduction examples"
+      },
+      "items": [
+        {
+          "it": "Ciao, sono Anna.",
+          "translations": { "uk": "Привіт, я Анна.", "en": "Hi, I'm Anna." }
+        },
+        {
+          "it": "Di dove sei?",
+          "translations": { "uk": "Звідки ти?", "en": "Where are you from?" }
+        },
+        {
+          "it": "Vengo dall'Ucraina.",
+          "translations": { "uk": "Я з України.", "en": "I'm from Ukraine." }
+        },
+        {
+          "it": "Parlo ucraino e un po' d'italiano.",
+          "translations": { "uk": "Я розмовляю українською і трохи італійською.", "en": "I speak Ukrainian and a little Italian." }
+        },
+        {
+          "it": "Piacere di conoscerti.",
+          "translations": { "uk": "Приємно познайомитися.", "en": "Nice to meet you." }
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "title": {
+        "uk": "Короткий діалог",
+        "en": "Short dialogue"
+      },
+      "lines": [
+        {
+          "speaker": "A",
+          "avatar": "A",
+          "text": "Ciao! Come ti chiami?",
+          "trans": { "uk": "Привіт! Як тебе звати?", "en": "Hi! What's your name?" },
+          "audio": true
+        },
+        {
+          "speaker": "B",
+          "avatar": "B",
+          "text": "Mi chiamo Anna. E tu?",
+          "trans": { "uk": "Мене звати Анна. А тебе?", "en": "My name is Anna. And you?" },
+          "audio": true
+        },
+        {
+          "speaker": "A",
+          "avatar": "A",
+          "text": "Sono Marco. Di dove sei?",
+          "trans": { "uk": "Я Марко. Звідки ти?", "en": "I'm Marco. Where are you from?" },
+          "audio": true
+        },
+        {
+          "speaker": "B",
+          "avatar": "B",
+          "text": "Vengo dall'Ucraina. Piacere!",
+          "trans": { "uk": "Я з України. Приємно познайомитися!", "en": "I'm from Ukraine. Nice to meet you!" },
+          "audio": true
+        }
+      ]
+    },
+    {
+      "type": "story_text",
+      "title": {
+        "uk": "Короткий профіль",
+        "en": "Short profile"
+      },
+      "audio": true,
+      "paragraphs": [
+        {
+          "it": "Ciao! Mi chiamo Elena. Sono di Kyiv, ma vivo a Milano. Parlo ucraino e inglese. Studio italiano.",
+          "translations": {
+            "uk": "Привіт! Мене звати Олена. Я з Києва, але живу в Мілані. Я розмовляю українською та англійською. Я вивчаю італійську.",
+            "en": "Hi! My name is Elena. I'm from Kyiv, but I live in Milan. I speak Ukrainian and English. I'm studying Italian."
+          }
+        }
+      ],
+      "vocabHints": [
+        {
+          "word": "Sono di",
+          "translations": { "uk": "Я з", "en": "I'm from" }
+        },
+        {
+          "word": "vivo",
+          "translations": { "uk": "я живу", "en": "I live" }
+        },
+        {
+          "word": "Parlo",
+          "translations": { "uk": "я розмовляю", "en": "I speak" }
+        }
+      ]
+    },
+    {
+      "type": "tasks",
+      "title": {
+        "uk": "Перевір себе",
+        "en": "Check yourself"
+      },
+      "items": [
+        {
+          "kind": "choice",
+          "id": "where-from",
+          "q": {
+            "uk": "Як запитати «Звідки ти?» італійською?",
+            "en": "How do you ask “Where are you from?” in Italian?"
+          },
+          "options": [
+            { "text": { "uk": "Di dove sei?", "en": "Di dove sei?" }, "correct": true },
+            { "text": { "uk": "Come ti chiami?", "en": "Come ti chiami?" }, "correct": false },
+            { "text": { "uk": "Quanti anni hai?", "en": "Quanti anni hai?" }, "correct": false }
+          ]
+        },
+        {
+          "kind": "truefalse",
+          "id": "profile-origin",
+          "q": {
+            "uk": "«Parlo» означає «я розмовляю».",
+            "en": "“Parlo” means “I speak.”"
+          },
+          "answer": true
+        },
+        {
+          "kind": "text",
+          "id": "say-name",
+          "prompt": "Mi chiamo ___.",
+          "answers": ["anna", "anna."]
+        },
+        {
+          "kind": "choice",
+          "id": "parlo-meaning",
+          "q": {
+            "uk": "Що означає «Parlo»?",
+            "en": "What does “Parlo” mean?"
+          },
+          "options": [
+            { "text": { "uk": "Я розмовляю", "en": "I speak" }, "correct": true },
+            { "text": { "uk": "Я живу", "en": "I live" }, "correct": false },
+            { "text": { "uk": "Я навчаюся", "en": "I study" }, "correct": false }
+          ]
+        },
+        {
+          "kind": "choice",
+          "id": "profile-city",
+          "q": {
+            "uk": "Як відповісти на запитання «Di dove sei?»?",
+            "en": "How do you answer “Di dove sei?”?"
+          },
+          "options": [
+            { "text": { "uk": "Vengo dall'Ucraina.", "en": "Vengo dall'Ucraina." }, "correct": true },
+            { "text": { "uk": "Mi chiamo Anna.", "en": "Mi chiamo Anna." }, "correct": false },
+            { "text": { "uk": "Piacere!", "en": "Piacere!" }, "correct": false }
+          ]
+        }
+      ]
+    }
+  ]
+}

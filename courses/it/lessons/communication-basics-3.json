@@ -9,8 +9,8 @@
     "en": "Talking about free time"
   },
   "description": {
-    "uk": "Софія, Ґрета й Лука обговорюють захоплення та плани на вихідні, а потім готуються представитися новій групі.",
-    "en": "Sofia, Greta, and Luca discuss their interests and weekend plans, then prepare to introduce themselves to a new group."
+    "uk": "Навчіться говорити про захоплення та вільний час і домовлятися про зустріч.",
+    "en": "Learn to talk about your interests and free time, and make plans to meet."
   },
   "duration": {
     "uk": "20 хв",
@@ -199,33 +199,22 @@
         {
           "id": "cb3_q2",
           "kind": "choice",
-          "category": { "uk": "Розуміння діалогу", "en": "Dialogue comprehension" },
-          "q": { "uk": "Що Софія любить робити?", "en": "What does Sofia like to do?" },
+          "category": { "uk": "Побудова фраз", "en": "Building phrases" },
+          "q": { "uk": "Як сказати «Мені подобається читати й готувати»?", "en": "How do you say “I like reading and cooking”?" },
           "options": [
-            { "text": { "uk": "Читати й готувати", "en": "Read and cook" }, "correct": true },
-            { "text": { "uk": "Слухати попмузику", "en": "Listen to pop music" }, "correct": false },
-            { "text": { "uk": "Зустрічатися з друзями щонеділі", "en": "Meet friends every Sunday" }, "correct": false }
+            { "text": { "uk": "Mi piace leggere e cucinare.", "en": "Mi piace leggere e cucinare." }, "correct": true },
+            { "text": { "uk": "Mi piace ascoltare la musica.", "en": "Mi piace ascoltare la musica." }, "correct": false },
+            { "text": { "uk": "Mi piace lavorare.", "en": "Mi piace lavorare." }, "correct": false }
           ]
         },
         {
           "id": "cb3_q3",
           "kind": "text",
           "category": { "uk": "Встав слово", "en": "Fill in the blank" },
-          "prefix": "La domenica",
-          "suffix": "a casa.",
-          "prompt": { "uk": "встав дієслово з діалогу", "en": "enter the verb from the dialogue" },
-          "answers": ["resto"]
-        },
-        {
-          "id": "cb3_q4",
-          "kind": "choice",
-          "category": { "uk": "Запрошення", "en": "Invitations" },
-          "q": { "uk": "Яка відповідь приймає запрошення Софії?", "en": "Which response accepts Sofia's invitation?" },
-          "options": [
-            { "text": { "uk": "Volentieri!", "en": "Gladly!" }, "correct": true },
-            { "text": { "uk": "Davvero?", "en": "Really?" }, "correct": false },
-            { "text": { "uk": "A me piace...", "en": "As for me, I like..." }, "correct": false }
-          ]
+          "prefix": "Mi piace",
+          "suffix": "e cucinare.",
+          "prompt": { "uk": "вставте дієслово", "en": "enter the verb" },
+          "answers": ["leggere"]
         }
       ]
     }

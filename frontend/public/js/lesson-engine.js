@@ -63,6 +63,7 @@
   const ENGINE_I18N = {
     uk: {
       checkTasks: 'Перевірити завдання',
+      moreExercises: 'Більше вправ',
       checkAllPrompt: 'Будь ласка, дайте відповідь на всі запитання перед перевіркою.',
       correct: 'Правильно',
       correctAnswer: 'Правильна відповідь:',
@@ -88,6 +89,7 @@
     },
     en: {
       checkTasks: 'Check answers',
+      moreExercises: 'More exercises',
       checkAllPrompt: 'Please answer all questions before checking.',
       correct: 'Correct',
       correctAnswer: 'Correct answer:',
@@ -253,7 +255,8 @@
    */
   function renderDialogueBlock(section, lang) {
     const title = t(section.title, 'Діалог', lang);
-    const story = section.story ? `<p class="story-text">${t(section.story, '', lang)}</p>` : '';
+    const storyText = t(section.story, '', lang).trim();
+    const story = storyText ? `<p class="story-text">${storyText}</p>` : '';
 
     const lines = (section.lines || []).map((line, idx) => {
       const speakerName = escapeHtml(t(line.speaker, `Speaker ${idx + 1}`, lang));
@@ -656,7 +659,11 @@
       id: task?.id || `q-${index}`,
       type: 'fill_blank',
       placeholder: task?.prompt || task?.placeholder || uiText('enterWord', {}, getCurrentLanguage()),
-      acceptableAnswers: Array.isArray(task?.answers) ? task.answers : [task?.answer || task?.correctAnswer || ''],
+      acceptableAnswers: Array.isArray(task?.acceptableAnswers)
+        ? task.acceptableAnswers
+        : Array.isArray(task?.answers)
+          ? task.answers
+          : [task?.answer || task?.correctAnswer || ''],
       prefix: task?.prefix || '',
       suffix: task?.suffix || '',
       category: task?.category || ''
@@ -977,6 +984,18 @@
     }).join('\n');
 
     container.innerHTML = blocksHtml;
+
+    const courseId = lesson.courseId || (typeof window.getCourseId === 'function' ? window.getCourseId() : 'it');
+    const exercisesUrl = new URL('exercises.html', window.location.href);
+    if (courseId) exercisesUrl.searchParams.set('course', courseId);
+    const exercisesLink = `
+      <a class="btn-ghost lesson-exercises-link" href="${escapeAttr(exercisesUrl.toString())}">
+        ${getIconSvg('tests')} <span>${escapeHtml(uiText('moreExercises', {}, lang))}</span>
+      </a>
+    `;
+    const quizSection = container.querySelector('[data-section-type="quiz"]');
+    if (quizSection) quizSection.insertAdjacentHTML('afterend', exercisesLink);
+    else container.insertAdjacentHTML('beforeend', exercisesLink);
 
     // Attach event listeners for audio buttons, vocab hints, and quiz checking
     bindLessonInteractions(container, lesson);
