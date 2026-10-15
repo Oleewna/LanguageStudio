@@ -8,7 +8,6 @@
     "blank": 10,
     "reorder": 10,
     "match": 20,
-    "gameComplete": 50,
     "wordLearned": 5,
     "customWordAdded": 25
   },

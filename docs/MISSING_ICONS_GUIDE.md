@@ -11,25 +11,14 @@ This guide lists the icons currently mapped to `_placeholder.svg`, where they ap
 
 The registry maps semantic icon names to SVG files. At runtime, the icon script loads that registry and applies each SVG as a CSS mask to matching icon elements; the mask inherits the element's text color. Names still mapped to `_placeholder.svg` display as outlined squares.
 
-## UI icons to source
+## UI icons still to source
+
+The entries below are the ones still mapped to `_placeholder.svg` in the live registry.
 
 | Registry name | Where it appears | Suggested visual |
 |---|---|---|
-| `close` | Close buttons for the mobile menu, profile modal, and dictionary modal | A clear X made from two even diagonal strokes; readable at small sizes. |
-| `chevron-down` | Main navigation dropdowns and learning-path accordion headers | A compact downward V, centered and optically balanced. |
-| `chevron-right` | Navigation submenu and lesson breadcrumb/forward cue | A compact right-facing chevron, matching the down chevron's stroke or weight. |
-| `streak` | Header streak badge and student widget | A simple flame silhouette, with a distinct outer contour at small sizes. |
-| `lock` | Locked or not-yet-available lessons and tests | A closed padlock with a simple shackle and body. |
-| `wrong` | Incorrect-answer feedback in exercises and lessons | A bold X/cross that remains distinct from the close button through weight or proportions. |
-| `circle` | Empty bullets for upcoming lessons in the navigation | A thin, unfilled circle. |
-| `status-dot` | Active/available lesson badges on learning paths | A small solid circle; keep its visual weight subtle beside badge text. |
-| `clock` | Test time estimates and duration labels | A simple clock face with hands; omit tiny ticks. |
 | `sparkles` | Correct-answer feedback and a marker on the tests page | Two or three four-point sparkles, with one dominant and the others smaller. |
-| `lightbulb` | Lesson notes and exercise explanations | A recognizable bulb outline or filled silhouette with a simple base. |
-| `filter` | Dictionary filter toggle | A funnel shape with a clear wide top tapering to a short stem. |
 | `verb` | Verb exercise category and grammar navigation | A language/grammar cue such as a compact conjugation table or letterform; avoid a generic document icon. |
-| `trophy` | Intended for a game-complete state; no direct current render call found | A small cup with handles and a short base, legible as a reward symbol. |
-| `traffic-light` | Intended for the greeting traffic-light game; no direct current render call found | A vertical signal with three circular lights, simplified for the 14×14 grid. |
 
 ## Course flags
 

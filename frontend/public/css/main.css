@@ -342,7 +342,7 @@ a, button, input, textarea, select {
 
 .nav-dd:hover .nav-dd-btn .chev,
 .nav-dd:hover .nav-dd-btn .ls-chevron {
-  transform: rotate(180deg);
+  transform: rotate(-90deg);
 }
 
 .nav-dd-menu {
@@ -1189,7 +1189,20 @@ body.profile-modal-open {
 /* ── NESTED UNITS DROPDOWN ── */
 .nav-submenu { position: relative; }
 .nav-submenu-trigger { cursor: pointer; }
-.submenu-arrow { margin-left: auto; font-size: 1.2rem; line-height: 1; }
+.submenu-arrow {
+  margin-left: auto;
+  font-size: 1.2rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.submenu-arrow .ls-icon {
+  display: inline-block;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
 .nav-submenu-panel {
   position: absolute;
   top: -0.5rem;

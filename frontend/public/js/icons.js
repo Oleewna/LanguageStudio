@@ -5,7 +5,6 @@ const ICON_ALIASES = {
   cards: 'flashcards',
   fire: 'streak',
   plus: 'add',
-  traffic: 'traffic-light',
   newspaper: 'article',
   handshake: 'greeting',
   coffee: 'cafe',

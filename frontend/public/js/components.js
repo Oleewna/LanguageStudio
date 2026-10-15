@@ -218,7 +218,7 @@
           return `<a href="${escapeHtml(href)}" class="nav-dd-item" data-nav="lesson-1"><span class="dd-icon">${icon('lesson')}</span>${escapeHtml(label)}<span class="dd-tag active">${escapeHtml(statusText('active'))}</span></a>`;
         }).join('');
 
-        return `<div class="nav-submenu"><a href="${escapeHtml(pathHref)}" class="nav-dd-item nav-submenu-trigger"><span class="dd-icon">${icon(path.icon || 'paths')}</span>${escapeHtml(pathTitle)}<span class="dd-tag${isActive ? ' active' : ''}">${escapeHtml(statusText(pathStatus))}</span><span class="submenu-arrow">${icon('chevron-right')}</span></a><div class="nav-submenu-panel"><div class="nav-dd-header">${escapeHtml(pathTitle)}</div>${lessonItems || `<span class="nav-dd-item nav-dd-item-disabled">${escapeHtml(lang === 'en' ? 'No lessons yet' : 'Уроків поки немає')}</span>`}</div></div>`;
+        return `<div class="nav-submenu"><a href="${escapeHtml(pathHref)}" class="nav-dd-item nav-submenu-trigger"><span class="dd-icon">${icon(path.icon || 'paths')}</span>${escapeHtml(pathTitle)}<span class="dd-tag${isActive ? ' active' : ''}">${escapeHtml(statusText(pathStatus))}</span><span class="submenu-arrow">${icon('chevron-down')}</span></a><div class="nav-submenu-panel"><div class="nav-dd-header">${escapeHtml(pathTitle)}</div>${lessonItems || `<span class="nav-dd-item nav-dd-item-disabled">${escapeHtml(lang === 'en' ? 'No lessons yet' : 'Уроків поки немає')}</span>`}</div></div>`;
       }).join('');
 
       const header = lang === 'en' ? 'Learning paths' : 'Напрями навчання';
