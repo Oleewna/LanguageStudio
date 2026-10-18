@@ -1,3 +1,5 @@
+let pathProgressRecords = [];
+
 function toggleUnit(card) {
   card.classList.toggle('open');
 }
@@ -332,12 +334,31 @@ function renderCategoryCard(category, index) {
   const openClass = category.defaultOpen ? ' open' : '';
   const badgeClass = category.locked ? 'unit-badge' : 'unit-badge active-badge';
   const unitsHtml = (category.units || []).map((unit) => renderUnitGroup(unit, (category.units || []).length)).join('');
+  const assessment = category.assessment;
+  const lang = getPathLanguage();
+  let assessmentStatus;
+  let assessmentAction;
+  if (assessment.total === 0) {
+    assessmentStatus = lang === 'en' ? 'No required lessons are available yet.' : 'Поки немає доступних основних уроків.';
+    assessmentAction = lang === 'en' ? 'Assessment unavailable' : 'Тест поки недоступний';
+  } else if (assessment.pathLocked) {
+    assessmentStatus = lang === 'en' ? 'This learning path is not available yet.' : 'Цей напрямок поки недоступний.';
+    assessmentAction = lang === 'en' ? 'Learning path is locked' : 'Напрямок поки заблокований';
+  } else if (assessment.unlocked) {
+    assessmentStatus = lang === 'en' ? 'Path complete · final assessment coming soon' : 'Напрямок завершено · фінальний тест незабаром';
+    assessmentAction = lang === 'en' ? 'Final assessment coming soon' : 'Фінальний тест незабаром';
+  } else {
+    assessmentStatus = lang === 'en'
+      ? `${assessment.completed}/${assessment.total} required lessons completed`
+      : `Завершено ${assessment.completed} із ${assessment.total} основних уроків`;
+    assessmentAction = lang === 'en' ? 'Complete the path to unlock' : 'Завершіть напрямок, щоб розблокувати';
+  }
   const title = getLocalizedText(category.title);
   const subtitle = getLocalizedText(category.subtitle);
   const badgeText = category.badgeText || buildBadgeText(category);
 
   return `
-    <div class="unit-card${openClass}" data-category-id="${escapeHtml(category.id)}" onclick="toggleUnit(this)">
+    <div class="unit-card${openClass}" id="path-${escapeHtml(category.id)}" data-category-id="${escapeHtml(category.id)}" onclick="toggleUnit(this)">
       <div class="unit-header">
         <div class="unit-header-left">
           <div class="unit-num ${numClass}">${getIconSvg(category.icon || 'paths')}</div>
@@ -353,12 +374,24 @@ function renderCategoryCard(category, index) {
       </div>
       <div class="category-body" onclick="event.stopPropagation()">
         ${unitsHtml}
+        <section class="path-assessment-checkpoint${assessment.unlocked ? ' is-unlocked' : ' is-locked'}" aria-label="${lang === 'en' ? 'Final learning path assessment' : 'Фінальний тест напрямку навчання'}">
+          <div class="path-assessment-checkpoint-icon">${getIconSvg('tests')}</div>
+          <div class="path-assessment-checkpoint-copy">
+            <span class="path-assessment-checkpoint-label">${lang === 'en' ? 'FINAL CHECKPOINT' : 'ФІНАЛЬНА ПЕРЕВІРКА'}</span>
+            <h3>${lang === 'en' ? 'Final assessment' : 'Фінальний тест'}</h3>
+            <p>${lang === 'en' ? 'Review what you have learned at the end of this path.' : 'Перевірте, чого ви навчилися, наприкінці цього напрямку.'}</p>
+            <span class="path-assessment-checkpoint-status">${getIconSvg(assessment.unlocked ? 'status-dot' : 'lock')} ${escapeHtml(assessmentStatus)}</span>
+          </div>
+          <button type="button" class="path-assessment-checkpoint-action" disabled aria-label="${escapeHtml(assessmentAction)}">
+            ${getIconSvg(assessment.unlocked ? 'clock' : 'lock')} ${escapeHtml(assessmentAction)}
+          </button>
+        </section>
       </div>
     </div>
   `;
 }
 
-function renderCategories() {
+function renderCategories(progressRecords = []) {
   const container = document.getElementById('pathContainer');
   if (!container) return;
 
@@ -370,6 +403,7 @@ function renderCategories() {
     locked: Boolean(path.locked),
     defaultOpen: Boolean(path.defaultOpen),
     badgeText: buildBadgeText(path),
+    assessment: window.LSPathAssessment.getState(path, progressRecords),
     units: (path.units || []).map((unit) => ({
       ...unit,
       lessons: (unit.lessons || []).map((lesson) => ({
@@ -391,6 +425,7 @@ function renderCategories() {
 
   container.innerHTML = categories.map(renderCategoryCard).join('');
   applySourceLanguageSettings();
+  window.renderRegisteredIcons?.(container);
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -414,11 +449,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     return;
   }
-  renderCategories();
+
+  try {
+    if (!window.Progress || typeof window.Progress.list !== 'function') {
+      throw new Error('Lesson progress is unavailable.');
+    }
+    const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+    pathProgressRecords = await window.Progress.list('lessonProgress', { courseId });
+    renderCategories(pathProgressRecords);
+  } catch (error) {
+    console.error('Could not load learning path progress:', error);
+    const container = document.getElementById('pathContainer');
+    const lang = getPathLanguage();
+    if (container) {
+      container.innerHTML = `<p class="path-message" role="alert">${lang === 'en' ? 'Learning path completion could not be loaded. Please check your connection and try again.' : 'Не вдалося завантажити прогрес напрямків. Перевірте з’єднання та спробуйте ще раз.'}</p>`;
+    }
+  }
 });
 
 window.addEventListener('sourceLanguageChanged', () => {
-  renderCategories();
+  renderCategories(pathProgressRecords);
 });
 
 document.addEventListener('click', function(event) {

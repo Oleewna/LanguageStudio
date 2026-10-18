@@ -107,6 +107,30 @@
                   "time": { "uk": "8 хв", "en": "8 min" },
                   "status": "available",
                   "xpReward": 20
+                },
+                {
+                  "id": "communication-basics-1-greetings",
+                  "num": { "uk": "Додаткова практика", "en": "Extra practice" },
+                  "title": { "uk": "Привітання й перше знайомство", "en": "Greetings and first introductions" },
+                  "description": {
+                    "uk": "Повторіть привітання, виберіть доречне звертання та потренуйте перші фрази знайомства.",
+                    "en": "Review greetings, choose the right salutation, and practise the first phrases for meeting someone."
+                  },
+                  "time": { "uk": "6 хв", "en": "6 min" },
+                  "status": "available",
+                  "xpReward": 15
+                },
+                {
+                  "id": "communication-basics-1-review",
+                  "num": { "uk": "Додаткова практика", "en": "Extra practice" },
+                  "title": { "uk": "Коротка розмова без підказок", "en": "A short conversation from memory" },
+                  "description": {
+                    "uk": "Згадайте ключові фрази й складіть коротке знайомство від привітання до відповіді про себе.",
+                    "en": "Recall the key phrases and build a short introduction, from greeting to sharing a detail about yourself."
+                  },
+                  "time": { "uk": "7 хв", "en": "7 min" },
+                  "status": "available",
+                  "xpReward": 20
                 }
               ]
             },

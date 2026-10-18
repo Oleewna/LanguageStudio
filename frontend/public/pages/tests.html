@@ -12,94 +12,36 @@
 <link rel="stylesheet" href="../css/tests.css">
 </head>
 <body>
-<!-- ═══════════ NAVBAR COMPONENT ═══════════ -->
 <div data-component="navbar"></div>
 
-
-<section class="page-hero tests-hero">
-  <div class="page-hero-inner">
-    <div class="page-hero-label">Ситуації та теми</div>
-    <h1>Тести</h1>
-    <p>Оцініть свої знання італійської та оберіть наступний крок. Короткі тематичні тести допоможуть побачити, що вже виходить, а над чим варто попрацювати.</p>
-    <div class="tests-hero-stats" aria-label="Огляд тестів">
-      <div class="stat-pill"><span data-icon="layers"></span><span><b>3 категорії</b></span></div>
-      <div class="stat-pill"><span data-icon="clock"></span><span><b>10–20 хв</b></span></div>
-      <div class="stat-pill"><span data-icon="directions"></span><span><b>Ситуації з життя</b></span></div>
-    </div>
-  </div>
-</section>
-
 <main class="page-container tests-page">
-  <section class="placement-panel" aria-labelledby="placement-title">
-    <div class="placement-copy">
-      <div class="eyebrow"><span data-icon="target"></span> ОБЕРІТЬ СИТУАЦІЮ</div>
-      <h2 id="placement-title">З чого почнемо сьогодні?</h2>
-      <p>Оберіть тему, яка потрібна зараз: знайомство, замовлення в кафе чи орієнтування в місті.</p>
-      <div class="placement-details">
-        <span><span data-icon="layers"></span> 25 запитань</span>
-        <span><span data-icon="clock"></span> Близько 15 хвилин</span>
+  <section class="assessment-type-grid" aria-label="Типи тестів">
+    <article class="assessment-type-card placement-card">
+      <div class="assessment-type-icon"><span data-icon="target"></span></div>
+      <div class="eyebrow">ПЕРЕД НАВЧАННЯМ</div>
+      <h2>Тест на визначення рівня</h2>
+      <p>Пройдіть початкове оцінювання, щоб зрозуміти свій поточний рівень і з чого почати.</p>
+      <div class="assessment-card-footer">
+        <span class="assessment-status"><span data-icon="clock"></span> Незабаром</span>
+        <button class="test-action" type="button" disabled><span data-icon="lock"></span> Тест буде доступний пізніше</button>
       </div>
-      <button class="test-action" type="button" disabled><span data-icon="lock"></span> Поки що недоступно</button>
-    </div>
-    <div class="situation-preview" aria-label="Категорії тестів">
-      <div class="situation-orbit orbit-one"></div>
-      <div class="situation-orbit orbit-two"></div>
-      <span class="situation-tag tag-greetings">Знайомство</span>
-      <span class="situation-tag tag-cafe">Кафе</span>
-      <span class="situation-tag tag-travel">Подорожі</span>
-      <div class="situation-center"><span data-icon="sparkles"></span><b>3</b></div>
-      <div class="situation-caption"><strong>Оберіть потрібну тему</strong><span>Тести згруповані за повсякденними ситуаціями</span></div>
-    </div>
-    <span class="placement-stamp">БЕТА · ПОПЕРЕДНІЙ ПЕРЕГЛЯД</span>
-  </section>
-
-  <div class="tests-section-heading">
-    <div><div class="eyebrow">ТЕМАТИЧНІ ТЕСТИ</div><h2>Перевірте окремі навички</h2></div>
-    <span class="tests-count">03 <span>ФОРМАТИ</span></span>
-  </div>
-
-  <section class="topic-grid" aria-label="Тематичні тести">
-    <article class="topic-card topic-vocabulary">
-      <div class="topic-card-top"><span class="topic-icon" data-icon="greeting"></span><span class="topic-tag">РОЗМОВА</span></div>
-      <h3>Знайомство та привітання</h3>
-      <p>Почніть розмову, привітайтеся та розкажіть трохи про себе.</p>
-      <div class="topic-card-bottom"><span><span data-icon="clock"></span> 10 хв</span><button type="button" disabled aria-label="Тест зі знайомства та привітань скоро буде доступний"><span data-icon="lock"></span> Незабаром</button></div>
-    </article>
-    <article class="topic-card topic-grammar">
-      <div class="topic-card-top"><span class="topic-icon" data-icon="cafe"></span><span class="topic-tag">ЇЖА ТА НАПОЇ</span></div>
-      <h3>У кафе та ресторані</h3>
-      <p>Замовляйте улюблене, уточнюйте ціну та спілкуйтеся ввічливо.</p>
-      <div class="topic-card-bottom"><span><span data-icon="clock"></span> 15 хв</span><button type="button" disabled aria-label="Тест для кафе та ресторанів скоро буде доступний"><span data-icon="lock"></span> Незабаром</button></div>
-    </article>
-    <article class="topic-card topic-situations">
-      <div class="topic-card-top"><span class="topic-icon" data-icon="directions"></span><span class="topic-tag">У МІСТІ</span></div>
-      <h3>Подорожі містом</h3>
-      <p>Запитуйте дорогу, знаходьте потрібне місце та орієнтуйтеся у місті.</p>
-      <div class="topic-card-bottom"><span><span data-icon="clock"></span> 20 хв</span><button type="button" disabled aria-label="Тест про подорожі містом скоро буде доступний"><span data-icon="lock"></span> Незабаром</button></div>
     </article>
   </section>
 
-  <section class="tests-bottom-grid" aria-label="Результати та наступні кроки">
-    <article class="results-panel">
-      <div class="panel-title-row"><div><div class="eyebrow">МАЙБУТНІ РЕЗУЛЬТАТИ</div><h2>Історія тестів з’явиться тут</h2></div><span class="result-zero">0 <small>пройдено</small></span></div>
-      <p>Коли тести стануть доступними, тут зберігатимуться результати та прогрес за темами.</p>
-      <div class="result-track" aria-hidden="true"><span></span><span></span><span></span></div>
-      <div class="result-track-labels"><span>Знайомство</span><span>Кафе</span><span>Подорожі</span></div>
-    </article>
-    <aside class="next-step-panel">
-      <div class="next-step-icon" data-icon="directions"></div>
-      <div class="eyebrow">ПЛАН ПІДГОТОВКИ</div>
-      <h2>Оберіть напрямок навчання</h2>
-      <p>Повторіть основи, а потім перевірте себе на коротких тестах.</p>
-      <a href="path.html" class="next-step-link">Переглянути напрямки <span data-icon="arrow-right" aria-hidden="true"></span></a>
-    </aside>
+  <section class="path-assessments-section" id="path-assessments" aria-labelledby="path-assessments-title">
+    <div class="tests-section-heading">
+      <div>
+        <div class="eyebrow">ФІНАЛЬНА ПЕРЕВІРКА</div>
+        <h2 id="path-assessments-title">Фінальні тести напрямків</h2>
+      </div>
+    </div>
+    <div class="path-assessment-grid" id="pathAssessmentList" aria-live="polite" aria-busy="true">
+      <p class="path-assessment-message" role="status">Завантажуємо напрямки…</p>
+    </div>
   </section>
 </main>
 
-<!-- ═══════════ FOOTER COMPONENT ═══════════ -->
 <div data-component="footer"></div>
-
-<!-- ═══════════ PROFILE MODAL COMPONENT ═══════════ -->
 <div data-component="profile-modal"></div>
 
 <script src="../js/icons.js"></script>
@@ -110,5 +52,7 @@
 <script src="../js/progress.js"></script>
 <script src="../js/layout.js"></script>
 <script src="../js/app.js"></script>
+<script src="../js/path-assessment.js"></script>
+<script src="../js/tests.js"></script>
 </body>
 </html>

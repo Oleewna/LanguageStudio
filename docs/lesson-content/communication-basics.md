@@ -20,8 +20,10 @@ See [reading-path.md](reading-path.md) for the course path order and lesson sequ
 
 1. [Introductions](#lesson-1-introductions) - `communication-basics-1`
 2. [Introductions: more phrases](#lesson-2-introductions-more-phrases) - `communication-basics-1-practice`
-3. [Study, work, and languages](#lesson-3-study-work-and-languages) - `communication-basics-2`
-4. [Interests and everyday life](#lesson-4-interests-and-everyday-life) - `communication-basics-3`
+3. [Greetings and first introductions](#lesson-3-greetings-and-first-introductions) - `communication-basics-1-greetings`
+4. [A short conversation from memory](#lesson-4-a-short-conversation-from-memory) - `communication-basics-1-review`
+5. [Study, work, and languages](#lesson-5-study-work-and-languages) - `communication-basics-2`
+6. [Interests and everyday life](#lesson-6-interests-and-everyday-life) - `communication-basics-3`
 
 ---
 
@@ -109,6 +111,7 @@ In Italian classrooms, lessons often begin with a greeting and a brief chat. It 
 
 - **Lesson ID:** `communication-basics-1-practice`
 - **Source file:** `courses/it/lessons/communication-basics-1-practice.json`
+- **Next lesson:** `communication-basics-1-greetings`
 
 ### Overview
 
@@ -203,11 +206,143 @@ In Italian classrooms, lessons often begin with a greeting and a brief chat. It 
 
 ---
 
-## Lesson 3: Study, work, and languages
+## Lesson 3: Greetings and first introductions
+
+- **Lesson ID:** `communication-basics-1-greetings`
+- **Source file:** `courses/it/lessons/communication-basics-1-greetings.json`
+- **Previous lesson:** `communication-basics-1-practice`
+- **Next lesson:** `communication-basics-1-review`
+
+### Overview
+
+- **Subtitle:** Which greeting should you use?
+- **Description:** Review greetings, choose the right salutation, and practise the first phrases for meeting someone.
+- **Duration:** 6 min
+- **Experience reward:** 15 XP
+
+### Vocabulary: Greetings and polite phrases
+
+| Italian | English |
+| --- | --- |
+| Ciao! | Hi! / Bye! |
+| Buongiorno! | Good morning! / Good day! |
+| Buonasera! | Good evening! |
+| Piacere di conoscerti. | Nice to meet you. |
+
+### Dialogue: Meeting before class
+
+- **Lucia:** Buonasera! Sei qui per il corso d'italiano?
+  - **English:** Good evening! Are you here for the Italian course?
+
+- **Paolo:** Sì. Mi chiamo Paolo. E tu?
+  - **English:** Yes. My name is Paolo. And you?
+
+- **Lucia:** Mi chiamo Lucia. Piacere di conoscerti!
+  - **English:** My name is Lucia. Nice to meet you!
+
+- **Paolo:** Piacere!
+  - **English:** Nice to meet you too!
+
+### Exercises: Choose the right phrase
+
+#### evening-greeting - Multiple choice
+
+- **Question:** Which greeting is best for the evening?
+
+**Choices:**
+- Buonasera! **(correct answer)**
+- Buongiorno!
+- Arrivederci!
+
+#### ask-the-name - Multiple choice
+
+- **Question:** How do you ask the name of someone you have just met?
+
+**Choices:**
+- Come ti chiami? **(correct answer)**
+- Di dove sei?
+- Buonasera!
+
+#### piacere-meaning - True or false
+
+- **Question:** “Piacere di conoscerti” means “Nice to meet you.”
+- **Answer:** True
+
+---
+
+## Lesson 4: A short conversation from memory
+
+- **Lesson ID:** `communication-basics-1-review`
+- **Source file:** `courses/it/lessons/communication-basics-1-review.json`
+- **Previous lesson:** `communication-basics-1-greetings`
+- **Next lesson:** `communication-basics-2`
+
+### Overview
+
+- **Subtitle:** Greet, introduce yourself, respond
+- **Description:** Recall the key phrases and build a short introduction, from greeting to sharing a detail about yourself.
+- **Duration:** 7 min
+- **Experience reward:** 20 XP
+
+### Dialogue: A conversation during a break
+
+- **Elena:** Ciao! Come ti chiami?
+  - **English:** Hi! What's your name?
+
+- **Nina:** Mi chiamo Nina. E tu?
+  - **English:** My name is Nina. And you?
+
+- **Elena:** Sono Elena. Di dove sei?
+  - **English:** I'm Elena. Where are you from?
+
+- **Nina:** Vengo dall'Ucraina. Parlo ucraino e un po' d'italiano.
+  - **English:** I'm from Ukraine. I speak Ukrainian and a little Italian.
+
+- **Elena:** Piacere di conoscerti!
+  - **English:** Nice to meet you!
+
+### Reading: Mini profile
+
+> Buongiorno! Mi chiamo Alex. Sono di Lviv. Parlo ucraino e studio italiano.
+> English: Good morning! My name is Alex. I'm from Lviv. I speak Ukrainian and study Italian.
+
+### Exercises: Recall and respond
+
+#### reply-to-name - Multiple choice
+
+- **Question:** Someone asks “Come ti chiami?” How do you reply?
+
+**Choices:**
+- Mi chiamo Nina. **(correct answer)**
+- Vengo dall'Ucraina.
+- Buonasera!
+
+#### reply-to-origin - Multiple choice
+
+- **Question:** Which phrase answers “Di dove sei?”?
+
+**Choices:**
+- Sono di Lviv. **(correct answer)**
+- Mi chiamo Alex.
+- Piacere!
+
+#### recall-name - Fill in the blank
+
+- **Prompt:** Mi chiamo ___.
+- **Accepted answer(s):** alex; alex.
+
+#### profile-language - True or false
+
+- **Question:** Alex is studying Italian.
+- **Answer:** True
+
+---
+
+## Lesson 5: Study, work, and languages
 
 - **Lesson ID:** `communication-basics-2`
 - **Source file:** `courses/it/lessons/communication-basics-2.json`
-- **Previous lesson:** `communication-basics-1-practice`
+- **Previous lesson:** `communication-basics-1-review`
 - **Next lesson:** `communication-basics-3`
 
 ### Overview
@@ -326,7 +461,7 @@ In Italian classrooms, lessons often begin with a greeting and a brief chat. It 
 
 ---
 
-## Lesson 4: Interests and everyday life
+## Lesson 6: Interests and everyday life
 
 - **Lesson ID:** `communication-basics-3`
 - **Source file:** `courses/it/lessons/communication-basics-3.json`

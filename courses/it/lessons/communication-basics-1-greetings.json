@@ -1,0 +1,170 @@
+{
+  "id": "communication-basics-1-greetings",
+  "title": {
+    "uk": "Привітання й перше знайомство",
+    "en": "Greetings and first introductions"
+  },
+  "subtitle": {
+    "uk": "Яке привітання обрати?",
+    "en": "Which greeting should you use?"
+  },
+  "description": {
+    "uk": "Повторіть привітання, виберіть доречне звертання та потренуйте перші фрази знайомства.",
+    "en": "Review greetings, choose the right salutation, and practise the first phrases for meeting someone."
+  },
+  "duration": {
+    "uk": "6 хв",
+    "en": "6 min"
+  },
+  "xpReward": 15,
+  "blocks": [
+    {
+      "type": "vocab",
+      "title": {
+        "uk": "Привітання та ввічливі фрази",
+        "en": "Greetings and polite phrases"
+      },
+      "items": [
+        {
+          "it": "Ciao!",
+          "translations": {
+            "uk": "Привіт! / Бувай!",
+            "en": "Hi! / Bye!"
+          }
+        },
+        {
+          "it": "Buongiorno!",
+          "translations": {
+            "uk": "Доброго дня!",
+            "en": "Good morning! / Good day!"
+          }
+        },
+        {
+          "it": "Buonasera!",
+          "translations": {
+            "uk": "Добрий вечір!",
+            "en": "Good evening!"
+          }
+        },
+        {
+          "it": "Piacere di conoscerti.",
+          "translations": {
+            "uk": "Приємно познайомитися.",
+            "en": "Nice to meet you."
+          }
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "title": {
+        "uk": "Знайомство перед уроком",
+        "en": "Meeting before class"
+      },
+      "lines": [
+        {
+          "speaker": "Lucia",
+          "avatar": "L",
+          "text": "Buonasera! Sei qui per il corso d'italiano?",
+          "trans": {
+            "uk": "Добрий вечір! Ти прийшов / прийшла на курс італійської?",
+            "en": "Good evening! Are you here for the Italian course?"
+          },
+          "audio": true
+        },
+        {
+          "speaker": "Paolo",
+          "avatar": "P",
+          "text": "Sì. Mi chiamo Paolo. E tu?",
+          "trans": {
+            "uk": "Так. Мене звати Паоло. А тебе?",
+            "en": "Yes. My name is Paolo. And you?"
+          },
+          "audio": true
+        },
+        {
+          "speaker": "Lucia",
+          "avatar": "L",
+          "text": "Mi chiamo Lucia. Piacere di conoscerti!",
+          "trans": {
+            "uk": "Мене звати Лючія. Приємно познайомитися!",
+            "en": "My name is Lucia. Nice to meet you!"
+          },
+          "audio": true
+        },
+        {
+          "speaker": "Paolo",
+          "avatar": "P",
+          "text": "Piacere!",
+          "trans": {
+            "uk": "Навзаєм! / Приємно познайомитися!",
+            "en": "Nice to meet you too!"
+          },
+          "audio": true
+        }
+      ]
+    },
+    {
+      "type": "tasks",
+      "title": {
+        "uk": "Обери доречну фразу",
+        "en": "Choose the right phrase"
+      },
+      "items": [
+        {
+          "kind": "choice",
+          "id": "evening-greeting",
+          "q": {
+            "uk": "Яке привітання найкраще підійде для вечора?",
+            "en": "Which greeting is best for the evening?"
+          },
+          "options": [
+            {
+              "text": { "uk": "Buonasera!", "en": "Buonasera!" },
+              "correct": true
+            },
+            {
+              "text": { "uk": "Buongiorno!", "en": "Buongiorno!" },
+              "correct": false
+            },
+            {
+              "text": { "uk": "Arrivederci!", "en": "Arrivederci!" },
+              "correct": false
+            }
+          ]
+        },
+        {
+          "kind": "choice",
+          "id": "ask-the-name",
+          "q": {
+            "uk": "Як запитати ім’я людини, яку щойно зустрів / зустріла?",
+            "en": "How do you ask the name of someone you have just met?"
+          },
+          "options": [
+            {
+              "text": { "uk": "Come ti chiami?", "en": "Come ti chiami?" },
+              "correct": true
+            },
+            {
+              "text": { "uk": "Di dove sei?", "en": "Di dove sei?" },
+              "correct": false
+            },
+            {
+              "text": { "uk": "Buonasera!", "en": "Buonasera!" },
+              "correct": false
+            }
+          ]
+        },
+        {
+          "kind": "truefalse",
+          "id": "piacere-meaning",
+          "q": {
+            "uk": "«Piacere di conoscerti» означає «Приємно познайомитися».",
+            "en": "“Piacere di conoscerti” means “Nice to meet you.”"
+          },
+          "answer": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "id": "communication-basics-1-review",
+  "title": {
+    "uk": "Коротка розмова без підказок",
+    "en": "A short conversation from memory"
+  },
+  "subtitle": {
+    "uk": "Привітайся, представся, відповідай",
+    "en": "Greet, introduce yourself, respond"
+  },
+  "description": {
+    "uk": "Згадайте ключові фрази й складіть коротке знайомство від привітання до відповіді про себе.",
+    "en": "Recall the key phrases and build a short introduction, from greeting to sharing a detail about yourself."
+  },
+  "duration": {
+    "uk": "7 хв",
+    "en": "7 min"
+  },
+  "xpReward": 20,
+  "blocks": [
+    {
+      "type": "dialogue",
+      "title": {
+        "uk": "Розмова на перерві",
+        "en": "A conversation during a break"
+      },
+      "lines": [
+        {
+          "speaker": "Elena",
+          "avatar": "E",
+          "text": "Ciao! Come ti chiami?",
+          "trans": {
+            "uk": "Привіт! Як тебе звати?",
+            "en": "Hi! What's your name?"
+          },
+          "audio": true
+        },
+        {
+          "speaker": "Nina",
+          "avatar": "N",
+          "text": "Mi chiamo Nina. E tu?",
+          "trans": {
+            "uk": "Мене звати Ніна. А тебе?",
+            "en": "My name is Nina. And you?"
+          },
+          "audio": true
+        },
+        {
+          "speaker": "Elena",
+          "avatar": "E",
+          "text": "Sono Elena. Di dove sei?",
+          "trans": {
+            "uk": "Я Олена. Звідки ти?",
+            "en": "I'm Elena. Where are you from?"
+          },
+          "audio": true
+        },
+        {
+          "speaker": "Nina",
+          "avatar": "N",
+          "text": "Vengo dall'Ucraina. Parlo ucraino e un po' d'italiano.",
+          "trans": {
+            "uk": "Я з України. Розмовляю українською і трохи італійською.",
+            "en": "I'm from Ukraine. I speak Ukrainian and a little Italian."
+          },
+          "audio": true
+        },
+        {
+          "speaker": "Elena",
+          "avatar": "E",
+          "text": "Piacere di conoscerti!",
+          "trans": {
+            "uk": "Приємно познайомитися!",
+            "en": "Nice to meet you!"
+          },
+          "audio": true
+        }
+      ]
+    },
+    {
+      "type": "story_text",
+      "title": {
+        "uk": "Мініпрофіль",
+        "en": "Mini profile"
+      },
+      "audio": true,
+      "paragraphs": [
+        {
+          "it": "Buongiorno! Mi chiamo Alex. Sono di Lviv. Parlo ucraino e studio italiano.",
+          "translations": {
+            "uk": "Доброго дня! Мене звати Алекс. Я зі Львова. Розмовляю українською та вивчаю італійську.",
+            "en": "Good morning! My name is Alex. I'm from Lviv. I speak Ukrainian and study Italian."
+          }
+        }
+      ]
+    },
+    {
+      "type": "tasks",
+      "title": {
+        "uk": "Згадай і відповідай",
+        "en": "Recall and respond"
+      },
+      "items": [
+        {
+          "kind": "choice",
+          "id": "reply-to-name",
+          "q": {
+            "uk": "Тебе запитали «Come ti chiami?». Що відповісти?",
+            "en": "Someone asks “Come ti chiami?” How do you reply?"
+          },
+          "options": [
+            {
+              "text": { "uk": "Mi chiamo Nina.", "en": "Mi chiamo Nina." },
+              "correct": true
+            },
+            {
+              "text": { "uk": "Vengo dall'Ucraina.", "en": "Vengo dall'Ucraina." },
+              "correct": false
+            },
+            {
+              "text": { "uk": "Buonasera!", "en": "Buonasera!" },
+              "correct": false
+            }
+          ]
+        },
+        {
+          "kind": "choice",
+          "id": "reply-to-origin",
+          "q": {
+            "uk": "Яка фраза відповідає на «Di dove sei?»?",
+            "en": "Which phrase answers “Di dove sei?”?"
+          },
+          "options": [
+            {
+              "text": { "uk": "Sono di Lviv.", "en": "Sono di Lviv." },
+              "correct": true
+            },
+            {
+              "text": { "uk": "Mi chiamo Alex.", "en": "Mi chiamo Alex." },
+              "correct": false
+            },
+            {
+              "text": { "uk": "Piacere!", "en": "Piacere!" },
+              "correct": false
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "id": "recall-name",
+          "prompt": "Mi chiamo ___.",
+          "answers": ["alex", "alex."]
+        },
+        {
+          "kind": "truefalse",
+          "id": "profile-language",
+          "q": {
+            "uk": "Алекс вивчає італійську.",
+            "en": "Alex is studying Italian."
+          },
+          "answer": true
+        }
+      ]
+    }
+  ]
+}

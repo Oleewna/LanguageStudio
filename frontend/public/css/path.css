@@ -277,6 +277,86 @@
     color: var(--ink-soft);
   }
 
+  .path-assessment-checkpoint {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .path-assessment-checkpoint.is-unlocked {
+    background: color-mix(in srgb, var(--correct-light) 42%, var(--surface));
+  }
+  .path-assessment-checkpoint-icon {
+    display: grid;
+    place-items: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 8px;
+    background: var(--primary-light);
+    color: var(--primary);
+  }
+  .path-assessment-checkpoint-icon .ls-icon { width: 1.2rem; height: 1.2rem; }
+  .path-assessment-checkpoint.is-unlocked .path-assessment-checkpoint-icon {
+    background: var(--correct-light);
+    color: var(--correct);
+  }
+  .path-assessment-checkpoint-copy { min-width: 0; }
+  .path-assessment-checkpoint-label {
+    color: var(--primary);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+  }
+  .path-assessment-checkpoint-copy h3 {
+    margin-top: 0.15rem;
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-size: 0.98rem;
+  }
+  .path-assessment-checkpoint-copy p {
+    margin-top: 0.2rem;
+    color: var(--ink-soft);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+  .path-assessment-checkpoint-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.4rem;
+    color: var(--ink-soft);
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+  .path-assessment-checkpoint-status .ls-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    color: var(--primary);
+  }
+  .path-assessment-checkpoint-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    min-height: 36px;
+    max-width: 16rem;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--ink-muted);
+    font: inherit;
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+    cursor: not-allowed;
+  }
+  .path-assessment-checkpoint-action .ls-icon { width: 0.9rem; height: 0.9rem; flex: 0 0 auto; }
+
   [data-theme="dark"] .unit-header:hover,
   [data-theme="dark"] .unit-group-header:hover,
   [data-theme="dark"] .lesson-row:hover {
@@ -306,6 +386,15 @@
   }
 
   @media (max-width: 600px) {
+    .path-assessment-checkpoint {
+      grid-template-columns: auto minmax(0, 1fr);
+      padding: 0.9rem 1rem;
+    }
+    .path-assessment-checkpoint-action {
+      grid-column: 1 / -1;
+      justify-self: start;
+      max-width: 100%;
+    }
     .lesson-row {
       padding-left: 1rem;
       padding-right: 1rem;
