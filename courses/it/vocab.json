@@ -2,7 +2,7 @@
   {
     "id": "it-001",
     "word": "ciao",
-    "phon": { "uk": "[ча-о]", "en": "[chow]" },
+    "pronunciation": { "uk": "[ча-о]", "en": "[chow]" },
     "trans": { "uk": "привіт / бувай", "en": "hello / goodbye" },
     "example": {
       "text": "Ciao! Come stai?",
@@ -17,7 +17,7 @@
   {
     "id": "it-002",
     "word": "come stai?",
-    "phon": { "uk": "[ко-ме стай]", "en": "[koh-meh STY]" },
+    "pronunciation": { "uk": "[ко-ме стай]", "en": "[koh-meh STY]" },
     "trans": { "uk": "як справи?", "en": "how are you?" },
     "example": {
       "text": "Ciao Marco, come stai?",
@@ -32,7 +32,7 @@
   {
     "id": "it-003",
     "word": "bene",
-    "phon": { "uk": "[бе-не]", "en": "[BEH-neh]" },
+    "pronunciation": { "uk": "[бе-не]", "en": "[BEH-neh]" },
     "trans": { "uk": "добре", "en": "well / good" },
     "example": {
       "text": "Bene, grazie! E tu?",
@@ -47,7 +47,7 @@
   {
     "id": "it-004",
     "word": "grazie",
-    "phon": { "uk": "[гра-цьє]", "en": "[GRAH-tsee-eh]" },
+    "pronunciation": { "uk": "[гра-цьє]", "en": "[GRAH-tsee-eh]" },
     "trans": { "uk": "дякую", "en": "thank you" },
     "example": {
       "text": "Grazie mille!",
@@ -62,7 +62,7 @@
   {
     "id": "it-005",
     "word": "prego",
-    "phon": { "uk": "[пре-го]", "en": "[PREH-goh]" },
+    "pronunciation": { "uk": "[пре-го]", "en": "[PREH-goh]" },
     "trans": { "uk": "будь ласка / нема за що", "en": "please / you are welcome" },
     "example": {
       "text": "— Grazie! — Prego!",
@@ -77,7 +77,7 @@
   {
     "id": "it-006",
     "word": "sì",
-    "phon": { "uk": "[сі]", "en": "[see]" },
+    "pronunciation": { "uk": "[сі]", "en": "[see]" },
     "trans": { "uk": "так", "en": "yes" },
     "example": {
       "text": "Sì, sono nuova.",
@@ -92,7 +92,7 @@
   {
     "id": "it-007",
     "word": "no",
-    "phon": { "uk": "[но]", "en": "[noh]" },
+    "pronunciation": { "uk": "[но]", "en": "[noh]" },
     "trans": { "uk": "ні", "en": "no" },
     "example": {
       "text": "No, grazie.",
@@ -107,7 +107,7 @@
   {
     "id": "it-008",
     "word": "anch'io",
-    "phon": { "uk": "[ан-кі-о]", "en": "[ahn-kyoh]" },
+    "pronunciation": { "uk": "[ан-кі-о]", "en": "[ahn-kyoh]" },
     "trans": { "uk": "я теж", "en": "me too" },
     "example": {
       "text": "Anch'io sto bene, grazie!",
@@ -122,7 +122,7 @@
   {
     "id": "it-009",
     "word": "nuovo/a",
-    "phon": { "uk": "[ну-о-во/ва]", "en": "[NOO-oh-voh / noo-OH-vah]" },
+    "pronunciation": { "uk": "[ну-о-во/ва]", "en": "[NOO-oh-voh / noo-OH-vah]" },
     "trans": { "uk": "новий / нова", "en": "new (masculine / feminine)" },
     "example": {
       "text": "Sei nuova qui?",
@@ -137,7 +137,7 @@
   {
     "id": "it-010",
     "word": "primo giorno",
-    "phon": { "uk": "[прі-мо джор-но]", "en": "[PREE-moh JOHR-noh]" },
+    "pronunciation": { "uk": "[прі-мо джор-но]", "en": "[PREE-moh JOHR-noh]" },
     "trans": { "uk": "перший день", "en": "first day" },
     "example": {
       "text": "È il mio primo giorno.",
@@ -152,7 +152,7 @@
   {
     "id": "it-011",
     "word": "benvenuto/a",
-    "phon": { "uk": "[бен-ве-ну-то/та]", "en": "[behn-veh-NOO-toh / -tah]" },
+    "pronunciation": { "uk": "[бен-ве-ну-то/та]", "en": "[behn-veh-NOO-toh / -tah]" },
     "trans": { "uk": "ласкаво просимо", "en": "welcome" },
     "example": {
       "text": "Benvenuta nel palazzo!",
@@ -167,7 +167,7 @@
   {
     "id": "it-012",
     "word": "palazzo",
-    "phon": { "uk": "[па-лац-цо]", "en": "[pah-LAHT-soh]" },
+    "pronunciation": { "uk": "[па-лац-цо]", "en": "[pah-LAHT-soh]" },
     "trans": { "uk": "будинок (багатоповерховий)", "en": "apartment building" },
     "example": {
       "text": "Abito in questo palazzo.",
@@ -182,7 +182,7 @@
   {
     "id": "it-013",
     "word": "grazie mille",
-    "phon": { "uk": "[гра-цьє міл-ле]", "en": "[GRAH-tsee-eh MEE-leh]" },
+    "pronunciation": { "uk": "[гра-цьє міл-ле]", "en": "[GRAH-tsee-eh MEE-leh]" },
     "trans": { "uk": "дуже дякую", "en": "thank you very much" },
     "example": {
       "text": "Grazie mille per l'aiuto!",

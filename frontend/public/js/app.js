@@ -384,7 +384,7 @@ const UI_TRANSLATIONS = {
   'Нове слово': 'New word',
   'Італійське слово чи фраза *': 'Italian word or phrase *',
   'Український переклад *': 'Translation *',
-  'Транскрипція (необов\'язково)': 'Pronunciation (optional)',
+  'Вимова (необов\'язково)': 'Pronunciation (optional)',
   'Тип слова': 'Part of speech',
   'Категорія': 'Category'
 };
@@ -589,8 +589,8 @@ function applyInterfaceLanguage() {
 
   while ((node = walker.nextNode())) {
     if (node.parentElement?.closest('[data-source-key],script,style,code,pre')) continue;
-    // Don't translate Italian foreign study content or phonetic guidance
-    if (node.parentElement?.closest('.dialogue-it, .dialogue-phon, .grammar-highlight, [data-speak-text] b, [data-no-translate]')) continue;
+    // Don't translate Italian foreign study content or pronunciation guidance
+    if (node.parentElement?.closest('.dialogue-it, .dialogue-pronunciation, .grammar-highlight, [data-speak-text] b, [data-no-translate]')) continue;
 
     const currentVal = node.nodeValue;
     if (!currentVal || !currentVal.trim()) continue;

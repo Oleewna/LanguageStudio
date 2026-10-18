@@ -18,7 +18,7 @@ function normalizeWordEntry(word) {
   item.category = item.category || item.topic || 'general';
   item.type = item.type || 'other';
   item.trans = item.trans || '';
-  item.phon = getLocalizedText(item.phon, item.phon || '');
+  item.pronunciation = getLocalizedText(item.pronunciation || item.phon, item.pronunciation || item.phon || '');
   item.custom = Boolean(item.custom);
   return item;
 }
@@ -136,7 +136,7 @@ async function renderDictionary() {
           ${w.custom ? '<span class="custom-tag">власне</span>' : ''}
           ${w.type ? `<span class="type-tag">${typeLabels[w.type] || w.type}</span>` : ''}
         </div>
-        <div class="dict-phon">${w.phon || ''}</div>
+        <div class="dict-pronunciation">${w.pronunciation || ''}</div>
         <div class="dict-trans">${translation}</div>
         <div class="dict-meta">
           ${w.lesson ? `<span>${getIconSvg('paths')} ${w.lesson}</span>` : ''}
@@ -168,7 +168,7 @@ function saveNewWord(e) {
   e.preventDefault();
   const word = document.getElementById('wIt').value.trim();
   const trans = document.getElementById('wUa').value.trim();
-  const phon = document.getElementById('wPhon').value.trim();
+  const pronunciation = document.getElementById('wPronunciation').value.trim();
   const type = document.getElementById('wType').value;
   const category = document.getElementById('wCategory').value.trim();
   const lesson = document.getElementById('wLesson').value.trim();
@@ -179,7 +179,7 @@ function saveNewWord(e) {
     id: 'c_' + Date.now(),
     word,
     trans,
-    phon: phon ? `[${phon.replace(/[\[\]]/g, '')}]` : '',
+    pronunciation: pronunciation ? `[${pronunciation.replace(/[\[\]]/g, '')}]` : '',
     type: type || 'other',
     category: category || '',
     lesson: lesson || '',

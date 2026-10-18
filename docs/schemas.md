@@ -119,7 +119,7 @@ Array of vocabulary rows used by dictionary, flashcards, and quiz generation.
   {
     "id": "it-001",
     "word": "ciao",
-    "phon": { "uk": "[ча-о]", "en": "[chow]" },
+    "pronunciation": { "uk": "[ча-о]", "en": "[chow]" },
     "trans": { "uk": "привіт / бувай", "en": "hello / goodbye" },
     "example": {
       "text": "Ciao! Come stai?",

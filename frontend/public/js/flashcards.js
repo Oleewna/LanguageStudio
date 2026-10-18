@@ -23,7 +23,7 @@ function normalizeFlashcard(item) {
     track,
     topic,
     word: item.word || '',
-    phon: getLocalizedText(item.phon, item.phon || ''),
+    pronunciation: getLocalizedText(item.pronunciation || item.phon, item.pronunciation || item.phon || ''),
     trans: getLocalizedText(item.trans, item.trans || ''),
     ex: exampleText,
     custom: Boolean(item.custom)
@@ -98,7 +98,7 @@ function setTopicChip(topic, btn) {
 function updateCardDisplay() {
   const emptyNote = document.getElementById('fcEmptyNote');
   const wordEl = document.getElementById('fcWord');
-  const phonEl = document.getElementById('fcPhon');
+  const pronunciationEl = document.getElementById('fcPronunciation');
   const transEl = document.getElementById('fcTrans');
   const exampleEl = document.getElementById('fcExample');
   const counterEl = document.getElementById('fcCounter');
@@ -107,7 +107,7 @@ function updateCardDisplay() {
 
   if (!cards.length) {
     if (wordEl) wordEl.textContent = 'Слів не знайдено';
-    if (phonEl) phonEl.textContent = '';
+    if (pronunciationEl) pronunciationEl.textContent = '';
     if (transEl) transEl.textContent = 'Спробуйте змінити фільтри вище';
     if (exampleEl) exampleEl.textContent = '';
     if (counterEl) counterEl.textContent = '0 / 0';
@@ -132,7 +132,7 @@ function updateCardDisplay() {
   if (unitTagEl) unitTagEl.innerHTML = `${getIconSvg('greeting')}<span>${trackLabel}</span>`;
   if (topicTagEl) topicTagEl.innerHTML = `${getIconSvg('type')}<span>${topicLabel}</span>`;
   if (wordEl) wordEl.textContent = item.word;
-  if (phonEl) phonEl.textContent = item.phon || '';
+  if (pronunciationEl) pronunciationEl.textContent = item.pronunciation || '';
   if (transEl) transEl.textContent = item.trans || '';
   if (exampleEl) exampleEl.textContent = item.ex ? `«${item.ex}»` : '';
   if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${cards.length}`;

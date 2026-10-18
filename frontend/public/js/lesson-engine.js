@@ -65,8 +65,8 @@
       checkTasks: 'Перевірити завдання',
       moreExercises: 'Більше вправ',
       lessonIndex: 'У цьому уроці',
-      showTransliteration: 'Показати транслітерацію',
-      hideTransliteration: 'Сховати транслітерацію',
+      showPronunciation: 'Показати вимову',
+      hidePronunciation: 'Сховати вимову',
       checkAllPrompt: 'Будь ласка, дайте відповідь на всі запитання перед перевіркою.',
       correct: 'Правильно',
       correctAnswer: 'Правильна відповідь:',
@@ -94,8 +94,8 @@
       checkTasks: 'Check answers',
       moreExercises: 'More exercises',
       lessonIndex: 'In this lesson',
-      showTransliteration: 'Show transliteration',
-      hideTransliteration: 'Hide transliteration',
+      showPronunciation: 'Show pronunciation',
+      hidePronunciation: 'Hide pronunciation',
       checkAllPrompt: 'Please answer all questions before checking.',
       correct: 'Correct',
       correctAnswer: 'Correct answer:',
@@ -263,6 +263,7 @@
     const title = t(section.title, 'Діалог', lang);
     const storyText = t(section.story, '', lang).trim();
     const story = storyText ? `<p class="story-text">${storyText}</p>` : '';
+    const sectionId = `dialogue-${section.id || Math.random().toString(36).slice(2, 9)}`;
 
     const lines = (section.lines || []).map((line, idx) => {
       const speakerName = escapeHtml(t(line.speaker, `Speaker ${idx + 1}`, lang));
@@ -272,14 +273,18 @@
         ? 'av-student'
         : 'av-marco';
 
+      const italianText = line.it || line.text || '';
+      const pronunciation = t(line.pronunciation || line.phon || '', '', lang);
+      const translationText = t(line.trans || line.translations || line.translation || '', '', lang);
+
       const audioBtn = line.audio !== false ? `
-        <button class="audio-btn" type="button" aria-label="${escapeAttr(uiText('listen', {}, lang))}" data-speak-text="${escapeAttr(line.it || '')}">
+        <button class="audio-btn" type="button" aria-label="${escapeAttr(uiText('listen', {}, lang))}" data-speak-text="${escapeAttr(italianText)}">
           ${getIconSvg('audio')}
         </button>
       ` : '';
 
-      const phoneticHtml = line.phonetic ? `<div class="dialogue-phon">${escapeHtml(line.phonetic)}</div>` : '';
-      const translationHtml = `<div class="dialogue-ua">${t(line.translations, '', lang)}</div>`;
+      const pronunciationHtml = pronunciation ? `<div class="dialogue-pronunciation">${escapeHtml(pronunciation)}</div>` : '';
+      const translationHtml = translationText ? `<div class="dialogue-ua">${escapeHtml(translationText)}</div>` : '';
 
       return `
         <div class="dialogue-line">
@@ -287,10 +292,10 @@
           <div>
             <div class="dialogue-name">${speakerName}</div>
             <div class="dialogue-it">
-              ${escapeHtml(line.it || '')}
+              ${escapeHtml(italianText)}
               ${audioBtn}
             </div>
-            ${phoneticHtml}
+            ${pronunciationHtml}
             ${translationHtml}
           </div>
         </div>
@@ -304,11 +309,11 @@
     ` : '';
 
     return `
-      <section class="lesson-section lesson-section-dialogue" data-section-type="dialogue">
+      <section class="lesson-section lesson-section-dialogue" data-section-type="dialogue" id="${escapeAttr(sectionId)}">
         <div class="dialogue-heading">
           <h2 class="section-title"><span class="ic">${getIconSvg('chat')}</span>${escapeHtml(title)}</h2>
-          <button class="btn-ghost transliteration-toggle" type="button" aria-pressed="false">
-            ${escapeHtml(uiText('showTransliteration', {}, lang))}
+          <button class="btn-ghost pronunciation-toggle" type="button" aria-pressed="false" aria-expanded="false" aria-controls="${escapeAttr(sectionId)}">
+            ${escapeHtml(uiText('showPronunciation', {}, lang))}
           </button>
         </div>
         <div class="card">
@@ -460,11 +465,12 @@
   function renderVocabBlock(section, lang) {
     const title = t(section.title, 'Нові слова', lang);
     const items = section.items || [];
+    const sectionId = `vocab-${section.id || Math.random().toString(36).slice(2, 9)}`;
 
     const itemsHtml = items.map(item => {
       const it = escapeHtml(item.it || '');
       const trans = escapeHtml(t(item.translations, '', lang));
-      const phon = escapeHtml(item.transcription || '');
+      const pronunciation = escapeHtml(t(item.pronunciation || item.phon || '', '', lang));
 
       return `
         <li class="vocab-list-item">
@@ -475,7 +481,7 @@
             </button>
           </div>
           ${trans ? `<div class="vocab-list-translation">${trans}</div>` : ''}
-          ${phon ? `<div class="vocab-list-pronunciation">${phon}</div>` : ''}
+          ${pronunciation ? `<div class="vocab-list-pronunciation">${pronunciation}</div>` : ''}
         </li>
       `;
     }).join('');
@@ -492,8 +498,13 @@
     }).join('');
 
     return `
-      <section class="lesson-section lesson-section-vocab" data-section-type="vocab">
-        <h2 class="section-title"><span class="ic">${getIconSvg('dictionary')}</span>${escapeHtml(title)}</h2>
+      <section class="lesson-section lesson-section-vocab" data-section-type="vocab" id="${escapeAttr(sectionId)}">
+        <div class="dialogue-heading vocab-heading">
+          <h2 class="section-title"><span class="ic">${getIconSvg('dictionary')}</span>${escapeHtml(title)}</h2>
+          <button class="btn-ghost pronunciation-toggle" type="button" aria-pressed="false" aria-expanded="false" aria-controls="${escapeAttr(sectionId)}">
+            ${escapeHtml(uiText('showPronunciation', {}, lang))}
+          </button>
+        </div>
         <div class="card">
           <ul class="vocab-list">${itemsHtml}</ul>
           ${notesHtml}
@@ -1145,16 +1156,19 @@
       });
     });
 
-    container.querySelectorAll('.transliteration-toggle').forEach(btn => {
+    container.querySelectorAll('.pronunciation-toggle').forEach(btn => {
       btn.addEventListener('click', () => {
         const dialogueSection = btn.closest('.lesson-section-dialogue');
-        const feature = btn.closest('.lesson-dialogue-feature');
-        if (!dialogueSection || !feature) return;
+        const vocabSection = btn.closest('.lesson-section-vocab');
+        const section = dialogueSection || vocabSection;
+        if (!section) return;
 
-        const show = !feature.classList.contains('show-transliteration');
-        feature.classList.toggle('show-transliteration', show);
+        const show = !section.classList.contains('show-pronunciation');
+        section.classList.toggle('show-pronunciation', show);
         btn.setAttribute('aria-pressed', String(show));
-        btn.textContent = uiText(show ? 'hideTransliteration' : 'showTransliteration');
+        btn.setAttribute('aria-expanded', String(show));
+        btn.setAttribute('aria-label', uiText(show ? 'hidePronunciation' : 'showPronunciation', {}, getCurrentLanguage()));
+        btn.textContent = uiText(show ? 'hidePronunciation' : 'showPronunciation', {}, getCurrentLanguage());
       });
     });
 

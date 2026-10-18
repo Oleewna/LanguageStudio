@@ -109,7 +109,7 @@
     const exampleLine = (dialogueBlock?.lines || []).find((line) => (line.text || line.it || '').toLowerCase().includes(phrase.toLowerCase()));
     const exampleText = exampleLine?.text || exampleLine?.it || phrase;
     const exampleTranslation = t(exampleLine?.trans || exampleLine?.translations);
-    const pronunciation = t(item.transcription || item.phon);
+    const pronunciation = t(item.pronunciation || item.phon);
     return `<div class="focus-heading"><div><p class="section-kicker">03 / ${escapeHtml(copy[language].steps[2])}</p><h2>${escapeHtml(copy[language].focusTitle)}</h2></div><span class="session-count">${escapeHtml(copy[language].lineOf.replace('{current}', phraseIndex + 1).replace('{total}', items.length))}</span></div>
       <p class="focus-help">${escapeHtml(copy[language].focusHelp)}</p>
       <div class="phrase-focus-panel"><div class="focus-phrase-row"><div><p class="focus-phrase">${escapeHtml(phrase)}</p>${pronunciation ? `<p class="focus-pronunciation">${escapeHtml(pronunciation)}</p>` : ''}</div><button class="text-control speak-button" type="button" data-speak="${escapeHtml(phrase)}">${escapeHtml(copy[language].listen)}</button></div>

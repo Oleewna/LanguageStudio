@@ -140,7 +140,7 @@
     color: var(--ink);
     margin-bottom: 0.35rem;
   }
-  .fc-phon {
+  .fc-pronunciation {
     font-size: 0.92rem;
     color: var(--ink-soft);
     font-style: italic;

@@ -60,6 +60,10 @@
               speaker: 'Sofia',
               avatar: 'S',
               it: 'Scusa, questo posto è libero?',
+              pronunciation: {
+                uk: '[ску-са, кве-сто по-сто е ли-бе-ро?]',
+                en: '[SKOO-sa, KWESS-toh POS-toh eh lee-BEH-roh?]'
+              },
               translations: {
                 uk: 'Вибачте, це місце вільне?',
                 en: 'Excuse me, is this seat free?'
@@ -70,6 +74,10 @@
               speaker: 'Greta',
               avatar: 'G',
               it: 'Sì, certo. Anche tu sei qui per il corso d\'italiano?',
+              pronunciation: {
+                uk: '[сі, чер-то. ан-ке ту сей к’ю пер ил кор-со д’і-та-лі-я-но?]',
+                en: '[SEE, CHAIR-toh. AHN-keh too SAY kwee pair eel KOR-soh dee-tah-lee-AH-noh?]'
+              },
               translations: {
                 uk: 'Так, звісно. Ти теж на курсі італійської?',
                 en: 'Yes, of course. Are you here for the Italian course too?'
@@ -80,6 +88,10 @@
               speaker: 'Sofia',
               avatar: 'S',
               it: 'Sì, è la mia prima lezione. Mi chiamo Sofia.',
+              pronunciation: {
+                uk: '[сі, е ла м’я пра-ма ле-цьо-не. мі к’я-мо Со-фі-а.]',
+                en: '[SEE, eh lah MEE-ah PREE-mah leh-TZYOH-neh. mee KYAH-moh SOH-fee-ah.]'
+              },
               translations: {
                 uk: 'Так, це моє перше заняття. Мене звати Софія.',
                 en: "Yes, it's my first lesson. My name is Sofia."
@@ -90,6 +102,10 @@
               speaker: 'Greta',
               avatar: 'G',
               it: 'Piacere, Sofia. Io sono Greta.',
+              pronunciation: {
+                uk: '[п’я-че-ре, Со-фі-а. йо со-но Ґре-та.]',
+                en: '[pyah-CHEH-reh, SOH-fee-ah. ee-OH SOH-noh GREH-tah.]'
+              },
               translations: {
                 uk: 'Приємно, Софіє. Я — Ґрета.',
                 en: 'Nice to meet you, Sofia. I am Greta.'
@@ -100,6 +116,10 @@
               speaker: 'Insegnante',
               avatar: 'I',
               it: 'Buongiorno a tutti. Cominciamo con un giro veloce: nome e paese.',
+              pronunciation: {
+                uk: '[буон-джор-но а ту-ті. ко-мі-ня-мо кон ун джі-ро ве-ло-че: но-ме е па-е-се.]',
+                en: '[bwon-JOR-noh ah TOO-tee. koh-MEEN-yah-moh kohn oon JEE-roh veh-LOH-cheh: NOH-meh eh pah-EH-seh.]'
+              },
               translations: {
                 uk: 'Доброго дня всім. Розпочнемо швидкий круг: ім’я і країна.',
                 en: 'Good morning everyone. Let’s start a quick round: name and country.'
@@ -110,6 +130,10 @@
               speaker: 'Sofia',
               avatar: 'S',
               it: 'Sono Sofia. Vengo dall\'Ucraina.',
+              pronunciation: {
+                uk: '[со-но Со-фі-а. вен-го даль-украї-на.]',
+                en: '[SOH-noh SOH-fee-ah. VEHN-goh dall-oo-KRAI-na.]'
+              },
               translations: {
                 uk: 'Я — Софія. Я з України.',
                 en: 'I am Sofia. I come from Ukraine.'
@@ -120,6 +144,10 @@
               speaker: 'Insegnante',
               avatar: 'I',
               it: 'Benvenuta, Sofia. Greta?',
+              pronunciation: {
+                uk: '[бен-ве-ну-та, Со-фі-а. Ґре-та?]',
+                en: '[behn-veh-NOO-tah, SOH-fee-ah. GREH-tah?]'
+              },
               translations: {
                 uk: 'Ласкаво просимо, Софіє. Ґрета?',
                 en: 'Welcome, Sofia. Greta?'
@@ -130,6 +158,10 @@
               speaker: 'Greta',
               avatar: 'G',
               it: 'Vengo dalla Germania. Sono tedesca.',
+              pronunciation: {
+                uk: '[вен-го даль-ла Ґер-ма-ні-а. со-но те-дес-ка.]',
+                en: '[VEHN-goh DAHL-lah jer-MAH-nee-ah. SOH-noh teh-DES-kah.]'
+              },
               translations: {
                 uk: 'Я з Німеччини. Я німкеня.',
                 en: 'I come from Germany. I am German.'
@@ -140,6 +172,10 @@
               speaker: 'Sofia',
               avatar: 'S',
               it: 'Ah, che bello!',
+              pronunciation: {
+                uk: '[а, ке бел-ло!]',
+                en: '[ah, keh BEL-loh!]'
+              },
               translations: {
                 uk: 'О, як чудово!',
                 en: 'Ah, how nice!'
@@ -150,6 +186,10 @@
               speaker: 'Greta',
               avatar: 'G',
               it: 'E tu?',
+              pronunciation: {
+                uk: '[е ту?]',
+                en: '[eh TOO?]'
+              },
               translations: {
                 uk: 'А ти?',
                 en: 'And you?'
@@ -160,6 +200,10 @@
               speaker: 'Sofia',
               avatar: 'S',
               it: 'Sono ucraina.',
+              pronunciation: {
+                uk: '[со-но у-краї-на.]',
+                en: '[SOH-noh oo-KRAI-na.]'
+              },
               translations: {
                 uk: 'Я — українка.',
                 en: 'I am Ukrainian.'
@@ -170,6 +214,10 @@
               speaker: 'Insegnante',
               avatar: 'I',
               it: 'E tu, Luca?',
+              pronunciation: {
+                uk: '[е ту, Лу-ка?]',
+                en: '[eh TOO, LOO-kah?]'
+              },
               translations: {
                 uk: 'А ти, Луко?',
                 en: 'And you, Luca?'
@@ -180,6 +228,10 @@
               speaker: 'Luca',
               avatar: 'L',
               it: 'Sono francese, vengo dalla Francia.',
+              pronunciation: {
+                uk: '[со-но фран-че-зе, вен-го даль-ла Фран-ча.]',
+                en: '[SOH-noh frahn-CHEH-zeh, VEHN-goh DAHL-lah FRAHN-chah.]'
+              },
               translations: {
                 uk: 'Я — француз, я з Франції.',
                 en: 'I am French, I come from France.'
@@ -197,17 +249,21 @@
             en: 'Vocabulary'
           },
           items: [
-            { it: "questo posto è libero?", translations: { uk: 'це місце вільне?', en: 'is this seat free?' } },
-            { it: 'certo', translations: { uk: 'звісно', en: 'of course' } },
-            { it: 'anche tu?', translations: { uk: 'ти теж?', en: 'you too?' } },
-            { it: "il corso d'italiano", translations: { uk: 'курс італійської', en: 'Italian course' } },
-            { it: 'la prima lezione', translations: { uk: 'перше заняття', en: 'the first lesson' } },
-            { it: 'piacere', translations: { uk: 'приємно познайомитися', en: 'nice to meet you' } },
-            { it: 'il paese', translations: { uk: 'країна', en: 'country' } },
-            { it: 'venire da', translations: { uk: 'бути родом із', en: 'to come from' } },
-            { it: "l'Ucraina, la Germania, la Francia", translations: { uk: 'Україна, Німеччина, Франція', en: 'Ukraine, Germany, France' } },
-            { it: 'ucraino/a, tedesco/a, francese', translations: { uk: 'українець/українка, німець/німкеня, француз/француженка', en: 'Ukrainian, German, French' } },
-            { it: 'che bello!', translations: { uk: 'як чудово!', en: 'how nice!' } }
+            { it: "questo posto è libero?", pronunciation: { uk: '[кве-сто по-сто е лі-бе-ро]', en: '[KWEH-stoh POH-stoh eh LEE-beh-roh]' }, translations: { uk: 'це місце вільне?', en: 'is this seat free?' } },
+            { it: 'certo', pronunciation: { uk: '[чер-то]', en: '[CHAIR-toh]' }, translations: { uk: 'звісно', en: 'of course' } },
+            { it: 'anche tu?', pronunciation: { uk: '[ан-ке ту]', en: '[AHN-keh too]' }, translations: { uk: 'ти теж?', en: 'you too?' } },
+            { it: "il corso d'italiano", pronunciation: { uk: '[іл кор-со ді-та-лі-а-но]', en: '[eel KOR-soh dee-tah-lee-AH-noh]' }, translations: { uk: 'курс італійської', en: 'Italian course' } },
+            { it: 'la prima lezione', pronunciation: { uk: '[ла прі-ма ле-цьо-не]', en: '[lah PREE-mah leh-TSYOH-neh]' }, translations: { uk: 'перше заняття', en: 'the first lesson' } },
+            { it: 'piacere', pronunciation: { uk: '[п’я-че-ре]', en: '[pyah-CHEH-reh]' }, translations: { uk: 'приємно познайомитися', en: 'nice to meet you' } },
+            { it: 'il paese', pronunciation: { uk: '[іл па-е-зе]', en: '[eel pah-EH-zeh]' }, translations: { uk: 'країна', en: 'country' } },
+            { it: 'venire da', pronunciation: { uk: '[ве-ні-ре да]', en: '[veh-NEE-reh dah]' }, translations: { uk: 'бути родом із', en: 'to come from' } },
+            { it: "l'Ucraina", pronunciation: 'uk-RAI-na', translations: { uk: 'Україна', en: 'Ukraine' } },
+            { it: 'la Germania', pronunciation: 'ger-MA-nee-a', translations: { uk: 'Німеччина', en: 'Germany' } },
+            { it: 'la Francia', pronunciation: 'FRAN-cha', translations: { uk: 'Франція', en: 'France' } },
+            { it: 'ucraino/a', pronunciation: 'uk-ra-EE-no/a', translations: { uk: 'українець/українка', en: 'Ukrainian' } },
+            { it: 'tedesco/a', pronunciation: 'te-DES-ko/a', translations: { uk: 'німець/німкеня', en: 'German' } },
+            { it: 'francese', pronunciation: 'fran-CHE-ze', translations: { uk: 'француз/француженка', en: 'French' } },
+            { it: 'che bello!', pronunciation: { uk: '[ке бел-ло]', en: '[keh BEHL-loh]' }, translations: { uk: 'як чудово!', en: 'how nice!' } }
           ],
           notes: [
             {
@@ -1897,7 +1953,7 @@
           title: { uk: 'Запам’ятай', en: 'Remember' },
           items: [
             { uk: 'У словах <i>famiglia, figlio, aglio</i> сполука <i>gli</i> позначає один звук.', en: 'In <i>famiglia, figlio, aglio</i>, the combination <i>gli</i> represents one sound.' },
-            { uk: 'Звук краще засвоювати на слух: слухайте слова й повторюйте, не покладаючись на приблизну транслітерацію.', en: 'The sound is best learned by listening: hear the words and repeat without relying on approximate transliteration.' },
+            { uk: 'Звук краще засвоювати на слух: слухайте слова й повторюйте, не покладаючись на приблизні підказки з вимови.', en: 'The sound is best learned by listening: hear the words and repeat without relying on approximate pronunciation guides.' },
           ],
         },
         {

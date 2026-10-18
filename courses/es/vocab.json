@@ -2,7 +2,7 @@
   {
     "id": "es-001",
     "word": "hola",
-    "phon": { "uk": "[о-ла]", "en": "[OH-lah]" },
+    "pronunciation": { "uk": "[о-ла]", "en": "[OH-lah]" },
     "trans": { "uk": "привіт", "en": "hello" },
     "example": {
       "text": "¡Hola! ¿Cómo estás?",
@@ -17,7 +17,7 @@
   {
     "id": "es-002",
     "word": "buenos días",
-    "phon": { "uk": "[буе-нос ді-ас]", "en": "[BWEH-nohs DEE-ahs]" },
+    "pronunciation": { "uk": "[буе-нос ді-ас]", "en": "[BWEH-nohs DEE-ahs]" },
     "trans": { "uk": "доброго дня", "en": "good morning" },
     "example": {
       "text": "Buenos días, señor.",
@@ -32,7 +32,7 @@
   {
     "id": "es-003",
     "word": "gracias",
-    "phon": { "uk": "[гра-сі-ас]", "en": "[GRAH-see-ahs]" },
+    "pronunciation": { "uk": "[гра-сі-ас]", "en": "[GRAH-see-ahs]" },
     "trans": { "uk": "дякую", "en": "thank you" },
     "example": {
       "text": "Gracias por tu ayuda.",
@@ -47,7 +47,7 @@
   {
     "id": "es-004",
     "word": "por favor",
-    "phon": { "uk": "[пор фа-вор]", "en": "[pohr fah-BOR]" },
+    "pronunciation": { "uk": "[пор фа-вор]", "en": "[pohr fah-BOR]" },
     "trans": { "uk": "будь ласка", "en": "please" },
     "example": {
       "text": "Una taza, por favor.",
@@ -62,7 +62,7 @@
   {
     "id": "es-005",
     "word": "¿cómo estás?",
-    "phon": { "uk": "[ко-мо ес-тас]", "en": "[KOH-moh ehs-TAHS]" },
+    "pronunciation": { "uk": "[ко-мо ес-тас]", "en": "[KOH-moh ehs-TAHS]" },
     "trans": { "uk": "як справи?", "en": "how are you?" },
     "example": {
       "text": "¿Cómo estás hoy?",
@@ -77,7 +77,7 @@
   {
     "id": "es-006",
     "word": "estoy bien",
-    "phon": { "uk": "[ес-той б'єн]", "en": "[ehs-TOY byehn]" },
+    "pronunciation": { "uk": "[ес-той б'єн]", "en": "[ehs-TOY byehn]" },
     "trans": { "uk": "я в порядку", "en": "I am well" },
     "example": {
       "text": "Estoy bien, gracias.",
@@ -92,7 +92,7 @@
   {
     "id": "es-007",
     "word": "soy",
-    "phon": { "uk": "[сой]", "en": "[soh]" },
+    "pronunciation": { "uk": "[сой]", "en": "[soh]" },
     "trans": { "uk": "я є / я являюсь", "en": "I am" },
     "example": {
       "text": "Soy Ana.",
@@ -107,7 +107,7 @@
   {
     "id": "es-008",
     "word": "mucho gusto",
-    "phon": { "uk": "[му-чо гу-сто]", "en": "[MOO-choh GOOS-toh]" },
+    "pronunciation": { "uk": "[му-чо гу-сто]", "en": "[MOO-choh GOOS-toh]" },
     "trans": { "uk": "приємно познайомитися", "en": "nice to meet you" },
     "example": {
       "text": "Mucho gusto, Marta.",
@@ -122,7 +122,7 @@
   {
     "id": "es-009",
     "word": "necesito ayuda",
-    "phon": { "uk": "[не-се-си-то а-ю-да]", "en": "[neh-seh-SEE-toh ah-YOO-dah]" },
+    "pronunciation": { "uk": "[не-се-си-то а-ю-да]", "en": "[neh-seh-SEE-toh ah-YOO-dah]" },
     "trans": { "uk": "мені потрібна допомога", "en": "I need help" },
     "example": {
       "text": "Necesito ayuda, por favor.",
@@ -137,7 +137,7 @@
   {
     "id": "es-010",
     "word": "¿dónde está el baño?",
-    "phon": { "uk": "[дон-де ес-та ель ба-ньо]", "en": "[DOHN-deh ehs-TAH ehl BAHN-yoh]" },
+    "pronunciation": { "uk": "[дон-де ес-та ель ба-ньо]", "en": "[DOHN-deh ehs-TAH ehl BAHN-yoh]" },
     "trans": { "uk": "де знаходиться туалет?", "en": "where is the bathroom?" },
     "example": {
       "text": "¿Dónde está el baño?",
@@ -152,7 +152,7 @@
   {
     "id": "es-011",
     "word": "quiero un café",
-    "phon": { "uk": "[кі-є-ро ун ка-фе]", "en": "[KYEH-roh oon kah-FEH]" },
+    "pronunciation": { "uk": "[кі-є-ро ун ка-фе]", "en": "[KYEH-roh oon kah-FEH]" },
     "trans": { "uk": "я хочу каву", "en": "I want a coffee" },
     "example": {
       "text": "Quiero un café, por favor.",
@@ -167,7 +167,7 @@
   {
     "id": "es-012",
     "word": "la cuenta",
-    "phon": { "uk": "[ла ку-єн-та]", "en": "[lah KWEN-tah]" },
+    "pronunciation": { "uk": "[ла ку-єн-та]", "en": "[lah KWEN-tah]" },
     "trans": { "uk": "рахунок", "en": "the bill" },
     "example": {
       "text": "La cuenta, por favor.",
@@ -182,7 +182,7 @@
   {
     "id": "es-013",
     "word": "la calle",
-    "phon": { "uk": "[ла ка-є]", "en": "[lah KAH-yeh]" },
+    "pronunciation": { "uk": "[ла ка-є]", "en": "[lah KAH-yeh]" },
     "trans": { "uk": "вулиця", "en": "street" },
     "example": {
       "text": "La calle es tranquila.",
@@ -197,7 +197,7 @@
   {
     "id": "es-014",
     "word": "el tren",
-    "phon": { "uk": "[ель трен]", "en": "[ehl trehn]" },
+    "pronunciation": { "uk": "[ель трен]", "en": "[ehl trehn]" },
     "trans": { "uk": "потяг", "en": "train" },
     "example": {
       "text": "El tren llega tarde.",
@@ -212,7 +212,7 @@
   {
     "id": "es-015",
     "word": "no entiendo",
-    "phon": { "uk": "[но ен-тьєн-до]", "en": "[noh ehn-TYEN-doh]" },
+    "pronunciation": { "uk": "[но ен-тьєн-до]", "en": "[noh ehn-TYEN-doh]" },
     "trans": { "uk": "я не розумію", "en": "I don't understand" },
     "example": {
       "text": "No entiendo, ¿puedes repetir?",

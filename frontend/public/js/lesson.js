@@ -119,7 +119,7 @@
           speaker: line.speaker || 'Speaker',
           avatar: line.avatar || (line.speaker || 'U').charAt(0).toUpperCase(),
           it: line.text || line.it || '',
-          phonetic: typeof line.phon === 'object' ? readText(line.phon, '') : (line.phon || line.phonetic || ''),
+          pronunciation: readText(line.pronunciation || line.phon || '', ''),
           translations: line.trans || line.translations || {},
           audio: line.audio !== false
         }))
@@ -132,7 +132,7 @@
         const directItem = item.it || item.word || item.text || '';
         return {
           it: directItem,
-          transcription: item.transcription || item.phon || '',
+          pronunciation: item.pronunciation || item.phon || '',
           translations: item.translations || item.trans || { uk: '', en: '' }
         };
       }).filter(Boolean);

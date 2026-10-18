@@ -36,7 +36,7 @@
           "speaker": "Ana",
           "avatar": "A",
           "text": "¡Hola!",
-          "phon": { "uk": "[о-ла]", "en": "[OH-lah]" },
+          "pronunciation": { "uk": "[о-ла]", "en": "[OH-lah]" },
           "trans": { "uk": "Привіт!", "en": "Hello!" },
           "audio": true
         },
@@ -44,7 +44,7 @@
           "speaker": "María",
           "avatar": "M",
           "text": "¡Hola! ¿Cómo estás?",
-          "phon": { "uk": "[ко-мо ес-тас]", "en": "[KOH-moh ehs-TAHS]" },
+          "pronunciation": { "uk": "[ко-мо ес-тас]", "en": "[KOH-moh ehs-TAHS]" },
           "trans": { "uk": "Привіт! Як справи?", "en": "Hello! How are you?" },
           "audio": true
         },
@@ -52,7 +52,7 @@
           "speaker": "Ana",
           "avatar": "A",
           "text": "Estoy bien, gracias. Soy Ana.",
-          "phon": { "uk": "[ес-той б'єн, гра-сі-ас. сой а-на]", "en": "[ehs-TOY byehn, GRAH-see-ahs. soh AH-nah]" },
+          "pronunciation": { "uk": "[ес-той б'єн, гра-сі-ас. сой а-на]", "en": "[ehs-TOY byehn, GRAH-see-ahs. soh AH-nah]" },
           "trans": { "uk": "Я в порядку, дякую. Я Ана.", "en": "I’m fine, thank you. I am Ana." },
           "audio": true
         },
@@ -60,7 +60,7 @@
           "speaker": "María",
           "avatar": "M",
           "text": "Mucho gusto, Ana.",
-          "phon": { "uk": "[му-чо гу-сто, а-на]", "en": "[MOO-choh GOOS-toh, ah-NAH]" },
+          "pronunciation": { "uk": "[му-чо гу-сто, а-на]", "en": "[MOO-choh GOOS-toh, ah-NAH]" },
           "trans": { "uk": "Приємно познайомитися, Ана.", "en": "Nice to meet you, Ana." },
           "audio": true
         }
@@ -75,7 +75,7 @@
       "items": [
         {
           "es": "hola",
-          "transcription": "[о-ла]",
+          "pronunciation": "[о-ла]",
           "translations": {
             "uk": "привіт",
             "en": "hello"
@@ -83,7 +83,7 @@
         },
         {
           "es": "¿cómo estás?",
-          "transcription": "[ко-мо ес-тас]",
+          "pronunciation": "[ко-мо ес-тас]",
           "translations": {
             "uk": "як справи?",
             "en": "how are you?"
@@ -91,7 +91,7 @@
         },
         {
           "es": "soy",
-          "transcription": "[сой]",
+          "pronunciation": "[сой]",
           "translations": {
             "uk": "я є",
             "en": "I am"
@@ -99,7 +99,7 @@
         },
         {
           "es": "mucho gusto",
-          "transcription": "[му-чо гу-сто]",
+          "pronunciation": "[му-чо гу-сто]",
           "translations": {
             "uk": "приємно познайомитися",
             "en": "nice to meet you"

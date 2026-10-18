@@ -132,7 +132,7 @@ Example:
   {
     "id": "fr-001",
     "word": "bonjour",
-    "phon": { "uk": "[бон-жур]", "en": "[bohn-ZHOOR]" },
+    "pronunciation": { "uk": "[бон-жур]", "en": "[bohn-ZHOOR]" },
     "trans": { "uk": "добрий день", "en": "good day / hello" },
     "example": {
       "text": "Bonjour !",

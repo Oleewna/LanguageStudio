@@ -37,7 +37,7 @@
           "speaker": "Sofia",
           "avatar": "S",
           "text": "Buongiorno!",
-          "phon": { "uk": "[буон-джор-но]", "en": "[bwon-JOR-no]" },
+          "pronunciation": { "uk": "[буон-джор-но]", "en": "[bwon-JOR-no]" },
           "trans": { "uk": "Доброго дня!", "en": "Good morning!" },
           "audio": true
         },
@@ -45,7 +45,7 @@
           "speaker": "Greta",
           "avatar": "G",
           "text": "Buongiorno! Come ti chiami?",
-          "phon": { "uk": "[ко-ме ті к’я-мі]", "en": "[KOH-meh tee KYAH-mee]" },
+          "pronunciation": { "uk": "[ко-ме ті к’я-мі]", "en": "[KOH-meh tee KYAH-mee]" },
           "trans": { "uk": "Доброго дня! Як тебе звати?", "en": "Good morning! What is your name?" },
           "audio": true
         },
@@ -53,7 +53,7 @@
           "speaker": "Sofia",
           "avatar": "S",
           "text": "Mi chiamo Sofia. E tu?",
-          "phon": { "uk": "[мі к’я-мо Со-фі-а. е ту]", "en": "[mee KYAH-moh SOH-fee-ah. eh too]" },
+          "pronunciation": { "uk": "[мі к’я-мо Со-фі-а. е ту]", "en": "[mee KYAH-moh SOH-fee-ah. eh too]" },
           "trans": { "uk": "Мене звати Софія. А тебе?", "en": "My name is Sofia. And you?" },
           "audio": true
         },
@@ -61,7 +61,7 @@
           "speaker": "Greta",
           "avatar": "G",
           "text": "Mi chiamo Greta. Piacere!",
-          "phon": { "uk": "[мі к’я-мо Ґре-та. п’я-че-ре]", "en": "[mee KYAH-moh GREH-tah. pyah-CHEH-reh]" },
+          "pronunciation": { "uk": "[мі к’я-мо Ґре-та. п’я-че-ре]", "en": "[mee KYAH-moh GREH-tah. pyah-CHEH-reh]" },
           "trans": { "uk": "Мене звати Ґрета. Приємно познайомитися!", "en": "My name is Greta. Nice to meet you!" },
           "audio": true
         }
@@ -76,7 +76,7 @@
       "items": [
         {
           "it": "buongiorno",
-          "transcription": "[буон-джор-но]",
+          "pronunciation": "[буон-джор-но]",
           "translations": {
             "uk": "доброго дня",
             "en": "good morning / hello"
@@ -84,7 +84,7 @@
         },
         {
           "it": "come ti chiami?",
-          "transcription": "[ко-ме ті к’я-мі]",
+          "pronunciation": "[ко-ме ті к’я-мі]",
           "translations": {
             "uk": "як тебе звати?",
             "en": "what is your name?"
@@ -92,7 +92,7 @@
         },
         {
           "it": "mi chiamo",
-          "transcription": "[мі к’я-мо]",
+          "pronunciation": "[мі к’я-мо]",
           "translations": {
             "uk": "мене звати",
             "en": "my name is"
@@ -100,7 +100,7 @@
         },
         {
           "it": "piacere",
-          "transcription": "[п’я-че-ре]",
+          "pronunciation": "[п’я-че-ре]",
           "translations": {
             "uk": "приємно познайомитися",
             "en": "nice to meet you"
