@@ -20,7 +20,7 @@
   }
   .hub-card:hover {
     transform: translateY(-2px);
-    border-color: var(--it-green-border);
+    border-color: var(--primary-border);
     box-shadow: var(--shadow-md);
   }
   .hub-icon {
@@ -39,9 +39,10 @@
     height: 1.4rem;
     display: block;
   }
-  .hi-green { background: var(--it-green-light); color: var(--it-green); }
-  .hi-red { background: var(--it-red-light); color: var(--it-red); }
-  .hi-gold { background: var(--it-gold-light); color: var(--it-gold); }
+  .hi-green, .hi-primary { background: var(--primary-light); color: var(--primary); }
+  .hi-red, .hi-accent { background: var(--accent-light); color: var(--accent); }
+  .hi-gold { background: var(--accent-light); color: var(--accent); }
+  .hi-correct { background: var(--correct-light); color: var(--correct); }
   .hi-dark { background: var(--card-sub-bg); color: var(--ink); }
   [data-theme="dark"] .hi-dark { background: var(--card-sub-bg); color: var(--ink-soft); }
   
@@ -88,7 +89,7 @@
     padding: 0.25rem 0.6rem;
     border-radius: var(--radius-full);
   }
-  .ub-active { background: var(--it-green-light); color: var(--it-green); border: 1px solid var(--it-green-border); }
+  .ub-active { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); }
   .ub-locked { background: var(--bg); color: var(--ink-soft); border: 1px solid var(--border); }
 
   .unit-tree-title {
@@ -129,7 +130,7 @@
     z-index: 1;
   }
   .tree-node-item.completed:not(:last-child)::before {
-    background: var(--it-green);
+    background: var(--primary);
   }
 
   .node-bullet {
@@ -179,7 +180,7 @@
   }
   .node-content-card:hover {
     background: var(--card-sub-bg);
-    border-color: var(--it-green-border);
+    border-color: var(--primary-border);
     transform: translateX(3px);
   }
   .node-content-card.locked-card {

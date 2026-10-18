@@ -24,13 +24,13 @@
     transition: all 0.15s ease;
   }
   .filters-toggle-btn:hover {
-    border-color: var(--pine);
-    color: var(--pine);
+    border-color: var(--primary);
+    color: var(--primary);
   }
   .filters-toggle-btn[aria-expanded="true"] {
-    background: var(--it-green);
-    border-color: var(--it-green);
-    color: #fff;
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--primary-contrast);
   }
   .filters-toggle-icon {
     display: inline-flex;
@@ -89,7 +89,7 @@
     transition: transform 0.15s, border-color 0.15s;
   }
   .dict-card:hover {
-    border-color: var(--it-green-border);
+    border-color: var(--primary-border);
     transform: translateY(-2px);
   }
   .dict-card {
@@ -97,8 +97,8 @@
     position: relative;
   }
   .dict-card.learned {
-    border-color: var(--pine);
-    background: var(--it-green-light);
+    border-color: var(--primary);
+    background: var(--primary-light);
   }
   .dict-filters {
     display: flex;
@@ -117,13 +117,13 @@
     cursor: pointer;
   }
   .filter-select:focus {
-    border-color: var(--pine);
+    border-color: var(--primary);
   }
   .type-tag {
     font-size: 0.65rem;
-    background: var(--it-blue-light);
-    color: var(--it-blue);
-    border: 1px solid var(--it-blue-border);
+    background: var(--primary-light);
+    color: var(--primary);
+    border: 1px solid var(--primary-border);
     padding: 0.1rem 0.4rem;
     border-radius: 99px;
     font-weight: 700;
@@ -147,7 +147,7 @@
     transition: color 0.15s, transform 0.15s;
   }
   .star-btn.active {
-    color: var(--it-gold);
+    color: var(--accent);
   }
   .star-btn:hover {
     transform: scale(1.15);
@@ -180,9 +180,9 @@
   }
   .custom-tag {
     font-size: 0.65rem;
-    background: var(--it-gold-light);
-    color: var(--it-gold);
-    border: 1px solid var(--it-gold);
+    background: var(--accent-light);
+    color: var(--accent);
+    border: 1px solid var(--accent-border);
     padding: 0.1rem 0.4rem;
     border-radius: 99px;
     font-weight: 700;
@@ -203,7 +203,7 @@
     transition: color 0.15s;
   }
   .delete-btn:hover {
-    color: var(--gold);
+    color: var(--wrong);
   }
 
   /* Modal */
@@ -252,7 +252,7 @@
     outline: none;
   }
   .form-control:focus {
-    border-color: var(--pine);
+    border-color: var(--primary);
   }
 
 #external-style-dictionary-1 { display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem; }

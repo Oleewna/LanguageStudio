@@ -43,7 +43,7 @@
     cursor: pointer;
   }
   .filter-select:focus {
-    border-color: var(--pine);
+    border-color: var(--primary);
   }
 
   .topic-chips {
@@ -66,9 +66,9 @@
     touch-action: manipulation;
   }
   .topic-chip.active {
-    background: var(--it-green-light);
-    border-color: var(--it-green-border);
-    color: var(--pine);
+    background: var(--primary-light);
+    border-color: var(--primary-border);
+    color: var(--primary);
     font-weight: 700;
   }
 

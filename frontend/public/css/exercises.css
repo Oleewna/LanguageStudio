@@ -14,7 +14,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--pine);
+    color: var(--primary);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -39,13 +39,13 @@
     transition: all 0.15s ease;
   }
   .filters-toggle-btn:hover {
-    border-color: var(--pine);
-    color: var(--pine);
+    border-color: var(--primary);
+    color: var(--primary);
   }
   .filters-toggle-btn[aria-expanded="true"] {
-    background: var(--it-green);
-    border-color: var(--it-green);
-    color: #fff;
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--primary-contrast);
   }
   .filters-toggle-icon {
     display: inline-flex;
@@ -87,20 +87,19 @@
     box-sizing: border-box;
   }
   .cat-pill:hover {
-    border-color: var(--pine);
-    color: var(--pine);
+    border-color: var(--primary);
+    color: var(--primary);
   }
   .cat-pill.active {
-    background: var(--it-green) !important;
-    border-color: var(--it-green) !important;
-    color: #FFFFFF !important;
-    font-weight: 700;
-    box-shadow: 0 2px 8px color-mix(in srgb, var(--it-green) 22%, transparent);
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary-contrast) !important;
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 22%, transparent);
   }
   .task-tab.active {
-    background: var(--it-green) !important;
-    border-color: var(--it-green) !important;
-    color: #FFFFFF !important;
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary-contrast) !important;
     font-weight: 700;
   }
   
@@ -143,7 +142,7 @@
     text-overflow: ellipsis;
   }
   .filter-select:focus, .filter-input:focus {
-    border-color: var(--pine);
+    border-color: var(--primary);
   }
 
   /* ── Exercise Badges & Cards ── */
@@ -189,7 +188,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--pine);
+    color: var(--primary);
   }
   .quiz-question {
     font-size: 1.05rem;
@@ -316,12 +315,12 @@
     white-space: nowrap;
   }
   .task-tab:hover {
-    border-color: var(--it-green-border);
+    border-color: var(--primary-border);
   }
   .task-tab.active {
-    background: var(--pine);
-    border-color: var(--pine);
-    color: #fff;
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--primary-contrast);
   }
   .task-panel {
     display: none;
@@ -345,7 +344,7 @@
     color: var(--ink);
   }
   .text-answer-input:focus {
-    border-color: var(--pine);
+    border-color: var(--primary);
   }
 
   /* Matching pairs */
@@ -371,11 +370,11 @@
     transition: all 0.15s;
   }
   .match-item:hover {
-    border-color: var(--it-green-border);
+    border-color: var(--primary-border);
   }
   .match-item.selected {
-    border-color: var(--pine);
-    background: var(--it-green-light);
+    border-color: var(--primary);
+    background: var(--primary-light);
   }
   .match-item.matched {
     border-color: var(--correct);
@@ -418,11 +417,11 @@
     transition: border-color 0.15s;
   }
   .reorder-chip:hover {
-    border-color: var(--pine);
+    border-color: var(--primary);
   }
   .answer-chip {
-    background: var(--it-green-light);
-    border-color: var(--pine);
+    background: var(--primary-light);
+    border-color: var(--primary);
   }
 
   .empty-state {

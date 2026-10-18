@@ -81,15 +81,15 @@
 
 #tab-login:checked ~ .auth-tabs-header label[for="tab-login"],
 #tab-signup:checked ~ .auth-tabs-header label[for="tab-signup"] {
-  color: var(--it-green);
-  border-bottom-color: var(--it-green);
+  color: var(--primary);
+  border-bottom-color: var(--primary);
   font-weight: 700;
   background: var(--surface);
 }
 
 #tab-login:focus-visible ~ .auth-tabs-header label[for="tab-login"],
 #tab-signup:focus-visible ~ .auth-tabs-header label[for="tab-signup"] {
-  outline: 2px solid var(--it-green);
+  outline: 2px solid var(--primary);
   outline-offset: -4px;
 }
 
@@ -150,13 +150,13 @@
 }
 
 .auth-input:focus {
-  border-color: var(--it-green);
+  border-color: var(--primary);
   background: var(--surface);
 }
 
 .auth-input:user-invalid {
-  border-color: var(--it-red);
-  background: var(--it-red-light);
+  border-color: var(--wrong);
+  background: var(--wrong-light);
 }
 
 .auth-row {
@@ -179,7 +179,7 @@
 }
 
 .auth-check input[type="checkbox"] {
-  accent-color: var(--it-green);
+  accent-color: var(--primary);
   width: 1.05rem;
   height: 1.05rem;
   margin-top: 0.1rem;
@@ -189,12 +189,12 @@
 .auth-link {
   font-size: 0.84rem;
   font-weight: 600;
-  color: var(--it-green);
+  color: var(--primary);
   text-decoration: none;
 }
 
 .auth-link:hover {
-  color: var(--it-green-hover);
+  color: var(--primary-hover);
   text-decoration: underline;
 }
 
@@ -219,7 +219,7 @@
 }
 
 .auth-switch label {
-  color: var(--it-green);
+  color: var(--primary);
   font-weight: 700;
   cursor: pointer;
 }
@@ -230,7 +230,7 @@
 
 .auth-note-box {
   background: var(--bg);
-  border-left: 3px solid var(--it-green);
+  border-left: 3px solid var(--primary);
   border-radius: var(--radius-sm);
   padding: 0.8rem 1rem;
   font-size: 0.84rem;

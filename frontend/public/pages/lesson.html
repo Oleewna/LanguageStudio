@@ -28,7 +28,7 @@
 <!-- ═══════════ LESSON LAYOUT: SIDEBAR + CONTENT ═══════════ -->
 <div class="lesson-layout-wrapper">
 
-  <!-- Sidebar overlay (mobile) -->
+  <!-- Sidebar overlay -->
   <div class="sidebar-overlay" id="sbOverlay"></div>
 
   <!-- ── Sidebar ── -->
@@ -51,12 +51,12 @@
     <!-- Lesson top bar: breadcrumb + nav actions -->
     <div class="lesson-topbar">
       <div style="display:flex;align-items:center;gap:0.6rem;">
-        <!-- Mobile sidebar toggle -->
         <button
           class="sb-toggle-btn"
           id="sbToggleBtn"
           type="button"
-          aria-label="Зміст розділу"
+          aria-label="Приховати список уроків"
+          title="Приховати список уроків"
           aria-expanded="false"
           aria-controls="sidebar"
         >
@@ -76,33 +76,40 @@
       </div>
     </div>
 
-    <!-- ── Lesson content: hero + engine body ── -->
-    <main class="content" id="lessonMain" aria-live="polite">
-
-      <!-- Hero header (populated dynamically) -->
-      <div class="hero" id="lessonHero">
-        <div class="hero-copy">
-          <div class="hero-label" id="heroLabel"></div>
-          <h1 id="heroTitle">Завантаження уроку…</h1>
-          <p id="heroDescription"></p>
-        </div>
-        <div class="hero-meta" id="heroMeta" style="display:flex;flex-direction:column;align-items:flex-end;gap:0.65rem;flex-shrink:0;">
-          <!-- Lesson type badge + duration chip rendered by JS -->
-        </div>
-      </div>
-
-      <!-- Engine-rendered lesson sections mount here -->
-      <div id="lessonBody">
-        <!-- LessonEngine.renderLesson() injects all section blocks here -->
-      </div>
-
-      <!-- Bottom navigation -->
-      <nav class="lesson-bottom-nav" id="lessonBottomNav" aria-label="Навігація між уроками">
-        <a href="#" class="btn-ghost" id="btnPrevLessonBottom" style="display:none;"><span data-icon="arrow-left"></span> Попередній урок</a>
-        <a href="#" class="btn-primary" id="btnNextLessonBottom" style="display:none;">Наступний урок <span data-icon="arrow-right"></span></a>
+    <!-- ── Lesson content with section index ── -->
+    <div class="lesson-content-layout">
+      <nav class="lesson-index" id="lessonIndex" aria-label="Зміст уроку" hidden>
+        <h2 class="lesson-index-title" id="lessonIndexTitle">У цьому уроці</h2>
+        <ol class="lesson-index-list" id="lessonIndexList"></ol>
       </nav>
 
-    </main>
+      <main class="content" id="lessonMain" aria-live="polite">
+
+        <!-- Hero header (populated dynamically) -->
+        <div class="hero" id="lessonHero">
+          <div class="hero-copy">
+            <div class="hero-label" id="heroLabel"></div>
+            <h1 id="heroTitle">Завантаження уроку…</h1>
+            <p id="heroDescription"></p>
+          </div>
+          <div class="hero-meta" id="heroMeta" style="display:flex;flex-direction:column;align-items:flex-end;gap:0.65rem;flex-shrink:0;">
+            <!-- Lesson type badge + duration chip rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Engine-rendered lesson sections mount here -->
+        <div id="lessonBody">
+          <!-- LessonEngine.renderLesson() injects all section blocks here -->
+        </div>
+
+        <!-- Bottom navigation -->
+        <nav class="lesson-bottom-nav" id="lessonBottomNav" aria-label="Навігація між уроками">
+          <a href="#" class="btn-ghost" id="btnPrevLessonBottom" style="display:none;"><span data-icon="arrow-left"></span> Попередній урок</a>
+          <a href="#" class="btn-primary" id="btnNextLessonBottom" style="display:none;">Наступний урок <span data-icon="arrow-right"></span></a>
+        </nav>
+
+      </main>
+    </div>
   </div><!-- /.lesson-main -->
 </div><!-- /.lesson-layout-wrapper -->
 

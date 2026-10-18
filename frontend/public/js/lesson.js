@@ -440,7 +440,61 @@
     if (body) {
       body.innerHTML = `<div style="padding:2rem;text-align:center;"><p style="color:var(--ink-soft);margin-bottom:1rem;">${lang === 'en' ? 'Choose another lesson from the course path or return to the learning paths page.' : 'Оберіть інший урок зі списку або поверніться до розділів.'}</p><a href="path.html" class="btn-primary">${lang === 'en' ? 'Learning paths' : 'Розділи навчання'}</a></div>`;
     }
+    const index = document.getElementById('lessonIndex');
+    if (index) index.hidden = true;
     document.title = lang === 'en' ? 'Lesson not found — LanguageStudio' : 'Урок не знайдено — LanguageStudio';
+  }
+
+  function setupSidebarToggle() {
+    const wrapper = document.querySelector('.lesson-layout-wrapper');
+    const sidebar = document.getElementById('sidebar');
+    const toggle = document.getElementById('sbToggleBtn');
+    const overlay = document.getElementById('sbOverlay');
+    if (!wrapper || !sidebar || !toggle || toggle.dataset.sidebarReady === 'true') return;
+
+    const isMobile = () => window.matchMedia('(max-width: 860px)').matches;
+    const setOpen = (open) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      if (isMobile()) {
+        sidebar.classList.toggle('open', open);
+        if (overlay) overlay.classList.toggle('open', open);
+      } else {
+        wrapper.classList.toggle('sidebar-collapsed', !open);
+      }
+    };
+    const updateLabel = () => {
+      const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      const label = lang === 'en'
+        ? (open ? 'Hide lesson list' : 'Show lesson list')
+        : (open ? 'Приховати список уроків' : 'Показати список уроків');
+      toggle.setAttribute('aria-label', label);
+      toggle.title = label;
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+      updateLabel();
+    });
+    overlay?.addEventListener('click', () => {
+      setOpen(false);
+      updateLabel();
+    });
+    window.addEventListener('resize', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      setOpen(open);
+    });
+    window.addEventListener('sourceLanguageChanged', updateLabel);
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && sidebar.classList.contains('open')) {
+        setOpen(false);
+        updateLabel();
+      }
+    });
+
+    toggle.dataset.sidebarReady = 'true';
+    setOpen(!isMobile());
+    updateLabel();
   }
 
   async function initLessonPage() {
@@ -496,6 +550,8 @@
       showNotFound(lessonId);
     }
   }
+
+  setupSidebarToggle();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initLessonPage);

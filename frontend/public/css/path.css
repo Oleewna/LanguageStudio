@@ -49,9 +49,9 @@
     font-size: 1.15rem;
     flex-shrink: 0;
   }
-  .u1 { background: var(--it-green-light); color: var(--pine); }
-  .u2 { background: var(--it-blue-light); color: var(--it-blue); }
-  .u3 { background: var(--it-gold-light); color: var(--it-gold); }
+  .u1 { background: var(--primary-light); color: var(--primary); }
+  .u2 { background: var(--accent-light); color: var(--accent); }
+  .u3 { background: var(--correct-light); color: var(--correct); }
 
   .unit-title {
     font-family: var(--font-serif);
@@ -79,9 +79,9 @@
     white-space: nowrap;
   }
   .unit-badge.active-badge {
-    background: var(--it-green-light);
-    color: var(--pine);
-    border-color: var(--it-green-border);
+    background: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary-border);
   }
   .unit-chevron {
     font-size: 0.8rem;
@@ -144,9 +144,9 @@
     white-space: nowrap;
   }
   .unit-group-badge.active-badge {
-    background: var(--it-green-light);
-    color: var(--pine);
-    border-color: var(--it-green-border);
+    background: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary-border);
   }
   .unit-group-chevron {
     font-size: 0.75rem;
@@ -208,7 +208,7 @@
     border: 0;
     border-bottom: 1px solid var(--border);
     background: var(--bg);
-    color: var(--pine);
+    color: var(--primary);
     font: inherit;
     font-size: 0.78rem;
     text-align: left;
@@ -264,8 +264,8 @@
     border-radius: 99px;
   }
   .ls-available {
-    background: var(--it-green-light);
-    color: var(--pine);
+    background: var(--primary-light);
+    color: var(--primary);
   }
   .ls-soon {
     background: var(--bg);
@@ -292,17 +292,17 @@
   [data-theme="dark"] .unit-badge.active-badge,
   [data-theme="dark"] .unit-group-badge.active-badge,
   [data-theme="dark"] .ls-available {
-    background: var(--it-green-light);
-    color: var(--it-green);
-    border-color: var(--it-green-border);
+    background: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary-border);
   }
   [data-theme="dark"] .u2 {
-    background: var(--it-blue-light);
-    color: var(--it-blue);
+    background: var(--accent-light);
+    color: var(--accent);
   }
   [data-theme="dark"] .u3 {
-    background: var(--it-gold-light);
-    color: var(--it-gold);
+    background: var(--correct-light);
+    color: var(--correct);
   }
 
   @media (max-width: 600px) {

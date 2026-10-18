@@ -64,6 +64,9 @@
     uk: {
       checkTasks: 'Перевірити завдання',
       moreExercises: 'Більше вправ',
+      lessonIndex: 'У цьому уроці',
+      showTransliteration: 'Показати транслітерацію',
+      hideTransliteration: 'Сховати транслітерацію',
       checkAllPrompt: 'Будь ласка, дайте відповідь на всі запитання перед перевіркою.',
       correct: 'Правильно',
       correctAnswer: 'Правильна відповідь:',
@@ -90,6 +93,9 @@
     en: {
       checkTasks: 'Check answers',
       moreExercises: 'More exercises',
+      lessonIndex: 'In this lesson',
+      showTransliteration: 'Show transliteration',
+      hideTransliteration: 'Hide transliteration',
       checkAllPrompt: 'Please answer all questions before checking.',
       correct: 'Correct',
       correctAnswer: 'Correct answer:',
@@ -299,16 +305,21 @@
 
     return `
       <section class="lesson-section lesson-section-dialogue" data-section-type="dialogue">
-        <h2 class="section-title"><span class="ic">${getIconSvg('chat')}</span>${escapeHtml(title)}</h2>
+        <div class="dialogue-heading">
+          <h2 class="section-title"><span class="ic">${getIconSvg('chat')}</span>${escapeHtml(title)}</h2>
+          <button class="btn-ghost transliteration-toggle" type="button" aria-pressed="false">
+            ${escapeHtml(uiText('showTransliteration', {}, lang))}
+          </button>
+        </div>
         <div class="card">
           <div class="dialogue-layout">
             <div class="dialogue-copy dialogue-content">
               ${story}
               ${lines}
             </div>
-            ${imageHtml}
           </div>
         </div>
+        ${imageHtml}
       </section>
     `;
   }
@@ -450,24 +461,22 @@
     const title = t(section.title, 'Нові слова', lang);
     const items = section.items || [];
 
-    const rowsHtml = items.map(item => {
+    const itemsHtml = items.map(item => {
       const it = escapeHtml(item.it || '');
       const trans = escapeHtml(t(item.translations, '', lang));
       const phon = escapeHtml(item.transcription || '');
 
       return `
-        <tr>
-          <td>
-            <div class="vocab-word-cell">
-              <b>${it}</b>
-              <button class="audio-btn" type="button" aria-label="${escapeAttr(uiText('listen', {}, lang))}" data-speak-text="${escapeAttr(item.it || '')}">
-                ${getIconSvg('audio')}
-              </button>
-            </div>
-          </td>
-          <td>${trans}</td>
-          <td>${phon}</td>
-        </tr>
+        <li class="vocab-list-item">
+          <div class="vocab-list-word">
+            <b>${it}</b>
+            <button class="audio-btn" type="button" aria-label="${escapeAttr(uiText('listen', {}, lang))}" data-speak-text="${escapeAttr(item.it || '')}">
+              ${getIconSvg('audio')}
+            </button>
+          </div>
+          ${trans ? `<div class="vocab-list-translation">${trans}</div>` : ''}
+          ${phon ? `<div class="vocab-list-pronunciation">${phon}</div>` : ''}
+        </li>
       `;
     }).join('');
 
@@ -486,20 +495,7 @@
       <section class="lesson-section lesson-section-vocab" data-section-type="vocab">
         <h2 class="section-title"><span class="ic">${getIconSvg('dictionary')}</span>${escapeHtml(title)}</h2>
         <div class="card">
-          <div class="table-responsive">
-            <table class="vocab-table">
-              <thead>
-                <tr>
-                  <th>${escapeHtml(uiText('word', {}, lang))}</th>
-                  <th>${escapeHtml(uiText('translation', {}, lang))}</th>
-                  <th>${escapeHtml(uiText('pronunciation', {}, lang))}</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${rowsHtml}
-              </tbody>
-            </table>
-          </div>
+          <ul class="vocab-list">${itemsHtml}</ul>
           ${notesHtml}
         </div>
       </section>
@@ -985,6 +981,22 @@
 
     container.innerHTML = blocksHtml;
 
+    const dialogueSection = container.querySelector('[data-section-type="dialogue"]');
+    const vocabSection = container.querySelector('[data-section-type="vocab"]');
+    if (dialogueSection) {
+      const feature = document.createElement('div');
+      feature.className = 'lesson-dialogue-feature';
+      const firstSection = container.querySelector('.lesson-section');
+      const sceneImage = dialogueSection.querySelector('.scene-img-wrapper');
+      if (sceneImage) {
+        sceneImage.classList.add('lesson-scene-image');
+        container.insertBefore(sceneImage, firstSection);
+      }
+      container.insertBefore(feature, firstSection);
+      feature.appendChild(dialogueSection);
+      if (vocabSection) feature.appendChild(vocabSection);
+    }
+
     const courseId = lesson.courseId || (typeof window.getCourseId === 'function' ? window.getCourseId() : 'it');
     const exercisesUrl = new URL('exercises.html', window.location.href);
     if (courseId) exercisesUrl.searchParams.set('course', courseId);
@@ -996,6 +1008,31 @@
     const quizSection = container.querySelector('[data-section-type="quiz"]');
     if (quizSection) quizSection.insertAdjacentHTML('afterend', exercisesLink);
     else container.insertAdjacentHTML('beforeend', exercisesLink);
+
+    const index = document.getElementById('lessonIndex');
+    const indexList = document.getElementById('lessonIndexList');
+    if (index && indexList) {
+      const indexTitle = document.getElementById('lessonIndexTitle');
+      if (indexTitle) indexTitle.textContent = uiText('lessonIndex', {}, lang);
+      index.setAttribute('aria-label', uiText('lessonIndex', {}, lang));
+      indexList.replaceChildren();
+
+      container.querySelectorAll('.lesson-section').forEach((section, sectionIndex) => {
+        const heading = section.querySelector('.section-title');
+        if (!heading) return;
+
+        if (!section.id) section.id = `lesson-section-${sectionIndex + 1}`;
+        const item = document.createElement('li');
+        const link = document.createElement('a');
+        link.className = 'lesson-index-link';
+        link.href = `#${section.id}`;
+        link.textContent = heading.textContent.trim();
+        item.appendChild(link);
+        indexList.appendChild(item);
+      });
+
+      index.hidden = indexList.childElementCount === 0;
+    }
 
     // Attach event listeners for audio buttons, vocab hints, and quiz checking
     bindLessonInteractions(container, lesson);
@@ -1105,6 +1142,19 @@
         const isHidden = transBox.style.display === 'none' || getComputedStyle(transBox).display === 'none';
         transBox.style.display = isHidden ? 'block' : 'none';
         btn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+      });
+    });
+
+    container.querySelectorAll('.transliteration-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dialogueSection = btn.closest('.lesson-section-dialogue');
+        const feature = btn.closest('.lesson-dialogue-feature');
+        if (!dialogueSection || !feature) return;
+
+        const show = !feature.classList.contains('show-transliteration');
+        feature.classList.toggle('show-transliteration', show);
+        btn.setAttribute('aria-pressed', String(show));
+        btn.textContent = uiText(show ? 'hideTransliteration' : 'showTransliteration');
       });
     });
 
