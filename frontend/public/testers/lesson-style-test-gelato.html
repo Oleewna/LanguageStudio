@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fdf2f7" />
+  <title>Lesson gelato</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="../js/lesson-style-test.js" defer></script>
+  <style>
+    /* Gelato: strawberry milk + blueberry + pistachio. Chat-style dialogue, soft and friendly. */
+    :root {
+      color-scheme: light;
+      --milk: #fdf2f7;
+      --card: #ffffff;
+      --ink: #2b2540;
+      --muted: #6f6789;
+      --line: #f1dce7;
+      --berry: #5f63e0;
+      --berry-deep: #4448b8;
+      --berry-soft: #e8e9ff;
+      --straw: #ff7a9c;
+      --straw-deep: #d9446d;
+      --straw-soft: #ffe3ea;
+      --pista: #c3ebcd;
+      --pista-ink: #24603f;
+      --lemon: #fff0b3;
+      --lemon-ink: #6b5410;
+      --head: 'Baloo 2', 'Trebuchet MS', sans-serif;
+      --body: 'Figtree', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-width: 320px; margin: 0; color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.5;
+      background: var(--milk);
+      background-image: radial-gradient(circle at 8% 4%, #ffd9e6 0, transparent 34%), radial-gradient(circle at 96% 30%, #dfe0ff 0, transparent 30%), radial-gradient(circle at 10% 90%, #d6f3df 0, transparent 30%);
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input { font: inherit; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--berry); outline-offset: 2px; }
+
+    .topbar { position: sticky; z-index: 10; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 60px; padding: 0 clamp(1rem, 4vw, 2.5rem); background: rgba(253, 242, 247, 0.92); backdrop-filter: blur(10px); }
+    .brand, .topbar-actions, .back-link { display: inline-flex; align-items: center; }
+    .brand { gap: 0.55rem; font-family: var(--head); font-size: 1.15rem; font-weight: 700; text-decoration: none; }
+    .brand-mark { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50% 50% 50% 8px; background: var(--straw); color: #fff; font-size: 0.8rem; font-weight: 800; }
+    .topbar-actions { gap: 0.9rem; }
+    .back-link { color: var(--muted); font-size: 0.85rem; font-weight: 600; text-decoration: none; }
+    .back-link:hover { color: var(--berry); }
+    .language-toggle { min-width: 46px; min-height: 38px; border: 2px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink); cursor: pointer; font-weight: 700; font-size: 0.8rem; }
+    .language-toggle:hover { border-color: var(--berry); color: var(--berry); }
+
+    .lesson-app { display: flex; flex-direction: column; gap: 22px; width: min(740px, calc(100% - 28px)); margin: 0 auto; padding: 14px 0 72px; }
+    .loading-message, .error-message { color: var(--muted); }
+
+    /* Hero */
+    .lesson-intro { display: grid; grid-template-columns: minmax(0, 1fr) 210px; align-items: center; gap: 1.5rem; padding: 1.7rem; border-radius: 32px; background: var(--berry); color: #fff; box-shadow: 0 8px 0 var(--berry-deep); }
+    .eyebrow { margin: 0 0 0.3rem; color: #d3d5ff; font-size: 0.85rem; font-weight: 600; }
+    .lesson-intro h1 { margin: 0; font-family: var(--head); font-size: clamp(2.1rem, 6vw, 3rem); font-weight: 800; line-height: 1.02; }
+    .lesson-subtitle { margin: 0.4rem 0 0; color: var(--lemon); font-family: var(--head); font-size: 1.3rem; font-weight: 600; }
+    .lesson-description { margin: 0.7rem 0 0; color: #e8e9ff; font-size: 0.95rem; }
+    .scene-figure { position: relative; margin: 0; transform: rotate(3deg); }
+    .scene-figure img { display: block; width: 100%; aspect-ratio: 1; border: 6px solid #fff; border-radius: 28px; object-fit: cover; }
+    .scene-figure figcaption { display: none; }
+
+    /* Steps */
+    .lesson-progress { position: sticky; top: 60px; z-index: 6; display: flex; gap: 8px; padding: 6px 2px; overflow-x: auto; scrollbar-width: none; }
+    .lesson-progress::-webkit-scrollbar { display: none; }
+    .lesson-progress a { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0.3rem 1rem 0.3rem 0.35rem; border-radius: 999px; background: #fff; box-shadow: 0 3px 0 var(--line); color: var(--ink); font-size: 0.88rem; font-weight: 700; text-decoration: none; }
+    .progress-number { display: grid; width: 32px; height: 32px; place-items: center; border-radius: 50%; font-size: 0.8rem; font-weight: 800; }
+    .lesson-progress a:nth-child(1) .progress-number { background: var(--straw-soft); color: var(--straw-deep); }
+    .lesson-progress a:nth-child(2) .progress-number { background: var(--lemon); color: var(--lemon-ink); }
+    .lesson-progress a:nth-child(3) .progress-number { background: var(--pista); color: var(--pista-ink); }
+    .lesson-progress a:nth-child(4) .progress-number { background: var(--berry-soft); color: var(--berry-deep); }
+    .lesson-progress a:hover { box-shadow: 0 3px 0 var(--berry); }
+
+    /* Shared card feel */
+    .conversation-section, .vocabulary-block, .quick-check, .practice-band, .culture-note { border-radius: 28px; padding: 1.4rem; }
+    .section-kicker { margin: 0 0 0.15rem; color: var(--straw-deep); font-size: 0.85rem; font-weight: 700; }
+    .section-heading h2, .practice-heading h2, .vocab-heading h2, .check-heading h2 { margin: 0; font-family: var(--head); font-size: 1.6rem; font-weight: 700; line-height: 1.15; }
+
+    /* Conversation as chat */
+    .conversation-section { background: #fff; box-shadow: 0 6px 0 var(--line); }
+    .scene-story { margin: 0.7rem 0 1.2rem; padding: 0.8rem 1rem; border-radius: 18px; background: var(--lemon); color: var(--lemon-ink); font-size: 0.92rem; }
+    .conversation { display: flex; flex-direction: column; gap: 16px; }
+    .dialogue-turn { display: flex; align-items: flex-end; gap: 10px; }
+    .speaker-mark { display: grid; flex: 0 0 38px; width: 38px; height: 38px; place-items: center; border-radius: 50%; background: var(--berry); color: #fff; font-family: var(--head); font-weight: 700; }
+    .turn-copy { max-width: 86%; padding: 0.75rem 1rem 0.65rem; border-radius: 22px 22px 22px 6px; background: var(--berry-soft); }
+    .speaker-name { margin: 0 0 0.1rem; color: var(--berry-deep); font-size: 0.78rem; font-weight: 700; }
+    .turn-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.5rem; }
+    .italian-line { font-size: 1.12rem; font-weight: 700; line-height: 1.35; }
+    .text-control { min-height: 32px; padding: 0.2rem 0.75rem; border: 0; border-radius: 999px; background: #fff; color: var(--berry-deep); cursor: pointer; font-size: 0.8rem; font-weight: 700; }
+    .text-control:hover { background: var(--berry); color: #fff; }
+    .turn-translation { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.92rem; }
+    .turn-translation[hidden] { display: none; }
+    .dialogue-turn.is-greta { flex-direction: row-reverse; }
+    .dialogue-turn.is-greta .speaker-mark { background: var(--straw); }
+    .dialogue-turn.is-greta .turn-copy { border-radius: 22px 22px 6px 22px; background: var(--straw-soft); }
+    .dialogue-turn.is-greta .speaker-name { color: var(--straw-deep); text-align: right; }
+    .dialogue-turn.is-greta .text-control { color: var(--straw-deep); }
+    .dialogue-turn.is-greta .text-control:hover { background: var(--straw); color: #fff; }
+
+    /* Your turn */
+    .practice-band { display: grid; gap: 1rem; background: var(--lemon); color: var(--lemon-ink); box-shadow: 0 6px 0 #f2dc7c; }
+    .practice-heading .section-kicker { color: var(--lemon-ink); }
+    .practice-heading p:last-child { margin: 0.3rem 0 0; font-size: 0.95rem; }
+    .practice-form { display: grid; gap: 0.7rem; }
+    .sentence-frame { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; min-height: 54px; padding: 0.4rem 1.1rem; border-radius: 999px; background: #fff; color: var(--ink); font-size: 1.1rem; font-weight: 700; }
+    .sentence-frame input { flex: 1 1 110px; min-width: 90px; border: 0; outline: 0; background: transparent; color: var(--berry-deep); font-weight: 700; }
+    .sentence-frame:focus-within { outline: 3px solid var(--berry); }
+    .sentence-frame input::placeholder { color: #b7b0c9; font-weight: 500; }
+    .primary-button { justify-self: start; min-height: 46px; padding: 0.5rem 1.4rem; border: 0; border-radius: 999px; background: var(--berry); box-shadow: 0 4px 0 var(--berry-deep); color: #fff; cursor: pointer; font-weight: 700; }
+    .primary-button:hover { background: #7074ee; }
+    .primary-button:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--berry-deep); }
+    .response-output { min-height: 1.4em; margin: 0; color: var(--ink); font-size: 1.2rem; font-weight: 800; }
+
+    /* Vocab + culture */
+    .study-notes { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+    .vocabulary-block { background: #fff; box-shadow: 0 6px 0 var(--line); }
+    .vocab-heading { margin-bottom: 0.6rem; }
+    .vocab-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 0 0.5rem; padding: 0.65rem 0; border-top: 2px dotted var(--line); }
+    .vocab-word { font-size: 1.02rem; font-weight: 700; color: var(--berry-deep); }
+    .vocab-translation { grid-column: 1; color: var(--muted); font-size: 0.88rem; }
+    .vocab-speak { grid-column: 2; grid-row: 1 / span 2; background: var(--berry-soft); }
+    .culture-note { background: var(--pista); color: var(--pista-ink); box-shadow: 0 6px 0 #a3d6b1; }
+    .culture-note .section-kicker { color: var(--pista-ink); }
+    .culture-note h3 { margin: 0 0 0.4rem; font-family: var(--head); font-size: 1.3rem; }
+    .culture-note p { margin: 0; font-size: 0.95rem; }
+
+    /* Quick check */
+    .quick-check { background: var(--berry-soft); box-shadow: 0 6px 0 #cfd1fb; }
+    .check-heading { margin-bottom: 0.7rem; }
+    .check-heading .section-kicker { color: var(--berry-deep); }
+    .check-question { margin: 0 0 0.7rem; font-size: 1.05rem; font-weight: 700; }
+    .quiz-options { display: grid; gap: 0.5rem; margin: 0 0 0.9rem; padding: 0; border: 0; }
+    .quiz-option { display: flex; align-items: center; gap: 0.7rem; min-height: 52px; padding: 0.5rem 1rem; border: 3px solid transparent; border-radius: 18px; background: #fff; cursor: pointer; font-weight: 600; }
+    .quiz-option:hover { border-color: #c5c7f7; }
+    .quiz-option:has(input:checked) { border-color: var(--berry); background: #f6f6ff; }
+    .quiz-option input { width: 20px; height: 20px; accent-color: var(--berry); }
+    .quiz-feedback { display: inline-block; margin: 0 0 0 0.8rem; font-weight: 800; }
+    .quiz-feedback.is-correct { color: var(--pista-ink); }
+    .quiz-feedback.is-wrong { color: var(--straw-deep); }
+
+    .lesson-end { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.4rem 0.3rem; }
+    .lesson-end-note { color: var(--muted); font-size: 0.82rem; }
+    .next-link { padding: 0.65rem 1.3rem; border-radius: 999px; background: var(--straw); box-shadow: 0 4px 0 var(--straw-deep); color: #fff; font-weight: 700; text-decoration: none; }
+    .next-link:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--straw-deep); }
+    .toast { position: fixed; z-index: 20; right: 16px; bottom: 16px; max-width: min(320px, calc(100vw - 32px)); padding: 0.7rem 1rem; border-radius: 16px; background: var(--ink); color: #fff; font-size: 0.9rem; opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity 150ms, transform 150ms; }
+    .toast.is-visible { opacity: 1; transform: none; }
+
+    @media (max-width: 640px) {
+      .lesson-intro { grid-template-columns: 1fr; padding: 1.3rem; text-align: left; }
+      .scene-figure { width: 150px; justify-self: end; margin-top: -0.4rem; }
+      .study-notes { grid-template-columns: 1fr; }
+      .turn-copy { max-width: 90%; }
+      .back-link { max-width: 110px; font-size: 0.78rem; }
+      .lesson-end { flex-direction: column; align-items: stretch; text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../index.html" aria-label="LanguageStudio">
+      <span class="brand-mark" aria-hidden="true">LS</span>
+      <span>LanguageStudio</span>
+    </a>
+    <div class="topbar-actions">
+      <a class="back-link" href="../pages/lesson.html?course=it&amp;lesson=communication-basics-1" data-copy="back"></a>
+      <button class="language-toggle" id="languageToggle" type="button" aria-label="Switch language">EN</button>
+    </div>
+  </header>
+
+  <main id="lessonApp" class="lesson-app" aria-live="polite">
+    <p class="loading-message" data-copy="loading"></p>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

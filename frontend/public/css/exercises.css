@@ -218,24 +218,24 @@
     touch-action: manipulation;
   }
   .quiz-opt:hover {
-    border-color: var(--it-green-border);
+    border-color: var(--primary-border);
     background: var(--card-sub-bg);
   }
   .quiz-opt.selected {
-    border-color: var(--pine);
-    background: var(--it-green-light);
+    border-color: var(--primary);
+    background: var(--primary-light);
     font-weight: 600;
   }
   .quiz-opt.correct {
-    border-color: var(--pine);
-    background: var(--it-green-light);
-    color: var(--pine);
+    border-color: var(--correct);
+    background: var(--correct-light);
+    color: var(--correct);
     font-weight: 700;
   }
   .quiz-opt.wrong {
-    border-color: var(--it-red);
-    background: var(--it-red-light);
-    color: var(--it-red);
+    border-color: var(--wrong);
+    background: var(--wrong-light);
+    color: var(--wrong);
   }
   .quiz-feedback {
     margin-top: 1rem;
@@ -247,15 +247,15 @@
   }
   .quiz-feedback.show-correct {
     display: block;
-    background: var(--it-green-light);
-    color: var(--it-green);
-    border: 1px solid var(--it-green-border);
+    background: var(--correct-light);
+    color: var(--correct);
+    border: 1px solid var(--correct-border);
   }
   .quiz-feedback.show-wrong {
     display: block;
-    background: var(--it-red-light);
-    color: var(--it-red);
-    border: 1px solid var(--it-red-border);
+    background: var(--wrong-light);
+    color: var(--wrong);
+    border: 1px solid var(--wrong-border);
   }
   .quiz-explanation {
     margin-top: 0.6rem;
@@ -378,15 +378,15 @@
     background: var(--it-green-light);
   }
   .match-item.matched {
-    border-color: var(--pine);
-    background: var(--it-green-light);
+    border-color: var(--correct);
+    background: var(--correct-light);
     opacity: 0.5;
     cursor: default;
     pointer-events: none;
   }
   .match-item.wrong {
-    border-color: var(--it-red);
-    background: var(--it-red-light);
+    border-color: var(--wrong);
+    background: var(--wrong-light);
   }
   .match-status {
     font-size: 0.85rem;

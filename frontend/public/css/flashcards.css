@@ -106,12 +106,13 @@
     background: var(--surface);
   }
   .fc-back {
-    background: linear-gradient(135deg, var(--pine) 0%, #1D3A29 100%);
-    color: #F5F3EA;
+    background: linear-gradient(135deg, var(--primary) 0%, #2B453C 100%);
+    color: #F6F5EF;
     transform: rotateY(180deg);
   }
   [data-theme="dark"] .fc-back {
-    background: linear-gradient(135deg, #155d36 0%, #102d20 100%);
+    background: linear-gradient(135deg, #244136 0%, #152720 100%);
+    color: #E4EAE5;
   }
   .fc-meta-row {
     display: flex;

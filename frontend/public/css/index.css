@@ -42,7 +42,7 @@
   .hi-green { background: var(--it-green-light); color: var(--it-green); }
   .hi-red { background: var(--it-red-light); color: var(--it-red); }
   .hi-gold { background: var(--it-gold-light); color: var(--it-gold); }
-  .hi-dark { background: #272720; color: #FFF; }
+  .hi-dark { background: var(--card-sub-bg); color: var(--ink); }
   [data-theme="dark"] .hi-dark { background: var(--card-sub-bg); color: var(--ink-soft); }
   
   .hub-card-title {
@@ -147,14 +147,14 @@
     transition: transform 0.15s ease;
   }
   .nb-active {
-    background: var(--it-green);
-    color: #FFFFFF;
-    box-shadow: 0 0 0 4px var(--it-green-light);
+    background: var(--primary);
+    color: var(--primary-contrast);
+    box-shadow: 0 0 0 4px var(--primary-light);
   }
   .nb-current {
-    background: var(--it-red);
-    color: #FFFFFF;
-    box-shadow: 0 0 0 4px var(--it-red-light);
+    background: var(--accent);
+    color: var(--accent-contrast);
+    box-shadow: 0 0 0 4px var(--accent-light);
   }
   .nb-locked {
     background: var(--bg);
@@ -214,8 +214,8 @@
     white-space: nowrap;
   }
   .nb-btn-active {
-    background: var(--it-red);
-    color: #FFFFFF;
+    background: var(--primary);
+    color: var(--primary-contrast);
   }
   .nb-btn-locked {
     background: var(--border);

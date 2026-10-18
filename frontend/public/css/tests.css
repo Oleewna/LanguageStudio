@@ -109,7 +109,7 @@
   place-items: center;
   min-height: 310px;
   overflow: hidden;
-  background: #f2f7f3;
+  background: var(--card-sub-bg);
   border-left: 1px solid var(--border-light);
 }
 [data-theme="dark"] .situation-preview { background: var(--card-sub-bg); }
@@ -179,7 +179,7 @@
 
 .tests-section-heading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin: 2rem 0 0.9rem; }
 .tests-section-heading h2 { margin-top: 0.25rem; font-family: var(--font-serif); font-size: 1.55rem; }
-.tests-count { color: var(--it-red); font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; text-align: right; }
+.tests-count { color: var(--primary); font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; text-align: right; }
 .tests-count span { display: block; color: var(--ink-muted); font: 700 0.58rem var(--font-sans); letter-spacing: 0.08em; }
 .topic-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.85rem; }
 .topic-card {
@@ -197,9 +197,9 @@
 .topic-card:nth-child(3) { animation-delay: 160ms; }
 .topic-card::before { position: absolute; inset: 0 0 auto; height: 4px; content: ""; background: var(--topic-color); }
 .topic-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-.topic-vocabulary { --topic-color: var(--it-green); }
-.topic-grammar { --topic-color: var(--it-red); }
-.topic-situations { --topic-color: var(--it-gold); }
+.topic-vocabulary { --topic-color: var(--primary); }
+.topic-grammar { --topic-color: var(--accent); }
+.topic-situations { --topic-color: var(--correct); }
 .topic-card-top { display: flex; align-items: center; justify-content: space-between; }
 .topic-icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 10px; background: color-mix(in srgb, var(--topic-color) 12%, var(--surface)); color: var(--topic-color); }
 .topic-icon .ls-icon { width: 1.3rem; height: 1.3rem; }

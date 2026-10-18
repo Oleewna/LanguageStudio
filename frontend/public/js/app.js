@@ -1371,5 +1371,6 @@ if (typeof window !== 'undefined') {
   window.ensureCourseSwitcher = ensureCourseSwitcher;
   window.updateProfileStats = updateProfileStats;
   window.applySourceLanguageSettings = applySourceLanguageSettings;
+  window.applyTargetCourseSettings = applyTargetCourseSettings;
   window.applyInterfaceLanguage = applyInterfaceLanguage;
 }

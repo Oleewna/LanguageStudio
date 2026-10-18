@@ -278,7 +278,7 @@
         ? (lesson.duration[lang] || lesson.duration.uk || lesson.duration.en || '')
         : lesson.duration;
       metaEl.innerHTML = `
-        <div style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(0,140,69,.12);color:#008c45;font-size:0.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.3rem .75rem;border-radius:999px;">${badge}</div>
+        <div style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.25);color:#FFFFFF;font-size:0.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.3rem .75rem;border-radius:999px;">${badge}</div>
         ${durationText ? `<div style="font-size:0.8rem;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:.3rem;">${durationText}</div>` : ''}
         ${xpText ? `<div style="font-size:0.8rem;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:.3rem;">${xpText}</div>` : ''}
       `;

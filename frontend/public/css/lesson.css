@@ -1,37 +1,104 @@
 :root {
-  --it-green: #1B7A4B;
-  --it-green-hover: #14613A;
-  --it-green-light: #EBF7F0;
-  --it-green-border: #B7E4CA;
+  --primary: #4F7A6A;
+  --primary-hover: #3E6355;
+  --primary-light: #EBF2EE;
+  --primary-border: #B7D0C5;
+  --primary-contrast: #FFFFFF;
+
+  --accent: #C9A25B;
+  --accent-hover: #B48D47;
+  --accent-light: #FAF4E8;
+  --accent-border: #E7D4AA;
+  --accent-contrast: #25302B;
+
+  --correct: #2E9E6B;
+  --correct-hover: #248458;
+  --correct-light: #E7F7EF;
+  --correct-border: #A3DDBE;
+  --correct-contrast: #FFFFFF;
+
+  --wrong: #D64545;
+  --wrong-hover: #B83434;
+  --wrong-light: #FDEEEE;
+  --wrong-border: #F3BFBF;
+  --wrong-contrast: #FFFFFF;
+
+  --it-green: var(--primary);
+  --it-green-hover: var(--primary-hover);
+  --it-green-light: var(--primary-light);
+  --it-green-border: var(--primary-border);
+
+  --pine: var(--primary);
+  --pine-light: var(--primary-light);
+
+  --it-gold: var(--accent);
+  --it-gold-light: var(--accent-light);
+  --gold: var(--accent);
   
-  --it-red: #C52B2F;
-  --it-red-hover: #A52024;
-  --it-red-light: #FDF2F2;
-  
-  --ink: #21211C;
-  --ink-soft: #6E6D64;
-  --bg: #FAF9F6;
+  --it-red: var(--wrong);
+  --it-red-hover: var(--wrong-hover);
+  --it-red-light: var(--wrong-light);
+  --it-red-border: var(--wrong-border);
+
+  --ink: #25302B;
+  --ink-soft: #5C6C65;
+  --bg: #F6F5EF;
   --surface: #FFFFFF;
-  --border: #E5E2D8;
-  --sidebar-bg: #1E1E19;
+  --border: #E0DDCF;
+  --sidebar-bg: #FFFFFF;
   
   --font-serif: 'Lora', Georgia, serif;
   --font-sans: 'Nunito Sans', system-ui, -apple-system, sans-serif;
 }
 
 [data-theme="dark"] {
-  --bg: #0b0e0c;
-  --surface: #141916;
-  --border: #26332c;
-  --ink: #e7ede9;
-  --ink-soft: #9ba9a1;
-  --sidebar-bg: #101512;
-  --it-green: #1b9b50;
-  --it-green-light: rgba(27, 155, 80, 0.12);
-  --it-green-border: #286442;
-  --it-red: #dc454d;
-  --it-red-hover: #c73740;
-  --it-red-light: rgba(220, 69, 77, 0.12);
+  --bg: #0F1412;
+  --surface: #18201C;
+  --border: #2B3630;
+  --ink: #E4EAE5;
+  --ink-soft: #9BAEA2;
+  --sidebar-bg: #18201C;
+
+  --primary: #7FB09C;
+  --primary-hover: #96C4B1;
+  --primary-light: rgba(127, 176, 156, 0.14);
+  --primary-border: rgba(127, 176, 156, 0.32);
+  --primary-contrast: #0F1412;
+
+  --accent: #D8B873;
+  --accent-hover: #E4C88A;
+  --accent-light: rgba(216, 184, 115, 0.14);
+  --accent-border: rgba(216, 184, 115, 0.32);
+  --accent-contrast: #0F1412;
+
+  --correct: #4CC38A;
+  --correct-hover: #63E09F;
+  --correct-light: rgba(76, 195, 138, 0.14);
+  --correct-border: rgba(76, 195, 138, 0.32);
+  --correct-contrast: #0F1412;
+
+  --wrong: #F26B6B;
+  --wrong-hover: #F68787;
+  --wrong-light: rgba(242, 107, 107, 0.14);
+  --wrong-border: rgba(242, 107, 107, 0.32);
+  --wrong-contrast: #0F1412;
+
+  --it-green: var(--primary);
+  --it-green-hover: var(--primary-hover);
+  --it-green-light: var(--primary-light);
+  --it-green-border: var(--primary-border);
+
+  --pine: var(--primary);
+  --pine-light: var(--primary-light);
+
+  --it-gold: var(--accent);
+  --it-gold-light: var(--accent-light);
+  --gold: var(--accent);
+
+  --it-red: var(--wrong);
+  --it-red-hover: var(--wrong-hover);
+  --it-red-light: var(--wrong-light);
+  --it-red-border: var(--wrong-border);
 }
 
 * {
@@ -199,14 +266,14 @@ body {
 }
 
 .hero {
-  background: linear-gradient(135deg, var(--it-green) 0%, #104B2B 100%);
+  background: linear-gradient(118deg, #3C5F52 0%, #4F7A6A 57%, #5C8C7B 100%);
   border-radius: 1.15rem;
   padding: 2rem 1.8rem;
-  color: #F7FAF8;
+  color: #FFFFFF;
   margin-bottom: 2rem;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(27, 122, 75, 0.15);
+  box-shadow: 0 4px 20px rgba(35, 60, 50, 0.15);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -235,7 +302,7 @@ body {
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #B7E4CA;
+  color: #C8DFD5;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
@@ -250,7 +317,7 @@ body {
 
 .hero p {
   font-size: 0.94rem;
-  color: #D6EFE1;
+  color: #DDEAE3;
   max-width: 32rem;
   margin: 0;
   line-height: 1.5;
@@ -694,19 +761,36 @@ table.vocab-table tr:last-child td {
 }
 
 /* Lesson page alignment with LanguageStudio's current visual system */
-:root:not([data-theme="dark"]) { --sidebar-bg: #ffffff; --it-green: #008c45; --it-green-light: #e7f7ed; --it-green-border: #b7e6c9; --it-red: #cd212a; --ink: #172033; --ink-soft: #64748b; --bg: #f7faf8; --border: #dce8e1; }
+:root:not([data-theme="dark"]) {
+  --sidebar-bg: #FFFFFF;
+  --it-green: var(--primary);
+  --it-green-hover: var(--primary-hover);
+  --it-green-light: var(--primary-light);
+  --it-green-border: var(--primary-border);
+  --it-red: var(--wrong);
+  --it-red-hover: var(--wrong-hover);
+  --it-red-light: var(--wrong-light);
+  --it-red-border: var(--wrong-border);
+  --it-gold: var(--accent);
+  --it-gold-light: var(--accent-light);
+  --gold: var(--accent);
+  --ink: #25302B;
+  --ink-soft: #5C6C65;
+  --bg: #F6F5EF;
+  --border: #E0DDCF;
+}
 .lesson-layout-wrapper { min-height: calc(100vh - 5.1rem); background: var(--bg); }
-.sidebar { width: 15.5rem; background: var(--sidebar-bg); color: var(--ink); border-right: 1px solid var(--border); box-shadow: 6px 0 18px rgba(15, 74, 45, 0.04); }
-.sb-course { color: var(--it-green); }
+.sidebar { width: 15.5rem; background: var(--sidebar-bg); color: var(--ink); border-right: 1px solid var(--border); box-shadow: 6px 0 18px rgba(35, 60, 50, 0.04); }
+.sb-course { color: var(--primary); }
 .sb-unit-title { color: var(--ink); }
 .sb-lesson { color: var(--ink-soft); }
-.sb-lesson:hover { background: var(--it-green-light); color: var(--it-green); }
-.sb-lesson.active { background: var(--it-green-light); color: var(--it-green); border-left-color: var(--it-green); }
+.sb-lesson:hover { background: var(--primary-light); color: var(--primary); }
+.sb-lesson.active { background: var(--primary-light); color: var(--primary); border-left-color: var(--primary); }
 .sb-unit-dim { opacity: 0.65; }
 .lesson-main { background: var(--bg); }
 .lesson-topbar { top: 5.1rem; padding: 0.75rem 0.9rem; border-color: var(--border); }
 .content { max-width: none; width: calc(100% - 1rem); margin: 0 auto; padding: 1.25rem 0 3rem; }
-.hero { background: linear-gradient(118deg, #007b3d, #13a85c); box-shadow: 0 16px 28px rgba(0, 117, 57, 0.16); }
+.hero { background: linear-gradient(118deg, #3C5F52 0%, #4F7A6A 57%, #5C8C7B 100%); box-shadow: 0 16px 28px rgba(35, 60, 50, 0.16); }
 .hero h1, h2.section-title { font-family: var(--font-sans); letter-spacing: -0.035em; }
 .card { border-color: var(--border); box-shadow: var(--shadow-sm); }
 @media (max-width: 890px) { .lesson-layout-wrapper { min-height: calc(100vh - 4.4rem); } .lesson-topbar { top: 4.4rem; } }
@@ -752,16 +836,16 @@ table.vocab-table tr:last-child td {
 
 /* Lesson task validation */
 .task { transition: border-color 0.18s ease, background 0.18s ease; }
-.task-correct { border-color: var(--it-green); background: var(--it-green-light); }
-.task-incorrect { border-color: var(--it-red); background: var(--it-red-light); }
-.task-feedback { margin-top: 0.55rem; font-size: 0.8rem; font-weight: 700; color: var(--it-green); }
-.task-incorrect .task-feedback { color: var(--it-red); }
+.task-correct { border-color: var(--correct); background: var(--correct-light); }
+.task-incorrect { border-color: var(--wrong); background: var(--wrong-light); }
+.task-feedback { margin-top: 0.55rem; font-size: 0.8rem; font-weight: 700; color: var(--correct); }
+.task-incorrect .task-feedback { color: var(--wrong); }
 .task-result { margin-top: 1rem; padding: 0.85rem 1rem; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: 600; }
-.task-result-warning { background: #fff7df; color: #9a6500; }
+.task-result-warning { background: var(--accent-light); color: var(--accent); }
 .task-result-info { background: #edf5ff; color: #1d5f9e; }
-.task-result-success { background: var(--it-green-light); color: var(--it-green); }
+.task-result-success { background: var(--correct-light); color: var(--correct); }
 
-[data-theme="dark"] .task-result-warning { background: rgba(217, 149, 38, 0.14); color: #d8aa62; }
+[data-theme="dark"] .task-result-warning { background: var(--accent-light); color: var(--accent); }
 [data-theme="dark"] .task-result-info { background: rgba(83, 126, 164, 0.16); color: #8baece; }
 
 [data-theme="dark"] .dialogue-avatar.av-marco {
