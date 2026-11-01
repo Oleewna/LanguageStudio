@@ -31,7 +31,7 @@ LanguageStudio includes a full set of learning and practice tools for each activ
 
 - Learners can browse a roadmap of units and lessons.
 - Courses are organized into paths such as communications, daily situations, travel, work, shopping, or other practical themes.
-- Each lesson can have additional sublessons and practice exercises.
+- Paths contain short, standalone lessons with their own practice exercises.
 - Progress is represented through lesson status and optional XP/reward metadata.
 
 ### 3. Lesson system
@@ -110,7 +110,7 @@ Each course contains a `course.json` with metadata like:
 - enabled features
 - exercise categories
 - learning path structure
-- lesson definitions and sublesson data
+- standalone lesson definitions
 
 This allows each course to define its own learning roadmap without changing the underlying engine.
 
@@ -226,7 +226,7 @@ LanguageStudio/
 See the [documentation index](docs/INDEX.md) for a complete project map and references. Useful starting points:
 
 - [Adding a course](docs/ADDING_A_COURSE.md) explains how to create and register a course pack.
-- [Adding a path](docs/ADDING_A_PATH.md) covers organizing course paths and sublessons.
+- [Adding a path](docs/ADDING_A_PATH.md) covers organizing course paths and standalone lessons.
 - [Adding an icon](docs/ADDING_AN_ICON.md) explains how to add and map SVG or asset icons.
 - [Course data schemas](docs/schemas.md) documents the JSON structures used across the app.
 - [Missing icons guide](docs/MISSING_ICONS_GUIDE.md) helps resolve missing or placeholder icon issues.

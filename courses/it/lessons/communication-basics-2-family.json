@@ -1,0 +1,85 @@
+{
+  "id": "communication-basics-2-family",
+  "title": { "uk": "Мови та родина", "en": "Languages and family" },
+  "subtitle": { "uk": "Che lingue parli?", "en": "Che lingue parli?" },
+  "description": {
+    "uk": "Назвіть мови, якими розмовляєте, і розкажіть про близьких.",
+    "en": "Name the languages you speak and tell someone about your family."
+  },
+  "duration": { "uk": "3 хв", "en": "3 min" },
+  "xpReward": 15,
+  "prevLessonId": "communication-basics-2",
+  "nextLessonId": "communication-basics-3",
+  "blocks": [
+    {
+      "type": "dialogue",
+      "title": { "uk": "Розмова про родину", "en": "Talking about family" },
+      "lines": [
+        {
+          "speaker": "Sofia", "avatar": "S", "text": "Che lingue parli?",
+          "trans": { "uk": "Якими мовами ти розмовляєш?", "en": "Which languages do you speak?" }, "audio": true
+        },
+        {
+          "speaker": "Greta", "avatar": "G", "text": "Parlo italiano e inglese. E tu?",
+          "trans": { "uk": "Я розмовляю італійською та англійською. А ти?", "en": "I speak Italian and English. And you?" }, "audio": true
+        },
+        {
+          "speaker": "Sofia", "avatar": "S", "text": "Parlo ucraino. Ho una sorella.",
+          "trans": { "uk": "Я розмовляю українською. У мене є сестра.", "en": "I speak Ukrainian. I have a sister." }, "audio": true
+        },
+        {
+          "speaker": "Greta", "avatar": "G", "text": "Anch'io ho una sorella!",
+          "trans": { "uk": "У мене теж є сестра!", "en": "I have a sister too!" }, "audio": true
+        }
+      ]
+    },
+    {
+      "type": "vocab",
+      "title": { "uk": "Мови й близькі", "en": "Languages and family" },
+      "items": [
+        { "it": "parlo...", "translations": { "uk": "я розмовляю...", "en": "I speak..." } },
+        { "it": "ho...", "translations": { "uk": "у мене є...", "en": "I have..." } },
+        { "it": "una sorella", "translations": { "uk": "сестра", "en": "a sister" } },
+        { "it": "un fratello", "translations": { "uk": "брат", "en": "a brother" } }
+      ]
+    },
+    {
+      "type": "tasks",
+      "title": { "uk": "Повтори вголос", "en": "Say it again" },
+      "items": [
+        {
+          "kind": "choice", "id": "family-languages-question",
+          "q": { "uk": "Як запитати «Якими мовами ти розмовляєш?»", "en": "How do you ask “Which languages do you speak?”" },
+          "options": [
+            { "text": { "uk": "Che lingue parli?", "en": "Che lingue parli?" }, "correct": true },
+            { "text": { "uk": "Dove vivi?", "en": "Dove vivi?" }, "correct": false },
+            { "text": { "uk": "Che lavoro fai?", "en": "Che lavoro fai?" }, "correct": false }
+          ]
+        },
+        {
+          "kind": "choice", "id": "family-languages-answer",
+          "q": { "uk": "Обери «Я розмовляю українською».", "en": "Choose “I speak Ukrainian.”" },
+          "options": [
+            { "text": { "uk": "Parlo ucraino.", "en": "Parlo ucraino." }, "correct": true },
+            { "text": { "uk": "Sono ucraino.", "en": "Sono ucraino." }, "correct": false },
+            { "text": { "uk": "Vivo ucraino.", "en": "Vivo ucraino." }, "correct": false }
+          ]
+        },
+        {
+          "kind": "truefalse", "id": "family-have",
+          "q": { "uk": "«Ho un fratello» означає «У мене є брат».", "en": "“Ho un fratello” means “I have a brother.”" },
+          "answer": true
+        },
+        {
+          "kind": "choice", "id": "family-sister",
+          "q": { "uk": "Як сказати «У мене є сестра»?", "en": "How do you say “I have a sister”?" },
+          "options": [
+            { "text": { "uk": "Ho una sorella.", "en": "Ho una sorella." }, "correct": true },
+            { "text": { "uk": "Parlo una sorella.", "en": "Parlo una sorella." }, "correct": false },
+            { "text": { "uk": "Vivo una sorella.", "en": "Vivo una sorella." }, "correct": false }
+          ]
+        }
+      ]
+    }
+  ]
+}

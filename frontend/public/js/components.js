@@ -5,6 +5,7 @@
   const pagesIndex = pathname.indexOf('/pages/');
   const PREFIX = pagesIndex === -1 ? '' : '../'.repeat(pathname.slice(pagesIndex + 7).split('/').length);
   const icon = name => `<span data-icon="${name}"></span>`;
+  const brandMark = '<span class="brand-mark" aria-hidden="true"></span>';
   let loadingComponents;
 
   function localizeEmbeddedTemplate(template) {
@@ -20,6 +21,9 @@
       ['My dictionary', 'Мій словник'],
       ['Grammar guide', 'Довідник граматики'],
       ['Tests', 'Тести'],
+      ['Courses', 'Курси'],
+      ['Account', 'Обліковий запис'],
+      ['Sign in', 'Увійти'],
       ['Main', 'Головне'],
       ['Practice', 'Практика'],
       ['Switch theme', 'Змінити тему'],
@@ -60,15 +64,17 @@
   }
 
   const mobileLinks = [
-    ['index.html', 'home', 'home', 'Home'],
-    ['pages/settings.html', 'settings', 'cog', 'Settings'],
+    ['pages/home.html', 'home', 'home', 'Home'],
     ['pages/path.html', 'path', 'paths', 'Learning paths'],
+    ['pages/courses.html', 'courses', 'globe', 'Courses'],
     ['pages/lesson.html?course=it&lesson=communication-basics-1', 'lesson-1', 'lesson', 'Basics · Lesson 1'],
     ['pages/flashcards.html', 'flashcards', 'flashcards', 'Flashcards'],
     ['pages/exercises.html', 'exercises', 'exercises', 'Exercises'],
     ['pages/dictionary.html', 'dictionary', 'dictionary', 'My dictionary'],
     ['pages/grammar.html', 'grammar', 'grammar', 'Grammar guide'],
-    ['pages/tests.html', 'tests', 'tests', 'Tests']
+    ['pages/tests.html', 'tests', 'tests', 'Tests'],
+    ['pages/settings.html', 'settings', 'filter', 'Settings'],
+    ['pages/auth.html', 'auth', 'user', 'Sign in']
   ];
 
   function mobileNavigation() {
@@ -78,56 +84,21 @@
 
     return `<div class="mob-overlay" id="mobOverlay"></div>
       <nav class="mob-nav" id="mobNav" aria-label="Mobile navigation">
-        <div class="mob-nav-header"><a href="index.html" class="mob-nav-brand" aria-label="LanguageStudio home"><img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" /></a><button class="mob-close-btn" type="button" aria-label="Close">${icon('close')}</button></div>
+        <div class="mob-nav-header"><a href="pages/home.html" class="mob-nav-brand" aria-label="LanguageStudio home">${brandMark}<span class="brand-wordmark">Language<span>Studio</span></span></a><button class="mob-close-btn" type="button" aria-label="Close">${icon('close')}</button></div>
         <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}<span class="mob-theme-label">Switch theme</span></button>
-        <div class="mob-section-label">Main</div>${links.slice(0, 3).join('')}
-        <div class="mob-section-label">Practice</div>${links.slice(3).join('')}
+        <div class="mob-section-label">Learn</div>${links.slice(0, 3).join('')}
+        <div class="mob-section-label">Practice</div>${links.slice(3, 9).join('')}
+        <div class="mob-section-label">Account</div>${links.slice(9).join('')}
       </nav>`;
-  }
-
-  const dropdowns = [
-    ['path', 'paths', 'Learning paths', [
-      ['pages/lesson.html?course=it&lesson=communication-basics-1', 'lesson-1', 'lesson', 'Lesson 1 · Introduction'],
-      ['pages/path.html', 'path', 'layers', 'Browse all paths']
-    ]],
-    ['flashcards', 'flashcards', 'Flashcards', [
-      ['pages/flashcards.html', 'flashcards', 'greeting', 'Greetings and basics (13 words)'],
-      ['pages/flashcards.html?topic=custom', '', 'star', 'My saved words']
-    ]],
-    ['exercises', 'exercises', 'Exercises', [
-      ['pages/exercises.html', 'exercises', 'target', 'All exercises and quizzes'],
-      ['pages/exercises.html?group=grammar', '', 'grammar', 'Grammar trainer'],
-      ['pages/exercises.html?group=situational', '', 'chat', 'Situational exercises']
-    ]],
-    ['dictionary', 'dictionary', 'Dictionary', [
-      ['pages/dictionary.html', 'dictionary', 'search', 'Search the word base'],
-      ['pages/dictionary.html?add=1', '', 'add', 'Add your own word']
-    ]],
-    ['grammar', 'grammar', 'Grammar guide', [
-      ['pages/grammar.html?tab=articoli', '', 'article', 'Definite articles'],
-      ['pages/grammar.html?tab=verbi', '', 'verb', 'Essere and Avere'],
-      ['pages/grammar.html?tab=cortesia', '', 'greeting', 'Tu vs Lei (Etiquette)']
-    ]]
-  ];
-
-  function desktopNavigation() {
-    const groups = dropdowns.map(([key, iconName, label, items]) => {
-      const menuItems = items.map(([href, navKey, itemIcon, itemLabel]) =>
-        `<a href="${href}" class="nav-dd-item"${navKey ? ` data-nav="${navKey}"` : ''}><span class="dd-icon">${icon(itemIcon)}</span>${itemLabel}</a>`
-      ).join('');
-      return `<div class="nav-dd"><a href="pages/${key}.html" class="nav-dd-btn" data-nav-btn="${key}">${icon(iconName)} ${label} ${icon('chevron-down')}</a><div class="nav-dd-menu"${key === 'path' ? ' data-learning-path-menu' : ''}>${menuItems}</div></div>`;
-    }).join('');
-
-    return `${groups}<a href="pages/settings.html" class="nav-dd-btn" data-nav-btn="settings"><span class="dd-icon">${icon('cog')}</span> Settings</a><a href="pages/tests.html" class="nav-dd-btn" data-nav-btn="tests" data-tests-link><span class="dd-icon">${icon('tests')}</span> Tests</a>`;
   }
 
   const EMBEDDED_COMPONENTS = {
     navbar: `${mobileNavigation()}<header class="topnav">
-      <a href="index.html" class="nav-brand" aria-label="LanguageStudio home"><img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" /></a>
-      <nav class="nav-links" aria-label="Main navigation">${desktopNavigation()}</nav>
-      <div class="nav-right"><button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}</button>
-        <button type="button" class="student-widget" title="Student profile" aria-label="Student profile"><div class="student-stats"><div class="streak-badge">${icon('streak')}<span>1</span></div><div class="xp-badge">${icon('xp')}<span class="xp-val-display">0</span><span>XP</span></div></div><div class="student-avatar">S</div></button>
-        <a href="pages/settings.html" class="settings-link" title="Settings" aria-label="Settings" data-nav="settings">${icon('cog')}</a>
+      <a href="pages/home.html" class="nav-brand" aria-label="LanguageStudio home">${brandMark}<span class="nav-brand-name">Language<span>Studio</span></span></a>
+      <div class="nav-right"><div class="student-stats"><div class="streak-badge">${icon('streak')}<span>1</span></div><div class="xp-badge">${icon('xp')}<span class="xp-val-display">0</span><span>XP</span></div></div>
+        <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}</button>
+        <button type="button" class="student-widget" title="Student profile" aria-label="Student profile"><span class="student-avatar">S</span></button>
+        <a href="pages/settings.html" class="settings-link" title="Settings" aria-label="Settings" data-nav="settings">${icon('settings')}</a>
         <button class="menu-toggle" type="button" aria-label="Menu">${icon('menu')}</button>
       </div></header>`,
     'mobile-nav': mobileNavigation(),
@@ -149,8 +120,8 @@
 
   function getCurrentPageKey() {
     const path = window.location.pathname.toLowerCase().replace(/\\/g, '/');
-    if (path.endsWith('/index.html') || path.endsWith('/')) return 'home';
-    for (const key of ['lesson', 'flashcards', 'exercises', 'dictionary', 'grammar', 'settings', 'tests', 'path', 'auth']) {
+    if (path.endsWith('/index.html') || path.endsWith('/')) return 'landing';
+    for (const key of ['home', 'lesson', 'flashcards', 'exercises', 'dictionary', 'grammar', 'settings', 'tests', 'path', 'courses', 'auth']) {
       if (path.includes(`${key}.html`)) return key === 'lesson' ? 'lesson' : key;
     }
     return '';
@@ -273,7 +244,7 @@
       if (button.tagName !== 'BUTTON') return;
       button.addEventListener('click', () => {
         const key = button.getAttribute('data-nav-btn');
-        window.location.href = `${PREFIX}${key === 'home' ? 'index.html' : `pages/${key}.html`}`;
+        window.location.href = `${PREFIX}pages/${key}.html`;
       });
     });
     window.dispatchEvent(new CustomEvent('componentsLoaded'));

@@ -65,6 +65,10 @@
       checkTasks: 'Перевірити завдання',
       moreExercises: 'Більше вправ',
       lessonIndex: 'У цьому уроці',
+      previousStep: 'Попередній крок',
+      nextStep: 'Наступний крок',
+      continueLesson: 'Продовжити',
+      stepOf: 'Крок {current} з {total}',
       showPronunciation: 'Показати вимову',
       hidePronunciation: 'Сховати вимову',
       checkAllPrompt: 'Будь ласка, дайте відповідь на всі запитання перед перевіркою.',
@@ -94,6 +98,10 @@
       checkTasks: 'Check answers',
       moreExercises: 'More exercises',
       lessonIndex: 'In this lesson',
+      previousStep: 'Previous step',
+      nextStep: 'Next step',
+      continueLesson: 'Continue',
+      stepOf: 'Step {current} of {total}',
       showPronunciation: 'Show pronunciation',
       hidePronunciation: 'Hide pronunciation',
       checkAllPrompt: 'Please answer all questions before checking.',
@@ -943,6 +951,134 @@
   let _activeLesson = null;
   let _activeContainer = null;
 
+  function getSectionOrder(type) {
+    const order = {
+      dialogue: 0,
+      vocab: 1,
+      grammar_rule: 2,
+      story_text: 3,
+      culture: 4,
+      culture_note: 4,
+      takeaways: 5,
+      quiz: 6,
+      tasks: 6
+    };
+    return Object.prototype.hasOwnProperty.call(order, type) ? order[type] : 4;
+  }
+
+  function getPartTitle(title, type, part, total) {
+    const defaults = type === 'dialogue'
+      ? { uk: 'Діалог', en: 'Dialogue' }
+      : { uk: 'Нові слова', en: 'New words' };
+    const localized = title && typeof title === 'object' && !Array.isArray(title)
+      ? { ...title }
+      : { uk: title || defaults.uk, en: title || defaults.en };
+    const baseUk = localized.uk || localized.en || defaults.uk;
+    const baseEn = localized.en || localized.uk || defaults.en;
+    localized.uk = `${baseUk} · Частина ${part} з ${total}`;
+    localized.en = `${baseEn} · Part ${part} of ${total}`;
+    return localized;
+  }
+
+  function splitLessonSections(sections) {
+    return sections.flatMap((section) => {
+      const property = section.type === 'dialogue' ? 'lines' : section.type === 'vocab' ? 'items' : null;
+      const maxItems = section.type === 'dialogue' ? 5 : section.type === 'vocab' ? 8 : Infinity;
+      const items = property && Array.isArray(section[property]) ? section[property] : [];
+      if (!property || items.length <= maxItems) return [section];
+
+      const totalParts = Math.ceil(items.length / maxItems);
+      return Array.from({ length: totalParts }, (_, partIndex) => {
+        const part = partIndex + 1;
+        const split = {
+          ...section,
+          [property]: items.slice(partIndex * maxItems, (partIndex + 1) * maxItems),
+          title: getPartTitle(section.title, section.type, part, totalParts)
+        };
+        if (section.type === 'dialogue' && partIndex > 0) {
+          split.story = '';
+          split.image = '';
+        }
+        if (section.type === 'vocab' && partIndex > 0) split.notes = [];
+        return split;
+      });
+    });
+  }
+
+  function createStepNavigation(container, lang, steps) {
+    const navigation = document.createElement('nav');
+    navigation.className = 'lesson-step-navigation';
+    navigation.setAttribute('aria-label', lang === 'en' ? 'Lesson step navigation' : 'Навігація кроками уроку');
+
+    const previousButton = document.createElement('button');
+    previousButton.className = 'btn-ghost';
+    previousButton.type = 'button';
+    previousButton.textContent = uiText('previousStep', {}, lang);
+    previousButton.addEventListener('click', () => setActiveStep(activeStep - 1));
+
+    const stepStatus = document.createElement('span');
+    stepStatus.className = 'lesson-step-status';
+    stepStatus.setAttribute('aria-live', 'polite');
+
+    const nextButton = document.createElement('button');
+    nextButton.className = 'btn-primary';
+    nextButton.type = 'button';
+    nextButton.addEventListener('click', () => {
+      if (activeStep < steps.length - 1) {
+        setActiveStep(activeStep + 1);
+      } else {
+        const nextLesson = document.getElementById('btnNextLessonBottom');
+        window.location.assign(nextLesson?.href || 'path.html');
+      }
+    });
+
+    navigation.append(previousButton, stepStatus, nextButton);
+    container.appendChild(navigation);
+
+    const progressTrack = document.getElementById('lesson-step-progress');
+    const progressFill = document.getElementById('lesson-step-progress-fill');
+    const progressLabel = document.getElementById('lesson-step-progress-label');
+    const indexLinks = Array.from(document.querySelectorAll('#lessonIndexList .lesson-index-link'));
+    let activeStep = 0;
+
+    function setActiveStep(stepIndex) {
+      activeStep = Math.max(0, Math.min(stepIndex, steps.length - 1));
+      steps.forEach((step, index) => {
+        step.hidden = index !== activeStep;
+      });
+
+      previousButton.hidden = activeStep === 0;
+      nextButton.textContent = activeStep === steps.length - 1
+        ? uiText('continueLesson', {}, lang)
+        : uiText('nextStep', {}, lang);
+
+      const progressText = uiText('stepOf', { current: activeStep + 1, total: steps.length }, lang);
+      stepStatus.textContent = progressText;
+      if (progressLabel) progressLabel.textContent = progressText;
+      if (progressTrack) {
+        progressTrack.setAttribute('aria-label', lang === 'en' ? 'Lesson progress' : 'Прогрес уроку');
+        progressTrack.setAttribute('aria-valuemax', String(steps.length));
+        progressTrack.setAttribute('aria-valuenow', String(activeStep + 1));
+      }
+      if (progressFill) progressFill.style.width = `${((activeStep + 1) / steps.length) * 100}%`;
+
+      indexLinks.forEach((link) => {
+        const isCurrent = Number(link.dataset.stepIndex) === activeStep;
+        if (isCurrent) link.setAttribute('aria-current', 'step');
+        else link.removeAttribute('aria-current');
+      });
+    }
+
+    indexLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        setActiveStep(Number(link.dataset.stepIndex));
+      });
+    });
+
+    setActiveStep(0);
+  }
+
   /**
    * Render a complete lesson into a container element.
    * @param {string|object} lessonOrId
@@ -979,33 +1115,38 @@
     _activeContainer = container;
 
     const lang = getCurrentLanguage();
-    const sections = lesson.sections || [];
+    const sections = splitLessonSections(lesson.sections || [])
+      .map((section, index) => ({ section, index }))
+      .sort((first, second) =>
+        getSectionOrder(first.section.type) - getSectionOrder(second.section.type)
+        || first.index - second.index
+      )
+      .map(({ section }) => section);
 
-    const blocksHtml = sections.map(section => {
+    container.replaceChildren();
+    const steps = [];
+    sections.forEach((section) => {
       const renderer = BLOCK_RENDERERS[section.type];
       if (typeof renderer === 'function') {
-        return renderer(section, lang);
+        const step = document.createElement('div');
+        step.className = 'lesson-step';
+        step.dataset.lessonStep = String(steps.length);
+        step.innerHTML = renderer(section, lang);
+        step.hidden = steps.length !== 0;
+        container.appendChild(step);
+        steps.push(step);
+        return;
       }
       console.warn(`LessonEngine: No renderer registered for section type "${section.type}"`);
-      return '';
-    }).join('\n');
-
-    container.innerHTML = blocksHtml;
+    });
 
     const dialogueSection = container.querySelector('[data-section-type="dialogue"]');
-    const vocabSection = container.querySelector('[data-section-type="vocab"]');
     if (dialogueSection) {
-      const feature = document.createElement('div');
-      feature.className = 'lesson-dialogue-feature';
-      const firstSection = container.querySelector('.lesson-section');
       const sceneImage = dialogueSection.querySelector('.scene-img-wrapper');
       if (sceneImage) {
         sceneImage.classList.add('lesson-scene-image');
-        container.insertBefore(sceneImage, firstSection);
+        dialogueSection.closest('.lesson-step').insertBefore(sceneImage, dialogueSection);
       }
-      container.insertBefore(feature, firstSection);
-      feature.appendChild(dialogueSection);
-      if (vocabSection) feature.appendChild(vocabSection);
     }
 
     const courseId = lesson.courseId || (typeof window.getCourseId === 'function' ? window.getCourseId() : 'it');
@@ -1016,9 +1157,9 @@
         ${getIconSvg('tests')} <span>${escapeHtml(uiText('moreExercises', {}, lang))}</span>
       </a>
     `;
-    const quizSection = container.querySelector('[data-section-type="quiz"]');
+    const quizSection = container.querySelector('[data-section-type="quiz"], [data-section-type="tasks"]');
     if (quizSection) quizSection.insertAdjacentHTML('afterend', exercisesLink);
-    else container.insertAdjacentHTML('beforeend', exercisesLink);
+    else (steps[steps.length - 1] || container).insertAdjacentHTML('beforeend', exercisesLink);
 
     const index = document.getElementById('lessonIndex');
     const indexList = document.getElementById('lessonIndexList');
@@ -1028,15 +1169,16 @@
       index.setAttribute('aria-label', uiText('lessonIndex', {}, lang));
       indexList.replaceChildren();
 
-      container.querySelectorAll('.lesson-section').forEach((section, sectionIndex) => {
+      container.querySelectorAll('.lesson-section').forEach((section) => {
         const heading = section.querySelector('.section-title');
         if (!heading) return;
 
-        if (!section.id) section.id = `lesson-section-${sectionIndex + 1}`;
+        if (!section.id) section.id = `lesson-section-${indexList.childElementCount + 1}`;
         const item = document.createElement('li');
         const link = document.createElement('a');
         link.className = 'lesson-index-link';
         link.href = `#${section.id}`;
+        link.dataset.stepIndex = section.closest('.lesson-step').dataset.lessonStep;
         link.textContent = heading.textContent.trim();
         item.appendChild(link);
         indexList.appendChild(item);
@@ -1044,6 +1186,8 @@
 
       index.hidden = indexList.childElementCount === 0;
     }
+
+    if (steps.length) createStepNavigation(container, lang, steps);
 
     // Attach event listeners for audio buttons, vocab hints, and quiz checking
     bindLessonInteractions(container, lesson);

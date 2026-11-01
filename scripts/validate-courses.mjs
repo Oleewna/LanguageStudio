@@ -290,7 +290,7 @@ function validateCourse(courseId) {
 
   const referencedLessons = new Set();
 
-  function validateLessonReference(lesson, parentLessonId = null) {
+  function validateLessonReference(lesson) {
     if (!lesson || typeof lesson !== 'object') {
       fail(`Course '${courseId}' contains a malformed lesson entry.`);
     }
@@ -302,21 +302,8 @@ function validateCourse(courseId) {
     }
     referencedLessons.add(lesson.id);
 
-    if (parentLessonId) {
-      for (const field of ['num', 'title', 'description']) {
-        assertLocalizedText(lesson[field], `Sublesson ${lesson.id} ${field}`);
-      }
-      if (typeof lesson.time === 'object' && lesson.time !== null) {
-        assertLocalizedText(lesson.time, `Sublesson ${lesson.id} time`);
-      } else if (typeof lesson.time !== 'string' || !lesson.time.trim()) {
-        fail(`Sublesson '${lesson.id}' must define a non-empty time.`);
-      }
-      if (lesson.status && !['available', 'locked', 'soon'].includes(lesson.status)) {
-        fail(`Sublesson '${lesson.id}' has an unsupported status: ${lesson.status}`);
-      }
-      if (lesson.sublessons !== undefined) {
-        fail(`Sublesson '${lesson.id}' cannot contain nested sublessons.`);
-      }
+    if (Object.prototype.hasOwnProperty.call(lesson, 'sublessons')) {
+      fail(`Lesson '${lesson.id}' cannot contain sublessons; add each lesson directly to unit.lessons.`);
     }
 
     const lessonFile = path.join(lessonsDir, `${lesson.id}.json`);
@@ -342,14 +329,6 @@ function validateCourse(courseId) {
       }
       for (const lesson of unit.lessons) {
         validateLessonReference(lesson);
-        if (lesson.sublessons !== undefined) {
-          if (!Array.isArray(lesson.sublessons)) {
-            fail(`Lesson '${lesson.id}' sublessons must be an array.`);
-          }
-          for (const sublesson of lesson.sublessons) {
-            validateLessonReference(sublesson, lesson.id);
-          }
-        }
       }
     }
   }

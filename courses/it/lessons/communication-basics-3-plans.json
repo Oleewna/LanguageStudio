@@ -1,0 +1,99 @@
+{
+  "id": "communication-basics-3-plans",
+  "title": { "uk": "Домовся про зустріч", "en": "Make a plan" },
+  "subtitle": { "uk": "Ti va di prendere un caffè?", "en": "Ti va di prendere un caffè?" },
+  "description": {
+    "uk": "Запропонуйте зустрітися та домовтеся про час.",
+    "en": "Invite someone to meet and agree on a time."
+  },
+  "duration": { "uk": "2 хв", "en": "2 min" },
+  "xpReward": 10,
+  "prevLessonId": "communication-basics-3",
+  "nextLessonId": null,
+  "blocks": [
+    {
+      "type": "dialogue",
+      "title": { "uk": "Запроси на каву", "en": "Invite someone for coffee" },
+      "lines": [
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "Ti va di prendere un caffè sabato?",
+          "trans": { "uk": "Хочеш випити кави в суботу?", "en": "Would you like to get a coffee on Saturday?" },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Volentieri! A che ora?",
+          "trans": { "uk": "Із задоволенням! О котрій?", "en": "Gladly! At what time?" },
+          "audio": true
+        },
+        {
+          "speaker": "Sofia",
+          "avatar": "S",
+          "text": "Alle tre?",
+          "trans": { "uk": "О третій?", "en": "At three?" },
+          "audio": true
+        },
+        {
+          "speaker": "Greta",
+          "avatar": "G",
+          "text": "Perfetto!",
+          "trans": { "uk": "Чудово!", "en": "Perfect!" },
+          "audio": true
+        }
+      ]
+    },
+    {
+      "type": "vocab",
+      "title": { "uk": "Домовляємося", "en": "Making plans" },
+      "items": [
+        {
+          "it": "Ti va di...?",
+          "translations": { "uk": "Хочеш...?", "en": "Would you like to...?" }
+        },
+        {
+          "it": "Volentieri!",
+          "translations": { "uk": "Із задоволенням!", "en": "Gladly!" }
+        },
+        {
+          "it": "A che ora?",
+          "translations": { "uk": "О котрій?", "en": "At what time?" }
+        }
+      ]
+    },
+    {
+      "type": "tasks",
+      "title": { "uk": "Домовся про час", "en": "Choose a time" },
+      "items": [
+        {
+          "kind": "choice",
+          "id": "invite-coffee",
+          "q": { "uk": "Як запросити на каву?", "en": "How do you invite someone for coffee?" },
+          "options": [
+            { "text": { "uk": "Ti va di prendere un caffè?", "en": "Ti va di prendere un caffè?" }, "correct": true },
+            { "text": { "uk": "Mi chiamo un caffè.", "en": "Mi chiamo un caffè." }, "correct": false },
+            { "text": { "uk": "Parlo un caffè.", "en": "Parlo un caffè." }, "correct": false }
+          ]
+        },
+        {
+          "kind": "choice",
+          "id": "ask-time",
+          "q": { "uk": "Що запитати, щоб дізнатися час?", "en": "What do you ask to find out the time?" },
+          "options": [
+            { "text": { "uk": "A che ora?", "en": "A che ora?" }, "correct": true },
+            { "text": { "uk": "Di dove sei?", "en": "Di dove sei?" }, "correct": false },
+            { "text": { "uk": "Che lingue parli?", "en": "Che lingue parli?" }, "correct": false }
+          ]
+        },
+        {
+          "kind": "truefalse",
+          "id": "gladly-reply",
+          "q": { "uk": "«Volentieri!» — це позитивна відповідь на запрошення.", "en": "“Volentieri!” is a positive response to an invitation." },
+          "answer": true
+        }
+      ]
+    }
+  ]
+}

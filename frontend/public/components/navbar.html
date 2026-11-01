@@ -1,94 +1,42 @@
 <div class="mob-overlay" id="mobOverlay"></div>
-<nav class="mob-nav" id="mobNav" aria-label="Mobile navigation">
+<nav class="mob-nav" id="mobNav" aria-label="Main navigation">
   <div class="mob-nav-header">
-    <a href="index.html" class="mob-nav-brand" aria-label="LanguageStudio home">
-      <img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
+    <a href="pages/home.html" class="mob-nav-brand" aria-label="LanguageStudio home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-wordmark">Language<span>Studio</span></span>
     </a>
-    <button class="mob-close-btn" type="button" aria-label="Close"><span data-icon="close"></span></button>
+    <button class="mob-close-btn" type="button" aria-label="Close navigation"><span data-icon="close"></span></button>
   </div>
-  <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">
-    <span data-icon="moon"></span><span class="mob-theme-label">Switch theme</span>
-  </button>
-  <div class="mob-section-label">Main</div>
-  <a href="index.html" class="mob-nav-link" data-nav="home"><span class="ic"><span data-icon="home"></span></span>Home</a>
-  <a href="pages/path.html" class="mob-nav-link" data-nav="path"><span class="ic"><span data-icon="paths"></span></span>Learning paths</a>
-  <a href="pages/lesson.html?course=it&amp;lesson=communication-basics-1" class="mob-nav-link" data-nav="lesson-1"><span class="ic"><span data-icon="lesson"></span></span>Basics · Lesson 1</a>
+  <a href="pages/home.html" class="mob-nav-link" data-nav="home"><span class="ic"><span data-icon="home"></span></span>Home</a>
+  <a href="pages/path.html" class="mob-nav-link" data-nav="path"><span class="ic"><span data-icon="paths"></span></span>Learning path</a>
+  <a href="pages/courses.html" class="mob-nav-link" data-nav="courses"><span class="ic"><span data-icon="globe"></span></span>Courses</a>
   <div class="mob-section-label">Practice</div>
   <a href="pages/flashcards.html" class="mob-nav-link" data-nav="flashcards"><span class="ic"><span data-icon="flashcards"></span></span>Flashcards</a>
   <a href="pages/exercises.html" class="mob-nav-link" data-nav="exercises"><span class="ic"><span data-icon="exercises"></span></span>Exercises</a>
   <a href="pages/dictionary.html" class="mob-nav-link" data-nav="dictionary"><span class="ic"><span data-icon="dictionary"></span></span>My dictionary</a>
   <a href="pages/grammar.html" class="mob-nav-link" data-nav="grammar"><span class="ic"><span data-icon="grammar"></span></span>Grammar guide</a>
   <a href="pages/tests.html" class="mob-nav-link" data-nav="tests" data-tests-link><span class="ic"><span data-icon="tests"></span></span>Tests</a>
+  <div class="mob-section-label">Account</div>
+  <a href="pages/settings.html" class="mob-nav-link" data-nav="settings"><span class="ic"><span data-icon="filter"></span></span>Settings</a>
+  <a href="pages/auth.html" class="mob-nav-link" data-nav="auth"><span class="ic"><span data-icon="user"></span></span>Sign in</a>
+  <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">
+    <span data-icon="moon"></span><span class="mob-theme-label">Switch theme</span>
+  </button>
 </nav>
 
 <header class="topnav">
-  <a href="index.html" class="nav-brand" aria-label="LanguageStudio home">
-    <img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" />
+  <a href="pages/home.html" class="nav-brand" aria-label="LanguageStudio home">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="nav-brand-name">Language<span>Studio</span></span>
   </a>
-  <nav class="nav-links" aria-label="Main navigation">
-    <div class="nav-dd">
-      <a href="pages/path.html" class="nav-dd-btn" data-nav-btn="path"><span data-icon="paths"></span> Learning paths <span class="ls-chevron" data-icon="chevron-down"></span></a>
-      <div class="nav-dd-menu">
-        <div class="nav-dd-header">Learning paths</div>
-        <div class="nav-submenu">
-          <a href="pages/lesson.html?course=it&amp;lesson=communication-basics-1" class="nav-dd-item nav-submenu-trigger" data-nav="lesson-1"><span class="dd-icon"><span data-icon="greeting"></span></span>Communication basics<span class="submenu-arrow"><span data-icon="chevron-down"></span></span></a>
-          <div class="nav-submenu-panel">
-            <div class="nav-dd-header">Lesson track</div>
-            <a href="pages/lesson.html?course=it&amp;lesson=communication-basics-1" class="nav-dd-item" data-nav="lesson-1"><span class="dd-icon"><span data-icon="lesson"></span></span>Lesson 1 · Introduction <span class="dd-tag active">Active</span></a>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon"><span data-icon="circle"></span></span>Lesson 2 · Come ti chiami?</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon"><span data-icon="circle"></span></span>Lesson 3 · Di dove sei?</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon"><span data-icon="circle"></span></span>Lesson 4 · Consolidation</span>
-            <span class="nav-dd-item nav-dd-item-disabled"><span class="dd-icon"><span data-icon="circle"></span></span>Lesson 5 · Practice recap</span>
-          </div>
-        </div>
-        <a href="pages/path.html" class="nav-dd-item" data-nav="path"><span class="dd-icon"><span data-icon="layers"></span></span>Browse all paths</a>
-      </div>
-    </div>
-    <div class="nav-dd">
-      <a href="pages/flashcards.html" class="nav-dd-btn" data-nav-btn="flashcards"><span data-icon="flashcards"></span> Flashcards <span class="ls-chevron" data-icon="chevron-down"></span></a>
-      <div class="nav-dd-menu">
-        <div class="nav-dd-header">Word trainer</div>
-        <a href="pages/flashcards.html" class="nav-dd-item" data-nav="flashcards"><span class="dd-icon"><span data-icon="greeting"></span></span>Greetings and basics (13 words)</a>
-        <a href="pages/flashcards.html?topic=custom" class="nav-dd-item"><span class="dd-icon"><span data-icon="star"></span></span>My saved words</a>
-      </div>
-    </div>
-    <div class="nav-dd">
-      <a href="pages/exercises.html" class="nav-dd-btn" data-nav-btn="exercises"><span data-icon="exercises"></span> Exercises <span class="ls-chevron" data-icon="chevron-down"></span></a>
-      <div class="nav-dd-menu">
-        <div class="nav-dd-header">Practice drills</div>
-        <a href="pages/exercises.html" class="nav-dd-item" data-nav="exercises"><span class="dd-icon"><span data-icon="target"></span></span>All exercises and quizzes</a>
-        <a href="pages/exercises.html?group=grammar" class="nav-dd-item"><span class="dd-icon"><span data-icon="grammar"></span></span>Grammar trainer</a>
-        <a href="pages/exercises.html?group=situational" class="nav-dd-item"><span class="dd-icon"><span data-icon="chat"></span></span>Situational exercises</a>
-      </div>
-    </div>
-    <div class="nav-dd">
-      <a href="pages/dictionary.html" class="nav-dd-btn" data-nav-btn="dictionary"><span data-icon="dictionary"></span> Dictionary <span class="ls-chevron" data-icon="chevron-down"></span></a>
-      <div class="nav-dd-menu">
-        <div class="nav-dd-header">Your word bank</div>
-        <a href="pages/dictionary.html" class="nav-dd-item" data-nav="dictionary"><span class="dd-icon"><span data-icon="search"></span></span>Search the word base</a>
-        <a href="pages/dictionary.html?add=1" class="nav-dd-item"><span class="dd-icon"><span data-icon="add"></span></span>Add your own word</a>
-      </div>
-    </div>
-    <div class="nav-dd">
-      <a href="pages/grammar.html" class="nav-dd-btn" data-nav-btn="grammar"><span data-icon="grammar"></span> Grammar guide <span class="ls-chevron" data-icon="chevron-down"></span></a>
-      <div class="nav-dd-menu">
-        <div class="nav-dd-header">Grammar cheat sheets</div>
-        <a href="pages/grammar.html?tab=articoli" class="nav-dd-item"><span class="dd-icon"><span data-icon="article"></span></span>Definite articles</a>
-        <a href="pages/grammar.html?tab=verbi" class="nav-dd-item"><span class="dd-icon"><span data-icon="verb"></span></span>Essere and Avere</a>
-        <a href="pages/grammar.html?tab=cortesia" class="nav-dd-item"><span class="dd-icon"><span data-icon="greeting"></span></span>Tu vs Lei (Etiquette)</a>
-      </div>
-    </div>
-    <a href="pages/tests.html" class="nav-dd-btn" data-nav-btn="tests" data-tests-link><span class="dd-icon"><span data-icon="tests"></span></span> Tests</a>
-  </nav>
   <div class="nav-right">
+    <div class="student-stats">
+      <div class="streak-badge"><span data-icon="streak"></span><span>1</span></div>
+      <div class="xp-badge"><span data-icon="xp"></span><span class="xp-val-display">0</span><span>XP</span></div>
+    </div>
     <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme"><span data-icon="moon"></span></button>
-    <button type="button" class="student-widget" title="Student profile" aria-label="Student profile">
-      <div class="student-stats">
-        <div class="streak-badge"><span data-icon="streak"></span><span>1</span></div>
-        <div class="xp-badge"><span data-icon="xp"></span><span class="xp-val-display">0</span><span>XP</span></div>
-      </div>
-      <div class="student-avatar">S</div>
-    </button>
-    <button class="menu-toggle" type="button" aria-label="Menu"><span data-icon="menu"></span></button>
+    <button type="button" class="student-widget" title="Student profile" aria-label="Student profile"><span class="student-avatar">S</span></button>
+    <a href="pages/settings.html" class="settings-link" title="Settings" aria-label="Settings" data-nav="settings"><span data-icon="settings"></span></a>
+    <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="mobNav" aria-expanded="false"><span data-icon="menu"></span></button>
   </div>
 </header>

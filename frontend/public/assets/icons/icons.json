@@ -8,6 +8,7 @@
   "dictionary": { "file": "Dictionary-Language-Book--Streamline-Core-Remix.svg", "mode": "mask" },
   "grammar": { "file": "Text-Style--Streamline-Core-Remix.svg", "mode": "mask" },
   "tests": { "file": "Clipboard-Check--Streamline-Core-Remix.svg", "mode": "mask" },
+  "settings": { "file": "Cog-1--Streamline-Core-Remix.svg", "mode": "mask" },
   "menu": { "file": "Bullet-List--Streamline-Core-Remix.svg", "mode": "mask" },
   "close": { "file": "Delete-1--Streamline-Core-Remix.svg", "mode": "mask" },
   "sun": { "file": "Brightness-1--Streamline-Core-Remix.svg", "mode": "mask" },

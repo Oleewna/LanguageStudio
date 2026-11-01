@@ -1,112 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<script>
-  (function () {
-    var pathname = window.location.pathname.replace(/\/+$/, '');
-    if (pathname === '/frontend/public' || pathname.endsWith('/public')) {
-      var nextUrl = new URL(window.location.href);
-      nextUrl.pathname = pathname + '/';
-      if (nextUrl.href !== window.location.href) {
-        window.location.replace(nextUrl.href);
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <script>
+    (function () {
+      var pathname = window.location.pathname.replace(/\/+$/, '');
+      if (pathname === '/frontend/public' || pathname.endsWith('/public')) {
+        var nextUrl = new URL(window.location.href);
+        nextUrl.pathname = pathname + '/';
+        if (nextUrl.href !== window.location.href) window.location.replace(nextUrl.href);
       }
-    }
-  })();
-</script>
-<link rel="icon" type="image/png" href="assets/images/icon.png" />
-<title>LanguageStudio — Italian for real-life situations</title>
-<meta name="description" content="LanguageStudio — a practical Italian course for real goals: travel, work, business. Flashcards and a personal dictionary." />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito+Sans:ital,opsz,wght@0,6..12,400..800;1,6..12,400..700&display=swap" rel="stylesheet">
-<script src="js/theme.js"></script>
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/index.css">
+    })();
+  </script>
+  <link rel="icon" type="image/png" href="assets/images/icon.png" />
+  <title data-i18n="page.title">LanguageStudio — A little Italian, every day</title>
+  <meta name="description" content="Build a daily Italian learning habit with short, practical lessons from LanguageStudio." data-i18n-content="page.description" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="js/theme.js"></script>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/studio.css" />
 </head>
-<body>
-
-<!-- ═══════════ NAVBAR COMPONENT ═══════════ -->
-<div data-component="navbar"></div>
-
-<!-- ═══════════ HERO ═══════════ -->
-<section class="page-hero">
-  <div class="page-hero-inner">
-    <p>Choose a path that fits your goals, from travel to work and business, and learn the Italian you actually need.</p>
-  </div>
-</section>
-
-<!-- ═══════════ MAIN CONTENT ═══════════ -->
-<main class="page-container">
-
-  <!-- Quick category navigation cards -->
-  <div class="hub-grid" id="hubGrid">
-    <a href="pages/path.html" class="hub-card">
-      <div class="hub-icon hi-green"><span data-icon="paths"></span></div>
-      <div>
-        <div class="hub-card-title">Learning paths</div>
-        <div class="hub-card-sub">Choose your goal</div>
-      </div>
+<body class="landing-page">
+  <header class="landing-header">
+    <a href="index.html" class="landing-brand" aria-label="LanguageStudio">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-wordmark">Language<span>Studio</span></span>
     </a>
-    <a href="pages/flashcards.html" class="hub-card" data-feature="flashcards">
-      <div class="hub-icon hi-accent"><span data-icon="flashcards"></span></div>
-      <div>
-        <div class="hub-card-title">Flashcards</div>
-        <div class="hub-card-sub">3D practice deck</div>
-      </div>
-    </a>
-    <a href="pages/exercises.html" class="hub-card" data-feature="exercises">
-      <div class="hub-icon hi-correct"><span data-icon="exercises"></span></div>
-      <div>
-        <div class="hub-card-title">Exercises</div>
-        <div class="hub-card-sub">Quick drills</div>
-      </div>
-    </a>
-    <a href="pages/dictionary.html" class="hub-card" data-feature="dictionary">
-      <div class="hub-icon hi-primary"><span data-icon="dictionary"></span></div>
-      <div>
-        <div class="hub-card-title">Dictionary</div>
-        <div class="hub-card-sub">Your saved words</div>
-      </div>
-    </a>
-    <a href="pages/grammar.html" class="hub-card" data-feature="grammar">
-      <div class="hub-icon hi-dark"><span data-icon="grammar"></span></div>
-      <div>
-        <div class="hub-card-title">Grammar guide</div>
-        <div class="hub-card-sub">Rules reference</div>
-      </div>
-    </a>
-    <a href="pages/tests.html" class="hub-card" data-feature="tests">
-      <div class="hub-icon hi-accent"><span data-icon="tests"></span></div>
-      <div>
-        <div class="hub-card-title">Tests</div>
-        <div class="hub-card-sub">Check your progress</div>
-      </div>
-    </a>
-  </div>
+    <a class="landing-signin" href="pages/auth.html" data-i18n="signIn">Sign in</a>
+  </header>
 
-  <!-- ══ TRACK-BASED LEARNING ROADMAP ══ -->
-  <div class="roadmap-section">
-    <h2 class="section-title"><span class="ic"><span data-icon="paths"></span></span>Learning paths</h2>
-    <div id="roadmapRoot"></div>
-  </div>
+  <main class="landing-main">
+    <section class="landing-hero" aria-labelledby="landingHeading">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="hero.eyebrow">YOUR ITALIAN JOURNEY</p>
+        <h1 id="landingHeading"><span class="landing-title-line" data-i18n="hero.titleFirst">A little Italian,</span><span class="landing-title-line landing-title-accent" data-i18n="hero.titleSecond">every day.</span></h1>
+        <p class="hero-description" data-i18n="hero.description">Real conversations start with small steps. Learn useful Italian in short, friendly lessons that fit your day.</p>
+        <div class="landing-hero-actions">
+          <a class="home-start-button" href="pages/home.html?course=it">
+            <span class="home-start-icon"><span data-icon="play" aria-hidden="true"></span></span>
+            <span data-i18n="startLearning">Start learning</span>
+            <span class="home-start-arrow"><span data-icon="arrow-right" aria-hidden="true"></span></span>
+          </a>
+          <span class="landing-no-signup" data-i18n="hero.noSignup">Free to explore · no account needed</span>
+        </div>
+      </div>
+      <div class="landing-visual" aria-label="Students meeting in an Italian classroom" data-i18n-aria="hero.imageAlt">
+        <div class="landing-visual-image"></div>
+        <span class="landing-visual-sticker" aria-hidden="true"><span data-i18n="hero.sticker">CIAO!</span> <span data-icon="sparkles"></span></span>
+        <aside class="home-phrase-card" aria-label="Your first phrase" data-i18n-aria="hero.phraseAlt">
+          <span class="home-phrase-label"><span data-icon="sparkles" aria-hidden="true"></span> <span data-i18n="hero.phraseLabel">YOUR FIRST PHRASE</span></span>
+          <strong>Ciao!</strong>
+          <span data-i18n="hero.phraseMeaning">hello · goodbye</span>
+        </aside>
+      </div>
+      <div class="landing-hero-note"><span data-icon="check" aria-hidden="true"></span> <span data-i18n="hero.note">Start speaking from lesson one</span></div>
+    </section>
 
-</main>
+    <section class="landing-benefits" aria-label="A better way to learn" data-i18n-aria="benefits.label">
+      <div class="landing-benefit">
+        <span class="landing-benefit-icon benefit-time" data-icon="clock" aria-hidden="true"></span>
+        <div><strong data-i18n="benefits.timeTitle">Just a few minutes</strong><span data-i18n="benefits.timeDescription">Small lessons that fit your day</span></div>
+      </div>
+      <div class="landing-benefit">
+        <span class="landing-benefit-icon benefit-chat" data-icon="chat" aria-hidden="true"></span>
+        <div><strong data-i18n="benefits.realLifeTitle">Made for real life</strong><span data-i18n="benefits.realLifeDescription">Useful words and everyday situations</span></div>
+      </div>
+      <div class="landing-benefit">
+        <span class="landing-benefit-icon benefit-path" data-icon="paths" aria-hidden="true"></span>
+        <div><strong data-i18n="benefits.pathTitle">Your pace, your path</strong><span data-i18n="benefits.pathDescription">Keep track as you learn</span></div>
+      </div>
+    </section>
 
-<!-- ═══════════ FOOTER COMPONENT ═══════════ -->
-<div data-component="footer"></div>
+    <section class="landing-preview" aria-labelledby="previewHeading">
+      <div class="landing-preview-image" role="img" aria-label="Students practicing Italian together" data-i18n-aria="preview.imageAlt"></div>
+      <div class="landing-preview-copy">
+        <p class="eyebrow" data-i18n="preview.eyebrow">LESSON ONE · PRIMO INCONTRO</p>
+        <h2 id="previewHeading"><span class="landing-title-line" data-i18n="preview.titleFirst">Start with a simple</span><span class="landing-title-line" data-i18n="preview.titleSecond">“Ciao!”</span></h2>
+        <p data-i18n="preview.description">Meet someone new, learn a few natural greetings, and try your first Italian conversation. No long grammar chapters before you get started.</p>
+        <a class="landing-text-link" href="pages/home.html?course=it"><span data-i18n="preview.link">Take a look inside</span> <span data-icon="arrow-right" aria-hidden="true"></span></a>
+      </div>
+      <div class="landing-preview-label"><span data-icon="play" aria-hidden="true"></span> <span data-i18n="preview.label">YOUR FIRST LESSON</span></div>
+    </section>
 
-<!-- ═══════════ PROFILE MODAL COMPONENT ═══════════ -->
-<div data-component="profile-modal"></div>
+    <section class="landing-steps" aria-labelledby="stepsHeading">
+      <div class="landing-steps-heading">
+        <p class="eyebrow" data-i18n="steps.eyebrow">A LITTLE PRACTICE GOES A LONG WAY</p>
+        <h2 id="stepsHeading" data-i18n="steps.heading">Your Italian, one small win at a time.</h2>
+      </div>
+      <div class="landing-step-grid">
+        <article class="landing-step-card step-card-purple">
+          <span class="landing-step-number">01</span>
+          <span class="landing-step-icon" data-icon="lesson" aria-hidden="true"></span>
+          <h3 data-i18n="steps.learnTitle">Learn something useful</h3>
+          <p data-i18n="steps.learnDescription">Pick up everyday phrases with clear examples and friendly explanations.</p>
+        </article>
+        <article class="landing-step-card step-card-yellow">
+          <span class="landing-step-number">02</span>
+          <span class="landing-step-icon" data-icon="flashcards" aria-hidden="true"></span>
+          <h3 data-i18n="steps.practiceTitle">Try it for yourself</h3>
+          <p data-i18n="steps.practiceDescription">Practice with quick exercises and flashcards whenever you have a moment.</p>
+        </article>
+        <article class="landing-step-card step-card-green">
+          <span class="landing-step-number">03</span>
+          <span class="landing-step-icon" data-icon="streak" aria-hidden="true"></span>
+          <h3 data-i18n="steps.progressTitle">See how far you go</h3>
+          <p data-i18n="steps.progressDescription">Follow your learning path and celebrate every little bit of progress.</p>
+        </article>
+      </div>
+    </section>
 
-<script src="js/icons.js"></script>
-<script src="js/components.js"></script>
-<script src="js/layout.js"></script>
-<script src="js/course.js"></script>
-<script src="js/storage.js"></script>
-<script src="js/progress-store.js"></script>
-<script src="js/progress.js"></script>
-<script src="js/app.js"></script>
-<script src="js/index.js"></script>
+    <section class="landing-bottom-cta" aria-labelledby="bottomCtaHeading">
+      <span class="landing-bottom-spark" data-icon="sparkles" aria-hidden="true"></span>
+      <p class="eyebrow" data-i18n="cta.eyebrow">PRONTO? LET'S GO!</p>
+      <h2 id="bottomCtaHeading" data-i18n="cta.heading">Your first “Ciao!” is waiting.</h2>
+      <p data-i18n="cta.description">Step into your learning space and start with lesson one.</p>
+      <a class="home-start-button" href="pages/home.html?course=it">
+        <span data-i18n="startLearning">Start learning</span><span class="home-start-arrow"><span data-icon="arrow-right" aria-hidden="true"></span></span>
+      </a>
+    </section>
+  </main>
+
+  <footer class="landing-footer">
+    <a href="index.html" class="landing-brand" aria-label="LanguageStudio">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-wordmark">Language<span>Studio</span></span>
+    </a>
+    <span data-i18n="footer.tagline">A little Italian, every day.</span>
+    <a href="pages/auth.html" data-i18n="signIn">Sign in</a>
+  </footer>
+
+  <script src="js/icons.js"></script>
+  <script src="js/landing-language.js"></script>
 </body>
 </html>

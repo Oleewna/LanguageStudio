@@ -351,6 +351,11 @@ const UI_TRANSLATIONS = {
 const UI_I18N = [
   // Navigation & Core links
   { en: 'Home', uk: 'Головна' },
+  { en: 'Learn', uk: 'Навчання' },
+  { en: 'Courses', uk: 'Курси' },
+  { en: 'Account', uk: 'Обліковий запис' },
+  { en: 'Sign in', uk: 'Увійти' },
+  { en: 'Settings', uk: 'Налаштування' },
   { en: 'Learning paths', uk: 'Напрямки навчання' },
   { en: 'Learning path', uk: 'Напрямок навчання' },
   { en: 'Learning path:', uk: 'Напрямок навчання:' },
@@ -849,6 +854,7 @@ function openMobNav() {
   const overlay = document.getElementById('mobOverlay');
   if (nav) nav.classList.add('open');
   if (overlay) overlay.classList.add('open');
+  document.querySelectorAll('.menu-toggle').forEach(button => button.setAttribute('aria-expanded', 'true'));
   document.body.style.overflow = 'hidden';
 }
 
@@ -857,6 +863,7 @@ function closeMobNav() {
   const overlay = document.getElementById('mobOverlay');
   if (nav) nav.classList.remove('open');
   if (overlay) overlay.classList.remove('open');
+  document.querySelectorAll('.menu-toggle').forEach(button => button.setAttribute('aria-expanded', 'false'));
   document.body.style.overflow = '';
 }
 
@@ -1243,7 +1250,7 @@ function speak(text, btnElement) {
 }
 
 function initPageHeroNotices() {
-  document.querySelectorAll('.page-hero').forEach(hero => {
+  document.querySelectorAll('.page-hero[data-dismissible]').forEach(hero => {
     const inner = hero.querySelector('.page-hero-inner');
     const description = inner?.querySelector('p');
     if (!inner || !description) return;

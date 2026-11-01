@@ -175,11 +175,6 @@ body {
   transition: background 0.15s, color 0.15s;
 }
 
-.sb-lesson.sb-sublesson {
-  margin-left: 0.85rem;
-  font-size: 0.8rem;
-}
-
 .sb-lesson:hover {
   background: var(--it-green-light);
   color: var(--it-green);

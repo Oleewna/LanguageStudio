@@ -88,73 +88,114 @@
             {
               "id": "communication-basics-1",
               "num": { "uk": "Урок 1", "en": "Lesson 1" },
-              "title": { "uk": "Знайомство", "en": "Introductions" },
+              "title": { "uk": "Перше привітання", "en": "First greetings" },
               "description": {
-                "uk": "Навчіться вітатися, називати своє ім’я та країну й підтримувати коротке знайомство.",
-                "en": "Learn to greet someone, say your name and country, and start a short conversation."
+                "uk": "Привітайтеся та почніть коротке знайомство.",
+                "en": "Say hello and start a short introduction."
               },
-              "time": { "uk": "20 хв", "en": "20 min" },
+              "time": { "uk": "2 хв", "en": "2 min" },
               "status": "available",
-              "sublessons": [
-                {
-                  "id": "communication-basics-1-practice",
-                  "num": { "uk": "Додаткова практика", "en": "Extra practice" },
-                  "title": { "uk": "Знайомство: більше фраз", "en": "Introductions: more phrases" },
-                  "description": {
-                    "uk": "Закріпіть фрази для знайомства, розповіді про себе та запитань співрозмовнику.",
-                    "en": "Practice introducing yourself, sharing a few details, and asking follow-up questions."
-                  },
-                  "time": { "uk": "8 хв", "en": "8 min" },
-                  "status": "available",
-                  "xpReward": 20
-                },
-                {
-                  "id": "communication-basics-1-greetings",
-                  "num": { "uk": "Додаткова практика", "en": "Extra practice" },
-                  "title": { "uk": "Привітання й перше знайомство", "en": "Greetings and first introductions" },
-                  "description": {
-                    "uk": "Повторіть привітання, виберіть доречне звертання та потренуйте перші фрази знайомства.",
-                    "en": "Review greetings, choose the right salutation, and practise the first phrases for meeting someone."
-                  },
-                  "time": { "uk": "6 хв", "en": "6 min" },
-                  "status": "available",
-                  "xpReward": 15
-                },
-                {
-                  "id": "communication-basics-1-review",
-                  "num": { "uk": "Додаткова практика", "en": "Extra practice" },
-                  "title": { "uk": "Коротка розмова без підказок", "en": "A short conversation from memory" },
-                  "description": {
-                    "uk": "Згадайте ключові фрази й складіть коротке знайомство від привітання до відповіді про себе.",
-                    "en": "Recall the key phrases and build a short introduction, from greeting to sharing a detail about yourself."
-                  },
-                  "time": { "uk": "7 хв", "en": "7 min" },
-                  "status": "available",
-                  "xpReward": 20
-                }
-              ]
+              "xpReward": 10,
+              "prevLessonId": null,
+              "nextLessonId": "communication-basics-1-greetings"
+            },
+            {
+              "id": "communication-basics-1-greetings",
+              "num": { "uk": "Урок 2", "en": "Lesson 2" },
+              "title": { "uk": "Обери привітання", "en": "Choose a greeting" },
+              "description": {
+                "uk": "Повторіть привітання для ранку, вечора та неформальної зустрічі.",
+                "en": "Review greetings for morning, evening, and informal meetings."
+              },
+              "time": { "uk": "3 хв", "en": "3 min" },
+              "status": "available",
+              "xpReward": 10,
+              "prevLessonId": "communication-basics-1",
+              "nextLessonId": "communication-basics-1-practice"
+            },
+            {
+              "id": "communication-basics-1-practice",
+              "num": { "uk": "Урок 3", "en": "Lesson 3" },
+              "title": { "uk": "Скажи, як тебе звати", "en": "Say your name" },
+              "description": {
+                "uk": "Поставте запитання про ім’я та дайте просту відповідь.",
+                "en": "Ask someone's name and give a simple answer."
+              },
+              "time": { "uk": "2 хв", "en": "2 min" },
+              "status": "available",
+              "xpReward": 10,
+              "prevLessonId": "communication-basics-1-greetings",
+              "nextLessonId": "communication-basics-1-review"
+            },
+            {
+              "id": "communication-basics-1-review",
+              "num": { "uk": "Урок 4", "en": "Lesson 4" },
+              "title": { "uk": "Повтори знайомство", "en": "Review introductions" },
+              "description": {
+                "uk": "Згадайте знайомі фрази та складіть коротку розмову.",
+                "en": "Recall familiar phrases and build a short conversation."
+              },
+              "time": { "uk": "2 хв", "en": "2 min" },
+              "status": "available",
+              "xpReward": 10,
+              "prevLessonId": "communication-basics-1-practice",
+              "nextLessonId": "communication-basics-2"
             },
             {
               "id": "communication-basics-2",
-              "num": { "uk": "Урок 2", "en": "Lesson 2" },
-              "title": { "uk": "Навчання, робота і мови", "en": "Study, work, and languages" },
+              "num": { "uk": "Урок 5", "en": "Lesson 5" },
+              "title": { "uk": "Навчання та робота", "en": "Study and work" },
               "description": {
-                "uk": "Навчіться розповідати про навчання, роботу, мови й родину та ставити прості запитання.",
-                "en": "Learn to talk about study, work, languages, and family, and ask simple questions."
+                "uk": "Розкажіть, де ви навчаєтеся або працюєте.",
+                "en": "Say what you study or where you work."
               },
-              "time": { "uk": "20 хв", "en": "20 min" },
-              "status": "available"
+              "time": { "uk": "2 хв", "en": "2 min" },
+              "status": "available",
+              "xpReward": 10,
+              "prevLessonId": "communication-basics-1-review",
+              "nextLessonId": "communication-basics-2-family"
+            },
+            {
+              "id": "communication-basics-2-family",
+              "num": { "uk": "Урок 6", "en": "Lesson 6" },
+              "title": { "uk": "Мови та родина", "en": "Languages and family" },
+              "description": {
+                "uk": "Назвіть мови, якими розмовляєте, і розкажіть про близьких.",
+                "en": "Name the languages you speak and tell someone about your family."
+              },
+              "time": { "uk": "3 хв", "en": "3 min" },
+              "status": "available",
+              "xpReward": 10,
+              "prevLessonId": "communication-basics-2",
+              "nextLessonId": "communication-basics-3"
             },
             {
               "id": "communication-basics-3",
-              "num": { "uk": "Урок 3", "en": "Lesson 3" },
-              "title": { "uk": "Інтереси й повсякденне життя", "en": "Interests and everyday life" },
+              "num": { "uk": "Урок 7", "en": "Lesson 7" },
+              "title": { "uk": "Що тобі подобається?", "en": "What do you like?" },
               "description": {
-                "uk": "Навчіться говорити про захоплення та вільний час і домовлятися про зустріч.",
-                "en": "Learn to talk about your interests and free time, and make plans to meet."
+                "uk": "Розкажіть про захоплення та запитайте про інтереси співрозмовника.",
+                "en": "Talk about your interests and ask what someone else likes."
               },
-              "time": { "uk": "20 хв", "en": "20 min" },
-              "status": "available"
+              "time": { "uk": "2 хв", "en": "2 min" },
+              "status": "available",
+              "xpReward": 10,
+              "prevLessonId": "communication-basics-2-family",
+              "nextLessonId": "communication-basics-3-plans"
+            },
+            {
+              "id": "communication-basics-3-plans",
+              "num": { "uk": "Урок 8", "en": "Lesson 8" },
+              "title": { "uk": "Домовся про зустріч", "en": "Make a plan" },
+              "description": {
+                "uk": "Запропонуйте зустрітися та домовтеся про час.",
+                "en": "Invite someone to meet and agree on a time."
+              },
+              "time": { "uk": "2 хв", "en": "2 min" },
+              "status": "available",
+              "xpReward": 10,
+              "prevLessonId": "communication-basics-3",
+              "nextLessonId": null
             }
           ]
         }

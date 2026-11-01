@@ -11,7 +11,7 @@
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito+Sans:ital,opsz,wght@0,6..12,400..800;1,6..12,400..700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Theme (must be first to prevent FOUC) -->
   <script src="../js/theme.js"></script>
@@ -19,99 +19,48 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="stylesheet" href="../css/lesson.css" />
+  <link rel="stylesheet" href="../css/studio.css" />
 </head>
-<body>
-
-<!-- ═══════════ NAVBAR COMPONENT ═══════════ -->
-<div data-component="navbar"></div>
-
-<!-- ═══════════ LESSON LAYOUT: SIDEBAR + CONTENT ═══════════ -->
-<div class="lesson-layout-wrapper">
-
-  <!-- Sidebar overlay -->
-  <div class="sidebar-overlay" id="sbOverlay"></div>
-
-  <!-- ── Sidebar ── -->
-  <aside class="sidebar" id="sidebar" aria-label="Зміст уроку">
-    <div class="sb-course" id="sbCourseLabel">Курс італійської · Основи</div>
-    <div id="sbUnitLessons">
-      <!-- Dynamically populated by renderSidebar() -->
-    </div>
-    <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border);">
-      <a href="path.html" id="sbAllCoursesLink" style="color:var(--ink-soft);text-decoration:none;font-size:0.82rem;display:flex;align-items:center;gap:0.5rem;">
-        <span data-icon="paths"></span>
-        <span id="sbAllCoursesText">Всі розділи курсу</span>
-      </a>
-    </div>
-  </aside>
-
-  <!-- ── Main content area ── -->
-  <div class="lesson-main">
-
-    <!-- Lesson top bar: breadcrumb + nav actions -->
-    <div class="lesson-topbar">
-      <div style="display:flex;align-items:center;gap:0.6rem;">
-        <button
-          class="sb-toggle-btn"
-          id="sbToggleBtn"
-          type="button"
-          aria-label="Приховати список уроків"
-          title="Приховати список уроків"
-          aria-expanded="false"
-          aria-controls="sidebar"
-        >
-          <span data-icon="paths"></span>
-        </button>
-        <!-- Breadcrumb -->
-        <div class="crumb" id="lessonBreadcrumb" aria-label="Навігація">
-          <span id="crumbUnit">Основи спілкування</span>
-          <span data-icon="chevron-down" aria-hidden="true"></span>
-          <b id="crumbLesson">Урок</b>
-        </div>
+<body class="lesson-app-page">
+  <main class="lesson-shell">
+    <header class="lesson-top">
+      <a class="close-button" href="path.html" aria-label="Повернутися до навчального шляху" title="Повернутися до навчального шляху">×</a>
+      <div class="progress-track lesson-top-progress" id="lesson-step-progress" role="progressbar" aria-label="Прогрес уроку" aria-valuemin="1" aria-valuemax="1" aria-valuenow="1">
+        <span class="progress-fill" id="lesson-step-progress-fill"></span>
       </div>
-      <div class="lesson-topbar-actions">
-        <a href="#" class="btn-ghost" id="btnPrevLesson" data-no-translate aria-label="Попередній урок"><span data-icon="arrow-left"></span> Назад</a>
-        <button type="button" class="btn-ghost lesson-rules-button" id="btnLessonRules" data-no-translate aria-label="Довідник правил заблоковано" title="Довідник правил стане доступним після завершення уроку" disabled hidden><span data-icon="article" aria-hidden="true"></span><span id="btnLessonRulesLabel">Правила</span></button>
-        <a href="#" class="btn-primary" id="btnNextLesson" data-no-translate aria-label="Наступний урок">Далі <span data-icon="arrow-right"></span></a>
-      </div>
-    </div>
+      <span class="lesson-step-progress-label" id="lesson-step-progress-label" aria-live="polite"></span>
+      <button type="button" class="btn-ghost lesson-rules-button" id="btnLessonRules" data-no-translate aria-label="Довідник правил заблоковано" title="Довідник правил стане доступним після завершення уроку" disabled hidden>
+        <span data-icon="article" aria-hidden="true"></span><span id="btnLessonRulesLabel">Правила</span>
+      </button>
+    </header>
 
-    <!-- ── Lesson content with section index ── -->
-    <div class="lesson-content-layout">
+    <section class="question-content lesson-question-content" id="lessonMain" aria-live="polite">
+      <div class="lesson-intro" id="lessonHero">
+        <p class="eyebrow" id="heroLabel"></p>
+        <h1 id="heroTitle">Завантаження уроку…</h1>
+        <p id="heroDescription"></p>
+        <div class="hero-meta" id="heroMeta"></div>
+      </div>
+
       <nav class="lesson-index" id="lessonIndex" aria-label="Зміст уроку" hidden>
         <h2 class="lesson-index-title" id="lessonIndexTitle">У цьому уроці</h2>
         <ol class="lesson-index-list" id="lessonIndexList"></ol>
       </nav>
 
-      <main class="content" id="lessonMain" aria-live="polite">
+      <div id="lessonBody"></div>
 
-        <!-- Hero header (populated dynamically) -->
-        <div class="hero" id="lessonHero">
-          <div class="hero-copy">
-            <div class="hero-label" id="heroLabel"></div>
-            <h1 id="heroTitle">Завантаження уроку…</h1>
-            <p id="heroDescription"></p>
-          </div>
-          <div class="hero-meta" id="heroMeta" style="display:flex;flex-direction:column;align-items:flex-end;gap:0.65rem;flex-shrink:0;">
-            <!-- Lesson type badge + duration chip rendered by JS -->
-          </div>
-        </div>
+      <nav class="lesson-bottom-nav" id="lessonBottomNav" aria-label="Навігація між уроками">
+        <a href="#" class="btn-ghost" id="btnPrevLessonBottom"><span data-icon="arrow-left"></span> Попередній урок</a>
+        <a href="#" class="btn-primary" id="btnNextLessonBottom">Наступний урок <span data-icon="arrow-right"></span></a>
+      </nav>
+    </section>
 
-        <!-- Engine-rendered lesson sections mount here -->
-        <div id="lessonBody">
-          <!-- LessonEngine.renderLesson() injects all section blocks here -->
-        </div>
-
-        <!-- Bottom navigation -->
-        <nav class="lesson-bottom-nav" id="lessonBottomNav" aria-label="Навігація між уроками">
-          <a href="#" class="btn-ghost" id="btnPrevLessonBottom" style="display:none;"><span data-icon="arrow-left"></span> Попередній урок</a>
-          <a href="#" class="btn-primary" id="btnNextLessonBottom" style="display:none;">Наступний урок <span data-icon="arrow-right"></span></a>
-        </nav>
-
-      </main>
-    </div>
-  </div><!-- /.lesson-main -->
-</div><!-- /.lesson-layout-wrapper -->
+    <footer class="lesson-footer">
+      <div class="lesson-footer-inner">
+        <a class="lesson-exit-link" href="path.html">LanguageStudio <span aria-hidden="true">·</span> Вийти з уроку</a>
+      </div>
+    </footer>
+  </main>
 
 <!-- ═══════════ SCRIPTS ═══════════ -->
 <script src="../js/icons.js"></script>

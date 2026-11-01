@@ -29,26 +29,32 @@ function renderRoadmap(course) {
       : `${availableLessons}/${totalLessons} ${getLocalizedText({ uk: 'уроків доступно', en: 'lessons available' })}`;
 
     const unitsHtml = (path.units || []).map((unit) => {
+      let hasCurrentLesson = false;
       const lessonRows = (unit.lessons || []).map((lesson) => {
         const lessonTitle = getLocalizedText(lesson.title);
         const lessonDescription = getLocalizedText(lesson.description);
         const lessonNum = getLocalizedText(lesson.num) || '';
-        const lessonMarker = String(lessonNum || lesson.id || '').match(/\d+/)?.[0] || '•';
         const isAvailable = Boolean(lesson.status === 'available');
+        const isCurrent = isAvailable && !hasCurrentLesson;
+        if (isCurrent) hasCurrentLesson = true;
+        const nodeState = isCurrent ? 'current' : isAvailable ? 'upcoming' : 'locked';
+        const markerIcon = isCurrent ? 'sparkles' : isAvailable ? 'play' : 'lock';
+        const nodeLabel = isCurrent
+          ? getLocalizedText({ uk: 'Почніть тут', en: 'Start here' })
+          : isAvailable
+            ? getLocalizedText({ uk: 'Далі', en: 'Up next' })
+            : getLocalizedText({ uk: 'Заблоковано', en: 'Locked' });
         const lessonHref = lesson.href || `pages/lesson.html?course=${encodeURIComponent(course.id || 'it')}&lesson=${encodeURIComponent(lesson.id || '')}`;
-        const badge = isAvailable
-          ? getLocalizedText({ uk: 'Почати', en: 'Open' })
-          : getLocalizedText({ uk: 'Незабаром', en: 'Coming soon' });
         const item = `
-          <div class="tree-node-item">
-            <div class="node-bullet ${isAvailable ? 'nb-current' : 'nb-locked'}">${escapeHtml(lessonMarker)}</div>
+          <div class="tree-node-item tree-node-${nodeState}">
+            <div class="node-bullet ${isCurrent ? 'nb-current' : isAvailable ? 'nb-upcoming' : 'nb-locked'}">${getIconSvg(markerIcon)}</div>
             ${isAvailable ? `<a href="${escapeHtml(lessonHref)}" class="node-content-card">` : `<div class="node-content-card locked-card">`}
               <div>
-                <div class="node-tag">${escapeHtml(lessonNum ? `${lessonNum} · ${badge}` : `${badge}`)}</div>
+                <div class="node-tag">${escapeHtml(lessonNum)}</div>
                 <div class="node-title">${escapeHtml(lessonTitle)}</div>
                 <div class="node-sub">${escapeHtml(lessonDescription || '')}</div>
               </div>
-              <span class="node-btn ${isAvailable ? 'nb-btn-active' : 'nb-btn-locked'}">${isAvailable ? `Почати ${getIconSvg('play')}` : `${getIconSvg('lock')} Незабаром`}</span>
+              <span class="node-btn ${isCurrent ? 'nb-btn-active' : isAvailable ? 'nb-btn-upcoming' : 'nb-btn-locked'}">${escapeHtml(nodeLabel)}</span>
             ${isAvailable ? '</a>' : '</div>'}
           </div>
         `;
@@ -72,6 +78,7 @@ function renderRoadmap(course) {
       </div>
     `;
   }).join('');
+  window.renderLessonPathConnectors?.();
 }
 
 function renderHubCards(course) {

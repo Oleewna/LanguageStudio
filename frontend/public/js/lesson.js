@@ -58,24 +58,14 @@
 
   function getLessonList(course) {
     const courseLessons = course && Array.isArray(course.paths)
-      ? course.paths.flatMap((path) => (path.units || []).flatMap((unit) => (unit.lessons || []).flatMap((lesson) => {
-        const sharedMetadata = {
-          pathId: path.id,
-          pathTitle: path.title,
-          unitId: unit.id,
-          unitTitle: unit.title
-        };
-        return [
-          { ...lesson, ...sharedMetadata, parentLessonId: null, status: lesson.status || 'locked' },
-          ...(lesson.sublessons || []).map((sublesson) => ({
-            ...sublesson,
-            ...sharedMetadata,
-            parentLessonId: lesson.id,
-            parentLessonTitle: lesson.title,
-            status: sublesson.status || 'locked'
-          }))
-        ];
-      })))
+      ? course.paths.flatMap((path) => (path.units || []).flatMap((unit) => (unit.lessons || []).map((lesson) => ({
+        ...lesson,
+        pathId: path.id,
+        pathTitle: path.title,
+        unitId: unit.id,
+        unitTitle: unit.title,
+        status: lesson.status || 'locked'
+      }))))
       : [];
     const existingIds = new Set(courseLessons.map((lesson) => lesson.id));
     const readingLessons = (course?.id || getCurrentCourseId()) === 'it'
@@ -272,16 +262,17 @@
     if (lessonEl) lessonEl.textContent = lessonNumberLabel;
 
     if (metaEl) {
-      const badge = (lang === 'en' ? 'Lesson' : 'Урок');
-      const xpText = Number(lesson.xpReward) ? `+${lesson.xpReward} XP` : '';
+      const badge = lang === 'en' ? 'Lesson' : 'Урок';
       const durationText = typeof lesson.duration === 'object'
         ? (lesson.duration[lang] || lesson.duration.uk || lesson.duration.en || '')
         : lesson.duration;
-      metaEl.innerHTML = `
-        <div style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.25);color:#FFFFFF;font-size:0.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.3rem .75rem;border-radius:999px;">${badge}</div>
-        ${durationText ? `<div style="font-size:0.8rem;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:.3rem;">${durationText}</div>` : ''}
-        ${xpText ? `<div style="font-size:0.8rem;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:.3rem;">${xpText}</div>` : ''}
-      `;
+      const details = [badge, durationText, Number(lesson.xpReward) ? `+${lesson.xpReward} XP` : ''].filter(Boolean);
+      metaEl.replaceChildren(...details.map((detail) => {
+        const chip = document.createElement('span');
+        chip.className = 'lesson-meta-chip';
+        chip.textContent = detail;
+        return chip;
+      }));
     }
 
     const title = `${titleText}${subtitleText ? ` — ${subtitleText}` : ''}`;
@@ -406,12 +397,11 @@
 
     const items = unitLessons.map((item) => {
       const active = item.id === lesson.id;
-      const isSublesson = Boolean(item.parentLessonId);
       const isDone = typeof window.isLessonCompleted === 'function' && window.isLessonCompleted(item.id);
       const lessonNumberLabel = getLessonNumberLabel(item, lang);
       const badge = getIconSvg(active ? 'lesson' : (isDone ? 'check' : 'circle'));
       return `
-        <a href="${window.location.pathname}?course=${encodeURIComponent(getCurrentCourseId())}&lesson=${encodeURIComponent(item.id)}" class="sb-lesson${isSublesson ? ' sb-sublesson' : ''} ${active ? 'active' : ''}" aria-current="${active ? 'page' : 'false'}">
+        <a href="${window.location.pathname}?course=${encodeURIComponent(getCurrentCourseId())}&lesson=${encodeURIComponent(item.id)}" class="sb-lesson ${active ? 'active' : ''}" aria-current="${active ? 'page' : 'false'}">
           <span class="ic">${badge}</span>
           <span>${lessonNumberLabel} · ${readText(item.title, item.id, lang)}</span>
         </a>
@@ -508,12 +498,12 @@
       let rawLesson = null;
 
       if (lessonId) {
-        rawLesson = courseId === 'it' ? window.LS_LESSONS?.[lessonId] || null : null;
-        if (!rawLesson) {
-          try {
-            rawLesson = await window.loadCourseData(`lessons/${lessonId}`);
-          } catch (error) {
-            rawLesson = null;
+        try {
+          rawLesson = await window.loadCourseData(`lessons/${lessonId}`);
+        } catch (error) {
+          rawLesson = courseId === 'it' ? window.LS_LESSONS?.[lessonId] || null : null;
+          if (!rawLesson) {
+            console.warn(`Could not load lesson content for "${lessonId}":`, error);
           }
         }
       }

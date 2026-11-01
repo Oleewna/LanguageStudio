@@ -44,7 +44,7 @@ function getCoursePaths() {
             uk: 'Поєднуй прості звуки та діли слова на склади.',
             en: 'Blend simple sounds and divide words into syllables.'
           },
-          time: { uk: '12 хв', en: '12 min' },
+          time: { uk: '5 хв', en: '5 min' },
           status: 'available'
         },
         {
@@ -55,7 +55,7 @@ function getCoursePaths() {
             uk: 'Читай слова з твердим звуком C перед A, O та U.',
             en: 'Read words with hard C before A, O, and U.'
           },
-          time: { uk: '12 хв', en: '12 min' },
+          time: { uk: '5 хв', en: '5 min' },
           status: 'available'
         },
         {
@@ -66,7 +66,7 @@ function getCoursePaths() {
             uk: 'Розрізняй м’яку C та написання CH із твердим звуком.',
             en: 'Distinguish soft C from CH spellings with the hard sound.'
           },
-          time: { uk: '12 хв', en: '12 min' },
+          time: { uk: '5 хв', en: '5 min' },
           status: 'available'
         },
         {
@@ -77,7 +77,7 @@ function getCoursePaths() {
             uk: 'Читай слова з твердим звуком G перед A, O та U.',
             en: 'Read words with hard G before A, O, and U.'
           },
-          time: { uk: '12 хв', en: '12 min' },
+          time: { uk: '5 хв', en: '5 min' },
           status: 'available'
         },
         {
@@ -88,7 +88,7 @@ function getCoursePaths() {
             uk: 'Порівнюй м’який звук G із твердим звуком у сполуках GH.',
             en: 'Compare soft G with the hard sound in GH spellings.'
           },
-          time: { uk: '12 хв', en: '12 min' },
+          time: { uk: '5 хв', en: '5 min' },
           status: 'available'
         },
         {
@@ -99,7 +99,7 @@ function getCoursePaths() {
             uk: 'Слухай і розрізняй основні написання SC.',
             en: 'Listen for and distinguish the main SC spellings.'
           },
-          time: { uk: '12 хв', en: '12 min' },
+          time: { uk: '5 хв', en: '5 min' },
           status: 'available'
         },
         {
@@ -110,7 +110,7 @@ function getCoursePaths() {
             uk: 'Розпізнавай GN як одну звукову сполуку в словах.',
             en: 'Recognize GN as a single sound pattern in words.'
           },
-          time: { uk: '12 хв', en: '12 min' },
+          time: { uk: '5 хв', en: '5 min' },
           status: 'available'
         },
         {
@@ -121,7 +121,7 @@ function getCoursePaths() {
             uk: 'Слухай і повторюй слова зі сполукою GLI.',
             en: 'Listen and repeat words with the GLI combination.'
           },
-          time: { uk: '12 хв', en: '12 min' },
+          time: { uk: '5 хв', en: '5 min' },
           status: 'available'
         },
         {
@@ -132,7 +132,7 @@ function getCoursePaths() {
             uk: 'Читай поширені слова та короткі фрази зі сполукою QU.',
             en: 'Read common words and short phrases with QU.'
           },
-          time: { uk: '12 хв', en: '12 min' },
+          time: { uk: '5 хв', en: '5 min' },
           status: 'available'
         },
         {
@@ -143,7 +143,7 @@ function getCoursePaths() {
             uk: 'Помічай подвоєні приголосні та чуй різницю у вимові.',
             en: 'Notice doubled consonants and hear the pronunciation contrast.'
           },
-          time: { uk: '12 хв', en: '12 min' },
+          time: { uk: '5 хв', en: '5 min' },
           status: 'available'
         },
         {
@@ -154,7 +154,7 @@ function getCoursePaths() {
             uk: 'Звертай увагу на наголос і письмові акценти у словах.',
             en: 'Notice word stress and written accents in Italian words.'
           },
-          time: { uk: '12 хв', en: '12 min' },
+          time: { uk: '5 хв', en: '5 min' },
           status: 'available'
         },
         {
@@ -165,7 +165,7 @@ function getCoursePaths() {
             uk: 'Поєднуй знайомі закономірності читання в короткій історії.',
             en: 'Bring familiar reading patterns together in a short story.'
           },
-          time: { uk: '18 хв', en: '18 min' },
+          time: { uk: '6 хв', en: '6 min' },
           status: 'available'
         }
       ]
@@ -220,38 +220,42 @@ function getLessonStatusLabel(lesson) {
 }
 
 function buildBadgeText(category) {
-  const lessons = (category.units || []).flatMap((unit) => (unit.lessons || []).flatMap((lesson) => [
-    lesson,
-    ...(lesson.sublessons || [])
-  ]));
+  const lessons = (category.units || []).flatMap((unit) => unit.lessons || []);
   const total = lessons.length;
   const available = lessons.filter((lesson) => lesson.status === 'available').length;
   return getPathBadgeText(total, available, category.locked);
 }
 
-function renderLessonRow(lesson, isSublesson = false) {
+function renderLessonRow(lesson, nodeState = 'upcoming') {
   const isAvailable = lesson.status === 'available';
-  const rowClass = `lesson-row${isSublesson ? ' lesson-row-sublesson' : ''} ${isAvailable ? 'active-lesson' : 'locked'}`;
+  const rowClass = `lesson-row ${isAvailable ? 'active-lesson' : 'locked'}`;
   const statusClass = isAvailable ? 'lesson-status ls-available' : 'lesson-status ls-soon';
   const title = getLocalizedText(lesson.title);
   const description = getLocalizedText(lesson.description);
   const lessonNum = getLocalizedText(lesson.num);
   const time = getLocalizedText(lesson.time);
-  const statusText = `${getIconSvg(isAvailable ? 'lesson' : 'lock')} ${escapeHtml(getLessonStatusLabel(lesson))}`;
+  const statusLabel = isAvailable
+    ? nodeState === 'current'
+      ? getPathLanguage() === 'en' ? 'Start here' : 'Почніть тут'
+      : getPathLanguage() === 'en' ? 'Up next' : 'Далі'
+    : getLessonStatusLabel(lesson);
+  const statusIcon = !isAvailable ? 'lock' : nodeState === 'current' ? 'sparkles' : 'play';
+  const statusText = `${getIconSvg(statusIcon)} ${escapeHtml(statusLabel)}`;
 
   const numHtml = lessonNum ? `<div class="lesson-num">${escapeHtml(lessonNum)}</div>` : '';
   const descHtml = description ? `<div class="lesson-it">${escapeHtml(description)}</div>` : '';
   const timeHtml = time ? `<span class="lesson-time">${escapeHtml(time)}</span>` : '';
 
   const inner = `
-        <div>
+        <span class="lesson-node-marker">${getIconSvg(statusIcon)}</span>
+        <div class="lesson-node-copy">
           ${numHtml}
           <div class="lesson-name">${escapeHtml(title)}</div>
           ${descHtml}
-        </div>
-        <div class="lesson-right">
-          <span class="${statusClass}">${statusText}</span>
-          ${timeHtml}
+          <div class="lesson-right">
+            <span class="${statusClass}">${statusText}</span>
+            ${timeHtml}
+          </div>
         </div>
   `;
 
@@ -260,47 +264,20 @@ function renderLessonRow(lesson, isSublesson = false) {
     ? `<a href="${escapeHtml(href)}" class="${rowClass}">${inner}</a>`
     : `<div class="${rowClass}">${inner}</div>`;
 
-  if (isSublesson || !Array.isArray(lesson.sublessons) || lesson.sublessons.length === 0) {
-    return row;
-  }
-
-  const lang = getPathLanguage();
-  const sublessonCount = lesson.sublessons.length;
-  const toggleLabel = lang === 'en'
-    ? `Extra practice (${sublessonCount})`
-    : `Додаткова практика (${sublessonCount})`;
-  const accessibleLabel = lang === 'en'
-    ? `Show ${sublessonCount} sublesson${sublessonCount === 1 ? '' : 's'}`
-    : `Показати додаткові уроки: ${sublessonCount}`;
-  const expandedLabel = lang === 'en'
-    ? `Hide ${sublessonCount} sublesson${sublessonCount === 1 ? '' : 's'}`
-    : `Сховати додаткові уроки: ${sublessonCount}`;
-  const sublessonsHtml = lesson.sublessons.map((sublesson) => renderLessonRow(sublesson, true)).join('');
-
-  return `
-    <div class="lesson-tree-node" data-parent-lesson="${escapeHtml(lesson.id)}">
-      ${row}
-      <button type="button" class="sublessons-toggle" aria-expanded="false" aria-label="${escapeHtml(accessibleLabel)}" data-collapsed-label="${escapeHtml(accessibleLabel)}" data-expanded-label="${escapeHtml(expandedLabel)}" onclick="toggleSublessons(this)">
-        <span class="sublessons-chevron">${getIconSvg('chevron-down')}</span>
-        <span>${escapeHtml(toggleLabel)}</span>
-      </button>
-      <div class="lesson-sublist" hidden>${sublessonsHtml}</div>
-    </div>
-  `;
-}
-
-function toggleSublessons(button) {
-  const sublessonList = button.nextElementSibling;
-  if (!sublessonList) return;
-
-  const expanded = button.getAttribute('aria-expanded') === 'true';
-  button.setAttribute('aria-expanded', String(!expanded));
-  button.setAttribute('aria-label', expanded ? button.dataset.collapsedLabel : button.dataset.expandedLabel);
-  sublessonList.hidden = expanded;
+  return row;
 }
 
 function renderUnitGroup(unit, totalUnitsInCategory) {
-  const lessonsHtml = (unit.lessons || []).map((lesson) => renderLessonRow(lesson)).join('');
+  let hasCurrentLesson = false;
+  const lessonsHtml = (unit.lessons || []).map((lesson) => {
+    const nodeState = lesson.status !== 'available'
+      ? 'locked'
+      : hasCurrentLesson
+        ? 'upcoming'
+        : 'current';
+    if (nodeState === 'current') hasCurrentLesson = true;
+    return `<div class="lesson-node lesson-node-${nodeState}">${renderLessonRow(lesson, nodeState)}</div>`;
+  }).join('');
   const singleUnit = totalUnitsInCategory === 1;
 
   if (singleUnit) {
@@ -408,11 +385,7 @@ function renderCategories(progressRecords = []) {
       ...unit,
       lessons: (unit.lessons || []).map((lesson) => ({
         ...lesson,
-        href: getLessonHref(lesson),
-        sublessons: (lesson.sublessons || []).map((sublesson) => ({
-          ...sublesson,
-          href: getLessonHref(sublesson)
-        }))
+        href: getLessonHref(lesson)
       }))
     }))
   }));
@@ -426,6 +399,7 @@ function renderCategories(progressRecords = []) {
   container.innerHTML = categories.map(renderCategoryCard).join('');
   applySourceLanguageSettings();
   window.renderRegisteredIcons?.(container);
+  window.renderLessonPathConnectors?.();
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

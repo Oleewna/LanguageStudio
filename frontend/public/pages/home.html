@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Home — LanguageStudio</title>
+  <meta name="description" content="Continue your Italian learning path and practise with LanguageStudio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/index.css" />
+  <link rel="stylesheet" href="../css/studio.css" />
+</head>
+<body>
+  <div data-component="navbar"></div>
+
+  <main class="home-main">
+    <div class="home-dashboard">
+      <section class="dashboard-intro" aria-labelledby="dashboardHeading">
+        <div>
+          <p class="eyebrow">BENVENUTO · WELCOME</p>
+          <h1 id="dashboardHeading">Your Italian learning space</h1>
+          <p>Choose your next lesson or practise a little. Your progress is saved on this device.</p>
+        </div>
+        <a class="dashboard-path-link" href="path.html">
+          <span>Explore your learning path</span>
+          <span data-icon="arrow-right" aria-hidden="true"></span>
+        </a>
+      </section>
+
+      <div class="home-section-heading">
+        <div>
+          <p class="eyebrow">YOUR NEXT STEP</p>
+          <h2>Learning path</h2>
+        </div>
+      </div>
+
+      <div id="roadmapRoot"></div>
+
+      <section class="home-practice">
+        <div class="home-section-heading">
+          <div>
+            <p class="eyebrow">KEEP PRACTISING</p>
+            <h2>Practice tools</h2>
+          </div>
+        </div>
+        <div class="hub-grid" id="hubGrid">
+          <a href="flashcards.html" class="hub-card" data-feature="flashcards">
+            <div class="hub-icon hi-accent"><span data-icon="flashcards"></span></div>
+            <div><div class="hub-card-title">Flashcards</div><div class="hub-card-sub">Review words</div></div>
+          </a>
+          <a href="exercises.html" class="hub-card" data-feature="exercises">
+            <div class="hub-icon hi-correct"><span data-icon="exercises"></span></div>
+            <div><div class="hub-card-title">Exercises</div><div class="hub-card-sub">Quick practice</div></div>
+          </a>
+          <a href="dictionary.html" class="hub-card" data-feature="dictionary">
+            <div class="hub-icon hi-primary"><span data-icon="dictionary"></span></div>
+            <div><div class="hub-card-title">My dictionary</div><div class="hub-card-sub">Saved words</div></div>
+          </a>
+          <a href="grammar.html" class="hub-card" data-feature="grammar">
+            <div class="hub-icon hi-dark"><span data-icon="grammar"></span></div>
+            <div><div class="hub-card-title">Grammar guide</div><div class="hub-card-sub">Rules and examples</div></div>
+          </a>
+          <a href="tests.html" class="hub-card" data-feature="tests">
+            <div class="hub-icon hi-accent"><span data-icon="tests"></span></div>
+            <div><div class="hub-card-title">Tests</div><div class="hub-card-sub">Check your progress</div></div>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div data-component="footer"></div>
+  <div data-component="profile-modal"></div>
+
+  <script src="../js/icons.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/layout.js"></script>
+  <script src="../js/course.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/progress-store.js"></script>
+  <script src="../js/progress.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/path-connectors.js"></script>
+  <script src="../js/index.js"></script>
+</body>
+</html>
