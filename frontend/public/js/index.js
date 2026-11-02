@@ -10,15 +10,19 @@ function getLocalizedText(value) {
   return value || '';
 }
 
-function renderRoadmap(course) {
+let homeProgressRecords = [];
+
+function renderRoadmap(course, progressRecords = homeProgressRecords) {
   const roadmapRoot = document.getElementById('roadmapRoot');
   if (!roadmapRoot || !course || !Array.isArray(course.paths)) return;
   const lessonsPerRow = 3;
+  const pagesPrefix = window.LSComponents?.prefix || '';
 
   roadmapRoot.innerHTML = course.paths.map((path) => {
     const isLocked = Boolean(path.locked);
-    const totalLessons = (path.units || []).reduce((sum, unit) => sum + (unit.lessons || []).length, 0);
-    const availableLessons = (path.units || []).reduce((sum, unit) => sum + (unit.lessons || []).filter((lesson) => lesson.status === 'available').length, 0);
+    const units = window.LSPathProgress.getSequentialUnits(path, progressRecords);
+    const totalLessons = units.reduce((sum, unit) => sum + (unit.lessons || []).length, 0);
+    const availableLessons = units.reduce((sum, unit) => sum + (unit.lessons || []).filter((lesson) => lesson.status === 'available').length, 0);
     const title = getLocalizedText(path.title);
     const subtitle = getLocalizedText(path.subtitle);
     const badgeClass = isLocked ? 'ub-locked' : 'ub-active';
@@ -29,8 +33,8 @@ function renderRoadmap(course) {
       ? getLocalizedText({ uk: 'Незабаром', en: 'Coming soon' })
       : `${availableLessons}/${totalLessons} ${getLocalizedText({ uk: 'уроків доступно', en: 'lessons available' })}`;
 
-    const unitsHtml = (path.units || []).map((unit) => {
-      let hasCurrentLesson = false;
+    let hasCurrentLesson = false;
+    const unitsHtml = units.map((unit) => {
       const lessonRows = (unit.lessons || []).map((lesson, index) => {
         const lessonTitle = getLocalizedText(lesson.title);
         const lessonDescription = getLocalizedText(lesson.description);
@@ -41,16 +45,18 @@ function renderRoadmap(course) {
           ? positionInRow
           : lessonsPerRow - positionInRow - 1;
         const isAvailable = Boolean(lesson.status === 'available');
-        const isCurrent = isAvailable && !hasCurrentLesson;
+        const isCurrent = isAvailable && !lesson.completed && !hasCurrentLesson;
         if (isCurrent) hasCurrentLesson = true;
         const nodeState = isCurrent ? 'current' : isAvailable ? 'upcoming' : 'locked';
-        const markerIcon = isCurrent ? 'sparkles' : isAvailable ? 'play' : 'lock';
-        const nodeLabel = isCurrent
-          ? getLocalizedText({ uk: 'Почніть тут', en: 'Start here' })
-          : isAvailable
+        const markerIcon = isCurrent ? 'sparkles' : lesson.completed ? 'status-dot' : isAvailable ? 'play' : 'lock';
+        const nodeLabel = lesson.completed
+          ? getLocalizedText({ uk: 'Завершено', en: 'Completed' })
+          : isCurrent
+            ? getLocalizedText({ uk: 'Почніть тут', en: 'Start here' })
+            : isAvailable
             ? getLocalizedText({ uk: 'Далі', en: 'Up next' })
             : getLocalizedText({ uk: 'Заблоковано', en: 'Locked' });
-        const lessonHref = lesson.href || `pages/lesson.html?course=${encodeURIComponent(course.id || 'it')}&lesson=${encodeURIComponent(lesson.id || '')}`;
+        const lessonHref = lesson.href || `${pagesPrefix}pages/lesson.html?course=${encodeURIComponent(course.id || 'it')}&lesson=${encodeURIComponent(lesson.id || '')}`;
         const item = `
           <div class="tree-node-item tree-node-${nodeState}" style="grid-area: ${row + 1} / ${column + 1}">
             <div class="node-bullet ${isCurrent ? 'nb-current' : isAvailable ? 'nb-upcoming' : 'nb-locked'}">${getIconSvg(markerIcon)}</div>
@@ -78,7 +84,7 @@ function renderRoadmap(course) {
             <div class="unit-tree-title">${getIconSvg(path.icon || 'paths')} ${escapeHtml(title)}</div>
             <div class="unit-tree-desc">${escapeHtml(subtitle)}</div>
           </div>
-          ${!isLocked ? `<a href="pages/path.html" class="btn-ghost" id="external-style-index-1">${getLocalizedText({ uk: 'Усі напрямки', en: 'All paths' })} ${getIconSvg('arrow-right')}</a>` : ''}
+          ${!isLocked ? `<a href="${pagesPrefix}pages/path.html" class="btn-ghost" id="external-style-index-1">${getLocalizedText({ uk: 'Усі напрямки', en: 'All paths' })} ${getIconSvg('arrow-right')}</a>` : ''}
         </div>
         ${unitsHtml}
       </div>
@@ -104,12 +110,22 @@ async function refreshHomePage() {
   try {
     const course = typeof window.loadCourse === 'function' ? await window.loadCourse() : null;
     if (course) {
+      if (!window.Progress || typeof window.Progress.list !== 'function') {
+        throw new Error('Lesson progress is unavailable.');
+      }
+      const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+      homeProgressRecords = await window.Progress.list('lessonProgress', { courseId });
       window.__LS_COURSE_DATA = course;
       renderHubCards(course);
-      renderRoadmap(course);
+      renderRoadmap(course, homeProgressRecords);
     }
   } catch (error) {
-    console.warn('Could not refresh home page from course data:', error);
+    console.error('Could not refresh home page and lesson progress:', error);
+    const roadmapRoot = document.getElementById('roadmapRoot');
+    const lang = typeof window.getSourceLanguage === 'function' && window.getSourceLanguage() === 'en' ? 'en' : 'uk';
+    if (roadmapRoot) {
+      roadmapRoot.innerHTML = `<p class="path-message" role="alert">${lang === 'en' ? 'Learning paths could not be loaded. Please try again.' : 'Не вдалося завантажити напрямки навчання. Спробуйте ще раз.'}</p>`;
+    }
   }
 }
 
@@ -119,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('sourceLanguageChanged', () => {
   if (window.__LS_COURSE_DATA) {
-    renderRoadmap(window.__LS_COURSE_DATA);
+    renderRoadmap(window.__LS_COURSE_DATA, homeProgressRecords);
   }
 });
 

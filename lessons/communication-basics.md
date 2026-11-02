@@ -47,7 +47,8 @@
 **Remember / Запам’ятайте**
 
 - **Ciao** is an informal hello. It can also mean goodbye. / **Ciao** — неформальне привітання; це слово також означає «бувай».
-- **Come stai?** is the informal “How are you?”; **Bene, grazie** means “Fine, thanks.” / **Come stai?** — неформальне «Як справи?», **Bene, grazie** — «Добре, дякую».
+- **Come** means “how”; **stai** means “you are” (informal). / **Come** означає «як»; **stai** — «ти є» (неформально).
+- **Bene** means “fine”; **grazie** means “thanks.” **E** means “and”; **tu** means “you.” / **Bene** означає «добре»; **grazie** — «дякую». **E** означає «і»; **tu** — «ти».
 
 ### 2. Practice / Практика
 
@@ -88,8 +89,8 @@
 
 **Remember / Запам’ятайте**
 
-- **Buongiorno** is a polite daytime greeting; **Buonasera** is used in the evening. / **Buongiorno** — ввічливе привітання вдень, **Buonasera** — увечері.
-- Use **Ciao** with friends; it is informal. / Використовуйте **Ciao** з друзями — це неформальне привітання.
+- **Buongiorno** is a polite daytime greeting; **Buonasera** is a polite evening greeting. Each is one word in Italian. / **Buongiorno** — ввічливе привітання вдень; **Buonasera** — ввічливе привітання ввечері. Кожне з них в італійській пишеться одним словом.
+- **Ciao** is one word for an informal greeting or goodbye with friends. / **Ciao** — одне слово для неформального привітання або прощання з друзями.
 
 ### 2. Practice / Практика
 
@@ -136,8 +137,8 @@
 
 **Remember / Запам’ятайте**
 
-- **Come ti chiami?** asks someone’s name. / **Come ti chiami?** — запитання про ім’я.
-- **Mi chiamo...** means “My name is...” / **Mi chiamo...** означає «Мене звати...».
+- **Come** means “what/how”; **ti** means “yourself”; **chiami** means “you call.” / **Come** означає «як/що»; **ti** — «себе»; **chiami** — «ти називаєш».
+- **Mi** means “myself”; **chiamo** means “I call.” **E** means “and”; **tu** means “you.” / **Mi** означає «себе»; **chiamo** — «я називаю». **E** означає «і»; **tu** — «ти».
 
 ### 2. Practice / Практика
 
@@ -179,7 +180,7 @@
 
 **Remember / Запам’ятайте**
 
-- **Piacere!** is a short, natural phrase to use when you meet someone. / **Piacere!** — коротка природна фраза під час знайомства.
+- **Piacere!** is one word meaning “pleasure”; use it when you meet someone. / **Piacere!** — одне слово зі значенням «приємність»; використовуйте його під час знайомства.
 
 ### 2. Practice / Практика
 
@@ -222,7 +223,8 @@
 
 **Remember / Запам’ятайте**
 
-- **Di dove sei?** asks where someone is from. **Sono di + city** means “I am from + city.” / **Di dove sei?** — «Звідки ти?». **Sono di + назва міста** означає «Я з + назва міста».
+- **Di** means “from”; **dove** means “where”; **sei** means “you are.” / **Di** означає «звідки/з»; **dove** — «де»; **sei** — «ти є».
+- **Sono** means “I am”; **di** means “from.” Add a city after **di** to say where you are from. / **Sono** означає «я є»; **di** — «з». Додайте після **di** назву міста, щоб сказати, звідки ви.
 
 ### 2. Practice / Практика
 
@@ -264,7 +266,8 @@
 
 **Remember / Запам’ятайте**
 
-- **Studi o lavori?** asks “Do you study or work?” Answer with **Studio...** or **Lavoro**. / **Studi o lavori?** означає «Ти навчаєшся чи працюєш?». Відповідайте **Studio...** або **Lavoro**.
+- **Studi** means “you study”; **o** means “or”; **lavori** means “you work.” / **Studi** означає «ти навчаєшся»; **o** — «чи/або»; **lavori** — «ти працюєш».
+- **Studio** means “I study”; **lavoro** means “I work.” / **Studio** означає «я навчаюся»; **lavoro** — «я працюю».
 
 ### 2. Practice / Практика
 
@@ -310,7 +313,8 @@
 
 **Remember / Запам’ятайте**
 
-- **Parlo + language** means “I speak + language.” / **Parlo + назва мови** означає «Я розмовляю + назва мови».
+- **Parlo** means “I speak”; add a language name after it. / **Parlo** означає «я розмовляю»; після нього додайте назву мови.
+- **Italiano** means “Italian”; **inglese** means “English”; **ucraino** means “Ukrainian.” / **Italiano** означає «італійська»; **inglese** — «англійська»; **ucraino** — «українська».
 
 ### 2. Practice / Практика
 
@@ -354,7 +358,8 @@
 
 **Remember / Запам’ятайте**
 
-- **Ho** means “I have”; **una sorella** is “a sister,” and **un fratello** is “a brother.” / **Ho** означає «у мене є»; **una sorella** — «сестра», **un fratello** — «брат».
+- **Ho** means “I have”; **una** means “a” before a feminine noun; **sorella** means “sister.” / **Ho** означає «у мене є»; **una** — «одна/якась» перед іменником жіночого роду; **sorella** — «сестра».
+- **Un** means “a” before a masculine noun; **fratello** means “brother.” / **Un** — «один/якийсь» перед іменником чоловічого роду; **fratello** — «брат».
 
 ### 2. Practice / Практика
 
@@ -396,9 +401,9 @@
 
 **Remember / Запам’ятайте**
 
-- **Mi piace...** means “I like...” / **Mi piace...** означає «Мені подобається...».
-- Put a verb in its infinitive form after **Mi piace**: **leggere** (to read), **ascoltare** (to listen). / Після **Mi piace** використовуйте дієслово в початковій формі: **leggere** (читати), **ascoltare** (слухати).
-- **Che cosa ti piace fare?** asks what someone likes to do. / **Che cosa ti piace fare?** — запитання про те, що людині подобається робити.
+- **Mi** means “to me”; **piace** means “is pleasing.” / **Mi** означає «мені»; **piace** — «подобається».
+- **Leggere** means “to read”; **ascoltare** means “to listen”; **la** means “the”; **musica** means “music.” / **Leggere** означає «читати»; **ascoltare** — «слухати»; **la** — «ця/та»; **musica** — «музика».
+- **Che** means “what/which”; **cosa** means “thing”; **ti** means “to you”; **fare** means “to do.” / **Che** означає «що/який»; **cosa** — «річ»; **ti** — «тобі»; **fare** — «робити».
 
 ### 2. Practice / Практика
 
@@ -448,9 +453,9 @@
 
 **Remember / Запам’ятайте**
 
-- **Ti va di...?** is a friendly way to invite someone to do something. / **Ti va di...?** — дружній спосіб запросити когось щось зробити.
-- Follow **Ti va di** with a verb in its infinitive form: **prendere** (to have / get). / Після **Ti va di** використовуйте дієслово в початковій формі: **prendere** (випити / взяти).
-- **Volentieri!** is a friendly way to accept. / **Volentieri!** — дружній спосіб погодитися.
+- **Ti** means “to you”; **va** means “goes/is okay”; **di** means “to” in this invitation. / **Ti** означає «тобі»; **va** — «підходить»; **di** у цьому запрошенні відповідає частці «щось зробити».
+- **Prendere** means “to have/get”; **un** means “a”; **caffè** means “coffee”; **sabato** means “Saturday.” / **Prendere** означає «випити/взяти»; **un** — «один/якийсь»; **caffè** — «кава»; **sabato** — «субота».
+- **Volentieri!** is one word meaning “gladly”; use it to accept an invitation. / **Volentieri!** — одне слово зі значенням «із задоволенням»; використовуйте його, щоб прийняти запрошення.
 
 ### 2. Practice / Практика
 
@@ -494,7 +499,9 @@
 
 **Remember / Запам’ятайте**
 
-- **A che ora?** asks for a time. **Alle tre?** suggests three o’clock. / **A che ora?** — запитання про час. **Alle tre?** — пропозиція зустрітися о третій.
+- **A** means “at”; **che** means “what/which”; **ora** means “time/hour.” / **A** означає «о/у»; **che** — «який/котрий»; **ora** — «час/година».
+- **Alle** means “at” a specific hour; **tre** means “three.” / **Alle** означає «о» перед назвою години; **tre** — «три».
+- **Perfetto!** is one word meaning “perfect.” / **Perfetto!** — одне слово зі значенням «чудово».
 
 ### 2. Practice / Практика
 

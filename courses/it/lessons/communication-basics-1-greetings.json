@@ -70,16 +70,16 @@
       },
       "items": [
         {
-          "uk": "Buongiorno — ввічливе привітання вдень.",
-          "en": "Buongiorno is a polite greeting during the day."
+          "uk": "Buongiorno — одне слово для ввічливого привітання вдень.",
+          "en": "Buongiorno is one word for a polite daytime greeting."
         },
         {
-          "uk": "Buonasera — ввічливе привітання ввечері.",
-          "en": "Buonasera is a polite greeting in the evening."
+          "uk": "Buonasera — одне слово для ввічливого привітання ввечері.",
+          "en": "Buonasera is one word for a polite evening greeting."
         },
         {
-          "uk": "Ciao — неформальне привітання для друзів.",
-          "en": "Ciao is an informal greeting for friends."
+          "uk": "Ciao — одне слово для неформального привітання або прощання з друзями.",
+          "en": "Ciao is one word for an informal greeting or goodbye with friends."
         }
       ]
     },

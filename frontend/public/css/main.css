@@ -903,17 +903,6 @@ body.profile-modal-open {
   border-bottom: 1px solid var(--border);
 }
 
-.mob-nav-brand {
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: 1.15rem;
-  color: var(--primary);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 .mob-close-btn {
   background: none;
   border: none;

@@ -125,12 +125,16 @@
           "en": "Ciao is an informal “hello”; you can also use it to say goodbye."
         },
         {
-          "uk": "Come stai? — неформальне «Як справи?».",
-          "en": "Come stai? is the informal “How are you?”"
+          "uk": "Come — «як»; stai — «ти є» (неформально).",
+          "en": "Come means “how”; stai means “you are” (informal)."
         },
         {
-          "uk": "Bene, grazie! — «Добре, дякую!».",
-          "en": "Bene, grazie! means “Fine, thanks!”"
+          "uk": "Bene — «добре»; grazie — «дякую».",
+          "en": "Bene means “fine”; grazie means “thanks.”"
+        },
+        {
+          "uk": "E — «і»; tu — «ти».",
+          "en": "E means “and”; tu means “you.”"
         }
       ]
     },

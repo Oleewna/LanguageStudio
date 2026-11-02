@@ -57,6 +57,9 @@ function getLessonHref(lesson) {
 
 function getLessonStatusLabel(lesson) {
   const isAvailable = (lesson && lesson.status) === 'available';
+  if (lesson && lesson.blockedByProgress) {
+    return getLocalizedText({ uk: 'Заблоковано', en: 'Locked' });
+  }
   const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
   const openLabel = typeof window.getInterfaceTranslation === 'function'
     ? (window.getInterfaceTranslation('Open', lang) || (lang === 'uk' ? 'Почати' : 'Open'))
@@ -82,12 +85,15 @@ function renderLessonRow(lesson, nodeState = 'upcoming') {
   const description = getLocalizedText(lesson.description);
   const lessonNum = getLocalizedText(lesson.num);
   const time = getLocalizedText(lesson.time);
-  const statusLabel = isAvailable
-    ? nodeState === 'current'
-      ? getPathLanguage() === 'en' ? 'Start here' : 'Почніть тут'
-      : getPathLanguage() === 'en' ? 'Up next' : 'Далі'
-    : getLessonStatusLabel(lesson);
-  const statusIcon = !isAvailable ? 'lock' : nodeState === 'current' ? 'sparkles' : 'play';
+  const lang = getPathLanguage();
+  const statusLabel = lesson.completed
+    ? lang === 'en' ? 'Completed' : 'Завершено'
+    : isAvailable
+      ? nodeState === 'current'
+        ? lang === 'en' ? 'Start here' : 'Почніть тут'
+        : lang === 'en' ? 'Up next' : 'Далі'
+      : getLessonStatusLabel(lesson);
+  const statusIcon = !isAvailable ? 'lock' : lesson.completed ? 'status-dot' : nodeState === 'current' ? 'sparkles' : 'play';
   const statusText = `${getIconSvg(statusIcon)} ${escapeHtml(statusLabel)}`;
 
   const numHtml = lessonNum ? `<div class="lesson-num">${escapeHtml(lessonNum)}</div>` : '';
@@ -108,9 +114,9 @@ function renderLessonRow(lesson, nodeState = 'upcoming') {
   `;
 
   const href = getLessonHref(lesson);
-  const row = href && href !== '#'
+  const row = isAvailable && href && href !== '#'
     ? `<a href="${escapeHtml(href)}" class="${rowClass}">${inner}</a>`
-    : `<div class="${rowClass}">${inner}</div>`;
+    : `<div class="${rowClass}"${isAvailable ? '' : ' aria-disabled="true"'}>${inner}</div>`;
 
   return row;
 }
@@ -120,6 +126,8 @@ function renderUnitGroup(unit, totalUnitsInCategory) {
   const lessonsHtml = (unit.lessons || []).map((lesson, index) => {
     const nodeState = lesson.status !== 'available'
       ? 'locked'
+      : lesson.completed
+        ? 'upcoming'
       : hasCurrentLesson
         ? 'upcoming'
         : 'current';
@@ -225,23 +233,28 @@ function renderCategories(progressRecords = []) {
   const container = document.getElementById('pathContainer');
   if (!container) return;
 
-  const categories = getCoursePaths().map((path) => ({
-    id: path.id,
-    icon: path.icon || 'paths',
-    title: path.title,
-    subtitle: path.subtitle,
-    locked: Boolean(path.locked),
-    defaultOpen: Boolean(path.defaultOpen),
-    badgeText: buildBadgeText(path),
-    assessment: window.LSPathAssessment.getState(path, progressRecords),
-    units: (path.units || []).map((unit) => ({
+  const categories = getCoursePaths().map((path) => {
+    const units = window.LSPathProgress.getSequentialUnits(path, progressRecords).map((unit) => ({
       ...unit,
-      lessons: (unit.lessons || []).map((lesson) => ({
+      lessons: unit.lessons.map((lesson) => ({
         ...lesson,
         href: getLessonHref(lesson)
       }))
-    }))
-  }));
+    }));
+    const pathWithProgress = { ...path, units };
+
+    return {
+      id: path.id,
+      icon: path.icon || 'paths',
+      title: path.title,
+      subtitle: path.subtitle,
+      locked: Boolean(path.locked),
+      defaultOpen: Boolean(path.defaultOpen),
+      badgeText: buildBadgeText(pathWithProgress),
+      assessment: window.LSPathAssessment.getState(path, progressRecords),
+      units
+    };
+  });
 
   if (!categories.length) {
     const lang = getPathLanguage();

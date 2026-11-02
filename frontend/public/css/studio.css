@@ -85,14 +85,6 @@
   --shadow-md: 0 10px 30px rgb(0 0 0 / 28%);
 }
 
-:root:not([data-theme="dark"]) {
-  --bg: #FAF8F5;
-  --ink: #25243A;
-  --ink-soft: #716F82;
-  --ink-muted: #9B99A7;
-  --border: #E8E4DF;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -1198,7 +1190,7 @@ h3,
 .lesson-app-page {
   min-height: 100vh;
   min-height: 100svh;
-  background: var(--surface);
+  background: var(--bg);
 }
 
 .lesson-shell {
@@ -1206,7 +1198,7 @@ h3,
   min-height: 100vh;
   min-height: 100svh;
   grid-template-rows: auto 1fr;
-  background: var(--surface);
+  background: var(--bg);
 }
 
 .lesson-top {
@@ -1221,6 +1213,7 @@ h3,
   gap: 1rem;
   margin: 0 auto;
   padding: 0.8rem 1.2rem;
+  border-bottom: 1px solid var(--border);
   background: var(--surface);
 }
 
@@ -1255,7 +1248,7 @@ h3,
   width: 0;
   height: 100%;
   border-radius: inherit;
-  background: var(--correct);
+  background: var(--primary);
   transition: width 180ms ease;
 }
 
@@ -1281,22 +1274,10 @@ h3,
   overflow: hidden;
   margin: clamp(0.75rem, 3vw, 1.5rem) 0 1.75rem;
   padding: clamp(1.4rem, 4vw, 2.25rem);
-  border: 2px solid var(--primary-border);
-  border-radius: 1.6rem;
-  background: linear-gradient(135deg, var(--primary-light), var(--surface) 72%);
-  box-shadow: 0 5px 0 var(--primary-border);
-}
-
-.lesson-intro::after {
-  position: absolute;
-  z-index: -1;
-  top: -5rem;
-  right: -3rem;
-  width: 15rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--accent-light), transparent 70%);
-  content: "";
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: 0 4px 0 var(--border);
 }
 
 .lesson-intro .eyebrow {
@@ -1338,10 +1319,10 @@ h3,
   min-height: 1.9rem;
   align-items: center;
   padding: 0.25rem 0.7rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--primary-border);
   border-radius: var(--radius-full);
-  background: var(--bg);
-  color: var(--ink-soft);
+  background: var(--primary-light);
+  color: var(--primary);
   font-size: 0.73rem;
   font-weight: 900;
 }

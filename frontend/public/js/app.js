@@ -310,6 +310,7 @@ const UI_TRANSLATIONS = {
   'Словник за темами й ситуаціями': 'Words by topic and situation',
   'Слова за темами й ситуаціями': 'Words by topic and situation',
   'Знаходьте слова за темою чи ситуацією, зберігайте нову лексику з уроків і власного життя та тренуйте її у флешкартках.': 'Find words by topic or situation, save vocabulary from lessons and daily life, and practice it with flashcards.',
+  'Додати нове слово': 'Add a new word',
   'Пошук слова чи перекладу...': 'Search for a word or translation...',
   'Впишіть слово...': 'Enter a word...',
   'Італійською...': 'In Italian...',
@@ -337,12 +338,17 @@ const UI_TRANSLATIONS = {
   'Слів не знайдено': 'No words found',
   'Позначити як вивчене': 'Mark as learned',
   'Вивчено': 'Learned',
+  'власне': 'custom',
+  'Видалити': 'Delete',
   'Нове слово': 'New word',
   'Італійське слово чи фраза *': 'Italian word or phrase *',
   'Український переклад *': 'Translation *',
   'Вимова (необов\'язково)': 'Pronunciation (optional)',
   'Тип слова': 'Part of speech',
-  'Категорія': 'Category'
+  'Категорія': 'Category',
+  'Урок (необов\'язково)': 'Lesson (optional)',
+  'Скасувати': 'Cancel',
+  'Зберегти (+25 XP)': 'Save (+25 XP)'
 };
 
 const UI_I18N = [

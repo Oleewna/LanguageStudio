@@ -776,11 +776,6 @@
         </h2>
         <div class="card quiz-card">
           ${tasksHtml}
-          <div class="quiz-actions" style="margin-top: 1.5rem;">
-            <button class="btn-primary quiz-check-btn" type="button" data-quiz-action="check">
-              ${escapeHtml(uiText('checkAnswer', {}, lang))}
-            </button>
-          </div>
           <div id="taskResult" class="task-result" role="status" aria-live="polite" style="display: none;"></div>
         </div>
       </section>
@@ -1016,7 +1011,7 @@
       .flatMap((section) => section.tasks || []);
   }
 
-  function checkCurrentQuizTask(lesson, container) {
+  function gradeCurrentQuizTask(lesson, container) {
     const activeStep = container.querySelector('.lesson-step:not([hidden])');
     const taskElement = activeStep?.querySelector('[data-task-id]');
     const taskId = taskElement?.dataset.taskId;
@@ -1054,13 +1049,7 @@
     }
 
     const isAnswered = answer !== null && String(answer).trim() !== '';
-    const resultBox = taskElement.closest('.quiz-card')?.querySelector('#taskResult');
     if (!isAnswered) {
-      if (resultBox) {
-        resultBox.style.display = 'block';
-        resultBox.className = 'task-result task-result-warning';
-        resultBox.textContent = uiText('checkAllPrompt', {}, lang);
-      }
       return;
     }
 
@@ -1068,8 +1057,6 @@
     taskElement.querySelectorAll('input').forEach((input) => {
       input.disabled = true;
     });
-    const checkButton = activeStep.querySelector('.quiz-check-btn');
-    if (checkButton) checkButton.hidden = true;
     showTaskFeedback(taskElement, isCorrect, expectedAnswer, lang);
     container._lessonStepNavigation?.refresh();
   }
@@ -1086,8 +1073,6 @@
         if (input.type !== 'radio') input.value = result.answer;
         input.disabled = true;
       });
-      const checkButton = step.querySelector('.quiz-check-btn');
-      if (checkButton) checkButton.hidden = true;
       showTaskFeedback(taskElement, result.correct, result.expectedAnswer, lang);
     });
   }
@@ -1466,7 +1451,7 @@
   }
 
   /**
-   * Bind event listeners inside lesson DOM (audio, hints, quiz button, translation toggles).
+   * Bind event listeners inside lesson DOM (audio, hints, quizzes, translation toggles).
    * @param {HTMLElement} container
    * @param {object} lesson
    */
@@ -1541,11 +1526,19 @@
       });
     });
 
-    // 5. Quiz Check Button
-    container.querySelectorAll('.quiz-check-btn[data-quiz-action="check"]').forEach((checkBtn) => {
-      checkBtn.addEventListener('click', () => {
-        checkCurrentQuizTask(lesson, container);
+    // 5. Grade quiz answers as soon as the learner selects or enters one.
+    container.querySelectorAll('.task[data-task-id] input').forEach((input) => {
+      input.addEventListener('change', () => {
+        gradeCurrentQuizTask(lesson, container);
       });
+      if (input.type === 'text') {
+        input.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            gradeCurrentQuizTask(lesson, container);
+          }
+        });
+      }
     });
 
     const retryButton = container.querySelector('.lesson-retry-button');

@@ -109,16 +109,16 @@
       },
       "items": [
         {
-          "uk": "Come ti chiami? — запитання про ім’я.",
-          "en": "Come ti chiami? asks someone’s name."
+          "uk": "Come — «як/що»; ti — «себе»; chiami — «ти називаєш».",
+          "en": "Come means “how/what”; ti means “yourself”; chiami means “you call.”"
         },
         {
-          "uk": "Mi chiamo... — «Мене звати...».",
-          "en": "Mi chiamo... means “My name is...”"
+          "uk": "Mi — «себе»; chiamo — «я називаю».",
+          "en": "Mi means “myself”; chiamo means “I call.”"
         },
         {
-          "uk": "E tu? — «А тебе?»",
-          "en": "E tu? means “And you?”"
+          "uk": "E — «і»; tu — «ти».",
+          "en": "E means “and”; tu means “you.”"
         }
       ]
     },
