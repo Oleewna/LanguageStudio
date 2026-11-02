@@ -132,7 +132,7 @@
         title: block.title || { uk: 'Що варто запам’ятати', en: 'Key takeaways' },
         items: (block.items || []).map((item) => {
           if (typeof item === 'string') return item;
-          return item.text || item.uk || item.en || '';
+          return item.text || item;
         })
       };
     }
@@ -208,6 +208,7 @@
     return {
       id: safeId,
       courseId: course?.id || getCurrentCourseId(),
+      pathId: lessonMeta.pathId || rawLesson?.pathId || '',
       unitId: lessonMeta.unitId || rawLesson?.unitId || 'unit-1',
       unitTitle,
       lessonNum: rawLesson?.lessonNum || lessonMeta.num || safeId,

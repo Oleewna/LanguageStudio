@@ -3,7 +3,7 @@
 ## Decisions
 
 - Rendering: use CSS masks for the monochrome SVGs listed below.
-- Logo and favicon: these are not in this folder. Keep using `../images/light_theme_logo.png`, `../images/dark_theme_logo.png`, and `../images/icon.png`; their registry names remain tracked in `MISSING.md` and must not render as placeholder squares.
+- Logo and favicon: use the shared `../images/logo.svg` asset. It is not part of this icon registry.
 - Course flags: no flag icons are in this folder. Map course flag names to the placeholder until dedicated assets are added.
 - Lesson lemon decoration: the folder has a lemon icon, but whether to remove or use it is deferred to Step 8.
 

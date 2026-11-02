@@ -63,8 +63,5 @@
   "travel": { "file": "Bag-Suitcase-2--Streamline-Core-Remix.svg", "mode": "mask" },
   "business": { "file": "Briefcase-Dollar--Streamline-Core-Remix.svg", "mode": "mask" },
   "flag-it": { "file": "_placeholder.svg", "mode": "mask" },
-  "flag-es": { "file": "_placeholder.svg", "mode": "mask" },
-  "logo-light": { "file": "_placeholder.svg", "mode": "mask" },
-  "logo-dark": { "file": "_placeholder.svg", "mode": "mask" },
-  "favicon": { "file": "_placeholder.svg", "mode": "mask" }
+  "flag-es": { "file": "_placeholder.svg", "mode": "mask" }
 }

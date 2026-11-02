@@ -2,7 +2,7 @@
 
 These files are readable source documents, not files that the platform loads directly:
 
-- [communication-basics.md](./communication-basics.md) contains eight short, bilingual Italian lessons with model dialogues, repetition practice, and optional exercises.
+- [communication-basics.md](./communication-basics.md) contains eleven short, bilingual Italian lessons. Each introduces one small conversational step and includes five quick practice exercises.
 - [italian-reading.md](./italian-reading.md) contains the Italian-specific reading rules and contextual review that were added by the platform outside the course JSON. It skips the alphabet-basics lesson and uses reusable, Italian-term-based vocabulary IDs.
 
 ## Re-adding a lesson to the platform

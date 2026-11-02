@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<link rel="icon" type="image/png" href="../assets/images/icon.png" />
+<link rel="icon" type="image/svg+xml" href="../assets/images/logo.svg" />
 <title>Exercises and practice — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -21,9 +21,9 @@
 
 <section class="page-hero">
   <div class="page-hero-inner">
-    <p class="page-hero-label">PRACTICE A LITTLE, OFTEN</p>
-    <h1>Quick practice</h1>
-    <p>Pick a skill, try a short challenge, and build confidence one answer at a time.</p>
+    <p class="page-hero-label" id="exercisePageEyebrow">PRACTICE A LITTLE, OFTEN</p>
+    <h1 id="exercisePageTitle">Quick practice</h1>
+    <p id="exercisePageDescription">Pick a skill, try a short challenge, and build confidence one answer at a time.</p>
   </div>
 </section>
 
@@ -41,6 +41,17 @@
     </div>
 
     <div class="filter-panel-content hidden" id="exerciseFiltersPanel">
+      <div class="filter-controls-row exercise-scope-row">
+        <div class="filter-group">
+          <label class="filter-label" for="pathFilterSelect">Learning path</label>
+          <select class="filter-select" id="pathFilterSelect"></select>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label" for="lessonFilterSelect">Lesson</label>
+          <select class="filter-select" id="lessonFilterSelect"></select>
+        </div>
+      </div>
+
       <!-- Category Pills -->
       <div class="cat-pills-wrap" id="catPillsWrap">
         <button class="cat-pill active" data-cat="all" data-external-handler-exercises-12=""><span data-icon="globe"></span> Всі категорії</button>

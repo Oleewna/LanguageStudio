@@ -1,0 +1,212 @@
+{
+  "id": "communication-basics-1",
+  "title": {
+    "uk": "Привіт, як справи?",
+    "en": "Hello, how are you?"
+  },
+  "subtitle": {
+    "uk": "Ciao! Come stai?",
+    "en": "Ciao! Come stai?"
+  },
+  "description": {
+    "uk": "Привітайтеся з другом і запитайте, як у нього справи.",
+    "en": "Greet a friend and ask how they are."
+  },
+  "duration": {
+    "uk": "2 хв",
+    "en": "2 min"
+  },
+  "xpReward": 10,
+  "nextLessonId": "communication-basics-1-greetings",
+  "blocks": [
+    {
+      "type": "dialogue",
+      "title": {
+        "uk": "Привітаймося",
+        "en": "Say hello"
+      },
+      "story": {
+        "uk": "Анна зустрічає Луку й запитує, як у нього справи.",
+        "en": "Anna meets Luca and asks how he is."
+      },
+      "lines": [
+        {
+          "speaker": "Anna",
+          "avatar": "A",
+          "text": "Ciao! Come stai?",
+          "pronunciation": {
+            "uk": "[чао! коме стаї]",
+            "en": "[CHOW! KOH-meh stai]"
+          },
+          "trans": {
+            "uk": "Привіт! Як справи?",
+            "en": "Hi! How are you?"
+          }
+        },
+        {
+          "speaker": "Luca",
+          "avatar": "L",
+          "text": "Bene, grazie! E tu?",
+          "pronunciation": {
+            "uk": "[бене, ґраціє! е ту]",
+            "en": "[BEH-neh, GRAHT-tsee-eh! eh too]"
+          },
+          "trans": {
+            "uk": "Добре, дякую! А ти?",
+            "en": "Fine, thanks! And you?"
+          }
+        },
+        {
+          "speaker": "Anna",
+          "avatar": "A",
+          "text": "Bene!",
+          "pronunciation": {
+            "uk": "[бене]",
+            "en": "[BEH-neh]"
+          },
+          "trans": {
+            "uk": "Добре!",
+            "en": "Fine!"
+          }
+        }
+      ]
+    },
+    {
+      "type": "vocab",
+      "title": {
+        "uk": "Три корисні фрази",
+        "en": "Three useful phrases"
+      },
+      "items": [
+        {
+          "it": "Ciao",
+          "pronunciation": {
+            "uk": "[чао]",
+            "en": "[CHOW]"
+          },
+          "translations": {
+            "uk": "привіт; бувай",
+            "en": "hello; goodbye"
+          }
+        },
+        {
+          "it": "Come stai?",
+          "pronunciation": {
+            "uk": "[коме стаї]",
+            "en": "[KOH-meh stai]"
+          },
+          "translations": {
+            "uk": "як справи?",
+            "en": "how are you?"
+          }
+        },
+        {
+          "it": "Bene, grazie!",
+          "pronunciation": {
+            "uk": "[бене, ґраціє]",
+            "en": "[BEH-neh, GRAHT-tsee-eh]"
+          },
+          "translations": {
+            "uk": "добре, дякую!",
+            "en": "fine, thanks!"
+          }
+        }
+      ]
+    },
+    {
+      "type": "takeaways",
+      "title": {
+        "uk": "Запам’ятайте",
+        "en": "Remember"
+      },
+      "items": [
+        {
+          "uk": "Ciao — неформальне «привіт»; ним також можна попрощатися.",
+          "en": "Ciao is an informal “hello”; you can also use it to say goodbye."
+        },
+        {
+          "uk": "Come stai? — неформальне «Як справи?».",
+          "en": "Come stai? is the informal “How are you?”"
+        },
+        {
+          "uk": "Bene, grazie! — «Добре, дякую!».",
+          "en": "Bene, grazie! means “Fine, thanks!”"
+        }
+      ]
+    },
+    {
+      "type": "tasks",
+      "title": {
+        "uk": "Швидка практика",
+        "en": "Quick practice"
+      },
+      "items": [
+        {
+          "kind": "choice",
+          "id": "ask-how-are-you",
+          "q": {
+            "uk": "Як запитати друга, як у нього справи?",
+            "en": "How do you ask a friend how they are?"
+          },
+          "options": [
+            { "text": { "uk": "Come stai?", "en": "Come stai?" }, "correct": true },
+            { "text": { "uk": "Bene, grazie!", "en": "Bene, grazie!" } },
+            { "text": { "uk": "Buonasera!", "en": "Buonasera!" } }
+          ]
+        },
+        {
+          "kind": "choice",
+          "id": "fine-thanks",
+          "q": {
+            "uk": "Оберіть переклад «Добре, дякую!»",
+            "en": "Choose the phrase that means “Fine, thanks!”"
+          },
+          "options": [
+            { "text": { "uk": "Come stai?", "en": "Come stai?" } },
+            { "text": { "uk": "Bene, grazie!", "en": "Bene, grazie!" }, "correct": true },
+            { "text": { "uk": "Ciao!", "en": "Ciao!" } }
+          ]
+        },
+        {
+          "kind": "choice",
+          "id": "complete-reply",
+          "q": {
+            "uk": "Доповніть відповідь: «Ciao! Come stai? — _____, grazie!»",
+            "en": "Complete the reply: “Ciao! Come stai? — _____, grazie!”"
+          },
+          "options": [
+            { "text": { "uk": "Bene", "en": "Bene" }, "correct": true },
+            { "text": { "uk": "Ciao", "en": "Ciao" } },
+            { "text": { "uk": "Come", "en": "Come" } }
+          ]
+        },
+        {
+          "kind": "choice",
+          "id": "translate-greeting",
+          "q": {
+            "uk": "Як сказати «Привіт! Як справи?»",
+            "en": "How do you say “Hi! How are you?”"
+          },
+          "options": [
+            { "text": { "uk": "Ciao! Come stai?", "en": "Ciao! Come stai?" }, "correct": true },
+            { "text": { "uk": "Bene, grazie!", "en": "Bene, grazie!" } },
+            { "text": { "uk": "Mi chiamo Anna.", "en": "Mi chiamo Anna." } }
+          ]
+        },
+        {
+          "kind": "choice",
+          "id": "reply-to-question",
+          "q": {
+            "uk": "Лука запитує «Come stai?». Що може відповісти Анна?",
+            "en": "Luca asks “Come stai?” What can Anna reply?"
+          },
+          "options": [
+            { "text": { "uk": "Bene, grazie!", "en": "Bene, grazie!" }, "correct": true },
+            { "text": { "uk": "Mi chiamo Anna.", "en": "Mi chiamo Anna." } },
+            { "text": { "uk": "Buonasera!", "en": "Buonasera!" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

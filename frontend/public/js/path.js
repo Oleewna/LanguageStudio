@@ -1,4 +1,5 @@
 let pathProgressRecords = [];
+const LESSONS_PER_ROW = 3;
 
 function toggleUnit(card) {
   card.classList.toggle('open');
@@ -116,14 +117,19 @@ function renderLessonRow(lesson, nodeState = 'upcoming') {
 
 function renderUnitGroup(unit, totalUnitsInCategory) {
   let hasCurrentLesson = false;
-  const lessonsHtml = (unit.lessons || []).map((lesson) => {
+  const lessonsHtml = (unit.lessons || []).map((lesson, index) => {
     const nodeState = lesson.status !== 'available'
       ? 'locked'
       : hasCurrentLesson
         ? 'upcoming'
         : 'current';
     if (nodeState === 'current') hasCurrentLesson = true;
-    return `<div class="lesson-node lesson-node-${nodeState}">${renderLessonRow(lesson, nodeState)}</div>`;
+    const row = Math.floor(index / LESSONS_PER_ROW);
+    const positionInRow = index % LESSONS_PER_ROW;
+    const column = row % 2 === 0
+      ? positionInRow
+      : LESSONS_PER_ROW - positionInRow - 1;
+    return `<div class="lesson-node lesson-node-${nodeState}" style="grid-area: ${row + 1} / ${column + 1}">${renderLessonRow(lesson, nodeState)}</div>`;
   }).join('');
   const singleUnit = totalUnitsInCategory === 1;
 

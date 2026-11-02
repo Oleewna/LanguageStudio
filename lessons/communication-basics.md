@@ -5,122 +5,120 @@
 
 ## How to use this course / Як проходити курс
 
-- **Short lessons / Короткі уроки:** Each lesson takes about 2–3 minutes. / Кожен урок триває приблизно 2–3 хвилини.
-- **Repeat often / Часто повторюйте:** Read each Italian phrase, say it aloud twice, then cover the translations and recall it once. / Прочитайте кожну італійську фразу, двічі промовте її вголос, а потім закрийте переклади й відтворіть її з пам’яті.
-- **Build gradually / Навчайтеся поступово:** Later lessons reuse words and phrases from earlier lessons. / У наступних уроках повторюються слова й фрази з попередніх.
-- **Choose extra practice later / Додаткові вправи можна обрати пізніше:** Each lesson includes an optional exercise bank. Select a few exercises to suit the learner. / У кожному уроці є банк додаткових вправ. Обирайте ті, що підходять учневі.
+- **Short lessons / Короткі уроки:** Each lesson introduces one small, useful step and takes about 2 minutes. / Кожен урок навчає одного невеликого корисного кроку й триває приблизно 2 хвилини.
+- **Learn, recall, use / Вивчайте, згадуйте, застосовуйте:** Read a short example, recall its meaning, then complete five quick exercises. / Прочитайте короткий приклад, згадайте його значення, а потім виконайте п’ять коротких вправ.
+- **Build gradually / Навчайтеся поступово:** Each lesson adds a small step and revisits earlier phrases through new situations. / Кожен урок додає невеликий крок і повертає знайомі фрази в нових ситуаціях.
+- **Small steps / Невеликі кроки:** New phrases return in later lessons, so you can practice without repeating the same dialogue. / Нові фрази з’являються в наступних уроках, тож ви практикуєтеся без повторення того самого діалогу.
 
 ## Course map / План курсу
 
 | Lesson / Урок | Focus / Тема | Reference / Ідентифікатор |
 |---|---|---|
-| 1 | First greetings / Перші привітання | `communication-basics-1` |
-| 2 | Choose a greeting / Обираємо привітання | `communication-basics-1-greetings` |
-| 3 | Say your name / Називаємо своє ім’я | `communication-basics-1-practice` |
-| 4 | Review introductions / Повторюємо знайомство | `communication-basics-1-review` |
-| 5 | Study and work / Навчання та робота | `communication-basics-2` |
-| 6 | Languages and family / Мови та родина | `communication-basics-2-family` |
-| 7 | What do you like? / Що тобі подобається? | `communication-basics-3` |
-| 8 | Make a plan / Домовляємося про зустріч | `communication-basics-3-plans` |
+| 1 | Say hello and ask how someone is / Привітатися й запитати, як справи | `communication-basics-1` |
+| 2 | Polite greetings / Ввічливі привітання | `communication-basics-1-greetings` |
+| 3 | Ask someone’s name / Запитати ім’я | `communication-basics-1-practice` |
+| 4 | Nice to meet you / Приємно познайомитися | `communication-basics-1-review` |
+| 5 | Ask where someone is from / Запитати, звідки людина | `communication-basics-1-origin` |
+| 6 | Study or work / Навчатися чи працювати | `communication-basics-2` |
+| 7 | Say which languages you speak / Назвати мови, якими розмовляєте | `communication-basics-2-languages` |
+| 8 | Talk about family / Розповісти про родину | `communication-basics-2-family` |
+| 9 | Talk about what you like / Розповісти про вподобання | `communication-basics-3` |
+| 10 | Invite someone for coffee / Запросити когось на каву | `communication-basics-3-plans` |
+| 11 | Agree on a time / Домовитися про час | `communication-basics-3-time` |
 
 ---
 
-## Lesson 1 — First greetings / Урок 1 — Перші привітання
+## Lesson 1 — Hello, how are you? / Урок 1 — Привіт, як справи?
 
 **Reference / Ідентифікатор:** `communication-basics-1`  
 **Time / Тривалість:** 2 min / 2 хв  
 **Reward / Нагорода:** 10 XP  
-**Goal / Мета:** Greet someone with a simple Italian phrase. / Привітатися простою фразою італійською.
+**Next / Наступний урок:** `communication-basics-1-greetings`  
+**Goal / Мета:** Greet a friend and ask how they are. / Привітатися з другом і запитати, як у нього справи.
 
-### 1. Mini-lesson dialogue / Навчальний мінідіалог
+### 1. Learn / Вивчіть
 
 | Speaker / Учасник | Italian / Італійська | Ukrainian / Українська | English / Англійська |
 |---|---|---|---|
-| Anna | Buongiorno! | Доброго дня! | Good morning! |
-| Luca | Buongiorno! | Доброго дня! | Good morning! |
-| Anna | Ciao, Luca! | Привіт, Луко! | Hi, Luca! |
-| Luca | Ciao! | Привіт! | Hi! |
+| Anna | Ciao! Come stai? | Привіт! Як справи? | Hi! How are you? |
+| Luca | Bene, grazie! E tu? | Добре, дякую! А ти? | Fine, thanks! And you? |
+| Anna | Bene! | Добре! | Fine! |
 
-**New words / Нові слова**
+**Remember / Запам’ятайте**
 
 - **Ciao** is an informal hello. It can also mean goodbye. / **Ciao** — неформальне привітання; це слово також означає «бувай».
-- **Buongiorno** is a polite daytime greeting. / **Buongiorno** — ввічливе привітання вдень.
+- **Come stai?** is the informal “How are you?”; **Bene, grazie** means “Fine, thanks.” / **Come stai?** — неформальне «Як справи?», **Bene, grazie** — «Добре, дякую».
 
-### 2. Try it again / Повторіть
+### 2. Practice / Практика
 
-1. Read the dialogue once. / Прочитайте діалог один раз.
-2. Say **Ciao** and **Buongiorno** aloud twice. / Двічі промовте **Ciao** і **Buongiorno** вголос.
-3. Cover the translations and remember which greeting is informal. / Закрийте переклади й згадайте, яке привітання неформальне.
-
-### 3. Optional exercise bank / Додаткові вправи
-
-Choose any two or three exercises later. / Пізніше оберіть будь-які дві або три вправи.
-
-1. **Choice / Вибір — `greeting-buongiorno`**  
-   What does **Buongiorno** mean? / Що означає **Buongiorno**?  
-   A. Good morning / Доброго дня  
-   B. Good night / На добраніч  
-   C. Goodbye / До побачення  
+1. **Recall / Згадайте:** Ask a friend how they are. / Запитайте друга, як у нього справи.  
+   **Answer / Відповідь:** Come stai?
+2. **Choose a reply / Оберіть відповідь:** How do you say “Fine, thanks”? / Як сказати «Добре, дякую»?  
+   A. Bene, grazie!  
+   B. Come stai?  
+   C. Ciao!  
    **Answer / Відповідь:** A
-2. **Recall / Відтворення з пам’яті — `greeting-ciao`**  
-   Which Italian word can mean both “hi” and “bye”? / Яке італійське слово може означати і «привіт», і «бувай»?  
-   **Answer / Відповідь:** Ciao
-3. **Choose the situation / Оберіть ситуацію — `greeting-ciao-context`**  
-   When is **Ciao** appropriate? / Коли доречно сказати **Ciao**?  
-   A. As an informal hello or goodbye / Як неформальне привітання або прощання  
-   B. Only to say good night / Лише щоб побажати доброї ночі  
-   C. Only to ask someone’s name / Лише щоб запитати чиєсь ім’я  
+3. **Complete / Доповніть:** **Ciao! Come stai? — _____, grazie!**  
+   **Answer / Відповідь:** Bene
+4. **Translate / Перекладіть:** Say “Hi! How are you?” / Скажіть «Привіт! Як справи?».  
+   **Answer / Відповідь:** Ciao! Come stai?
+5. **Choose the reply / Оберіть відповідь:** Luca asks **Come stai?** What can Anna say? / Лука запитує **Come stai?** Що може відповісти Анна?  
+   A. Bene, grazie!  
+   B. Mi chiamo Anna.  
+   C. Buonasera!  
    **Answer / Відповідь:** A
 
 ---
 
-## Lesson 2 — Choose a greeting / Урок 2 — Обираємо привітання
+## Lesson 2 — Polite greetings / Урок 2 — Ввічливі привітання
 
 **Reference / Ідентифікатор:** `communication-basics-1-greetings`  
-**Time / Тривалість:** 3 min / 3 хв  
+**Time / Тривалість:** 2 min / 2 хв  
 **Reward / Нагорода:** 10 XP  
 **Previous / Попередній урок:** `communication-basics-1`  
-**Goal / Мета:** Choose a greeting and introduce yourself politely. / Обрати привітання й ввічливо представитися.
+**Next / Наступний урок:** `communication-basics-1-practice`  
+**Goal / Мета:** Choose a polite greeting for the time of day. / Обрати ввічливе привітання відповідно до часу доби.
 
-### 1. Mini-lesson dialogue / Навчальний мінідіалог
+### 1. Learn / Вивчіть
 
-| Speaker / Учасник | Italian / Італійська | Ukrainian / Українська | English / Англійська |
+| Situation / Ситуація | Italian / Італійська | Ukrainian / Українська | English / Англійська |
 |---|---|---|---|
-| Lucia | Buonasera! | Добрий вечір! | Good evening! |
-| Paolo | Buonasera! Mi chiamo Paolo. E tu? | Добрий вечір! Мене звати Паоло. А тебе? | Good evening! My name is Paolo. And you? |
-| Lucia | Mi chiamo Lucia. Piacere di conoscerti! | Мене звати Лючія. Приємно познайомитися! | My name is Lucia. Nice to meet you! |
-| Paolo | Piacere! | Навзаєм! | Nice to meet you too! |
+| Greeting someone politely during the day / Ввічливе привітання вдень | Buongiorno! | Доброго дня! | Good morning! / Good day! |
+| Greeting someone politely in the evening / Ввічливе привітання ввечері | Buonasera! | Добрий вечір! | Good evening! |
 
-**New words and rule / Нові слова й правило**
+**Remember / Запам’ятайте**
 
-- **Buonasera** means “good evening.” / **Buonasera** означає «добрий вечір».
-- Use **Mi chiamo + name** to say your name. / Використовуйте **Mi chiamo + ім’я**, щоб назватися.
-- **Piacere!** is a short, natural reply to **Piacere di conoscerti**. / **Piacere!** — коротка природна відповідь на **Piacere di conoscerti**.
+- **Buongiorno** is a polite daytime greeting; **Buonasera** is used in the evening. / **Buongiorno** — ввічливе привітання вдень, **Buonasera** — увечері.
+- Use **Ciao** with friends; it is informal. / Використовуйте **Ciao** з друзями — це неформальне привітання.
 
-### 2. Quick repeat / Швидке повторення
+### 2. Practice / Практика
 
-- Say **Buongiorno**, **Buonasera**, then **Ciao**. / Скажіть **Buongiorno**, **Buonasera**, а потім **Ciao**.
-- Repeat **Mi chiamo...** with your name twice. / Двічі повторіть **Mi chiamo...** зі своїм ім’ям.
-- Recall the short reply to **Piacere di conoscerti**. / Згадайте коротку відповідь на **Piacere di conoscerti**.
-
-### 3. Optional exercise bank / Додаткові вправи
-
-1. **Choice / Вибір — `evening-greeting`**  
+1. **Choose / Оберіть — `evening-greeting`**  
    Which greeting is best for the evening? / Яке привітання найкраще підходить для вечора?  
    A. Buonasera! / Добрий вечір!  
    B. Buongiorno! / Доброго дня!  
-   C. Arrivederci! / До побачення!  
+   C. Ciao! / Привіт!  
    **Answer / Відповідь:** A
-2. **Recall / Відтворення з пам’яті — `ask-the-name`**  
-   How do you ask someone’s name? / Як запитати чиєсь ім’я?  
-   **Answer / Відповідь:** Come ti chiami?
-3. **True or false / Правда чи неправда — `piacere-meaning`**  
-   **Piacere di conoscerti** means “Nice to meet you.” / **Piacere di conoscerti** означає «Приємно познайомитися».  
-   **Answer / Відповідь:** True / Правда
+2. **Choose the situation / Оберіть ситуацію — `polite-daytime-greeting`**  
+   When is **Buongiorno** the best choice? / Коли найкраще сказати **Buongiorno**?  
+   A. A polite greeting during the day / Ввічливе привітання вдень  
+   B. A polite greeting in the evening / Ввічливе привітання ввечері  
+   C. An informal goodbye to a friend / Неформальне прощання з другом  
+   **Answer / Відповідь:** A
+3. **Recall / Згадайте — `informal-greeting`**  
+   Which informal greeting can also mean goodbye? / Яке неформальне привітання також може означати «бувай»?  
+   **Answer / Відповідь:** Ciao
+4. **Translate / Перекладіть:** Say “Good morning!” politely. / Ввічливо скажіть «Доброго дня!».  
+   **Answer / Відповідь:** Buongiorno!
+5. **Choose the greeting / Оберіть привітання:** You meet a friend in the evening. Which informal greeting can you use? / Ви зустріли друга ввечері. Яке неформальне привітання можна використати?  
+   A. Ciao!  
+   B. Buonasera!  
+   C. Buongiorno!  
+   **Answer / Відповідь:** A
 
 ---
 
-## Lesson 3 — Say your name / Урок 3 — Називаємо своє ім’я
+## Lesson 3 — What is your name? / Урок 3 — Як тебе звати?
 
 **Reference / Ідентифікатор:** `communication-basics-1-practice`  
 **Time / Тривалість:** 2 min / 2 хв  
@@ -129,203 +127,266 @@ Choose any two or three exercises later. / Пізніше оберіть буд�
 **Next / Наступний урок:** `communication-basics-1-review`  
 **Goal / Мета:** Ask someone’s name and give a simple answer. / Запитати, як звати співрозмовника, і просто відповісти.
 
-### 1. Mini-lesson dialogue / Навчальний мінідіалог
+### 1. Learn / Вивчіть
 
 | Speaker / Учасник | Italian / Італійська | Ukrainian / Українська | English / Англійська |
 |---|---|---|---|
 | Anna | Come ti chiami? | Як тебе звати? | What is your name? |
-| Marco | Mi chiamo Marco. | Мене звати Марко. | My name is Marco. |
-| Anna | E tu? | А ти? | And you? |
+| Marco | Mi chiamo Marco. E tu? | Мене звати Марко. А тебе? | My name is Marco. And you? |
 
-**New words and rule / Нові слова й правило**
+**Remember / Запам’ятайте**
 
 - **Come ti chiami?** asks someone’s name. / **Come ti chiami?** — запитання про ім’я.
 - **Mi chiamo...** means “My name is...” / **Mi chiamo...** означає «Мене звати...».
-- **E tu?** returns the question: “And you?” / **E tu?** — зустрічне запитання: «А ти?».
 
-### 2. Quick repeat / Швидке повторення
+### 2. Practice / Практика
 
-1. Say **Come ti chiami?** twice. / Двічі скажіть **Come ti chiami?**.
-2. Answer with **Mi chiamo...** twice, using a different name the second time. / Двічі дайте відповідь **Mi chiamo...**, а вдруге використайте інше ім’я.
-3. Ask the question again with **E tu?** / Повторіть запитання й додайте **E tu?**.
-
-### 3. Optional exercise bank / Додаткові вправи
-
-1. **Choice / Вибір — `name-question`**  
+1. **Choose / Оберіть — `name-question`**  
    Choose “What is your name?” / Оберіть фразу «Як тебе звати?».  
    A. Come ti chiami?  
    B. Di dove sei?  
    C. Come stai?  
    **Answer / Відповідь:** A
-2. **Fill in / Заповніть пропуск — `name-answer`**  
+2. **Complete / Доповніть — `name-answer`**  
    Complete with your name. / Доповніть своїм ім’ям.  
    **Mi chiamo _____.**  
    **Answer / Відповідь:** Any name / Будь-яке ім’я
-3. **Recall / Відтворення з пам’яті — `return-the-question`**  
-   What does **E tu?** mean? / Що означає **E tu?**?  
-   **Answer / Відповідь:** And you? / А ти?
+3. **Return the question / Поставте зустрічне запитання:** Add “And you?” / Додайте «А тебе?».  
+   **Answer / Відповідь:** E tu? / А тебе?
+4. **Match / Зіставте:** Match the phrase to its meaning. / Зіставте фразу зі значенням.  
+   **Come ti chiami?** — What is your name? / Як тебе звати?  
+   **Mi chiamo Marco.** — My name is Marco. / Мене звати Марко.
+5. **Complete / Доповніть:** **Come ti _____? — Mi chiamo Luca.**  
+   **Answer / Відповідь:** chiami
 
 ---
 
-## Lesson 4 — Review introductions / Урок 4 — Повторюємо знайомство
+## Lesson 4 — Nice to meet you / Урок 4 — Приємно познайомитися
 
 **Reference / Ідентифікатор:** `communication-basics-1-review`  
 **Time / Тривалість:** 2 min / 2 хв  
 **Reward / Нагорода:** 10 XP  
 **Previous / Попередній урок:** `communication-basics-1-practice`  
-**Next / Наступний урок:** `communication-basics-2`  
-**Goal / Мета:** Combine a name, a place, and a greeting in a short introduction. / Поєднати в короткому знайомстві ім’я, місце й привітання.
+**Next / Наступний урок:** `communication-basics-1-origin`  
+**Goal / Мета:** Respond naturally when meeting someone. / Природно відповісти під час знайомства.
 
-### 1. Mini-lesson dialogue / Навчальний мінідіалог
+### 1. Learn / Вивчіть
+
+| Speaker / Учасник | Italian / Італійська | Ukrainian / Українська | English / Англійська |
+|---|---|---|---|
+| Anna | Piacere! | Приємно познайомитися! | Nice to meet you! |
+| Marco | Piacere! | Навзаєм! | Nice to meet you too! |
+
+**Remember / Запам’ятайте**
+
+- **Piacere!** is a short, natural phrase to use when you meet someone. / **Piacere!** — коротка природна фраза під час знайомства.
+
+### 2. Practice / Практика
+
+1. **Recall / Згадайте:** Say “Nice to meet you.” / Скажіть «Приємно познайомитися».  
+   **Answer / Відповідь:** Piacere!
+2. **Choose / Оберіть:** You have just met someone. Which phrase fits? / Ви щойно познайомилися. Яка фраза підходить?  
+   A. Piacere!  
+   B. Buonanotte!  
+   C. A che ora?  
+   **Answer / Відповідь:** A
+3. **Complete / Доповніть:** **Mi chiamo Anna. _____!**  
+   **Answer / Відповідь:** Piacere
+4. **Choose the response / Оберіть відповідь:** Someone says **Piacere!** Which reply is natural? / Хтось каже **Piacere!** Яка відповідь природна?  
+   A. Piacere!  
+   B. Sono di Roma.  
+   C. Buonanotte!  
+   **Answer / Відповідь:** A
+5. **Put the exchange in order / Розташуйте репліки:** Arrange the introduction. / Розташуйте репліки знайомства.  
+   **Mi chiamo Anna. → Come ti chiami? → Piacere!**  
+   **Answer / Відповідь:** Come ti chiami? → Mi chiamo Anna. → Piacere!
+
+---
+
+## Lesson 5 — Where are you from? / Урок 5 — Звідки ти?
+
+**Reference / Ідентифікатор:** `communication-basics-1-origin`  
+**Time / Тривалість:** 2 min / 2 хв  
+**Reward / Нагорода:** 10 XP  
+**Previous / Попередній урок:** `communication-basics-1-review`  
+**Next / Наступний урок:** `communication-basics-2`  
+**Goal / Мета:** Ask where someone is from and answer with a city. / Запитати, звідки людина, і назвати місто.
+
+### 1. Learn / Вивчіть
 
 | Speaker / Учасник | Italian / Італійська | Ukrainian / Українська | English / Англійська |
 |---|---|---|---|
 | Elena | Di dove sei? | Звідки ти? | Where are you from? |
-| Nina | Sono di Kyiv. | Я з Києва. | I am from Kyiv. |
-| Elena | Piacere, Nina! | Приємно познайомитися, Ніно! | Nice to meet you, Nina! |
+| Nina | Sono di Kyiv. E tu? | Я з Києва. А ти? | I am from Kyiv. And you? |
+| Elena | Sono di Roma. | Я з Рима. | I am from Rome. |
 
-**New words and rule / Нові слова й правило**
+**Remember / Запам’ятайте**
 
-- **Di dove sei?** asks where someone is from. / **Di dove sei?** — запитання про те, звідки людина.
-- **Sono di + place** means “I am from + place.” / **Sono di + назва місця** означає «Я з + назва місця».
-- Replace **Kyiv** with another city or place to make the answer your own. / Замініть **Kyiv** назвою іншого міста чи місця, щоб відповісти про себе.
+- **Di dove sei?** asks where someone is from. **Sono di + city** means “I am from + city.” / **Di dove sei?** — «Звідки ти?». **Sono di + назва міста** означає «Я з + назва міста».
 
-### 2. Quick repeat / Швидке повторення
+### 2. Practice / Практика
 
-- Say **Come ti chiami?** and answer with **Mi chiamo...** / Запитайте **Come ti chiami?** і дайте відповідь **Mi chiamo...**.
-- Say **Di dove sei?** and answer with **Sono di...** / Запитайте **Di dove sei?** і дайте відповідь **Sono di...**.
-- Repeat the full exchange once without looking at the translations. / Один раз повторіть увесь діалог, не дивлячись на переклад.
-
-### 3. Optional exercise bank / Додаткові вправи
-
-1. **Choice / Вибір — `origin-question`**  
-   How do you ask “Where are you from?” / Як запитати «Звідки ти?»  
+1. **Choose / Оберіть:** How do you ask “Where are you from?” / Як запитати «Звідки ти?»  
    A. Di dove sei?  
    B. Come ti chiami?  
-   C. Che cosa fai?  
+   C. Come stai?  
    **Answer / Відповідь:** A
-2. **Build a phrase / Складіть фразу — `origin-answer`**  
-   Choose the answer “I am from Kyiv.” / Оберіть відповідь «Я з Києва».  
+2. **Build a phrase / Складіть фразу:** Choose “I am from Kyiv.” / Оберіть фразу «Я з Києва».  
    A. Sono di Kyiv.  
    B. Mi chiamo Kyiv.  
    C. Parlo Kyiv.  
    **Answer / Відповідь:** A
-3. **Recall / Відтворення з пам’яті — `nice-to-meet-you`**  
-   How can you say “Nice to meet you”? / Як сказати «Приємно познайомитися»?  
-   **Answer / Відповідь:** Piacere! / Piacere di conoscerti!
+3. **Your turn / Твоя черга:** Replace **Kyiv** with your city. / Замініть **Kyiv** назвою свого міста.  
+   **Answer / Відповідь:** Sono di + your city / Sono di + ваше місто
+4. **Complete / Доповніть:** **Di _____ sei? — Sono di Roma.**  
+   **Answer / Відповідь:** dove
+5. **Translate / Перекладіть:** Say “I am from Kyiv.” / Скажіть «Я з Києва».  
+   **Answer / Відповідь:** Sono di Kyiv.
 
 ---
 
-## Lesson 5 — Study and work / Урок 5 — Навчання та робота
+## Lesson 6 — Study or work? / Урок 6 — Навчатися чи працювати?
 
 **Reference / Ідентифікатор:** `communication-basics-2`  
 **Time / Тривалість:** 2 min / 2 хв  
 **Reward / Нагорода:** 10 XP  
-**Previous / Попередній урок:** `communication-basics-1-review`  
-**Next / Наступний урок:** `communication-basics-2-family`  
+**Previous / Попередній урок:** `communication-basics-1-origin`  
+**Next / Наступний урок:** `communication-basics-2-languages`  
 **Goal / Мета:** Say whether you study or work. / Розповісти, чи ви навчаєтеся, чи працюєте.
 
-### 1. Mini-lesson dialogue / Навчальний мінідіалог
+### 1. Learn / Вивчіть
 
 | Speaker / Учасник | Italian / Італійська | Ukrainian / Українська | English / Англійська |
 |---|---|---|---|
 | Greta | Studi o lavori? | Ти навчаєшся чи працюєш? | Do you study or work? |
-| Sofia | Studio medicina. E tu? | Я вивчаю медицину. А ти? | I study medicine. And you? |
-| Greta | Lavoro in una libreria. | Я працюю в книгарні. | I work in a bookshop. |
+| Sofia | Studio italiano. E tu? | Я вивчаю італійську. А ти? | I study Italian. And you? |
+| Greta | Lavoro. | Я працюю. | I work. |
 
-**New words and rule / Нові слова й правило**
+**Remember / Запам’ятайте**
 
-- **Studio** means “I study”; **lavoro** means “I work.” / **Studio** означає «я навчаюся / вивчаю»; **lavoro** — «я працюю».
-- **Studi o lavori?** asks “Do you study or work?” / **Studi o lavori?** — «Ти навчаєшся чи працюєш?».
-- Use **in una libreria** for “in a bookshop.” / Використовуйте **in una libreria**, щоб сказати «у книгарні».
+- **Studi o lavori?** asks “Do you study or work?” Answer with **Studio...** or **Lavoro**. / **Studi o lavori?** означає «Ти навчаєшся чи працюєш?». Відповідайте **Studio...** або **Lavoro**.
 
-### 2. Quick repeat / Швидке повторення
+### 2. Practice / Практика
 
-1. Repeat **Studio medicina** twice. / Двічі повторіть **Studio medicina**.
-2. Swap **medicina** for a subject you know. / Замініть **medicina** на знайомий вам предмет.
-3. Say **Lavoro in una libreria** twice, then recall what **lavoro** means. / Двічі скажіть **Lavoro in una libreria**, а потім згадайте значення **lavoro**.
-
-### 3. Optional exercise bank / Додаткові вправи
-
-1. **Choice / Вибір — `study-medicine`**  
-   How do you say “I study medicine”? / Як сказати «Я вивчаю медицину»?  
-   A. Studio medicina.  
-   B. Lavoro medicina.  
-   C. Parlo medicina.  
+1. **Choose / Оберіть — `study-or-work`**  
+   What does **Studi o lavori?** mean? / Що означає **Studi o lavori?**  
+   A. Do you study or work? / Ти навчаєшся чи працюєш?  
+   B. What do you like? / Що тобі подобається?  
+   C. How are you? / Як справи?  
    **Answer / Відповідь:** A
-2. **Match the meaning / Зіставте значення — `work-bookshop`**  
-   What does **Lavoro in una libreria** mean? / Що означає **Lavoro in una libreria**?  
-   A. I work in a bookshop. / Я працюю в книгарні.  
-   B. I study at a university. / Я навчаюся в університеті.  
-   C. I am buying a book. / Я купую книжку.  
+2. **Complete / Доповніть — `say-what-you-study`**  
+   **_____ italiano.** / «Я вивчаю італійську».  
+   **Answer / Відповідь:** Studio
+3. **Choose / Оберіть — `say-you-work`**  
+   Which answer means “I work”? / Яка відповідь означає «Я працюю»?  
+   A. Lavoro.  
+   B. Studio.  
+   C. Parlo.  
    **Answer / Відповідь:** A
-3. **Recall / Відтворення з пам’яті — `study-or-work`**  
-   Translate **Studi o lavori?** / Перекладіть **Studi o lavori?**.  
-   **Answer / Відповідь:** Do you study or work? / Ти навчаєшся чи працюєш?
+4. **Match / Зіставте:** Match each verb to its meaning. / Зіставте дієслово зі значенням.  
+   **Studio** — I study / Я навчаюся  
+   **Lavoro** — I work / Я працюю
+5. **Complete / Доповніть:** **Studi o _____? — Lavoro.**  
+   **Answer / Відповідь:** lavori
 
 ---
 
-## Lesson 6 — Languages and family / Урок 6 — Мови та родина
+## Lesson 7 — Languages I speak / Урок 7 — Мови, якими я розмовляю
 
-**Reference / Ідентифікатор:** `communication-basics-2-family`  
-**Time / Тривалість:** 3 min / 3 хв  
+**Reference / Ідентифікатор:** `communication-basics-2-languages`  
+**Time / Тривалість:** 2 min / 2 хв  
 **Reward / Нагорода:** 10 XP  
 **Previous / Попередній урок:** `communication-basics-2`  
-**Next / Наступний урок:** `communication-basics-3`  
-**Goal / Мета:** Name a language you speak and a family member. / Назвати мову, якою ви розмовляєте, і члена родини.
+**Next / Наступний урок:** `communication-basics-2-family`  
+**Goal / Мета:** Ask and say which languages you speak. / Запитати й сказати, якими мовами ви розмовляєте.
 
-### 1. Mini-lesson dialogue / Навчальний мінідіалог
+### 1. Learn / Вивчіть
 
 | Speaker / Учасник | Italian / Італійська | Ukrainian / Українська | English / Англійська |
 |---|---|---|---|
 | Sofia | Che lingue parli? | Якими мовами ти розмовляєш? | Which languages do you speak? |
 | Greta | Parlo italiano e inglese. E tu? | Я розмовляю італійською та англійською. А ти? | I speak Italian and English. And you? |
-| Sofia | Parlo ucraino. Ho una sorella. | Я розмовляю українською. У мене є сестра. | I speak Ukrainian. I have a sister. |
-| Greta | Anch’io ho una sorella! | У мене теж є сестра! | I have a sister too! |
+| Sofia | Parlo ucraino. | Я розмовляю українською. | I speak Ukrainian. |
 
-**New words and rule / Нові слова й правило**
+**Remember / Запам’ятайте**
 
-- **Parlo...** means “I speak...” / **Parlo...** означає «Я розмовляю...».
-- **Ho...** means “I have...” / **Ho...** означає «У мене є...».
-- **Una sorella** means “a sister”; **un fratello** means “a brother.” / **Una sorella** означає «сестра»; **un fratello** — «брат».
-- **Anch’io** means “me too.” / **Anch’io** означає «я теж».
+- **Parlo + language** means “I speak + language.” / **Parlo + назва мови** означає «Я розмовляю + назва мови».
 
-### 2. Quick repeat / Швидке повторення
+### 2. Practice / Практика
 
-- Ask **Che lingue parli?** and answer with **Parlo...** / Запитайте **Che lingue parli?** і дайте відповідь **Parlo...**.
-- Repeat **Ho una sorella** and **Ho un fratello**. / Повторіть **Ho una sorella** та **Ho un fratello**.
-- Cover the translations and recall **parlo**, **ho**, and **anch’io**. / Закрийте переклади й згадайте значення **parlo**, **ho** та **anch’io**.
-
-### 3. Optional exercise bank / Додаткові вправи
-
-1. **Choice / Вибір — `family-languages-question`**  
+1. **Choose / Оберіть — `languages-question`**  
    How do you ask “Which languages do you speak?” / Як запитати «Якими мовами ти розмовляєш?»  
    A. Che lingue parli?  
    B. Dove vivi?  
    C. Che lavoro fai?  
    **Answer / Відповідь:** A
-2. **Build a phrase / Складіть фразу — `family-languages-answer`**  
+2. **Build a phrase / Складіть фразу — `languages-answer`**  
    Choose “I speak Ukrainian.” / Оберіть фразу «Я розмовляю українською».  
    A. Parlo ucraino.  
    B. Sono ucraino.  
    C. Vivo ucraino.  
    **Answer / Відповідь:** A
-3. **True or false / Правда чи неправда — `family-have`**  
-   **Ho un fratello** means “I have a brother.” / **Ho un fratello** означає «У мене є брат».  
-   **Answer / Відповідь:** True / Правда
+3. **Your turn / Твоя черга — `languages-your-turn`**  
+   Replace **ucraino** with a language you speak. / Замініть **ucraino** назвою мови, якою розмовляєте.  
+   **Answer / Відповідь:** Parlo + language / Parlo + назва мови
+4. **Complete / Доповніть:** **Parlo italiano e _____.** / «Я розмовляю італійською та англійською».  
+   **Answer / Відповідь:** inglese
+5. **Recall / Згадайте:** What does **Parlo ucraino** mean? / Що означає **Parlo ucraino**?  
+   **Answer / Відповідь:** I speak Ukrainian. / Я розмовляю українською.
 
 ---
 
-## Lesson 7 — What do you like? / Урок 7 — Що тобі подобається?
+## Lesson 8 — My family / Урок 8 — Моя родина
+
+**Reference / Ідентифікатор:** `communication-basics-2-family`  
+**Time / Тривалість:** 2 min / 2 хв  
+**Reward / Нагорода:** 10 XP  
+**Previous / Попередній урок:** `communication-basics-2-languages`  
+**Next / Наступний урок:** `communication-basics-3`  
+**Goal / Мета:** Say that you have a brother or sister. / Сказати, що у вас є брат або сестра.
+
+### 1. Learn / Вивчіть
+
+| Speaker / Учасник | Italian / Італійська | Ukrainian / Українська | English / Англійська |
+|---|---|---|---|
+| Sofia | Ho una sorella. | У мене є сестра. | I have a sister. |
+| Greta | Ho un fratello. | У мене є брат. | I have a brother. |
+
+**Remember / Запам’ятайте**
+
+- **Ho** means “I have”; **una sorella** is “a sister,” and **un fratello** is “a brother.” / **Ho** означає «у мене є»; **una sorella** — «сестра», **un fratello** — «брат».
+
+### 2. Practice / Практика
+
+1. **Choose / Оберіть:** Which phrase means “I have a sister”? / Яка фраза означає «У мене є сестра»?  
+   A. Ho una sorella.  
+   B. Sono una sorella.  
+   C. Parlo una sorella.  
+   **Answer / Відповідь:** A
+2. **Complete / Доповніть:** **Ho un _____.** / «У мене є брат».  
+   **Answer / Відповідь:** fratello
+3. **Your turn / Твоя черга:** Say whether you have a brother or sister. / Скажіть, чи маєте брата або сестру.  
+   **Answer / Відповідь:** Ho un fratello / Ho una sorella
+4. **Choose / Оберіть:** Which word means “I have”? / Яке слово означає «у мене є»?  
+   A. Ho  
+   B. Sono  
+   C. Parlo  
+   **Answer / Відповідь:** A
+5. **Translate / Перекладіть:** Say “I have a brother.” / Скажіть «У мене є брат».  
+   **Answer / Відповідь:** Ho un fratello.
+
+---
+
+## Lesson 9 — What do you like? / Урок 9 — Що тобі подобається?
 
 **Reference / Ідентифікатор:** `communication-basics-3`  
 **Time / Тривалість:** 2 min / 2 хв  
 **Reward / Нагорода:** 10 XP  
 **Previous / Попередній урок:** `communication-basics-2-family`  
 **Next / Наступний урок:** `communication-basics-3-plans`  
-**Goal / Мета:** Talk about an interest and ask someone what they like. / Розповісти про своє захоплення й запитати про вподобання співрозмовника.
+**Goal / Мета:** Say what you like doing and ask someone else. / Сказати, що вам подобається робити, і запитати співрозмовника.
 
-### 1. Mini-lesson dialogue / Навчальний мінідіалог
+### 1. Learn / Вивчіть
 
 | Speaker / Учасник | Italian / Італійська | Ukrainian / Українська | English / Англійська |
 |---|---|---|---|
@@ -333,28 +394,22 @@ Choose any two or three exercises later. / Пізніше оберіть буд�
 | Greta | Mi piace ascoltare la musica. E a te? | Мені подобається слухати музику. А тобі? | I like listening to music. And you? |
 | Sofia | Mi piace leggere. | Мені подобається читати. | I like reading. |
 
-**New words and rule / Нові слова й правило**
+**Remember / Запам’ятайте**
 
 - **Mi piace...** means “I like...” / **Mi piace...** означає «Мені подобається...».
 - Put a verb in its infinitive form after **Mi piace**: **leggere** (to read), **ascoltare** (to listen). / Після **Mi piace** використовуйте дієслово в початковій формі: **leggere** (читати), **ascoltare** (слухати).
 - **Che cosa ti piace fare?** asks what someone likes to do. / **Che cosa ti piace fare?** — запитання про те, що людині подобається робити.
 
-### 2. Quick repeat / Швидке повторення
+### 2. Practice / Практика
 
-1. Say **Mi piace leggere** twice. / Двічі скажіть **Mi piace leggere**.
-2. Swap **leggere** for **ascoltare la musica**. / Замініть **leggere** на **ascoltare la musica**.
-3. Ask **Che cosa ti piace fare?** and answer without looking. / Запитайте **Che cosa ti piace fare?** і дайте відповідь, не підглядаючи.
-
-### 3. Optional exercise bank / Додаткові вправи
-
-1. **Choice / Вибір — `like-reading`**  
+1. **Choose / Оберіть — `like-reading`**  
    How do you say “I like reading”? / Як сказати «Мені подобається читати»?  
    A. Mi piace leggere.  
    B. Studio leggere.  
    C. Sono leggere.  
    **Answer / Відповідь:** A
-2. **Recall / Відтворення з пам’яті — `interest-question`**  
-   Choose “What do you like to do?” / Оберіть фразу «Що тобі подобається робити?».  
+2. **Choose the question / Оберіть запитання — `interest-question`**  
+   How do you ask “What do you like to do?” / Як запитати «Що тобі подобається робити?»  
    A. Che cosa ti piace fare?  
    B. Come ti chiami?  
    C. Dove lavori?  
@@ -365,65 +420,117 @@ Choose any two or three exercises later. / Пізніше оберіть буд�
    B. To read a book / Читати книжку  
    C. To work in a bookshop / Працювати в книгарні  
    **Answer / Відповідь:** A
+4. **Complete / Доповніть:** **Mi _____ leggere.** / «Мені подобається читати».  
+   **Answer / Відповідь:** piace
+5. **Choose the verb / Оберіть дієслово:** Which infinitive means “to listen”? / Яке дієслово в початковій формі означає «слухати»?  
+   A. ascoltare  
+   B. lavoro  
+   C. parli  
+   **Answer / Відповідь:** A
 
 ---
 
-## Lesson 8 — Make a plan / Урок 8 — Домовляємося про зустріч
+## Lesson 10 — Invite someone for coffee / Урок 10 — Запросити на каву
 
 **Reference / Ідентифікатор:** `communication-basics-3-plans`  
 **Time / Тривалість:** 2 min / 2 хв  
 **Reward / Нагорода:** 10 XP  
 **Previous / Попередній урок:** `communication-basics-3`  
-**Goal / Мета:** Invite someone to meet and agree on a time. / Запросити когось на зустріч і домовитися про час.
+**Next / Наступний урок:** `communication-basics-3-time`  
+**Goal / Мета:** Invite a friend for coffee and accept the invitation. / Запросити друга на каву й прийняти запрошення.
 
-### 1. Mini-lesson dialogue / Навчальний мінідіалог
+### 1. Learn / Вивчіть
 
 | Speaker / Учасник | Italian / Італійська | Ukrainian / Українська | English / Англійська |
 |---|---|---|---|
 | Sofia | Ti va di prendere un caffè sabato? | Хочеш випити кави в суботу? | Would you like to get a coffee on Saturday? |
-| Greta | Volentieri! A che ora? | Із задоволенням! О котрій? | Gladly! At what time? |
-| Sofia | Alle tre? | О третій? | At three? |
-| Greta | Perfetto! | Чудово! | Perfect! |
+| Greta | Volentieri! | Із задоволенням! | Gladly! |
 
-**New words and rule / Нові слова й правило**
+**Remember / Запам’ятайте**
 
 - **Ti va di...?** is a friendly way to invite someone to do something. / **Ti va di...?** — дружній спосіб запросити когось щось зробити.
 - Follow **Ti va di** with a verb in its infinitive form: **prendere** (to have / get). / Після **Ti va di** використовуйте дієслово в початковій формі: **prendere** (випити / взяти).
-- **Volentieri!** accepts an invitation; **A che ora?** asks for the time. / **Volentieri!** — згода на запрошення; **A che ora?** — запитання про час.
+- **Volentieri!** is a friendly way to accept. / **Volentieri!** — дружній спосіб погодитися.
 
-### 2. Quick repeat / Швидке повторення
+### 2. Practice / Практика
 
-1. Repeat the invitation twice. / Двічі повторіть запрошення.
-2. Answer **Volentieri!** and ask **A che ora?** / Дайте відповідь **Volentieri!** і запитайте **A che ora?**.
-3. Change **sabato** (Saturday) to another day you know. / Замініть **sabato** (субота) на інший знайомий вам день.
-
-### 3. Optional exercise bank / Додаткові вправи
-
-1. **Choice / Вибір — `invite-coffee`**  
+1. **Choose / Оберіть — `invite-coffee`**  
    How do you invite someone for coffee? / Як запросити когось випити кави?  
    A. Ti va di prendere un caffè?  
    B. Mi chiamo un caffè.  
    C. Parlo un caffè.  
    **Answer / Відповідь:** A
-2. **Recall / Відтворення з пам’яті — `ask-time`**  
-   What do you ask to find out the time? / Що запитати, щоб дізнатися час?  
+2. **Choose the reply / Оберіть відповідь — `gladly-reply`**  
+   Someone invites you for coffee. How do you gladly accept? / Вас запросили на каву. Як погодитися?  
+   A. Volentieri!  
+   B. Sono di Roma.  
+   C. Mi chiamo Anna.  
+   **Answer / Відповідь:** A
+3. **Complete / Доповніть — `coffee-invitation`**  
+   **Ti va di prendere un _____?**  
+   **Answer / Відповідь:** caffè
+4. **Recall / Згадайте:** What does **Volentieri!** mean as a reply to an invitation? / Що означає **Volentieri!** у відповіді на запрошення?  
+   **Answer / Відповідь:** Gladly! / Із задоволенням!
+5. **Complete / Доповніть:** **Ti va di _____ un caffè?**  
+   **Answer / Відповідь:** prendere
+
+---
+
+## Lesson 11 — Agree on a time / Урок 11 — Домовитися про час
+
+**Reference / Ідентифікатор:** `communication-basics-3-time`  
+**Time / Тривалість:** 2 min / 2 хв  
+**Reward / Нагорода:** 10 XP  
+**Previous / Попередній урок:** `communication-basics-3-plans`  
+**Goal / Мета:** Ask what time and suggest three o’clock. / Запитати, о котрій, і запропонувати третю годину.
+
+### 1. Learn / Вивчіть
+
+| Speaker / Учасник | Italian / Італійська | Ukrainian / Українська | English / Англійська |
+|---|---|---|---|
+| Greta | A che ora? | О котрій? | At what time? |
+| Sofia | Alle tre? | О третій? | At three? |
+| Greta | Perfetto! | Чудово! | Perfect! |
+
+**Remember / Запам’ятайте**
+
+- **A che ora?** asks for a time. **Alle tre?** suggests three o’clock. / **A che ora?** — запитання про час. **Alle tre?** — пропозиція зустрітися о третій.
+
+### 2. Practice / Практика
+
+1. **Recall / Згадайте — `ask-time`**  
+   How do you ask “At what time?” / Як запитати «О котрій?»  
    **Answer / Відповідь:** A che ora?
-3. **True or false / Правда чи неправда — `gladly-reply`**  
-   **Volentieri!** is a positive response to an invitation. / **Volentieri!** — позитивна відповідь на запрошення.  
-   **Answer / Відповідь:** True / Правда
+2. **Complete / Доповніть — `suggest-three`**  
+   **Alle _____?** / «О третій?»  
+   **Answer / Відповідь:** tre
+3. **Choose / Оберіть — `agree-on-time`**  
+   Which phrase means “Perfect!”? / Яка фраза означає «Чудово!»?  
+   A. Perfetto!  
+   B. Volentieri!  
+   C. Buonasera!  
+   **Answer / Відповідь:** A
+4. **Translate / Перекладіть:** Ask “At what time?” / Запитайте «О котрій?».  
+   **Answer / Відповідь:** A che ora?
+5. **Complete the exchange / Доповніть діалог:** **A che ora? — _____ tre? — Perfetto!**  
+   **Answer / Відповідь:** Alle
 
 ---
 
 ## End-of-course retrieval / Підсумкове повторення
 
-Use these prompts for a short review. / Використайте ці підказки для короткого повторення.
+Try to answer before checking the examples above. / Спробуйте відповісти, перш ніж переглядати приклади вище.
 
 | Prompt / Підказка | Expected Italian / Очікувана відповідь італійською |
 |---|---|
-| Say hello informally. / Привітайтеся неформально. | Ciao! |
+| Ask a friend how they are. / Запитайте друга, як у нього справи. | Come stai? |
+| Say “Fine, thanks.” / Скажіть «Добре, дякую». | Bene, grazie! |
+| Greet someone politely in the evening. / Ввічливо привітайтеся ввечері. | Buonasera! |
 | Say “My name is...” / Скажіть «Мене звати...». | Mi chiamo... |
+| Say “Nice to meet you.” / Скажіть «Приємно познайомитися». | Piacere! |
 | Ask where someone is from. / Запитайте, звідки людина. | Di dove sei? |
-| Say “I study...” / Скажіть «Я вивчаю...». | Studio... |
+| Say “I have a sister.” / Скажіть «У мене є сестра». | Ho una sorella. |
 | Say “I speak Ukrainian.” / Скажіть «Я розмовляю українською». | Parlo ucraino. |
 | Say “I like reading.” / Скажіть «Мені подобається читати». | Mi piace leggere. |
-| Invite someone for coffee. / Запросіть когось випити кави. | Ti va di prendere un caffè? |
+| Invite someone for coffee. / Запросіть когось на каву. | Ti va di prendere un caffè? |
+| Ask what time and suggest three o’clock. / Запитайте, о котрій, і запропонуйте третю годину. | A che ora? Alle tre? |

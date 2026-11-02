@@ -359,17 +359,18 @@ body.landing-page {
 .landing-bottom-cta .home-start-button {
   min-height: 3.5rem;
   padding: 0.7rem 1.15rem;
-  border-radius: 1rem;
+  border-radius: var(--radius-sm);
   background: var(--primary);
-  box-shadow: 0 5px 0 var(--primary-dark);
+  box-shadow: none;
   color: var(--primary-contrast);
   font-size: 1rem;
 }
 
 .landing-hero .home-start-button:hover,
 .landing-bottom-cta .home-start-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 7px 0 var(--primary-dark);
+  transform: none;
+  background: var(--primary-hover);
+  box-shadow: none;
 }
 
 .placement-test-button {
@@ -380,19 +381,19 @@ body.landing-page {
   gap: 0.55rem;
   padding: 0.7rem 1rem;
   border: 1px solid var(--primary-border);
-  border-radius: 1rem;
+  border-radius: var(--radius-sm);
   background: var(--surface);
   color: var(--primary);
   font-size: 0.9rem;
   font-weight: 900;
   text-decoration: none;
-  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
 .placement-test-button:hover {
-  transform: translateY(-2px);
   border-color: var(--primary);
   background: var(--primary-light);
+  color: var(--primary);
 }
 
 .placement-test-button .ls-icon {
@@ -904,7 +905,7 @@ body.landing-page {
   font-size: 0.78rem;
 }
 
-.landing-footer .brand-mark {
+.landing-footer .brand-logo {
   width: 1.8rem;
   height: 1.8rem;
 }

@@ -9,24 +9,17 @@
       return '../'.repeat(directoryDepth + 1);
     }
 
-    function resolveLogoPath(theme) {
+    function resolveLogoPath() {
       const relativePrefix = getRelativeAssetPath();
-      const filename = theme === 'dark' ? 'dark_theme_logo.png' : 'light_theme_logo.png';
-      return `${relativePrefix}assets/images/${filename}`;
+      return `${relativePrefix}assets/images/logo.svg`;
     }
 
-    function updateBrandLogos(theme) {
-      const currentTheme = theme || document.documentElement.getAttribute('data-theme') || 'light';
-      const logoPath = resolveLogoPath(currentTheme);
+    function updateBrandLogos() {
+      const logoPath = resolveLogoPath();
 
       document.querySelectorAll('.brand-logo').forEach((img) => {
-        const fallbackPath = resolveLogoPath(currentTheme === 'dark' ? 'light' : 'dark');
         img.src = logoPath;
-        img.alt = 'LanguageStudio';
         img.style.display = 'block';
-        img.onerror = () => {
-          img.src = fallbackPath;
-        };
       });
     }
 

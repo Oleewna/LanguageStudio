@@ -308,8 +308,9 @@ function validateCourse(courseId) {
   }
 
   const referencedLessons = new Set();
+  const lessonPathIds = new Map();
 
-  function validateLessonReference(lesson) {
+  function validateLessonReference(lesson, pathId) {
     if (!lesson || typeof lesson !== 'object') {
       fail(`Course '${courseId}' contains a malformed lesson entry.`);
     }
@@ -320,6 +321,7 @@ function validateCourse(courseId) {
       fail(`Course '${courseId}' contains a duplicate lesson id '${lesson.id}'.`);
     }
     referencedLessons.add(lesson.id);
+    lessonPathIds.set(lesson.id, pathId);
 
     if (Object.prototype.hasOwnProperty.call(lesson, 'sublessons')) {
       fail(`Lesson '${lesson.id}' cannot contain sublessons; add each lesson directly to unit.lessons.`);
@@ -347,8 +349,19 @@ function validateCourse(courseId) {
         fail(`Course '${courseId}' path '${pathEntry.id || 'unknown'}' contains a malformed unit.`);
       }
       for (const lesson of unit.lessons) {
-        validateLessonReference(lesson);
+        validateLessonReference(lesson, pathEntry.id);
       }
+    }
+  }
+
+  for (const exercise of exercises) {
+    if (!exercise.lessonId) continue;
+    const expectedPathId = lessonPathIds.get(exercise.lessonId);
+    if (!expectedPathId) {
+      fail(`Exercise '${exercise.id}' references unknown lesson '${exercise.lessonId}'.`);
+    }
+    if (exercise.pathId !== expectedPathId) {
+      fail(`Exercise '${exercise.id}' must use path '${expectedPathId}' for lesson '${exercise.lessonId}'.`);
     }
   }
 

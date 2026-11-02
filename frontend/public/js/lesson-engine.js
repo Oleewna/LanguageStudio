@@ -63,6 +63,7 @@
   const ENGINE_I18N = {
     uk: {
       checkTasks: 'Перевірити завдання',
+      checkAnswer: 'Перевірити відповідь',
       moreExercises: 'Більше вправ',
       lessonIndex: 'У цьому уроці',
       previousStep: 'Попередній крок',
@@ -96,6 +97,7 @@
     },
     en: {
       checkTasks: 'Check answers',
+      checkAnswer: 'Check answer',
       moreExercises: 'More exercises',
       lessonIndex: 'In this lesson',
       previousStep: 'Previous step',
@@ -694,9 +696,14 @@
   function renderQuizBlock(section, lang) {
     const title = t(section.title, 'Завдання уроку', lang);
     const tasks = (section.tasks || section.items || []).map((task, index) => normalizeQuizTask(task, index));
+    const counter = section.questionNumber && section.questionTotal
+      ? `<span class="quiz-step-counter">${escapeHtml(lang === 'en'
+        ? `Question ${section.questionNumber} of ${section.questionTotal}`
+        : `Запитання ${section.questionNumber} з ${section.questionTotal}`)}</span>`
+      : '';
 
     let currentCategoryKey = '';
-    let taskNumber = 1;
+    let taskNumber = section.questionNumber || 1;
 
     const tasksHtml = tasks.map((task, tIndex) => {
       let categoryHeader = '';
@@ -765,16 +772,59 @@
       <section class="lesson-section lesson-section-quiz" id="exercises" data-section-type="quiz">
         <h2 class="section-title">
           <span class="ic">${getIconSvg('tests')}</span>
-          ${escapeHtml(title)}
+          ${escapeHtml(title)}${counter}
         </h2>
         <div class="card quiz-card">
           ${tasksHtml}
           <div class="quiz-actions" style="margin-top: 1.5rem;">
             <button class="btn-primary quiz-check-btn" type="button" data-quiz-action="check">
-              ${escapeHtml(uiText('checkTasks', {}, lang))}
+              ${escapeHtml(uiText('checkAnswer', {}, lang))}
             </button>
           </div>
           <div id="taskResult" class="task-result" role="status" aria-live="polite" style="display: none;"></div>
+        </div>
+      </section>
+    `;
+  }
+
+  function renderCompletionBlock(section, lang) {
+    const heading = lang === 'en' ? 'Lesson complete!' : 'Урок завершено!';
+    const learnedTitle = lang === 'en' ? 'What you learned' : 'Що ви вивчили';
+    const practiceLabel = lang === 'en' ? 'More practice for this lesson' : 'Більше практики з цього уроку';
+    const pathLabel = lang === 'en' ? 'Back to learning path' : 'До навчального шляху';
+    const retryLabel = lang === 'en' ? 'Try the lesson again' : 'Спробувати урок ще раз';
+    const learnedItems = (section.items || []).map((item) => `
+      <li><span class="ic">${getIconSvg('check')}</span><span>${escapeHtml(t(item, '', lang))}</span></li>
+    `).join('');
+    const practiceUrl = new URL('exercises.html', window.location.href);
+    practiceUrl.searchParams.set('course', section.courseId || 'it');
+    if (section.pathId) practiceUrl.searchParams.set('path', section.pathId);
+    if (section.lessonId) practiceUrl.searchParams.set('lesson', section.lessonId);
+
+    const pathUrl = new URL('path.html', window.location.href);
+    pathUrl.searchParams.set('course', section.courseId || 'it');
+    const nextUrl = section.nextLessonId
+      ? new URL(`lesson.html?course=${encodeURIComponent(section.courseId || 'it')}&lesson=${encodeURIComponent(section.nextLessonId)}`, window.location.href)
+      : pathUrl;
+    const nextLabel = section.nextLessonId
+      ? (lang === 'en' ? 'Continue to next lesson' : 'До наступного уроку')
+      : pathLabel;
+    const nextIcon = section.nextLessonId ? 'arrow-right' : 'arrow-left';
+
+    return `
+      <section class="lesson-completion" data-section-type="completion" data-completion-passed="${section.passed ? 'true' : 'false'}">
+        <div class="lesson-completion-mark" aria-hidden="true">${getIconSvg('sparkles')}</div>
+        <p class="lesson-completion-eyebrow">${escapeHtml(lang === 'en' ? 'NICE WORK' : 'ЧУДОВА РОБОТА')}</p>
+        <h2>${escapeHtml(heading)}</h2>
+        <p class="lesson-completion-result" data-completion-result></p>
+        <section class="lesson-learned">
+          <h3>${escapeHtml(learnedTitle)}</h3>
+          <ul class="takeaways">${learnedItems}</ul>
+        </section>
+        <div class="lesson-completion-actions">
+          <a class="btn-primary" href="${escapeAttr(practiceUrl.toString())}">${getIconSvg('tests')} <span>${escapeHtml(practiceLabel)}</span></a>
+          <a class="btn-ghost" href="${escapeAttr(nextUrl.toString())}">${getIconSvg(nextIcon)} <span>${escapeHtml(nextLabel)}</span></a>
+          <button class="btn-ghost lesson-retry-button" type="button" hidden>${escapeHtml(retryLabel)}</button>
         </div>
       </section>
     `;
@@ -793,7 +843,8 @@
     culture_note: renderCultureBlock,
     takeaways: renderTakeawaysBlock,
     tasks: renderQuizBlock,
-    quiz: renderQuizBlock
+    quiz: renderQuizBlock,
+    completion: renderCompletionBlock
   };
 
   // ═══════════════════════════════════════════════════════════════════════
@@ -860,7 +911,9 @@
       if (resultBox) {
         resultBox.style.display = 'block';
         resultBox.className = 'task-result task-result-warning';
-        resultBox.textContent = uiText('checkAllPrompt', {}, lang);
+        resultBox.textContent = lang === 'en'
+          ? 'Choose or enter an answer before checking.'
+          : 'Оберіть або введіть відповідь перед перевіркою.';
         resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
       return { total: tasks.length, correct: 0, percentage: 0, passed: false };
@@ -950,6 +1003,127 @@
 
   let _activeLesson = null;
   let _activeContainer = null;
+  let _quizProgress = {
+    key: '',
+    results: Object.create(null),
+    activeStepIndex: 0,
+    finalized: false
+  };
+
+  function getLessonQuizTasks(lesson) {
+    return (lesson.sections || [])
+      .filter((section) => section.type === 'quiz')
+      .flatMap((section) => section.tasks || []);
+  }
+
+  function checkCurrentQuizTask(lesson, container) {
+    const activeStep = container.querySelector('.lesson-step:not([hidden])');
+    const taskElement = activeStep?.querySelector('[data-task-id]');
+    const taskId = taskElement?.dataset.taskId;
+    if (!taskId || _quizProgress.results[taskId]) return;
+
+    const task = getLessonQuizTasks(lesson).find((item) => item.id === taskId);
+    if (!task || !taskElement) return;
+
+    const lang = getCurrentLanguage();
+    let answer;
+    let isCorrect = false;
+    let expectedAnswer = '';
+
+    if (task.type === 'choice') {
+      const selected = taskElement.querySelector(`input[name="quiz_${task.id}"]:checked`);
+      if (!selected) {
+        answer = null;
+      } else {
+        answer = selected.value;
+        isCorrect = Number(answer) === task.correctIndex;
+        expectedAnswer = t(task.options[task.correctIndex]?.translations || task.options[task.correctIndex]?.text, '', lang);
+      }
+    } else if (task.type === 'true_false') {
+      const selected = taskElement.querySelector(`input[name="quiz_${task.id}"]:checked`);
+      answer = selected ? selected.value : null;
+      isCorrect = answer !== null && (answer === 'true') === Boolean(task.correctAnswer);
+      expectedAnswer = task.correctAnswer ? uiText('true', {}, lang) : uiText('false', {}, lang);
+    } else {
+      const input = taskElement.querySelector(`input.quiz-blank-input[data-task-id="${task.id}"]`);
+      answer = input?.value.trim() || '';
+      const normalized = answer.toLowerCase().replace(/\s+/g, ' ');
+      const acceptable = (task.acceptableAnswers || []).map((value) => String(value).trim().toLowerCase().replace(/\s+/g, ' '));
+      isCorrect = Boolean(normalized) && acceptable.includes(normalized);
+      expectedAnswer = task.acceptableAnswers?.[0] || '';
+    }
+
+    const isAnswered = answer !== null && String(answer).trim() !== '';
+    const resultBox = taskElement.closest('.quiz-card')?.querySelector('#taskResult');
+    if (!isAnswered) {
+      if (resultBox) {
+        resultBox.style.display = 'block';
+        resultBox.className = 'task-result task-result-warning';
+        resultBox.textContent = uiText('checkAllPrompt', {}, lang);
+      }
+      return;
+    }
+
+    _quizProgress.results[taskId] = { answer, correct: isCorrect, expectedAnswer };
+    taskElement.querySelectorAll('input').forEach((input) => {
+      input.disabled = true;
+    });
+    const checkButton = activeStep.querySelector('.quiz-check-btn');
+    if (checkButton) checkButton.hidden = true;
+    showTaskFeedback(taskElement, isCorrect, expectedAnswer, lang);
+    container._lessonStepNavigation?.refresh();
+  }
+
+  function restoreQuizProgress(steps, lang) {
+    steps.forEach((step) => {
+      const taskElement = step.querySelector('[data-task-id]');
+      const result = taskElement && _quizProgress.results[taskElement.dataset.taskId];
+      if (!result) return;
+
+      const inputs = taskElement.querySelectorAll('input');
+      inputs.forEach((input) => {
+        input.checked = input.value === String(result.answer);
+        if (input.type !== 'radio') input.value = result.answer;
+        input.disabled = true;
+      });
+      const checkButton = step.querySelector('.quiz-check-btn');
+      if (checkButton) checkButton.hidden = true;
+      showTaskFeedback(taskElement, result.correct, result.expectedAnswer, lang);
+    });
+  }
+
+  function finishLesson(lesson, container) {
+    const tasks = getLessonQuizTasks(lesson);
+    const results = Object.values(_quizProgress.results);
+    const correct = results.filter((result) => result.correct).length;
+    const total = tasks.length;
+    const percentage = total ? Math.round((correct / total) * 100) : 100;
+    const passed = !total || percentage >= 70;
+    const resultElement = container.querySelector('[data-completion-result]');
+    const completionElement = container.querySelector('[data-section-type="completion"]');
+    const alreadyCompleted = isLessonCompleted(lesson.id);
+
+    if (passed) {
+      markLessonCompleted(lesson.id);
+      if (!alreadyCompleted && !_quizProgress.finalized) awardXP(Number(lesson.xpReward) || 50);
+    }
+
+    if (completionElement) completionElement.dataset.completionPassed = String(passed);
+    const retryButton = completionElement?.querySelector('.lesson-retry-button');
+    if (retryButton) retryButton.hidden = passed;
+    if (resultElement) {
+      if (passed) {
+        resultElement.textContent = alreadyCompleted || _quizProgress.finalized
+          ? `${uiText('alreadyCompleted', {}, getCurrentLanguage())} ${uiText('accuracy', { correct, total, percent: percentage }, getCurrentLanguage())}`
+          : `${uiText('accuracy', { correct, total, percent: percentage }, getCurrentLanguage())} ${uiText('xpAwarded', { xp: Number(lesson.xpReward) || 50 }, getCurrentLanguage())}`;
+      } else {
+        resultElement.textContent = `${uiText('accuracy', { correct, total, percent: percentage }, getCurrentLanguage())} ${getCurrentLanguage() === 'en'
+          ? 'Answer at least 70% correctly to complete this lesson.'
+          : 'Дайте щонайменше 70% правильних відповідей, щоб зарахувати урок.'}`;
+      }
+    }
+    _quizProgress.finalized = true;
+  }
 
   function getSectionOrder(type) {
     const order = {
@@ -1005,7 +1179,7 @@
     });
   }
 
-  function createStepNavigation(container, lang, steps) {
+  function createStepNavigation(container, lang, steps, lesson) {
     const navigation = document.createElement('nav');
     navigation.className = 'lesson-step-navigation';
     navigation.setAttribute('aria-label', lang === 'en' ? 'Lesson step navigation' : 'Навігація кроками уроку');
@@ -1022,6 +1196,7 @@
 
     const nextButton = document.createElement('button');
     nextButton.className = 'btn-primary';
+    nextButton.classList.add('lesson-step-next');
     nextButton.type = 'button';
     nextButton.addEventListener('click', () => {
       if (activeStep < steps.length - 1) {
@@ -1039,18 +1214,30 @@
     const progressFill = document.getElementById('lesson-step-progress-fill');
     const progressLabel = document.getElementById('lesson-step-progress-label');
     const indexLinks = Array.from(document.querySelectorAll('#lessonIndexList .lesson-index-link'));
-    let activeStep = 0;
+    let activeStep = Math.max(0, Math.min(_quizProgress.activeStepIndex, steps.length - 1));
 
     function setActiveStep(stepIndex) {
+      const currentStep = steps[activeStep];
+      const currentTaskId = currentStep?.dataset.quizTaskId;
+      if (stepIndex > activeStep && currentTaskId && !_quizProgress.results[currentTaskId]) return;
+
       activeStep = Math.max(0, Math.min(stepIndex, steps.length - 1));
+      _quizProgress.activeStepIndex = activeStep;
       steps.forEach((step, index) => {
         step.hidden = index !== activeStep;
       });
 
       previousButton.hidden = activeStep === 0;
-      nextButton.textContent = activeStep === steps.length - 1
-        ? uiText('continueLesson', {}, lang)
-        : uiText('nextStep', {}, lang);
+      const isCompletion = steps[activeStep]?.dataset.sectionType === 'completion';
+      const taskId = steps[activeStep]?.dataset.quizTaskId;
+      nextButton.textContent = steps[activeStep]?.dataset.sectionType === 'intro'
+        ? (lang === 'en' ? 'Start lesson' : 'Почати урок')
+        : activeStep === steps.length - 2
+          ? (lang === 'en' ? 'Finish lesson' : 'Завершити урок')
+          : uiText('nextStep', {}, lang);
+      nextButton.disabled = Boolean(taskId && !_quizProgress.results[taskId]);
+      navigation.hidden = isCompletion;
+      if (isCompletion) finishLesson(lesson, container);
 
       const progressText = uiText('stepOf', { current: activeStep + 1, total: steps.length }, lang);
       stepStatus.textContent = progressText;
@@ -1076,7 +1263,10 @@
       });
     });
 
-    setActiveStep(0);
+    container._lessonStepNavigation = {
+      refresh: () => setActiveStep(activeStep)
+    };
+    setActiveStep(activeStep);
   }
 
   /**
@@ -1115,22 +1305,68 @@
     _activeContainer = container;
 
     const lang = getCurrentLanguage();
-    const sections = splitLessonSections(lesson.sections || [])
+    const lessonKey = `${lesson.courseId || ''}:${lesson.id || ''}`;
+    if (_quizProgress.key !== lessonKey) {
+      _quizProgress = {
+        key: lessonKey,
+        results: Object.create(null),
+        activeStepIndex: 0,
+        finalized: false
+      };
+    }
+
+    const sortedSections = splitLessonSections(lesson.sections || [])
       .map((section, index) => ({ section, index }))
       .sort((first, second) =>
         getSectionOrder(first.section.type) - getSectionOrder(second.section.type)
         || first.index - second.index
       )
       .map(({ section }) => section);
+    const takeaways = sortedSections
+      .filter((section) => section.type === 'takeaways')
+      .flatMap((section) => section.items || []);
+    const contentSections = sortedSections
+      .filter((section) => section.type !== 'takeaways')
+      .flatMap((section) => {
+        if (section.type !== 'quiz') return [section];
+        const tasks = section.tasks || [];
+        return tasks.map((task, index) => ({
+          ...section,
+          tasks: [task],
+          questionNumber: index + 1,
+          questionTotal: tasks.length
+        }));
+      });
+    contentSections.push({
+      type: 'completion',
+      items: takeaways.length ? takeaways : [lesson.description],
+      courseId: lesson.courseId,
+      pathId: lesson.pathId,
+      lessonId: lesson.id,
+      nextLessonId: lesson.nextLessonId
+    });
 
+    const hero = document.getElementById('lessonHero');
     container.replaceChildren();
     const steps = [];
-    sections.forEach((section) => {
+    if (hero) {
+      const step = document.createElement('div');
+      step.className = 'lesson-step lesson-intro-step';
+      step.dataset.lessonStep = '0';
+      step.dataset.sectionType = 'intro';
+      step.appendChild(hero);
+      container.appendChild(step);
+      steps.push(step);
+    }
+
+    contentSections.forEach((section) => {
       const renderer = BLOCK_RENDERERS[section.type];
       if (typeof renderer === 'function') {
         const step = document.createElement('div');
         step.className = 'lesson-step';
         step.dataset.lessonStep = String(steps.length);
+        step.dataset.sectionType = section.type;
+        if (section.type === 'quiz') step.dataset.quizTaskId = section.tasks[0]?.id || '';
         step.innerHTML = renderer(section, lang);
         step.hidden = steps.length !== 0;
         container.appendChild(step);
@@ -1148,18 +1384,6 @@
         dialogueSection.closest('.lesson-step').insertBefore(sceneImage, dialogueSection);
       }
     }
-
-    const courseId = lesson.courseId || (typeof window.getCourseId === 'function' ? window.getCourseId() : 'it');
-    const exercisesUrl = new URL('exercises.html', window.location.href);
-    if (courseId) exercisesUrl.searchParams.set('course', courseId);
-    const exercisesLink = `
-      <a class="btn-ghost lesson-exercises-link" href="${escapeAttr(exercisesUrl.toString())}">
-        ${getIconSvg('tests')} <span>${escapeHtml(uiText('moreExercises', {}, lang))}</span>
-      </a>
-    `;
-    const quizSection = container.querySelector('[data-section-type="quiz"], [data-section-type="tasks"]');
-    if (quizSection) quizSection.insertAdjacentHTML('afterend', exercisesLink);
-    else (steps[steps.length - 1] || container).insertAdjacentHTML('beforeend', exercisesLink);
 
     const index = document.getElementById('lessonIndex');
     const indexList = document.getElementById('lessonIndexList');
@@ -1187,7 +1411,8 @@
       index.hidden = indexList.childElementCount === 0;
     }
 
-    if (steps.length) createStepNavigation(container, lang, steps);
+    restoreQuizProgress(steps, lang);
+    if (steps.length) createStepNavigation(container, lang, steps, lesson);
 
     // Attach event listeners for audio buttons, vocab hints, and quiz checking
     bindLessonInteractions(container, lesson);
@@ -1317,10 +1542,22 @@
     });
 
     // 5. Quiz Check Button
-    const checkBtn = container.querySelector('.quiz-check-btn[data-quiz-action="check"]');
-    if (checkBtn) {
+    container.querySelectorAll('.quiz-check-btn[data-quiz-action="check"]').forEach((checkBtn) => {
       checkBtn.addEventListener('click', () => {
-        gradeQuiz(lesson, container);
+        checkCurrentQuizTask(lesson, container);
+      });
+    });
+
+    const retryButton = container.querySelector('.lesson-retry-button');
+    if (retryButton) {
+      retryButton.addEventListener('click', () => {
+        _quizProgress = {
+          key: `${lesson.courseId || ''}:${lesson.id || ''}`,
+          results: Object.create(null),
+          activeStepIndex: 0,
+          finalized: false
+        };
+        renderLesson(lesson, container);
       });
     }
   }

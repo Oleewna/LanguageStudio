@@ -3,6 +3,8 @@
     "id": "mcq-g1",
     "format": "mcq",
     "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1",
     "question": {
       "uk": "Як перекладається італійська фраза «Come stai?»",
       "en": "What does the Italian phrase “Come stai?” mean?"
@@ -79,6 +81,8 @@
     "id": "blk-g1",
     "format": "blank",
     "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1",
     "question": {
       "uk": "«___, come stai?»",
       "en": "“___, come stai?”"
@@ -153,6 +157,8 @@
     "id": "reorder-g1",
     "format": "reorder",
     "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1",
     "clue": {
       "uk": "Привіт, як справи?",
       "en": "Hello, how are you?"
@@ -188,6 +194,8 @@
     "id": "dlg-g1",
     "format": "dialogue",
     "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1-practice",
     "lineA": "А: «Ciao! Come ti chiami?»",
     "instruction": {
       "uk": "Б: оберіть репліку, якою продовжити знайомство",
@@ -203,6 +211,90 @@
       "en": "To answer “Come ti chiami?”, start with “Mi chiamo...”."
     },
     "xp": 15
+  },
+  {
+    "id": "mcq-greeting-evening",
+    "format": "mcq",
+    "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1-greetings",
+    "question": {
+      "uk": "Яке ввічливе привітання використовують увечері?",
+      "en": "Which polite greeting do you use in the evening?"
+    },
+    "options": [
+      { "text": { "uk": "Buonasera!", "en": "Buonasera!" }, "correct": true },
+      { "text": { "uk": "Buongiorno!", "en": "Buongiorno!" }, "correct": false },
+      { "text": { "uk": "Arrivederci!", "en": "Arrivederci!" }, "correct": false }
+    ],
+    "explanation": {
+      "uk": "Buonasera — ввічливе привітання ввечері.",
+      "en": "Buonasera is a polite greeting used in the evening."
+    },
+    "xp": 15
+  },
+  {
+    "id": "blank-greeting-daytime",
+    "format": "blank",
+    "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1-greetings",
+    "question": {
+      "uk": "Ввічливо привітайтеся вдень: «_____!»",
+      "en": "Greet someone politely during the day: “_____!”"
+    },
+    "hint": {
+      "uk": "Починається зі слова Buon...",
+      "en": "It begins with Buon..."
+    },
+    "answers": ["buongiorno"],
+    "explanation": {
+      "uk": "Buongiorno — ввічливе привітання вдень.",
+      "en": "Buongiorno is a polite daytime greeting."
+    },
+    "xp": 10
+  },
+  {
+    "id": "mcq-name-question",
+    "format": "mcq",
+    "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1-practice",
+    "question": {
+      "uk": "Як запитати італійською «Як тебе звати?»",
+      "en": "How do you ask “What is your name?” in Italian?"
+    },
+    "options": [
+      { "text": { "uk": "Come ti chiami?", "en": "Come ti chiami?" }, "correct": true },
+      { "text": { "uk": "Come stai?", "en": "Come stai?" }, "correct": false },
+      { "text": { "uk": "Di dove sei?", "en": "Di dove sei?" }, "correct": false }
+    ],
+    "explanation": {
+      "uk": "Come ti chiami? запитує ім’я співрозмовника.",
+      "en": "Come ti chiami? asks someone’s name."
+    },
+    "xp": 15
+  },
+  {
+    "id": "blank-name-answer",
+    "format": "blank",
+    "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1-practice",
+    "question": {
+      "uk": "Доповніть фразу: «Mi _____ Luca.»",
+      "en": "Complete the phrase: “Mi _____ Luca.”"
+    },
+    "hint": {
+      "uk": "Так італійською кажуть «Мене звати...»",
+      "en": "This is how you say “My name is...” in Italian."
+    },
+    "answers": ["chiamo"],
+    "explanation": {
+      "uk": "Mi chiamo Luca означає «Мене звати Лука».",
+      "en": "Mi chiamo Luca means “My name is Luca.”"
+    },
+    "xp": 10
   },
   {
     "id": "mcq-shop1",

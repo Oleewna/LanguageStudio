@@ -20,7 +20,7 @@
 
 .auth-brand .brand-logo {
   display: block;
-  width: 10rem;
+  width: auto;
   max-height: 2.6rem;
   object-fit: contain;
   object-position: left center;
@@ -257,7 +257,7 @@
   }
 
   .auth-brand .brand-logo {
-    width: 8.5rem;
+    height: 2.1rem;
   }
 
   .auth-actions {

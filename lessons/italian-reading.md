@@ -1,29 +1,3 @@
-# Italian Reading: Italian-Specific Patterns
-
-## How to use this document
-
-- Rule numbering starts at `01`. The `lesson_id` values retain the original lesson numbers for traceability.
-- Vocabulary IDs use `vocab-it-<term>` and are shared wherever the same Italian term appears. Accents and punctuation are normalized in the ID; the Italian text retains its original spelling.
-- Each rule has a stable **rule ID**. Listening items, stories, and exercises are tagged with that ID so platform content can be selected or randomized by rule.
-- Source exercise IDs are retained. Correct answers are included for authoring; hide them in the learner-facing version.
-- Listening sections are prompts and word banks; no audio asset paths are included in this source.
-- New exercises use reading-focused interaction types: `multiple_choice`, `fill_blank`, `pattern_recognition`, `syllable_split`, and `spelling_choice`.
-
-## Rule index / Перелік правил
-
-- [italian-reading-rule-01](#italian-reading-rule-01) - Hard C: ca, co, cu / Тверда C: ca, co, cu
-- [italian-reading-rule-02](#italian-reading-rule-02) - C before E and I: soft ce/ci, hard che/chi / C перед E та I: м’які ce/ci, тверді che/chi
-- [italian-reading-rule-03](#italian-reading-rule-03) - Hard G: ga, go, gu / Тверда G: ga, go, gu
-- [italian-reading-rule-04](#italian-reading-rule-04) - G before E and I: soft ge/gi, hard ghe/ghi / G перед E та I: м’які ge/gi, тверді ghe/ghi
-- [italian-reading-rule-05](#italian-reading-rule-05) - The sounds of SC / Звуки сполуки SC
-- [italian-reading-rule-06](#italian-reading-rule-06) - The GN combination / Сполука GN
-- [italian-reading-rule-07](#italian-reading-rule-07) - The GLI combination / Сполука GLI
-- [italian-reading-rule-08](#italian-reading-rule-08) - QU in Italian words / QU в італійських словах
-- [italian-reading-rule-09](#italian-reading-rule-09) - Double consonants / Подвоєні приголосні
-- [italian-reading-rule-10](#italian-reading-rule-10) - Word stress and written accents / Наголос і письмові акценти
-
-## Rules and practice / Правила та практика
-
 ## Rule 01 — Hard C: ca, co, cu / Тверда C: ca, co, cu
 
 <a id="italian-reading-rule-01"></a>
@@ -42,13 +16,10 @@
 
 - **Українською:** Почуйте твердий звук C у складах ca, co, cu та знайдіть його у знайомих словах.
 - **English:** Hear the hard C sound in ca, co, cu and find it in familiar words.
-
 ### Rule / Правило
 
-**C before A, O, and U / C перед A, O та U**
-
-- **Українською:** У сполуках ca, co, cu літера C має твердий звук: casa, cosa, cucina. У словах casa й cosa це C перед A та O; у cucina перша C стоїть перед U. Це правило лише для цих сполук: C перед E та I читається інакше. У слові cucina друга C стоїть перед I; цей звук розберемо в наступному уроці.
-- **English:** In ca, co, cu, the letter C has a hard sound: casa, cosa, cucina. In casa and cosa, C comes before A and O; in cucina, the first C comes before U. This rule applies only to these combinations: C before E and I is read differently. In cucina, the second C comes before I; we will study that sound in the next lesson.
+- **Українською:** ca, co, cu = [к], як у «котик», «книга», «кухня».
+- **English:** ca, co, cu = [k], as in "kotyk", "knyha", "kuchnia".
 
 ### Listening and word bank / Аудіювання та словник
 
@@ -280,13 +251,10 @@
 
 - **Українською:** Розрізняйте м’яку C у ce/ci та тверду C у che/chi.
 - **English:** Distinguish soft C in ce/ci from hard C in che/chi.
-
 ### Rule / Правило
 
-**C before E and I / C перед E та I**
-
-- **Українською:** Перед E та I літера C має м’який звук: ce, ci, як у словах cena та cinema. Літера H між C та E/I змінює читання: у che та chi C зберігає твердий звук. H окремо не вимовляється. Порівняйте cena / che та cinema / chi, а потім прочитайте повні слова amici, amiche й chiave.
-- **English:** Before E and I, C has a soft sound: ce, ci, as in cena and cinema. The letter H between C and E/I changes the reading: in che and chi, C keeps its hard sound. H is not pronounced separately. Compare cena / che and cinema / chi, then read the complete words amici, amiche, and chiave.
+- **Українською:** ce/ci = [ц], як у «цибуля», «цукор»; che/chi = [к], як у «ке», «ки»; H не читається.
+- **English:** ce/ci = [ts], as in "tsybuliya", "tsukor"; che/chi = [k], as in "ke", "ki"; H is silent.
 
 ### Listening and word bank / Аудіювання та словник
 
@@ -550,13 +518,10 @@
 
 - **Українською:** Почуйте твердий звук G у складах ga, go, gu та знайдіть його у знайомих словах.
 - **English:** Hear the hard G sound in ga, go, gu and find it in familiar words.
-
 ### Rule / Правило
 
-**G before A, O, and U / G перед A, O та U**
-
-- **Українською:** У сполуках ga, go, gu літера G має твердий звук, як у словах gatto, gomma та gusto. Це правило стосується саме цих сполук. Перед E та I G читається інакше. Сполуки ge та gi розглянемо в наступному уроці; поки не поширюйте правило ga, go, gu на всі слова з G.
-- **English:** In ga, go, gu, the letter G has a hard sound, as in gatto, gomma, and gusto. This rule applies specifically to these combinations. G is read differently before E and I. We will study ge and gi in the next lesson; for now, do not apply the ga, go, gu rule to every word with G.
+- **Українською:** ga, go, gu = [г], як у «гора», «голова», «гуляти».
+- **English:** ga, go, gu = [g], as in "hora", "holova", "huljaty".
 
 ### Listening and word bank / Аудіювання та словник
 
@@ -777,13 +742,10 @@
 
 - **Українською:** Розрізняйте м’яку G у ge/gi та тверду G у ghe/ghi.
 - **English:** Distinguish soft G in ge/gi from hard G in ghe/ghi.
-
 ### Rule / Правило
 
-**G before E and I / G перед E та I**
-
-- **Українською:** Перед E та I літера G має м’який звук: ge, gi, як у словах gelato та giraffa. Літера H у сполуках ghe та ghi зберігає твердий звук G перед E та I. H окремо не вимовляється: порівняйте gelato / spaghetti та giraffa / funghi.
-- **English:** Before E and I, G has a soft sound: ge, gi, as in gelato and giraffa. In ghe and ghi, the letter H keeps the hard G sound before E and I. H is not pronounced separately: compare gelato / spaghetti and giraffa / funghi.
+- **Українською:** ge/gi = [ж], як у «жінка», «журнал»; ghe/ghi = [г], як у «гірка», «глина».
+- **English:** ge/gi = [zh], as in "zhinka", "zhurnal"; ghe/ghi = [g], as in "hirka", "hlyna".
 
 ### Listening and word bank / Аудіювання та словник
 
@@ -1018,13 +980,10 @@
 
 - **Українською:** Навчіться читати SC перед різними голосними та помічати роль H.
 - **English:** Learn to read SC before different vowels and notice the role of H.
-
 ### Rule / Правило
 
-**SC before vowels / SC перед голосними**
-
-- **Українською:** У сполуках sca, sco, scu SC позначає послідовність приголосних /sk/, як у словах scala, scopa та scusa. Перед E та I сполуки sce та sci мають інший спільний звук, як у словах scena та sci. Щоб зберегти послідовність /sk/ перед E та I, пишуть H: sche, schi, наприклад scheda та schiena. H окремо не вимовляється.
-- **English:** In sca, sco, scu, SC represents the consonant sequence /sk/, as in scala, scopa, and scusa. Before E and I, sce and sci have a different shared sound, as in scena and sci. To keep the /sk/ sequence before E and I, spelling uses H: sche, schi, as in scheda and schiena. H is not pronounced separately.
+- **Українською:** sca/sco/scu = [ск], як у «скло», «скоба»; sce/sci = [ш], як у «школа», «шина»; sche/schi = [ск] перед E/I, як у «скло».
+- **English:** sca/sco/scu = [sk], as in "sklo", "skoba"; sce/sci = [sh], as in "shkola", "shyna"; sche/schi = [sk] before E/I.
 
 ### Listening and word bank / Аудіювання та словник
 
@@ -1270,13 +1229,10 @@
 
 - **Українською:** Розпізнавайте GN як одну приголосну сполуку та читайте знайомі слова.
 - **English:** Recognize GN as one consonant combination and read familiar words.
-
 ### Rule / Правило
 
-**GN is read as one combination / GN читається як одна сполука**
-
-- **Українською:** В італійських словах gn позначає один приголосний звук. Слухайте його в словах bagno, lasagna та signore; не читайте G і N як два окремі звуки. Під час поділу на склади сполука GN залишається разом: ba-gno, la-sa-gna, si-gno-re. Повторюйте за аудіо, не замінюючи звук приблизним написанням іншою мовою.
-- **English:** In Italian words, gn represents one consonant sound. Listen for it in bagno, lasagna, and signore; do not read G and N as two separate sounds. When dividing these words into syllables, keep GN together: ba-gno, la-sa-gna, si-gno-re. Repeat after the audio without replacing the sound with an approximate spelling from another language.
+- **Українською:** gn = [нь], як у «день», «тінь».
+- **English:** gn = [nʲ], as in "den'", "tin'".
 
 ### Listening and word bank / Аудіювання та словник
 
@@ -1502,13 +1458,10 @@
 
 - **Українською:** Розпізнавайте GLI у поширених словах і наближайте вимову за допомогою аудіо.
 - **English:** Recognize GLI in common words and practice its sound with audio.
-
 ### Rule / Правило
 
-**GLI in common words / GLI у поширених словах**
-
-- **Українською:** У поширених словах famiglia, figlio та aglio сполука gli позначає один італійський звук. Для тих, хто лише починає, він може бути незвичним. Не намагайтеся замінити його одним точним написанням українською чи англійською. Прослухайте кожне слово й повторіть, звертаючи увагу на плавну сполуку звуків. У складах читайте: fa-mi-glia, fi-glio, a-glio.
-- **English:** In common words such as famiglia, figlio, and aglio, the combination gli represents one Italian sound. It may be unfamiliar to beginners. Do not try to replace it with one exact English spelling. Listen to each word and repeat, paying attention to the smooth sound combination. Read the syllables as: fa-mi-glia, fi-glio, a-glio.
+- **Українською:** gli = [ль], як у «льон», «сіль».
+- **English:** gli = [ly], as in "lyon", "sil'".
 
 ### Listening and word bank / Аудіювання та словник
 
@@ -1735,13 +1688,10 @@
 
 - **Українською:** Читайте поширені слова з QU та впізнавайте цю сполуку у фразах.
 - **English:** Read common words with QU and recognize the combination in phrases.
-
 ### Rule / Правило
 
-**The common QU combination / Поширена сполука QU**
-
-- **Українською:** У поширеному написанні qu літера Q стоїть перед U; разом вони передають звукосполучення /kw/ перед наступною голосною. Послухайте quando, quanto та questo. Шукайте QU у коротких фразах: Quando?, Quanto costa?, questo libro. Це урок про поширену сполуку QU, а не про кожну літеру U в італійській.
-- **English:** In the common spelling qu, Q comes before U; together they represent the /kw/ sound before the next vowel. Listen to quando, quanto, and questo. Look for QU in short phrases: Quando?, Quanto costa?, questo libro. This lesson is about the common QU combination, not every written U in Italian.
+- **Українською:** qu = [ку], як у «кухня», «кулак»; звук починається з «ку», а не «кв».
+- **English:** qu = [ku], as in "kukhnya", "kulak"; it starts like "ku", not "kv".
 
 ### Listening and word bank / Аудіювання та словник
 
@@ -1997,13 +1947,10 @@
 
 - **Українською:** Навчися помічати подвоєні приголосні на письмі та чути, як вони можуть розрізняти слова.
 - **English:** Learn to notice doubled consonants in writing and hear how they can distinguish words.
-
 ### Rule / Правило
 
-**Hold the consonant longer / Приголосний довший**
-
-- **Українською:** В італійському слові подвоєну приголосну вимовляють довше, ніж одинарну. Послухай і порівняй pala та palla, а також casa та cassa. Подвоєння може розрізняти слова: pala — лопата, а palla — м’яч; casa — дім, а cassa — ящик або каса. Це приклади, а не твердження, що кожна пара слів працює однаково.
-- **English:** In an Italian word, a doubled consonant is held longer than a single one. Listen and compare pala with palla, and casa with cassa. Doubling can distinguish words: pala means “shovel,” while palla means “ball”; casa means “house,” while cassa means “box” or “cash desk.” These are examples, not a claim that every pair works in the same way.
+- **Українською:** подвоєні приголосні довше тягнуться, як у словах із подвоєною літерою: «клас», «ссавець».
+- **English:** doubled consonants are held longer, as in words with doubled letters: "klas", "ssavets".
 
 ### Listening and word bank / Аудіювання та словник
 
@@ -2245,13 +2192,10 @@
 
 - **Українською:** Дізнайся, як чути наголошену частину слова та навіщо в деяких словах пишуть знак наголосу.
 - **English:** Learn to hear the stressed part of a word and why some words are written with an accent mark.
-
 ### Rule / Правило
 
-**Stress and the written accent / Наголос і знак акценту**
-
-- **Українською:** У кожному італійському слові одна частина звучить виразніше: це наголос. Його потрібно почути й вимовити, хоча в багатьох словах на письмі його не позначають. У поширених словах із наголосом на останньому складі ставлять письмовий акцент: città, caffè, perché. Послухай ці приклади: акцент указує, де слово завершується наголошеним голосним.
-- **English:** One part of every Italian word stands out in pronunciation: this is the word stress. You need to hear and pronounce it even though it is not marked in writing in many words. Common words stressed on the final syllable are written with an accent mark: città, caffè, perché. Listen to these examples: the mark shows that the word ends with the stressed vowel.
+- **Українською:** наголос падає на склад, який треба виділити; наприклад: caffè = «каффЕ».
+- **English:** stress falls on the accented syllable; for example, caffè = "kaff-EH".
 
 ### Listening and word bank / Аудіювання та словник
 
@@ -2482,6 +2426,7 @@
 - **Українською:** У цій історії немає нових правил. Знайди знайомі сполуки в словах: chiede, città, gelato, escono, sceglie, figlio, quanto, spaghetti та funghi. Спочатку прочитай кожне речення самостійно, потім увімкни аудіо. Коли будеш готовий, відкрий переклад і відповідай на запитання за текстом.
 - **English:** This story introduces no new rules. Look for familiar patterns in these words: chiede, città, gelato, escono, sceglie, figlio, quanto, spaghetti, and funghi. First read each sentence on your own, then play the audio. When you are ready, reveal the translation and answer the questions about the text.
 
+
 ### Listening and word bank / Аудіювання та словник
 
 **Activity / Вправа:** Useful words / Корисні слова
@@ -2660,3 +2605,7 @@
   - 3. gelato / gelato
 
 ---
+
+
+
+

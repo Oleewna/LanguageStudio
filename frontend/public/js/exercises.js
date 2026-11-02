@@ -15,6 +15,10 @@
   const answeredState = {};
   let taskBank = [];
   let categoryMap = {};
+  let coursePaths = [];
+  let courseLessons = [];
+  let selectedPathId = 'all';
+  let selectedLessonId = 'all';
   let runtimeFormats = [...DEFAULT_FORMATS];
   let currentMatchTask = null;
   let currentMatchData = [];
@@ -131,6 +135,153 @@
     return map;
   }
 
+  function getPathLessons(path) {
+    return (path.units || []).flatMap((unit) => (unit.lessons || []).map((lesson) => ({
+      ...lesson,
+      pathId: path.id,
+      pathTitle: path.title,
+      unitId: unit.id,
+      unitTitle: unit.title
+    })));
+  }
+
+  function renderLessonScopeOptions() {
+    const lessonSelect = document.getElementById('lessonFilterSelect');
+    if (!lessonSelect) return;
+
+    const language = getLang();
+    const allLessonsOption = document.createElement('option');
+    allLessonsOption.value = 'all';
+    allLessonsOption.textContent = language === 'en' ? 'All lessons' : 'Усі уроки';
+    lessonSelect.replaceChildren(allLessonsOption);
+
+    const scopedLessons = selectedPathId === 'all'
+      ? courseLessons
+      : courseLessons.filter((lesson) => lesson.pathId === selectedPathId);
+    scopedLessons.forEach((lesson) => {
+      const option = document.createElement('option');
+      option.value = lesson.id;
+      const number = getText(lesson.num || '', '');
+      const title = getText(lesson.title || lesson.id, lesson.id);
+      option.textContent = number ? `${number} · ${title}` : title;
+      lessonSelect.appendChild(option);
+    });
+
+    if (scopedLessons.some((lesson) => lesson.id === selectedLessonId)) {
+      lessonSelect.value = selectedLessonId;
+    } else {
+      selectedLessonId = 'all';
+      lessonSelect.value = 'all';
+    }
+  }
+
+  function updateExerciseHeading() {
+    const heroEyebrow = document.getElementById('exercisePageEyebrow');
+    const heroTitle = document.getElementById('exercisePageTitle');
+    const heroDescription = document.getElementById('exercisePageDescription');
+    if (!heroEyebrow || !heroTitle || !heroDescription) return;
+
+    const language = getLang();
+    const lesson = courseLessons.find((item) => item.id === selectedLessonId);
+    const path = coursePaths.find((item) => item.id === selectedPathId);
+    if (lesson) {
+      const pathTitle = getText(lesson.pathTitle || '', '');
+      const lessonTitle = getText(lesson.title || lesson.id, lesson.id);
+      heroEyebrow.textContent = language === 'en' ? 'LESSON PRACTICE' : 'ПРАКТИКА УРОКУ';
+      heroTitle.textContent = lessonTitle;
+      heroDescription.textContent = language === 'en'
+        ? `Extra practice for “${lessonTitle}” in the ${pathTitle} path.`
+        : `Додаткові вправи до уроку «${lessonTitle}» з напряму «${pathTitle}».`;
+      return;
+    }
+
+    if (path) {
+      const pathTitle = getText(path.title || path.id, path.id);
+      heroEyebrow.textContent = language === 'en' ? 'PATH PRACTICE' : 'ПРАКТИКА НАПРЯМУ';
+      heroTitle.textContent = pathTitle;
+      heroDescription.textContent = language === 'en'
+        ? `Extra practice from the ${pathTitle} learning path.`
+        : `Додаткові вправи з напряму навчання «${pathTitle}».`;
+      return;
+    }
+
+    heroEyebrow.textContent = language === 'en' ? 'PRACTICE A LITTLE, OFTEN' : 'ТРЕНУЙТЕСЯ ПОТРОХУ, АЛЕ ЧАСТО';
+    heroTitle.textContent = language === 'en' ? 'Quick practice' : 'Швидка практика';
+    heroDescription.textContent = language === 'en'
+      ? 'Pick a skill, try a short challenge, and build confidence one answer at a time.'
+      : 'Оберіть навичку, виконайте коротке завдання й набирайтеся впевненості крок за кроком.';
+  }
+
+  function renderScopeFilters(course) {
+    coursePaths = Array.isArray(course.paths) ? course.paths : [];
+    courseLessons = coursePaths.flatMap(getPathLessons);
+    const pathSelect = document.getElementById('pathFilterSelect');
+    const lessonSelect = document.getElementById('lessonFilterSelect');
+    if (!pathSelect || !lessonSelect) return;
+
+    const language = getLang();
+    const pathLabel = document.querySelector('label[for="pathFilterSelect"]');
+    const lessonLabel = document.querySelector('label[for="lessonFilterSelect"]');
+    if (pathLabel) pathLabel.textContent = language === 'en' ? 'Learning path' : 'Напрям навчання';
+    if (lessonLabel) lessonLabel.textContent = language === 'en' ? 'Lesson' : 'Урок';
+
+    const allPathsOption = document.createElement('option');
+    allPathsOption.value = 'all';
+    allPathsOption.textContent = language === 'en' ? 'All paths' : 'Усі напрями';
+    pathSelect.replaceChildren(allPathsOption);
+    coursePaths.forEach((path) => {
+      const option = document.createElement('option');
+      option.value = path.id;
+      option.textContent = getText(path.title || path.id, path.id);
+      pathSelect.appendChild(option);
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedLesson = params.get('lesson') || 'all';
+    const requestedPath = params.get('path') || 'all';
+    const requestedLessonData = courseLessons.find((lesson) => lesson.id === requestedLesson);
+    selectedPathId = coursePaths.some((path) => path.id === requestedPath)
+      ? requestedPath
+      : requestedLessonData?.pathId || 'all';
+    selectedLessonId = requestedLessonData ? requestedLesson : 'all';
+    pathSelect.value = selectedPathId;
+    renderLessonScopeOptions();
+
+    updateExerciseHeading();
+
+    if (selectedPathId !== 'all' || selectedLessonId !== 'all') {
+      const filterToggle = document.querySelector('[data-filter-toggle="exercises"]');
+      const filtersPanel = document.getElementById('exerciseFiltersPanel');
+      if (filterToggle && filtersPanel) {
+        filterToggle.setAttribute('aria-expanded', 'true');
+        filtersPanel.classList.remove('hidden');
+      }
+    }
+
+    pathSelect.addEventListener('change', () => {
+      selectedPathId = pathSelect.value;
+      renderLessonScopeOptions();
+      updateExerciseHeading();
+      syncScopeQuery();
+      applyFiltersAndSort();
+    });
+    lessonSelect.addEventListener('change', () => {
+      selectedLessonId = lessonSelect.value;
+      updateExerciseHeading();
+      syncScopeQuery();
+      applyFiltersAndSort();
+    });
+  }
+
+  function syncScopeQuery() {
+    const url = new URL(window.location.href);
+    if (selectedPathId === 'all') url.searchParams.delete('path');
+    else url.searchParams.set('path', selectedPathId);
+    if (selectedLessonId === 'all') url.searchParams.delete('lesson');
+    else url.searchParams.set('lesson', selectedLessonId);
+    window.history.replaceState({}, '', url);
+  }
+
   function renderCategoryPills() {
     const wrap = document.getElementById('catPillsWrap');
     if (!wrap) return;
@@ -208,12 +359,18 @@
     currentTab = name;
     renderFormatTabs();
 
-    if (name === 'match') {
-      renderMatchingPanel();
-    } else if (name === 'reorder') {
-      renderReorderPanel();
-    } else if (name === 'dict') {
-      generateDictQuiz();
+    if (name === 'dict') {
+      if (selectedPathId !== 'all' || selectedLessonId !== 'all') {
+        const container = document.getElementById('dictQuizContainer');
+        if (container) {
+          container.textContent = getText({
+            uk: 'Вправи зі словника не прив’язані до конкретного напряму чи уроку.',
+            en: 'Dictionary exercises are not tied to a specific path or lesson.'
+          });
+        }
+      } else {
+        generateDictQuiz();
+      }
     } else {
       applyFiltersAndSort();
     }
@@ -227,6 +384,8 @@
 
     const filtered = taskBank.filter((task) => {
       if (task.format !== currentTab) return false;
+      if (selectedPathId !== 'all' && task.pathId !== selectedPathId) return false;
+      if (selectedLessonId !== 'all' && task.lessonId !== selectedLessonId) return false;
       if (activeCategoryFilter !== 'all' && task.category !== activeCategoryFilter) return false;
 
       const catInfo = getCategoryInfo(task.category);
@@ -485,7 +644,7 @@
     const container = document.getElementById('container-match');
     if (!container) return;
 
-    const matchTasks = (filteredItems && filteredItems.length ? filteredItems : taskBank).filter((task) => task.format === 'match');
+    const matchTasks = (filteredItems || taskBank).filter((task) => task.format === 'match');
     if (!matchTasks.length) { container.innerHTML = renderEmptyState(); return; }
 
     const task = matchTasks[0];
@@ -573,7 +732,7 @@
     const container = document.getElementById('container-reorder');
     if (!container) return;
 
-    const items = (filteredItems && filteredItems.length ? filteredItems : taskBank).filter((task) => task.format === 'reorder');
+    const items = (filteredItems || taskBank).filter((task) => task.format === 'reorder');
     if (!items.length) { container.innerHTML = renderEmptyState(); return; }
 
     container.innerHTML = items.map((task) => {
@@ -769,6 +928,7 @@
       categoryMap = buildCategoryMap(course.exerciseCategories || []);
       currentTab = runtimeFormats.includes(currentTab) ? currentTab : runtimeFormats[0] || 'mcq';
 
+      renderScopeFilters(course);
       renderCategoryPills();
       renderFormatTabs();
       applyFiltersAndSort();

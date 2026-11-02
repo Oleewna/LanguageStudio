@@ -13,6 +13,7 @@ function getLocalizedText(value) {
 function renderRoadmap(course) {
   const roadmapRoot = document.getElementById('roadmapRoot');
   if (!roadmapRoot || !course || !Array.isArray(course.paths)) return;
+  const lessonsPerRow = 3;
 
   roadmapRoot.innerHTML = course.paths.map((path) => {
     const isLocked = Boolean(path.locked);
@@ -30,10 +31,15 @@ function renderRoadmap(course) {
 
     const unitsHtml = (path.units || []).map((unit) => {
       let hasCurrentLesson = false;
-      const lessonRows = (unit.lessons || []).map((lesson) => {
+      const lessonRows = (unit.lessons || []).map((lesson, index) => {
         const lessonTitle = getLocalizedText(lesson.title);
         const lessonDescription = getLocalizedText(lesson.description);
         const lessonNum = getLocalizedText(lesson.num) || '';
+        const row = Math.floor(index / lessonsPerRow);
+        const positionInRow = index % lessonsPerRow;
+        const column = row % 2 === 0
+          ? positionInRow
+          : lessonsPerRow - positionInRow - 1;
         const isAvailable = Boolean(lesson.status === 'available');
         const isCurrent = isAvailable && !hasCurrentLesson;
         if (isCurrent) hasCurrentLesson = true;
@@ -46,7 +52,7 @@ function renderRoadmap(course) {
             : getLocalizedText({ uk: 'Заблоковано', en: 'Locked' });
         const lessonHref = lesson.href || `pages/lesson.html?course=${encodeURIComponent(course.id || 'it')}&lesson=${encodeURIComponent(lesson.id || '')}`;
         const item = `
-          <div class="tree-node-item tree-node-${nodeState}">
+          <div class="tree-node-item tree-node-${nodeState}" style="grid-area: ${row + 1} / ${column + 1}">
             <div class="node-bullet ${isCurrent ? 'nb-current' : isAvailable ? 'nb-upcoming' : 'nb-locked'}">${getIconSvg(markerIcon)}</div>
             ${isAvailable ? `<a href="${escapeHtml(lessonHref)}" class="node-content-card">` : `<div class="node-content-card locked-card">`}
               <div>

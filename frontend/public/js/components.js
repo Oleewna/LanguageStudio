@@ -5,7 +5,7 @@
   const pagesIndex = pathname.indexOf('/pages/');
   const PREFIX = pagesIndex === -1 ? '' : '../'.repeat(pathname.slice(pagesIndex + 7).split('/').length);
   const icon = name => `<span data-icon="${name}"></span>`;
-  const brandMark = '<span class="brand-mark" aria-hidden="true"></span>';
+  const brandMark = `<img src="${PREFIX}assets/images/logo.svg" alt="" class="brand-logo" />`;
   let loadingComponents;
 
   function localizeEmbeddedTemplate(template) {
@@ -95,15 +95,13 @@
     navbar: `${mobileNavigation()}<header class="topnav">
       <a href="pages/home.html" class="nav-brand" aria-label="LanguageStudio home">${brandMark}<span class="nav-brand-name">Language<span>Studio</span></span></a>
       <div class="nav-right"><div class="student-stats"><div class="streak-badge">${icon('streak')}<span>1</span></div><div class="xp-badge">${icon('xp')}<span class="xp-val-display">0</span><span>XP</span></div></div>
-        <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}</button>
         <button type="button" class="student-widget" title="Student profile" aria-label="Student profile"><span class="student-avatar">S</span></button>
-        <a href="pages/settings.html" class="settings-link" title="Settings" aria-label="Settings" data-nav="settings">${icon('settings')}</a>
         <button class="menu-toggle" type="button" aria-label="Menu">${icon('menu')}</button>
       </div></header>`,
     'mobile-nav': mobileNavigation(),
     footer: `<footer class="site-footer"><div class="footer-inner"><div>${icon('cafe')} <b>LanguageStudio</b> · Italian for real-life situations</div><div class="footer-links">${mobileLinks.map(([href, key, , label]) => `<a href="${href}" data-nav="${key}">${label}</a>`).join('')}</div></div></footer>`,
     'profile-modal': `<div class="profile-modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()"><section class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-title"><div class="pm-topline"><div class="pm-eyebrow" id="profile-title">Student Profile</div><button type="button" class="pm-close" onclick="closeProfileModal()" aria-label="Close">${icon('close')}</button></div><div class="pm-header"><div class="pm-avatar">S</div><div><div class="pm-name">Student</div><div class="pm-path">Guest profile · progress is saved on this device</div><div class="pm-path">Learning path: <b data-course-label>Communication basics</b></div></div></div><section class="pm-settings" aria-labelledby="source-language-title"><h3 class="pm-settings-title" id="source-language-title">Learning & Interface Settings</h3><div class="pm-settings-grid"><div class="pm-setting"><label class="pm-setting-label" for="targetCourse">Target Course</label><select class="pm-setting-select" id="targetCourse" data-target-course-select onchange="setTargetCourse(this.value)"></select></div><div class="pm-setting"><label class="pm-setting-label" for="sourceLanguage">Language for translations & explanations</label><select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select></div><div class="pm-setting"><div class="pm-setting-label">Interface Theme</div><button type="button" class="btn-ghost pm-theme-button" onclick="toggleTheme()">${icon('sun')} Switch theme</button></div></div></section><div class="pm-stats-grid"><div class="pm-stat-box" data-profile-stat="xp"><div class="pm-stat-val"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">XP Points</div></div><div class="pm-stat-box" data-profile-stat="streak"><div class="pm-stat-val">1 day</div><div class="pm-stat-lbl">Daily Streak</div></div><div class="pm-stat-box" data-profile-stat="lessons"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Lessons Completed</div></div><div class="pm-stat-box" data-profile-stat="words"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Dictionary Words</div></div></div><div class="pm-footer"><a class="btn-primary" href="pages/auth.html" data-nav="auth">Sign in or register</a></div></section></div>`,
-    'auth-header': `<header class="auth-topbar"><a href="index.html" class="auth-brand" aria-label="LanguageStudio home"><img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" /></a><div class="auth-actions"><button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}</button><a class="btn-ghost auth-home" href="index.html">${icon('arrow-left')} Home</a></div></header>`
+    'auth-header': `<header class="auth-topbar"><a href="index.html" class="auth-brand" aria-label="LanguageStudio home">${brandMark}<span class="brand-wordmark">Language<span>Studio</span></span></a><div class="auth-actions"><button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}</button><a class="btn-ghost auth-home" href="index.html">${icon('arrow-left')} Home</a></div></header>`
   };
 
   EMBEDDED_COMPONENTS['profile-modal'] = EMBEDDED_COMPONENTS['profile-modal']
