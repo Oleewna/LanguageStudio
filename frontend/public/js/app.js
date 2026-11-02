@@ -669,17 +669,8 @@ function getSelectedSourceLanguage() {
 }
 
 function getCourseCatalog() {
-  const fallbackCourse = {
-    id: 'it',
-    flag: 'flag-it',
-    name: { uk: 'Італійська', en: 'Italian' },
-    native: 'Italiano',
-    status: 'active'
-  };
-
   const cachedCourses = Array.isArray(window.__LS_COURSE_INDEX?.courses) ? window.__LS_COURSE_INDEX.courses : [];
-  if (cachedCourses.length) return cachedCourses;
-  return [fallbackCourse];
+  return cachedCourses;
 }
 
 async function refreshCourseCatalog() {
@@ -688,9 +679,10 @@ async function refreshCourseCatalog() {
     if (index && Array.isArray(index.courses) && index.courses.length) {
       window.__LS_COURSE_INDEX = index;
     }
-    return window.__LS_COURSE_INDEX || { default: 'it', courses: getCourseCatalog() };
+    return window.__LS_COURSE_INDEX || { default: '', courses: [] };
   } catch (error) {
-    return { default: 'it', courses: getCourseCatalog() };
+    console.error('Could not refresh course catalog:', error);
+    return { default: '', courses: [] };
   }
 }
 
@@ -698,8 +690,7 @@ function getCourseMeta(courseId = getTargetCourse()) {
   const courseCatalog = getCourseCatalog();
   const match = courseCatalog.find(course => course.id === courseId);
   if (match) return match;
-  const fallback = courseCatalog[0] || { id: 'it', flag: 'flag-it', name: { uk: 'Італійська', en: 'Italian' }, status: 'active' };
-  return { ...fallback, id: courseId || fallback.id };
+  return { id: courseId || '', name: { uk: courseId || '', en: courseId || '' } };
 }
 
 function setCourseLabel(element, course) {
@@ -841,7 +832,7 @@ async function refreshCurrentCourseConfig() {
       updateProfileStats();
     }
   } catch (error) {
-    // Silent fallback for pages without a course JSON or while loading the default course.
+    console.error('Could not load the current course configuration:', error);
   }
 }
 
@@ -1172,6 +1163,48 @@ function getStudentProfilePresentation() {
   };
 }
 
+async function refreshStudentSession() {
+  const response = await fetch(window.getApiUrl('auth/session'), { credentials: 'include' });
+  if (response.status === 404) return;
+  if (!response.ok) throw new Error(`Account session request failed (${response.status}).`);
+
+  const result = await response.json();
+  Object.assign(LOCAL_STUDENT_PROFILE, {
+    isAuthenticated: result.authenticated === true,
+    displayName: result.user?.name || '',
+    email: result.user?.email || ''
+  });
+
+  const profileModal = document.getElementById('profileModal');
+  if (!profileModal) return;
+  const presentation = getStudentProfilePresentation();
+  const name = profileModal.querySelector('.pm-header .pm-name');
+  const status = profileModal.querySelector('.pm-header .pm-path');
+  const action = profileModal.querySelector('.pm-footer a');
+  if (name) name.textContent = presentation.name;
+  if (status) status.textContent = presentation.status;
+  if (action) {
+    action.textContent = LOCAL_STUDENT_PROFILE.isAuthenticated ? 'Sign out' : 'Sign in or register';
+    action.href = LOCAL_STUDENT_PROFILE.isAuthenticated ? '#' : getAuthPageHref();
+    action.onclick = LOCAL_STUDENT_PROFILE.isAuthenticated
+      ? async event => {
+          event.preventDefault();
+          try {
+            const logoutResponse = await fetch(window.getApiUrl('auth/logout'), {
+              method: 'POST',
+              credentials: 'include'
+            });
+            if (!logoutResponse.ok) throw new Error(`Sign out failed (${logoutResponse.status}).`);
+            await refreshStudentSession();
+          } catch (error) {
+            if (status) status.textContent = 'Could not sign out. Please try again.';
+            console.error('Could not sign out:', error);
+          }
+        }
+      : null;
+  }
+}
+
 function getAuthPageHref() {
   const pagesMarker = '/pages/';
   const pagesIndex = location.pathname.indexOf(pagesMarker);
@@ -1212,6 +1245,11 @@ function openProfileModal() {
   if (modal) {
     modal.classList.add('open');
   }
+  refreshStudentSession().catch(error => {
+    const status = modal?.querySelector('.pm-header .pm-path');
+    if (status) status.textContent = 'Unable to load account status.';
+    console.error('Could not load account session:', error);
+  });
 }
 
 function closeProfileModal() {

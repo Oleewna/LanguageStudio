@@ -40,22 +40,6 @@
     return `${prefix} ${number || rawNumber || lesson.id || ''}`;
   }
 
-  function getCourseBasePath() {
-    const path = window.location.pathname || '';
-    if (path.includes('/frontend/public/pages') || path.includes('/frontend/public/lessons')) return '../../../';
-    if (path.includes('/pages/') || path.includes('/lessons/')) return '../../';
-    if (path.includes('/frontend/public') || path.includes('/public/')) return '../../';
-    return './';
-  }
-
-  function getLessonFileUrl(courseId, lessonId) {
-    return `${getCourseBasePath()}courses/${encodeURIComponent(courseId)}/lessons/${encodeURIComponent(lessonId)}.json`;
-  }
-
-  function getCourseFileUrl(courseId) {
-    return `${getCourseBasePath()}courses/${encodeURIComponent(courseId)}/course.json`;
-  }
-
   function getLessonList(course) {
     return course && Array.isArray(course.paths)
       ? course.paths.flatMap((path) => (path.units || []).flatMap((unit) => (unit.lessons || []).map((lesson) => ({

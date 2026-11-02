@@ -1,22 +1,17 @@
-// Its only task when the system is well-structured is: import libraries, register routes, and start the server
-
 const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path'); // Built-in module, does not require installation
+const path = require('path');
 
-// Route imports
-const pagesRoutes = require('./routes/pageroutes'); // Route handler for GET page requests
-const authRoutes = require('./routes/auth'); // Route handler for auth POST requests
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
+const contentRoutes = require('./routes/content');
+const pagesRoutes = require('./routes/pageroutes');
 const app = express();
-const port = 3005;
 
-// Body parser configuration
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json({ limit: '5mb' }));
+app.use(express.urlencoded({ extended: false, limit: '16kb' }));
+app.use('/api/content', contentRoutes);
+app.get('/health', (req, res) => res.json({ status: 'ok', service: 'content' }));
 
-// Serve static files from frontend/public
-// Rewrite some extensionless public page requests to their .html files
 app.use((req, res, next) => {
     if (req.path === '/pages/lesson' || req.path === '/lesson') {
         req.url = '/pages/lesson.html' + (req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '');
@@ -24,13 +19,29 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/courses', express.static(path.join(__dirname, '../../../courses')));
 app.use(express.static(path.join(__dirname, '../../../frontend/public')));
-
-// Route handling
 app.use('/', pagesRoutes);
-app.use('/', authRoutes);
 
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+app.use((error, req, res, next) => {
+    const status = Number.isInteger(error.status) && error.status >= 400 && error.status < 600
+        ? error.status
+        : 500;
+    if (status >= 500) console.error(error);
+    res.status(status).json({
+        error: status >= 500 ? (error.publicMessage || 'Unexpected server error.') : error.message
+    });
 });
+
+const port = Number(process.env.PORT || 3006);
+if (!Number.isInteger(port) || port < 0 || port > 65535) {
+    throw new Error('PORT must be an integer between 0 and 65535.');
+}
+
+if (require.main === module) {
+    const host = process.env.HOST || '127.0.0.1';
+    app.listen(port, host, () => {
+        console.log(`LanguageStudio server running at http://localhost:${port}`);
+    });
+}
+
+module.exports = app;

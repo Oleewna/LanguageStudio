@@ -3195,3 +3195,9 @@ body .st-toggle-row {
     gap: 1rem;
   }
 }
+
+@media (max-width: 480px) {
+  .home-dashboard .hub-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

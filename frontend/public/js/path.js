@@ -271,14 +271,7 @@ function renderCategories(progressRecords = []) {
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     if (typeof window.loadCourse === 'function') {
-      try {
-        window.__LS_COURSE_DATA = await window.loadCourse();
-      } catch (error) {
-        const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
-        const response = await fetch(`/courses/${encodeURIComponent(courseId)}/course.json`, { cache: 'no-store' });
-        if (!response.ok) throw error;
-        window.__LS_COURSE_DATA = await response.json();
-      }
+      window.__LS_COURSE_DATA = await window.loadCourse();
     }
   } catch (error) {
     console.warn('Could not load course data for paths:', error);

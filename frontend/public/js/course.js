@@ -3,18 +3,22 @@
   const FALLBACK_SOURCE_LANGUAGE = 'en';
   let resolvedDefaultCourseId = null;
   const jsonRequests = new Map();
+  const apiBaseUrl = (() => {
+    if (window.location.port !== '5500') return '/api/v1';
+    const gatewayOrigin = new URL(window.location.origin);
+    gatewayOrigin.port = '3005';
+    return `${gatewayOrigin.origin}/api/v1`;
+  })();
 
-  function loadJson(url, errorMessage, allowNotFound = false) {
+  window.getApiUrl = resourcePath => `${apiBaseUrl}/${String(resourcePath).replace(/^\/+/, '')}`;
+
+  function loadJson(url, errorMessage) {
     if (jsonRequests.has(url)) return jsonRequests.get(url);
 
     let request;
     request = fetch(url, { cache: 'no-store' })
       .then(response => {
         if (!response.ok) {
-          if (allowNotFound) {
-            jsonRequests.delete(url);
-            return null;
-          }
           throw new Error(errorMessage);
         }
         return response.json();
@@ -28,26 +32,8 @@
     return request;
   }
 
-  function getBasePath() {
-    const pathname = window.location.pathname || '';
-
-    if (pathname.includes('/frontend/public/pages') || pathname.includes('/frontend/public/lessons')) {
-      return '../../../';
-    }
-
-    if (pathname.includes('/pages/') || pathname.includes('/lessons/')) {
-      return '../../';
-    }
-
-    if (pathname.includes('/frontend/public') || pathname.includes('/public/')) {
-      return '../../';
-    }
-
-    return './';
-  }
-
-  function getCourseIndexPath() {
-    return `${getBasePath()}courses/index.json`;
+  function getContentApiPath(resourcePath) {
+    return window.getApiUrl(`content/${resourcePath}`);
   }
 
   function getCourseId() {
@@ -63,35 +49,47 @@
 
   async function loadCourseIndex() {
     try {
-      const data = await loadJson(getCourseIndexPath(), 'Course index not found', true);
-      const resolved = data || { default: DEFAULT_COURSE_ID, courses: [{ id: DEFAULT_COURSE_ID }] };
+      const resolved = await loadJson(getContentApiPath('course-index'), 'Course index not found');
+      if (!resolved || !Array.isArray(resolved.courses) || resolved.courses.length === 0) {
+        throw new Error('Course index is empty or invalid.');
+      }
       const nextDefault = resolved.default || resolved.courses?.[0]?.id || DEFAULT_COURSE_ID;
       resolvedDefaultCourseId = nextDefault;
+      window.__LS_COURSE_INDEX = resolved;
       window.__LS_DEFAULT_COURSE_ID = nextDefault;
       if (!localStorage.getItem('ls_course') && !localStorage.getItem('ls_target_course')) {
         localStorage.setItem('ls_course', nextDefault);
       }
       return resolved;
     } catch (error) {
-      console.warn('Could not load course index:', error);
-      resolvedDefaultCourseId = DEFAULT_COURSE_ID;
-      window.__LS_DEFAULT_COURSE_ID = DEFAULT_COURSE_ID;
-      return { default: DEFAULT_COURSE_ID, courses: [{ id: DEFAULT_COURSE_ID }] };
+      console.error('Could not load course index:', error);
+      throw error;
     }
   }
 
   async function loadCourse() {
     const id = getCourseId();
-    return await loadJson(`${getBasePath()}courses/${id}/course.json`, `Course not found: ${id}`);
+    return await loadJson(getContentApiPath(`courses/${encodeURIComponent(id)}`), `Course not found: ${id}`);
   }
 
   function resolveCourseDataPath(name) {
     const rawName = String(name || '').trim();
-    // Lesson content is addressed by a stable lesson id (for example: 1.1), not by
-    // a route-like path. The file name matches the lesson ID so the course data can be
-    // loaded consistently from `courses/{courseId}/lessons/{lessonId}.json`.
-    const normalizedName = rawName ? (rawName.endsWith('.json') ? rawName : `${rawName}.json`) : 'course.json';
-    return `${getBasePath()}courses/${getCourseId()}/${normalizedName}`;
+    const normalizedName = rawName.replace(/\.json$/, '');
+    const courseId = encodeURIComponent(getCourseId());
+    if (normalizedName.startsWith('lessons/')) {
+      const lessonId = encodeURIComponent(normalizedName.slice('lessons/'.length));
+      return getContentApiPath(`courses/${courseId}/lessons/${lessonId}`);
+    }
+
+    if (normalizedName === 'course') {
+      return getContentApiPath(`courses/${courseId}`);
+    }
+
+    if (!['vocab', 'grammar', 'exercises'].includes(normalizedName)) {
+      throw new Error(`Unknown course data resource: ${name}`);
+    }
+
+    return getContentApiPath(`courses/${courseId}/${normalizedName}`);
   }
 
   async function loadCourseData(name) {
@@ -157,5 +155,7 @@
     L
   });
 
-  loadCourseIndex().catch(() => {});
+  loadCourseIndex().catch(error => {
+    console.error('Could not initialize the course catalog:', error);
+  });
 })();

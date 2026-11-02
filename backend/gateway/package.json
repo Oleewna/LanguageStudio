@@ -1,0 +1,16 @@
+{
+  "name": "languagestudio-gateway",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/gateway.js",
+  "scripts": {
+    "start": "node src/gateway.js",
+    "test": "node --test"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^18.0.9",
+    "express": "^5.2.1",
+    "http-proxy-middleware": "^3.0.5"
+  }
+}

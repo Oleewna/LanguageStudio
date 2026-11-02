@@ -1,0 +1,16 @@
+{
+  "name": "languagestudio-auth-service",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "user:role": "node scripts/set-user-role.js"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^18.0.9",
+    "express": "^5.2.1"
+  }
+}
