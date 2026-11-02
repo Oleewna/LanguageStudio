@@ -43,8 +43,6 @@ const UI_TRANSLATIONS = {
   'Основи спілкування · Урок 1': 'Communication basics · Lesson 1',
   'Основи спілкування · Урок 1 — LanguageStudio, Італійська': 'Communication basics · Lesson 1 — LanguageStudio, Italian',
   'Знайомство — Come ti chiami?': 'Introductions — Come ti chiami?',
-  'Софія приходить на перший урок італійської в Мілані. Вона знайомиться з Ґретою, студенткою того самого курсу.': 'Sofia arrives for her first Italian lesson in Milan and meets Greta, a student in the same course.',
-  'Студенти в італійському класі знайомляться': 'Students meeting in an Italian classroom',
   'Переглянути всі напрямки': 'View all learning paths',
   'Вправи до Уроку 1': 'Lesson 1 exercises',
   'Банк завдань': 'Question bank',
@@ -119,7 +117,6 @@ const UI_TRANSLATIONS = {
   'Головна': 'Home',
   'Розділ 1 · Урок 1': 'Unit 1 · Lesson 1',
   'РОЗДІЛ 1 · УРОК 1': 'UNIT 1 · LESSON 1',
-  'Софія приходить на перший урок італійської в Мілані та знайомиться з Ґретою, однокурсницею.': 'Sofia arrives for her first Italian lesson in Milan and meets Greta, her classmate.',
   'Слово': 'Word',
   'Нотатка:': 'Note:',
   '[ко-ме ті к’я-мі]': '[KOH-meh tee KYAH-mee]',
@@ -440,13 +437,26 @@ const UI_I18N = [
   { en: 'Italian for real-life situations', uk: 'Італійська для реальних ситуацій' },
   { en: 'Choose your goal', uk: 'Оберіть свою мету' },
 
+  // Home dashboard
+  { en: 'YOUR ITALIAN JOURNEY', uk: 'ВАША ПОДОРОЖ ІТАЛІЙСЬКОЮ' },
+  { en: 'Your Italian learning space', uk: 'Ваш простір для вивчення італійської' },
+  { en: 'Choose your next lesson or practise a little. Your progress is saved on this device.', uk: 'Оберіть наступний урок або трохи попрактикуйтеся. Ваш прогрес зберігається на цьому пристрої.' },
+  { en: 'Explore your learning path', uk: 'Переглянути навчальний напрям' },
+  { en: 'YOUR NEXT STEP', uk: 'ВАШ НАСТУПНИЙ КРОК' },
+  { en: 'KEEP PRACTISING', uk: 'ПРОДОВЖУЙТЕ ПРАКТИКУВАТИСЯ' },
+  { en: 'Practice tools', uk: 'Інструменти для практики' },
+  { en: 'Review words', uk: 'Повторити слова' },
+  { en: 'Quick practice', uk: 'Швидка практика' },
+  { en: 'Saved words', uk: 'Збережені слова' },
+  { en: 'Rules and examples', uk: 'Правила та приклади' },
+
   // Roadmap & units
   { en: 'Communication basics', uk: 'Основи спілкування' },
   { en: 'Communication basics · Active', uk: 'Основи спілкування · Активний' },
-  { en: 'Greetings, your first Milanese dialogue, introductions, and basic verbs — the foundation that supports every path below.', uk: 'Привітання, ваш перший діалог у Мілані, знайомство та базові дієслова — основа для всіх подальших напрямків.' },
+  { en: 'Greetings, short everyday dialogues, introductions, and basic verbs — the foundation that supports every path below.', uk: 'Привітання, короткі повсякденні діалоги, знайомство та базові дієслова — основа для всіх подальших напрямків.' },
   { en: 'Lesson 1.1 · Available', uk: 'Урок 1.1 · Доступно' },
   { en: 'Introduction — “Come ti chiami?”', uk: 'Знайомство — «Come ti chiami?»' },
-  { en: 'Your first Milan classroom dialogue, new words, and conversational culture', uk: 'Ваш перший діалог у міланському класі, нові слова та культура спілкування' },
+  { en: 'A short dialogue introduces greetings, new words, and polite introductions', uk: 'Короткий діалог знайомить із привітаннями, новими словами та ввічливим знайомством' },
   { en: 'Lesson 1.2 · Soon', uk: 'Урок 1.2 · Незабаром' },
   { en: 'Come ti chiami? (Introductions)', uk: 'Come ti chiami? (Знайомство)' },
   { en: 'How to ask someone’s name, the verb chiamarsi, and polite formulas', uk: 'Як запитати ім’я, дієслово chiamarsi та ввічливі вислови' },
@@ -530,7 +540,7 @@ function getInterfaceTranslation(text, language) {
   const clean = text.trim().replace(/\s+/g, ' ').toLowerCase();
   const entry = I18N_LOOKUP.get(clean);
   if (entry) {
-    return entry[language] || entry.uk || entry.en || null;
+    return entry[language] || null;
   }
   return null;
 }
@@ -649,10 +659,7 @@ function getSelectedSourceLanguage() {
   if (SOURCE_LANGUAGES.some(language => language.code === savedLanguage)) {
     return savedLanguage;
   }
-
-  const navLang = (navigator.language || '').toLowerCase();
-  if (navLang.startsWith('uk')) return 'uk';
-  return 'uk';
+  return 'device';
 }
 
 function getCourseCatalog() {

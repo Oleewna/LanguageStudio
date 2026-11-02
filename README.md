@@ -218,6 +218,7 @@ LanguageStudio/
 - Course data is plain JSON and loaded dynamically at runtime.
 - The app is intentionally generic: a new course should work without special-case front-end logic.
 - Shared logic is designed to handle partial or missing data gracefully.
+- Follow [the AI localization guide](./docs/AI_LOCALIZATION_GUIDE.md) when editing localized UI or course content.
 - Validation scripts help keep course metadata, lesson references, and icon registrations consistent.
 - The platform is designed to stay flexible for new course additions and future learning modules.
 

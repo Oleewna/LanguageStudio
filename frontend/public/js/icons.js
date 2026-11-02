@@ -20,6 +20,17 @@ const ICON_ALIASES = {
 let iconRegistryPromise;
 let iconRegistry = null;
 const warnedIconNames = new Set();
+const observedIcons = new WeakSet();
+const renderedIcons = new WeakSet();
+const iconObserver = typeof IntersectionObserver === 'function'
+  ? new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      iconObserver.unobserve(entry.target);
+      if (entry.target.isConnected) applyRegisteredIcon(entry.target);
+    });
+  }, { rootMargin: '128px' })
+  : null;
 
 function loadIconRegistry() {
   if (!iconRegistryPromise) {
@@ -68,6 +79,28 @@ function getIconSvg(name) {
   return `<span class="ls-icon" data-icon="${iconName}" data-name="${assetName}" style="--icon: url('${ICON_ASSET_BASE_URL}${entry.file}')" aria-hidden="true"></span>`;
 }
 
+function applyRegisteredIcon(element) {
+  const requestedName = element.dataset.icon;
+  const iconName = resolveIconName(requestedName);
+  const entry = iconRegistry[iconName];
+  const isMissing = !entry;
+  const resolvedEntry = entry || iconRegistry.placeholder;
+  const isPlaceholder = isMissing || resolvedEntry.file === iconRegistry.placeholder?.file;
+
+  if (isMissing && !warnedIconNames.has(iconName)) {
+    warnedIconNames.add(iconName);
+    console.warn(`Icon "${iconName}" not found`);
+  }
+
+  element.classList.add('ls-icon');
+  element.dataset.name = isPlaceholder ? 'placeholder' : iconName;
+  if (isMissing) element.dataset.iconMissing = '';
+  else delete element.dataset.iconMissing;
+  element.style.setProperty('--icon', `url("${ICON_ASSET_BASE_URL}${resolvedEntry.file}")`);
+  element.setAttribute('aria-hidden', 'true');
+  renderedIcons.add(element);
+}
+
 function renderRegisteredIcons(root = document) {
   if (!iconRegistry || !root?.querySelectorAll) return;
   const icons = [];
@@ -75,24 +108,13 @@ function renderRegisteredIcons(root = document) {
   icons.push(...root.querySelectorAll('[data-icon]'));
 
   icons.forEach(element => {
-    const requestedName = element.dataset.icon;
-    const iconName = resolveIconName(requestedName);
-    const entry = iconRegistry[iconName];
-    const isMissing = !entry;
-    const resolvedEntry = entry || iconRegistry.placeholder;
-    const isPlaceholder = isMissing || resolvedEntry.file === iconRegistry.placeholder?.file;
-
-    if (isMissing && !warnedIconNames.has(iconName)) {
-      warnedIconNames.add(iconName);
-      console.warn(`Icon "${iconName}" not found`);
+    if (renderedIcons.has(element) || observedIcons.has(element)) return;
+    if (iconObserver) {
+      observedIcons.add(element);
+      iconObserver.observe(element);
+    } else {
+      applyRegisteredIcon(element);
     }
-
-    element.classList.add('ls-icon');
-    element.dataset.name = isPlaceholder ? 'placeholder' : iconName;
-    if (isMissing) element.dataset.iconMissing = '';
-    else delete element.dataset.iconMissing;
-    element.style.setProperty('--icon', `url("${ICON_ASSET_BASE_URL}${resolvedEntry.file}")`);
-    element.setAttribute('aria-hidden', 'true');
   });
 }
 

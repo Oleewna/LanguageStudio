@@ -57,7 +57,7 @@
   }
 
   function getLessonList(course) {
-    const courseLessons = course && Array.isArray(course.paths)
+    return course && Array.isArray(course.paths)
       ? course.paths.flatMap((path) => (path.units || []).flatMap((unit) => (unit.lessons || []).map((lesson) => ({
         ...lesson,
         pathId: path.id,
@@ -67,20 +67,6 @@
         status: lesson.status || 'locked'
       }))))
       : [];
-    const existingIds = new Set(courseLessons.map((lesson) => lesson.id));
-    const readingLessons = (course?.id || getCurrentCourseId()) === 'it'
-      ? Object.values(window.LS_LESSONS || {})
-        .filter((lesson) => lesson && lesson.unitId === 'italian-reading' && lesson.id && !existingIds.has(lesson.id))
-        .sort((first, second) => Number(first.lessonNum) - Number(second.lessonNum))
-        .map((lesson) => ({
-          ...lesson,
-          pathId: 'italian-reading',
-          pathTitle: lesson.unitTitle,
-          status: 'available'
-        }))
-      : [];
-
-    return [...courseLessons, ...readingLessons];
   }
 
   function normalizeLocalized(value, fallback = '') {
@@ -339,51 +325,6 @@
     }
   }
 
-  function updateRulesButtonState() {
-    const button = document.getElementById('btnLessonRules');
-    if (!button || button.hidden) return;
-
-    const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
-    const completed = typeof window.LessonEngine?.isLessonCompleted === 'function'
-      && window.LessonEngine.isLessonCompleted(button.dataset.lessonId);
-    const label = lang === 'en' ? 'Rules' : 'Правила';
-    const labelElement = document.getElementById('btnLessonRulesLabel');
-
-    if (labelElement) labelElement.textContent = label;
-    button.disabled = !completed;
-    button.setAttribute('aria-label', completed
-      ? (lang === 'en' ? 'Rules reference planned' : 'Довідник правил заплановано')
-      : (lang === 'en' ? 'Rules reference, locked until lesson completion' : 'Довідник правил заблоковано до завершення уроку'));
-    button.title = completed
-      ? (lang === 'en' ? 'Rules reference planned' : 'Довідник правил заплановано')
-      : (lang === 'en' ? 'Available after you complete this lesson' : 'Стане доступним після завершення уроку');
-  }
-
-  function setupRulesButton(lesson) {
-    const button = document.getElementById('btnLessonRules');
-    if (!button) return;
-
-    const isRulesLesson = lesson.unitId === 'italian-reading'
-      && /^italian-reading-(?:[2-9]|1[01])$/.test(lesson.id);
-    button.hidden = !isRulesLesson;
-    button.dataset.lessonId = isRulesLesson ? lesson.id : '';
-    if (!isRulesLesson) return;
-
-    if (!button.dataset.listenersReady) {
-      button.dataset.listenersReady = 'true';
-      button.addEventListener('click', () => {
-        if (!window.LessonEngine?.isLessonCompleted(button.dataset.lessonId)) return;
-        const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
-        window.alert(lang === 'en' ? 'The rules reference is planned.' : 'Довідник правил заплановано.');
-      });
-      window.addEventListener('lessonCompleted', (event) => {
-        if (event.detail?.lessonId === button.dataset.lessonId) updateRulesButtonState();
-      });
-    }
-
-    updateRulesButtonState();
-  }
-
   function renderSidebar(course, lesson, lessons, lang) {
     const container = document.getElementById('sbUnitLessons');
     if (!container) return;
@@ -489,7 +430,6 @@
 
   async function initLessonPage() {
     try {
-      const courseId = getCurrentCourseId();
       const lessonId = getCurrentLessonId();
       const course = await window.loadCourse();
       const lessonList = getLessonList(course);
@@ -501,14 +441,11 @@
         try {
           rawLesson = await window.loadCourseData(`lessons/${lessonId}`);
         } catch (error) {
-          rawLesson = courseId === 'it' ? window.LS_LESSONS?.[lessonId] || null : null;
-          if (!rawLesson) {
-            console.warn(`Could not load lesson content for "${lessonId}":`, error);
-          }
+          console.warn(`Could not load lesson content for "${lessonId}":`, error);
         }
       }
 
-      if (!rawLesson && !lessonMeta && lessonId) {
+      if (!rawLesson && !lessonMeta && (lessonId || lessonList.length === 0)) {
         showNotFound(lessonId);
         return;
       }
@@ -533,7 +470,6 @@
 
       document.documentElement.lang = lang;
       if (typeof window.applySourceLanguageSettings === 'function') window.applySourceLanguageSettings();
-      setupRulesButton(normalized);
     } catch (error) {
       console.warn('Could not initialize lesson page:', error);
       const lessonId = getCurrentLessonId();

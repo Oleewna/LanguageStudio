@@ -98,7 +98,6 @@
 }
 
 html {
-  min-width: 320px;
   scroll-behavior: smooth;
 }
 
@@ -475,7 +474,7 @@ h3,
 
 /* Shared page frame and heading rhythm. */
 .page-hero {
-  width: min(calc(100% - 2rem), 58rem);
+  width: min(calc(100% - 2rem), 72rem);
   margin: 2rem auto 0;
   padding: 0.75rem 0 0.25rem;
   border: 0;
@@ -505,8 +504,9 @@ h3,
 }
 
 .page-hero-inner {
-  max-width: 48rem;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 
 .page-hero-label,
@@ -541,10 +541,10 @@ h3,
 }
 
 .page-container {
-  width: min(100%, 62rem);
-  max-width: 62rem;
+  width: min(calc(100% - 2rem), 72rem);
+  max-width: 72rem;
   margin: 0 auto;
-  padding: 1.25rem 1rem 4rem;
+  padding: 1.25rem 0 4rem;
 }
 
 .page-container > * + * {
@@ -771,13 +771,13 @@ h3,
 }
 
 .home-main > .page-container {
-  width: min(100%, 68rem);
+  width: min(100%, 72rem);
   padding-top: 1rem;
 }
 
 .footer-inner {
   display: flex;
-  width: min(100%, 62rem);
+  width: min(100%, 72rem);
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -1609,7 +1609,8 @@ h3,
 }
 
 .course-page {
-  width: min(100%, 62rem);
+  width: min(100%, 72rem);
+  max-width: 72rem;
   margin: 0 auto;
   padding: 2rem 1rem 4rem;
 }
@@ -1866,7 +1867,7 @@ body .st-toggle-row {
   }
 
   .page-container {
-    padding: 1rem 1rem 3rem;
+    padding: 1rem 0 3rem;
   }
 
   .landing-hero {
@@ -2025,7 +2026,7 @@ body .st-toggle-row {
 
 /* Home becomes a learning dashboard rather than a marketing landing page. */
 .home-dashboard {
-  width: min(calc(100% - 2rem), 58rem);
+  width: min(calc(100% - 2rem), 72rem);
   margin: 0 auto;
   padding: 1.5rem 0 3rem;
 }
@@ -2190,6 +2191,48 @@ body .st-toggle-row {
   margin-top: 0;
 }
 
+.home-practice .home-section-heading .eyebrow {
+  color: var(--primary);
+}
+
+.home-practice .hub-card {
+  min-height: 5.5rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 1.15rem;
+  background: var(--surface);
+  box-shadow: var(--shadow-xs);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.home-practice .hub-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary-border);
+  background: var(--card-sub-bg);
+  box-shadow: var(--shadow-md);
+}
+
+.home-practice .hub-card:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.home-practice .hub-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.9rem;
+  background: var(--card-sub-bg);
+  color: var(--primary);
+}
+
+.home-practice .hub-card-title {
+  color: var(--ink);
+}
+
+.home-practice .hub-card-sub {
+  color: var(--ink-soft);
+}
+
 .home-dashboard .unit-tree-card {
   overflow: hidden;
   margin: 0;
@@ -2296,6 +2339,7 @@ body .st-toggle-row {
   color: var(--ink-muted);
   outline: 3px solid var(--primary-light);
   outline-offset: 3px;
+  transition: transform 160ms ease, box-shadow 160ms ease, outline-color 160ms ease;
   transform: translateX(-50%);
 }
 
@@ -2342,6 +2386,7 @@ body .st-toggle-row {
 
 .home-dashboard .node-content-card[href]:hover {
   border: 0;
+  background: transparent;
   transform: none;
 }
 
@@ -2354,6 +2399,17 @@ body .st-toggle-row {
 .home-dashboard .node-title {
   font-size: 0.9rem;
   line-height: 1.2;
+  transition: color 160ms ease;
+}
+
+.home-dashboard .tree-node-item:has(> .node-content-card[href]:hover, > .node-content-card[href]:focus-visible) .node-bullet {
+  box-shadow: 0 8px 0 var(--primary-dark), 0 0 0 7px var(--primary-light);
+  outline-color: var(--primary-border);
+  transform: translateX(-50%) translateY(-4px) scale(1.06);
+}
+
+.home-dashboard .tree-node-item:has(> .node-content-card[href]:hover, > .node-content-card[href]:focus-visible) .node-title {
+  color: var(--primary);
 }
 
 .home-dashboard .node-sub {
@@ -2369,6 +2425,13 @@ body .st-toggle-row {
   font-size: 0.62rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+.home-dashboard .node-content-card[href]:hover .node-btn,
+.home-dashboard .node-content-card[href]:focus-visible .node-btn {
+  color: var(--primary);
+  transform: translateY(2px);
 }
 
 .home-dashboard .nb-btn-active {
@@ -2608,8 +2671,8 @@ body .st-toggle-row {
 }
 
 .path-container .path-assessment-checkpoint {
-  width: min(calc(100% - 1.5rem), 28.5rem);
-  margin: 0 auto 1rem;
+  width: 100%;
+  margin: 0 0 1rem;
   border: 2px dashed var(--border);
   border-radius: var(--radius-lg);
   background: var(--surface);
@@ -2795,7 +2858,8 @@ body .st-toggle-row {
   }
 
   .path-container .path-assessment-checkpoint {
-    width: calc(100% - 0.7rem);
+    width: 100%;
+    margin: 0 0 1rem;
   }
 
   .home-practice {
@@ -2897,13 +2961,13 @@ body .st-toggle-row {
 .landing-main .landing-hero {
   width: min(calc(100% - 2rem), 72rem);
   min-height: 21rem;
-  grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.72fr);
+  grid-template-columns: minmax(0, 1fr) minmax(19rem, 0.9fr);
   gap: clamp(1.5rem, 5vw, 4rem);
   padding: clamp(1.5rem, 5vw, 2.5rem);
-  border: 2px solid var(--primary-border);
-  border-radius: 1.8rem;
-  background: var(--primary-light);
-  box-shadow: 0 7px 0 var(--primary-border);
+  border: 1px solid var(--primary-border);
+  border-radius: 1.5rem;
+  background: linear-gradient(125deg, var(--primary-light) 0%, var(--surface) 100%);
+  box-shadow: var(--shadow-sm);
 }
 
 .landing-copy .eyebrow {

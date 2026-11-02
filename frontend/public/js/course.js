@@ -1,7 +1,32 @@
 (function () {
   const DEFAULT_COURSE_ID = 'it';
-  const FALLBACK_SOURCE_LANGUAGE = 'uk';
+  const FALLBACK_SOURCE_LANGUAGE = 'en';
   let resolvedDefaultCourseId = null;
+  const jsonRequests = new Map();
+
+  function loadJson(url, errorMessage, allowNotFound = false) {
+    if (jsonRequests.has(url)) return jsonRequests.get(url);
+
+    let request;
+    request = fetch(url, { cache: 'no-store' })
+      .then(response => {
+        if (!response.ok) {
+          if (allowNotFound) {
+            jsonRequests.delete(url);
+            return null;
+          }
+          throw new Error(errorMessage);
+        }
+        return response.json();
+      })
+      .catch(error => {
+        if (jsonRequests.get(url) === request) jsonRequests.delete(url);
+        throw error;
+      });
+
+    jsonRequests.set(url, request);
+    return request;
+  }
 
   function getBasePath() {
     const pathname = window.location.pathname || '';
@@ -38,11 +63,7 @@
 
   async function loadCourseIndex() {
     try {
-      const response = await fetch(getCourseIndexPath(), { cache: 'no-store' });
-      if (!response.ok) {
-        return { default: DEFAULT_COURSE_ID, courses: [{ id: DEFAULT_COURSE_ID }] };
-      }
-      const data = await response.json();
+      const data = await loadJson(getCourseIndexPath(), 'Course index not found', true);
       const resolved = data || { default: DEFAULT_COURSE_ID, courses: [{ id: DEFAULT_COURSE_ID }] };
       const nextDefault = resolved.default || resolved.courses?.[0]?.id || DEFAULT_COURSE_ID;
       resolvedDefaultCourseId = nextDefault;
@@ -61,11 +82,7 @@
 
   async function loadCourse() {
     const id = getCourseId();
-    const response = await fetch(`${getBasePath()}courses/${id}/course.json`, { cache: 'no-store' });
-    if (!response.ok) {
-      throw new Error(`Course not found: ${id}`);
-    }
-    return await response.json();
+    return await loadJson(`${getBasePath()}courses/${id}/course.json`, `Course not found: ${id}`);
   }
 
   function resolveCourseDataPath(name) {
@@ -79,22 +96,18 @@
 
   async function loadCourseData(name) {
     const url = resolveCourseDataPath(name);
-    const response = await fetch(url, { cache: 'no-store' });
-    if (!response.ok) {
-      throw new Error(`Course data not found: ${name}`);
-    }
-    return await response.json();
+    return await loadJson(url, `Course data not found: ${name}`);
   }
 
   function L(value) {
-    const sourceLanguage = (typeof window.getSourceLanguage === 'function') ? window.getSourceLanguage() : FALLBACK_SOURCE_LANGUAGE;
+    const sourceLanguage = typeof window.getSourceLanguage === 'function'
+      ? window.getSourceLanguage()
+      : (typeof navigator !== 'undefined' && (navigator.language || '').toLowerCase().startsWith('uk')
+        ? 'uk'
+        : FALLBACK_SOURCE_LANGUAGE);
 
     if (value && typeof value === 'object' && !Array.isArray(value)) {
       if (typeof value[sourceLanguage] !== 'undefined') return value[sourceLanguage];
-      if (typeof value.uk !== 'undefined') return value.uk;
-      if (typeof value.en !== 'undefined') return value.en;
-      const firstString = Object.values(value).find(item => typeof item === 'string');
-      if (typeof firstString === 'string') return firstString;
       return '';
     }
 

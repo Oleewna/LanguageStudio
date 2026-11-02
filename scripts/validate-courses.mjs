@@ -14,13 +14,16 @@ function fail(message) {
 }
 
 function readJson(filePath) {
+  const relative = path.relative(projectRoot, filePath).replace(/\\/g, '/');
+  let data;
   try {
     const raw = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(raw);
+    data = JSON.parse(raw);
   } catch (error) {
-    const relative = path.relative(projectRoot, filePath).replace(/\\/g, '/');
     throw new Error(`Invalid JSON in ${relative}: ${error.message}`);
   }
+  validateLocalizedFields(data, relative);
+  return data;
 }
 
 function assertLocalizedText(value, label) {
@@ -29,6 +32,22 @@ function assertLocalizedText(value, label) {
   }
   if (typeof value.uk !== 'string' || typeof value.en !== 'string') {
     fail(`${label} must include string values for uk and en.`);
+  }
+  if (!value.uk.trim() || !value.en.trim()) {
+    fail(`${label} must not contain empty uk/en strings.`);
+  }
+  if (/\p{Script=Cyrillic}/u.test(value.en)) {
+    fail(`${label} English text contains Cyrillic characters; keep Ukrainian text in 'uk' only.`);
+  }
+}
+
+function validateLocalizedFields(value, label) {
+  if (!value || typeof value !== 'object') return;
+  if (!Array.isArray(value) && ('uk' in value || 'en' in value)) {
+    assertLocalizedText(value, label);
+  }
+  for (const [key, child] of Object.entries(value)) {
+    validateLocalizedFields(child, `${label}.${key}`);
   }
 }
 
@@ -66,7 +85,7 @@ function validateCourseIndex(indexData) {
     }
     assertLocalizedText(course.name, `Course ${course.id} name`);
 
-    if (course.status && !['active', 'soon', 'locked'].includes(course.status)) {
+    if (course.status && !['active', 'soon', 'locked', 'inactive'].includes(course.status)) {
       fail(`Course ${course.id} has an unsupported status: ${course.status}`);
     }
   }

@@ -2,7 +2,10 @@
   "id": "it",
   "target": {
     "code": "it",
-    "name": { "uk": "Італійська", "en": "Italian" },
+    "name": {
+      "uk": "Італійська",
+      "en": "Italian"
+    },
     "tts": "it-IT",
     "script": "latin",
     "rtl": false
@@ -17,189 +20,89 @@
     "exercises": true,
     "grammar": true,
     "tests": true,
-    "exerciseFormats": ["mcq", "blank", "match", "reorder", "listen", "dialogue", "dict"]
+    "exerciseFormats": [
+      "mcq",
+      "blank",
+      "match",
+      "reorder",
+      "listen",
+      "dialogue",
+      "dict"
+    ]
   },
   "exerciseCategories": [
     {
       "id": "articles",
       "group": "grammar",
       "icon": "pin",
-      "name": { "uk": "Іменники & Артиклі", "en": "Nouns & Articles" }
+      "name": {
+        "uk": "Іменники & Артиклі",
+        "en": "Nouns & Articles"
+      }
     },
     {
       "id": "verbs",
       "group": "grammar",
       "icon": "verb",
-      "name": { "uk": "Дієслова", "en": "Verbs" }
+      "name": {
+        "uk": "Дієслова",
+        "en": "Verbs"
+      }
     },
     {
       "id": "pronouns",
       "group": "grammar",
       "icon": "chat",
-      "name": { "uk": "Займенники & Прийменники", "en": "Pronouns & Prepositions" }
+      "name": {
+        "uk": "Займенники & Прийменники",
+        "en": "Pronouns & Prepositions"
+      }
     },
     {
       "id": "sentence",
       "group": "grammar",
       "icon": "type",
-      "name": { "uk": "Структура речення", "en": "Sentence Structure" }
+      "name": {
+        "uk": "Структура речення",
+        "en": "Sentence Structure"
+      }
     },
     {
       "id": "greetings",
       "group": "situational",
       "icon": "greeting",
-      "name": { "uk": "Знайомство & Сусіди", "en": "Greetings & Meeting Neighbors" }
+      "name": {
+        "uk": "Знайомство & Сусіди",
+        "en": "Greetings & Meeting Neighbors"
+      }
     },
     {
       "id": "cafe",
       "group": "situational",
       "icon": "cafe",
-      "name": { "uk": "У кафе та барі", "en": "At the Cafe & Bar" }
+      "name": {
+        "uk": "У кафе та барі",
+        "en": "At the Cafe & Bar"
+      }
     },
     {
       "id": "directions",
       "group": "situational",
       "icon": "directions",
-      "name": { "uk": "Орієнтування в місті", "en": "Asking Directions" }
+      "name": {
+        "uk": "Орієнтування в місті",
+        "en": "Asking Directions"
+      }
     },
     {
       "id": "shopping",
       "group": "situational",
       "icon": "shopping",
-      "name": { "uk": "Покупки та ціни", "en": "Shopping & Prices" }
+      "name": {
+        "uk": "Покупки та ціни",
+        "en": "Shopping & Prices"
+      }
     }
   ],
-  "paths": [
-    {
-      "id": "foundations",
-      "icon": "greeting",
-      "locked": false,
-      "defaultOpen": true,
-      "title": { "uk": "Основи спілкування", "en": "Communication basics" },
-      "subtitle": {
-        "uk": "Знайомство та розмови на повсякденні теми",
-        "en": "Introductions and everyday conversations"
-      },
-      "units": [
-        {
-          "id": "foundations-1",
-          "title": { "uk": "Перші кроки", "en": "First steps" },
-          "lessons": [
-            {
-              "id": "communication-basics-1",
-              "num": { "uk": "Урок 1", "en": "Lesson 1" },
-              "title": { "uk": "Перше привітання", "en": "First greetings" },
-              "description": {
-                "uk": "Привітайтеся та почніть коротке знайомство.",
-                "en": "Say hello and start a short introduction."
-              },
-              "time": { "uk": "2 хв", "en": "2 min" },
-              "status": "available",
-              "xpReward": 10,
-              "prevLessonId": null,
-              "nextLessonId": "communication-basics-1-greetings"
-            },
-            {
-              "id": "communication-basics-1-greetings",
-              "num": { "uk": "Урок 2", "en": "Lesson 2" },
-              "title": { "uk": "Обери привітання", "en": "Choose a greeting" },
-              "description": {
-                "uk": "Повторіть привітання для ранку, вечора та неформальної зустрічі.",
-                "en": "Review greetings for morning, evening, and informal meetings."
-              },
-              "time": { "uk": "3 хв", "en": "3 min" },
-              "status": "available",
-              "xpReward": 10,
-              "prevLessonId": "communication-basics-1",
-              "nextLessonId": "communication-basics-1-practice"
-            },
-            {
-              "id": "communication-basics-1-practice",
-              "num": { "uk": "Урок 3", "en": "Lesson 3" },
-              "title": { "uk": "Скажи, як тебе звати", "en": "Say your name" },
-              "description": {
-                "uk": "Поставте запитання про ім’я та дайте просту відповідь.",
-                "en": "Ask someone's name and give a simple answer."
-              },
-              "time": { "uk": "2 хв", "en": "2 min" },
-              "status": "available",
-              "xpReward": 10,
-              "prevLessonId": "communication-basics-1-greetings",
-              "nextLessonId": "communication-basics-1-review"
-            },
-            {
-              "id": "communication-basics-1-review",
-              "num": { "uk": "Урок 4", "en": "Lesson 4" },
-              "title": { "uk": "Повтори знайомство", "en": "Review introductions" },
-              "description": {
-                "uk": "Згадайте знайомі фрази та складіть коротку розмову.",
-                "en": "Recall familiar phrases and build a short conversation."
-              },
-              "time": { "uk": "2 хв", "en": "2 min" },
-              "status": "available",
-              "xpReward": 10,
-              "prevLessonId": "communication-basics-1-practice",
-              "nextLessonId": "communication-basics-2"
-            },
-            {
-              "id": "communication-basics-2",
-              "num": { "uk": "Урок 5", "en": "Lesson 5" },
-              "title": { "uk": "Навчання та робота", "en": "Study and work" },
-              "description": {
-                "uk": "Розкажіть, де ви навчаєтеся або працюєте.",
-                "en": "Say what you study or where you work."
-              },
-              "time": { "uk": "2 хв", "en": "2 min" },
-              "status": "available",
-              "xpReward": 10,
-              "prevLessonId": "communication-basics-1-review",
-              "nextLessonId": "communication-basics-2-family"
-            },
-            {
-              "id": "communication-basics-2-family",
-              "num": { "uk": "Урок 6", "en": "Lesson 6" },
-              "title": { "uk": "Мови та родина", "en": "Languages and family" },
-              "description": {
-                "uk": "Назвіть мови, якими розмовляєте, і розкажіть про близьких.",
-                "en": "Name the languages you speak and tell someone about your family."
-              },
-              "time": { "uk": "3 хв", "en": "3 min" },
-              "status": "available",
-              "xpReward": 10,
-              "prevLessonId": "communication-basics-2",
-              "nextLessonId": "communication-basics-3"
-            },
-            {
-              "id": "communication-basics-3",
-              "num": { "uk": "Урок 7", "en": "Lesson 7" },
-              "title": { "uk": "Що тобі подобається?", "en": "What do you like?" },
-              "description": {
-                "uk": "Розкажіть про захоплення та запитайте про інтереси співрозмовника.",
-                "en": "Talk about your interests and ask what someone else likes."
-              },
-              "time": { "uk": "2 хв", "en": "2 min" },
-              "status": "available",
-              "xpReward": 10,
-              "prevLessonId": "communication-basics-2-family",
-              "nextLessonId": "communication-basics-3-plans"
-            },
-            {
-              "id": "communication-basics-3-plans",
-              "num": { "uk": "Урок 8", "en": "Lesson 8" },
-              "title": { "uk": "Домовся про зустріч", "en": "Make a plan" },
-              "description": {
-                "uk": "Запропонуйте зустрітися та домовтеся про час.",
-                "en": "Invite someone to meet and agree on a time."
-              },
-              "time": { "uk": "2 хв", "en": "2 min" },
-              "status": "available",
-              "xpReward": 10,
-              "prevLessonId": "communication-basics-3",
-              "nextLessonId": null
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "paths": []
 }

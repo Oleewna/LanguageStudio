@@ -67,7 +67,6 @@
     ['pages/home.html', 'home', 'home', 'Home'],
     ['pages/path.html', 'path', 'paths', 'Learning paths'],
     ['pages/courses.html', 'courses', 'globe', 'Courses'],
-    ['pages/lesson.html?course=it&lesson=communication-basics-1', 'lesson-1', 'lesson', 'Basics · Lesson 1'],
     ['pages/flashcards.html', 'flashcards', 'flashcards', 'Flashcards'],
     ['pages/exercises.html', 'exercises', 'exercises', 'Exercises'],
     ['pages/dictionary.html', 'dictionary', 'dictionary', 'My dictionary'],
@@ -87,8 +86,8 @@
         <div class="mob-nav-header"><a href="pages/home.html" class="mob-nav-brand" aria-label="LanguageStudio home">${brandMark}<span class="brand-wordmark">Language<span>Studio</span></span></a><button class="mob-close-btn" type="button" aria-label="Close">${icon('close')}</button></div>
         <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}<span class="mob-theme-label">Switch theme</span></button>
         <div class="mob-section-label">Learn</div>${links.slice(0, 3).join('')}
-        <div class="mob-section-label">Practice</div>${links.slice(3, 9).join('')}
-        <div class="mob-section-label">Account</div>${links.slice(9).join('')}
+        <div class="mob-section-label">Practice</div>${links.slice(3, 8).join('')}
+        <div class="mob-section-label">Account</div>${links.slice(8).join('')}
       </nav>`;
   }
 
@@ -102,7 +101,7 @@
         <button class="menu-toggle" type="button" aria-label="Menu">${icon('menu')}</button>
       </div></header>`,
     'mobile-nav': mobileNavigation(),
-    footer: `<footer class="site-footer"><div class="footer-inner"><div>${icon('cafe')} <b>LanguageStudio</b> · Italian for real-life situations</div><div class="footer-links">${mobileLinks.filter(([, key]) => key !== 'lesson-1').map(([href, key, , label]) => `<a href="${href}" data-nav="${key}">${label}</a>`).join('')}</div></div></footer>`,
+    footer: `<footer class="site-footer"><div class="footer-inner"><div>${icon('cafe')} <b>LanguageStudio</b> · Italian for real-life situations</div><div class="footer-links">${mobileLinks.map(([href, key, , label]) => `<a href="${href}" data-nav="${key}">${label}</a>`).join('')}</div></div></footer>`,
     'profile-modal': `<div class="profile-modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()"><section class="profile-modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-title"><div class="pm-topline"><div class="pm-eyebrow" id="profile-title">Student Profile</div><button type="button" class="pm-close" onclick="closeProfileModal()" aria-label="Close">${icon('close')}</button></div><div class="pm-header"><div class="pm-avatar">S</div><div><div class="pm-name">Student</div><div class="pm-path">Guest profile · progress is saved on this device</div><div class="pm-path">Learning path: <b data-course-label>Communication basics</b></div></div></div><section class="pm-settings" aria-labelledby="source-language-title"><h3 class="pm-settings-title" id="source-language-title">Learning & Interface Settings</h3><div class="pm-settings-grid"><div class="pm-setting"><label class="pm-setting-label" for="targetCourse">Target Course</label><select class="pm-setting-select" id="targetCourse" data-target-course-select onchange="setTargetCourse(this.value)"></select></div><div class="pm-setting"><label class="pm-setting-label" for="sourceLanguage">Language for translations & explanations</label><select class="pm-setting-select" id="sourceLanguage" data-source-language-select onchange="setSourceLanguage(this.value)"></select></div><div class="pm-setting"><div class="pm-setting-label">Interface Theme</div><button type="button" class="btn-ghost pm-theme-button" onclick="toggleTheme()">${icon('sun')} Switch theme</button></div></div></section><div class="pm-stats-grid"><div class="pm-stat-box" data-profile-stat="xp"><div class="pm-stat-val"><span class="xp-val-display">0</span></div><div class="pm-stat-lbl">XP Points</div></div><div class="pm-stat-box" data-profile-stat="streak"><div class="pm-stat-val">1 day</div><div class="pm-stat-lbl">Daily Streak</div></div><div class="pm-stat-box" data-profile-stat="lessons"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Lessons Completed</div></div><div class="pm-stat-box" data-profile-stat="words"><div class="pm-stat-val">0</div><div class="pm-stat-lbl">Dictionary Words</div></div></div><div class="pm-footer"><a class="btn-primary" href="pages/auth.html" data-nav="auth">Sign in or register</a></div></section></div>`,
     'auth-header': `<header class="auth-topbar"><a href="index.html" class="auth-brand" aria-label="LanguageStudio home"><img src="assets/images/light_theme_logo.png" alt="LanguageStudio" class="brand-logo" /></a><div class="auth-actions"><button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}</button><a class="btn-ghost auth-home" href="index.html">${icon('arrow-left')} Home</a></div></header>`
   };
@@ -214,6 +213,27 @@
     return EMBEDDED_COMPONENTS[name] ? localizeEmbeddedTemplate(EMBEDDED_COMPONENTS[name]) : '';
   }
 
+  async function fetchComponentUpdate(name) {
+    if (window.location.protocol === 'file:') return null;
+
+    try {
+      const response = await fetch(`${PREFIX}components/${name}.html`);
+      return response.ok ? await response.text() : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function createComponentShell(holder, name) {
+    const shell = document.createElement('div');
+    shell.dataset.componentShell = name;
+    shell.style.display = 'contents';
+    const fallback = EMBEDDED_COMPONENTS[name];
+    if (fallback) shell.innerHTML = adaptPaths(localizeEmbeddedTemplate(fallback));
+    holder.replaceWith(shell);
+    return shell;
+  }
+
   function ensureComponentTarget(id, name) {
     const target = document.getElementById(id);
     if (target && !target.querySelector('[data-component]')) {
@@ -269,7 +289,6 @@
   async function loadComponents() {
     if (loadingComponents) await loadingComponents;
     const currentLoad = (async () => {
-      await window.loadIconRegistry?.();
       ensureComponentTarget('app-nav', 'navbar');
       ensureComponentTarget('app-footer', 'footer');
       ensureComponentTarget('app-profile', 'profile-modal');
@@ -281,11 +300,20 @@
       }
 
       const holders = Array.from(document.querySelectorAll('[data-component]'));
-      await Promise.all(holders.map(async holder => {
+      const components = holders.map(holder => {
         const name = holder.dataset.component;
-        const html = await fetchComponent(name);
-        if (html) holder.outerHTML = adaptPaths(html);
+        return { name, shell: createComponentShell(holder, name) };
+      });
+
+      bindEvents();
+
+      const iconRegistry = window.loadIconRegistry?.();
+      await Promise.all(components.map(async ({ name, shell }) => {
+        const html = await fetchComponentUpdate(name);
+        if (html && shell.isConnected) shell.innerHTML = adaptPaths(html);
       }));
+
+      await iconRegistry;
       bindEvents();
     })();
     loadingComponents = currentLoad;

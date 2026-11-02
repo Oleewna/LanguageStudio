@@ -17,7 +17,8 @@
   <title data-i18n="page.title">LanguageStudio — A little Italian, every day</title>
   <meta name="description" content="Build a daily Italian learning habit with short, practical lessons from LanguageStudio." data-i18n-content="page.description" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" /></noscript>
   <script src="js/theme.js"></script>
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/index.css" />
@@ -44,17 +45,23 @@
             <span data-i18n="startLearning">Start learning</span>
             <span class="home-start-arrow"><span data-icon="arrow-right" aria-hidden="true"></span></span>
           </a>
+          <a class="placement-test-button" href="pages/tests.html">
+            <span data-icon="target" aria-hidden="true"></span>
+            <span data-i18n="placementTest">Take a placement test</span>
+          </a>
           <span class="landing-no-signup" data-i18n="hero.noSignup">Free to explore · no account needed</span>
         </div>
       </div>
-      <div class="landing-visual" aria-label="Students meeting in an Italian classroom" data-i18n-aria="hero.imageAlt">
-        <div class="landing-visual-image"></div>
-        <span class="landing-visual-sticker" aria-hidden="true"><span data-i18n="hero.sticker">CIAO!</span> <span data-icon="sparkles"></span></span>
-        <aside class="home-phrase-card" aria-label="Your first phrase" data-i18n-aria="hero.phraseAlt">
-          <span class="home-phrase-label"><span data-icon="sparkles" aria-hidden="true"></span> <span data-i18n="hero.phraseLabel">YOUR FIRST PHRASE</span></span>
-          <strong>Ciao!</strong>
-          <span data-i18n="hero.phraseMeaning">hello · goodbye</span>
-        </aside>
+      <div class="landing-visual" aria-hidden="true">
+        <div class="landing-lesson-card">
+          <div class="lesson-card-heading"><span data-i18n="illustration.language">ITALIAN · 01</span><span>01 / 06</span></div>
+          <p>Primo incontro</p>
+          <strong>Buongiorno!</strong>
+          <span class="lesson-card-meaning" data-i18n="illustration.meaning">Good morning</span>
+          <div class="lesson-card-progress"><span></span></div>
+          <div class="lesson-card-words"><span>Ciao</span><span>Grazie</span><span>Arrivederci</span></div>
+        </div>
+        <div class="landing-visual-note"><span data-icon="sparkles"></span> <span data-i18n="illustration.note">A new word every day</span></div>
       </div>
       <div class="landing-hero-note"><span data-icon="check" aria-hidden="true"></span> <span data-i18n="hero.note">Start speaking from lesson one</span></div>
     </section>
@@ -75,14 +82,21 @@
     </section>
 
     <section class="landing-preview" aria-labelledby="previewHeading">
-      <div class="landing-preview-image" role="img" aria-label="Students practicing Italian together" data-i18n-aria="preview.imageAlt"></div>
+      <div class="landing-preview-art" aria-hidden="true">
+        <div class="preview-art-heading"><span>01</span><span data-i18n="preview.artHeading">FIRST MEETING</span><span data-icon="check"></span></div>
+        <div class="preview-chat-bubble">Ciao! Come stai?</div>
+        <div class="preview-chat-translation" data-i18n="preview.artTranslation">Hi! How are you?</div>
+        <div class="preview-answer">
+          <span>Sto bene, grazie!</span>
+          <span data-icon="arrow-right"></span>
+        </div>
+      </div>
       <div class="landing-preview-copy">
         <p class="eyebrow" data-i18n="preview.eyebrow">LESSON ONE · PRIMO INCONTRO</p>
         <h2 id="previewHeading"><span class="landing-title-line" data-i18n="preview.titleFirst">Start with a simple</span><span class="landing-title-line" data-i18n="preview.titleSecond">“Ciao!”</span></h2>
         <p data-i18n="preview.description">Meet someone new, learn a few natural greetings, and try your first Italian conversation. No long grammar chapters before you get started.</p>
         <a class="landing-text-link" href="pages/home.html?course=it"><span data-i18n="preview.link">Take a look inside</span> <span data-icon="arrow-right" aria-hidden="true"></span></a>
       </div>
-      <div class="landing-preview-label"><span data-icon="play" aria-hidden="true"></span> <span data-i18n="preview.label">YOUR FIRST LESSON</span></div>
     </section>
 
     <section class="landing-steps" aria-labelledby="stepsHeading">
@@ -132,7 +146,7 @@
     <a href="pages/auth.html" data-i18n="signIn">Sign in</a>
   </footer>
 
-  <script src="js/icons.js"></script>
-  <script src="js/landing-language.js"></script>
+  <script defer src="js/icons.js"></script>
+  <script defer src="js/landing-language.js"></script>
 </body>
 </html>

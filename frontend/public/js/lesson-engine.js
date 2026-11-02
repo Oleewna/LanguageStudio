@@ -33,12 +33,12 @@
     if (typeof navigator !== 'undefined' && (navigator.language || '').toLowerCase().startsWith('uk')) {
       return 'uk';
     }
-    return 'uk';
+    return 'en';
   }
 
   /**
    * Localized helper that extracts the text matching the current interface language.
-   * Falls back to 'uk', then first available translation, then fallback string.
+   * Uses only the active language, then the supplied fallback.
    * @param {object|string} translatable
    * @param {string} fallback
    * @param {string} [forcedLang]
@@ -52,7 +52,7 @@
     if (!translatable) return fallback;
     if (typeof translatable === 'string') return translatable;
     if (typeof translatable === 'object') {
-      return translatable[lang] || translatable.uk || translatable.en || Object.values(translatable)[0] || fallback;
+      return translatable[lang] || fallback;
     }
     return String(translatable);
   }
