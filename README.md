@@ -2,6 +2,10 @@
 
 Multi-course language learning app with a shared responsive front end, SQLite content database, and backend API. Courses use reusable paths, lessons, vocabulary, grammar, and exercises; Italian Communication Basics currently includes separate greetings and practice lessons.
 
+## Public showcase
+
+The static LanguageStudio introduction website is published at [https://languagestudio.page.gd](https://languagestudio.page.gd). Its source files and publishing instructions are maintained in the separate [LanguageStudio-Showcase repository](https://github.com/Oleewna/LanguageStudio-Showcase). The showcase is available in English, Ukrainian, Italian, Spanish, French, and German, and includes a theme switch and screenshot gallery. It introduces the project but does not include the backend-powered learning app.
+
 ## Features
 
 - Course selection, learning paths, lesson progress, tests, and interactive practice (multiple choice, fill-in, matching, reorder, listening, dialogue, and dictation).
