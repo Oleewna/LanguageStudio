@@ -30,7 +30,11 @@
       <img src="assets/images/logo.svg" alt="" class="brand-logo" />
       <span class="brand-wordmark">Language<span>Studio</span></span>
     </a>
-    <a class="landing-signin" href="pages/auth.html" data-i18n="signIn">Sign in</a>
+    <div class="landing-header-actions">
+      <button id="landingLanguageToggle" class="landing-header-btn" type="button" aria-label="Switch language">English</button>
+      <button id="landingThemeToggle" class="landing-header-btn" type="button" aria-label="Switch theme">Theme</button>
+      <a class="landing-signin" href="pages/auth.html" data-i18n="signIn">Sign in</a>
+    </div>
   </header>
 
   <main class="landing-main">
@@ -40,14 +44,19 @@
         <h1 id="landingHeading"><span class="landing-title-line" data-i18n="hero.titleFirst">A little Italian,</span><span class="landing-title-line landing-title-accent" data-i18n="hero.titleSecond">every day.</span></h1>
         <p class="hero-description" data-i18n="hero.description">Real conversations start with small steps. Learn useful Italian in short, friendly lessons that fit your day.</p>
         <div class="landing-hero-actions">
-          <a class="home-start-button" href="pages/home.html?course=it">
+          <div class="language-picker" aria-label="Choose what you want to learn">
+            <label class="language-picker-label" for="landingLanguageSelect" data-i18n="languagePickerLabel">Choose what you want to learn</label>
+            <div class="language-picker-row">
+              <select id="landingLanguageSelect" class="language-picker-select" aria-label="Choose what you want to learn">
+                <option value="pages/home.html?course=it" data-i18n="languageOptionItalian">Italian</option>
+              </select>
+              <a class="language-picker-button" href="pages/home.html?course=it" data-i18n="languagePickerButton">Go</a>
+            </div>
+          </div>
+          <a class="home-start-button landing-start-compact" href="pages/placement-test.html">
             <span class="home-start-icon"><span data-icon="play" aria-hidden="true"></span></span>
             <span data-i18n="startLearning">Start learning</span>
             <span class="home-start-arrow"><span data-icon="arrow-right" aria-hidden="true"></span></span>
-          </a>
-          <a class="placement-test-button" href="pages/tests.html">
-            <span data-icon="target" aria-hidden="true"></span>
-            <span data-i18n="placementTest">Take a placement test</span>
           </a>
           <span class="landing-no-signup" data-i18n="hero.noSignup">Free to explore · no account needed</span>
         </div>
@@ -86,9 +95,11 @@
         <div class="preview-art-heading"><span>01</span><span data-i18n="preview.artHeading">FIRST MEETING</span><span data-icon="check"></span></div>
         <div class="preview-chat-bubble">Ciao! Come stai?</div>
         <div class="preview-chat-translation" data-i18n="preview.artTranslation">Hi! How are you?</div>
-        <div class="preview-answer">
-          <span>Sto bene, grazie!</span>
-          <span data-icon="arrow-right"></span>
+        <div class="preview-answer-block">
+          <div class="preview-answer">
+            <span>Sto bene, grazie!</span>
+          </div>
+          <div class="preview-answer-translation" data-i18n="preview.answerTranslation">I’m good, thanks!</div>
         </div>
       </div>
       <div class="landing-preview-copy">
@@ -131,7 +142,7 @@
       <p class="eyebrow" data-i18n="cta.eyebrow">PRONTO? LET'S GO!</p>
       <h2 id="bottomCtaHeading" data-i18n="cta.heading">Your first “Ciao!” is waiting.</h2>
       <p data-i18n="cta.description">Step into your learning space and start with lesson one.</p>
-      <a class="home-start-button" href="pages/home.html?course=it">
+      <a class="home-start-button" href="pages/placement-test.html">
         <span data-i18n="startLearning">Start learning</span><span class="home-start-arrow"><span data-icon="arrow-right" aria-hidden="true"></span></span>
       </a>
     </section>

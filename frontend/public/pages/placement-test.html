@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="icon" type="image/svg+xml" href="../assets/images/logo.svg" />
+  <title>Placement test — LanguageStudio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" /></noscript>
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/tests.css" />
+  <link rel="stylesheet" href="../css/studio.css" />
+</head>
+<body>
+  <div data-component="navbar"></div>
+
+  <main class="page-container placement-test-page">
+    <section class="placement-test-shell" aria-labelledby="placementTestHeading">
+      <div class="placement-test-header">
+        <div class="eyebrow" data-i18n="eyebrow">ITALIAN PLACEMENT</div>
+        <h1 id="placementTestHeading" data-i18n="title">Quick check before you begin</h1>
+        <p data-i18n="description">Pick the best answer to estimate your starting point and help us match your lesson path.</p>
+      </div>
+
+      <div class="placement-test-card">
+        <div class="placement-test-topline">
+          <span class="placement-question-counter" data-i18n="counter">Question 1 of 5</span>
+          <span class="placement-timer"><span data-icon="clock"></span> <span data-i18n="timer">2 min</span></span>
+        </div>
+
+        <div class="placement-question-block">
+          <div class="placement-flag" data-i18n="languageBadge">Italian</div>
+          <h2 data-i18n="questionText">How do you say “Good morning” in Italian?</h2>
+        </div>
+
+        <div class="placement-options" role="list" aria-label="Answer choices">
+          <button type="button" class="placement-option is-selected" data-i18n="optionA">Buongiorno</button>
+          <button type="button" class="placement-option" data-i18n="optionB">Buona sera</button>
+          <button type="button" class="placement-option" data-i18n="optionC">Arrivederci</button>
+          <button type="button" class="placement-option" data-i18n="optionD">Grazie</button>
+        </div>
+
+        <div class="placement-test-footer">
+          <button type="button" class="placement-next-button" data-i18n="nextButton">Next question</button>
+        </div>
+      </div>
+
+      <div class="placement-test-meta">
+        <div class="meta-chip"><span data-icon="sparkles"></span> <span data-i18n="metaBeginner">Beginner-friendly</span></div>
+        <div class="meta-chip"><span data-icon="target"></span> <span data-i18n="metaSignup">No account needed</span></div>
+      </div>
+    </section>
+  </main>
+
+  <div data-component="footer"></div>
+  <div data-component="profile-modal"></div>
+
+  <script defer src="../js/icons.js"></script>
+  <script defer src="../js/components.js"></script>
+  <script defer src="../js/layout.js"></script>
+  <script>
+    (function () {
+      const translations = {
+        en: {
+          eyebrow: 'ITALIAN PLACEMENT',
+          title: 'Quick check before you begin',
+          description: 'Pick the best answer to estimate your starting point and help us match your lesson path.',
+          counter: 'Question 1 of 5',
+          timer: '2 min',
+          languageBadge: 'Italian',
+          questionText: 'How do you say “Good morning” in Italian?',
+          optionA: 'Buongiorno',
+          optionB: 'Buona sera',
+          optionC: 'Arrivederci',
+          optionD: 'Grazie',
+          nextButton: 'Next question',
+          metaBeginner: 'Beginner-friendly',
+          metaSignup: 'No account needed'
+        },
+        uk: {
+          eyebrow: 'ВИЗНАЧЕННЯ РІВНЯ ІТАЛІЙСЬКОЇ',
+          title: 'Швидка перевірка перед початком',
+          description: 'Оберіть найкращу відповідь, щоб зрозуміти свій рівень і підібрати правильний шлях навчання.',
+          counter: 'Питання 1 з 5',
+          timer: '2 хв',
+          languageBadge: 'Італійська',
+          questionText: 'Як сказати «Доброї ранку» італійською?',
+          optionA: 'Buongiorno',
+          optionB: 'Buona sera',
+          optionC: 'Arrivederci',
+          optionD: 'Grazie',
+          nextButton: 'Наступне питання',
+          metaBeginner: 'Для початківців',
+          metaSignup: 'Без реєстрації'
+        }
+      };
+
+      function getSourceLanguage() {
+        const saved = localStorage.getItem('ls_source_language') || localStorage.getItem('ls_italian_source_language');
+        if (saved === 'uk' || saved === 'en') return saved;
+        return (navigator.language || '').toLowerCase().startsWith('uk') ? 'uk' : 'en';
+      }
+
+      function applyLanguage() {
+        const lang = getSourceLanguage();
+        const dict = translations[lang] || translations.en;
+        document.documentElement.lang = lang;
+
+        document.querySelectorAll('[data-i18n]').forEach((element) => {
+          const key = element.dataset.i18n;
+          if (dict[key] !== undefined) {
+            element.textContent = dict[key];
+          }
+        });
+      }
+
+      applyLanguage();
+      window.addEventListener('sourceLanguageChanged', applyLanguage);
+    })();
+  </script>
+</body>
+</html>

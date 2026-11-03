@@ -66,7 +66,6 @@
   const mobileLinks = [
     ['pages/home.html', 'home', 'home', 'Home'],
     ['pages/path.html', 'path', 'paths', 'Learning paths'],
-    ['pages/courses.html', 'courses', 'globe', 'Courses'],
     ['pages/flashcards.html', 'flashcards', 'flashcards', 'Flashcards'],
     ['pages/exercises.html', 'exercises', 'exercises', 'Exercises'],
     ['pages/dictionary.html', 'dictionary', 'dictionary', 'My dictionary'],

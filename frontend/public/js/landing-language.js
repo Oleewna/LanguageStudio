@@ -6,6 +6,9 @@
       signIn: 'Sign in',
       startLearning: 'Start learning',
       placementTest: 'Take a placement test',
+      languagePickerLabel: 'Choose what you want to learn',
+      languageOptionItalian: 'Italian',
+      languagePickerButton: 'Go',
       'hero.eyebrow': 'YOUR ITALIAN JOURNEY',
       'hero.titleFirst': 'A little Italian,',
       'hero.titleSecond': 'every day.',
@@ -25,6 +28,7 @@
       'preview.eyebrow': 'LESSON ONE · PRIMO INCONTRO',
       'preview.artHeading': 'FIRST MEETING',
       'preview.artTranslation': 'Hi! How are you?',
+      'preview.answerTranslation': 'I’m good, thanks!',
       'preview.titleFirst': 'Start with a simple',
       'preview.titleSecond': '“Ciao!”',
       'preview.description': 'Meet someone new, learn a few natural greetings, and try your first Italian conversation. No long grammar chapters before you get started.',
@@ -48,6 +52,9 @@
       signIn: 'Увійти',
       startLearning: 'Почати навчання',
       placementTest: 'Пройти тест на визначення рівня',
+      languagePickerLabel: 'Оберіть, що хочете вивчати',
+      languageOptionItalian: 'Італійська',
+      languagePickerButton: 'Перейти',
       'hero.eyebrow': 'ВАША ПОДОРОЖ ІТАЛІЙСЬКОЮ',
       'hero.titleFirst': 'Трохи італійської,',
       'hero.titleSecond': 'щодня.',
@@ -67,6 +74,7 @@
       'preview.eyebrow': 'УРОК ПЕРШИЙ · PRIMO INCONTRO',
       'preview.artHeading': 'ПЕРШЕ ЗНАЙОМСТВО',
       'preview.artTranslation': 'Привіт! Як справи?',
+      'preview.answerTranslation': 'Я в порядку, дякую!',
       'preview.titleFirst': 'Почніть із простого',
       'preview.titleSecond': '«Чао!»',
       'preview.description': 'Познайомтеся, вивчіть кілька природних привітань і спробуйте свою першу розмову італійською. Без довгих розділів граматики перед початком.',
@@ -97,6 +105,44 @@
     return getDeviceLanguage();
   }
 
+  function setPreferredLanguage(language) {
+    const nextLanguage = language === 'uk' ? 'uk' : 'en';
+    localStorage.setItem('ls_source_language', nextLanguage);
+    localStorage.setItem('ls_italian_source_language', nextLanguage);
+    applyLanguage(nextLanguage);
+    applyTheme(getCurrentTheme());
+    window.dispatchEvent(new CustomEvent('sourceLanguageChanged', { detail: { language: nextLanguage } }));
+  }
+
+  function getCurrentTheme() {
+    const savedTheme = localStorage.getItem('ls_theme');
+    if (savedTheme === 'dark' || savedTheme === 'light') return savedTheme;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function syncThemeButtonLabel() {
+    const themeButton = document.getElementById('landingThemeToggle');
+    if (!themeButton) return;
+
+    const currentLanguage = getPreferredLanguage();
+    const isDark = getCurrentTheme() === 'dark';
+    const label = currentLanguage === 'uk'
+      ? (isDark ? 'Світла' : 'Темна')
+      : (isDark ? 'Light' : 'Dark');
+
+    themeButton.textContent = label;
+    themeButton.setAttribute('aria-label', currentLanguage === 'uk'
+      ? (isDark ? 'Переключити на світлу тему' : 'Переключити на темну тему')
+      : (isDark ? 'Switch to light theme' : 'Switch to dark theme'));
+  }
+
+  function applyTheme(nextTheme) {
+    const normalizedTheme = nextTheme === 'dark' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', normalizedTheme);
+    localStorage.setItem('ls_theme', normalizedTheme);
+    syncThemeButtonLabel();
+  }
+
   function applyLanguage(language) {
     const dictionary = translations[language] || translations.en;
     document.documentElement.lang = language;
@@ -115,7 +161,48 @@
       const translation = dictionary[element.dataset.i18nContent];
       if (translation !== undefined) element.setAttribute('content', translation);
     });
+
+    const languageButton = document.getElementById('landingLanguageToggle');
+    if (languageButton) {
+      const label = language === 'uk' ? 'Українська' : 'English';
+      languageButton.textContent = label;
+      languageButton.setAttribute('aria-label', language === 'uk' ? 'Switch language to English' : 'Switch language to Ukrainian');
+    }
+
+    syncThemeButtonLabel();
+
+    const select = document.getElementById('landingLanguageSelect');
+    const button = document.querySelector('.language-picker-button');
+
+    if (select && button) {
+      const syncLanguageTarget = () => {
+        button.href = select.value;
+      };
+      select.addEventListener('change', syncLanguageTarget);
+      syncLanguageTarget();
+    }
   }
 
+  const languageButton = document.getElementById('landingLanguageToggle');
+  if (languageButton) {
+    languageButton.addEventListener('click', () => {
+      const activeLanguage = getPreferredLanguage();
+      setPreferredLanguage(activeLanguage === 'uk' ? 'en' : 'uk');
+    });
+  }
+
+  const themeButton = document.getElementById('landingThemeToggle');
+  if (themeButton) {
+    themeButton.addEventListener('click', () => {
+      const nextTheme = getCurrentTheme() === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme);
+    });
+  }
+
+  window.addEventListener('sourceLanguageChanged', () => {
+    applyLanguage(getPreferredLanguage());
+  });
+
+  applyTheme(getCurrentTheme());
   applyLanguage(getPreferredLanguage());
 })();
