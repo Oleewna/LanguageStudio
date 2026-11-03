@@ -9,6 +9,7 @@
     "reorder": 10,
     "match": 20,
     "wordLearned": 5,
+    "wordAdded": 5,
     "customWordAdded": 25
   },
   "weakWords": { "weakMinWrong": 2, "weakClearStreak": 2 },

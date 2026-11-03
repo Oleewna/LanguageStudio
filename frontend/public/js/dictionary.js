@@ -98,9 +98,16 @@ async function renderDictionary() {
   if (!grid) return;
 
   const query = (document.getElementById('dictSearch')?.value || '').toLowerCase().trim();
-  const baseWords = await getCourseDictionaryWords();
-  const custom = getCustomWords().map(item => ({ ...item, custom: true, id: item.id || `custom-${Date.now()}-${Math.random().toString(16).slice(2)}` }));
-  const all = [...baseWords, ...custom].map(normalizeWordEntry);
+  const all = await (async () => {
+    if (typeof window.getUserVocabulary === 'function') {
+      const entries = await window.getUserVocabulary();
+      return entries.map((entry) => normalizeWordEntry({ ...entry, trans: entry.trans || entry.translation || '' }));
+    }
+
+    const baseWords = await getCourseDictionaryWords();
+    const custom = getCustomWords().map(item => ({ ...item, custom: true, id: item.id || `custom-${Date.now()}-${Math.random().toString(16).slice(2)}` }));
+    return [...baseWords, ...custom].map(normalizeWordEntry);
+  })();
 
   populateFilters(all);
   const lessonFilter = document.getElementById('filterLesson').value;
@@ -154,41 +161,175 @@ async function renderDictionary() {
   applyInterfaceLanguage();
 }
 
+function normalizeCatalogCourseId(courseId) {
+  const rawValue = String(courseId || '').trim().toLowerCase();
+  if (!rawValue) return 'it';
+  if (/^[a-z]{2,3}$/.test(rawValue)) return rawValue;
+
+  const aliases = {
+    italian: 'it',
+    spanish: 'es',
+    ukrainian: 'uk',
+    english: 'en'
+  };
+
+  return aliases[rawValue] || rawValue;
+}
+
+function getCatalogCourseId() {
+  const courseId = window.getCourseId ? window.getCourseId() : (window.getCurrentCourseId ? window.getCurrentCourseId() : 'it');
+  const course = window.getCourse ? window.getCourse(courseId) : null;
+  if (course && course.code) return String(course.code).trim();
+  return normalizeCatalogCourseId(courseId);
+}
+
+function getCatalogWordTranslation(word) {
+  const sourceLanguage = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+  const translations = word && word.trans ? word.trans : {};
+  const text = translations[sourceLanguage] || translations.uk || translations.en || '';
+  if (text) return text;
+  if (typeof word.translation === 'string') return word.translation;
+  return word.word || '';
+}
+
+async function searchCatalogWords(query) {
+  const input = document.getElementById('catalogSearchInput');
+  const resultsContainer = document.getElementById('catalogSearchResults');
+  if (!input || !resultsContainer) return;
+
+  const normalizedQuery = String(query || '').trim();
+  if (!normalizedQuery) {
+    resultsContainer.innerHTML = '<div class="catalog-search-empty">Type a word or phrase to search the course catalog.</div>';
+    return;
+  }
+
+  const renderResults = (items) => {
+    if (!items.length) {
+      resultsContainer.innerHTML = '<div class="catalog-search-empty">No matches found. Try another word.</div>';
+      return;
+    }
+
+    resultsContainer.innerHTML = items.map((word) => {
+      const translation = getCatalogWordTranslation(word);
+      const meta = [word.category, word.topic, word.lesson].filter(Boolean).slice(0, 2).join(' · ') || 'Catalog word';
+      return `
+        <button type="button" class="catalog-search-result" data-word-id="${word.id}" data-word-label="${(word.word || '').replace(/"/g, '&quot;')}">
+          <span class="catalog-search-word">${word.word}</span>
+          <span class="catalog-search-translation">${translation}</span>
+          <small>${meta}</small>
+        </button>
+      `;
+    }).join('');
+
+    resultsContainer.querySelectorAll('.catalog-search-result').forEach((button) => {
+      button.addEventListener('click', () => {
+        const selectedWord = items.find((item) => String(item.id) === button.dataset.wordId);
+        if (!selectedWord) return;
+        addSelectedCatalogWord(selectedWord);
+      });
+    });
+  };
+
+  try {
+    const response = await fetch(`/api/vocab/search?course=${encodeURIComponent(getCatalogCourseId())}&q=${encodeURIComponent(normalizedQuery)}&limit=8`, { cache: 'no-store' });
+    if (!response.ok) {
+      throw new Error(`Catalog search response was ${response.status}`);
+    }
+
+    const items = Array.isArray(await response.json()) ? await response.json() : [];
+    renderResults(items);
+    return;
+  } catch (error) {
+    if (typeof window.loadCourseData === 'function') {
+      try {
+        const catalog = await window.loadCourseData('vocab');
+        const items = Array.isArray(catalog)
+          ? catalog.filter((word) => {
+              const sourceText = [word.word, word.category, word.topic, word.lesson, getCatalogWordTranslation(word)].join(' ').toLowerCase();
+              return sourceText.includes(normalizedQuery.toLowerCase());
+            }).slice(0, 8)
+          : [];
+        renderResults(items);
+        return;
+      } catch (fallbackError) {
+        // Fall through to the user-friendly empty state below.
+      }
+    }
+
+    resultsContainer.innerHTML = '<div class="catalog-search-empty">Could not search the catalog right now.</div>';
+  }
+}
+
+function addSelectedCatalogWord(word) {
+  if (!word || !word.id) return;
+
+  if (typeof window.Progress !== 'undefined' && typeof window.Progress.addUserWord === 'function') {
+    try {
+      window.Progress.addUserWord(getCatalogCourseId(), word.id, 'manual');
+    } catch (error) {
+      const list = getCustomWords();
+      const entry = {
+        id: word.id,
+        word: word.word,
+        trans: getCatalogWordTranslation(word),
+        pronunciation: word.phon && typeof word.phon === 'object' ? Object.values(word.phon)[0] || '' : '',
+        type: word.type || 'other',
+        category: word.category || word.topic || '',
+        lesson: word.lesson || '',
+        custom: false
+      };
+      if (!list.some((item) => String(item.id) === String(word.id))) {
+        list.unshift(entry);
+        saveCustomWords(list);
+      }
+    }
+  } else {
+    const list = getCustomWords();
+    const entry = {
+      id: word.id,
+      word: word.word,
+      trans: getCatalogWordTranslation(word),
+      pronunciation: word.phon && typeof word.phon === 'object' ? Object.values(word.phon)[0] || '' : '',
+      type: word.type || 'other',
+      category: word.category || word.topic || '',
+      lesson: word.lesson || '',
+      custom: false
+    };
+    if (!list.some((item) => String(item.id) === String(word.id))) {
+      list.unshift(entry);
+      saveCustomWords(list);
+    }
+  }
+
+  if (typeof addXP === 'function') addXP(5);
+  closeAddModal();
+  renderDictionary();
+}
+
 function openAddModal() {
-  document.getElementById('addModal').classList.add('open');
-  document.getElementById('wIt').focus();
+  const modal = document.getElementById('addModal');
+  if (!modal) return;
+  modal.classList.add('open');
+  const input = document.getElementById('catalogSearchInput');
+  if (input) {
+    setTimeout(() => input.focus(), 50);
+  }
 }
 
 function closeAddModal() {
-  document.getElementById('addModal').classList.remove('open');
-  document.getElementById('addWordForm').reset();
+  const modal = document.getElementById('addModal');
+  if (modal) modal.classList.remove('open');
+  const form = document.getElementById('addWordForm');
+  if (form) form.reset();
+  const results = document.getElementById('catalogSearchResults');
+  if (results) results.innerHTML = '<div class="catalog-search-empty">Type a word or phrase to search the course catalog.</div>';
 }
 
 function saveNewWord(e) {
   e.preventDefault();
-  const word = document.getElementById('wIt').value.trim();
-  const trans = document.getElementById('wUa').value.trim();
-  const pronunciation = document.getElementById('wPronunciation').value.trim();
-  const type = document.getElementById('wType').value;
-  const category = document.getElementById('wCategory').value.trim();
-  const lesson = document.getElementById('wLesson').value.trim();
-  if (!word || !trans) return;
-
-  const list = getCustomWords();
-  list.unshift({
-    id: 'c_' + Date.now(),
-    word,
-    trans,
-    pronunciation: pronunciation ? `[${pronunciation.replace(/[\[\]]/g, '')}]` : '',
-    type: type || 'other',
-    category: category || '',
-    lesson: lesson || '',
-    custom: true
-  });
-  saveCustomWords(list);
-  addXP(25);
-  closeAddModal();
-  renderDictionary();
+  const input = document.getElementById('catalogSearchInput');
+  if (!input) return;
+  searchCatalogWords(input.value);
 }
 
 function deleteWord(id) {
@@ -206,6 +347,16 @@ document.addEventListener('DOMContentLoaded', () => {
       filterToggle.setAttribute('aria-expanded', String(!isOpen));
       dictionaryFiltersPanel.classList.toggle('hidden', isOpen);
     });
+  }
+
+  const catalogSearchInput = document.getElementById('catalogSearchInput');
+  if (catalogSearchInput) {
+    catalogSearchInput.addEventListener('input', (event) => searchCatalogWords(event.target.value));
+  }
+
+  const addWordForm = document.getElementById('addWordForm');
+  if (addWordForm) {
+    addWordForm.addEventListener('submit', saveNewWord);
   }
 
   renderDictionary();

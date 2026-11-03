@@ -841,6 +841,14 @@
   const DICT_KEY = typeof window.courseKey === 'function' ? window.courseKey('custom_dict') : 'ls_custom_dict';
 
   async function getAllDictWords() {
+    if (typeof window.getUserVocabulary === 'function') {
+      const entries = await window.getUserVocabulary();
+      return entries.map((word) => ({
+        word: word.word,
+        trans: getText(word.trans || {}, '') || (typeof word.translation === 'string' ? word.translation : '')
+      }));
+    }
+
     let custom = [];
     if (typeof window.getJSON === 'function') {
       custom = Array.isArray(window.getJSON(DICT_KEY, [])) ? window.getJSON(DICT_KEY, []) : [];

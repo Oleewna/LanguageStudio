@@ -5,13 +5,16 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "test": "node --test"
+    "test": "node --test",
+    "import:vocab": "node ../../scripts/import-vocab.mjs",
+    "seed:vocab": "node seed-basic-vocab.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "better-sqlite3": "^13.0.3",
     "dotenv": "^18.0.9",
     "express": "^5.2.1",
     "language-studio-content-db": "file:../content-db"

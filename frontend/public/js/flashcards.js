@@ -65,12 +65,24 @@ function buildTrackOptions(allWords) {
 }
 
 async function applyFilters() {
-  const allCoursesWords = (typeof window.loadCourseData === 'function')
-    ? await window.loadCourseData('vocab').catch(() => [])
-    : [];
-  const baseWords = Array.isArray(allCoursesWords) ? allCoursesWords.map(normalizeFlashcard) : [];
-  const custom = getCustomWords().map(w => normalizeFlashcard({ ...w, path: 'custom', track: 'custom', topic: w.topic || 'custom' }));
-  let list = [...baseWords, ...custom];
+  let list = [];
+
+  if (typeof window.getUserVocabulary === 'function') {
+    const entries = await window.getUserVocabulary();
+    list = entries.map((word) => normalizeFlashcard({
+      ...word,
+      path: word.path || word.lesson || 'custom',
+      track: word.path || word.lesson || 'custom',
+      topic: word.topic || word.category || 'custom'
+    }));
+  } else {
+    const allCoursesWords = (typeof window.loadCourseData === 'function')
+      ? await window.loadCourseData('vocab').catch(() => [])
+      : [];
+    const baseWords = Array.isArray(allCoursesWords) ? allCoursesWords.map(normalizeFlashcard) : [];
+    const custom = getCustomWords().map(w => normalizeFlashcard({ ...w, path: 'custom', track: 'custom', topic: w.topic || 'custom' }));
+    list = [...baseWords, ...custom];
+  }
 
   const trackSelect = document.getElementById('filterTrack');
   const activeTrack = trackSelect ? trackSelect.value : 'all';

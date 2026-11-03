@@ -17,6 +17,7 @@
       reorder: 10,
       match: 20,
       wordLearned: 5,
+      wordAdded: 5,
       customWordAdded: 25
     },
     weakWords: { weakMinWrong: 2, weakClearStreak: 2 }
@@ -149,7 +150,7 @@
 
   function exportProgress() {
     const snapshot = {};
-    const collections = ['profile', 'daily', 'lessonProgress', 'wordStats', 'position', 'customWords'];
+    const collections = ['profile', 'daily', 'lessonProgress', 'wordStats', 'position', 'customWords', 'userWords'];
 
     collections.forEach((collection) => {
       const entries = store.list(collection);
@@ -161,6 +162,7 @@
           else if (collection === 'lessonProgress') id = `${record.courseId || ''}:${record.lessonId || ''}`;
           else if (collection === 'wordStats') id = `${record.courseId || ''}:${record.vocabId || ''}`;
           else if (collection === 'position') id = record.courseId || DEFAULT_USER_ID;
+          else if (collection === 'userWords') id = `${record.courseId || ''}:${record.wordId || ''}`;
           else id = `${record.courseId || ''}:${record.id || ''}`;
         }
         accumulator[id] = record;
@@ -640,8 +642,81 @@
     return nextPosition;
   }
 
+  async function addUserWord(courseId, wordId, source = 'manual') {
+    const normalizedCourse = normalizeCourseId(courseId);
+    const normalizedWordId = String(wordId || '').trim();
+    if (!normalizedCourse || !normalizedWordId) return null;
+
+    const existing = await getOrCreateRecord('userWords', `${normalizedCourse}:${normalizedWordId}`);
+    const nextRecord = {
+      ...existing,
+      courseId: normalizedCourse,
+      wordId: normalizedWordId,
+      source: ['lesson', 'manual', 'custom'].includes(source) ? source : 'manual',
+      earlyAdded: Boolean(existing && existing.earlyAdded) || false,
+      addedAt: existing && existing.addedAt ? existing.addedAt : currentIso(),
+      updatedAt: currentIso()
+    };
+
+    store.set('userWords', `${normalizedCourse}:${normalizedWordId}`, nextRecord);
+    dispatchProgressEvent('progress:changed', { collection: 'userWords', id: `${normalizedCourse}:${normalizedWordId}` });
+    return nextRecord;
+  }
+
+  async function removeUserWord(courseId, wordId) {
+    const normalizedCourse = normalizeCourseId(courseId);
+    const normalizedWordId = String(wordId || '').trim();
+    if (!normalizedCourse || !normalizedWordId) return false;
+    const removed = store.remove('userWords', `${normalizedCourse}:${normalizedWordId}`);
+    dispatchProgressEvent('progress:changed', { collection: 'userWords', id: `${normalizedCourse}:${normalizedWordId}` });
+    return removed;
+  }
+
+  async function listUserWords(courseId) {
+    const normalizedCourse = normalizeCourseId(courseId);
+    const records = store.list('userWords', (record) => record && record.courseId === normalizedCourse);
+    return records.map((record) => ({
+      ...record,
+      source: record && ['lesson', 'manual', 'custom'].includes(record.source) ? record.source : 'manual'
+    }));
+  }
+
+  async function unlockWordsForLesson(courseId, lessonId) {
+    const normalizedCourse = normalizeCourseId(courseId);
+    const safeLessonId = String(lessonId || '').trim();
+    if (!normalizedCourse || !safeLessonId) return [];
+
+    try {
+      const response = await fetch(`/api/vocab/by-lesson?course=${encodeURIComponent(normalizedCourse)}&lesson=${encodeURIComponent(safeLessonId)}`, { cache: 'no-store' });
+      if (!response.ok) return [];
+      const rows = await response.json();
+      if (!Array.isArray(rows)) return [];
+
+      const added = [];
+      for (const entry of rows) {
+        if (!entry || !entry.id) continue;
+        const nextRecord = await addUserWord(normalizedCourse, entry.id, 'lesson');
+        if (nextRecord) added.push(nextRecord);
+      }
+      return added;
+    } catch (error) {
+      return [];
+    }
+  }
+
   function normalizeCourseId(courseId) {
-    return String(courseId || '').trim();
+    const value = String(courseId || '').trim();
+    if (!value) return 'it';
+    if (/^[a-z]{2,3}$/.test(value.toLowerCase())) return value.toLowerCase();
+
+    const aliases = {
+      italian: 'it',
+      spanish: 'es',
+      ukrainian: 'uk',
+      english: 'en'
+    };
+
+    return aliases[value.toLowerCase()] || value.toLowerCase();
   }
 
   // Replace this adapter construction with ApiAdapter when a server-backed store is added.
@@ -711,6 +786,10 @@
     setWordLearned,
     recordWordResult,
     setPosition,
+    addUserWord,
+    removeUserWord,
+    listUserWords,
+    unlockWordsForLesson,
     normalizeCourseId
   });
 

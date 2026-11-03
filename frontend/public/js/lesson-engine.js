@@ -230,6 +230,41 @@
   }
 
   /**
+   * Resolve the current course id from the active page state.
+   * @returns {string}
+   */
+  function getCurrentCourseId() {
+    if (typeof window !== 'undefined') {
+      const candidates = [
+        typeof window.getCourseId === 'function' ? window.getCourseId() : null,
+        window.currentCourseId,
+        window.activeCourseId,
+        window.__LSApp && window.__LSApp.currentCourseId,
+        window.__LSApp && window.__LSApp.courseId,
+        (() => {
+          try {
+            return new URLSearchParams(window.location.search).get('course');
+          } catch (error) {
+            return null;
+          }
+        })()
+      ];
+
+      for (const candidate of candidates) {
+        if (candidate && String(candidate).trim()) {
+          return String(candidate).trim();
+        }
+      }
+    }
+
+    try {
+      return localStorage.getItem('ls_course') || localStorage.getItem('ls_target_course') || 'it';
+    } catch (error) {
+      return 'it';
+    }
+  }
+
+  /**
    * Check if a lesson is marked completed.
    * @param {string} lessonId
    * @returns {boolean}
@@ -252,6 +287,11 @@
         localStorage.setItem('ls_completed_lessons', JSON.stringify(list));
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('lessonCompleted', { detail: { lessonId } }));
+        }
+
+        const courseId = getCurrentCourseId();
+        if (typeof window !== 'undefined' && window.Progress && typeof window.Progress.unlockWordsForLesson === 'function') {
+          window.Progress.unlockWordsForLesson(courseId, lessonId).catch(() => {});
         }
       }
     } catch (e) {

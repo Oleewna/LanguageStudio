@@ -1,0 +1,7 @@
+id,lang,word,lesson,path,topic,category,type,trans_uk,trans_en,phon_uk,phon_en,ex1_text,ex1_trans_uk,ex1_trans_en,ex2_text,ex2_trans_uk,ex2_trans_en
+it-001,it,ciao,communication-basics-1,basics,greetings,greetings,greeting,привіт,hello,[ча-о],[chow],Ciao! Come stai?,Привіт! Як справи?,Hi! How are you?,Ciao,Привіт,Hi
+it-002,it,buongiorno,communication-basics-1,basics,greetings,greetings,greeting,добрий день,good morning,[бwon-джор-но],[bwohn-YOR-no],Buongiorno! ,Добрий день!,Good morning!,Buongiorno,Добрий день,Good morning
+it-003,it,perché,communication-basics-1,basics,basics,basics,word,чому,why,[пер-кэ],[per-keh],Perché sei qui?,Чому ти тут?,Why are you here?,Non lo so perché.,Не знаю, чому.,I don't know why.
+it-004,it,grazie,communication-basics-1,basics,politeness,politeness,word,дякую,thank you,[грат-сьє],[GRAHTS-yeh],Grazie mille!,Дякую дуже!,Thank you very much!,Grazie,Дякую,Thank you
+it-005,it,arrivederci,communication-basics-1,basics,goodbye,goodbye,phrase,до побачення,goodbye,[ар-ри-ве-дер-чі],[ah-ree-veh-der-chee],Arrivederci!,До побачення!,Goodbye!,Arrivederci,До побачення,Goodbye
+it-006,it,scusa,communication-basics-1,basics,politeness,politeness,word,вибачте,excuse me,[ску-са],[SKOO-sah],Scusa,Вибачте,Excuse me,Scusa,Вибач,Sorry

@@ -3,13 +3,22 @@ const path = require('path');
 
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
+const { initDatabase } = require('./db/init');
 const contentRoutes = require('./routes/content');
+const vocabRoutes = require('./routes/vocab');
+const userWordsRoutes = require('./routes/userWords');
+const examplesRoutes = require('./routes/examples');
 const pagesRoutes = require('./routes/pageroutes');
 const app = express();
+
+initDatabase();
 
 app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: false, limit: '16kb' }));
 app.use('/api/content', contentRoutes);
+app.use('/api/vocab', vocabRoutes);
+app.use('/api/user-words', userWordsRoutes);
+app.use('/api/examples', examplesRoutes);
 app.get('/health', (req, res) => res.json({ status: 'ok', service: 'content' }));
 
 app.use((req, res, next) => {

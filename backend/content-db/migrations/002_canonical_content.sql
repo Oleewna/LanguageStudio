@@ -1,3 +1,56 @@
+CREATE TABLE vocab_words (
+    id TEXT PRIMARY KEY,
+    courseId TEXT NOT NULL,
+    word TEXT NOT NULL,
+    normalizedWord TEXT NOT NULL,
+    translation TEXT NOT NULL DEFAULT '',
+    language TEXT NOT NULL DEFAULT 'it',
+    lesson TEXT,
+    category TEXT,
+    type TEXT,
+    source TEXT NOT NULL DEFAULT 'course',
+    createdAt TEXT NOT NULL DEFAULT (datetime('now')),
+    updatedAt TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE TABLE user_words (
+    id TEXT PRIMARY KEY,
+    userId TEXT NOT NULL DEFAULT 'anonymous',
+    courseId TEXT NOT NULL,
+    wordId TEXT NOT NULL,
+    source TEXT NOT NULL DEFAULT 'manual',
+    createdAt TEXT NOT NULL DEFAULT (datetime('now')),
+    updatedAt TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE TABLE custom_words (
+    id TEXT PRIMARY KEY,
+    userId TEXT NOT NULL DEFAULT 'anonymous',
+    courseId TEXT NOT NULL,
+    word TEXT NOT NULL,
+    normalizedWord TEXT NOT NULL,
+    translation TEXT NOT NULL DEFAULT '',
+    language TEXT NOT NULL DEFAULT 'it',
+    lesson TEXT,
+    category TEXT,
+    type TEXT,
+    source TEXT NOT NULL DEFAULT 'custom',
+    createdAt TEXT NOT NULL DEFAULT (datetime('now')),
+    updatedAt TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE TABLE word_examples_cache (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    courseId TEXT,
+    wordId TEXT,
+    word TEXT NOT NULL,
+    language TEXT NOT NULL DEFAULT 'it',
+    response_json TEXT NOT NULL CHECK (json_valid(response_json)),
+    createdAt TEXT NOT NULL DEFAULT (datetime('now')),
+    updatedAt TEXT NOT NULL DEFAULT (datetime('now')),
+    UNIQUE(courseId, wordId, word, language)
+);
+
 CREATE TABLE content_meta_new (
     singleton INTEGER PRIMARY KEY CHECK (singleton = 1),
     default_course_id TEXT NOT NULL

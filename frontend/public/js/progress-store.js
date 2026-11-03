@@ -3,6 +3,12 @@
     return encodeURIComponent(String(value ?? ''));
   }
 
+  function getUserWordsCollectionKey(courseId, wordId) {
+    const safeCourse = String(courseId || '').trim() || 'it';
+    const safeWord = String(wordId || '').trim();
+    return `${safeCourse}:${safeWord}`;
+  }
+
   class LocalStorageAdapter {
     constructor(userId = 'local') {
       this.userId = String(userId || 'local');
@@ -65,6 +71,8 @@
       }
     }
   }
+
+  window.getUserWordsCollectionKey = getUserWordsCollectionKey;
 
   window.__LSProgressAdapters = { LocalStorageAdapter };
 })(window);
