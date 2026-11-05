@@ -280,22 +280,44 @@
    */
   function markLessonCompleted(lessonId) {
     if (!lessonId) return;
+    const safeLessonId = String(lessonId);
+    let newlyCompleted = false;
     try {
       const list = getCompletedLessons();
-      if (!list.includes(String(lessonId))) {
-        list.push(String(lessonId));
+      if (!list.includes(safeLessonId)) {
+        list.push(safeLessonId);
         localStorage.setItem('ls_completed_lessons', JSON.stringify(list));
-        if (typeof window !== 'undefined') {
-          window.dispatchEvent(new CustomEvent('lessonCompleted', { detail: { lessonId } }));
-        }
-
-        const courseId = getCurrentCourseId();
-        if (typeof window !== 'undefined' && window.Progress && typeof window.Progress.unlockWordsForLesson === 'function') {
-          window.Progress.unlockWordsForLesson(courseId, lessonId).catch(() => {});
-        }
+        newlyCompleted = true;
       }
     } catch (e) {
       console.warn('Could not persist lesson completion:', e);
+    }
+
+    if (newlyCompleted && typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('lessonCompleted', { detail: { lessonId: safeLessonId } }));
+    }
+
+    const courseId = getCurrentCourseId();
+    const progress = typeof window !== 'undefined' ? window.Progress : null;
+    if (!progress) return;
+
+    if (typeof progress.recordLessonResult === 'function') {
+      const syncProgress = async () => {
+        const current = typeof progress.getLessonProgress === 'function'
+          ? await progress.getLessonProgress(courseId, safeLessonId)
+          : null;
+        if (current && current.state === 'completed') return;
+        await progress.recordLessonResult(courseId, safeLessonId, { score: 1 });
+      };
+      syncProgress().catch((error) => {
+        console.warn('Could not sync lesson completion with progress:', error);
+      });
+    }
+
+    if (typeof progress.unlockWordsForLesson === 'function') {
+      Promise.resolve(progress.unlockWordsForLesson(courseId, safeLessonId)).catch((error) => {
+        console.warn('Could not unlock vocabulary for completed lesson:', error);
+      });
     }
   }
 

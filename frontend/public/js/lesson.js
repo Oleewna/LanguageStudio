@@ -65,7 +65,23 @@
     return { uk: String(value), en: String(value) };
   }
 
-  function normalizeSection(block, vocabMap) {
+  function normalizeVocabularyKey(value) {
+    return String(value || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+  }
+
+  function getVocabularyTerm(item, courseId) {
+    if (typeof item === 'string') return item.trim();
+    if (!item || typeof item !== 'object') return '';
+    const value = item[courseId] || item.word || item.term || item.text;
+    return typeof value === 'string' ? value.trim() : '';
+  }
+
+  function normalizeSection(block, vocabMap, lessonId, courseId, missingVocabulary) {
     if (!block || !block.type) return null;
 
     if (block.type === 'dialogue') {
@@ -89,13 +105,19 @@
     if (block.type === 'vocab') {
       const items = (block.items || []).map((item) => {
         if (!item) return null;
-        const directItem = item.it || item.word || item.text || '';
+        const directItem = getVocabularyTerm(item, courseId);
+        const word = vocabMap.get(normalizeVocabularyKey(directItem));
+        if (!word || !(word.lessons || [word.lesson]).includes(lessonId)) {
+          if (directItem) missingVocabulary.push(directItem);
+          return null;
+        }
         return {
-          it: directItem,
-          pronunciation: item.pronunciation || item.phon || '',
-          translations: item.translations || item.trans || { uk: '', en: '' }
+          it: word.word,
+          pronunciation: word.pronunciation || word.phon || '',
+          translations: word.trans || { uk: '', en: '' }
         };
       }).filter(Boolean);
+      if (!items.length) return null;
       return { type: 'vocab', title: block.title || { uk: 'Нові слова', en: 'Vocabulary' }, items };
     }
 
@@ -176,14 +198,17 @@
     return { ...block };
   }
 
-  function normalizeLesson(rawLesson, course, lessonId, courseLessonMeta) {
+  function normalizeLesson(rawLesson, course, lessonId, courseLessonMeta, vocabMap, missingVocabulary) {
     const lessonMeta = courseLessonMeta || {};
     const hasNextLessonMetadata = Object.prototype.hasOwnProperty.call(rawLesson || {}, 'nextLessonId')
       || Object.prototype.hasOwnProperty.call(lessonMeta, 'nextLessonId');
     const hasPreviousLessonMetadata = Object.prototype.hasOwnProperty.call(rawLesson || {}, 'prevLessonId')
       || Object.prototype.hasOwnProperty.call(lessonMeta, 'prevLessonId');
     const safeId = rawLesson?.id || lessonId || 'communication-basics-1';
-    const sections = (rawLesson?.blocks || rawLesson?.sections || []).map((block) => normalizeSection(block, {})).filter(Boolean);
+    const courseId = course?.target?.code || course?.id || getCurrentCourseId();
+    const sections = (rawLesson?.blocks || rawLesson?.sections || [])
+      .map((block) => normalizeSection(block, vocabMap, safeId, courseId, missingVocabulary))
+      .filter(Boolean);
     const title = rawLesson?.title || lessonMeta.title || { uk: 'Урок', en: 'Lesson' };
     const subtitle = rawLesson?.subtitle || lessonMeta.subtitle || { uk: '', en: '' };
     const description = rawLesson?.description || lessonMeta.description || rawLesson?.hero?.text || { uk: 'Lesson content', en: 'Lesson content' };
@@ -436,7 +461,32 @@
       }
 
       const fallbackLessonId = lessonMeta?.id || rawLesson?.id || lessonId || (lessonList[0] && lessonList[0].id) || 'communication-basics-1';
-      const normalized = normalizeLesson(rawLesson || {}, course, fallbackLessonId, lessonMeta || {});
+      const vocabularyMap = new Map();
+      const missingVocabulary = [];
+      let vocabularyLoadError = false;
+      const lessonBlocks = rawLesson?.blocks || rawLesson?.sections || [];
+      if (lessonBlocks.some((block) => block && block.type === 'vocab')) {
+        try {
+          const vocabulary = await window.loadCourseData('vocab');
+          if (!Array.isArray(vocabulary)) throw new Error('The course vocabulary response is invalid.');
+          vocabulary.forEach((word) => {
+            const key = normalizeVocabularyKey(word && word.word);
+            if (key) vocabularyMap.set(key, word);
+          });
+        } catch (error) {
+          vocabularyLoadError = true;
+          console.error(`Could not load vocabulary for lesson "${fallbackLessonId}":`, error);
+        }
+      }
+
+      const normalized = normalizeLesson(
+        rawLesson || {},
+        course,
+        fallbackLessonId,
+        lessonMeta || {},
+        vocabularyMap,
+        missingVocabulary
+      );
       const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
 
       if (!normalized.sections || normalized.sections.length === 0) {
@@ -451,6 +501,17 @@
         window.LessonEngine.renderLesson(normalized, document.getElementById('lessonBody'));
       } else {
         document.getElementById('lessonBody').innerHTML = '<p style="padding:2rem;color:var(--ink-soft);">Lesson engine failed to load.</p>';
+      }
+
+      if (vocabularyLoadError || missingVocabulary.length) {
+        const notice = document.createElement('p');
+        notice.setAttribute('role', 'alert');
+        notice.textContent = vocabularyLoadError
+          ? (lang === 'en' ? 'Lesson vocabulary could not be loaded.' : 'Не вдалося завантажити словник уроку.')
+          : (lang === 'en'
+            ? 'Some lesson vocabulary is not available in the course word bank.'
+            : 'Деякі слова уроку відсутні у словнику курсу.');
+        document.getElementById('lessonBody').prepend(notice);
       }
 
       document.documentElement.lang = lang;

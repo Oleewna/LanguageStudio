@@ -41,59 +41,55 @@
         <div class="filter-group">
           <label class="filter-label" for="filterTrack"><span data-icon="directions"></span> Напрямок</label>
           <select id="filterTrack" class="filter-select" data-external-handler-flashcards-12="">
-            <option value="all">Усі напрямки</option>
-            <option value="foundations" selected>Основи спілкування</option>
-            <option value="tourist">Туристична італійська</option>
-            <option value="business">Робота та бізнес</option>
+            <option value="all" selected>Усі напрямки</option>
           </select>
         </div>
 
       </div>
 
       <!-- Filter by Topic / Thematic chips -->
-      <div class="topic-chips">
-        <button class="topic-chip active" data-external-handler-flashcards-13="">Всі тематики</button>
-        <button class="topic-chip" data-external-handler-flashcards-14=""><span data-icon="greeting"></span> Привітання</button>
-        <button class="topic-chip" data-external-handler-flashcards-15=""><span data-icon="type"></span> Базові фрази</button>
-        <button class="topic-chip" data-external-handler-flashcards-16=""><span data-icon="star"></span> Власні збережені</button>
-      </div>
+      <div class="topic-chips"></div>
     </div>
 
     <!-- 3D Card Stage -->
-    <div class="fc-stage" data-external-handler-flashcards-17="">
+    <div class="fc-stage" data-external-handler-flashcards-17="" tabindex="0" role="button" aria-label="Flashcard: show translation" aria-pressed="false">
       <div class="fc-inner" id="fcInner">
         
         <!-- Front -->
         <div class="fc-face fc-front">
           <div class="fc-meta-row">
-            <span class="fc-tag" id="fcUnitTag"><span data-icon="greeting"></span><span>Основи</span></span>
-            <span class="fc-tag" id="fcTopicTag"><span data-icon="greeting"></span><span>Привітання</span></span>
+            <span class="fc-tag" id="fcUnitTag"><span data-icon="greeting"></span><span>—</span></span>
+            <span class="fc-tag" id="fcTopicTag"><span data-icon="greeting"></span><span>—</span></span>
           </div>
-          <div class="fc-word" id="fcWord">ciao</div>
-          <div class="fc-pronunciation" id="fcPronunciation">[ча-о]</div>
+          <div class="fc-word" id="fcWord">Завантаження слів…</div>
+          <div class="fc-pronunciation" id="fcPronunciation"></div>
           <div class="fc-hint"><span data-icon="tap"></span> Натисніть, щоб побачити переклад</div>
         </div>
 
         <!-- Back -->
         <div class="fc-face fc-back">
-          <div class="fc-trans" id="fcTrans">привіт / бувай</div>
-          <div class="fc-example" id="fcExample">— Ciao! Come stai? — Bene, grazie!</div>
+          <div class="fc-trans" id="fcTrans"></div>
+          <div class="fc-example" id="fcExample"></div>
           <div class="fc-hint" id="external-style-flashcards-1"><span data-icon="tap"></span> Натисніть знову для звороту</div>
         </div>
 
       </div>
     </div>
 
-    <div class="fc-empty-note" id="fcEmptyNote">Для цього напрямку слова ще готуються — спробуйте «Основи спілкування» або власні збережені слова.</div>
+    <div class="fc-empty-note" id="fcEmptyNote">Для цього курсу чи уроку поки немає слів у базі уроків.</div>
 
     <!-- Controls -->
     <div class="fc-controls">
       <button class="btn-ghost" data-external-handler-flashcards-18=""><span data-icon="arrow-left"></span> Назад</button>
-      <span class="fc-counter-badge" id="fcCounter">1 / 13</span>
+      <span class="fc-counter-badge" id="fcCounter">0 / 0</span>
       <button class="btn-ghost" data-external-handler-flashcards-19="">Вперед <span data-icon="arrow-right"></span></button>
       <button class="audio-btn" data-external-handler-flashcards-20="" title="Аудіо (візуальний режим)"><span data-icon="audio"></span></button>
       <button class="btn-ghost" data-external-handler-flashcards-21="" title="Перемішати"><span data-icon="shuffle"></span></button>
     </div>
+    <div class="fc-review-controls">
+      <button type="button" class="btn-ghost" id="fcMarkLearned" aria-pressed="false">Mark as learned</button>
+    </div>
+    <p class="fc-review-status" id="fcReviewStatus" role="status" aria-live="polite"></p>
 
   </div>
 

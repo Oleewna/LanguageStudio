@@ -237,6 +237,7 @@
     /* ── SELECT CONTROLS ── */
     .st-select {
       width: 100%;
+      min-height: 2.75rem;
       padding: 0.75rem 0.9rem;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border);
@@ -577,6 +578,13 @@
             </div>
 
             <div class="st-block">
+              <label class="st-block-label" id="stDailyGoalLabel" for="settingsDailyGoal">Daily learning goal</label>
+              <select class="st-select" id="settingsDailyGoal" aria-describedby="stDailyGoalNote"></select>
+              <p class="st-block-note" id="stDailyGoalNote">Your goal is saved on this device.</p>
+              <p class="st-theme-status" id="stDailyGoalStatus" role="status" aria-live="polite"></p>
+            </div>
+
+            <div class="st-block">
               <div class="st-block-label" id="stLangBLabel">Translations & interface</div>
               <select class="st-select" id="settingsLanguage" data-source-language-select onchange="setSourceLanguage(this.value)" aria-label="Interface language"></select>
             </div>
@@ -689,6 +697,10 @@
         generalHeading: 'Загальні',
         generalDesc: 'Мова, курс та оформлення.',
         courseBLabel: 'Цільовий курс',
+        dailyGoalLabel: 'Щоденна навчальна ціль',
+        dailyGoalNote: 'Ціль зберігається на цьому пристрої.',
+        dailyGoalSaved: 'Щоденну ціль збережено.',
+        dailyGoalSaveError: 'Не вдалося зберегти ціль. Спробуйте ще раз.',
         langBLabel: 'Мова перекладів та інтерфейсу',
         themeBLabel: 'Тема інтерфейсу',
         useDeviceTheme: 'Тема пристрою',
@@ -733,6 +745,10 @@
         generalHeading: 'General',
         generalDesc: 'Language, course, and appearance settings.',
         courseBLabel: 'Target course',
+        dailyGoalLabel: 'Daily learning goal',
+        dailyGoalNote: 'Your goal is saved on this device.',
+        dailyGoalSaved: 'Daily goal saved.',
+        dailyGoalSaveError: 'Could not save your goal. Please try again.',
         langBLabel: 'Translations & interface',
         themeBLabel: 'Interface theme',
         useDeviceTheme: 'Use device theme',
@@ -780,6 +796,65 @@
           if (typeof window.setJSON === 'function') window.setJSON(ST_NOTIF_KEY, updated);
         });
       });
+    }
+
+    async function initDailyGoal() {
+      const select = document.getElementById('settingsDailyGoal');
+      if (!select || !window.Progress) return;
+
+      try {
+        const [config, profile] = await Promise.all([
+          window.Progress.loadProgressionConfig(),
+          window.Progress.getProfile()
+        ]);
+        const configuredOptions = Array.isArray(config.dailyGoalOptions) ? config.dailyGoalOptions : [];
+        const options = configuredOptions
+          .map(Number)
+          .filter((goal) => Number.isFinite(goal) && goal > 0);
+        if (!options.length) options.push(20, 50, 100);
+        const currentGoal = Number(profile.dailyGoalXp) || config.dailyGoalDefault || 50;
+        select.replaceChildren(...options.map((goal) => {
+          const option = document.createElement('option');
+          option.value = String(goal);
+          option.textContent = `${goal} XP`;
+          return option;
+        }));
+        select.value = String(options.includes(currentGoal) ? currentGoal : (options[0] || 50));
+        if (!options.includes(currentGoal)) {
+          const fallbackGoal = Number(select.value);
+          await window.Progress.update('profile', 'local', { dailyGoalXp: fallbackGoal });
+          const daily = await window.Progress.getDaily();
+          await window.Progress.update('daily', daily.date, {
+            goalXp: fallbackGoal,
+            goalMet: Number(daily.xp) >= fallbackGoal
+          });
+        }
+
+        select.addEventListener('change', async () => {
+          const goal = Number(select.value);
+          const status = document.getElementById('stDailyGoalStatus');
+          try {
+            const daily = await window.Progress.getDaily();
+            await window.Progress.update('profile', 'local', {
+              dailyGoalXp: goal,
+              updatedAt: new Date().toISOString()
+            });
+            await window.Progress.update('daily', daily.date, {
+              goalXp: goal,
+              goalMet: Number(daily.xp) >= goal,
+              updatedAt: new Date().toISOString()
+            });
+            if (status) status.textContent = (ST_COPY[getSourceLanguage()] || ST_COPY.uk).dailyGoalSaved;
+          } catch (error) {
+            console.error('Could not save the daily learning goal:', error);
+            if (status) status.textContent = (ST_COPY[getSourceLanguage()] || ST_COPY.uk).dailyGoalSaveError;
+          }
+        });
+      } catch (error) {
+        console.error('Could not load the daily learning goal:', error);
+        const status = document.getElementById('stDailyGoalStatus');
+        if (status) status.textContent = (ST_COPY[getSourceLanguage()] || ST_COPY.uk).dailyGoalSaveError;
+      }
     }
 
     // ── CATEGORY SWITCHING ────────────────────────────────────────────────────
@@ -853,6 +928,8 @@
       set('stGeneralHeading', c.generalHeading);
       set('stGeneralDesc', c.generalDesc);
       set('stCourseBLabel', c.courseBLabel);
+      set('stDailyGoalLabel', c.dailyGoalLabel);
+      set('stDailyGoalNote', c.dailyGoalNote);
       set('stLangBLabel', c.langBLabel);
       set('stThemeBLabel', c.themeBLabel);
 
@@ -913,6 +990,7 @@
       }
 
       initNotifToggles();
+      initDailyGoal();
     }
 
     document.addEventListener('DOMContentLoaded', initSettingsPage);

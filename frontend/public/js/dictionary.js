@@ -236,37 +236,42 @@ async function searchCatalogWords(query) {
       throw new Error(`Catalog search response was ${response.status}`);
     }
 
-    const items = Array.isArray(await response.json()) ? await response.json() : [];
-    renderResults(items);
-    return;
-  } catch (error) {
-    if (typeof window.loadCourseData === 'function') {
-      try {
-        const catalog = await window.loadCourseData('vocab');
-        const items = Array.isArray(catalog)
-          ? catalog.filter((word) => {
-              const sourceText = [word.word, word.category, word.topic, word.lesson, getCatalogWordTranslation(word)].join(' ').toLowerCase();
-              return sourceText.includes(normalizedQuery.toLowerCase());
-            }).slice(0, 8)
-          : [];
-        renderResults(items);
-        return;
-      } catch (fallbackError) {
-        // Fall through to the user-friendly empty state below.
-      }
+    const payload = await response.json();
+    const items = Array.isArray(payload) ? payload : [];
+    if (items.length) {
+      renderResults(items);
+      return;
     }
+  } catch (error) {
+    // Try the course catalog below when the search endpoint is unavailable.
+  }
 
+  try {
+    if (typeof window.loadCourseData !== 'function') {
+      throw new Error('Course catalog is unavailable.');
+    }
+    const catalog = await window.loadCourseData('vocab');
+    const queryText = normalizedQuery.toLocaleLowerCase();
+    const items = Array.isArray(catalog)
+      ? catalog.filter((word) => {
+          const sourceText = [word.word, word.category, word.topic, word.lesson, getCatalogWordTranslation(word)].join(' ').toLocaleLowerCase();
+          return sourceText.includes(queryText);
+        }).slice(0, 8)
+      : [];
+    renderResults(items);
+  } catch (error) {
+    console.error('Could not search the vocabulary catalog.', error);
     resultsContainer.innerHTML = '<div class="catalog-search-empty">Could not search the catalog right now.</div>';
   }
 }
 
-function addSelectedCatalogWord(word) {
+async function addSelectedCatalogWord(word) {
   if (!word || !word.id) return;
 
-  if (typeof window.Progress !== 'undefined' && typeof window.Progress.addUserWord === 'function') {
-    try {
-      window.Progress.addUserWord(getCatalogCourseId(), word.id, 'manual');
-    } catch (error) {
+  try {
+    if (typeof window.Progress !== 'undefined' && typeof window.Progress.addUserWord === 'function') {
+      await window.Progress.addUserWord(getCatalogCourseId(), word.id, 'manual');
+    } else {
       const list = getCustomWords();
       const entry = {
         id: word.id,
@@ -283,27 +288,17 @@ function addSelectedCatalogWord(word) {
         saveCustomWords(list);
       }
     }
-  } else {
-    const list = getCustomWords();
-    const entry = {
-      id: word.id,
-      word: word.word,
-      trans: getCatalogWordTranslation(word),
-      pronunciation: word.phon && typeof word.phon === 'object' ? Object.values(word.phon)[0] || '' : '',
-      type: word.type || 'other',
-      category: word.category || word.topic || '',
-      lesson: word.lesson || '',
-      custom: false
-    };
-    if (!list.some((item) => String(item.id) === String(word.id))) {
-      list.unshift(entry);
-      saveCustomWords(list);
+
+    if (typeof addXP === 'function') addXP(5);
+    closeAddModal();
+    await renderDictionary();
+  } catch (error) {
+    console.error('Could not add catalog word to the dictionary.', error);
+    const resultsContainer = document.getElementById('catalogSearchResults');
+    if (resultsContainer) {
+      resultsContainer.innerHTML = '<div class="catalog-search-empty" role="alert">Could not add this word. Please try again.</div>';
     }
   }
-
-  if (typeof addXP === 'function') addXP(5);
-  closeAddModal();
-  renderDictionary();
 }
 
 function openAddModal() {

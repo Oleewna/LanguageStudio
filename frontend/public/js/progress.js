@@ -686,22 +686,22 @@
     const safeLessonId = String(lessonId || '').trim();
     if (!normalizedCourse || !safeLessonId) return [];
 
-    try {
-      const response = await fetch(`/api/vocab/by-lesson?course=${encodeURIComponent(normalizedCourse)}&lesson=${encodeURIComponent(safeLessonId)}`, { cache: 'no-store' });
-      if (!response.ok) return [];
-      const rows = await response.json();
-      if (!Array.isArray(rows)) return [];
-
-      const added = [];
-      for (const entry of rows) {
-        if (!entry || !entry.id) continue;
-        const nextRecord = await addUserWord(normalizedCourse, entry.id, 'lesson');
-        if (nextRecord) added.push(nextRecord);
-      }
-      return added;
-    } catch (error) {
-      return [];
+    const response = await fetch(`/api/vocab/by-lesson?course=${encodeURIComponent(normalizedCourse)}&lesson=${encodeURIComponent(safeLessonId)}`, { cache: 'no-store' });
+    if (!response.ok) {
+      throw new Error(`Could not load vocabulary for lesson "${safeLessonId}" (HTTP ${response.status}).`);
     }
+    const rows = await response.json();
+    if (!Array.isArray(rows)) {
+      throw new Error(`Vocabulary response for lesson "${safeLessonId}" was not a list.`);
+    }
+
+    const added = [];
+    for (const entry of rows) {
+      if (!entry || !entry.id) continue;
+      const nextRecord = await addUserWord(normalizedCourse, entry.id, 'lesson');
+      if (nextRecord) added.push(nextRecord);
+    }
+    return added;
   }
 
   function normalizeCourseId(courseId) {

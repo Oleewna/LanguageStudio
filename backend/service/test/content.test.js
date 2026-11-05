@@ -193,7 +193,11 @@ test('database seed has valid relational data and can be replaced without duplic
     try {
         assert.equal(database.prepare('SELECT COUNT(*) AS count FROM courses').get().count, 2);
         assert.equal(database.prepare('SELECT COUNT(*) AS count FROM lessons').get().count, 4);
-        assert.equal(database.prepare('SELECT COUNT(*) AS count FROM vocabulary').get().count, 28);
+        const expectedVocabularyCount = catalog.courses.reduce(
+            (total, course) => total + course.resources.vocab.length,
+            0
+        );
+        assert.equal(database.prepare('SELECT COUNT(*) AS count FROM vocabulary').get().count, expectedVocabularyCount);
         assert.equal(database.prepare('SELECT COUNT(*) AS count FROM exercises').get().count, 29);
         assert.equal(database.pragma('integrity_check')[0].integrity_check, 'ok');
         assert.equal(database.pragma('foreign_key_check').length, 0);

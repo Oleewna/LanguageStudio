@@ -360,23 +360,18 @@
     renderFormatTabs();
 
     if (name === 'dict') {
-      if (selectedPathId !== 'all' || selectedLessonId !== 'all') {
-        const container = document.getElementById('dictQuizContainer');
-        if (container) {
-          container.textContent = getText({
-            uk: 'Вправи зі словника не прив’язані до конкретного напряму чи уроку.',
-            en: 'Dictionary exercises are not tied to a specific path or lesson.'
-          });
-        }
-      } else {
-        generateDictQuiz();
-      }
+      generateDictQuiz();
     } else {
       applyFiltersAndSort();
     }
   }
 
   function applyFiltersAndSort() {
+    if (currentTab === 'dict') {
+      generateDictQuiz();
+      return;
+    }
+
     const groupFilter = document.getElementById('groupFilterSelect');
     const groupVal = groupFilter ? groupFilter.value : 'all';
     const searchInput = document.getElementById('searchInput');
@@ -838,51 +833,48 @@
     }
   }
 
-  const DICT_KEY = typeof window.courseKey === 'function' ? window.courseKey('custom_dict') : 'ls_custom_dict';
-
   async function getAllDictWords() {
-    if (typeof window.getUserVocabulary === 'function') {
-      const entries = await window.getUserVocabulary();
-      return entries.map((word) => ({
+    if (typeof window.loadCourseData !== 'function') {
+      throw new Error('The course vocabulary service is unavailable.');
+    }
+
+    const data = await window.loadCourseData('vocab');
+    const words = Array.isArray(data) ? data : [];
+    return words
+      .filter((word) => {
+        if (selectedLessonId !== 'all') {
+          return (word.lessons || [word.lesson]).includes(selectedLessonId);
+        }
+        return selectedPathId === 'all' || word.path === selectedPathId;
+      })
+      .map((word) => ({
         word: word.word,
         trans: getText(word.trans || {}, '') || (typeof word.translation === 'string' ? word.translation : '')
-      }));
-    }
-
-    let custom = [];
-    if (typeof window.getJSON === 'function') {
-      custom = Array.isArray(window.getJSON(DICT_KEY, [])) ? window.getJSON(DICT_KEY, []) : [];
-    } else {
-      try {
-        custom = JSON.parse(localStorage.getItem(DICT_KEY) || '[]');
-      } catch (error) {
-        custom = [];
-      }
-    }
-
-    let baseWords = [];
-    if (typeof window.loadCourseData === 'function') {
-      try {
-        const data = await window.loadCourseData('vocab');
-        baseWords = Array.isArray(data) ? data : [];
-      } catch (error) {
-        baseWords = [];
-      }
-    }
-
-    return [
-      ...baseWords.map((word) => ({ word: word.word, trans: getText(word.trans, '') })),
-      ...custom.map((entry) => ({ word: entry.word, trans: getText(entry.trans || '', entry.trans || '') }))
-    ];
+      }))
+      .filter((word) => word.word && word.trans);
   }
 
   async function generateDictQuiz() {
     const container = document.getElementById('dictQuizContainer');
     if (!container) return;
 
-    const pool = await getAllDictWords();
+    let pool;
+    try {
+      pool = await getAllDictWords();
+    } catch (error) {
+      console.error('Could not load lesson vocabulary for the exercise:', error);
+      container.textContent = getText({
+        uk: 'Не вдалося завантажити слова уроку. Спробуйте ще раз.',
+        en: 'Could not load lesson words. Please try again.'
+      });
+      return;
+    }
+
     if (pool.length < 3) {
-      container.textContent = getText({ uk: 'Додайте більше слів у словник, щоб згенерувати тест (мінімум 3).', en: 'Add more words to your dictionary to generate a quiz (at least 3).' });
+      container.textContent = getText({
+        uk: 'Для тесту потрібні щонайменше три слова з вибраного курсу або уроку.',
+        en: 'At least three words from the selected course or lesson are needed for a quiz.'
+      });
       return;
     }
 

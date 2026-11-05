@@ -1,4 +1,79 @@
 /* ── QUICK HUBS ── */
+.dashboard-progress {
+  margin: 0 0 2.25rem;
+}
+
+.dashboard-progress .home-section-heading {
+  margin-bottom: 0.9rem;
+}
+
+.dashboard-progress-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.dashboard-progress-card {
+  min-width: 0;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.dashboard-progress-label,
+.dashboard-progress-note {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.dashboard-progress-value,
+.dashboard-goal-value {
+  margin-top: 0.35rem;
+  color: var(--ink);
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  font-weight: 900;
+}
+
+.dashboard-goal-track {
+  height: 0.5rem;
+  margin: 0.75rem 0 0.5rem;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: var(--card-sub-bg);
+}
+
+.dashboard-goal-track span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--primary);
+  transition: width 0.25s ease;
+}
+
+.dashboard-progress-note {
+  font-size: 0.72rem;
+}
+
+.dashboard-progress-card:focus-within {
+  border-color: var(--primary-border);
+}
+
+@media (max-width: 760px) {
+  .dashboard-progress-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 359px) {
+  .dashboard-progress-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
   .hub-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

@@ -13,6 +13,8 @@ Numbered SQL migrations define the schema:
 
 Foreign keys and application validation protect the hierarchy and references. The public content API reconstructs its stable learner-facing response format from these rows.
 
+The learner-facing vocabulary catalog is projected from the vocabulary blocks in lesson content. Existing vocabulary rows can enrich matching lesson words with metadata, but cannot add unrelated words to the catalog. Flashcards, word-based exercises, and lesson vocabulary therefore share the same lesson-backed source.
+
 ## Initialize and edit
 
 Install backend dependencies and initialize the database:
@@ -25,7 +27,7 @@ npm run db:setup
 
 `db:setup` creates a new local database from `seeds/initial-content.sqlite` when no database exists, then applies pending migrations. It will not overwrite an existing database or content. The seed contains the initial Italian and Spanish catalog and is only for first-time setup.
 
-To edit, start the backend services, sign in with an administrator account, and open **Content editor** from the app navigation (or `/pages/admin-editor.html`). The editor loads the current catalog from the database, validates changes, and writes the full catalog in one SQLite transaction. Course index metadata, courses, paths, units, lessons, vocabulary, grammar, and exercises are all managed there; no course JSON files, SQL, or direct database edits are required.
+To edit, start the backend services, sign in with an administrator account, and open **Content editor** from the app navigation (or `/pages/admin-editor.html`). The editor loads the current catalog from the database, validates changes, and writes the full catalog in one SQLite transaction. Course index metadata, courses, paths, units, lessons, vocabulary metadata, grammar, and exercises are managed there; add or remove learner-facing words in lesson vocabulary blocks so they stay aligned with lesson content.
 
 New public accounts always receive the `learner` role. Grant or remove administrator access for an existing account from `backend\auth-service`:
 

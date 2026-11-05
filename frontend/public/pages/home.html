@@ -31,6 +31,37 @@
         </a>
       </section>
 
+      <section class="dashboard-progress" aria-labelledby="dashboardProgressHeading">
+        <div class="home-section-heading">
+          <div>
+            <p class="eyebrow" id="dashboardProgressEyebrow">YOUR PROGRESS</p>
+            <h2 id="dashboardProgressHeading" role="status">A little progress adds up</h2>
+          </div>
+        </div>
+        <div class="dashboard-progress-grid">
+          <article class="dashboard-progress-card dashboard-goal-card">
+            <div class="dashboard-progress-label" id="dashboardGoalLabel">Today's goal</div>
+            <div class="dashboard-goal-value" id="dashboardGoalValue">0 / 50 XP</div>
+            <div class="dashboard-goal-track" role="progressbar" id="dashboardGoalBar" aria-label="Daily goal progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <span id="dashboardGoalFill"></span>
+            </div>
+            <div class="dashboard-progress-note" id="dashboardGoalNote">50 XP to reach your goal</div>
+          </article>
+          <article class="dashboard-progress-card">
+            <div class="dashboard-progress-label" id="dashboardStreakLabel">Current streak</div>
+            <div class="dashboard-progress-value" id="dashboardStreakValue">0 days</div>
+          </article>
+          <article class="dashboard-progress-card">
+            <div class="dashboard-progress-label" id="dashboardLessonsLabel">Lessons completed</div>
+            <div class="dashboard-progress-value" id="dashboardLessonsValue">0 / 0</div>
+          </article>
+          <article class="dashboard-progress-card">
+            <div class="dashboard-progress-label" id="dashboardXpLabel">Total XP</div>
+            <div class="dashboard-progress-value" id="dashboardXpValue">0 XP</div>
+          </article>
+        </div>
+      </section>
+
       <div class="home-section-heading">
         <div>
           <p class="eyebrow">YOUR NEXT STEP</p>

@@ -109,25 +109,32 @@
 
   async function fetchUserWords(courseId) {
     const normalizedCourse = normalizeCourseId(courseId);
+    const records = [];
     try {
       const response = await fetch(`/api/user-words?course=${encodeURIComponent(normalizedCourse)}`, { cache: 'no-store' });
       if (!response.ok) {
         throw new Error(`User words API response was ${response.status}`);
       }
       const payload = await response.json();
-      return toArray(payload);
+      records.push(...toArray(payload));
     } catch (error) {
-      if (window.Progress && typeof window.Progress.listUserWords === 'function') {
-        try {
-          const records = await window.Progress.listUserWords(normalizedCourse);
-          if (records && records.length) return records;
-        } catch (progressError) {
-          // Fall through to localStorage fallback.
-        }
-      }
-
-      return getLocalUserWords(normalizedCourse);
+      // Local progress records are merged below when the API is unavailable.
     }
+
+    if (window.Progress && typeof window.Progress.listUserWords === 'function') {
+      try {
+        records.push(...toArray(await window.Progress.listUserWords(normalizedCourse)));
+      } catch (error) {
+        // Keep API results and legacy local records if progress storage is unavailable.
+      }
+    }
+
+    records.push(...getLocalUserWords(normalizedCourse));
+    return uniqueById(records.map((record) => ({
+      ...record,
+      id: String(record.wordId || record.id || ''),
+      wordId: String(record.wordId || record.id || '')
+    })));
   }
 
   async function getUserWordIds(courseId) {
@@ -208,7 +215,7 @@
   async function getUserVocabulary(courseId = getCurrentCourseId()) {
     const normalizedCourse = normalizeCourseId(courseId);
     const userWordRecords = await fetchUserWords(normalizedCourse);
-    const userIds = new Set((userWordRecords || []).map((record) => String(record && (record.wordId || record.id) || '')).filter(Boolean));
+    const userIds = new Set(userWordRecords.map((record) => String(record && (record.wordId || record.id) || '')).filter(Boolean));
 
     const customWords = readCustomWords().map((entry) => normalizeCustomWord(entry)).filter(Boolean);
     const catalogWords = await fetchCatalogWords(normalizedCourse);
@@ -216,7 +223,7 @@
     const catalogMatches = catalogWords
       .map((word) => normalizeCatalogWord(word))
       .filter(Boolean)
-      .filter((word) => userIds.has(String(word.id)) || userWordRecords.some((entry) => String(entry && (entry.wordId || entry.id) || '') === String(word.id)));
+      .filter((word) => userIds.has(String(word.id)));
 
     const mergedWords = [...catalogMatches, ...customWords];
     return uniqueById(mergedWords);

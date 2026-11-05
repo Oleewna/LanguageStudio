@@ -106,6 +106,74 @@ function renderHubCards(course) {
   });
 }
 
+function renderProgressOverview(course, progressRecords) {
+  const progress = window.Progress;
+  if (!progress) return;
+
+  Promise.all([
+    progress.getProfile(),
+    progress.getDaily(),
+    progress.list('daily')
+  ]).then(([profile, daily, dailyRecords]) => {
+    const goal = progress.getDailyGoal(daily, profile);
+    const streak = progress.getStreak(dailyRecords);
+    const lessons = (course.paths || []).flatMap((path) =>
+      (path.units || []).flatMap((unit) => unit.lessons || [])
+    );
+    const completedLessons = lessons.filter((lesson) => {
+      const record = progressRecords.find((entry) =>
+        entry.courseId === course.id && entry.lessonId === lesson.id
+      );
+      return record && (record.state === 'completed' || record.state === 'passed');
+    }).length;
+    const isEnglish = typeof window.getSourceLanguage === 'function' && window.getSourceLanguage() === 'en';
+    const setText = (id, value) => {
+      const element = document.getElementById(id);
+      if (element) element.textContent = value;
+    };
+    const bar = document.getElementById('dashboardGoalBar');
+    const fill = document.getElementById('dashboardGoalFill');
+    const progressGrid = document.querySelector('.dashboard-progress-grid');
+    const heading = document.getElementById('dashboardProgressHeading');
+    const percent = Math.round(goal.fill * 100);
+
+    if (progressGrid) progressGrid.hidden = false;
+    if (heading) heading.setAttribute('role', 'status');
+    setText('dashboardProgressEyebrow', isEnglish ? 'YOUR PROGRESS' : 'ВАШ ПРОГРЕС');
+    setText('dashboardProgressHeading', isEnglish ? 'A little progress adds up' : 'Кожен крок має значення');
+    setText('dashboardGoalLabel', isEnglish ? "Today's goal" : 'Ціль на сьогодні');
+    setText('dashboardGoalValue', `${goal.todayXp} / ${goal.goal} XP`);
+    setText('dashboardGoalNote', goal.goalMet
+      ? (isEnglish ? 'Daily goal reached — great work!' : 'Ціль на сьогодні досягнуто — чудова робота!')
+      : (isEnglish ? `${goal.remaining} XP to reach your goal` : `Ще ${goal.remaining} XP до цілі`));
+    setText('dashboardStreakLabel', isEnglish ? 'Current streak' : 'Поточна серія');
+    setText('dashboardStreakValue', isEnglish
+      ? `${streak.currentStreak} ${streak.currentStreak === 1 ? 'day' : 'days'}`
+      : `${streak.currentStreak} дн.`);
+    setText('dashboardLessonsLabel', isEnglish ? 'Lessons completed' : 'Уроків завершено');
+    setText('dashboardLessonsValue', `${completedLessons} / ${lessons.length}`);
+    setText('dashboardXpLabel', isEnglish ? 'Total XP' : 'Усього XP');
+    setText('dashboardXpValue', `${Number(profile.totalXp) || 0} XP`);
+
+    if (bar) {
+      bar.setAttribute('aria-label', isEnglish ? 'Daily goal progress' : 'Прогрес денної цілі');
+      bar.setAttribute('aria-valuenow', String(percent));
+    }
+    if (fill) fill.style.width = `${percent}%`;
+  }).catch((error) => {
+    console.error('Could not load the progress overview:', error);
+    const heading = document.getElementById('dashboardProgressHeading');
+    if (heading) {
+      heading.setAttribute('role', 'alert');
+      heading.textContent = typeof window.getSourceLanguage === 'function' && window.getSourceLanguage() === 'en'
+        ? 'Progress is temporarily unavailable'
+        : 'Прогрес тимчасово недоступний';
+    }
+    const progressGrid = document.querySelector('.dashboard-progress-grid');
+    if (progressGrid) progressGrid.hidden = true;
+  });
+}
+
 async function refreshHomePage() {
   try {
     const course = typeof window.loadCourse === 'function' ? await window.loadCourse() : null;
@@ -118,6 +186,7 @@ async function refreshHomePage() {
       window.__LS_COURSE_DATA = course;
       renderHubCards(course);
       renderRoadmap(course, homeProgressRecords);
+      renderProgressOverview(course, homeProgressRecords);
     }
   } catch (error) {
     console.error('Could not refresh home page and lesson progress:', error);
@@ -136,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('sourceLanguageChanged', () => {
   if (window.__LS_COURSE_DATA) {
     renderRoadmap(window.__LS_COURSE_DATA, homeProgressRecords);
+    renderProgressOverview(window.__LS_COURSE_DATA, homeProgressRecords);
   }
 });
 

@@ -1,5 +1,3 @@
-const FLASHCARDS_STORAGE_KEY = (typeof window.courseKey === 'function') ? window.courseKey('custom_dict') : 'ls_custom_dict';
-
 let selectedTopic = 'all';
 let cards = [];
 let currentIndex = 0;
@@ -25,16 +23,17 @@ function normalizeFlashcard(item) {
     word: item.word || '',
     pronunciation: getLocalizedText(item.pronunciation || item.phon, item.pronunciation || item.phon || ''),
     trans: getLocalizedText(item.trans, item.trans || ''),
-    ex: exampleText,
-    custom: Boolean(item.custom)
+    ex: exampleText
   };
 }
 
-function getCustomWords() {
-  if (typeof window.getJSON === 'function') {
-    return Array.isArray(window.getJSON(FLASHCARDS_STORAGE_KEY, [])) ? window.getJSON(FLASHCARDS_STORAGE_KEY, []) : [];
-  }
-  try { return JSON.parse(localStorage.getItem(FLASHCARDS_STORAGE_KEY) || '[]'); } catch { return []; }
+function getFlashcardFilterLabel(value, fallback = '') {
+  const language = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+  const label = String(value || '').replace(/[-_]/g, ' ');
+  const translated = typeof window.getInterfaceTranslation === 'function'
+    ? window.getInterfaceTranslation(label, language)
+    : null;
+  return translated || fallback || label;
 }
 
 function buildTopicChips(allWords) {
@@ -42,59 +41,89 @@ function buildTopicChips(allWords) {
   if (!chipContainer) return;
 
   const topics = ['all', ...new Set(allWords.map(item => item.topic).filter(Boolean))];
-  chipContainer.innerHTML = topics.map(topic => {
-    const label = topic === 'all' ? 'Усі' : topic.replace(/[-_]/g, ' ');
-    return `<button type="button" class="topic-chip ${selectedTopic === topic ? 'active' : ''}" data-topic="${topic}" onclick="setTopicChip('${topic}', this)">${label}</button>`;
-  }).join('');
-
-  const activeBtn = chipContainer.querySelector(`[data-topic="${selectedTopic}"]`);
-  if (activeBtn) {
-    chipContainer.querySelectorAll('.topic-chip').forEach(btn => btn.classList.toggle('active', btn === activeBtn));
-  }
+  const language = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+  chipContainer.replaceChildren(...topics.map(topic => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `topic-chip ${selectedTopic === topic ? 'active' : ''}`;
+    button.dataset.topic = topic;
+    button.textContent = topic === 'all'
+      ? getFlashcardFilterLabel('all', language === 'en' ? 'All' : 'Усі')
+      : getFlashcardFilterLabel(topic);
+    button.addEventListener('click', () => setTopicChip(topic, button));
+    return button;
+  }));
 }
 
-function buildTrackOptions(allWords) {
+function buildTrackOptions(allWords, paths = []) {
   const select = document.getElementById('filterTrack');
   if (!select) return;
 
   const tracks = ['all', ...new Set(allWords.map(item => item.path || item.track || 'general').filter(Boolean))];
   const previous = select.value || 'all';
-  select.innerHTML = tracks.map(track => `<option value="${track}">${track === 'all' ? 'Усі' : track}</option>`).join('');
+  const language = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+  const pathTitles = new Map(paths.map(path => [
+    path.id,
+    getLocalizedText(path.title, path.id)
+  ]));
+  select.replaceChildren(...tracks.map(track => {
+    const option = document.createElement('option');
+    option.value = track;
+    option.textContent = track === 'all'
+      ? getFlashcardFilterLabel('all paths', language === 'en' ? 'All learning paths' : 'Усі напрямки')
+      : getFlashcardFilterLabel(pathTitles.get(track) || track);
+    return option;
+  }));
   if (tracks.includes(previous)) select.value = previous;
   else select.value = 'all';
 }
 
 async function applyFilters() {
   let list = [];
+  let courseWords = [];
+  let coursePaths = [];
+  const status = document.getElementById('fcReviewStatus');
+  if (status) status.textContent = '';
 
-  if (typeof window.getUserVocabulary === 'function') {
-    const entries = await window.getUserVocabulary();
-    list = entries.map((word) => normalizeFlashcard({
-      ...word,
-      path: word.path || word.lesson || 'custom',
-      track: word.path || word.lesson || 'custom',
-      topic: word.topic || word.category || 'custom'
-    }));
-  } else {
-    const allCoursesWords = (typeof window.loadCourseData === 'function')
-      ? await window.loadCourseData('vocab').catch(() => [])
-      : [];
-    const baseWords = Array.isArray(allCoursesWords) ? allCoursesWords.map(normalizeFlashcard) : [];
-    const custom = getCustomWords().map(w => normalizeFlashcard({ ...w, path: 'custom', track: 'custom', topic: w.topic || 'custom' }));
-    list = [...baseWords, ...custom];
+  if (typeof window.loadCourseData === 'function') {
+    try {
+      const allCourseWords = await window.loadCourseData('vocab');
+      courseWords = Array.isArray(allCourseWords) ? allCourseWords.map(normalizeFlashcard) : [];
+    } catch (error) {
+      console.error('Could not load course vocabulary for flashcards:', error);
+      if (status) {
+        status.textContent = typeof getSourceLanguage === 'function' && getSourceLanguage() === 'en'
+          ? 'Course vocabulary could not be loaded. Please try again.'
+          : 'Не вдалося завантажити словник курсу. Спробуйте ще раз.';
+      }
+    }
   }
+
+  if (typeof window.loadCourse === 'function') {
+    try {
+      const course = await window.loadCourse();
+      coursePaths = Array.isArray(course.paths) ? course.paths : [];
+    } catch (error) {
+      console.error('Could not load learning path labels for flashcards:', error);
+    }
+  }
+
+  const lessonId = new URLSearchParams(window.location.search).get('lesson');
+  list = lessonId
+    ? courseWords.filter((word) => (word.lessons || [word.lesson]).includes(lessonId))
+    : courseWords;
 
   const trackSelect = document.getElementById('filterTrack');
   const activeTrack = trackSelect ? trackSelect.value : 'all';
   if (activeTrack !== 'all') {
-    list = list.filter(item => item.track === activeTrack || item.topic === 'custom');
+    list = list.filter(item => item.track === activeTrack);
   }
   if (selectedTopic !== 'all') {
     list = list.filter(item => item.topic === selectedTopic);
   }
 
-  buildTrackOptions([...baseWords, ...custom]);
-  buildTopicChips([...baseWords, ...custom]);
+  buildTrackOptions(courseWords, coursePaths);
+  buildTopicChips(courseWords);
   cards = list;
   currentIndex = 0;
   updateCardDisplay();
@@ -125,6 +154,8 @@ function updateCardDisplay() {
     if (counterEl) counterEl.textContent = '0 / 0';
     if (unitTagEl) unitTagEl.textContent = '—';
     if (topicTagEl) topicTagEl.textContent = '—';
+    const learnedButton = document.getElementById('fcMarkLearned');
+    if (learnedButton) learnedButton.disabled = true;
     applyInterfaceLanguage();
     if (emptyNote) emptyNote.style.display = 'block';
     return;
@@ -138,8 +169,8 @@ function updateCardDisplay() {
     if (inner) inner.style.transform = 'rotateY(0deg)';
   }
 
-  const trackLabel = item.track === 'custom' ? 'Власне' : (item.track || 'general').replace(/[-_]/g, ' ');
-  const topicLabel = item.topic === 'custom' ? 'Власне' : (item.topic || 'general').replace(/[-_]/g, ' ');
+  const trackLabel = (item.track || 'general').replace(/[-_]/g, ' ');
+  const topicLabel = (item.topic || 'general').replace(/[-_]/g, ' ');
 
   if (unitTagEl) unitTagEl.innerHTML = `${getIconSvg('greeting')}<span>${trackLabel}</span>`;
   if (topicTagEl) topicTagEl.innerHTML = `${getIconSvg('type')}<span>${topicLabel}</span>`;
@@ -148,12 +179,82 @@ function updateCardDisplay() {
   if (transEl) transEl.textContent = item.trans || '';
   if (exampleEl) exampleEl.textContent = item.ex ? `«${item.ex}»` : '';
   if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${cards.length}`;
+  const stage = document.querySelector('.fc-stage');
+  if (stage) {
+    stage.setAttribute('aria-label', `${item.word}: ${getLocalizedText({ uk: 'показати переклад', en: 'show translation' })}`);
+    stage.setAttribute('aria-pressed', 'false');
+  }
+  syncLearnedButton(item);
   applyInterfaceLanguage();
 }
 
+function syncLearnedButton(item) {
+  const button = document.getElementById('fcMarkLearned');
+  if (!button) return;
+
+  const vocabId = item && (item.vocabId || item.id || item.wordId);
+  const language = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+  const markLabel = language === 'en' ? 'Mark as learned' : 'Позначити як вивчене';
+  button.disabled = !vocabId;
+  button.setAttribute('aria-pressed', 'false');
+  button.textContent = markLabel;
+  if (!vocabId || !window.Progress || typeof window.Progress.list !== 'function') return;
+
+  const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+  window.Progress.list('wordStats', { courseId, vocabId: String(vocabId) }).then((records) => {
+    if (cards[currentIndex] !== item) return;
+    const learned = Boolean(Array.isArray(records) && records[0] && records[0].learned);
+    button.setAttribute('aria-pressed', String(learned));
+    button.textContent = learned
+      ? (language === 'en' ? 'Learned' : 'Вивчене')
+      : markLabel;
+  }).catch((error) => {
+    console.error('Could not load saved vocabulary progress:', error);
+  });
+}
+
+async function toggleLearnedState() {
+  const item = cards[currentIndex];
+  const vocabId = item && (item.vocabId || item.id || item.wordId);
+  const status = document.getElementById('fcReviewStatus');
+  const button = document.getElementById('fcMarkLearned');
+  if (!item || !vocabId || !window.Progress || typeof window.Progress.setWordLearned !== 'function') return;
+
+  const learned = button ? button.getAttribute('aria-pressed') !== 'true' : true;
+  const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+  try {
+    await window.Progress.setWordLearned(courseId, vocabId, learned);
+    syncLearnedButton(item);
+    if (status) {
+      const language = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+      status.textContent = learned
+        ? (language === 'en' ? `${item.word} marked as learned on this device.` : `${item.word} збережено як вивчене на цьому пристрої.`)
+        : (language === 'en' ? `${item.word} moved back to your review list.` : `${item.word} повернуто до повторення.`);
+    }
+  } catch (error) {
+    console.error('Could not save vocabulary progress:', error);
+    if (status) {
+      status.textContent = typeof getSourceLanguage === 'function' && getSourceLanguage() === 'en'
+        ? 'Could not save this word. Please try again.'
+        : 'Не вдалося зберегти слово. Спробуйте ще раз.';
+    }
+  }
+}
+
 function toggleFlip() {
+  if (!cards.length) return;
   isFlipped = !isFlipped;
-  document.getElementById('fcInner').style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+  const inner = document.getElementById('fcInner');
+  const stage = document.querySelector('.fc-stage');
+  if (inner) inner.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+  if (stage) {
+    stage.setAttribute('aria-pressed', String(isFlipped));
+    const language = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+    const action = isFlipped
+      ? (language === 'en' ? 'show word' : 'показати слово')
+      : (language === 'en' ? 'show translation' : 'показати переклад');
+    stage.setAttribute('aria-label', `${cards[currentIndex].word}: ${action}`);
+  }
 }
 
 function nextCard() {
@@ -184,15 +285,32 @@ function shuffleCards() {
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const requestedTopic = urlParams.get('topic');
-  if (requestedTopic === 'custom') {
-    document.getElementById('filterTrack').value = 'all';
-    const customChip = document.querySelectorAll('.topic-chip')[3];
-    if (customChip) setTopicChip('custom', customChip);
-  } else {
-    applyFilters();
-  }
+  if (requestedTopic) selectedTopic = requestedTopic;
+  applyFilters();
+
+  const learnedButton = document.getElementById('fcMarkLearned');
+  if (learnedButton) learnedButton.addEventListener('click', toggleLearnedState);
+
+  document.addEventListener('keydown', (event) => {
+    const target = event.target;
+    if (target instanceof HTMLElement && (
+      target.isContentEditable ||
+      target.matches('input, textarea, select, button, a')
+    )) return;
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      nextCard();
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      prevCard();
+    } else if (event.key === ' ' || (event.key === 'Enter' && target instanceof HTMLElement && target.classList.contains('fc-stage'))) {
+      event.preventDefault();
+      toggleFlip();
+    }
+  });
 });
-window.addEventListener('sourceLanguageChanged', updateCardDisplay);
+window.addEventListener('sourceLanguageChanged', applyFilters);
 
 document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-flashcards-1]');
@@ -320,54 +438,6 @@ document.addEventListener('change', function(event) {
   if (!target) return;
   var result = (function(event) {
 applyFilters()
-  }).call(target, event);
-  if (result === false) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-});
-
-document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-flashcards-13]');
-  if (!target) return;
-  var result = (function(event) {
-setTopicChip('all', this)
-  }).call(target, event);
-  if (result === false) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-});
-
-document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-flashcards-14]');
-  if (!target) return;
-  var result = (function(event) {
-setTopicChip('greetings', this)
-  }).call(target, event);
-  if (result === false) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-});
-
-document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-flashcards-15]');
-  if (!target) return;
-  var result = (function(event) {
-setTopicChip('basic', this)
-  }).call(target, event);
-  if (result === false) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-});
-
-document.addEventListener('click', function(event) {
-  var target = event.target.closest('[data-external-handler-flashcards-16]');
-  if (!target) return;
-  var result = (function(event) {
-setTopicChip('custom', this)
   }).call(target, event);
   if (result === false) {
     event.preventDefault();

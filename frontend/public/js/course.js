@@ -76,6 +76,10 @@
     const rawName = String(name || '').trim();
     const normalizedName = rawName.replace(/\.json$/, '');
     const courseId = encodeURIComponent(getCourseId());
+    if (normalizedName === 'vocab') {
+      return `/api/vocab?course=${courseId}`;
+    }
+
     if (normalizedName.startsWith('lessons/')) {
       const lessonId = encodeURIComponent(normalizedName.slice('lessons/'.length));
       return getContentApiPath(`courses/${courseId}/lessons/${lessonId}`);
