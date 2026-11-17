@@ -1,0 +1,41 @@
+{
+  "italian-reading-12": {
+    "title": "Let's read",
+    "subtitle": "Read familiar patterns in context",
+    "description": "Read familiar patterns in words and sentences, not only in isolation.",
+    "duration": "5 min"
+  },
+  "story-ir12": { "title": "Reading" },
+  "ir12-p1": { "translations": "It is Sunday. Giulia and her son go out in the city." },
+  "ir12-p2": { "translations": "At the market, the man asks, \u201cHow much does this book cost?\u201d" },
+  "ir12-p3": { "translations": "Giulia chooses the peaches and buys some ice cream and a ball for her son." },
+  "ir12-p4": { "translations": "In the evening she makes spaghetti with mushrooms. They are happy because they are together." },
+  "hint-domenica": { "translations": "Sunday" },
+  "hint-compra": { "translations": "buys" },
+  "hint-prepara-ir12": { "translations": "makes" },
+  "hint-sono-felici": { "translations": "they are happy" },
+  "takeaways-ir12": { "title": "Key takeaways" },
+  "ir12-t1": { "text": "Read familiar patterns in words and sentences, not only in isolation." },
+  "ir12-t2": { "text": "Use context and vocabulary hints, then check your understanding with the questions." },
+  "tasks-ir12": { "title": "Quick practice" },
+  "ir12_q1": {
+    "question": "Which word contains the GLI combination?",
+    "options": { "ir12_q1_opt1": "figlio", "ir12_q1_opt2": "mercato", "ir12_q1_opt3": "libro" }
+  },
+  "ir12_q2": {
+    "question": "Which word contains the QU combination?",
+    "options": { "ir12_q2_opt1": "Quanto", "ir12_q2_opt2": "chiede", "ir12_q2_opt3": "mercato" }
+  },
+  "ir12_q3": {
+    "question": "Which word has a doubled consonant?",
+    "options": { "ir12_q3_opt1": "spaghetti", "ir12_q3_opt2": "mercato", "ir12_q3_opt3": "gelato" }
+  },
+  "ir12_q4": {
+    "question": "Which word from the text contains QU?",
+    "options": { "ir12_q4_opt1": "quanto", "ir12_q4_opt2": "figlio", "ir12_q4_opt3": "pesche" }
+  },
+  "ir12_q5": {
+    "question": "Which word from the text has a doubled consonant?",
+    "options": { "ir12_q5_opt1": "spaghetti", "ir12_q5_opt2": "mercato", "ir12_q5_opt3": "gelato" }
+  }
+}

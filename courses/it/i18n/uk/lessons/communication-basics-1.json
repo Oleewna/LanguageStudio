@@ -1,0 +1,97 @@
+{
+  "communication-basics-1": {
+    "title": "Привіт, як справи?",
+    "subtitle": "Ciao! Come stai?",
+    "description": "Привітайтеся з другом і запитайте, як у нього справи.",
+    "duration": "2 хв"
+  },
+  "dialogue-1": {
+    "title": "Привітаймося",
+    "story": "Анна зустрічає Луку й запитує, як у нього справи."
+  },
+  "line-1": {
+    "trans": "Привіт! Як справи?",
+    "pronunciation": "[чао! коме стаї]"
+  },
+  "line-2": {
+    "trans": "Добре, дякую! А ти?",
+    "pronunciation": "[бене, ґраціє! е ту]"
+  },
+  "line-3": {
+    "trans": "Добре!",
+    "pronunciation": "[бене]"
+  },
+  "vocab-2": {
+    "title": "Три корисні фрази"
+  },
+  "v-1": {
+    "trans": "привіт; бувай",
+    "pronunciation": "[чао]"
+  },
+  "v-2": {
+    "trans": "як справи?",
+    "pronunciation": "[коме стаї]"
+  },
+  "v-3": {
+    "trans": "добре, дякую!",
+    "pronunciation": "[бене, ґраціє]"
+  },
+  "takeaways-3": {
+    "title": "Запам’ятайте"
+  },
+  "t-1": {
+    "text": "Ciao — неформальне «привіт»; ним також можна попрощатися."
+  },
+  "t-2": {
+    "text": "Come — «як»; stai — «ти є» (неформально)."
+  },
+  "t-3": {
+    "text": "Bene — «добре»; grazie — «дякую»."
+  },
+  "t-4": {
+    "text": "E — «і»; tu — «ти»."
+  },
+  "tasks-4": {
+    "title": "Швидка практика"
+  },
+  "ask-how-are-you": {
+    "question": "Як запитати друга, як у нього справи?",
+    "options": {
+      "opt-1": "Come stai?",
+      "opt-2": "Bene, grazie!",
+      "opt-3": "Buonasera!"
+    }
+  },
+  "fine-thanks": {
+    "question": "Оберіть переклад «Добре, дякую!»",
+    "options": {
+      "opt-1": "Come stai?",
+      "opt-2": "Bene, grazie!",
+      "opt-3": "Ciao!"
+    }
+  },
+  "complete-reply": {
+    "question": "Доповніть відповідь: «Ciao! Come stai? — _____, grazie!»",
+    "options": {
+      "opt-1": "Bene",
+      "opt-2": "Ciao",
+      "opt-3": "Come"
+    }
+  },
+  "translate-greeting": {
+    "question": "Як сказати «Привіт! Як справи?»",
+    "options": {
+      "opt-1": "Ciao! Come stai?",
+      "opt-2": "Bene, grazie!",
+      "opt-3": "Mi chiamo Anna."
+    }
+  },
+  "reply-to-question": {
+    "question": "Лука запитує «Come stai?». Що може відповісти Анна?",
+    "options": {
+      "opt-1": "Bene, grazie!",
+      "opt-2": "Mi chiamo Anna.",
+      "opt-3": "Buonasera!"
+    }
+  }
+}

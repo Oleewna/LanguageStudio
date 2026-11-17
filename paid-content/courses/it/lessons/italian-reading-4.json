@@ -1,0 +1,136 @@
+{
+  "id": "italian-reading-4",
+  "xpReward": 35,
+  "prevLessonId": "italian-reading-3",
+  "nextLessonId": "italian-reading-5",
+  "blocks": [
+    {
+      "id": "story-ir4",
+      "type": "story_text",
+      "paragraphs": [
+        {
+          "id": "ir4-p1",
+          "text": "Il gatto guarda una rosa."
+        }
+      ],
+      "vocabHints": [
+        {
+          "id": "hint-gatto",
+          "word": "gatto"
+        },
+        {
+          "id": "hint-guarda",
+          "word": "guarda"
+        },
+        {
+          "id": "hint-rosa-ir4",
+          "word": "rosa"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-ir4",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "ir4-t1"
+        },
+        {
+          "id": "ir4-t2"
+        }
+      ]
+    },
+    {
+      "id": "tasks-ir4",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "ir4_q1",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir4_q1_opt1",
+              "text": "ga, go, gu",
+              "correct": true
+            },
+            {
+              "id": "ir4_q1_opt2",
+              "text": "ge, gi, gu",
+              "correct": false
+            },
+            {
+              "id": "ir4_q1_opt3",
+              "text": "ge, go, gi",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir4_q2",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir4_q2_opt1",
+              "text": "gamba",
+              "correct": true
+            },
+            {
+              "id": "ir4_q2_opt2",
+              "text": "gomma",
+              "correct": false
+            },
+            {
+              "id": "ir4_q2_opt3",
+              "text": "gusto",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir4_q3",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir4_q3_opt1",
+              "text": "gamba",
+              "correct": true
+            },
+            {
+              "id": "ir4_q3_opt2",
+              "text": "gelato",
+              "correct": false
+            },
+            {
+              "id": "ir4_q3_opt3",
+              "text": "giraffa",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir4_q4",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir4_q4_opt1",
+              "text": "gusto",
+              "correct": true
+            },
+            {
+              "id": "ir4_q4_opt2",
+              "text": "gelato",
+              "correct": false
+            },
+            {
+              "id": "ir4_q4_opt3",
+              "text": "giraffa",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "paid",
+  "priceId": "price_it_premium"
+}

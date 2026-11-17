@@ -1,0 +1,41 @@
+{
+  "italian-reading-12": {
+    "title": "Читаємо",
+    "subtitle": "Читай знайомі сполуки в контексті",
+    "description": "Читай знайомі сполуки в словах і реченнях, а не лише окремо.",
+    "duration": "5 хв"
+  },
+  "story-ir12": { "title": "Читання" },
+  "ir12-p1": { "translations": "Неділя. Джулія та її син виходять у місто." },
+  "ir12-p2": { "translations": "На ринку пан питає: «Скільки коштує ця книжка?»" },
+  "ir12-p3": { "translations": "Джулія обирає персики та купує морозиво й м'яч для сина." },
+  "ir12-p4": { "translations": "Увечері вона готує спагеті з грибами. Вони щасливі, бо разом." },
+  "hint-domenica": { "translations": "неділя" },
+  "hint-compra": { "translations": "купує" },
+  "hint-prepara-ir12": { "translations": "готує" },
+  "hint-sono-felici": { "translations": "вони щасливі" },
+  "takeaways-ir12": { "title": "Ключові тези" },
+  "ir12-t1": { "text": "Читай знайомі сполуки в словах і реченнях, а не лише окремо." },
+  "ir12-t2": { "text": "Використовуй контекст і підказки до слів, а потім перевір себе запитаннями." },
+  "tasks-ir12": { "title": "Швидка практика" },
+  "ir12_q1": {
+    "question": "У якому слові є сполука GLI?",
+    "options": { "ir12_q1_opt1": "figlio", "ir12_q1_opt2": "mercato", "ir12_q1_opt3": "libro" }
+  },
+  "ir12_q2": {
+    "question": "У якому слові є сполука QU?",
+    "options": { "ir12_q2_opt1": "Quanto", "ir12_q2_opt2": "chiede", "ir12_q2_opt3": "mercato" }
+  },
+  "ir12_q3": {
+    "question": "У якому слові є подвоєна приголосна?",
+    "options": { "ir12_q3_opt1": "spaghetti", "ir12_q3_opt2": "mercato", "ir12_q3_opt3": "gelato" }
+  },
+  "ir12_q4": {
+    "question": "У якому слові з тексту є сполука QU?",
+    "options": { "ir12_q4_opt1": "quanto", "ir12_q4_opt2": "figlio", "ir12_q4_opt3": "pesche" }
+  },
+  "ir12_q5": {
+    "question": "У якому слові з тексту є подвоєна приголосна?",
+    "options": { "ir12_q5_opt1": "spaghetti", "ir12_q5_opt2": "mercato", "ir12_q5_opt3": "gelato" }
+  }
+}

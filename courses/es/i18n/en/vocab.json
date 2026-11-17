@@ -1,0 +1,107 @@
+{
+  "es-001": {
+    "trans": "hello",
+    "pronunciation": "[OH-lah]",
+    "example": {
+      "trans": "Hi! How are you?"
+    }
+  },
+  "es-002": {
+    "trans": "good morning",
+    "pronunciation": "[BWEH-nohs DEE-ahs]",
+    "example": {
+      "trans": "Good morning, sir."
+    }
+  },
+  "es-003": {
+    "trans": "thank you",
+    "pronunciation": "[GRAH-see-ahs]",
+    "example": {
+      "trans": "Thank you for your help."
+    }
+  },
+  "es-004": {
+    "trans": "please",
+    "pronunciation": "[pohr fah-BOR]",
+    "example": {
+      "trans": "A cup, please."
+    }
+  },
+  "es-005": {
+    "trans": "how are you?",
+    "pronunciation": "[KOH-moh ehs-TAHS]",
+    "example": {
+      "trans": "How are you today?"
+    }
+  },
+  "es-006": {
+    "trans": "I am well",
+    "pronunciation": "[ehs-TOY byehn]",
+    "example": {
+      "trans": "I’m fine, thank you."
+    }
+  },
+  "es-007": {
+    "trans": "I am",
+    "pronunciation": "[soh]",
+    "example": {
+      "trans": "I am Ana."
+    }
+  },
+  "es-008": {
+    "trans": "nice to meet you",
+    "pronunciation": "[MOO-choh GOOS-toh]",
+    "example": {
+      "trans": "Nice to meet you, Marta."
+    }
+  },
+  "es-009": {
+    "trans": "I need help",
+    "pronunciation": "[neh-seh-SEE-toh ah-YOO-dah]",
+    "example": {
+      "trans": "I need help, please."
+    }
+  },
+  "es-010": {
+    "trans": "where is the bathroom?",
+    "pronunciation": "[DOHN-deh ehs-TAH ehl BAHN-yoh]",
+    "example": {
+      "trans": "Where is the bathroom?"
+    }
+  },
+  "es-011": {
+    "trans": "I want a coffee",
+    "pronunciation": "[KYEH-roh oon kah-FEH]",
+    "example": {
+      "trans": "I want a coffee, please."
+    }
+  },
+  "es-012": {
+    "trans": "the bill",
+    "pronunciation": "[lah KWEN-tah]",
+    "example": {
+      "trans": "The bill, please."
+    }
+  },
+  "es-013": {
+    "trans": "street",
+    "pronunciation": "[lah KAH-yeh]",
+    "example": {
+      "trans": "The street is quiet."
+    }
+  },
+  "es-014": {
+    "trans": "train",
+    "pronunciation": "[ehl trehn]",
+    "example": {
+      "trans": "The train arrives late."
+    }
+  },
+  "es-015": {
+    "trans": "I don't understand",
+    "pronunciation": "[noh ehn-TYEN-doh]",
+    "example": {
+      "trans": "I don't understand, can you repeat?"
+    }
+  }
+}

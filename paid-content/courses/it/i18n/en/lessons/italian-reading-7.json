@@ -1,0 +1,34 @@
+{
+  "italian-reading-7": {
+    "title": "GN",
+    "subtitle": "Hear GN as one sound",
+    "description": "Recognize GN as one consonant combination and read familiar words.",
+    "duration": "5 min"
+  },
+  "story-ir7": { "title": "Reading" },
+  "ir7-p1": { "translations": "The gentleman prepares lasagna. Then he takes a bath." },
+  "hint-signore": { "translations": "gentleman" },
+  "hint-prepara": { "translations": "prepares" },
+  "hint-lasagna": { "translations": "lasagna" },
+  "hint-bagno": { "translations": "bath" },
+  "takeaways-ir7": { "title": "Key takeaways" },
+  "ir7-t1": { "text": "gn represents one consonant combination: listen to bagno, lasagna, signore." },
+  "ir7-t2": { "text": "Keep GN together when dividing these words into syllables: ba-gno, la-sa-gna, si-gno-re." },
+  "tasks-ir7": { "title": "Quick practice" },
+  "ir7_q1": {
+    "question": "How is GN read in the words from this lesson?",
+    "options": { "ir7_q1_opt1": "As one consonant combination", "ir7_q1_opt2": "As two fully separate consonant sounds", "ir7_q1_opt3": "As a G sound with no N" }
+  },
+  "ir7_q2": {
+    "question": "How is \"bagno\" correctly divided into syllables?",
+    "options": { "ir7_q2_opt1": "ba-gno", "ir7_q2_opt2": "bag-no", "ir7_q2_opt3": "b-a-gno" }
+  },
+  "ir7_q3": {
+    "question": "Which word contains GN?",
+    "options": { "ir7_q3_opt1": "bagno", "ir7_q3_opt2": "banana", "ir7_q3_opt3": "bambino" }
+  },
+  "ir7_q4": {
+    "question": "Which syllable division keeps GN together?",
+    "options": { "ir7_q4_opt1": "ba-gno", "ir7_q4_opt2": "bag-no", "ir7_q4_opt3": "b-agno" }
+  }
+}

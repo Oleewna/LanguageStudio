@@ -1,0 +1,33 @@
+{
+  "italian-reading-4": {
+    "title": "Тверда G",
+    "subtitle": "Читай ga, go та gu",
+    "description": "Почуйте твердий звук G у складах ga, go, gu та знайдіть його у знайомих словах.",
+    "duration": "5 хв"
+  },
+  "story-ir4": { "title": "Читання" },
+  "ir4-p1": { "translations": "Кіт дивиться на троянду." },
+  "hint-gatto": { "translations": "кіт" },
+  "hint-guarda": { "translations": "дивиться" },
+  "hint-rosa-ir4": { "translations": "троянда" },
+  "takeaways-ir4": { "title": "Ключові тези" },
+  "ir4-t1": { "text": "У ga, go, gu літера G має твердий звук: gatto, gomma, gusto." },
+  "ir4-t2": { "text": "Це правило не охоплює всі слова з G: перед E та I звук змінюється." },
+  "tasks-ir4": { "title": "Швидка практика" },
+  "ir4_q1": {
+    "question": "У яких складах G має твердий звук за правилом цього уроку?",
+    "options": { "ir4_q1_opt1": "ga, go, gu", "ir4_q1_opt2": "ge, gi, gu", "ir4_q1_opt3": "ge, go, gi" }
+  },
+  "ir4_q2": {
+    "question": "У якому слові є сполука ga?",
+    "options": { "ir4_q2_opt1": "gamba", "ir4_q2_opt2": "gomma", "ir4_q2_opt3": "gusto" }
+  },
+  "ir4_q3": {
+    "question": "Яке слово містить твердий звук G перед A?",
+    "options": { "ir4_q3_opt1": "gamba", "ir4_q3_opt2": "gelato", "ir4_q3_opt3": "giraffa" }
+  },
+  "ir4_q4": {
+    "question": "Яке слово містить твердий звук G перед U?",
+    "options": { "ir4_q4_opt1": "gusto", "ir4_q4_opt2": "gelato", "ir4_q4_opt3": "giraffa" }
+  }
+}

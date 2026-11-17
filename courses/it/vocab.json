@@ -1,0 +1,184 @@
+[
+  {
+    "id": "it-001",
+    "text": "ciao",
+    "word": "ciao",
+    "it": "ciao",
+    "example": {
+      "text": "Ciao! Come stai?"
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "greetings",
+    "category": "greetings",
+    "type": "greeting"
+  },
+  {
+    "id": "it-002",
+    "text": "come stai?",
+    "word": "come stai?",
+    "it": "come stai?",
+    "example": {
+      "text": "Ciao Marco, come stai?"
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "greetings",
+    "category": "greetings",
+    "type": "phrase"
+  },
+  {
+    "id": "it-003",
+    "text": "bene",
+    "word": "bene",
+    "it": "bene",
+    "example": {
+      "text": "Bene, grazie! E tu?"
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "courtesy",
+    "type": "adjective"
+  },
+  {
+    "id": "it-004",
+    "text": "grazie",
+    "word": "grazie",
+    "it": "grazie",
+    "example": {
+      "text": "Grazie mille!"
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "courtesy",
+    "type": "phrase"
+  },
+  {
+    "id": "it-005",
+    "text": "prego",
+    "word": "prego",
+    "it": "prego",
+    "example": {
+      "text": "— Grazie! — Prego!"
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "courtesy",
+    "type": "phrase"
+  },
+  {
+    "id": "it-006",
+    "text": "sì",
+    "word": "sì",
+    "it": "sì",
+    "example": {
+      "text": "Sì, sono nuova."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "short answers",
+    "type": "other"
+  },
+  {
+    "id": "it-007",
+    "text": "no",
+    "word": "no",
+    "it": "no",
+    "example": {
+      "text": "No, grazie."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "short answers",
+    "type": "other"
+  },
+  {
+    "id": "it-008",
+    "text": "anch'io",
+    "word": "anch'io",
+    "it": "anch'io",
+    "example": {
+      "text": "Anch'io sto bene, grazie!"
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "short answers",
+    "type": "phrase"
+  },
+  {
+    "id": "it-009",
+    "text": "nuovo/a",
+    "word": "nuovo/a",
+    "it": "nuovo/a",
+    "example": {
+      "text": "Sei nuova qui?"
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "first day",
+    "type": "adjective"
+  },
+  {
+    "id": "it-010",
+    "text": "primo giorno",
+    "word": "primo giorno",
+    "it": "primo giorno",
+    "example": {
+      "text": "È il mio primo giorno."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "first day",
+    "type": "noun"
+  },
+  {
+    "id": "it-011",
+    "text": "benvenuto/a",
+    "word": "benvenuto/a",
+    "it": "benvenuto/a",
+    "example": {
+      "text": "Benvenuta nel palazzo!"
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "greetings",
+    "category": "greetings",
+    "type": "greeting"
+  },
+  {
+    "id": "it-012",
+    "text": "palazzo",
+    "word": "palazzo",
+    "it": "palazzo",
+    "example": {
+      "text": "Abito in questo palazzo."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "housing",
+    "type": "noun"
+  },
+  {
+    "id": "it-013",
+    "text": "grazie mille",
+    "word": "grazie mille",
+    "it": "grazie mille",
+    "example": {
+      "text": "Grazie mille per l'aiuto!"
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "courtesy",
+    "type": "phrase"
+  }
+]

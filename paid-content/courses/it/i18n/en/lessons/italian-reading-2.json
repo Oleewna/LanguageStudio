@@ -1,0 +1,38 @@
+{
+  "italian-reading-2": {
+    "title": "Hard C",
+    "subtitle": "Read ca, co, and cu",
+    "description": "Hear the hard C sound in ca, co, cu and find it in familiar words.",
+    "duration": "5 min"
+  },
+  "story-ir2": { "title": "Reading" },
+  "ir2-p1": { "translations": "Nina sees a house. Mina sees a thing: a rose." },
+  "hint-vede": { "translations": "sees" },
+  "hint-casa": { "translations": "house" },
+  "hint-cosa": { "translations": "thing" },
+  "hint-rosa": { "translations": "rose" },
+  "takeaways-ir2": { "title": "Key takeaways" },
+  "ir2-t1": { "text": "In ca, co, cu, C has a hard sound: casa, cosa, cucina." },
+  "ir2-t2": { "text": "Do not apply this rule to every word with C: we will study ce and ci separately." },
+  "tasks-ir2": { "title": "Quick practice" },
+  "ir2_q1": {
+    "question": "In which syllables does C have the hard sound taught in this lesson?",
+    "options": { "ir2_q1_opt1": "ca, co, cu", "ir2_q1_opt2": "ce, ci, cu", "ir2_q1_opt3": "ce, co, ci" }
+  },
+  "ir2_q2": {
+    "question": "In which word does C come before A?",
+    "options": { "ir2_q2_opt1": "casa", "ir2_q2_opt2": "cosa", "ir2_q2_opt3": "cucina" }
+  },
+  "ir2_q3": {
+    "question": "Which word has hard C before O?",
+    "options": { "ir2_q3_opt1": "cosa", "ir2_q3_opt2": "cena", "ir2_q3_opt3": "chiave" }
+  },
+  "ir2_q4": {
+    "question": "Which word contains C before U?",
+    "options": { "ir2_q4_opt1": "cucina", "ir2_q4_opt2": "cena", "ir2_q4_opt3": "cinema" }
+  },
+  "ir2_q5": {
+    "question": "Which syllable has hard C?",
+    "options": { "ir2_q5_opt1": "ca", "ir2_q5_opt2": "ce", "ir2_q5_opt3": "chi" }
+  }
+}

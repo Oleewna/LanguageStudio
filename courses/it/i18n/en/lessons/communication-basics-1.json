@@ -1,0 +1,97 @@
+{
+  "communication-basics-1": {
+    "title": "Hello, how are you?",
+    "subtitle": "Ciao! Come stai?",
+    "description": "Greet a friend and ask how they are.",
+    "duration": "2 min"
+  },
+  "dialogue-1": {
+    "title": "Say hello",
+    "story": "Anna meets Luca and asks how he is."
+  },
+  "line-1": {
+    "trans": "Hi! How are you?",
+    "pronunciation": "[CHOW! KOH-meh stai]"
+  },
+  "line-2": {
+    "trans": "Fine, thanks! And you?",
+    "pronunciation": "[BEH-neh, GRAHT-tsee-eh! eh too]"
+  },
+  "line-3": {
+    "trans": "Fine!",
+    "pronunciation": "[BEH-neh]"
+  },
+  "vocab-2": {
+    "title": "Three useful phrases"
+  },
+  "v-1": {
+    "trans": "hello; goodbye",
+    "pronunciation": "[CHOW]"
+  },
+  "v-2": {
+    "trans": "how are you?",
+    "pronunciation": "[KOH-meh stai]"
+  },
+  "v-3": {
+    "trans": "fine, thanks!",
+    "pronunciation": "[BEH-neh, GRAHT-tsee-eh]"
+  },
+  "takeaways-3": {
+    "title": "Remember"
+  },
+  "t-1": {
+    "text": "Ciao is an informal “hello”; you can also use it to say goodbye."
+  },
+  "t-2": {
+    "text": "Come means “how”; stai means “you are” (informal)."
+  },
+  "t-3": {
+    "text": "Bene means “fine”; grazie means “thanks.”"
+  },
+  "t-4": {
+    "text": "E means “and”; tu means “you.”"
+  },
+  "tasks-4": {
+    "title": "Quick practice"
+  },
+  "ask-how-are-you": {
+    "question": "How do you ask a friend how they are?",
+    "options": {
+      "opt-1": "Come stai?",
+      "opt-2": "Bene, grazie!",
+      "opt-3": "Buonasera!"
+    }
+  },
+  "fine-thanks": {
+    "question": "Choose the phrase that means “Fine, thanks!”",
+    "options": {
+      "opt-1": "Come stai?",
+      "opt-2": "Bene, grazie!",
+      "opt-3": "Ciao!"
+    }
+  },
+  "complete-reply": {
+    "question": "Complete the reply: “Ciao! Come stai? — _____, grazie!”",
+    "options": {
+      "opt-1": "Bene",
+      "opt-2": "Ciao",
+      "opt-3": "Come"
+    }
+  },
+  "translate-greeting": {
+    "question": "How do you say “Hi! How are you?”",
+    "options": {
+      "opt-1": "Ciao! Come stai?",
+      "opt-2": "Bene, grazie!",
+      "opt-3": "Mi chiamo Anna."
+    }
+  },
+  "reply-to-question": {
+    "question": "Luca asks “Come stai?” What can Anna reply?",
+    "options": {
+      "opt-1": "Bene, grazie!",
+      "opt-2": "Mi chiamo Anna.",
+      "opt-3": "Buonasera!"
+    }
+  }
+}

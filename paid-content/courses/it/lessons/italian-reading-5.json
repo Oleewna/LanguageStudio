@@ -1,0 +1,140 @@
+{
+  "id": "italian-reading-5",
+  "xpReward": 35,
+  "prevLessonId": "italian-reading-4",
+  "nextLessonId": "italian-reading-6",
+  "blocks": [
+    {
+      "id": "story-ir5",
+      "type": "story_text",
+      "paragraphs": [
+        {
+          "id": "ir5-p1",
+          "text": "Gina mangia spaghetti con i funghi. Dopo, prende un gelato."
+        }
+      ],
+      "vocabHints": [
+        {
+          "id": "hint-mangia",
+          "word": "mangia"
+        },
+        {
+          "id": "hint-spaghetti",
+          "word": "spaghetti"
+        },
+        {
+          "id": "hint-funghi",
+          "word": "funghi"
+        },
+        {
+          "id": "hint-gelato",
+          "word": "gelato"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-ir5",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "ir5-t1"
+        },
+        {
+          "id": "ir5-t2"
+        }
+      ]
+    },
+    {
+      "id": "tasks-ir5",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "ir5_q1",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir5_q1_opt1",
+              "text": "ge, gi",
+              "correct": true
+            },
+            {
+              "id": "ir5_q1_opt2",
+              "text": "ga, go",
+              "correct": false
+            },
+            {
+              "id": "ir5_q1_opt3",
+              "text": "ghe, ghi",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir5_q2",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir5_q2_opt1",
+              "text": "ghi",
+              "correct": true
+            },
+            {
+              "id": "ir5_q2_opt2",
+              "text": "gi",
+              "correct": false
+            },
+            {
+              "id": "ir5_q2_opt3",
+              "text": "ge",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir5_q3",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir5_q3_opt1",
+              "text": "gelato",
+              "correct": true
+            },
+            {
+              "id": "ir5_q3_opt2",
+              "text": "spaghetti",
+              "correct": false
+            },
+            {
+              "id": "ir5_q3_opt3",
+              "text": "funghi",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir5_q4",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir5_q4_opt1",
+              "text": "ghi",
+              "correct": true
+            },
+            {
+              "id": "ir5_q4_opt2",
+              "text": "gi",
+              "correct": false
+            },
+            {
+              "id": "ir5_q4_opt3",
+              "text": "ge",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "paid",
+  "priceId": "price_it_premium"
+}

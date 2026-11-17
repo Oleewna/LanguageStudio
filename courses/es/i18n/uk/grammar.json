@@ -1,0 +1,103 @@
+{
+  "ser-estar": {
+    "title": "Ser vs Estar",
+    "blocks": {
+      "ser-estar-block-1": {
+        "head": [
+          "",
+          "Ser",
+          "Estar"
+        ],
+        "rows": [
+          [
+            "",
+            "**soy** Ana",
+            "—"
+          ],
+          [
+            "",
+            "—",
+            "**estoy** en Madrid"
+          ],
+          [
+            "",
+            "—",
+            "**estoy** bien"
+          ],
+          [
+            "",
+            "**es** amable",
+            "**está** cansado"
+          ]
+        ]
+      },
+      "ser-estar-block-2": {
+        "title": "Пам’ятайте:",
+        "text": "**Ser** описує хто/що ви є або що щось таке; **estar** вказує на місце, стан або поточний стан."
+      },
+      "ser-estar-block-3": {
+        "items": {
+          "ex-1": {
+            "trans": ""
+          }
+        }
+      }
+    }
+  },
+  "articulos": {
+    "title": "Артиклі",
+    "blocks": {
+      "articulos-block-1": {
+        "head": [
+          "",
+          "el",
+          "la",
+          "los",
+          "las"
+        ],
+        "rows": [
+          [
+            "",
+            "**el** libro",
+            "—",
+            "—",
+            "—"
+          ],
+          [
+            "",
+            "—",
+            "**la** calle",
+            "—",
+            "—"
+          ],
+          [
+            "",
+            "—",
+            "—",
+            "**los** libros",
+            "—"
+          ],
+          [
+            "",
+            "—",
+            "—",
+            "—",
+            "**las** calles"
+          ]
+        ]
+      },
+      "articulos-block-2": {
+        "items": {
+          "rule-1": {
+            "title": "",
+            "text": ""
+          },
+          "rule-2": {
+            "title": "",
+            "text": ""
+          }
+        }
+      }
+    }
+  }
+}

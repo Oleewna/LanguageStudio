@@ -1,0 +1,144 @@
+{
+  "id": "italian-reading-8",
+  "xpReward": 35,
+  "prevLessonId": "italian-reading-7",
+  "nextLessonId": "italian-reading-9",
+  "blocks": [
+    {
+      "id": "story-ir8",
+      "type": "story_text",
+      "paragraphs": [
+        {
+          "id": "ir8-p1",
+          "text": "La famiglia prepara la pasta. Il figlio taglia l'aglio."
+        }
+      ],
+      "vocabHints": [
+        {
+          "id": "hint-famiglia",
+          "word": "famiglia"
+        },
+        {
+          "id": "hint-prepara-ir8",
+          "word": "prepara"
+        },
+        {
+          "id": "hint-figlio",
+          "word": "figlio"
+        },
+        {
+          "id": "hint-taglia",
+          "word": "taglia"
+        },
+        {
+          "id": "hint-aglio",
+          "word": "aglio"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-ir8",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "ir8-t1"
+        },
+        {
+          "id": "ir8-t2"
+        }
+      ]
+    },
+    {
+      "id": "tasks-ir8",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "ir8_q1",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir8_q1_opt1",
+              "text": "As one Italian sound combination",
+              "correct": true
+            },
+            {
+              "id": "ir8_q1_opt2",
+              "text": "As three separate sounds: G, L, and I",
+              "correct": false
+            },
+            {
+              "id": "ir8_q1_opt3",
+              "text": "As a silent G",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir8_q2",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir8_q2_opt1",
+              "text": "fi-glio",
+              "correct": true
+            },
+            {
+              "id": "ir8_q2_opt2",
+              "text": "fig-lio",
+              "correct": false
+            },
+            {
+              "id": "ir8_q2_opt3",
+              "text": "f-i-glio",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir8_q3",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir8_q3_opt1",
+              "text": "aglio",
+              "correct": true
+            },
+            {
+              "id": "ir8_q3_opt2",
+              "text": "ago",
+              "correct": false
+            },
+            {
+              "id": "ir8_q3_opt3",
+              "text": "amico",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir8_q4",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir8_q4_opt1",
+              "text": "fi-glio",
+              "correct": true
+            },
+            {
+              "id": "ir8_q4_opt2",
+              "text": "fig-lio",
+              "correct": false
+            },
+            {
+              "id": "ir8_q4_opt3",
+              "text": "f-iglio",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "paid",
+  "priceId": "price_it_premium"
+}

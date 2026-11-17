@@ -1,0 +1,90 @@
+{
+  "communication-basics-1-practice": {
+    "title": "Як тебе звати?",
+    "subtitle": "Come ti chiami?",
+    "description": "Запитайте ім’я співрозмовника й дайте просту відповідь.",
+    "duration": "2 хв"
+  },
+  "dialogue-1": {
+    "title": "Познайомтеся",
+    "story": "Анна запитує Марко, як його звати. Він відповідає й запитує у відповідь."
+  },
+  "line-1": {
+    "trans": "Як тебе звати?",
+    "pronunciation": "[коме ті к'ямі]"
+  },
+  "line-2": {
+    "trans": "Мене звати Марко. А тебе?",
+    "pronunciation": "[мі к'ямо Марко. е ту]"
+  },
+  "vocab-2": {
+    "title": "Скажіть своє ім’я"
+  },
+  "v-1": {
+    "trans": "Як тебе звати?",
+    "pronunciation": "[коме ті к'ямі]"
+  },
+  "v-2": {
+    "trans": "Мене звати...",
+    "pronunciation": "[мі к'ямо]"
+  },
+  "v-3": {
+    "trans": "А тебе?",
+    "pronunciation": "[е ту]"
+  },
+  "takeaways-3": {
+    "title": "Запам’ятайте"
+  },
+  "t-1": {
+    "text": "Come — «як/що»; ti — «себе»; chiami — «ти називаєш»."
+  },
+  "t-2": {
+    "text": "Mi — «себе»; chiamo — «я називаю»."
+  },
+  "t-3": {
+    "text": "E — «і»; tu — «ти»."
+  },
+  "tasks-4": {
+    "title": "Швидка практика"
+  },
+  "name-question": {
+    "question": "Оберіть фразу «Як тебе звати?»",
+    "options": {
+      "opt-1": "Come ti chiami?",
+      "opt-2": "Di dove sei?",
+      "opt-3": "Come stai?"
+    }
+  },
+  "name-answer": {
+    "question": "Як сказати «Мене звати Марко»?",
+    "options": {
+      "opt-1": "Mi chiamo Marco.",
+      "opt-2": "Come ti chiami?",
+      "opt-3": "E tu?"
+    }
+  },
+  "return-question": {
+    "question": "Марко каже «Mi chiamo Marco». Як запитати «А тебе?»",
+    "options": {
+      "opt-1": "E tu?",
+      "opt-2": "Come stai?",
+      "opt-3": "Buonasera!"
+    }
+  },
+  "match-meaning": {
+    "question": "Що означає «Mi chiamo Marco»?",
+    "options": {
+      "opt-1": "Мене звати Марко.",
+      "opt-2": "Як тебе звати?",
+      "opt-3": "А тебе?"
+    }
+  },
+  "complete-name-question": {
+    "question": "Доповніть: «Come ti _____? — Mi chiamo Luca.»",
+    "options": {
+      "opt-1": "chiami",
+      "opt-2": "chiamo",
+      "opt-3": "stai"
+    }
+  }
+}

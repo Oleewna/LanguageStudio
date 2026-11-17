@@ -1,0 +1,34 @@
+{
+  "italian-reading-5": {
+    "title": "G and GH",
+    "subtitle": "Hear the difference between G and GH",
+    "description": "Distinguish soft G in ge/gi from hard G in ghe/ghi.",
+    "duration": "5 min"
+  },
+  "story-ir5": { "title": "Reading" },
+  "ir5-p1": { "translations": "Gina eats spaghetti with mushrooms. Then she gets an ice cream." },
+  "hint-mangia": { "translations": "eats" },
+  "hint-spaghetti": { "translations": "spaghetti" },
+  "hint-funghi": { "translations": "mushrooms" },
+  "hint-gelato": { "translations": "ice cream" },
+  "takeaways-ir5": { "title": "Key takeaways" },
+  "ir5-t1": { "text": "In ge and gi, G has a soft sound: gelato, giraffa." },
+  "ir5-t2": { "text": "In ghe and ghi, H keeps the hard G sound; H is not pronounced separately." },
+  "tasks-ir5": { "title": "Quick practice" },
+  "ir5_q1": {
+    "question": "In which combinations does G have the soft sound?",
+    "options": { "ir5_q1_opt1": "ge and gi", "ir5_q1_opt2": "ga and go", "ir5_q1_opt3": "ghe and ghi" }
+  },
+  "ir5_q2": {
+    "question": "What does H do in ghe and ghi?",
+    "options": { "ir5_q2_opt1": "Keeps the hard G sound before E and I", "ir5_q2_opt2": "Creates a separate sound after G", "ir5_q2_opt3": "Changes G to the soft sound" }
+  },
+  "ir5_q3": {
+    "question": "Which word has the soft G sound?",
+    "options": { "ir5_q3_opt1": "gelato", "ir5_q3_opt2": "spaghetti", "ir5_q3_opt3": "funghi" }
+  },
+  "ir5_q4": {
+    "question": "Which spelling has hard G before I?",
+    "options": { "ir5_q4_opt1": "ghi", "ir5_q4_opt2": "gi", "ir5_q4_opt3": "ge" }
+  }
+}

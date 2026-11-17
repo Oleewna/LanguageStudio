@@ -1,0 +1,34 @@
+{
+  "italian-reading-11": {
+    "title": "Stress and accents",
+    "subtitle": "Listen for stress and notice the accent mark",
+    "description": "Learn to hear the stressed part of a word and why some words are written with an accent mark.",
+    "duration": "5 min"
+  },
+  "story-ir11": { "title": "Reading" },
+  "ir11-p1": { "translations": "It is evening. Marco is in the city and orders a coffee. \u201cWhy is it so good?\u201d he asks." },
+  "hint-sera": { "translations": "evening" },
+  "hint-ordina": { "translations": "orders" },
+  "hint-cosi": { "translations": "so" },
+  "hint-chiede-ir11": { "translations": "asks" },
+  "takeaways-ir11": { "title": "Key takeaways" },
+  "ir11-t1": { "text": "Listen for word stress even when it is not marked in writing." },
+  "ir11-t2": { "text": "In citt\u00e0, caff\u00e8, and perch\u00e9, the written accent is on the final vowel." },
+  "tasks-ir11": { "title": "Quick practice" },
+  "ir11_q1": {
+    "question": "Which word has a written accent mark?",
+    "options": { "ir11_q1_opt1": "citt\u00e0", "ir11_q1_opt2": "sera", "ir11_q1_opt3": "Marco" }
+  },
+  "ir11_q2": {
+    "question": "Which word has an accent written on the final vowel?",
+    "options": { "ir11_q2_opt1": "caff\u00e8", "ir11_q2_opt2": "caff\u00e9", "ir11_q2_opt3": "caffe" }
+  },
+  "ir11_q3": {
+    "question": "What does the written accent help identify in citt\u00e0?",
+    "options": { "ir11_q3_opt1": "The stressed final vowel", "ir11_q3_opt2": "The number of syllables", "ir11_q3_opt3": "A doubled consonant" }
+  },
+  "ir11_q4": {
+    "question": "Which word has an accent written on the final vowel?",
+    "options": { "ir11_q4_opt1": "citt\u00e0", "ir11_q4_opt2": "citta", "ir11_q4_opt3": "cita" }
+  }
+}

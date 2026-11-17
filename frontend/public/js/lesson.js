@@ -77,7 +77,7 @@
   function getVocabularyTerm(item, courseId) {
     if (typeof item === 'string') return item.trim();
     if (!item || typeof item !== 'object') return '';
-    const value = item[courseId] || item.word || item.term || item.text;
+    const value = item.text || item[courseId] || item.word || item.term || item.it || item.es;
     return typeof value === 'string' ? value.trim() : '';
   }
 
@@ -94,7 +94,7 @@
         lines: (block.lines || []).map((line) => ({
           speaker: line.speaker || 'Speaker',
           avatar: line.avatar || (line.speaker || 'U').charAt(0).toUpperCase(),
-          it: line.text || line.it || '',
+          it: line.text || line.it || line[courseId] || '',
           pronunciation: readText(line.pronunciation || line.phon || '', ''),
           translations: line.trans || line.translations || {},
           audio: line.audio !== false
@@ -112,7 +112,7 @@
           return null;
         }
         return {
-          it: word.word,
+          it: word.text || word.word || word[courseId] || '',
           pronunciation: word.pronunciation || word.phon || '',
           translations: word.trans || { uk: '', en: '' }
         };
@@ -349,8 +349,9 @@
     const items = unitLessons.map((item) => {
       const active = item.id === lesson.id;
       const isDone = typeof window.isLessonCompleted === 'function' && window.isLessonCompleted(item.id);
+      const isPaid = item.access === 'paid';
       const lessonNumberLabel = getLessonNumberLabel(item, lang);
-      const badge = getIconSvg(active ? 'lesson' : (isDone ? 'check' : 'circle'));
+      const badge = getIconSvg(isPaid && !isDone ? 'lock' : (active ? 'lesson' : (isDone ? 'check' : 'circle')));
       return `
         <a href="${window.location.pathname}?course=${encodeURIComponent(getCurrentCourseId())}&lesson=${encodeURIComponent(item.id)}" class="sb-lesson ${active ? 'active' : ''}" aria-current="${active ? 'page' : 'false'}">
           <span class="ic">${badge}</span>
@@ -367,6 +368,105 @@
     }).join('');
 
     container.innerHTML = `<div class="sb-unit">${items}</div>${other}`;
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function showLockedLesson(lessonMeta, lockError, course) {
+    const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
+    const courseId = getCurrentCourseId();
+    const lessonId = lessonMeta?.id || lockError.lessonId || getCurrentLessonId();
+    const lessonTitle = lessonMeta ? readText(lessonMeta.title, lessonId, lang) : lessonId;
+    const isAuthRequired = lockError.status === 401 || lockError.code === 'AUTH_REQUIRED';
+
+    const heroLabel = document.getElementById('heroLabel');
+    if (heroLabel) heroLabel.textContent = lang === 'en' ? 'Premium Lesson' : 'Преміум-урок';
+
+    const titleEl = document.getElementById('heroTitle');
+    if (titleEl) {
+      titleEl.innerHTML = `<span style="display:inline-flex;align-items:center;gap:0.5rem;"><span data-icon="lock" style="color:var(--gold, #d97706);">${getIconSvg('lock')}</span> ${escapeHtml(lessonTitle)}</span>`;
+    }
+
+    const descEl = document.getElementById('heroDescription');
+    if (descEl) {
+      descEl.textContent = isAuthRequired
+        ? (lang === 'en' ? 'This lesson requires an account with active course access.' : 'Цей урок потребує входу в акаунт з активним доступом до курсу.')
+        : (lang === 'en' ? 'This lesson is part of the full paid course.' : 'Цей урок є частиною повного платного курсу.');
+    }
+
+    const index = document.getElementById('lessonIndex');
+    if (index) index.hidden = true;
+
+    const nav = document.getElementById('lessonBottomNav');
+    if (nav) nav.hidden = true;
+
+    const pricingUrl = `pricing.html?course=${encodeURIComponent(courseId)}&lesson=${encodeURIComponent(lessonId)}`;
+    const authUrl = `auth.html?redirect=${encodeURIComponent(window.location.href)}`;
+    const pathUrl = `path.html?course=${encodeURIComponent(courseId)}`;
+
+    const body = document.getElementById('lessonBody');
+    if (body) {
+      const ctaHtml = isAuthRequired
+        ? `
+          <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
+            <a href="${authUrl}" class="btn-primary" style="padding:0.75rem 1.5rem;font-weight:700;">
+              ${lang === 'en' ? 'Sign In / Register' : 'Увійти / Зареєструватися'}
+            </a>
+            <a href="${pricingUrl}" class="btn-secondary" style="padding:0.75rem 1.5rem;">
+              ${lang === 'en' ? 'View Pricing & Plans' : 'Тарифи та плани'}
+            </a>
+          </div>
+        `
+        : `
+          <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
+            <a href="${pricingUrl}" class="btn-primary" style="padding:0.75rem 1.75rem;font-weight:700;font-size:1.05rem;">
+              <span data-icon="sparkles"></span> ${lang === 'en' ? 'Unlock Full Course' : 'Отримати повний доступ'}
+            </a>
+            <a href="${pathUrl}" class="btn-ghost" style="padding:0.75rem 1.25rem;">
+              ${lang === 'en' ? 'Back to Learning Path' : 'Назад до розділів'}
+            </a>
+          </div>
+        `;
+
+      body.innerHTML = `
+        <div class="locked-lesson-card" style="max-width:580px;margin:2rem auto;padding:2.5rem 2rem;background:var(--bg-card, #fff);border:2px dashed var(--border-soft, #e2e8f0);border-radius:1rem;text-align:center;box-shadow:0 10px 25px -5px rgba(0,0,0,0.05);">
+          <div style="width:64px;height:64px;margin:0 auto 1.25rem;display:flex;align-items:center;justify-content:center;background:var(--gold-soft, #fef3c7);color:var(--gold, #d97706);border-radius:50%;font-size:1.75rem;">
+            ${getIconSvg('lock')}
+          </div>
+          <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:0.75rem;color:var(--ink, #1e293b);">
+            ${lang === 'en' ? 'Unlock This Lesson' : 'Розблокувати цей урок'}
+          </h2>
+          <p style="color:var(--ink-soft, #64748b);line-height:1.6;margin-bottom:1.5rem;">
+            ${lang === 'en'
+              ? 'Gain lifetime access to all interactive dialogues, exercises, native audio, grammar breakdowns, and vocabulary practice for this course.'
+              : 'Отримайте необмежений доступ до всіх інтерактивних діалогів, вправ, автентичного аудіо, граматики та словникових тренувань цього курсу.'}
+          </p>
+
+          <div style="background:var(--bg-soft, #f8fafc);border-radius:0.75rem;padding:1.25rem;text-align:left;margin-bottom:1.5rem;">
+            <div style="font-weight:700;font-size:0.95rem;margin-bottom:0.75rem;color:var(--ink);">
+              ${lang === 'en' ? 'What you get:' : 'Що входить у курс:'}
+            </div>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.5rem;font-size:0.9rem;color:var(--ink-soft);">
+              <li style="display:flex;align-items:center;gap:0.5rem;"><span style="color:#10b981;">✓</span> ${lang === 'en' ? 'Full structured learning path with all units' : 'Повний структурований шлях з усіма розділами'}</li>
+              <li style="display:flex;align-items:center;gap:0.5rem;"><span style="color:#10b981;">✓</span> ${lang === 'en' ? 'Vocabulary trainer with spaced repetition' : 'Словниковий тренажер з інтервальним повторенням'}</li>
+              <li style="display:flex;align-items:center;gap:0.5rem;"><span style="color:#10b981;">✓</span> ${lang === 'en' ? 'Interactive quizzes & audio dialogue practice' : 'Інтерактивні тести та аудіо-діалоги'}</li>
+              <li style="display:flex;align-items:center;gap:0.5rem;"><span style="color:#10b981;">✓</span> ${lang === 'en' ? 'One-time payment, no recurring subscriptions' : 'Одноразова оплата без прихованих підписок'}</li>
+            </ul>
+          </div>
+
+          ${ctaHtml}
+        </div>
+      `;
+    }
+
+    document.title = `${lessonTitle} (${lang === 'en' ? 'Locked' : 'Заблоковано'}) — LanguageStudio`;
   }
 
   function showNotFound(requestedId) {
@@ -443,16 +543,28 @@
       const lessonId = getCurrentLessonId();
       const course = await window.loadCourse();
       const lessonList = getLessonList(course);
+      const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
 
       let lessonMeta = lessonList.find((lesson) => lesson.id === lessonId) || null;
       let rawLesson = null;
+      let lockError = null;
 
       if (lessonId) {
         try {
           rawLesson = await window.loadCourseData(`lessons/${lessonId}`);
         } catch (error) {
-          console.warn(`Could not load lesson content for "${lessonId}":`, error);
+          if (error.isLocked || error.status === 401 || error.status === 403 || error.code === 'AUTH_REQUIRED' || error.code === 'ENTITLEMENT_REQUIRED') {
+            lockError = error;
+          } else {
+            console.warn(`Could not load lesson content for "${lessonId}":`, error);
+          }
         }
+      }
+
+      if (lockError) {
+        renderSidebar(course, lessonMeta || { id: lessonId, unitId: 'unit-1', unitTitle: '', lessonNum: lessonId, title: lessonId }, lessonList, lang);
+        showLockedLesson(lessonMeta, lockError, course);
+        return;
       }
 
       if (!rawLesson && !lessonMeta && (lessonId || lessonList.length === 0)) {

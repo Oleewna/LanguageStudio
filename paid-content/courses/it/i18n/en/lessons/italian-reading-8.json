@@ -1,0 +1,35 @@
+{
+  "italian-reading-8": {
+    "title": "GLI",
+    "subtitle": "Listen and repeat familiar words",
+    "description": "Recognize GLI in common words and practice its sound with audio.",
+    "duration": "5 min"
+  },
+  "story-ir8": { "title": "Reading" },
+  "ir8-p1": { "translations": "The family prepares pasta. The son chops the garlic." },
+  "hint-famiglia": { "translations": "family" },
+  "hint-prepara-ir8": { "translations": "prepares" },
+  "hint-figlio": { "translations": "son" },
+  "hint-taglia": { "translations": "cuts; chops" },
+  "hint-aglio": { "translations": "garlic" },
+  "takeaways-ir8": { "title": "Key takeaways" },
+  "ir8-t1": { "text": "In famiglia, figlio, aglio, the combination gli represents one sound." },
+  "ir8-t2": { "text": "The sound is best learned by listening: hear the words and repeat without relying on approximate pronunciation guides." },
+  "tasks-ir8": { "title": "Quick practice" },
+  "ir8_q1": {
+    "question": "How should gli be read in the words from this lesson?",
+    "options": { "ir8_q1_opt1": "As one Italian sound combination", "ir8_q1_opt2": "As three separate sounds: G, L, and I", "ir8_q1_opt3": "As a silent G" }
+  },
+  "ir8_q2": {
+    "question": "How is \"figlio\" correctly divided into syllables?",
+    "options": { "ir8_q2_opt1": "fi-glio", "ir8_q2_opt2": "fig-lio", "ir8_q2_opt3": "f-i-glio" }
+  },
+  "ir8_q3": {
+    "question": "Which word contains the GLI combination?",
+    "options": { "ir8_q3_opt1": "aglio", "ir8_q3_opt2": "ago", "ir8_q3_opt3": "amico" }
+  },
+  "ir8_q4": {
+    "question": "Which syllable division keeps GLI together?",
+    "options": { "ir8_q4_opt1": "fi-glio", "ir8_q4_opt2": "fig-lio", "ir8_q4_opt3": "f-iglio" }
+  }
+}

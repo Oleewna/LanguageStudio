@@ -1,0 +1,160 @@
+{
+  "id": "italian-reading-2",
+  "xpReward": 35,
+  "nextLessonId": "italian-reading-3",
+  "blocks": [
+    {
+      "id": "story-ir2",
+      "type": "story_text",
+      "paragraphs": [
+        {
+          "id": "ir2-p1",
+          "text": "Nina vede una casa. Mina vede una cosa: una rosa."
+        }
+      ],
+      "vocabHints": [
+        {
+          "id": "hint-vede",
+          "word": "vede"
+        },
+        {
+          "id": "hint-casa",
+          "word": "casa"
+        },
+        {
+          "id": "hint-cosa",
+          "word": "cosa"
+        },
+        {
+          "id": "hint-rosa",
+          "word": "rosa"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-ir2",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "ir2-t1"
+        },
+        {
+          "id": "ir2-t2"
+        }
+      ]
+    },
+    {
+      "id": "tasks-ir2",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "ir2_q1",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir2_q1_opt1",
+              "text": "ca, co, cu",
+              "correct": true
+            },
+            {
+              "id": "ir2_q1_opt2",
+              "text": "ce, ci, cu",
+              "correct": false
+            },
+            {
+              "id": "ir2_q1_opt3",
+              "text": "ce, co, ci",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir2_q2",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir2_q2_opt1",
+              "text": "casa",
+              "correct": true
+            },
+            {
+              "id": "ir2_q2_opt2",
+              "text": "cosa",
+              "correct": false
+            },
+            {
+              "id": "ir2_q2_opt3",
+              "text": "cucina",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir2_q3",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir2_q3_opt1",
+              "text": "cosa",
+              "correct": true
+            },
+            {
+              "id": "ir2_q3_opt2",
+              "text": "cena",
+              "correct": false
+            },
+            {
+              "id": "ir2_q3_opt3",
+              "text": "chiave",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir2_q4",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir2_q4_opt1",
+              "text": "cucina",
+              "correct": true
+            },
+            {
+              "id": "ir2_q4_opt2",
+              "text": "cena",
+              "correct": false
+            },
+            {
+              "id": "ir2_q4_opt3",
+              "text": "cinema",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir2_q5",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir2_q5_opt1",
+              "text": "ca",
+              "correct": true
+            },
+            {
+              "id": "ir2_q5_opt2",
+              "text": "ce",
+              "correct": false
+            },
+            {
+              "id": "ir2_q5_opt3",
+              "text": "chi",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "paid",
+  "priceId": "price_it_premium"
+}

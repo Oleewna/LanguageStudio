@@ -5,9 +5,9 @@ const { after, before, test } = require('node:test');
 const authUpstream = express();
 authUpstream.use(express.json());
 authUpstream.get('/api/auth/session', (req, res) => res.json({ authenticated: false }));
-authUpstream.post('/api/auth/login', (req, res) => {
-    res.cookie('ls_session', 'gateway-test-session', { httpOnly: true });
-    res.json({ path: req.path, body: req.body });
+authUpstream.post('/api/auth/logout', (req, res) => {
+    res.cookie('ls_session', '', { maxAge: 0 });
+    res.json({ success: true, path: req.path });
 });
 
 const contentUpstream = express();
@@ -50,17 +50,15 @@ test('proxies versioned auth and content APIs to their corresponding services', 
     assert.equal(session.status, 200);
     assert.deepEqual(await session.json(), { authenticated: false });
 
-    const login = await fetch(`${baseUrl}/api/v1/auth/login`, {
+    const logout = await fetch(`${baseUrl}/api/v1/auth/logout`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: 'learner@example.com' })
+        headers: { 'Content-Type': 'application/json' }
     });
-    assert.equal(login.status, 200);
-    assert.deepEqual(await login.json(), {
-        path: '/api/auth/login',
-        body: { email: 'learner@example.com' }
+    assert.equal(logout.status, 200);
+    assert.deepEqual(await logout.json(), {
+        success: true,
+        path: '/api/auth/logout'
     });
-    assert.match(login.headers.get('set-cookie'), /ls_session=gateway-test-session/);
 
     const content = await fetch(`${baseUrl}/api/v1/content/course-index`);
     assert.equal(content.status, 200);

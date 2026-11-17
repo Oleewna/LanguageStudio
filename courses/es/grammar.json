@@ -1,0 +1,122 @@
+{
+  "topics": [
+    {
+      "id": "ser-estar",
+      "icon": "verb",
+      "blocks": [
+        {
+          "id": "ser-estar-block-1",
+          "type": "table",
+          "head": [
+            "",
+            "Ser",
+            "Estar"
+          ],
+          "rows": [
+            [
+              "",
+              "**soy** Ana",
+              "—"
+            ],
+            [
+              "",
+              "—",
+              "**estoy** en Madrid"
+            ],
+            [
+              "",
+              "—",
+              "**estoy** bien"
+            ],
+            [
+              "",
+              "**es** amable",
+              "**está** cansado"
+            ]
+          ]
+        },
+        {
+          "id": "ser-estar-block-2",
+          "type": "note",
+          "icon": "lightbulb"
+        },
+        {
+          "id": "ser-estar-block-3",
+          "type": "examples",
+          "items": [
+            {
+              "id": "ex-1",
+              "text": {
+                "uk": "**Soy** Ana. **Estoy** en Madrid.",
+                "en": "**Soy** Ana. **Estoy** en Madrid."
+              },
+              "es": {
+                "uk": "**Soy** Ana. **Estoy** en Madrid.",
+                "en": "**Soy** Ana. **Estoy** en Madrid."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "articulos",
+      "icon": "article",
+      "blocks": [
+        {
+          "id": "articulos-block-1",
+          "type": "table",
+          "head": [
+            "",
+            "el",
+            "la",
+            "los",
+            "las"
+          ],
+          "rows": [
+            [
+              "",
+              "**el** libro",
+              "—",
+              "—",
+              "—"
+            ],
+            [
+              "",
+              "—",
+              "**la** calle",
+              "—",
+              "—"
+            ],
+            [
+              "",
+              "—",
+              "—",
+              "**los** libros",
+              "—"
+            ],
+            [
+              "",
+              "—",
+              "—",
+              "—",
+              "**las** calles"
+            ]
+          ]
+        },
+        {
+          "id": "articulos-block-2",
+          "type": "rules",
+          "items": [
+            {
+              "id": "rule-1"
+            },
+            {
+              "id": "rule-2"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

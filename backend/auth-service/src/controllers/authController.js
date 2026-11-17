@@ -1,10 +1,26 @@
 const crypto = require('crypto');
+const { OAuth2Client } = require('google-auth-library');
 const userStore = require('../utils/userStore');
+const { loadGoogleConfig } = require('../utils/googleConfig');
 
+// ─── Session store ───────────────────────────────────────────────────────────
 const sessions = new Map();
 const SESSION_COOKIE = 'ls_session';
 const SESSION_LIFETIME_MS = 30 * 24 * 60 * 60 * 1000;
 
+// ─── OAuth state store (CSRF protection) ─────────────────────────────────────
+const oauthStates = new Map(); // state → timestamp
+const STATE_LIFETIME_MS = 10 * 60 * 1000; // 10 minutes
+
+function getOAuth2Client() {
+    const config = loadGoogleConfig();
+    return {
+        client: new OAuth2Client(config.clientId, config.clientSecret, config.redirectUri),
+        config
+    };
+}
+
+// ─── Session helpers ──────────────────────────────────────────────────────────
 function getSessionId(req) {
     const cookies = req.headers.cookie || '';
     const sessionCookie = cookies.split(';').map(cookie => cookie.trim())
@@ -13,29 +29,34 @@ function getSessionId(req) {
 }
 
 function publicUser(user) {
-    return { id: user.id, name: user.name, email: user.email, role: user.role || 'learner' };
+    return {
+        id: user.id,
+        name: user.name,
+        displayName: user.name,
+        email: user.email,
+        role: user.role || 'learner'
+    };
 }
 
-function setSessionCookie(res, sessionId, remember = false) {
+function setSessionCookie(res, sessionId) {
     const attributes = [
         `${SESSION_COOKIE}=${sessionId}`,
         'Path=/',
         'HttpOnly',
-        'SameSite=Lax'
+        'SameSite=Lax',
+        `Max-Age=${Math.floor(SESSION_LIFETIME_MS / 1000)}`
     ];
-    if (remember) attributes.push(`Max-Age=${Math.floor(SESSION_LIFETIME_MS / 1000)}`);
     if (process.env.NODE_ENV === 'production') attributes.push('Secure');
     res.setHeader('Set-Cookie', attributes.join('; '));
 }
 
-function createSession(res, user, remember, status = 200) {
+function createSession(user) {
     const sessionId = crypto.randomBytes(32).toString('hex');
     sessions.set(sessionId, {
         userId: user.id,
         expiresAt: Date.now() + SESSION_LIFETIME_MS
     });
-    setSessionCookie(res, sessionId, remember);
-    res.status(status).json({ user: publicUser(user) });
+    return sessionId;
 }
 
 function getUserForRequest(req) {
@@ -49,83 +70,127 @@ function getUserForRequest(req) {
     return userStore.findById(session.userId);
 }
 
-async function register(req, res) {
-    const body = req.body && typeof req.body === 'object' && !Array.isArray(req.body) ? req.body : {};
-    const name = typeof body.name === 'string' ? body.name.trim() : '';
-    const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
-    const password = typeof body.password === 'string' ? body.password : '';
-
-    if (!name || name.length > 80) {
-        return res.status(400).json({ error: 'Name must be between 1 and 80 characters.' });
+function getFrontendBase(req) {
+    if (process.env.FRONTEND_URL) {
+        return process.env.FRONTEND_URL.replace(/\/+$/, '');
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
-        return res.status(400).json({ error: 'Enter a valid email address.' });
+    const host = (req && req.headers && (req.headers['x-forwarded-host'] || req.headers.host)) || '';
+    const proto = (req && req.headers && req.headers['x-forwarded-proto']) || (req && req.socket && req.socket.encrypted ? 'https' : 'http');
+    // If request came directly to auth-service on port 3007, redirect user to the gateway on port 3005
+    if (host.includes(':3007')) {
+        return `${proto}://${host.replace(':3007', ':3005')}`;
     }
-    if (password.length < 8 || password.length > 128) {
-        return res.status(400).json({ error: 'Password must be between 8 and 128 characters.' });
+    if (host && !host.includes(':3007')) {
+        return `${proto}://${host}`;
     }
-    if (body.termsAccepted !== true) {
-        return res.status(400).json({ error: 'You must accept the terms to create an account.' });
-    }
-    if (userStore.findByEmail(email)) {
-        return res.status(409).json({ error: 'An account with this email already exists.' });
-    }
-
-    const salt = crypto.randomBytes(16).toString('hex');
-    const passwordHash = await new Promise((resolve, reject) => {
-        crypto.scrypt(password, salt, 64, (error, derivedKey) => {
-            if (error) reject(error);
-            else resolve(derivedKey.toString('hex'));
-        });
-    });
-    const user = {
-        id: crypto.randomUUID(),
-        name,
-        email,
-        salt,
-        passwordHash,
-        role: 'learner',
-        createdAt: new Date().toISOString()
-    };
-
-    if (!userStore.create(user)) {
-        return res.status(409).json({ error: 'An account with this email already exists.' });
-    }
-    return createSession(res, user, false, 201);
+    return 'http://localhost:3005';
 }
 
-async function login(req, res) {
-    const body = req.body && typeof req.body === 'object' && !Array.isArray(req.body) ? req.body : {};
-    const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
-    const password = typeof body.password === 'string' ? body.password : '';
-    if (!email || !password) {
-        return res.status(400).json({ error: 'Email and password are required.' });
-    }
+// ─── Route handlers ───────────────────────────────────────────────────────────
 
-    const user = userStore.findByEmail(email);
-    if (!user || password.length > 128) {
-        return res.status(401).json({ error: 'Email or password is incorrect.' });
-    }
-    const passwordHash = await new Promise((resolve, reject) => {
-        crypto.scrypt(password, user.salt, 64, (error, derivedKey) => {
-            if (error) reject(error);
-            else resolve(derivedKey);
+/**
+ * GET /api/auth/google
+ * Initiates the Google OAuth flow.
+ */
+function googleRedirect(req, res) {
+    const { client, config } = getOAuth2Client();
+
+    if (!config.clientId || !config.clientSecret) {
+        return res.status(503).json({
+            error: 'Google OAuth is not configured on this server. Please provide GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in .env or place your Google client secret JSON file in backend/auth-service/.'
         });
-    });
-    const storedHash = Buffer.from(user.passwordHash, 'hex');
-    if (storedHash.length !== passwordHash.length || !crypto.timingSafeEqual(storedHash, passwordHash)) {
-        return res.status(401).json({ error: 'Email or password is incorrect.' });
     }
 
-    return createSession(res, user, body.remember === true);
+    // Clean up expired states
+    const now = Date.now();
+    for (const [state, ts] of oauthStates) {
+        if (now - ts > STATE_LIFETIME_MS) oauthStates.delete(state);
+    }
+
+    const state = crypto.randomBytes(16).toString('hex');
+    oauthStates.set(state, Date.now());
+
+    const authUrl = client.generateAuthUrl({
+        access_type: 'offline',
+        scope: ['openid', 'email', 'profile'],
+        state,
+        prompt: 'select_account'
+    });
+
+    return res.redirect(authUrl);
 }
 
+/**
+ * GET /api/auth/google/callback
+ * Handles Google's OAuth callback with authorization code.
+ */
+async function googleCallback(req, res) {
+    const { code, state, error } = req.query;
+    const frontendBase = getFrontendBase(req);
+
+    if (error) {
+        console.warn('Google OAuth error from provider:', error);
+        return res.redirect(`${frontendBase}/pages/auth.html?error=google_failed`);
+    }
+
+    // Validate CSRF state
+    if (!state || !oauthStates.has(state)) {
+        return res.redirect(`${frontendBase}/pages/auth.html?error=invalid_state`);
+    }
+    oauthStates.delete(state);
+
+    if (!code) {
+        return res.redirect(`${frontendBase}/pages/auth.html?error=missing_code`);
+    }
+
+    try {
+        const { client, config } = getOAuth2Client();
+
+        // Exchange code for tokens
+        const { tokens } = await client.getToken(code);
+        client.setCredentials(tokens);
+
+        // Verify and decode the id_token
+        const ticket = await client.verifyIdToken({
+            idToken: tokens.id_token,
+            audience: config.clientId
+        });
+        const payload = ticket.getPayload();
+
+        const googleId = payload.sub;
+        const name = payload.name || payload.given_name || (payload.email ? payload.email.split('@')[0] : 'Learner');
+        const email = payload.email;
+
+        if (!googleId || !email) {
+            return res.redirect(`${frontendBase}/pages/auth.html?error=google_profile_missing`);
+        }
+
+        // Find or create user
+        const user = userStore.findOrCreateByGoogle(googleId, { name, email });
+
+        // Create session and set cookie
+        const sessionId = createSession(user);
+        setSessionCookie(res, sessionId);
+
+        return res.redirect(`${frontendBase}/pages/home.html`);
+    } catch (err) {
+        console.error('Google OAuth callback error:', err.message);
+        return res.redirect(`${frontendBase}/pages/auth.html?error=google_failed`);
+    }
+}
+
+/**
+ * GET /api/auth/session or GET /api/auth/me
+ */
 function getSession(req, res) {
     const user = getUserForRequest(req);
     if (!user) return res.status(200).json({ authenticated: false });
     return res.status(200).json({ authenticated: true, user: publicUser(user) });
 }
 
+/**
+ * POST /api/auth/logout
+ */
 function logout(req, res) {
     const sessionId = getSessionId(req);
     if (sessionId) sessions.delete(sessionId);
@@ -135,4 +200,14 @@ function logout(req, res) {
     return res.status(200).json({ success: true });
 }
 
-module.exports = { getSession, login, logout, register };
+module.exports = {
+    googleRedirect,
+    googleCallback,
+    getSession,
+    logout,
+    createSession,
+    setSessionCookie,
+    publicUser,
+    sessions,
+    oauthStates
+};

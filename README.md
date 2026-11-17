@@ -1,56 +1,77 @@
 # LanguageStudio
 
-Multi-course language learning app with a shared responsive front end, SQLite content database, and backend API. Courses use reusable paths, lessons, vocabulary, grammar, and exercises; Italian Communication Basics currently includes separate greetings and practice lessons.
-
-## Public showcase
-
-The static LanguageStudio introduction website is published at [https://languagestudio.page.gd](https://languagestudio.page.gd). Its source files and publishing instructions are maintained in the separate [LanguageStudio-Showcase repository](https://github.com/Oleewna/LanguageStudio-Showcase). The showcase is available in English, Ukrainian, Italian, Spanish, French, and German, and includes a theme switch and screenshot gallery. It introduces the project but does not include the backend-powered learning app.
+A multi-course language learning web app with Italian and Spanish courses, interactive exercises, and optional cloud-synced progress.
 
 ## Features
 
-- Course selection, learning paths, lesson progress, tests, and interactive practice (multiple choice, fill-in, matching, reorder, listening, dialogue, and dictation).
-- Course-based dictionary and flashcards, grammar references, light/dark themes, and localized UI (`uk` / `en`).
-- Protected administrator editor for managing courses and all learning content. Changes are validated and saved transactionally.
-- Login and registration with locally stored password hashes and HTTP-only session cookies. Progress and preferences stay in browser storage and do not sync to accounts.
+- Learning paths, lessons, vocabulary, grammar, and exercises (multiple choice, fill-in, matching, reorder, listening, dialogue, dictation)
+- Course dictionary and flashcards, light/dark themes, localized UI (`en` / `uk`)
+- Login and registration with HTTP-only session cookies; progress syncs to MongoDB when configured
+- Paid content with entitlement checks; falls back gracefully when MongoDB is unavailable
 
-## Setup and run
+## Requirements
 
-Requires Node.js and npm. From the repository root, install dependencies and initialize the local database:
+- Node.js ≥ 18
+- npm
 
-```bat
-backend\install.bat
-cd backend\content-db
-npm run db:setup
+## Setup
+
+1. **Copy `.env` files** (see [Configuration](#configuration) below)
+2. **Install dependencies** — from the repo root:
+   ```bat
+   install.bat
+   ```
+   This runs `npm install` in `backend\service`, `backend\auth-service`, and `backend\gateway`. No database setup step is needed.
+3. **Start all services**:
+   ```bat
+   start.bat
+   ```
+   Opens three terminal windows (service on :3006, auth-service on :3007, gateway on :3005).
+4. **Open the app**: [http://localhost:3005/](http://localhost:3005/)
+
+## Configuration
+
+### `backend/service/.env` (required)
+
+```env
+SESSION_SECRET=your_secret_here        # required
+MONGODB_URI=mongodb+srv://...          # optional — enables cloud auth/progress sync
 ```
 
-Start all three services in separate terminals with `npm start` from `backend\service`, `backend\auth-service`, and `backend\gateway`; or run `backend\start.bat` from the root. Open `http://localhost:3005/` for the app home, or jump directly to a course's learning path and practice pages at `http://localhost:3005/pages/path.html?course=it` and `http://localhost:3005/pages/exercises.html?course=it`.
+- Without `MONGODB_URI`, sessions are stored in memory and progress is not synced.
 
-The gateway serves the front end on port `3005` and routes `/api/v1/auth/*` and `/api/v1/content/*` to the auth service (`3007`) and content service (`3006`). Copy `.env.example` files to `.env` for local configuration; the shared database path is set in `backend/.env`. User records are stored in the Git-ignored `backend/auth-service/data/users.json`; sessions are in memory and end when the auth service restarts.
+### `backend/.env` (optional)
 
-New accounts are learners. To grant or remove administrator access, run from `backend\auth-service`:
+Legacy gateway/shared settings; largely unused now. Create from `.env.example` if needed.
 
-```bat
-npm run user:role -- learner@example.com admin
-npm run user:role -- learner@example.com learner
+## Project Layout
+
+```
+courses/              # JSON course content (Italian: it, Spanish: es)
+paid-content/         # Paid lesson files (entitlement-gated)
+frontend/public/      # App pages, styles, scripts
+backend/service/      # Main API, auth, and static frontend server (port 3006)
+backend/auth-service/ # Legacy auth service (port 3007)
+backend/gateway/      # Public entry point and API proxy (port 3005)
+scripts/              # Maintenance and validation scripts
 ```
 
-Sign in as an administrator and open **Content editor** from the app navigation to manage the database catalog. See the [content database guide](./backend/content-db/README.md) for setup, roles, migrations, and backups. Runtime content is in SQLite—not the Markdown lesson references in `lessons/`.
+## Scripts
 
-## Checks
+Run from the repo root:
 
-Run backend tests with `npm test` from each of `backend\service`, `backend\auth-service`, and `backend\gateway`. Check icons from the repository root:
+| Script | Purpose |
+|---|---|
+| `node scripts/validate-courses.mjs` | Validate all course JSON files |
+| `node scripts/check-icons.mjs` | Check for missing icons referenced in course data |
+| `import_vocab.bat` | Import CSV vocabulary into the SQLite user-word database |
+
+## Tests
+
+From `backend\service`:
 
 ```bat
-node scripts/check-icons.mjs
+npm test
 ```
 
-## Project layout
-
-- `frontend/public/` — app pages, shared UI, styles, scripts, and course entry points such as learning paths and exercises
-- `backend/service/` — content API and static frontend server
-- `backend/auth-service/` — accounts, roles, and sessions
-- `backend/gateway/` — public entry point and API routing
-- `backend/content-db/` — SQLite schema, migrations, seed, and backup tools
-- `lessons/` — human-readable references; not runtime content
-
-The database seed initially includes Italian (active) and Spanish (inactive). Course content and settings are managed in the administrator editor. Preserve localized `uk` and `en` text when editing.
+Runs the built-in Node.js test runner on `test/*.test.js`.

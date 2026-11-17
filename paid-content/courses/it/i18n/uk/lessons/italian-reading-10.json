@@ -1,0 +1,34 @@
+{
+  "italian-reading-10": {
+    "title": "Подвоєні приголосні",
+    "subtitle": "Слухай різницю між коротким і довшим звуком",
+    "description": "Навчися помічати подвоєні приголосні на письмі та чути, як вони можуть розрізняти слова.",
+    "duration": "5 хв"
+  },
+  "story-ir10": { "title": "Читання" },
+  "ir10-p1": { "translations": "Удома Анна кладе лопату в ящик. Її син грається з м'ячем." },
+  "hint-mette": { "translations": "кладе" },
+  "hint-nella": { "translations": "у (всередині)" },
+  "hint-suo-figlio": { "translations": "її син" },
+  "hint-gioca": { "translations": "грається" },
+  "takeaways-ir10": { "title": "Ключові тези" },
+  "ir10-t1": { "text": "Подвоєну приголосну вимовляй довше за одинарну." },
+  "ir10-t2": { "text": "Порівнюй і написання, і звучання: pala/palla, casa/cassa." },
+  "tasks-ir10": { "title": "Швидка практика" },
+  "ir10_q1": {
+    "question": "У якому слові на письмі подвоєно літеру L?",
+    "options": { "ir10_q1_opt1": "palla", "ir10_q1_opt2": "pala", "ir10_q1_opt3": "casa" }
+  },
+  "ir10_q2": {
+    "question": "У якому слові є подвоєна приголосна?",
+    "options": { "ir10_q2_opt1": "palla", "ir10_q2_opt2": "pala", "ir10_q2_opt3": "papa" }
+  },
+  "ir10_q3": {
+    "question": "У якому слові є подвоєна приголосна?",
+    "options": { "ir10_q3_opt1": "cassa", "ir10_q3_opt2": "casa", "ir10_q3_opt3": "pala" }
+  },
+  "ir10_q4": {
+    "question": "Який поділ на склади показує подвоєну приголосну?",
+    "options": { "ir10_q4_opt1": "pal-la", "ir10_q4_opt2": "pa-lla", "ir10_q4_opt3": "p-alla" }
+  }
+}

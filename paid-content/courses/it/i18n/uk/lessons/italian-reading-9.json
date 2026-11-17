@@ -1,0 +1,39 @@
+{
+  "italian-reading-9": {
+    "title": "QU",
+    "subtitle": "Почуй QU у коротких фразах",
+    "description": "Читайте поширені слова з QU та впізнавайте цю сполуку у фразах.",
+    "duration": "5 хв"
+  },
+  "story-ir9": { "title": "Читання" },
+  "ir9-p1": { "translations": "Коли приходить Лука, він питає: «Скільки коштує ця книжка?»" },
+  "hint-quando": { "translations": "коли" },
+  "hint-arriva": { "translations": "приходить" },
+  "hint-chiede": { "translations": "питає" },
+  "hint-quanto": { "translations": "скільки" },
+  "hint-questo-libro": { "translations": "ця книжка" },
+  "takeaways-ir9": { "title": "Ключові тези" },
+  "ir9-t1": { "text": "У поширених словах Q стоїть перед U: quando, quanto, questo, qui." },
+  "ir9-t2": { "text": "Слухайте сполуку в окремих словах і фразах; це правило не описує всі випадки літери U." },
+  "tasks-ir9": { "title": "Швидка практика" },
+  "ir9_q1": {
+    "question": "Яка поширена сполука трапляється у словах цього уроку?",
+    "options": { "ir9_q1_opt1": "qu", "ir9_q1_opt2": "gu", "ir9_q1_opt3": "cu" }
+  },
+  "ir9_q2": {
+    "question": "У якому слові є сполука QU?",
+    "options": { "ir9_q2_opt1": "quando", "ir9_q2_opt2": "guanto", "ir9_q2_opt3": "cuoco" }
+  },
+  "ir9_q3": {
+    "question": "Яка сполука містить Q перед U?",
+    "options": { "ir9_q3_opt1": "qu", "ir9_q3_opt2": "gu", "ir9_q3_opt3": "cu" }
+  },
+  "ir9_q4": {
+    "question": "У якому слові з речення є сполука QU?",
+    "options": { "ir9_q4_opt1": "Quanto", "ir9_q4_opt2": "arriva", "ir9_q4_opt3": "Luca" }
+  },
+  "ir9_q5": {
+    "question": "Яке слово містить сполуку QU перед голосною A?",
+    "options": { "ir9_q5_opt1": "quando", "ir9_q5_opt2": "quanto", "ir9_q5_opt3": "questo" }
+  }
+}

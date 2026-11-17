@@ -1,0 +1,33 @@
+{
+  "italian-reading-6": {
+    "title": "Звуки SC",
+    "subtitle": "Розрізняй sca, sce та sche",
+    "description": "Навчіться читати SC перед різними голосними та помічати роль H.",
+    "duration": "5 хв"
+  },
+  "story-ir6": { "title": "Читання" },
+  "ir6-p1": { "translations": "Вибач, сходи тут. Сцена гарна." },
+  "hint-scusa": { "translations": "вибач" },
+  "hint-scala": { "translations": "сходи" },
+  "hint-scena": { "translations": "сцена" },
+  "takeaways-ir6": { "title": "Ключові тези" },
+  "ir6-t1": { "text": "sca, sco, scu мають звук SC перед A, O, U; sce, sci читаються інакше." },
+  "ir6-t2": { "text": "У sche, schi літера H зберігає звучання sca, sco, scu перед E та I." },
+  "tasks-ir6": { "title": "Швидка практика" },
+  "ir6_q1": {
+    "question": "Які сполуки мають звук SC перед A, O та U?",
+    "options": { "ir6_q1_opt1": "sca, sco, scu", "ir6_q1_opt2": "sce, sci", "ir6_q1_opt3": "sche, schi" }
+  },
+  "ir6_q2": {
+    "question": "У яких сполуках SC читається як у слові «scena»?",
+    "options": { "ir6_q2_opt1": "sce та sci", "ir6_q2_opt2": "sca та scu", "ir6_q2_opt3": "sche та schi" }
+  },
+  "ir6_q3": {
+    "question": "Які сполуки зберігають звук SC зі слів scala/scopa перед E та I?",
+    "options": { "ir6_q3_opt1": "sche та schi", "ir6_q3_opt2": "sce та sci", "ir6_q3_opt3": "sca та sco" }
+  },
+  "ir6_q4": {
+    "question": "Який варіант має звук SC, як у слові «scena»?",
+    "options": { "ir6_q4_opt1": "sce", "ir6_q4_opt2": "sche", "ir6_q4_opt3": "sca" }
+  }
+}

@@ -18,507 +18,12 @@ const LOCAL_STUDENT_PROFILE = {
   email: ''
 };
 
-const UI_TRANSLATIONS = {
-  'Тести': 'Tests',
-  'Тести — LanguageStudio': 'Tests — LanguageStudio',
-  'Типи тестів': 'Test types',
-  'ПЕРЕД НАВЧАННЯМ': 'BEFORE LEARNING',
-  'Тест на визначення рівня': 'Placement assessment',
-  'Пройдіть початкове оцінювання, щоб зрозуміти свій поточний рівень і з чого почати.': 'Take an initial assessment to understand your current level and where to start.',
-  'Незабаром': 'Coming soon',
-  'Тест буде доступний пізніше': 'Assessment coming soon',
-  'ФІНАЛЬНА ПЕРЕВІРКА': 'FINAL CHECKPOINT',
-  'Фінальні тести напрямків': 'Learning path final tests',
-  'Завантажуємо напрямки…': 'Loading learning paths…',
-  'Для цього курсу поки немає напрямків навчання.': 'There are no learning paths for this course yet.',
-  'Не вдалося завантажити напрямки тестів. Перевірте з’єднання та спробуйте ще раз.': 'Could not load assessment paths. Check your connection and try again.',
-  'Фінальний тест': 'Final assessment',
-  'Напрямок завершено · фінальний тест незабаром': 'Path complete · final assessment coming soon',
-  'Завершіть напрямок, щоб розблокувати': 'Complete the path to unlock',
-  'Завершіть напрямок': 'Complete the path',
-  'Переглянути напрямок': 'View learning path',
-  'Для тесту ще немає доступних уроків.': 'No lessons are available for this assessment yet.',
-  'Фінальний тест незабаром': 'Final assessment coming soon',
-  'Основи · Урок 1 · Знайомство': 'Basics · Lesson 1 · Introductions',
-  'Основи спілкування · Урок 1': 'Communication basics · Lesson 1',
-  'Основи спілкування · Урок 1 — LanguageStudio, Італійська': 'Communication basics · Lesson 1 — LanguageStudio, Italian',
-  'Знайомство — Come ti chiami?': 'Introductions — Come ti chiami?',
-  'Переглянути всі напрямки': 'View all learning paths',
-  'Вправи до Уроку 1': 'Lesson 1 exercises',
-  'Банк завдань': 'Question bank',
-  'Essere та Avere': 'Essere and Avere',
-  'Alla stazione (На вокзалі та в аеропорту)': 'Alla stazione (At the train station and airport)',
-  'In albergo (Заселення в готель)': 'In albergo (Checking into a hotel)',
-  'Un caffè, per favore (У барі та кафе)': 'Un caffè, per favore (At the bar and café)',
-  'Al ristorante (Замовлення в ресторані)': 'Al ristorante (Ordering at a restaurant)',
-  'Lo shopping e i prezzi (Шопінг та ціни)': 'Lo shopping e i prezzi (Shopping and prices)',
-  'In ufficio (Перший день в офісі)': 'In ufficio (First day at the office)',
-  'Riunioni e appuntamenti (Зустрічі та домовленості)': 'Riunioni e appuntamenti (Meetings and appointments)',
-  'Email e comunicazione scritta (Ділові листи)': 'Email e comunicazione scritta (Business emails)',
-  'Networking e small talk (Спілкування з колегами)': 'Networking e small talk (Talking with colleagues)',
-  'Навчальні юніти': 'Learning path',
-  'Уроки напрямку «Основи»': 'Lessons in “Basics”',
-  'Активний': 'Active',
-  'Переглянути всі 4 розділи': 'View all 4 path',
-  'Тренажер слів': 'Vocabulary trainer',
-  'Привітання та база (13 слів)': 'Greetings and basics (13 words)',
-  'Мої власні збережені слова': 'My saved words',
-  'Практичні тести': 'Practice quizzes',
-  'Щоденний бліц-тест': 'Daily quick quiz',
-  'Вправи до цього уроку': 'Exercises for this lesson',
-  'Пошук по базі слів': 'Search vocabulary',
-  'Додати власне слово': 'Add a custom word',
-  'Привітання за часом доби': 'Greetings by time of day',
-  'Означені артиклі': 'Definite articles',
-  'Привітання, знайомство, числа 0–100, дієслова essere & avere — база для будь-якого напрямку': 'Greetings, introductions, numbers 0–100, and the verbs essere & avere: a foundation for every learning path.',
-  'Множинний вибір': 'Multiple choice',
-  'Правда чи ні': 'True or false',
-  'Встав слово': 'Fill in the word',
-  'Перевірити завдання': 'Check answers',
-  'Напрямок:': 'Learning path:',
-  '1 день': '1 day',
-  '[буон-джор-но]': '[bwon-JOR-no]',
-  'ГОЛОВНЕ': 'MAIN',
-  'Головне': 'Main',
-  'LanguageStudio — Італійська для реальних ситуацій': 'LanguageStudio — Italian for real-life situations',
-  'Мій профіль студента': 'My student profile',
-  'Особистий кабінет': 'Your account',
-  'Вхід та реєстрація': 'Sign in or create an account',
-  'Ця демо-сторінка показує майбутній вхід і реєстрацію. Поки що профіль та прогрес зберігаються лише на цьому пристрої.': 'This demo shows the planned sign-in and registration flow. For now, your profile and progress stay on this device only.',
-  'Вхід': 'Sign in',
-  'Реєстрація': 'Create account',
-  'Раді бачити вас знову. Введіть дані, щоб продовжити навчання.': 'Welcome back. Enter your details to continue learning.',
-  'Електронна пошта': 'Email address',
-  'Ваш пароль': 'Your password',
-  "Запам'ятати мене": 'Remember me',
-  'Забули пароль?': 'Forgot password?',
-  'Увійти': 'Sign in',
-  'Змінити тему': 'Switch theme',
-  'Ще немає акаунта?': 'New here?',
-  'Зареєструватися': 'Create an account',
-  'Форма реєстрації поки демонстраційна. Дані нікуди не надсилаються.': 'Registration is a demo for now. No data is sent.',
-  "Ім'я": 'Name',
-  'Як до вас звертатися?': 'What should we call you?',
-  'Пароль': 'Password',
-  'Мінімум 8 символів': 'At least 8 characters',
-  'Використайте літери та цифри для надійності.': 'Use a mix of letters and numbers for a stronger password.',
-  'Повторіть пароль': 'Confirm password',
-  'Ще раз той самий пароль': 'Enter the same password again',
-  'Погоджуюся з умовами використання та політикою конфіденційності': 'I agree to the terms of use and privacy policy',
-  'Створити акаунт': 'Create account',
-  'Вже маєте акаунт?': 'Already have an account?',
-  'Важливо:': 'Note:',
-  'Демо-профіль: акаунти ще не підключені; прогрес зберігається лише в цьому браузері.': 'Demo profile: accounts are not connected yet; progress is saved in this browser only.',
-  'Увійти або зареєструватися': 'Sign in or create an account',
-  'Студент': 'Student',
-  'Гостьовий профіль · прогрес зберігається на цьому пристрої': 'Guest profile · progress is saved on this device',
-  'Профіль студента': 'Student profile',
-  'Розділи': 'Learning paths',
-  'Головна': 'Home',
-  'Розділ 1 · Урок 1': 'Unit 1 · Lesson 1',
-  'РОЗДІЛ 1 · УРОК 1': 'UNIT 1 · LESSON 1',
-  'Слово': 'Word',
-  'Нотатка:': 'Note:',
-  '[ко-ме ті к’я-мі]': '[KOH-meh tee KYAH-mee]',
-  '[мі к’я-мо Са-ра. е ту]': '[mee KYAH-moh SAH-rah. eh too]',
-  '[і-о со-но Ан-на. п’я-че-ре]': '[EE-oh SOH-noh AHN-nah. pyah-CHEH-reh]',
-  '[п’я-че-ре, Ан-на]': '[pyah-CHEH-reh, AHN-nah]',
-  '[сей ну-о-ва куі]': '[say noo-OH-vah kwee]',
-  '[сі, со-но ну-о-ва]': '[see, SOH-noh noo-OH-vah]',
-  '[бен-ве-ну-та аль кор-со ді іта-лья-но]': '[ben-veh-NOO-tah al KOR-soh dee ee-tah-LYAH-noh]',
-  '[пре-го. буо-на ле-цьо-не]': '[PREH-goh. BWOH-nah leh-CHOH-neh]',
-  '[гра-цьє, буо-на джор-на-та]': '[GRAHTS-yeh, BWOH-nah JOR-nah-tah]',
-  '[ко-ме ті к’я-мі]': '[KOH-meh tee KYAH-mee]',
-  '[мі к’я-мо]': '[mee KYAH-moh]',
-  '[і-о со-но]': '[EE-oh SOH-noh]',
-  '[п’я-че-ре]': '[pyah-CHEH-reh]',
-  '[сей ну-о-ва]': '[say noo-OH-vah]',
-  '[бен-ве-ну-та]': '[ben-veh-NOO-tah]',
-  '[гра-цьє]': '[GRAHTS-yeh]',
-  '[пре-го]': '[PREH-goh]',
-  '[буо-на ле-цьо-не]': '[BWOH-nah leh-CHOH-neh]',
-  'Напрямки навчання — LanguageStudio': 'Learning paths — LanguageStudio',
-  'Флешкартки — LanguageStudio': 'Flashcards — LanguageStudio',
-  'Завдання — LanguageStudio': 'Exercises — LanguageStudio',
-  'Власний словник — LanguageStudio': 'My dictionary — LanguageStudio',
-  'Довідник граматики — LanguageStudio': 'Grammar guide — LanguageStudio',
-  'Розділ 1 · Урок 1 — LanguageStudio, Італійська': 'Unit 1 · Lesson 1 — LanguageStudio, Italian',
-  '· Італійська для реальних ситуацій': '· Italian for real-life situations',
-  'Напрямки навчання': 'Learning paths',
-  'Основи · Урок 1': 'Basics · Lesson 1',
-  'ПРАКТИКА': 'PRACTICE',
-  'Практика': 'Practice',
-  'Флешкартки': 'Flashcards',
-  'Завдання': 'Exercises',
-  'Власний словник': 'My dictionary',
-  'Довідник граматики': 'Grammar guide',
-  'Напрямки': 'Learning paths',
-  'Словник': 'Dictionary',
-  'Довідник': 'Grammar guide',
-  'Рівень:': 'Level:',
-  'Налаштування навчання італійської': 'Italian learning settings',
-  'Мова перекладу та пояснень': 'Interface and translation language',
-  'Мова пристрою': 'Device language',
-  'Очок XP': 'XP points',
-  'Ударний темп (Streak)': 'Streak',
-  'Пройдено уроків': 'Lessons completed',
-  'Слів у словнику': 'Words in dictionary',
-  'Закрити': 'Close',
-  'Мобільне меню': 'Mobile navigation',
-  'Головна навігація': 'Main navigation',
-  'Меню': 'Menu',
-  'Зміст розділу': 'Unit contents',
-  'Аудіо (візуальний режим)': 'Audio (visual mode)',
-  'Перемішати': 'Shuffle',
-  'Натисніть, щоб позначити як вивчене': 'Click to mark as learned',
-  'Аудіо': 'Audio',
-  'Італійська для реальних ситуацій': 'Italian for real-life situations',
-  'Оберіть напрямок, що відповідає вашій меті — подорожі, робота чи бізнес — і вивчайте саме ту італійську, яка вам справді потрібна.': 'Choose a path that fits your goals, from travel to work and business, and learn the Italian you actually need.',
-  'Оберіть свою мету': 'Choose your goal',
-  '3D тренажер': '3D practice deck',
-  'Бліц-тести': 'Quick quizzes',
-  'Власні слова': 'Your saved words',
-  'Таблиці правил': 'Grammar reference',
-  'Розпочати': 'Start',
-  'Обрати свою мету': 'Choose your goal',
-  'Оберіть свою мету': 'Choose your goal',
-  'Кожен напрямок будує словниковий запас і фрази навколо конкретної ситуації — від подорожі до перемовин в офісі. Почніть з основ, а тоді переходьте до свого напрямку.': 'Each learning path builds vocabulary and phrases around a real situation, from travel to office meetings. Start with the basics, then choose your path.',
-  'Основи спілкування · Активний': 'Communication basics · Active',
-  'Основи спілкування': 'Communication basics',
-  'Привітання, знайомство, числа 0–100, дієслова essere & avere — база для будь-якого напрямку': 'Greetings, introductions, numbers 0–100, and the verbs essere & avere: a foundation for every path.',
-  'Привітання, перший діалог у Мілані, знайомство та базові дієслова — фундамент, потрібний для будь-якого напрямку нижче': 'Greetings, your first dialogue in Milan, introductions, and essential verbs: a foundation for every path below.',
-  'Урок 1.1 · Доступно': 'Lesson 1.1 · Available',
-  'Урок 1': 'Lesson 1',
-  'Урок 2': 'Lesson 2',
-  'Урок 3': 'Lesson 3',
-  'Урок 4': 'Lesson 4',
-  'Урок 5': 'Lesson 5',
-  'Знайомство — «Come ti chiami?»': 'Introductions — “Come ti chiami?”',
-  'Перший діалог у міланському класі, нові слова, культура розмови': 'Your first dialogue in a Milan classroom, new words, and conversation customs.',
-  '~15 хв': '~15 min',
-  'Урок 1.2 · Скоро': 'Lesson 1.2 · Coming soon',
-  'Come ti chiami? (Знайомство)': 'Come ti chiami? (Introductions)',
-  'Come ti chiami? (Як тебе звати?)': 'Come ti chiami? (What is your name?)',
-  'Як запитати ім\'я, дієслово chiamarsi, формули ввічливості': 'How to ask someone’s name, the verb chiamarsi, and polite expressions.',
-  'Знайомство, дієслово chiamarsi, формули ввічливості': 'Introductions, the verb chiamarsi, and polite expressions.',
-  'Скоро': 'Coming soon',
-  'Урок 1.3 · Скоро': 'Lesson 1.3 · Coming soon',
-  'Di dove sei? (Звідки ти?)': 'Di dove sei? (Where are you from?)',
-  'Країни, національності, відмінювання дієслова essere': 'Countries, nationalities, and conjugating essere.',
-  'Урок 1.4 · Скоро': 'Lesson 1.4 · Coming soon',
-  'I numeri e l\'età (Числа та вік)': 'I numeri e l’età (Numbers and age)',
-  'Рахунок 0–100, дієслово avere, номер телефону': 'Counting from 0 to 100, the verb avere, and phone numbers.',
-  '~20 хв': '~20 min',
-  'Урок 1.5 · Скоро': 'Lesson 1.5 · Coming soon',
-  'La mia scena · Підсумок напрямку': 'La mia scena · Path review',
-  'La mia scena · Підсумкова практика': 'La mia scena · Final practice',
-  'Комплексний тест та створення власної сценки діалогу': 'A review quiz and creating your own dialogue scene.',
-  'Комплексний тест та створення власного діалогу': 'A review quiz and creating your own dialogue.',
-  '~25 хв': '~25 min',
-  '1/5 уроків відкрито': '1/5 lessons available',
-  'LanguageStudio · Італійська для реальних ситуацій': 'LanguageStudio · Italian for real-life situations',
-  'Всі розділи курсу': 'All course path',
-  'Відкрити': 'Open',
-  'Туристична італійська': 'Italian for travel',
-  'Готелі, ресторани, транспорт, шопінг та фрази на випадок форс-мажору в подорожі': 'Hotels, restaurants, transport, shopping, and phrases for travel emergencies.',
-  'Італійська для роботи та бізнесу': 'Italian for work and business',
-  'Офісне спілкування, зустрічі, електронні листи та small talk з колегами': 'Office conversations, meetings, emails, and small talk with colleagues.',
-  'Ділові зустрічі, електронні листи, small talk з колегами та професійна лексика': 'Business meetings, emails, small talk with colleagues, and professional vocabulary.',
-  'Словниковий тренажер': 'Vocabulary trainer',
-  'Фільтруйте слова за напрямком навчання чи тематикою. Перевертайте картку та тренуйте пам\'ять.': 'Filter words by learning path or topic. Flip each card to practice recall.',
-  'Напрямок': 'Learning path',
-  'Усі напрямки': 'All learning paths',
-  'Всі тематики': 'All topics',
-  'Основи': 'Basics',
-  'Робота та бізнес': 'Work and business',
-  'Турист': 'Travel',
-  'Бізнес': 'Business',
-  'Базові фрази': 'Basic phrases',
-  'Власні збережені': 'Saved words',
-  'Базове': 'Basics',
-  'Власне': 'Custom',
-  'Натисніть, щоб побачити переклад': 'Tap to reveal the translation',
-  'Натисніть знову для звороту': 'Tap again to flip back',
-  'Назад': 'Previous',
-  'Вперед': 'Next',
-  'Для цього курсу чи уроку поки немає слів у базі уроків.': 'There are no words for this course or lesson in the lesson database yet.',
-  'Завантаження слів…': 'Loading words…',
-  'Практика & Перевірка': 'Practice & Review',
-  'Практичні вправи': 'Exercises',
-  'Практика & Перевірка знань': 'Practice & Knowledge Review',
-  'Завдання та Вправи': 'Exercises and Practice',
-  'Тренуйте граматику та реальні ситуації спілкування. Обирайте тему й зручний формат вправ.': 'Practice grammar and real-life conversations. Choose a topic and exercise format.',
-  '7 форматів вправ': '7 exercise formats',
-  'Група': 'Group',
-  'Усі теми (Граматика + Ситуації)': 'All topics (Grammar + Situations)',
-  'Сортування': 'Sorting',
-  'За замовчуванням': 'Default',
-  'Пошук за словом': 'Search by word',
-  'Пошук фрази або правила...': 'Search phrases or grammar rules...',
-  'Тест генерується зі слів, пов’язаних із вибраним курсом або уроком.': 'The quiz uses words associated with the selected course or lesson.',
-  'Тема інтерфейсу': 'Interface theme',
-  'Переключити тему': 'Switch theme',
-  'Завдання та Тести': 'Exercises & Quizzes',
-  'Практикуйте італійську в конкретних ситуаціях. Почніть із першого знайомства в будинку та закріпіть потрібні фрази в різних форматах.': 'Practice Italian in real situations. Start with a first meeting in an apartment building and review useful phrases in different formats.',
-  'Ситуація · Основи спілкування': 'Situation · Communication basics',
-  'Перший день у будинку': 'First day in the apartment building',
-  'Привітання, коротке знайомство та ввічливі відповіді під час зустрічі з сусідами.': 'Greetings, a brief introduction, and polite replies when meeting your neighbors.',
-  'Вправи за ситуацією': 'Exercises by situation',
-  '40+': '40+',
-  'Вправ у базі': 'Exercises in the bank',
-  '8': '8',
-  'Категорій знань': 'Knowledge categories',
-  'Категорії та Фільтри': 'Categories & Filters',
-  'Всі категорії': 'All categories',
-  'Іменники & Артиклі': 'Nouns & Articles',
-  'Дієслова (Essere/Avere)': 'Verbs (Essere/Avere)',
-  'Займенники & Прийменники': 'Pronouns & Prepositions',
-  'Структура речення': 'Sentence Structure',
-  'Знайомство & Сусіди': 'Introductions & Neighbors',
-  'У кафе та барі': 'At the Cafe & Bar',
-  'Орієнтування в місті': 'Asking Directions',
-  'Покупки та ціни': 'Shopping & Prices',
-  'Тільки Граматика': 'Grammar Only',
-  'Тільки Ситуації': 'Situations Only',
-  'Формати вправ': 'Exercise Formats',
-  'Вибір відповіді': 'Multiple Choice',
-  'Заповни пропуск': 'Fill in the blank',
-  'Зіставлення слів': 'Word Matching',
-  'Порядок слів': 'Word Order',
-  'Діалог': 'Dialogue',
-  'Зі словника': 'From Dictionary',
-  'Згенерувати новий тест': 'Generate a new quiz',
-  'Переглянути всі розділи': 'View all path',
-  'Привітання та база (13 слів)': 'Greetings and basics (13 words)',
-  'Усі вправи та тести': 'All exercises and quizzes',
-  'Граматичний тренажер': 'Grammar trainer',
-  'Ситуативні завдання': 'Situational exercises',
-  'Означені артиклі': 'Definite articles',
-  'Essere та Avere': 'Essere and Avere',
-  'Tu vs Lei (Етикет)': 'Tu vs Lei (Etiquette)',
-  'Аудіювання': 'Listening',
-  'Питання 1 з 4': 'Question 1 of 4',
-  'Питання 2 з 4': 'Question 2 of 4',
-  'Питання 3 з 4': 'Question 3 of 4',
-  'Питання 4 з 4': 'Question 4 of 4',
-  'Заповніть пропуск': 'Fill in the blank',
-  'Перекладіть італійською': 'Translate into Italian',
-  'Зіставте слова з перекладом': 'Match the words with their translations',
-  'Складіть речення': 'Build the sentence',
-  'Перевірити': 'Check',
-  'Скинути': 'Reset',
-  'Перевірте себе': 'Check yourself',
-  'Словник за темами й ситуаціями': 'Words by topic and situation',
-  'Слова за темами й ситуаціями': 'Words by topic and situation',
-  'Знаходьте слова за темою чи ситуацією, зберігайте нову лексику з уроків і власного життя та тренуйте її у флешкартках.': 'Find words by topic or situation, save vocabulary from lessons and daily life, and practice it with flashcards.',
-  'Додати нове слово': 'Add a new word',
-  'Пошук слова чи перекладу...': 'Search for a word or translation...',
-  'Впишіть слово...': 'Enter a word...',
-  'Італійською...': 'In Italian...',
-  'встав ім’я': 'enter a name',
-  'встав слово': 'enter a word',
-  'напр. arrivederci': 'e.g. arrivederci',
-  'напр. до побачення': 'e.g. goodbye',
-  'напр. ар-рі-ве-дер-чі': 'e.g. ah-ree-veh-der-chee',
-  'напр. привітання, їжа, числа': 'e.g. greetings, food, numbers',
-  'напр. Урок 1.1': 'e.g. Lesson 1.1',
-  'Усі теми й ситуації': 'All topics and situations',
-  'Усі уроки': 'All lessons',
-  'Усі типи': 'All types',
-  'ввічливість': 'politeness',
-  'житло й будинок': 'housing and home',
-  'короткі відповіді': 'short answers',
-  'перший день': 'first day',
-  'привітання та знайомство': 'greetings and introductions',
-  'Привітання': 'Greeting',
-  'Фраза': 'Phrase',
-  'Іменник': 'Noun',
-  'Дієслово': 'Verb',
-  'Прикметник': 'Adjective',
-  'Інше': 'Other',
-  'Слів не знайдено': 'No words found',
-  'Позначити як вивчене': 'Mark as learned',
-  'Вивчено': 'Learned',
-  'власне': 'custom',
-  'Видалити': 'Delete',
-  'Нове слово': 'New word',
-  'Італійське слово чи фраза *': 'Italian word or phrase *',
-  'Український переклад *': 'Translation *',
-  'Вимова (необов\'язково)': 'Pronunciation (optional)',
-  'Тип слова': 'Part of speech',
-  'Категорія': 'Category',
-  'Урок (необов\'язково)': 'Lesson (optional)',
-  'Скасувати': 'Cancel',
-  'Зберегти (+25 XP)': 'Save (+25 XP)'
-};
-
-const UI_I18N = [
-  // Navigation & Core links
-  { en: 'Home', uk: 'Головна' },
-  { en: 'Learn', uk: 'Навчання' },
-  { en: 'Courses', uk: 'Курси' },
-  { en: 'Account', uk: 'Обліковий запис' },
-  { en: 'Sign in', uk: 'Увійти' },
-  { en: 'Settings', uk: 'Налаштування' },
-  { en: 'Learning paths', uk: 'Напрямки навчання' },
-  { en: 'Learning path', uk: 'Напрямок навчання' },
-  { en: 'Learning path:', uk: 'Напрямок навчання:' },
-  { en: 'All paths', uk: 'Усі напрямки' },
-  { en: 'Browse all paths', uk: 'Всі напрямки' },
-  { en: 'Paths', uk: 'Напрямки' },
-  { en: 'Main', uk: 'Головне' },
-  { en: 'Practice', uk: 'Практика' },
-  { en: 'Flashcards', uk: 'Картки слів' },
-  { en: 'Exercises', uk: 'Вправи' },
-  { en: 'Dictionary', uk: 'Словник' },
-  { en: 'My dictionary', uk: 'Мій словник' },
-  { en: 'Grammar guide', uk: 'Граматика' },
-  { en: 'Guide', uk: 'Довідник' },
-  { en: 'Tests', uk: 'Тести' },
-  { en: 'Basics · Lesson 1', uk: 'Основи · Урок 1' },
-  { en: 'Lesson 1 · Introduction', uk: 'Урок 1 · Знайомство' },
-  { en: 'Lesson 2 · Come ti chiami?', uk: 'Урок 2 · Come ti chiami?' },
-  { en: 'Lesson 3 · Di dove sei?', uk: 'Урок 3 · Di dove sei?' },
-  { en: 'Lesson 4 · Consolidation', uk: 'Урок 4 · Повторення' },
-  { en: 'Lesson 4 · Consolidazione', uk: 'Урок 4 · Consolidazione' },
-  { en: 'Lesson 5 · Practice recap', uk: 'Урок 5 · Підсумкова практика' },
-  { en: 'Lesson track', uk: 'Уроки курсу' },
-  { en: 'Lessons in the Basics track', uk: 'Уроки напрямку «Основи»' },
-  { en: 'Word trainer', uk: 'Тренажер слів' },
-  { en: 'Practice drills', uk: 'Тренувальні вправи' },
-  { en: 'Your word bank', uk: 'Ваш банк слів' },
-  { en: 'Grammar cheat sheets', uk: 'Граматичні шпаргалки' },
-  { en: 'Switch theme', uk: 'Змінити тему' },
-  { en: 'Settings', uk: 'Налаштування' },
-  { en: 'Preferences', uk: 'Налаштування' },
-  { en: 'Guest profile', uk: 'Гостьовий профіль' },
-  { en: 'Progress is saved on this device.', uk: 'Прогрес зберігається на цьому пристрої.' },
-  { en: 'Target course', uk: 'Цільовий курс' },
-  { en: 'Language for translations & explanations', uk: 'Мова перекладів та пояснень' },
-  { en: 'Interface theme', uk: 'Тема інтерфейсу' },
-  { en: 'Interface Theme', uk: 'Тема інтерфейсу' },
-  { en: 'Greetings and basics (13 words)', uk: 'Привітання та основи (13 слів)' },
-  { en: 'My saved words', uk: 'Мої збережені слова' },
-  { en: 'All exercises and quizzes', uk: 'Усі вправи та тести' },
-  { en: 'Grammar trainer', uk: 'Тренажер граматики' },
-  { en: 'Situational exercises', uk: 'Ситуативні вправи' },
-  { en: 'Search the word base', uk: 'Пошук у базі слів' },
-  { en: 'Add your own word', uk: 'Додати власне слово' },
-  { en: 'Definite articles', uk: 'Означені артиклі' },
-  { en: 'Essere and Avere', uk: 'Дієслова Essere та Avere' },
-  { en: 'Essere & Avere', uk: 'Essere й Avere' },
-  { en: 'Essere та Avere', uk: 'Essere й Avere' },
-  { en: 'Active', uk: 'Активний' },
-  { en: 'Soon', uk: 'Незабаром' },
-  { en: 'Start', uk: 'Почати' },
-  { en: 'Open', uk: 'Відкрити' },
-  { en: 'Close', uk: 'Закрити' },
-  { en: 'Introduction', uk: 'Вступ' },
-  { en: 'Filters', uk: 'Фільтри' },
-  { en: 'LanguageStudio home', uk: 'На головну LanguageStudio' },
-  { en: 'Mobile menu', uk: 'Мобільне меню' },
-
-  // Profile modal & Settings
-  { en: 'Student Profile', uk: 'Профіль студента' },
-  { en: 'Student', uk: 'Студент' },
-  { en: 'Guest profile · progress is saved on this device', uk: 'Гість · прогрес зберігається на цьому пристрої' },
-  { en: 'Learning path: Communication basics', uk: 'Напрямок: Основи спілкування' },
-  { en: 'Italian Learning Settings', uk: 'Налаштування навчання' },
-  { en: 'Target Course', uk: 'Курс для вивчення' },
-  { en: 'Language for translations & explanations', uk: 'Мова перекладів та пояснень' },
-  { en: 'XP Points', uk: 'Бали досвіду' },
-  { en: 'XP points', uk: 'Бали досвіду' },
-  { en: 'Daily Streak', uk: 'Щоденна серія' },
-  { en: 'Lessons Completed', uk: 'Пройдено уроків' },
-  { en: 'Dictionary Words', uk: 'Слів у словнику' },
-  { en: 'Sign in or register', uk: 'Увійти або зареєструватися' },
-  { en: '1 day', uk: '1 день' },
-
-  // Hub cards (index.html)
-  { en: '3D practice deck', uk: '3D тренажер карток' },
-  { en: 'Quick drills', uk: 'Швидкі вправи' },
-  { en: 'Your saved words', uk: 'Збережені слова' },
-  { en: 'Rules reference', uk: 'Довідник правил' },
-  { en: 'Quick access to essential Italian grammar rules: articles, verb forms, and polite expressions.', uk: 'Швидкий доступ до основних правил італійської мови: артиклі, форми дієслів та етикетні вирази.' },
-  { en: 'Check your progress', uk: 'Перевірте свій прогрес' },
-  { en: 'Italian for real-life situations', uk: 'Італійська для реальних ситуацій' },
-  { en: 'Choose your goal', uk: 'Оберіть свою мету' },
-
-  // Home dashboard
-  { en: 'YOUR ITALIAN JOURNEY', uk: 'ВАША ПОДОРОЖ ІТАЛІЙСЬКОЮ' },
-  { en: 'Your Italian learning space', uk: 'Ваш простір для вивчення італійської' },
-  { en: 'Choose your next lesson or practise a little. Your progress is saved on this device.', uk: 'Оберіть наступний урок або трохи попрактикуйтеся. Ваш прогрес зберігається на цьому пристрої.' },
-  { en: 'Explore your learning path', uk: 'Переглянути навчальний напрям' },
-  { en: 'YOUR NEXT STEP', uk: 'ВАШ НАСТУПНИЙ КРОК' },
-  { en: 'KEEP PRACTISING', uk: 'ПРОДОВЖУЙТЕ ПРАКТИКУВАТИСЯ' },
-  { en: 'Practice tools', uk: 'Інструменти для практики' },
-  { en: 'Review words', uk: 'Повторити слова' },
-  { en: 'Quick practice', uk: 'Швидка практика' },
-  { en: 'Saved words', uk: 'Збережені слова' },
-  { en: 'Rules and examples', uk: 'Правила та приклади' },
-
-  // Roadmap & units
-  { en: 'Communication basics', uk: 'Основи спілкування' },
-  { en: 'Communication basics · Active', uk: 'Основи спілкування · Активний' },
-  { en: 'Greetings, short everyday dialogues, introductions, and basic verbs — the foundation that supports every path below.', uk: 'Привітання, короткі повсякденні діалоги, знайомство та базові дієслова — основа для всіх подальших напрямків.' },
-  { en: 'Lesson 1.1 · Available', uk: 'Урок 1.1 · Доступно' },
-  { en: 'Introduction — “Come ti chiami?”', uk: 'Знайомство — «Come ti chiami?»' },
-  { en: 'A short dialogue introduces greetings, new words, and polite introductions', uk: 'Короткий діалог знайомить із привітаннями, новими словами та ввічливим знайомством' },
-  { en: 'Lesson 1.2 · Soon', uk: 'Урок 1.2 · Незабаром' },
-  { en: 'Come ti chiami? (Introductions)', uk: 'Come ti chiami? (Знайомство)' },
-  { en: 'How to ask someone’s name, the verb chiamarsi, and polite formulas', uk: 'Як запитати ім’я, дієслово chiamarsi та ввічливі вислови' },
-  { en: 'Lesson 1.3 · Soon', uk: 'Урок 1.3 · Незабаром' },
-  { en: 'Di dove sei? (Where are you from?)', uk: 'Di dove sei? (Звідки ти?)' },
-  { en: 'Countries, nationalities, and conjugation of essere', uk: 'Країни, національності та відмінювання дієслова essere' },
-  { en: 'Lesson 1.4 · Soon', uk: 'Урок 1.4 · Незабаром' },
-  { en: "I numeri e l'età (Numbers and age)", uk: "I numeri e l'età (Числа та вік)" },
-  { en: 'Counting 0–100, the verb avere, and phone numbers', uk: 'Рахунок від 0 до 100, дієслово avere та номери телефонів' },
-  { en: 'Lesson 1.5 · Soon', uk: 'Урок 1.5 · Незабаром' },
-  { en: 'La mia scena · Path recap', uk: 'La mia scena · Підсумок напрямку' },
-  { en: 'A final quiz and your own mini-dialogue scene', uk: 'Підсумковий тест і власний мінідіалог' },
-  { en: 'Travel Italian', uk: 'Італійська для подорожей' },
-  { en: 'Hotels, restaurants, transport, shopping, and emergency phrases for travel', uk: 'Готелі, ресторани, транспорт, покупки та фрази на випадок надзвичайних ситуацій у подорожі' },
-  { en: 'Hotels, restaurants, transport, shopping, and emergency phrases for your trip.', uk: 'Готелі, ресторани, транспорт, покупки та фрази на випадок надзвичайних ситуацій у подорожі.' },
-  { en: 'Business Italian', uk: 'Італійська для роботи та бізнесу' },
-  { en: 'Office communication, meetings, emails, and small talk with colleagues', uk: 'Спілкування в офісі, зустрічі, електронні листи та невимушені розмови з колегами' },
-  { en: 'Meetings, email, workplace small talk, and professional vocabulary.', uk: 'Зустрічі, електронне листування, неформальне спілкування на роботі та професійна лексика.' },
-  { en: '1/5 lessons available', uk: '1/5 уроків доступно' },
-  { en: 'Locked', uk: 'Заблоковано' },
-  { en: 'Each path builds vocabulary and phrases around a real-life situation — from travel to office conversations. Start with the basics, then move into your chosen path.', uk: 'Кожен напрямок допомагає вивчати лексику й фрази для реальних ситуацій — від подорожей до розмов в офісі. Почніть з основ, а потім переходьте до обраного напрямку.' },
-  { en: 'Greetings, introductions, numbers 0–100, and the verbs essere & avere — the foundation for every path', uk: 'Привітання, знайомство, числа від 0 до 100 та дієслова essere й avere — основа для будь-якого напрямку' },
-  { en: 'Your first Milan dialogue, new words, and conversational culture', uk: 'Ваш перший діалог у Мілані, нові слова та культура спілкування' },
-  { en: 'Introductions, the verb chiamarsi, and polite expressions', uk: 'Знайомство, дієслово chiamarsi та ввічливі вислови' },
-  { en: 'A review quiz and creating your own dialogue', uk: 'Підсумковий тест і створення власного діалогу' },
-
-  // Lesson page elements
-  { en: 'All course units', uk: 'Всі розділи курсу' },
-  { en: 'All learning paths', uk: 'Всі розділи курсу' },
-  { en: 'Всі розділи курсу', uk: 'Всі розділи курсу', en: 'All course units' },
-  { en: 'Table of contents', uk: 'Зміст розділу' },
-  { en: 'Navigation', uk: 'Навігація' },
-  { en: 'Lesson', uk: 'Урок' },
-  { en: 'Previous lesson', uk: 'Попередній урок' },
-  { en: 'Next lesson', uk: 'Наступний урок' },
-  { en: 'Back', uk: 'Назад' },
-  { en: 'All lessons', uk: 'Всі уроки' },
-  { en: 'Check answers', uk: 'Перевірити завдання' },
-  { en: 'Show translation', uk: 'Показати переклад' },
-  { en: 'Hide translation', uk: 'Сховати переклад' },
-  { en: 'Key takeaways', uk: 'Підсумки уроку' },
-  { en: 'Lesson vocabulary', uk: 'Словничок уроку' },
-  { en: 'Classroom dialogue', uk: 'Діалог у класі' },
-  { en: 'Reading story', uk: 'Історія для читання' },
-  { en: 'Cultural note', uk: 'Культурна нотатка' },
-  { en: 'Word', uk: 'Слово' },
-  { en: 'Translation', uk: 'Переклад' },
-  { en: 'Pronunciation', uk: 'Вимова' }
-];
-
+window.__LS_LOCALES = window.__LS_LOCALES || {};
 const I18N_LOOKUP = new Map();
 
 function registerTranslationEntry(entry) {
   if (!entry || typeof entry !== 'object') return;
-  const langs = ['en', 'uk', 'pl'];
+  const langs = ['en', 'uk', 'pl', 'es', 'it', 'de', 'fr'];
   langs.forEach(lang => {
     const val = entry[lang];
     if (val && typeof val === 'string') {
@@ -530,13 +35,77 @@ function registerTranslationEntry(entry) {
   });
 }
 
-// Index all UI_I18N entries
-UI_I18N.forEach(registerTranslationEntry);
+function getAppBasePath() {
+  if (typeof window.getBasePath === 'function') {
+    return window.getBasePath();
+  }
+  const pathname = window.location.pathname || '';
+  if (pathname.includes('/pages/') || pathname.includes('/lessons/')) return '../../';
+  return './';
+}
 
-// Index legacy UI_TRANSLATIONS
-Object.entries(UI_TRANSLATIONS).forEach(([uk, en]) => {
-  registerTranslationEntry({ uk, en });
-});
+async function loadLocaleData(locale) {
+  if (window.__LS_LOCALES[locale]) {
+    return window.__LS_LOCALES[locale];
+  }
+  const url = `${getAppBasePath()}locales/${encodeURIComponent(locale)}.json`;
+  try {
+    const res = await fetch(url);
+    if (res.ok) {
+      const data = await res.json();
+      window.__LS_LOCALES[locale] = data;
+      // Index into I18N_LOOKUP for tree-walker HTML translations
+      Object.entries(data).forEach(([key, val]) => {
+        if (typeof val === 'string') {
+          registerTranslationEntry({ [locale]: val, en: key });
+        }
+      });
+      return data;
+    }
+  } catch (err) {
+    console.warn(`Could not load locale data for "${locale}":`, err);
+  }
+  return {};
+}
+
+function t(key, params = {}, forcedLocale = null) {
+  const locale = forcedLocale || (typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk');
+  const currentBundle = window.__LS_LOCALES[locale] || {};
+  const enBundle = window.__LS_LOCALES['en'] || {};
+
+  let text = currentBundle[key];
+  if (text === undefined && locale !== 'en') {
+    text = enBundle[key];
+  }
+
+  if (text === undefined) {
+    if (key && typeof key === 'object') {
+      text = key[locale] || key.en || key.uk || '';
+    } else {
+      text = String(key ?? '');
+    }
+  }
+
+  if (params && typeof params === 'object') {
+    Object.keys(params).forEach(p => {
+      text = text.replace(new RegExp(`\\{${p}\\}`, 'g'), params[p]);
+    });
+  }
+
+  return text;
+}
+
+if (typeof window !== 'undefined') {
+  window.t = t;
+  window.loadLocaleData = loadLocaleData;
+}
+
+// Preload current locale and fallback locale
+const initialLocale = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+loadLocaleData('en');
+if (initialLocale !== 'en') {
+  loadLocaleData(initialLocale);
+}
 
 /**
  * Universal interface translation helper supporting Ukrainian and English.
@@ -838,11 +407,24 @@ async function refreshCurrentCourseConfig() {
 }
 
 function getXP() {
+  if (typeof window !== 'undefined' && window.Progress && typeof window.Progress.getXP === 'function') {
+    return window.Progress.getXP();
+  }
   return parseInt(localStorage.getItem(XP_KEY) || '0', 10);
 }
 
 function addXP(amount) {
-  const current = getXP() + amount;
+  const xpToAdd = Number(amount) || 0;
+  if (xpToAdd <= 0) return getXP();
+
+  if (typeof window !== 'undefined' && window.Progress && typeof window.Progress.recordXp === 'function') {
+    const courseId = (typeof getCurrentCourseId === 'function' ? getCurrentCourseId() : 'it') || 'it';
+    window.Progress.recordXp({ courseId, amount: xpToAdd, source: 'exercise' }).catch(() => {});
+    updateXPDisplay();
+    return getXP();
+  }
+
+  const current = getXP() + xpToAdd;
   localStorage.setItem(XP_KEY, current);
   updateXPDisplay();
   return current;
@@ -1165,20 +747,57 @@ function getStudentProfilePresentation() {
 }
 
 async function refreshStudentSession() {
-  const response = await fetch(window.getApiUrl('auth/session'), { credentials: 'include' });
-  if (response.status === 404) return;
-  if (!response.ok) throw new Error(`Account session request failed (${response.status}).`);
+  try {
+    const response = await fetch(window.getApiUrl('auth/me'), { credentials: 'include' });
+    if (response.status === 401 || response.status === 404) {
+      Object.assign(LOCAL_STUDENT_PROFILE, {
+        isAuthenticated: false,
+        displayName: '',
+        email: ''
+      });
+      if (typeof window !== 'undefined' && window.Progress && typeof window.Progress.initSession === 'function') {
+        window.Progress.initSession(null);
+      }
+    } else if (response.ok) {
+      const result = await response.json();
+      const user = result.user || {};
+      Object.assign(LOCAL_STUDENT_PROFILE, {
+        isAuthenticated: result.authenticated === true || Boolean(result.user),
+        displayName: user.displayName || user.name || '',
+        email: user.email || ''
+      });
 
-  const result = await response.json();
-  Object.assign(LOCAL_STUDENT_PROFILE, {
-    isAuthenticated: result.authenticated === true,
-    displayName: result.user?.name || '',
-    email: result.user?.email || ''
+      const userId = user.id || user._id;
+      if (userId && typeof window !== 'undefined' && window.Progress) {
+        const importedKey = `ls_guest_imported_${userId}`;
+        const alreadyImported = typeof localStorage !== 'undefined' && localStorage.getItem(importedKey) === 'true';
+
+        if (!alreadyImported && typeof window.Progress.mergeGuestProgress === 'function') {
+          await window.Progress.mergeGuestProgress(userId);
+        } else if (typeof window.Progress.initSession === 'function') {
+          window.Progress.initSession(user);
+        }
+      }
+    }
+  } catch (error) {
+    console.warn('Could not refresh student session:', error.message);
+  }
+
+  updateXPDisplay();
+
+  const presentation = getStudentProfilePresentation();
+
+  // Update navbar student avatar and tooltip
+  document.querySelectorAll('.student-widget').forEach(widget => {
+    widget.setAttribute('title', presentation.name);
+    const avatar = widget.querySelector('.student-avatar');
+    if (avatar) {
+      avatar.textContent = (presentation.name || 'S').trim().charAt(0).toUpperCase() || 'S';
+    }
   });
 
   const profileModal = document.getElementById('profileModal');
   if (!profileModal) return;
-  const presentation = getStudentProfilePresentation();
   const name = profileModal.querySelector('.pm-header .pm-name');
   const status = profileModal.querySelector('.pm-header .pm-path');
   const action = profileModal.querySelector('.pm-footer a');
@@ -1191,8 +810,16 @@ async function refreshStudentSession() {
       ? async event => {
           event.preventDefault();
           try {
+            let csrfToken = null;
+            const match = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/);
+            if (match) csrfToken = decodeURIComponent(match[1]);
+
+            const headers = { 'Content-Type': 'application/json' };
+            if (csrfToken) headers['x-csrf-token'] = csrfToken;
+
             const logoutResponse = await fetch(window.getApiUrl('auth/logout'), {
               method: 'POST',
+              headers,
               credentials: 'include'
             });
             if (!logoutResponse.ok) throw new Error(`Sign out failed (${logoutResponse.status}).`);
@@ -1361,6 +988,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateXPDisplay();
   applySourceLanguageSettings();
   initTheme();
+  refreshStudentSession().catch(() => {});
 });
 
 window.addEventListener('componentsLoaded', () => {
@@ -1370,6 +998,16 @@ window.addEventListener('componentsLoaded', () => {
   refreshCurrentCourseConfig();
   initTheme();
 });
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('progress:xp', () => updateXPDisplay());
+  window.addEventListener('progress:changed', (e) => {
+    if (e && e.detail && (e.detail.collection === 'profile' || e.detail.collection === 'daily')) {
+      updateXPDisplay();
+    }
+  });
+  window.addEventListener('progress:adapterChanged', () => updateXPDisplay());
+}
 
 // Explicitly register all public APIs on window object
 if (typeof window !== 'undefined') {
@@ -1388,6 +1026,8 @@ if (typeof window !== 'undefined') {
   window.refreshCourseCatalog = refreshCourseCatalog;
   window.ensureCourseSwitcher = ensureCourseSwitcher;
   window.updateProfileStats = updateProfileStats;
+  window.getStudentProfile = getStudentProfile;
+  window.refreshStudentSession = refreshStudentSession;
   window.applySourceLanguageSettings = applySourceLanguageSettings;
   window.applyTargetCourseSettings = applyTargetCourseSettings;
   window.applyInterfaceLanguage = applyInterfaceLanguage;

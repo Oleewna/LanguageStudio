@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../assets/images/logo.svg" />
+  <title>Payment Simulator (Mock Provider) — LanguageStudio</title>
+  <script src="../js/theme.js"></script>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/studio.css" />
+  <style>
+    .checkout-stub-wrap {
+      max-width: 540px;
+      margin: 3rem auto;
+      padding: 2.5rem 2rem;
+      background: var(--bg-card, #ffffff);
+      border: 1px solid var(--border-soft, #e2e8f0);
+      border-radius: 1.25rem;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.06);
+    }
+    .checkout-badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      background: #fef3c7;
+      color: #b45309;
+      font-size: 0.75rem;
+      font-weight: 800;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+    .checkout-stub-wrap h1 {
+      font-size: 1.6rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      color: var(--ink, #1e293b);
+    }
+    .checkout-details {
+      background: var(--bg-soft, #f8fafc);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .checkout-row {
+      display: flex;
+      justify-content: space-between;
+    }
+    .checkout-row .label {
+      color: var(--ink-soft, #64748b);
+    }
+    .checkout-row .val {
+      font-family: monospace;
+      font-weight: 700;
+      color: var(--ink, #1e293b);
+    }
+    .checkout-notice {
+      padding: 0.85rem;
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      border-radius: 0.35rem;
+      font-size: 0.85rem;
+      color: #1e40af;
+      margin-bottom: 1.75rem;
+      line-height: 1.5;
+    }
+    .btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div data-component="navbar"></div>
+
+  <main>
+    <div class="checkout-stub-wrap">
+      <div class="checkout-badge">Offsite Provider Sandbox</div>
+      <h1>Hosted Payment Simulator</h1>
+      <p style="color:var(--ink-soft);font-size:0.95rem;margin:0;">
+        This is a provider-agnostic stub simulating an external hosted checkout (e.g. Stripe Checkout, Paddle, Lemon Squeezy).
+      </p>
+
+      <div class="checkout-details">
+        <div class="checkout-row">
+          <span class="label">Provider:</span>
+          <span class="val" id="dispProvider">mock</span>
+        </div>
+        <div class="checkout-row">
+          <span class="label">Payment ID:</span>
+          <span class="val" id="dispPaymentId">-</span>
+        </div>
+        <div class="checkout-row">
+          <span class="label">Course ID:</span>
+          <span class="val" id="dispCourseId">-</span>
+        </div>
+        <div class="checkout-row">
+          <span class="label">Price ID:</span>
+          <span class="val" id="dispPriceId">-</span>
+        </div>
+      </div>
+
+      <div class="checkout-notice">
+        <strong>Security Assurance:</strong> No real card data ever touches LanguageStudio servers. In production, customers enter payment details on the provider's PCI-DSS compliant domain.
+      </div>
+
+      <div class="btn-stack">
+        <button type="button" class="btn-primary" id="btnSimulateSuccess" style="padding:0.85rem;font-weight:800;">
+          Simulate Payment Success (Sends Webhook)
+        </button>
+        <button type="button" class="btn-secondary" id="btnSimulateRefund" style="padding:0.75rem;font-weight:600;">
+          Simulate Refund (Webhook Revocation)
+        </button>
+        <button type="button" class="btn-ghost" id="btnCancel" style="padding:0.75rem;">
+          Cancel and Return
+        </button>
+      </div>
+
+      <div id="statusMsg" style="margin-top:1.25rem;font-size:0.9rem;text-align:center;font-weight:700;" hidden></div>
+    </div>
+  </main>
+
+  <div data-component="footer"></div>
+
+  <script defer src="../js/icons.js"></script>
+  <script defer src="../js/components.js"></script>
+  <script defer src="../js/course.js"></script>
+  <script defer src="../js/storage.js"></script>
+  <script defer src="../js/progress-store.js"></script>
+  <script defer src="../js/progress.js"></script>
+  <script defer src="../js/layout.js"></script>
+  <script defer src="../js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const provider = params.get('provider') || 'mock';
+      const providerPaymentId = params.get('providerPaymentId') || `mock_pay_${Date.now()}`;
+      const courseId = params.get('courseId') || 'it';
+      const priceId = params.get('priceId') || 'price_default';
+      const userId = params.get('userId') || '';
+      const successUrl = params.get('successUrl') || `/pages/lesson.html?course=${encodeURIComponent(courseId)}&paid=1`;
+      const cancelUrl = params.get('cancelUrl') || `/pages/pricing.html?course=${encodeURIComponent(courseId)}`;
+
+      document.getElementById('dispProvider').textContent = provider;
+      document.getElementById('dispPaymentId').textContent = providerPaymentId;
+      document.getElementById('dispCourseId').textContent = courseId;
+      document.getElementById('dispPriceId').textContent = priceId;
+
+      const statusMsg = document.getElementById('statusMsg');
+      const setStatus = (text, isError = false) => {
+        statusMsg.hidden = false;
+        statusMsg.style.color = isError ? '#ef4444' : '#10b981';
+        statusMsg.textContent = text;
+      };
+
+      document.getElementById('btnSimulateSuccess')?.addEventListener('click', async () => {
+        setStatus('Dispatching signed webhook to /api/payments/webhook…');
+        try {
+          const res = await fetch('/api/payments/webhook', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-signature': 'mock_valid_signature'
+            },
+            body: JSON.stringify({
+              eventType: 'payment_success',
+              providerPaymentId,
+              userId,
+              courseId,
+              provider: 'mock'
+            })
+          });
+
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Webhook failed');
+
+          setStatus('Webhook confirmed! Access granted. Redirecting…');
+          setTimeout(() => {
+            window.location.href = successUrl;
+          }, 1000);
+        } catch (err) {
+          setStatus('Error: ' + err.message, true);
+        }
+      });
+
+      document.getElementById('btnSimulateRefund')?.addEventListener('click', async () => {
+        setStatus('Dispatching refund webhook…');
+        try {
+          const res = await fetch('/api/payments/webhook', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-signature': 'mock_valid_signature'
+            },
+            body: JSON.stringify({
+              eventType: 'payment_refunded',
+              providerPaymentId,
+              provider: 'mock'
+            })
+          });
+
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Refund webhook failed');
+          setStatus('Refund processed! Entitlement revoked.');
+        } catch (err) {
+          setStatus('Error: ' + err.message, true);
+        }
+      });
+
+      document.getElementById('btnCancel')?.addEventListener('click', () => {
+        window.location.href = cancelUrl;
+      });
+    });
+  </script>
+</body>
+</html>

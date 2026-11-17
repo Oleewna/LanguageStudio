@@ -1,0 +1,35 @@
+{
+  "italian-reading-8": {
+    "title": "GLI",
+    "subtitle": "Слухай і повторюй знайомі слова",
+    "description": "Розпізнавайте GLI у поширених словах і наближайте вимову за допомогою аудіо.",
+    "duration": "5 хв"
+  },
+  "story-ir8": { "title": "Читання" },
+  "ir8-p1": { "translations": "Родина готує пасту. Син нарізає часник." },
+  "hint-famiglia": { "translations": "родина" },
+  "hint-prepara-ir8": { "translations": "готує" },
+  "hint-figlio": { "translations": "син" },
+  "hint-taglia": { "translations": "нарізає" },
+  "hint-aglio": { "translations": "часник" },
+  "takeaways-ir8": { "title": "Ключові тези" },
+  "ir8-t1": { "text": "У словах famiglia, figlio, aglio сполука gli позначає один звук." },
+  "ir8-t2": { "text": "Звук краще засвоювати на слух: слухайте слова й повторюйте, не покладаючись на приблизні підказки з вимови." },
+  "tasks-ir8": { "title": "Швидка практика" },
+  "ir8_q1": {
+    "question": "Як читати сполуку gli у словах цього уроку?",
+    "options": { "ir8_q1_opt1": "Як одну італійську звукову сполуку", "ir8_q1_opt2": "Як три окремі звуки G, L та I", "ir8_q1_opt3": "Як німе G" }
+  },
+  "ir8_q2": {
+    "question": "Як правильно поділити «figlio» на склади?",
+    "options": { "ir8_q2_opt1": "fi-glio", "ir8_q2_opt2": "fig-lio", "ir8_q2_opt3": "f-i-glio" }
+  },
+  "ir8_q3": {
+    "question": "У якому слові є сполука GLI?",
+    "options": { "ir8_q3_opt1": "aglio", "ir8_q3_opt2": "ago", "ir8_q3_opt3": "amico" }
+  },
+  "ir8_q4": {
+    "question": "Який поділ на склади залишає GLI разом?",
+    "options": { "ir8_q4_opt1": "fi-glio", "ir8_q4_opt2": "fig-lio", "ir8_q4_opt3": "f-iglio" }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "italian-reading-10": {
+    "title": "Double consonants",
+    "subtitle": "Hear the difference between a short and longer sound",
+    "description": "Learn to notice doubled consonants in writing and hear how they can distinguish words.",
+    "duration": "5 min"
+  },
+  "story-ir10": { "title": "Reading" },
+  "ir10-p1": { "translations": "At home, Anna puts the shovel in the box. Her son plays with the ball." },
+  "hint-mette": { "translations": "puts" },
+  "hint-nella": { "translations": "in the" },
+  "hint-suo-figlio": { "translations": "her son" },
+  "hint-gioca": { "translations": "plays" },
+  "takeaways-ir10": { "title": "Key takeaways" },
+  "ir10-t1": { "text": "Hold a doubled consonant longer than a single one." },
+  "ir10-t2": { "text": "Compare both spelling and sound: pala/palla, casa/cassa." },
+  "tasks-ir10": { "title": "Quick practice" },
+  "ir10_q1": {
+    "question": "In which word is the letter L doubled in writing?",
+    "options": { "ir10_q1_opt1": "palla", "ir10_q1_opt2": "pala", "ir10_q1_opt3": "casa" }
+  },
+  "ir10_q2": {
+    "question": "Which word has a doubled consonant?",
+    "options": { "ir10_q2_opt1": "palla", "ir10_q2_opt2": "pala", "ir10_q2_opt3": "papa" }
+  },
+  "ir10_q3": {
+    "question": "Which word has a doubled consonant?",
+    "options": { "ir10_q3_opt1": "cassa", "ir10_q3_opt2": "casa", "ir10_q3_opt3": "pala" }
+  },
+  "ir10_q4": {
+    "question": "Which syllable division shows the doubled consonant?",
+    "options": { "ir10_q4_opt1": "pal-la", "ir10_q4_opt2": "pa-lla", "ir10_q4_opt3": "p-alla" }
+  }
+}

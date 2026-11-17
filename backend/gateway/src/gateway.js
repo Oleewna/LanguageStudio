@@ -1,3 +1,8 @@
+const util = require('util');
+if (util._extend) {
+    util._extend = Object.assign;
+}
+
 const express = require('express');
 const path = require('path');
 const { createProxyMiddleware } = require('http-proxy-middleware');
@@ -45,6 +50,19 @@ app.use('/api/v1/content', createProxyMiddleware({
     }
 }));
 
+app.use('/api/v1/progress', createProxyMiddleware({
+    target: config.serviceUrl,
+    changeOrigin: true,
+    pathRewrite: requestPath => `/api/progress${requestPath}`,
+    on: {
+        error: (error, req, res) => {
+            console.error('Progress service proxy failed:', error.message);
+            if (!res.headersSent) res.status(502).json({ error: 'Progress service is unavailable.' });
+        }
+    }
+}));
+
+app.use('/courses', express.static(path.join(projectRoot, 'courses')));
 app.use(express.static(path.join(projectRoot, 'frontend', 'public')));
 app.use(createProxyMiddleware({
     target: config.serviceUrl,

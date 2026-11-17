@@ -1,0 +1,33 @@
+{
+  "italian-reading-6": {
+    "title": "SC sounds",
+    "subtitle": "Distinguish sca, sce, and sche",
+    "description": "Learn to read SC before different vowels and notice the role of H.",
+    "duration": "5 min"
+  },
+  "story-ir6": { "title": "Reading" },
+  "ir6-p1": { "translations": "Excuse me, the stairs are here. The scene is beautiful." },
+  "hint-scusa": { "translations": "excuse me" },
+  "hint-scala": { "translations": "stairs" },
+  "hint-scena": { "translations": "scene" },
+  "takeaways-ir6": { "title": "Key takeaways" },
+  "ir6-t1": { "text": "sca, sco, scu have the SC sound before A, O, U; sce, sci are read differently." },
+  "ir6-t2": { "text": "In sche, schi, H keeps the sound of sca, sco, scu before E and I." },
+  "tasks-ir6": { "title": "Quick practice" },
+  "ir6_q1": {
+    "question": "Which combinations have the SC sound before A, O, and U?",
+    "options": { "ir6_q1_opt1": "sca, sco, scu", "ir6_q1_opt2": "sce, sci", "ir6_q1_opt3": "sche, schi" }
+  },
+  "ir6_q2": {
+    "question": "Which combinations have the SC sound heard in \"scena\"?",
+    "options": { "ir6_q2_opt1": "sce and sci", "ir6_q2_opt2": "sca and scu", "ir6_q2_opt3": "sche and schi" }
+  },
+  "ir6_q3": {
+    "question": "Which combinations keep the SC sound of scala/scopa before E and I?",
+    "options": { "ir6_q3_opt1": "sche and schi", "ir6_q3_opt2": "sce and sci", "ir6_q3_opt3": "sca and sco" }
+  },
+  "ir6_q4": {
+    "question": "Which spelling has the SC sound heard in \"scena\"?",
+    "options": { "ir6_q4_opt1": "sce", "ir6_q4_opt2": "sche", "ir6_q4_opt3": "sca" }
+  }
+}

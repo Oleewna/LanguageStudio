@@ -1,0 +1,39 @@
+{
+  "italian-reading-3": {
+    "title": "C та CH",
+    "subtitle": "Почуй різницю між C та CH",
+    "description": "Розрізняйте м'яку C у ce/ci та тверду C у che/chi.",
+    "duration": "5 хв"
+  },
+  "story-ir3": { "title": "Читання" },
+  "ir3-p1": { "translations": "Ніна вечеряє з подругами. Потім вона йде в кіно." },
+  "hint-cena": { "translations": "вечеряє" },
+  "hint-amiche": { "translations": "подруги" },
+  "hint-dopo": { "translations": "потім" },
+  "hint-cinema": { "translations": "кінотеатр; кіно" },
+  "takeaways-ir3": { "title": "Ключові тези" },
+  "ir3-t1": { "text": "ce та ci мають м'який звук C: cena, cinema." },
+  "ir3-t2": { "text": "У che та chi літера H зберігає твердий звук C; сама H не вимовляється." },
+  "ir3-t3": { "text": "Слухайте приклади й повторюйте: не покладайтеся на приблизне написання звуків іншою мовою." },
+  "tasks-ir3": { "title": "Швидка практика" },
+  "ir3_q1": {
+    "question": "Які сполуки мають м'який звук C?",
+    "options": { "ir3_q1_opt1": "ce та ci", "ir3_q1_opt2": "ca та co", "ir3_q1_opt3": "che та chi" }
+  },
+  "ir3_q2": {
+    "question": "Що робить H у сполуках che та chi?",
+    "options": { "ir3_q2_opt1": "Зберігає твердий звук C перед E та I", "ir3_q2_opt2": "Утворює окремий звук після C", "ir3_q2_opt3": "Перетворює C на м'який звук" }
+  },
+  "ir3_q3": {
+    "question": "У якому слові C має м'який звук?",
+    "options": { "ir3_q3_opt1": "cena", "ir3_q3_opt2": "casa", "ir3_q3_opt3": "chiave" }
+  },
+  "ir3_q4": {
+    "question": "Який варіант написання має твердий звук C перед I?",
+    "options": { "ir3_q4_opt1": "chi", "ir3_q4_opt2": "ci", "ir3_q4_opt3": "ce" }
+  },
+  "ir3_q5": {
+    "question": "Як записати склад із твердим звуком C перед I?",
+    "options": { "ir3_q5_opt1": "chi", "ir3_q5_opt2": "ci", "ir3_q5_opt3": "che" }
+  }
+}

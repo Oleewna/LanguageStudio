@@ -1,0 +1,173 @@
+{
+  "id": "communication-basics-1",
+  "xpReward": 10,
+  "nextLessonId": "communication-basics-1-greetings",
+  "blocks": [
+    {
+      "id": "dialogue-1",
+      "type": "dialogue",
+      "lines": [
+        {
+          "id": "line-1",
+          "speaker": "Anna",
+          "avatar": "A",
+          "text": "Ciao! Come stai?",
+          "it": "Ciao! Come stai?",
+          "audio": true
+        },
+        {
+          "id": "line-2",
+          "speaker": "Luca",
+          "avatar": "L",
+          "text": "Bene, grazie! E tu?",
+          "it": "Bene, grazie! E tu?",
+          "audio": true
+        },
+        {
+          "id": "line-3",
+          "speaker": "Anna",
+          "avatar": "A",
+          "text": "Bene!",
+          "it": "Bene!",
+          "audio": true
+        }
+      ]
+    },
+    {
+      "id": "vocab-2",
+      "type": "vocab",
+      "items": [
+        {
+          "id": "v-1",
+          "text": "Ciao",
+          "it": "Ciao"
+        },
+        {
+          "id": "v-2",
+          "text": "Come stai?",
+          "it": "Come stai?"
+        },
+        {
+          "id": "v-3",
+          "text": "Bene, grazie!",
+          "it": "Bene, grazie!"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-3",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "t-1"
+        },
+        {
+          "id": "t-2"
+        },
+        {
+          "id": "t-3"
+        },
+        {
+          "id": "t-4"
+        }
+      ]
+    },
+    {
+      "id": "tasks-4",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "ask-how-are-you",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "fine-thanks",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": false
+            },
+            {
+              "id": "opt-2",
+              "correct": true
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "complete-reply",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "translate-greeting",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "reply-to-question",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "free"
+}

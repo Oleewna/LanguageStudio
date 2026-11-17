@@ -9,7 +9,6 @@ if exist "%~dp0backend\service\install.bat" del /f /q "%~dp0backend\service\inst
 if exist "%~dp0backend\service\start_server.bat" del /f /q "%~dp0backend\service\start_server.bat"
 
 for %%D in (
-  "%~dp0backend\content-db"
   "%~dp0backend\service"
   "%~dp0backend\auth-service"
   "%~dp0backend\gateway"
@@ -27,16 +26,5 @@ for %%D in (
 )
 
 echo.
-echo Initializing the content database...
-pushd "%~dp0backend\content-db"
-call npm run db:setup
-if errorlevel 1 (
-  echo Database setup failed.
-  popd
-  exit /b 1
-)
-popd
-
-echo.
-echo Dependencies installed and database initialized.
+echo Dependencies installed successfully.
 exit /b 0

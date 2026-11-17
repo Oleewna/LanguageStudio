@@ -676,105 +676,21 @@
   <script defer src="../js/layout.js"></script>
   <script defer src="../js/app.js"></script>
   <script>
-    // ── COPY ──────────────────────────────────────────────────────────────────
-    const ST_COPY = {
-      uk: {
-        sidebarEyebrow: 'Налаштування',
-        sidebarTitle: 'Налаштування',
-        catProfile: 'Профіль',
-        catGeneral: 'Загальні',
-        catNotifications: 'Повідомлення',
-        catPayments: 'Оплата',
-
-        profileEyebrow: 'Студент',
-        profileHeading: 'Профіль',
-        profileDesc: 'Ваша навчальна ідентичність на цьому пристрої.',
-        profileRole: 'Студент',
-        profileName: 'Гостьовий профіль',
-        profileNote: 'Прогрес зберігається на цьому пристрої.',
-
-        generalEyebrow: 'Налаштування',
-        generalHeading: 'Загальні',
-        generalDesc: 'Мова, курс та оформлення.',
-        courseBLabel: 'Цільовий курс',
-        dailyGoalLabel: 'Щоденна навчальна ціль',
-        dailyGoalNote: 'Ціль зберігається на цьому пристрої.',
-        dailyGoalSaved: 'Щоденну ціль збережено.',
-        dailyGoalSaveError: 'Не вдалося зберегти ціль. Спробуйте ще раз.',
-        langBLabel: 'Мова перекладів та інтерфейсу',
-        themeBLabel: 'Тема інтерфейсу',
-        useDeviceTheme: 'Тема пристрою',
-        systemThemeActive: 'Тема відповідає налаштуванням пристрою.',
-        customThemeActive: 'Використовується вибрана тема.',
-
-        notifEyebrow: 'Сповіщення',
-        notifHeading: 'Повідомлення',
-        notifDesc: 'Виберіть, які оновлення ви хочете отримувати.',
-        remindersTitle: 'Нагадування про практику',
-        remindersDesc: 'Нагадування, щоб підтримувати регулярність навчання.',
-        summariesTitle: 'Підсумки прогресу',
-        summariesDesc: 'Огляд завершених уроків.',
-        vocabularyTitle: 'Сповіщення про нові слова',
-        vocabularyDesc: 'Новини про нові слова у вашому курсі.',
-
-        payEyebrow: 'Оплата',
-        payHeading: 'Оплата',
-        payDesc: 'Ваша підписка та інформація про оплату.',
-        planStatus: 'Демо',
-        planTitle: 'Демо-план LanguageStudio',
-        planNote: 'Це локальний навчальний застосунок, і доступ до матеріалів безкоштовний.',
-        billingTitle: 'Історія оплат',
-        billingNote: 'У цій демоверсії немає підписок або платіжних записів.'
-      },
-      en: {
-        sidebarEyebrow: 'Preferences',
-        sidebarTitle: 'Settings',
-        catProfile: 'Profile',
-        catGeneral: 'General',
-        catNotifications: 'Notifications',
-        catPayments: 'Payments',
-
-        profileEyebrow: 'Student',
-        profileHeading: 'Profile',
-        profileDesc: 'Your learning identity on this device.',
-        profileRole: 'Student',
-        profileName: 'Guest profile',
-        profileNote: 'Progress is saved on this device.',
-
-        generalEyebrow: 'Preferences',
-        generalHeading: 'General',
-        generalDesc: 'Language, course, and appearance settings.',
-        courseBLabel: 'Target course',
-        dailyGoalLabel: 'Daily learning goal',
-        dailyGoalNote: 'Your goal is saved on this device.',
-        dailyGoalSaved: 'Daily goal saved.',
-        dailyGoalSaveError: 'Could not save your goal. Please try again.',
-        langBLabel: 'Translations & interface',
-        themeBLabel: 'Interface theme',
-        useDeviceTheme: 'Use device theme',
-        systemThemeActive: 'Following your device appearance setting.',
-        customThemeActive: 'Using your selected theme.',
-
-        notifEyebrow: 'Alerts',
-        notifHeading: 'Notifications',
-        notifDesc: 'Choose which updates you want to receive.',
-        remindersTitle: 'Daily practice reminders',
-        remindersDesc: 'A gentle nudge to keep your learning streak going.',
-        summariesTitle: 'Lesson progress summaries',
-        summariesDesc: 'A recap of your completed lessons.',
-        vocabularyTitle: 'New vocabulary alerts',
-        vocabularyDesc: 'Updates when new words are added to your course.',
-
-        payEyebrow: 'Billing',
-        payHeading: 'Payments',
-        payDesc: 'Your subscription and billing information.',
-        planStatus: 'Demo',
-        planTitle: 'LanguageStudio demo plan',
-        planNote: 'This is a local learning app and access to current content is free.',
-        billingTitle: 'Billing history',
-        billingNote: 'No subscriptions or payment records are connected in this demo build.'
+    // ── COPY FROM LOCALES ──────────────────────────────────────────────────────
+    const ST_COPY = new Proxy({}, {
+      get(target, lang) {
+        return new Proxy({}, {
+          get(tTarget, prop) {
+            const key = String(prop);
+            if (typeof window.t === 'function') {
+              const res = window.t(`settings.${key}`, {}, lang) || window.t(key, {}, lang);
+              if (res && res !== `settings.${key}` && res !== key) return res;
+            }
+            return key;
+          }
+        });
       }
-    };
+    });
 
     // ── NOTIFICATION PREFS ────────────────────────────────────────────────────
     const ST_NOTIF_KEY = 'ls_notification_preferences';

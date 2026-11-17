@@ -1,0 +1,93 @@
+{
+  "it-001": {
+    "trans": "hello / goodbye",
+    "pronunciation": "[chow]",
+    "example": {
+      "trans": "Hi! How are you?"
+    }
+  },
+  "it-002": {
+    "trans": "how are you?",
+    "pronunciation": "[koh-meh STY]",
+    "example": {
+      "trans": "Hi Marco, how are you?"
+    }
+  },
+  "it-003": {
+    "trans": "well / good",
+    "pronunciation": "[BEH-neh]",
+    "example": {
+      "trans": "Good, thanks! And you?"
+    }
+  },
+  "it-004": {
+    "trans": "thank you",
+    "pronunciation": "[GRAH-tsee-eh]",
+    "example": {
+      "trans": "Thank you very much!"
+    }
+  },
+  "it-005": {
+    "trans": "please / you are welcome",
+    "pronunciation": "[PREH-goh]",
+    "example": {
+      "trans": "— Thank you! — You’re welcome!"
+    }
+  },
+  "it-006": {
+    "trans": "yes",
+    "pronunciation": "[see]",
+    "example": {
+      "trans": "Yes, I’m new."
+    }
+  },
+  "it-007": {
+    "trans": "no",
+    "pronunciation": "[noh]",
+    "example": {
+      "trans": "No, thank you."
+    }
+  },
+  "it-008": {
+    "trans": "me too",
+    "pronunciation": "[ahn-kyoh]",
+    "example": {
+      "trans": "I’m doing well too, thanks!"
+    }
+  },
+  "it-009": {
+    "trans": "new (masculine / feminine)",
+    "pronunciation": "[NOO-oh-voh / noo-OH-vah]",
+    "example": {
+      "trans": "Are you new here?"
+    }
+  },
+  "it-010": {
+    "trans": "first day",
+    "pronunciation": "[PREE-moh JOHR-noh]",
+    "example": {
+      "trans": "It’s my first day."
+    }
+  },
+  "it-011": {
+    "trans": "welcome",
+    "pronunciation": "[behn-veh-NOO-toh / -tah]",
+    "example": {
+      "trans": "Welcome to the building!"
+    }
+  },
+  "it-012": {
+    "trans": "apartment building",
+    "pronunciation": "[pah-LAHT-soh]",
+    "example": {
+      "trans": "I live in this apartment building."
+    }
+  },
+  "it-013": {
+    "trans": "thank you very much",
+    "pronunciation": "[GRAH-tsee-eh MEE-leh]",
+    "example": {
+      "trans": "Thank you very much for the help!"
+    }
+  }
+}

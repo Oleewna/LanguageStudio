@@ -1,0 +1,145 @@
+{
+  "es-mcq-01": {
+    "question": "What does “¿Cómo estás?” mean?",
+    "explanation": "“¿Cómo estás?” is used to ask “How are you?”",
+    "options": [
+      {
+        "text": "A) What is your name?"
+      },
+      {
+        "text": "B) How are you?"
+      },
+      {
+        "text": "C) Where is the bathroom?"
+      }
+    ]
+  },
+  "es-mcq-02": {
+    "question": "Which is the correct form of “estar” for “yo”?",
+    "explanation": "For “yo”, the correct form is “estoy”.",
+    "options": [
+      {
+        "text": "A) estoy"
+      },
+      {
+        "text": "B) eres"
+      },
+      {
+        "text": "C) son"
+      }
+    ]
+  },
+  "es-blank-01": {
+    "question": "“___, ¿cómo estás?”",
+    "explanation": "The common opening greeting is “hola”.",
+    "hint": "Hint: informal greeting"
+  },
+  "es-blank-02": {
+    "question": "“___ calle es tranquila.”",
+    "explanation": "“calle” is feminine, so the correct article is “la”.",
+    "hint": "Hint: feminine singular"
+  },
+  "es-match-01": {
+    "pairs": {
+      "m1": {
+        "trans": "hello"
+      },
+      "m2": {
+        "trans": "thank you"
+      },
+      "m3": {
+        "trans": "please"
+      },
+      "m4": {
+        "trans": "nice to meet you"
+      }
+    },
+    "title": "Greetings and phrases"
+  },
+  "es-reorder-01": {
+    "explanation": "Correct order: “¡Hola! ¿Cómo estás?”",
+    "clue": "Hello, how are you?"
+  },
+  "es-dialogue-01": {
+    "options": [
+      {
+        "text": "Estoy bien, gracias."
+      },
+      {
+        "text": "La cuenta, por favor."
+      },
+      {
+        "text": "No entiendo."
+      }
+    ],
+    "explanation": "The right reply is a short phrase about one’s wellbeing.",
+    "instruction": "B: choose the reply"
+  },
+  "es-mcq-03": {
+    "question": "Which sentence asks “Where is the bathroom?”",
+    "explanation": "“¿Dónde está el baño?” is the correct way to ask where the bathroom is.",
+    "options": [
+      {
+        "text": "A) ¿Dónde está el baño?"
+      },
+      {
+        "text": "B) ¿Qué hora es?"
+      },
+      {
+        "text": "C) ¿Cómo te llamas?"
+      }
+    ]
+  },
+  "es-blank-03": {
+    "question": "“Quiero un ___, por favor.”",
+    "explanation": "In a café, you might say “Quiero un café” — “I want a coffee.”",
+    "hint": "Hint: a drink"
+  },
+  "es-dialogue-02": {
+    "options": [
+      {
+        "text": "Claro, aquí tienen."
+      },
+      {
+        "text": "Mucho gusto."
+      },
+      {
+        "text": "¿Dónde está el tren?"
+      }
+    ],
+    "explanation": "“Claro, aquí tienen” is a natural confirmation to an order.",
+    "instruction": "B: choose the reply that confirms the order"
+  },
+  "es-mcq-04": {
+    "question": "How do you say “I am Ana” in Spanish?",
+    "explanation": "Use “soy” to introduce yourself: “Soy Ana.”",
+    "options": [
+      {
+        "text": "A) Soy Ana."
+      },
+      {
+        "text": "B) Estoy Ana."
+      },
+      {
+        "text": "C) Vivo Ana."
+      }
+    ]
+  },
+  "es-match-02": {
+    "pairs": {
+      "m5": {
+        "trans": "where is the bathroom?"
+      },
+      "m6": {
+        "trans": "train"
+      },
+      "m7": {
+        "trans": "street"
+      },
+      "m8": {
+        "trans": "I don't understand"
+      }
+    },
+    "title": "Travel phrases"
+  }
+}

@@ -13,7 +13,7 @@ module.exports = {
     port: parsePort(process.env.PORT, 3005, 'PORT'),
     host: process.env.HOST || '127.0.0.1',
     serviceUrl: process.env.SERVICE_URL || 'http://127.0.0.1:3006',
-    authServiceUrl: process.env.AUTH_SERVICE_URL || 'http://127.0.0.1:3007',
+    authServiceUrl: process.env.AUTH_SERVICE_URL || 'http://127.0.0.1:3006',
     corsOrigins: (process.env.CORS_ORIGINS || '')
         .split(',')
         .map(origin => origin.trim())

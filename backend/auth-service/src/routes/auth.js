@@ -1,15 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const {
+    googleRedirect,
+    googleCallback,
     getSession,
-    login,
-    logout,
-    register
+    logout
 } = require('../controllers/authController');
 
-router.post('/register', register);
-router.post('/login', login);
+// Google OAuth routes
+router.get('/google', googleRedirect);
+router.get('/google/callback', googleCallback);
+
+// Session checks (support both /session and /me)
 router.get('/session', getSession);
+router.get('/me', getSession);
+
+// Logout
 router.post('/logout', logout);
 
 module.exports = router;

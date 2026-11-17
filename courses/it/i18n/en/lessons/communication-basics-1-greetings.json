@@ -1,0 +1,78 @@
+{
+  "communication-basics-1-greetings": {
+    "title": "Polite greetings",
+    "subtitle": "Buongiorno or Buonasera?",
+    "description": "Choose a polite greeting for the time of day.",
+    "duration": "2 min"
+  },
+  "vocab-1": {
+    "title": "Greet someone politely"
+  },
+  "v-1": {
+    "trans": "Good morning! / Good day!",
+    "pronunciation": "[bwon-JOR-noh]"
+  },
+  "v-2": {
+    "trans": "Good evening!",
+    "pronunciation": "[bwoh-nah-SEH-rah]"
+  },
+  "v-3": {
+    "trans": "Hi! / Bye!",
+    "pronunciation": "[CHOW]"
+  },
+  "takeaways-2": {
+    "title": "Today’s tip"
+  },
+  "t-1": {
+    "text": "Buongiorno is one word for a polite daytime greeting."
+  },
+  "t-2": {
+    "text": "Buonasera is one word for a polite evening greeting."
+  },
+  "t-3": {
+    "text": "Ciao is one word for an informal greeting or goodbye with friends."
+  },
+  "tasks-3": {
+    "title": "Quick practice"
+  },
+  "evening-greeting": {
+    "question": "Which greeting is best for the evening?",
+    "options": {
+      "opt-1": "Buonasera!",
+      "opt-2": "Buongiorno!",
+      "opt-3": "Ciao!"
+    }
+  },
+  "daytime-greeting": {
+    "question": "When is “Buongiorno” the best choice?",
+    "options": {
+      "opt-1": "A polite greeting during the day",
+      "opt-2": "A polite greeting in the evening",
+      "opt-3": "An informal goodbye to a friend"
+    }
+  },
+  "informal-greeting": {
+    "question": "Which informal greeting can also mean “goodbye”?",
+    "options": {
+      "opt-1": "Ciao",
+      "opt-2": "Buongiorno",
+      "opt-3": "Buonasera"
+    }
+  },
+  "translate-daytime": {
+    "question": "How do you politely say “Good morning!”?",
+    "options": {
+      "opt-1": "Buongiorno!",
+      "opt-2": "Buonasera!",
+      "opt-3": "Ciao!"
+    }
+  },
+  "friend-evening": {
+    "question": "You meet a friend in the evening. Which informal greeting can you use?",
+    "options": {
+      "opt-1": "Ciao!",
+      "opt-2": "Buonasera!",
+      "opt-3": "Buongiorno!"
+    }
+  }
+}

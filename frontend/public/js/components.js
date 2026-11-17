@@ -9,58 +9,31 @@
   let loadingComponents;
 
   function localizeEmbeddedTemplate(template) {
-    const replacements = [
-      ['Learning paths', 'Напрями навчання'],
-      ['Dictionary', 'Словник'],
-      ['Basics · Lesson 1', 'Основи · Урок 1'],
-      ['Communication basics', 'Основи спілкування'],
-      ['Lesson 1 · Introduction', 'Урок 1 · Знайомство'],
-      ['Browse all paths', 'Переглянути всі напрями'],
-      ['Flashcards', 'Флешкартки'],
-      ['Exercises', 'Вправи'],
-      ['My dictionary', 'Мій словник'],
-      ['Grammar guide', 'Довідник граматики'],
-      ['Tests', 'Тести'],
-      ['Courses', 'Курси'],
-      ['Account', 'Обліковий запис'],
-      ['Sign in', 'Увійти'],
-      ['Main', 'Головне'],
-      ['Practice', 'Практика'],
-      ['Switch theme', 'Змінити тему'],
-      ['Student profile', 'Профіль студента'],
-      ['Student Profile', 'Профіль студента'],
-      ['LanguageStudio home', 'Головна LanguageStudio'],
-      ['Guest profile · progress is saved on this device', 'Гостьовий профіль · прогрес зберігається на цьому пристрої'],
-      ['Learning path: ', 'Напрям навчання: '],
-      ['Language for translations & explanations', 'Мова перекладів та пояснень'],
-      ['Target Course', 'Цільовий курс'],
-      ['Interface Theme', 'Тема інтерфейсу'],
-      ['Settings', 'Налаштування'],
-      ['Preferences', 'Налаштування'],
-      ['XP Points', 'Очки XP'],
-      ['Daily Streak', 'Щоденна серія'],
-      ['Lessons Completed', 'Уроків пройдено'],
-      ['Dictionary Words', 'Слів у словнику'],
-      ['Sign in or register', 'Увійти або зареєструватися'],
-      ['Close', 'Закрити'],
-      ['Paths', 'Напрямки'],
-      ['Grammar trainer', 'Тренажер граматики'],
-      ['Situational exercises', 'Ситуаційні вправи'],
-      ['All exercises and quizzes', 'Усі вправи та тести'],
-      ['Greetings and basics (13 words)', 'Привітання та база (13 слів)'],
-      ['My saved words', 'Мої збережені слова'],
-      ['Your word bank', 'Ваш словниковий банк'],
-      ['Grammar cheat sheets', 'Шпаргалки з граматики'],
-      ['Search the word base', 'Пошук у базі слів'],
-      ['Add your own word', 'Додати власне слово'],
-      ['Definite articles', 'Означені артиклі'],
-      ['Essere and Avere', 'Essere та Avere'],
-      ['Tu vs Lei (Etiquette)', 'Tu vs Lei (Етикет)'],
-      ['Active', 'Активний'],
-      ['Menu', 'Меню'],
-      ['Home', 'Головна']
+    const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
+    if (lang === 'en') return template;
+    const phrases = [
+      'Learning paths', 'Learning path: ', 'Learning path', 'Browse all paths',
+      'All paths', 'Paths', 'Dictionary', 'My dictionary', 'Basics · Lesson 1',
+      'Communication basics', 'Lesson 1 · Introduction', 'Flashcards', 'Exercises',
+      'Grammar guide', 'Grammar cheat sheets', 'Tests', 'Courses', 'Account',
+      'Sign in', 'Sign in or register', 'Main', 'Practice', 'Practice drills',
+      'Switch theme', 'Student profile', 'Student Profile', 'LanguageStudio home',
+      'Guest profile · progress is saved on this device',
+      'Language for translations & explanations', 'Target Course',
+      'Interface Theme', 'Settings', 'Preferences', 'XP Points', 'Daily Streak',
+      'Lessons Completed', 'Dictionary Words', 'Close', 'Grammar trainer',
+      'Situational exercises', 'All exercises and quizzes',
+      'Greetings and basics (13 words)', 'My saved words', 'Your word bank',
+      'Search the word base', 'Add your own word', 'Definite articles',
+      'Essere and Avere', 'Tu vs Lei (Etiquette)', 'Active', 'Menu', 'Home', 'Learn'
     ];
-    return replacements.reduce((result, [from, to]) => result.split(from).join(to), template);
+    for (const phrase of phrases) {
+      const translated = typeof window.t === 'function' ? window.t(phrase, {}, lang) : '';
+      if (translated && translated !== phrase) {
+        template = template.split(phrase).join(translated);
+      }
+    }
+    return template;
   }
 
   const mobileLinks = [

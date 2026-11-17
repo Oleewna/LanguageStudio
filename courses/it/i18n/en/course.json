@@ -1,0 +1,63 @@
+{
+  "tagline": "Italian for real-life situations",
+  "target": {
+    "name": "Italian"
+  },
+  "exerciseCategories": {
+    "articles": {
+      "name": "Nouns & Articles"
+    },
+    "verbs": {
+      "name": "Verbs"
+    },
+    "pronouns": {
+      "name": "Pronouns & Prepositions"
+    },
+    "sentence": {
+      "name": "Sentence Structure"
+    },
+    "greetings": {
+      "name": "Greetings & Meeting Neighbors"
+    },
+    "cafe": {
+      "name": "At the Cafe & Bar"
+    },
+    "directions": {
+      "name": "Asking Directions"
+    },
+    "shopping": {
+      "name": "Shopping & Prices"
+    }
+  },
+  "paths": {
+    "communication-basics": {
+      "title": "Communication basics",
+      "subtitle": "Greetings and first introductions"
+    }
+  },
+  "units": {
+    "communication-basics-1": {
+      "title": "First steps"
+    }
+  },
+  "lessons": {
+    "communication-basics-1": {
+      "num": "Lesson 1",
+      "title": "Hello, how are you?",
+      "description": "Greet a friend and ask how they are",
+      "time": "2 min"
+    },
+    "communication-basics-1-greetings": {
+      "num": "Lesson 2",
+      "title": "Polite greetings",
+      "description": "Choose a polite greeting for the time of day",
+      "time": "2 min"
+    },
+    "communication-basics-1-practice": {
+      "num": "Lesson 3",
+      "title": "What is your name?",
+      "description": "Ask someone’s name and introduce yourself",
+      "time": "2 min"
+    }
+  }
+}

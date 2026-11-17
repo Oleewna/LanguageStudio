@@ -1,0 +1,39 @@
+{
+  "italian-reading-9": {
+    "title": "QU",
+    "subtitle": "Hear QU in short phrases",
+    "description": "Read common words with QU and recognize the combination in phrases.",
+    "duration": "5 min"
+  },
+  "story-ir9": { "title": "Reading" },
+  "ir9-p1": { "translations": "When Luca arrives, he asks, \u201cHow much does this book cost?\u201d" },
+  "hint-quando": { "translations": "when" },
+  "hint-arriva": { "translations": "arrives" },
+  "hint-chiede": { "translations": "asks" },
+  "hint-quanto": { "translations": "how much" },
+  "hint-questo-libro": { "translations": "this book" },
+  "takeaways-ir9": { "title": "Key takeaways" },
+  "ir9-t1": { "text": "In common words, Q comes before U: quando, quanto, questo, qui." },
+  "ir9-t2": { "text": "Listen for the combination in words and phrases; this rule does not describe every use of the letter U." },
+  "tasks-ir9": { "title": "Quick practice" },
+  "ir9_q1": {
+    "question": "Which common combination appears in the words from this lesson?",
+    "options": { "ir9_q1_opt1": "qu", "ir9_q1_opt2": "gu", "ir9_q1_opt3": "cu" }
+  },
+  "ir9_q2": {
+    "question": "Which word contains the QU combination?",
+    "options": { "ir9_q2_opt1": "quando", "ir9_q2_opt2": "guanto", "ir9_q2_opt3": "cuoco" }
+  },
+  "ir9_q3": {
+    "question": "Which combination has Q before U?",
+    "options": { "ir9_q3_opt1": "qu", "ir9_q3_opt2": "gu", "ir9_q3_opt3": "cu" }
+  },
+  "ir9_q4": {
+    "question": "Which word in the sentence contains QU?",
+    "options": { "ir9_q4_opt1": "Quanto", "ir9_q4_opt2": "arriva", "ir9_q4_opt3": "Luca" }
+  },
+  "ir9_q5": {
+    "question": "Which word contains QU before the vowel A?",
+    "options": { "ir9_q5_opt1": "quando", "ir9_q5_opt2": "quanto", "ir9_q5_opt3": "questo" }
+  }
+}

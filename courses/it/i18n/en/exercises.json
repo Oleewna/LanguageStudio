@@ -1,0 +1,201 @@
+{
+  "mcq-g1": {
+    "question": "What does the Italian phrase “Come stai?” mean?",
+    "explanation": "“Come stai?” is used to informally ask “How are you?” to one person.",
+    "options": [
+      {
+        "text": "A) What is your name?"
+      },
+      {
+        "text": "B) How are you?"
+      },
+      {
+        "text": "C) Where are you from?"
+      }
+    ]
+  },
+  "mcq-art1": {
+    "question": "Which masculine definite article is used with the word “ragazzo”?",
+    "explanation": "Nouns starting with standard consonants take “il” in the masculine singular.",
+    "options": [
+      {
+        "text": "A) la"
+      },
+      {
+        "text": "B) il"
+      },
+      {
+        "text": "C) lo"
+      }
+    ]
+  },
+  "mcq-verb1": {
+    "question": "Choose the correct form of “essere” for “noi” (we):",
+    "explanation": "Conjugation of essere: io sono, tu sei, lui/lei è, noi siamo, voi siete, loro sono.",
+    "options": [
+      {
+        "text": "A) siamo"
+      },
+      {
+        "text": "B) siete"
+      },
+      {
+        "text": "C) sono"
+      }
+    ]
+  },
+  "mcq-dir1": {
+    "question": "What does “Dov'è la stazione?” mean?",
+    "explanation": "“Dov'è...” is a contraction of “Dove è...” meaning “Where is...?”.",
+    "options": [
+      {
+        "text": "A) When does the train arrive?"
+      },
+      {
+        "text": "B) Where is the train station?"
+      },
+      {
+        "text": "C) How much is the ticket?"
+      }
+    ]
+  },
+  "blk-g1": {
+    "question": "“___, come stai?”",
+    "explanation": "“Ciao” goes at the start of an informal greeting.",
+    "hint": "Hint: informal greeting"
+  },
+  "blk-v1": {
+    "question": "“Io ___ studente di italiano.”",
+    "explanation": "First person singular of essere: “Io sono”.",
+    "hint": "Hint: form of essere for “I am”"
+  },
+  "blk-art1": {
+    "question": "“___ casa è grande e luminosa.”",
+    "explanation": "Casa is feminine singular, so the article is “la”.",
+    "hint": "Hint: feminine singular article"
+  },
+  "match-greetings": {
+    "pairs": {
+      "m1": {
+        "trans": "hello / goodbye"
+      },
+      "m2": {
+        "trans": "thank you"
+      },
+      "m3": {
+        "trans": "you are welcome"
+      },
+      "m4": {
+        "trans": "welcome"
+      },
+      "m5": {
+        "trans": "good morning"
+      }
+    },
+    "title": "Greetings & Basic Phrases"
+  },
+  "reorder-g1": {
+    "explanation": "Word order for greeting: Ciao, come stai?",
+    "clue": "Hello, how are you?"
+  },
+  "listen-g1": {
+    "explanation": "Audio spoken: “Prego” (You are welcome).",
+    "instruction": "Listen to the audio and pick the translation",
+    "options": [
+      {
+        "text": "A) Thank you"
+      },
+      {
+        "text": "B) You are welcome"
+      },
+      {
+        "text": "C) Hello"
+      }
+    ]
+  },
+  "dlg-g1": {
+    "options": [
+      {
+        "text": "Mi chiamo Sofia. E tu?"
+      },
+      {
+        "text": "Grazie mille per l'aiuto!"
+      },
+      {
+        "text": "Un caffè per favore."
+      }
+    ],
+    "explanation": "To answer “Come ti chiami?”, start with “Mi chiamo...”.",
+    "instruction": "B: choose the line that continues the introduction"
+  },
+  "mcq-greeting-evening": {
+    "question": "Which polite greeting do you use in the evening?",
+    "explanation": "Buonasera is a polite greeting used in the evening.",
+    "options": [
+      {
+        "text": "Buonasera!"
+      },
+      {
+        "text": "Buongiorno!"
+      },
+      {
+        "text": "Arrivederci!"
+      }
+    ]
+  },
+  "blank-greeting-daytime": {
+    "question": "Greet someone politely during the day: “_____!”",
+    "explanation": "Buongiorno is a polite daytime greeting.",
+    "hint": "It begins with Buon..."
+  },
+  "mcq-name-question": {
+    "question": "How do you ask “What is your name?” in Italian?",
+    "explanation": "Come ti chiami? asks someone’s name.",
+    "options": [
+      {
+        "text": "Come ti chiami?"
+      },
+      {
+        "text": "Come stai?"
+      },
+      {
+        "text": "Di dove sei?"
+      }
+    ]
+  },
+  "blank-name-answer": {
+    "question": "Complete the phrase: “Mi _____ Luca.”",
+    "explanation": "Mi chiamo Luca means “My name is Luca.”",
+    "hint": "This is how you say “My name is...” in Italian."
+  },
+  "mcq-shop1": {
+    "question": "How do you ask for the price of an item in Italian?",
+    "explanation": "“Quanto costa?” is used to ask the price of a single item.",
+    "options": [
+      {
+        "text": "A) Quanto costa?"
+      },
+      {
+        "text": "B) Che ora è?"
+      },
+      {
+        "text": "C) Chi sei?"
+      }
+    ]
+  },
+  "dlg-cafe1": {
+    "options": [
+      {
+        "text": "Un cappuccino e una brioche, per favore."
+      },
+      {
+        "text": "Piacere di conoscerti!"
+      },
+      {
+        "text": "Sto molto bene, grazie."
+      }
+    ],
+    "explanation": "When asked “Cosa desidera?”, specify what you want to order.",
+    "instruction": "B: choose the line to order at the cafe bar"
+  }
+}

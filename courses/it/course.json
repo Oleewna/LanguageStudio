@@ -1,0 +1,493 @@
+{
+  "id": "it",
+  "target": {
+    "code": "it",
+    "name": "Italian",
+    "tts": "it-IT",
+    "script": "latin",
+    "rtl": false
+  },
+  "tagline": "Italian for real-life situations",
+  "features": {
+    "flashcards": true,
+    "dictionary": true,
+    "exercises": true,
+    "grammar": true,
+    "tests": true,
+    "exerciseFormats": [
+      "mcq",
+      "blank",
+      "match",
+      "reorder",
+      "listen",
+      "dialogue",
+      "dict"
+    ]
+  },
+  "exerciseCategories": [
+    {
+      "id": "articles",
+      "group": "grammar",
+      "icon": "pin",
+      "name": {
+        "uk": "Іменники & Артиклі",
+        "en": "Nouns & Articles"
+      }
+    },
+    {
+      "id": "verbs",
+      "group": "grammar",
+      "icon": "verb",
+      "name": {
+        "uk": "Дієслова",
+        "en": "Verbs"
+      }
+    },
+    {
+      "id": "pronouns",
+      "group": "grammar",
+      "icon": "chat",
+      "name": {
+        "uk": "Займенники & Прийменники",
+        "en": "Pronouns & Prepositions"
+      }
+    },
+    {
+      "id": "sentence",
+      "group": "grammar",
+      "icon": "type",
+      "name": {
+        "uk": "Структура речення",
+        "en": "Sentence Structure"
+      }
+    },
+    {
+      "id": "greetings",
+      "group": "situational",
+      "icon": "greeting",
+      "name": {
+        "uk": "Знайомство & Сусіди",
+        "en": "Greetings & Meeting Neighbors"
+      }
+    },
+    {
+      "id": "cafe",
+      "group": "situational",
+      "icon": "cafe",
+      "name": {
+        "uk": "У кафе та барі",
+        "en": "At the Cafe & Bar"
+      }
+    },
+    {
+      "id": "directions",
+      "group": "situational",
+      "icon": "directions",
+      "name": {
+        "uk": "Орієнтування в місті",
+        "en": "Asking Directions"
+      }
+    },
+    {
+      "id": "shopping",
+      "group": "situational",
+      "icon": "shopping",
+      "name": {
+        "uk": "Покупки та ціни",
+        "en": "Shopping & Prices"
+      }
+    }
+  ],
+  "paths": [
+    {
+      "id": "communication-basics",
+      "icon": "greeting",
+      "locked": false,
+      "defaultOpen": true,
+      "title": {
+        "uk": "Основи спілкування",
+        "en": "Communication basics"
+      },
+      "subtitle": {
+        "uk": "Привітання та перше знайомство",
+        "en": "Greetings and first introductions"
+      },
+      "units": [
+        {
+          "id": "communication-basics-1",
+          "title": {
+            "uk": "Перші кроки",
+            "en": "First steps"
+          },
+          "lessons": [
+            {
+              "id": "communication-basics-1",
+              "num": {
+                "uk": "Урок 1",
+                "en": "Lesson 1"
+              },
+              "title": {
+                "uk": "Привіт, як справи?",
+                "en": "Hello, how are you?"
+              },
+              "description": {
+                "uk": "Привітайтеся з другом і запитайте, як у нього справи",
+                "en": "Greet a friend and ask how they are"
+              },
+              "time": {
+                "uk": "2 хв",
+                "en": "2 min"
+              },
+              "status": "available",
+              "nextLessonId": "communication-basics-1-greetings",
+              "access": "free"
+            },
+            {
+              "id": "communication-basics-1-greetings",
+              "num": {
+                "uk": "Урок 2",
+                "en": "Lesson 2"
+              },
+              "title": {
+                "uk": "Ввічливі привітання",
+                "en": "Polite greetings"
+              },
+              "description": {
+                "uk": "Оберіть ввічливе привітання відповідно до часу доби",
+                "en": "Choose a polite greeting for the time of day"
+              },
+              "time": {
+                "uk": "2 хв",
+                "en": "2 min"
+              },
+              "status": "available",
+              "prevLessonId": "communication-basics-1",
+              "nextLessonId": "communication-basics-1-practice",
+              "access": "free"
+            },
+            {
+              "id": "communication-basics-1-practice",
+              "num": {
+                "uk": "Урок 3",
+                "en": "Lesson 3"
+              },
+              "title": {
+                "uk": "Як тебе звати?",
+                "en": "What is your name?"
+              },
+              "description": {
+                "uk": "Запитайте ім’я співрозмовника й представтеся",
+                "en": "Ask someone’s name and introduce yourself"
+              },
+              "time": {
+                "uk": "2 хв",
+                "en": "2 min"
+              },
+              "status": "available",
+              "prevLessonId": "communication-basics-1-greetings",
+              "nextLessonId": null,
+              "access": "free"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "italian-reading",
+      "icon": "dictionary",
+      "locked": false,
+      "defaultOpen": false,
+      "title": {
+        "uk": "Читання",
+        "en": "Reading"
+      },
+      "subtitle": {
+        "uk": "Правила читання італійської",
+        "en": "Italian reading rules"
+      },
+      "units": [
+        {
+          "id": "italian-reading-basics",
+          "title": {
+            "uk": "Основи читання",
+            "en": "Reading basics"
+          },
+          "lessons": [
+            {
+              "id": "italian-reading-2",
+              "num": {
+                "uk": "Урок 1",
+                "en": "Lesson 1"
+              },
+              "title": {
+                "uk": "Тверда C: ca, co, cu",
+                "en": "Hard C: ca, co, cu"
+              },
+              "description": {
+                "uk": "Почуйте твердий звук C у складах ca, co, cu",
+                "en": "Hear the hard C sound in ca, co, cu"
+              },
+              "time": {
+                "uk": "5 хв",
+                "en": "5 min"
+              },
+              "status": "available",
+              "nextLessonId": "italian-reading-3",
+              "access": "paid",
+              "priceId": "price_it_premium"
+            },
+            {
+              "id": "italian-reading-3",
+              "num": {
+                "uk": "Урок 2",
+                "en": "Lesson 2"
+              },
+              "title": {
+                "uk": "C та CH",
+                "en": "C and CH"
+              },
+              "description": {
+                "uk": "Розрізняйте м'яку C у ce/ci та тверду C у che/chi",
+                "en": "Distinguish soft C in ce/ci from hard C in che/chi"
+              },
+              "time": {
+                "uk": "5 хв",
+                "en": "5 min"
+              },
+              "status": "available",
+              "prevLessonId": "italian-reading-2",
+              "nextLessonId": "italian-reading-4",
+              "access": "paid",
+              "priceId": "price_it_premium"
+            },
+            {
+              "id": "italian-reading-4",
+              "num": {
+                "uk": "Урок 3",
+                "en": "Lesson 3"
+              },
+              "title": {
+                "uk": "Тверда G: ga, go, gu",
+                "en": "Hard G: ga, go, gu"
+              },
+              "description": {
+                "uk": "Почуйте твердий звук G у складах ga, go, gu",
+                "en": "Hear the hard G sound in ga, go, gu"
+              },
+              "time": {
+                "uk": "5 хв",
+                "en": "5 min"
+              },
+              "status": "available",
+              "prevLessonId": "italian-reading-3",
+              "nextLessonId": "italian-reading-5",
+              "access": "paid",
+              "priceId": "price_it_premium"
+            },
+            {
+              "id": "italian-reading-5",
+              "num": {
+                "uk": "Урок 4",
+                "en": "Lesson 4"
+              },
+              "title": {
+                "uk": "G та GH",
+                "en": "G and GH"
+              },
+              "description": {
+                "uk": "Розрізняйте м'яку G у ge/gi та тверду G у ghe/ghi",
+                "en": "Distinguish soft G in ge/gi from hard G in ghe/ghi"
+              },
+              "time": {
+                "uk": "5 хв",
+                "en": "5 min"
+              },
+              "status": "available",
+              "prevLessonId": "italian-reading-4",
+              "nextLessonId": "italian-reading-6",
+              "access": "paid",
+              "priceId": "price_it_premium"
+            },
+            {
+              "id": "italian-reading-6",
+              "num": {
+                "uk": "Урок 5",
+                "en": "Lesson 5"
+              },
+              "title": {
+                "uk": "Звуки SC",
+                "en": "SC sounds"
+              },
+              "description": {
+                "uk": "Навчіться читати SC перед різними голосними",
+                "en": "Learn to read SC before different vowels"
+              },
+              "time": {
+                "uk": "5 хв",
+                "en": "5 min"
+              },
+              "status": "available",
+              "prevLessonId": "italian-reading-5",
+              "nextLessonId": "italian-reading-7",
+              "access": "paid",
+              "priceId": "price_it_premium"
+            },
+            {
+              "id": "italian-reading-7",
+              "num": {
+                "uk": "Урок 6",
+                "en": "Lesson 6"
+              },
+              "title": {
+                "uk": "Сполука GN",
+                "en": "The GN combination"
+              },
+              "description": {
+                "uk": "Розпізнавайте GN як одну приголосну сполуку",
+                "en": "Recognize GN as one consonant combination"
+              },
+              "time": {
+                "uk": "5 хв",
+                "en": "5 min"
+              },
+              "status": "available",
+              "prevLessonId": "italian-reading-6",
+              "nextLessonId": "italian-reading-8",
+              "access": "paid",
+              "priceId": "price_it_premium"
+            },
+            {
+              "id": "italian-reading-8",
+              "num": {
+                "uk": "Урок 7",
+                "en": "Lesson 7"
+              },
+              "title": {
+                "uk": "Сполука GLI",
+                "en": "The GLI combination"
+              },
+              "description": {
+                "uk": "Розпізнавайте GLI у поширених словах",
+                "en": "Recognize GLI in common words"
+              },
+              "time": {
+                "uk": "5 хв",
+                "en": "5 min"
+              },
+              "status": "available",
+              "prevLessonId": "italian-reading-7",
+              "nextLessonId": "italian-reading-9",
+              "access": "paid",
+              "priceId": "price_it_premium"
+            },
+            {
+              "id": "italian-reading-9",
+              "num": {
+                "uk": "Урок 8",
+                "en": "Lesson 8"
+              },
+              "title": {
+                "uk": "Сполука QU",
+                "en": "The QU combination"
+              },
+              "description": {
+                "uk": "Читайте поширені слова з QU",
+                "en": "Read common words with QU"
+              },
+              "time": {
+                "uk": "5 хв",
+                "en": "5 min"
+              },
+              "status": "available",
+              "prevLessonId": "italian-reading-8",
+              "nextLessonId": "italian-reading-10",
+              "access": "paid",
+              "priceId": "price_it_premium"
+            },
+            {
+              "id": "italian-reading-10",
+              "num": {
+                "uk": "Урок 9",
+                "en": "Lesson 9"
+              },
+              "title": {
+                "uk": "Подвоєні приголосні",
+                "en": "Double consonants"
+              },
+              "description": {
+                "uk": "Навчися помічати подвоєні приголосні",
+                "en": "Learn to notice doubled consonants"
+              },
+              "time": {
+                "uk": "5 хв",
+                "en": "5 min"
+              },
+              "status": "available",
+              "prevLessonId": "italian-reading-9",
+              "nextLessonId": "italian-reading-11",
+              "access": "paid",
+              "priceId": "price_it_premium"
+            },
+            {
+              "id": "italian-reading-11",
+              "num": {
+                "uk": "Урок 10",
+                "en": "Lesson 10"
+              },
+              "title": {
+                "uk": "Наголос і акценти",
+                "en": "Stress and accents"
+              },
+              "description": {
+                "uk": "Дізнайся, як чути наголошену частину слова",
+                "en": "Learn to hear the stressed part of a word"
+              },
+              "time": {
+                "uk": "5 хв",
+                "en": "5 min"
+              },
+              "status": "available",
+              "prevLessonId": "italian-reading-10",
+              "nextLessonId": "italian-reading-12",
+              "access": "paid",
+              "priceId": "price_it_premium"
+            },
+            {
+              "id": "italian-reading-12",
+              "num": {
+                "uk": "Урок 11",
+                "en": "Lesson 11"
+              },
+              "title": {
+                "uk": "Читаємо текст",
+                "en": "Let's read a text"
+              },
+              "description": {
+                "uk": "Читай знайомі сполуки в контексті",
+                "en": "Read familiar patterns in context"
+              },
+              "time": {
+                "uk": "5 хв",
+                "en": "5 min"
+              },
+              "status": "available",
+              "prevLessonId": "italian-reading-11",
+              "nextLessonId": null,
+              "access": "paid",
+              "priceId": "price_it_premium"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "tts": "it-IT",
+  "script": "latin",
+  "rtl": false,
+  "availableLocales": [
+    "uk",
+    "en"
+  ],
+  "access": "paid",
+  "priceId": "price_it_premium"
+}

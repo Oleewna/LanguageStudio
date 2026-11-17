@@ -1,0 +1,163 @@
+{
+  "id": "communication-basics-1-practice",
+  "xpReward": 10,
+  "nextLessonId": null,
+  "prevLessonId": "communication-basics-1-greetings",
+  "blocks": [
+    {
+      "id": "dialogue-1",
+      "type": "dialogue",
+      "lines": [
+        {
+          "id": "line-1",
+          "speaker": "Anna",
+          "avatar": "A",
+          "text": "Come ti chiami?",
+          "it": "Come ti chiami?",
+          "audio": true
+        },
+        {
+          "id": "line-2",
+          "speaker": "Marco",
+          "avatar": "M",
+          "text": "Mi chiamo Marco. E tu?",
+          "it": "Mi chiamo Marco. E tu?",
+          "audio": true
+        }
+      ]
+    },
+    {
+      "id": "vocab-2",
+      "type": "vocab",
+      "items": [
+        {
+          "id": "v-1",
+          "text": "Come ti chiami?",
+          "it": "Come ti chiami?"
+        },
+        {
+          "id": "v-2",
+          "text": "Mi chiamo...",
+          "it": "Mi chiamo..."
+        },
+        {
+          "id": "v-3",
+          "text": "E tu?",
+          "it": "E tu?"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-3",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "t-1"
+        },
+        {
+          "id": "t-2"
+        },
+        {
+          "id": "t-3"
+        }
+      ]
+    },
+    {
+      "id": "tasks-4",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "name-question",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "name-answer",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "return-question",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "match-meaning",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "complete-name-question",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "free"
+}

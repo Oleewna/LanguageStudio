@@ -107,4 +107,10 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ss]ceneDependencyCache*
 
 # Node dependencies
-node_modules/
+node_modules/
+
+# Secrets and environment variables
+.env
+*.env
+!.env.example
+

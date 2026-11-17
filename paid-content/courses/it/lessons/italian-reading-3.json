@@ -1,0 +1,164 @@
+{
+  "id": "italian-reading-3",
+  "xpReward": 35,
+  "prevLessonId": "italian-reading-2",
+  "nextLessonId": "italian-reading-4",
+  "blocks": [
+    {
+      "id": "story-ir3",
+      "type": "story_text",
+      "paragraphs": [
+        {
+          "id": "ir3-p1",
+          "text": "Nina cena con le amiche. Dopo, va al cinema."
+        }
+      ],
+      "vocabHints": [
+        {
+          "id": "hint-cena",
+          "word": "cena"
+        },
+        {
+          "id": "hint-amiche",
+          "word": "amiche"
+        },
+        {
+          "id": "hint-dopo",
+          "word": "dopo"
+        },
+        {
+          "id": "hint-cinema",
+          "word": "cinema"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-ir3",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "ir3-t1"
+        },
+        {
+          "id": "ir3-t2"
+        },
+        {
+          "id": "ir3-t3"
+        }
+      ]
+    },
+    {
+      "id": "tasks-ir3",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "ir3_q1",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir3_q1_opt1",
+              "text": "ce, ci",
+              "correct": true
+            },
+            {
+              "id": "ir3_q1_opt2",
+              "text": "ca, co",
+              "correct": false
+            },
+            {
+              "id": "ir3_q1_opt3",
+              "text": "che, chi",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir3_q2",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir3_q2_opt1",
+              "text": "chi",
+              "correct": true
+            },
+            {
+              "id": "ir3_q2_opt2",
+              "text": "ci",
+              "correct": false
+            },
+            {
+              "id": "ir3_q2_opt3",
+              "text": "ce",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir3_q3",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir3_q3_opt1",
+              "text": "cena",
+              "correct": true
+            },
+            {
+              "id": "ir3_q3_opt2",
+              "text": "casa",
+              "correct": false
+            },
+            {
+              "id": "ir3_q3_opt3",
+              "text": "chiave",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir3_q4",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir3_q4_opt1",
+              "text": "chi",
+              "correct": true
+            },
+            {
+              "id": "ir3_q4_opt2",
+              "text": "ci",
+              "correct": false
+            },
+            {
+              "id": "ir3_q4_opt3",
+              "text": "ce",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir3_q5",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir3_q5_opt1",
+              "text": "chi",
+              "correct": true
+            },
+            {
+              "id": "ir3_q5_opt2",
+              "text": "ci",
+              "correct": false
+            },
+            {
+              "id": "ir3_q5_opt3",
+              "text": "che",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "paid",
+  "priceId": "price_it_premium"
+}

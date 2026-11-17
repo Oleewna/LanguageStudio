@@ -646,7 +646,7 @@
     currentMatchTask = task;
     currentMatchData = (task.pairs || []).map((pair, index) => ({
       id: pair.id || `${task.id}-${index}`,
-      it: pair.it || pair.word || '',
+      it: pair.text || pair.it || pair.es || pair.word || '',
       trans: pair.trans || { uk: pair.ua || '', en: pair.en || pair.target || '' }
     }));
     matchSelected = { it: null, target: null };

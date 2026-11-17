@@ -1,8 +1,12 @@
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const { normalizeText } = require('../db/init');
-const contentRepository = require('language-studio-content-db');
 
 const router = express.Router();
+
+const projectRoot = path.resolve(__dirname, '../../../../');
+const vocabCache = new Map();
 
 function normalizeCourseCode(courseCode) {
   const rawValue = String(courseCode || '').trim();
@@ -28,11 +32,16 @@ function buildSearchScore(query, value) {
 }
 
 function getCourseVocabulary(courseCode, res) {
-  const words = contentRepository.getCourseVocabulary(courseCode);
-  if (!words) {
+  if (vocabCache.has(courseCode)) {
+    return vocabCache.get(courseCode);
+  }
+  const vocabPath = path.join(projectRoot, 'courses', courseCode, 'vocab.json');
+  if (!fs.existsSync(vocabPath)) {
     res.status(400).json({ error: `Unknown course: ${courseCode}` });
     return null;
   }
+  const words = JSON.parse(fs.readFileSync(vocabPath, 'utf8'));
+  vocabCache.set(courseCode, words);
   return words;
 }
 
@@ -63,7 +72,7 @@ router.get('/search', (req, res) => {
   const matches = words
     .map((word) => {
       const targets = [
-        word.word,
+        word.word || word.text,
         word.lesson,
         ...(word.lessons || []),
         word.path,
@@ -78,7 +87,7 @@ router.get('/search', (req, res) => {
     })
     .filter((entry) => entry.score < 3)
     .sort((left, right) => left.score - right.score
-      || left.word.word.localeCompare(right.word.word, undefined, { sensitivity: 'base' }))
+      || (left.word.word || left.word.text || '').localeCompare((right.word.word || right.word.text || ''), undefined, { sensitivity: 'base' }))
     .slice(0, limit)
     .map((entry) => entry.word);
 

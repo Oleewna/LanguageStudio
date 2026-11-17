@@ -1,0 +1,78 @@
+{
+  "communication-basics-1-greetings": {
+    "title": "Ввічливі привітання",
+    "subtitle": "Buongiorno чи Buonasera?",
+    "description": "Оберіть ввічливе привітання відповідно до часу доби.",
+    "duration": "2 хв"
+  },
+  "vocab-1": {
+    "title": "Ввічливо привітайтеся"
+  },
+  "v-1": {
+    "trans": "Доброго дня!",
+    "pronunciation": "[буонджорно]"
+  },
+  "v-2": {
+    "trans": "Добрий вечір!",
+    "pronunciation": "[буонасера]"
+  },
+  "v-3": {
+    "trans": "Привіт! / Бувай!",
+    "pronunciation": "[чао]"
+  },
+  "takeaways-2": {
+    "title": "Підказка на сьогодні"
+  },
+  "t-1": {
+    "text": "Buongiorno — одне слово для ввічливого привітання вдень."
+  },
+  "t-2": {
+    "text": "Buonasera — одне слово для ввічливого привітання ввечері."
+  },
+  "t-3": {
+    "text": "Ciao — одне слово для неформального привітання або прощання з друзями."
+  },
+  "tasks-3": {
+    "title": "Швидка практика"
+  },
+  "evening-greeting": {
+    "question": "Яке привітання найкраще підходить для вечора?",
+    "options": {
+      "opt-1": "Buonasera!",
+      "opt-2": "Buongiorno!",
+      "opt-3": "Ciao!"
+    }
+  },
+  "daytime-greeting": {
+    "question": "Коли найкраще сказати «Buongiorno»?",
+    "options": {
+      "opt-1": "Ввічливе привітання вдень",
+      "opt-2": "Ввічливе привітання ввечері",
+      "opt-3": "Неформальне прощання з другом"
+    }
+  },
+  "informal-greeting": {
+    "question": "Яке неформальне привітання також може означати «бувай»?",
+    "options": {
+      "opt-1": "Ciao",
+      "opt-2": "Buongiorno",
+      "opt-3": "Buonasera"
+    }
+  },
+  "translate-daytime": {
+    "question": "Як ввічливо сказати «Доброго дня!»?",
+    "options": {
+      "opt-1": "Buongiorno!",
+      "opt-2": "Buonasera!",
+      "opt-3": "Ciao!"
+    }
+  },
+  "friend-evening": {
+    "question": "Увечері ви зустріли друга. Яке неформальне привітання можна використати?",
+    "options": {
+      "opt-1": "Ciao!",
+      "opt-2": "Buonasera!",
+      "opt-3": "Buongiorno!"
+    }
+  }
+}

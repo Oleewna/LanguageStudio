@@ -1,0 +1,38 @@
+{
+  "italian-reading-2": {
+    "title": "Тверда C",
+    "subtitle": "Читай ca, co та cu",
+    "description": "Почуйте твердий звук C у складах ca, co, cu та знайдіть його у знайомих словах.",
+    "duration": "5 хв"
+  },
+  "story-ir2": { "title": "Читання" },
+  "ir2-p1": { "translations": "Ніна бачить дім. Міна бачить річ: троянду." },
+  "hint-vede": { "translations": "бачить" },
+  "hint-casa": { "translations": "дім" },
+  "hint-cosa": { "translations": "річ" },
+  "hint-rosa": { "translations": "троянда" },
+  "takeaways-ir2": { "title": "Ключові тези" },
+  "ir2-t1": { "text": "У ca, co, cu літера C має твердий звук: casa, cosa, cucina." },
+  "ir2-t2": { "text": "Не поширюйте це правило на всі слова з C: сполуки ce та ci вивчимо окремо." },
+  "tasks-ir2": { "title": "Швидка практика" },
+  "ir2_q1": {
+    "question": "У яких складах C має твердий звук за правилом цього уроку?",
+    "options": { "ir2_q1_opt1": "ca, co, cu", "ir2_q1_opt2": "ce, ci, cu", "ir2_q1_opt3": "ce, co, ci" }
+  },
+  "ir2_q2": {
+    "question": "У якому слові C стоїть перед A?",
+    "options": { "ir2_q2_opt1": "casa", "ir2_q2_opt2": "cosa", "ir2_q2_opt3": "cucina" }
+  },
+  "ir2_q3": {
+    "question": "У якому слові C має твердий звук перед O?",
+    "options": { "ir2_q3_opt1": "cosa", "ir2_q3_opt2": "cena", "ir2_q3_opt3": "chiave" }
+  },
+  "ir2_q4": {
+    "question": "Яке слово містить C перед U?",
+    "options": { "ir2_q4_opt1": "cucina", "ir2_q4_opt2": "cena", "ir2_q4_opt3": "cinema" }
+  },
+  "ir2_q5": {
+    "question": "У якому складі C має твердий звук?",
+    "options": { "ir2_q5_opt1": "ca", "ir2_q5_opt2": "ce", "ir2_q5_opt3": "chi" }
+  }
+}

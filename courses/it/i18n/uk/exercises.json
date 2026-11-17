@@ -1,0 +1,201 @@
+{
+  "mcq-g1": {
+    "question": "Як перекладається італійська фраза «Come stai?»",
+    "explanation": "«Come stai?» використовується для неформального запитання «Як справи?» (до однієї людини).",
+    "options": [
+      {
+        "text": "А) Як тебе звати?"
+      },
+      {
+        "text": "Б) Як справи?"
+      },
+      {
+        "text": "В) Звідки ти?"
+      }
+    ]
+  },
+  "mcq-art1": {
+    "question": "Який визначений артикль чоловічого роду вживається зі словом «ragazzo»?",
+    "explanation": "Для іменників чоловічого роду, що починаються на більшість приголосних, вживається артикль «il» (il ragazzo).",
+    "options": [
+      {
+        "text": "А) la"
+      },
+      {
+        "text": "Б) il"
+      },
+      {
+        "text": "В) lo"
+      }
+    ]
+  },
+  "mcq-verb1": {
+    "question": "Оберіть правильну форму дієслова «essere» для займенника «noi» (ми):",
+    "explanation": "Форми дієслова essere: io sono, tu sei, lui/lei è, noi siamo, voi siete, loro sono.",
+    "options": [
+      {
+        "text": "А) siamo"
+      },
+      {
+        "text": "Б) siete"
+      },
+      {
+        "text": "В) sono"
+      }
+    ]
+  },
+  "mcq-dir1": {
+    "question": "Що означає італійська фраза «Dov'è la stazione?»",
+    "explanation": "«Dov'è...» скорочено від «Dove è...» означає «Де є...?».",
+    "options": [
+      {
+        "text": "А) Коли прибуває потяг?"
+      },
+      {
+        "text": "Б) Де знаходиться вокзал / станція?"
+      },
+      {
+        "text": "В) Скільки коштує квиток?"
+      }
+    ]
+  },
+  "blk-g1": {
+    "question": "«___, come stai?»",
+    "explanation": "Слово «Ciao» вставляється на початку неформального привітання.",
+    "hint": "Підказка: неформальне привітання при зустрічі"
+  },
+  "blk-v1": {
+    "question": "«Io ___ studente di italiano.»",
+    "explanation": "Перша особа однини дієслова essere: «Io sono».",
+    "hint": "Підказка: форма дієслова essere (я є)"
+  },
+  "blk-art1": {
+    "question": "«___ casa è grande e luminosa.»",
+    "explanation": "Casa є іменником жіночого роду, тому артикль «la».",
+    "hint": "Підказка: жіночий артикль однини"
+  },
+  "match-greetings": {
+    "pairs": {
+      "m1": {
+        "trans": "привіт / бувай"
+      },
+      "m2": {
+        "trans": "дякую"
+      },
+      "m3": {
+        "trans": "будь ласка"
+      },
+      "m4": {
+        "trans": "ласкаво просимо"
+      },
+      "m5": {
+        "trans": "Доброго дня"
+      }
+    },
+    "title": "Привітання та Базові фрази"
+  },
+  "reorder-g1": {
+    "explanation": "Порядок слів у питанні привітання: Ciao, come stai?",
+    "clue": "Привіт, як справи?"
+  },
+  "listen-g1": {
+    "explanation": "Озвучене слово: «Prego» (Будь ласка / Нема за що).",
+    "instruction": "Прослухайте аудіо та оберіть переклад слова",
+    "options": [
+      {
+        "text": "А) Дякую"
+      },
+      {
+        "text": "Б) Будь ласка / Нема за що"
+      },
+      {
+        "text": "В) Привіт"
+      }
+    ]
+  },
+  "dlg-g1": {
+    "options": [
+      {
+        "text": "Mi chiamo Sofia. E tu?"
+      },
+      {
+        "text": "Grazie mille per l'aiuto!"
+      },
+      {
+        "text": "Un caffè per favore."
+      }
+    ],
+    "explanation": "На питання «Come ti chiami?» відповідь починається з «Mi chiamo...».",
+    "instruction": "Б: оберіть репліку, якою продовжити знайомство"
+  },
+  "mcq-greeting-evening": {
+    "question": "Яке ввічливе привітання використовують увечері?",
+    "explanation": "Buonasera — ввічливе привітання ввечері.",
+    "options": [
+      {
+        "text": "Buonasera!"
+      },
+      {
+        "text": "Buongiorno!"
+      },
+      {
+        "text": "Arrivederci!"
+      }
+    ]
+  },
+  "blank-greeting-daytime": {
+    "question": "Ввічливо привітайтеся вдень: «_____!»",
+    "explanation": "Buongiorno — ввічливе привітання вдень.",
+    "hint": "Починається зі слова Buon..."
+  },
+  "mcq-name-question": {
+    "question": "Як запитати італійською «Як тебе звати?»",
+    "explanation": "Come ti chiami? запитує ім’я співрозмовника.",
+    "options": [
+      {
+        "text": "Come ti chiami?"
+      },
+      {
+        "text": "Come stai?"
+      },
+      {
+        "text": "Di dove sei?"
+      }
+    ]
+  },
+  "blank-name-answer": {
+    "question": "Доповніть фразу: «Mi _____ Luca.»",
+    "explanation": "Mi chiamo Luca означає «Мене звати Лука».",
+    "hint": "Так італійською кажуть «Мене звати...»"
+  },
+  "mcq-shop1": {
+    "question": "Як правильно запитати про вартість товару італійською мовою?",
+    "explanation": "«Quanto costa?» (однина) та «Quanto costano?» (множина) — фрази для запитання про ціну.",
+    "options": [
+      {
+        "text": "А) Quanto costa?"
+      },
+      {
+        "text": "Б) Che ora è?"
+      },
+      {
+        "text": "В) Chi sei?"
+      }
+    ]
+  },
+  "dlg-cafe1": {
+    "options": [
+      {
+        "text": "Un cappuccino e una brioche, per favore."
+      },
+      {
+        "text": "Piacere di conoscerti!"
+      },
+      {
+        "text": "Sto molto bene, grazie."
+      }
+    ],
+    "explanation": "В барі на питання «Cosa desidera?» замовляють їжу або напої.",
+    "instruction": "Б: оберіть репліку для замовлення в барі"
+  }
+}

@@ -1,0 +1,212 @@
+[
+  {
+    "id": "es-001",
+    "text": "hola",
+    "word": "hola",
+    "es": "hola",
+    "example": {
+      "text": "¡Hola! ¿Cómo estás?"
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "greetings",
+    "category": "greetings",
+    "type": "greeting"
+  },
+  {
+    "id": "es-002",
+    "text": "buenos días",
+    "word": "buenos días",
+    "es": "buenos días",
+    "example": {
+      "text": "Buenos días, señor."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "greetings",
+    "category": "greetings",
+    "type": "phrase"
+  },
+  {
+    "id": "es-003",
+    "text": "gracias",
+    "word": "gracias",
+    "es": "gracias",
+    "example": {
+      "text": "Gracias por tu ayuda."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "courtesy",
+    "type": "phrase"
+  },
+  {
+    "id": "es-004",
+    "text": "por favor",
+    "word": "por favor",
+    "es": "por favor",
+    "example": {
+      "text": "Una taza, por favor."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "courtesy",
+    "type": "phrase"
+  },
+  {
+    "id": "es-005",
+    "text": "¿cómo estás?",
+    "word": "¿cómo estás?",
+    "es": "¿cómo estás?",
+    "example": {
+      "text": "¿Cómo estás hoy?"
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "greetings",
+    "category": "greetings",
+    "type": "phrase"
+  },
+  {
+    "id": "es-006",
+    "text": "estoy bien",
+    "word": "estoy bien",
+    "es": "estoy bien",
+    "example": {
+      "text": "Estoy bien, gracias."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "feelings",
+    "type": "phrase"
+  },
+  {
+    "id": "es-007",
+    "text": "soy",
+    "word": "soy",
+    "es": "soy",
+    "example": {
+      "text": "Soy Ana."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "identity",
+    "type": "verb"
+  },
+  {
+    "id": "es-008",
+    "text": "mucho gusto",
+    "word": "mucho gusto",
+    "es": "mucho gusto",
+    "example": {
+      "text": "Mucho gusto, Marta."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "greetings",
+    "category": "greetings",
+    "type": "phrase"
+  },
+  {
+    "id": "es-009",
+    "text": "necesito ayuda",
+    "word": "necesito ayuda",
+    "es": "necesito ayuda",
+    "example": {
+      "text": "Necesito ayuda, por favor."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "travel",
+    "category": "travel",
+    "type": "phrase"
+  },
+  {
+    "id": "es-010",
+    "text": "¿dónde está el baño?",
+    "word": "¿dónde está el baño?",
+    "es": "¿dónde está el baño?",
+    "example": {
+      "text": "¿Dónde está el baño?"
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "travel",
+    "category": "travel",
+    "type": "question"
+  },
+  {
+    "id": "es-011",
+    "text": "quiero un café",
+    "word": "quiero un café",
+    "es": "quiero un café",
+    "example": {
+      "text": "Quiero un café, por favor."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "food",
+    "category": "food",
+    "type": "phrase"
+  },
+  {
+    "id": "es-012",
+    "text": "la cuenta",
+    "word": "la cuenta",
+    "es": "la cuenta",
+    "example": {
+      "text": "La cuenta, por favor."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "food",
+    "category": "food",
+    "type": "noun"
+  },
+  {
+    "id": "es-013",
+    "text": "la calle",
+    "word": "la calle",
+    "es": "la calle",
+    "example": {
+      "text": "La calle es tranquila."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "travel",
+    "category": "travel",
+    "type": "noun"
+  },
+  {
+    "id": "es-014",
+    "text": "el tren",
+    "word": "el tren",
+    "es": "el tren",
+    "example": {
+      "text": "El tren llega tarde."
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "travel",
+    "category": "travel",
+    "type": "noun"
+  },
+  {
+    "id": "es-015",
+    "text": "no entiendo",
+    "word": "no entiendo",
+    "es": "no entiendo",
+    "example": {
+      "text": "No entiendo, ¿puedes repetir?"
+    },
+    "lesson": "communication-basics-1",
+    "path": "foundations",
+    "topic": "basic",
+    "category": "travel",
+    "type": "phrase"
+  }
+]

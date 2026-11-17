@@ -1,0 +1,140 @@
+{
+  "id": "italian-reading-10",
+  "xpReward": 35,
+  "prevLessonId": "italian-reading-9",
+  "nextLessonId": "italian-reading-11",
+  "blocks": [
+    {
+      "id": "story-ir10",
+      "type": "story_text",
+      "paragraphs": [
+        {
+          "id": "ir10-p1",
+          "text": "A casa, Anna mette la pala nella cassa. Suo figlio gioca con la palla."
+        }
+      ],
+      "vocabHints": [
+        {
+          "id": "hint-mette",
+          "word": "mette"
+        },
+        {
+          "id": "hint-nella",
+          "word": "nella"
+        },
+        {
+          "id": "hint-suo-figlio",
+          "word": "suo figlio"
+        },
+        {
+          "id": "hint-gioca",
+          "word": "gioca"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-ir10",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "ir10-t1"
+        },
+        {
+          "id": "ir10-t2"
+        }
+      ]
+    },
+    {
+      "id": "tasks-ir10",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "ir10_q1",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir10_q1_opt1",
+              "text": "palla",
+              "correct": true
+            },
+            {
+              "id": "ir10_q1_opt2",
+              "text": "pala",
+              "correct": false
+            },
+            {
+              "id": "ir10_q1_opt3",
+              "text": "casa",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir10_q2",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir10_q2_opt1",
+              "text": "palla",
+              "correct": true
+            },
+            {
+              "id": "ir10_q2_opt2",
+              "text": "pala",
+              "correct": false
+            },
+            {
+              "id": "ir10_q2_opt3",
+              "text": "papa",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir10_q3",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir10_q3_opt1",
+              "text": "cassa",
+              "correct": true
+            },
+            {
+              "id": "ir10_q3_opt2",
+              "text": "casa",
+              "correct": false
+            },
+            {
+              "id": "ir10_q3_opt3",
+              "text": "pala",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir10_q4",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir10_q4_opt1",
+              "text": "pal-la",
+              "correct": true
+            },
+            {
+              "id": "ir10_q4_opt2",
+              "text": "pa-lla",
+              "correct": false
+            },
+            {
+              "id": "ir10_q4_opt3",
+              "text": "p-alla",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "paid",
+  "priceId": "price_it_premium"
+}

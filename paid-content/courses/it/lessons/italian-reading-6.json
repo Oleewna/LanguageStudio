@@ -1,0 +1,136 @@
+{
+  "id": "italian-reading-6",
+  "xpReward": 35,
+  "prevLessonId": "italian-reading-5",
+  "nextLessonId": "italian-reading-7",
+  "blocks": [
+    {
+      "id": "story-ir6",
+      "type": "story_text",
+      "paragraphs": [
+        {
+          "id": "ir6-p1",
+          "text": "Scusa, la scala è qui. La scena è bella."
+        }
+      ],
+      "vocabHints": [
+        {
+          "id": "hint-scusa",
+          "word": "scusa"
+        },
+        {
+          "id": "hint-scala",
+          "word": "scala"
+        },
+        {
+          "id": "hint-scena",
+          "word": "scena"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-ir6",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "ir6-t1"
+        },
+        {
+          "id": "ir6-t2"
+        }
+      ]
+    },
+    {
+      "id": "tasks-ir6",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "ir6_q1",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir6_q1_opt1",
+              "text": "sca, sco, scu",
+              "correct": true
+            },
+            {
+              "id": "ir6_q1_opt2",
+              "text": "sce, sci",
+              "correct": false
+            },
+            {
+              "id": "ir6_q1_opt3",
+              "text": "sche, schi",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir6_q2",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir6_q2_opt1",
+              "text": "sce, sci",
+              "correct": true
+            },
+            {
+              "id": "ir6_q2_opt2",
+              "text": "sca, scu",
+              "correct": false
+            },
+            {
+              "id": "ir6_q2_opt3",
+              "text": "sche, schi",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir6_q3",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir6_q3_opt1",
+              "text": "sche, schi",
+              "correct": true
+            },
+            {
+              "id": "ir6_q3_opt2",
+              "text": "sce, sci",
+              "correct": false
+            },
+            {
+              "id": "ir6_q3_opt3",
+              "text": "sca, sco",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir6_q4",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir6_q4_opt1",
+              "text": "sce",
+              "correct": true
+            },
+            {
+              "id": "ir6_q4_opt2",
+              "text": "sche",
+              "correct": false
+            },
+            {
+              "id": "ir6_q4_opt3",
+              "text": "sca",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "paid",
+  "priceId": "price_it_premium"
+}

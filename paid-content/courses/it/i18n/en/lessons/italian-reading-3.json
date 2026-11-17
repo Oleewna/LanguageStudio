@@ -1,0 +1,39 @@
+{
+  "italian-reading-3": {
+    "title": "C and CH",
+    "subtitle": "Hear the difference between C and CH",
+    "description": "Distinguish soft C in ce/ci from hard C in che/chi.",
+    "duration": "5 min"
+  },
+  "story-ir3": { "title": "Reading" },
+  "ir3-p1": { "translations": "Nina has dinner with her friends. Afterward, she goes to the cinema." },
+  "hint-cena": { "translations": "has dinner" },
+  "hint-amiche": { "translations": "friends (feminine group)" },
+  "hint-dopo": { "translations": "afterward" },
+  "hint-cinema": { "translations": "cinema" },
+  "takeaways-ir3": { "title": "Key takeaways" },
+  "ir3-t1": { "text": "ce and ci have the soft C sound: cena, cinema." },
+  "ir3-t2": { "text": "In che and chi, H keeps the hard C sound; H itself is not pronounced." },
+  "ir3-t3": { "text": "Listen and repeat; do not rely on approximating the sounds with spellings from another language." },
+  "tasks-ir3": { "title": "Quick practice" },
+  "ir3_q1": {
+    "question": "Which combinations have the soft C sound?",
+    "options": { "ir3_q1_opt1": "ce and ci", "ir3_q1_opt2": "ca and co", "ir3_q1_opt3": "che and chi" }
+  },
+  "ir3_q2": {
+    "question": "What does H do in che and chi?",
+    "options": { "ir3_q2_opt1": "Keeps the hard C sound before E and I", "ir3_q2_opt2": "Creates a separate sound after C", "ir3_q2_opt3": "Changes C to the soft sound" }
+  },
+  "ir3_q3": {
+    "question": "In which word does C have the soft sound?",
+    "options": { "ir3_q3_opt1": "cena", "ir3_q3_opt2": "casa", "ir3_q3_opt3": "chiave" }
+  },
+  "ir3_q4": {
+    "question": "Which spelling has hard C before I?",
+    "options": { "ir3_q4_opt1": "chi", "ir3_q4_opt2": "ci", "ir3_q4_opt3": "ce" }
+  },
+  "ir3_q5": {
+    "question": "How do you spell the syllable with hard C before I?",
+    "options": { "ir3_q5_opt1": "chi", "ir3_q5_opt2": "ci", "ir3_q5_opt3": "che" }
+  }
+}

@@ -27,7 +27,7 @@
       }
     }
     if (typeof localStorage !== 'undefined') {
-      const saved = localStorage.getItem('ls_italian_source_language');
+      const saved = localStorage.getItem('ls_source_language') || localStorage.getItem('ls_italian_source_language');
       if (saved && saved !== 'device') return saved;
     }
     if (typeof navigator !== 'undefined' && (navigator.language || '').toLowerCase().startsWith('uk')) {
@@ -195,6 +195,10 @@
       if (typeof window.addXP === 'function') {
         return window.addXP(xpToAdd);
       }
+      if (window.Progress && typeof window.Progress.recordXp === 'function') {
+        window.Progress.recordXp({ courseId: getCurrentCourseId(), amount: xpToAdd, source: 'lesson' }).catch(() => {});
+        return typeof window.Progress.getXP === 'function' ? window.Progress.getXP() : xpToAdd;
+      }
     }
 
     try {
@@ -217,6 +221,9 @@
    * @returns {string[]}
    */
   function getCompletedLessons() {
+    if (typeof window !== 'undefined' && window.Progress && typeof window.Progress.getCompletedLessons === 'function') {
+      return window.Progress.getCompletedLessons(getCurrentCourseId());
+    }
     try {
       const raw = localStorage.getItem('ls_completed_lessons');
       if (!raw) return [];
@@ -271,6 +278,9 @@
    */
   function isLessonCompleted(lessonId) {
     if (!lessonId) return false;
+    if (typeof window !== 'undefined' && window.Progress && typeof window.Progress.isLessonCompleted === 'function') {
+      return window.Progress.isLessonCompleted(lessonId, getCurrentCourseId());
+    }
     return getCompletedLessons().includes(String(lessonId));
   }
 
@@ -345,7 +355,7 @@
         ? 'av-student'
         : 'av-marco';
 
-      const italianText = line.it || line.text || '';
+      const italianText = line.text || line.it || line.es || '';
       const pronunciation = t(line.pronunciation || line.phon || '', '', lang);
       const translationText = t(line.trans || line.translations || line.translation || '', '', lang);
 
@@ -457,10 +467,10 @@
     const vocabHints = section.vocabHints || [];
 
     const paragraphsHtml = (section.paragraphs || []).map((p, idx) => {
-      const enrichedItalian = enrichStoryWithVocabHints(p.it || '', vocabHints, lang);
+      const enrichedItalian = enrichStoryWithVocabHints(p.text || p.it || '', vocabHints, lang);
       const trans = t(p.translations, '', lang);
       const audioButton = section.audio === true ? `
-        <button type="button" class="audio-btn story-audio-btn" aria-label="${escapeAttr(uiText('listen', {}, lang))}" title="${escapeAttr(uiText('listen', {}, lang))}" data-speak-text="${escapeAttr(p.it || '')}">
+        <button type="button" class="audio-btn story-audio-btn" aria-label="${escapeAttr(uiText('listen', {}, lang))}" title="${escapeAttr(uiText('listen', {}, lang))}" data-speak-text="${escapeAttr(p.text || p.it || '')}">
           ${getIconSvg('audio')}
         </button>
       ` : '';
@@ -540,7 +550,7 @@
     const sectionId = `vocab-${section.id || Math.random().toString(36).slice(2, 9)}`;
 
     const itemsHtml = items.map(item => {
-      const it = escapeHtml(item.it || '');
+      const it = escapeHtml(item.text || item.it || item.es || item.word || '');
       const trans = escapeHtml(t(item.translations, '', lang));
       const pronunciation = escapeHtml(t(item.pronunciation || item.phon || '', '', lang));
 
@@ -548,7 +558,7 @@
         <li class="vocab-list-item">
           <div class="vocab-list-word">
             <b>${it}</b>
-            <button class="audio-btn" type="button" aria-label="${escapeAttr(uiText('listen', {}, lang))}" data-speak-text="${escapeAttr(item.it || '')}">
+            <button class="audio-btn" type="button" aria-label="${escapeAttr(uiText('listen', {}, lang))}" data-speak-text="${escapeAttr(item.text || item.it || item.es || item.word || '')}">
               ${getIconSvg('audio')}
             </button>
           </div>
@@ -1628,7 +1638,7 @@
 
     // Fallback storage event listener for cross-tab or direct localStorage updates
     window.addEventListener('storage', (e) => {
-      if (e.key === 'ls_italian_source_language') {
+      if (e.key === 'ls_source_language' || e.key === 'ls_italian_source_language') {
         rerenderCurrentLesson();
       }
     });

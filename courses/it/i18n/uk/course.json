@@ -1,0 +1,63 @@
+{
+  "tagline": "Italian for real-life situations",
+  "target": {
+    "name": "Italian"
+  },
+  "exerciseCategories": {
+    "articles": {
+      "name": "Іменники & Артиклі"
+    },
+    "verbs": {
+      "name": "Дієслова"
+    },
+    "pronouns": {
+      "name": "Займенники & Прийменники"
+    },
+    "sentence": {
+      "name": "Структура речення"
+    },
+    "greetings": {
+      "name": "Знайомство & Сусіди"
+    },
+    "cafe": {
+      "name": "У кафе та барі"
+    },
+    "directions": {
+      "name": "Орієнтування в місті"
+    },
+    "shopping": {
+      "name": "Покупки та ціни"
+    }
+  },
+  "paths": {
+    "communication-basics": {
+      "title": "Основи спілкування",
+      "subtitle": "Привітання та перше знайомство"
+    }
+  },
+  "units": {
+    "communication-basics-1": {
+      "title": "Перші кроки"
+    }
+  },
+  "lessons": {
+    "communication-basics-1": {
+      "num": "Урок 1",
+      "title": "Привіт, як справи?",
+      "description": "Привітайтеся з другом і запитайте, як у нього справи",
+      "time": "2 хв"
+    },
+    "communication-basics-1-greetings": {
+      "num": "Урок 2",
+      "title": "Ввічливі привітання",
+      "description": "Оберіть ввічливе привітання відповідно до часу доби",
+      "time": "2 хв"
+    },
+    "communication-basics-1-practice": {
+      "num": "Урок 3",
+      "title": "Як тебе звати?",
+      "description": "Запитайте ім’я співрозмовника й представтеся",
+      "time": "2 хв"
+    }
+  }
+}

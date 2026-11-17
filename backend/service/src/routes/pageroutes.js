@@ -59,4 +59,20 @@ router.get('/lesson', (req, res) => {
     res.sendFile(path.join(__dirname, '../../../../frontend/public/pages/lesson.html'));
 });
 
+// GET Pricing & Plans page
+router.get('/pricing', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../../frontend/public/pages/pricing.html'));
+});
+router.get('/pages/pricing', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../../frontend/public/pages/pricing.html'));
+});
+
+// GET Checkout stub page
+router.get('/checkout', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../../frontend/public/pages/checkout.html'));
+});
+router.get('/pages/checkout', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../../frontend/public/pages/checkout.html'));
+});
+
 module.exports = router;

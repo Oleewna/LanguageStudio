@@ -96,6 +96,11 @@ function renderLessonRow(lesson, nodeState = 'upcoming') {
   const statusIcon = !isAvailable ? 'lock' : lesson.completed ? 'status-dot' : nodeState === 'current' ? 'sparkles' : 'play';
   const statusText = `${getIconSvg(statusIcon)} ${escapeHtml(statusLabel)}`;
 
+  const isPaid = lesson.access === 'paid';
+  const paidBadge = isPaid && !lesson.completed
+    ? `<span class="lesson-badge-paid" style="font-size:0.75rem;padding:0.15rem 0.5rem;background:#fef3c7;color:#b45309;border-radius:4px;font-weight:700;margin-left:0.5rem;display:inline-flex;align-items:center;gap:3px;"><span style="font-size:0.7rem;">🔒</span> ${lang === 'en' ? 'PRO' : 'PRO'}</span>`
+    : '';
+
   const numHtml = lessonNum ? `<div class="lesson-num">${escapeHtml(lessonNum)}</div>` : '';
   const descHtml = description ? `<div class="lesson-it">${escapeHtml(description)}</div>` : '';
   const timeHtml = time ? `<span class="lesson-time">${escapeHtml(time)}</span>` : '';
@@ -104,7 +109,7 @@ function renderLessonRow(lesson, nodeState = 'upcoming') {
         <span class="lesson-node-marker">${getIconSvg(statusIcon)}</span>
         <div class="lesson-node-copy">
           ${numHtml}
-          <div class="lesson-name">${escapeHtml(title)}</div>
+          <div class="lesson-name">${escapeHtml(title)}${paidBadge}</div>
           ${descHtml}
           <div class="lesson-right">
             <span class="${statusClass}">${statusText}</span>

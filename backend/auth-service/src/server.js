@@ -4,10 +4,16 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const authRoutes = require('./routes/auth');
+const { googleCallback, googleRedirect } = require('./controllers/authController');
 const app = express();
 
 app.use(express.json({ limit: '16kb' }));
 app.use('/api/auth', authRoutes);
+
+// Direct aliases on root in case Google OAuth callback redirects straight to auth-service (:3007)
+app.get('/google/callback', googleCallback);
+app.get('/google', googleRedirect);
+
 app.get('/health', (req, res) => res.json({ status: 'ok', service: 'auth' }));
 
 app.use((error, req, res, next) => {

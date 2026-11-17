@@ -1,0 +1,224 @@
+[
+  {
+    "id": "es-mcq-01",
+    "format": "mcq",
+    "category": "greetings",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "correct": false
+      },
+      {
+        "id": "opt-2",
+        "correct": true
+      },
+      {
+        "id": "opt-3",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "es-mcq-02",
+    "format": "mcq",
+    "category": "verbs",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "correct": true
+      },
+      {
+        "id": "opt-2",
+        "correct": false
+      },
+      {
+        "id": "opt-3",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "es-blank-01",
+    "format": "blank",
+    "category": "greetings",
+    "answers": [
+      "hola"
+    ],
+    "xp": 10
+  },
+  {
+    "id": "es-blank-02",
+    "format": "blank",
+    "category": "articles",
+    "answers": [
+      "la"
+    ],
+    "xp": 10
+  },
+  {
+    "id": "es-match-01",
+    "format": "match",
+    "category": "greetings",
+    "xp": 20,
+    "pairs": [
+      {
+        "id": "m1",
+        "text": "hola",
+        "es": "hola"
+      },
+      {
+        "id": "m2",
+        "text": "gracias",
+        "es": "gracias"
+      },
+      {
+        "id": "m3",
+        "text": "por favor",
+        "es": "por favor"
+      },
+      {
+        "id": "m4",
+        "text": "mucho gusto",
+        "es": "mucho gusto"
+      }
+    ]
+  },
+  {
+    "id": "es-reorder-01",
+    "format": "reorder",
+    "category": "greetings",
+    "words": [
+      "¡Hola!",
+      "¿cómo",
+      "estás?"
+    ],
+    "xp": 10
+  },
+  {
+    "id": "es-dialogue-01",
+    "format": "dialogue",
+    "category": "greetings",
+    "lineA": "A: «Buenos días, ¿cómo estás?»",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "text": "Estoy bien, gracias.",
+        "correct": true
+      },
+      {
+        "id": "opt-2",
+        "text": "La cuenta, por favor.",
+        "correct": false
+      },
+      {
+        "id": "opt-3",
+        "text": "No entiendo.",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "es-mcq-03",
+    "format": "mcq",
+    "category": "travel",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "correct": true
+      },
+      {
+        "id": "opt-2",
+        "correct": false
+      },
+      {
+        "id": "opt-3",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "es-blank-03",
+    "format": "blank",
+    "category": "food",
+    "answers": [
+      "café"
+    ],
+    "xp": 10
+  },
+  {
+    "id": "es-dialogue-02",
+    "format": "dialogue",
+    "category": "food",
+    "lineA": "A: «Una tapa y dos aguas, por favor.»",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "text": "Claro, aquí tienen.",
+        "correct": true
+      },
+      {
+        "id": "opt-2",
+        "text": "Mucho gusto.",
+        "correct": false
+      },
+      {
+        "id": "opt-3",
+        "text": "¿Dónde está el tren?",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "es-mcq-04",
+    "format": "mcq",
+    "category": "verbs",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "correct": true
+      },
+      {
+        "id": "opt-2",
+        "correct": false
+      },
+      {
+        "id": "opt-3",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "es-match-02",
+    "format": "match",
+    "category": "travel",
+    "xp": 20,
+    "pairs": [
+      {
+        "id": "m5",
+        "text": "¿dónde está el baño?",
+        "es": "¿dónde está el baño?"
+      },
+      {
+        "id": "m6",
+        "text": "el tren",
+        "es": "el tren"
+      },
+      {
+        "id": "m7",
+        "text": "la calle",
+        "es": "la calle"
+      },
+      {
+        "id": "m8",
+        "text": "no entiendo",
+        "es": "no entiendo"
+      }
+    ]
+  }
+]

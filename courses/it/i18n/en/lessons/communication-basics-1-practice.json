@@ -1,0 +1,90 @@
+{
+  "communication-basics-1-practice": {
+    "title": "What is your name?",
+    "subtitle": "Come ti chiami?",
+    "description": "Ask someone’s name and give a simple answer.",
+    "duration": "2 min"
+  },
+  "dialogue-1": {
+    "title": "Meet someone",
+    "story": "Anna asks Marco his name. He answers and asks her in return."
+  },
+  "line-1": {
+    "trans": "What is your name?",
+    "pronunciation": "[KOH-meh tee KYAH-mee]"
+  },
+  "line-2": {
+    "trans": "My name is Marco. And you?",
+    "pronunciation": "[mee KYAH-moh MAR-koh. eh too]"
+  },
+  "vocab-2": {
+    "title": "Say your name"
+  },
+  "v-1": {
+    "trans": "What is your name?",
+    "pronunciation": "[KOH-meh tee KYAH-mee]"
+  },
+  "v-2": {
+    "trans": "My name is...",
+    "pronunciation": "[mee KYAH-moh]"
+  },
+  "v-3": {
+    "trans": "And you?",
+    "pronunciation": "[eh too]"
+  },
+  "takeaways-3": {
+    "title": "Remember"
+  },
+  "t-1": {
+    "text": "Come means “how/what”; ti means “yourself”; chiami means “you call.”"
+  },
+  "t-2": {
+    "text": "Mi means “myself”; chiamo means “I call.”"
+  },
+  "t-3": {
+    "text": "E means “and”; tu means “you.”"
+  },
+  "tasks-4": {
+    "title": "Quick practice"
+  },
+  "name-question": {
+    "question": "Choose the phrase “What is your name?”",
+    "options": {
+      "opt-1": "Come ti chiami?",
+      "opt-2": "Di dove sei?",
+      "opt-3": "Come stai?"
+    }
+  },
+  "name-answer": {
+    "question": "How do you say “My name is Marco”?",
+    "options": {
+      "opt-1": "Mi chiamo Marco.",
+      "opt-2": "Come ti chiami?",
+      "opt-3": "E tu?"
+    }
+  },
+  "return-question": {
+    "question": "Marco says “Mi chiamo Marco.” How do you ask “And you?”",
+    "options": {
+      "opt-1": "E tu?",
+      "opt-2": "Come stai?",
+      "opt-3": "Buonasera!"
+    }
+  },
+  "match-meaning": {
+    "question": "What does “Mi chiamo Marco” mean?",
+    "options": {
+      "opt-1": "My name is Marco.",
+      "opt-2": "What is your name?",
+      "opt-3": "And you?"
+    }
+  },
+  "complete-name-question": {
+    "question": "Complete: “Come ti _____? — Mi chiamo Luca.”",
+    "options": {
+      "opt-1": "chiami",
+      "opt-2": "chiamo",
+      "opt-3": "stai"
+    }
+  }
+}

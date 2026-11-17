@@ -1,0 +1,125 @@
+{
+  "id": "communication-basics-1",
+  "blocks": [
+    {
+      "id": "dialogue-1",
+      "type": "dialogue",
+      "lines": [
+        {
+          "id": "line-1",
+          "speaker": "Ana",
+          "avatar": "A",
+          "text": "¡Hola!",
+          "es": "¡Hola!",
+          "audio": true
+        },
+        {
+          "id": "line-2",
+          "speaker": "María",
+          "avatar": "M",
+          "text": "¡Hola! ¿Cómo estás?",
+          "es": "¡Hola! ¿Cómo estás?",
+          "audio": true
+        },
+        {
+          "id": "line-3",
+          "speaker": "Ana",
+          "avatar": "A",
+          "text": "Estoy bien, gracias. Soy Ana.",
+          "es": "Estoy bien, gracias. Soy Ana.",
+          "audio": true
+        },
+        {
+          "id": "line-4",
+          "speaker": "María",
+          "avatar": "M",
+          "text": "Mucho gusto, Ana.",
+          "es": "Mucho gusto, Ana.",
+          "audio": true
+        }
+      ]
+    },
+    {
+      "id": "vocab-2",
+      "type": "vocab",
+      "items": [
+        {
+          "id": "v-1",
+          "text": "hola",
+          "es": "hola"
+        },
+        {
+          "id": "v-2",
+          "text": "¿cómo estás?",
+          "es": "¿cómo estás?"
+        },
+        {
+          "id": "v-3",
+          "text": "soy",
+          "es": "soy"
+        },
+        {
+          "id": "v-4",
+          "text": "mucho gusto",
+          "es": "mucho gusto"
+        }
+      ]
+    },
+    {
+      "id": "culture-3",
+      "type": "culture",
+      "paragraphs": [
+        {
+          "id": "p-1"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-4",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "t-1"
+        },
+        {
+          "id": "t-2"
+        },
+        {
+          "id": "t-3"
+        }
+      ]
+    },
+    {
+      "id": "tasks-5",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "q1",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "q2",
+          "kind": "truefalse"
+        },
+        {
+          "id": "q3",
+          "kind": "text"
+        }
+      ]
+    }
+  ]
+}

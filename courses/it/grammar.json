@@ -1,0 +1,187 @@
+{
+  "topics": [
+    {
+      "id": "articoli",
+      "icon": "article",
+      "blocks": [
+        {
+          "id": "articoli-block-1",
+          "type": "table",
+          "head": [
+            "",
+            "il",
+            "lo",
+            "l'"
+          ],
+          "rows": [
+            [
+              "",
+              "**il** ragazzo",
+              "**lo** studente",
+              "**l'**amico"
+            ],
+            [
+              "",
+              "**i** ragazzi",
+              "**gli** studenti",
+              "**gli** amici"
+            ],
+            [
+              "",
+              "**la** pizza",
+              "**la** ragazza",
+              "**l'**amica"
+            ],
+            [
+              "",
+              "**le** pizze",
+              "**le** ragazze",
+              "**le** amiche"
+            ]
+          ]
+        },
+        {
+          "id": "articoli-block-2",
+          "type": "note",
+          "icon": "lightbulb"
+        },
+        {
+          "id": "articoli-block-3",
+          "type": "examples",
+          "items": [
+            {
+              "id": "ex-1",
+              "text": {
+                "uk": "**Il** libro è interessante.",
+                "en": "**Il** libro è interessante."
+              },
+              "it": {
+                "uk": "**Il** libro è interessante.",
+                "en": "**Il** libro è interessante."
+              }
+            },
+            {
+              "id": "ex-2",
+              "text": {
+                "uk": "**La** casa è grande.",
+                "en": "**La** casa è grande."
+              },
+              "it": {
+                "uk": "**La** casa è grande.",
+                "en": "**La** casa è grande."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "verbi",
+      "icon": "verb",
+      "blocks": [
+        {
+          "id": "verbi-block-1",
+          "type": "table",
+          "head": [
+            "",
+            "Essere",
+            "Avere",
+            ""
+          ],
+          "rows": [
+            [
+              "**io** (я)",
+              "sono",
+              "ho",
+              "Io sono Sofia / Ho un gatto"
+            ],
+            [
+              "**tu** (ти)",
+              "sei",
+              "hai",
+              "Sei italiana? / Hai fame?"
+            ],
+            [
+              "**lui / lei** (він / вона)",
+              "è",
+              "ha",
+              "Lui è Marco / Lei ha una casa"
+            ],
+            [
+              "**noi** (ми)",
+              "siamo",
+              "abbiamo",
+              "Siamo a Milano / Abbiamo tempo"
+            ],
+            [
+              "**voi** (ви)",
+              "siete",
+              "avete",
+              "Siete pronti? / Avete domande?"
+            ],
+            [
+              "**loro** (вони)",
+              "sono",
+              "hanno",
+              "Sono gentili / Hanno fretta"
+            ]
+          ]
+        },
+        {
+          "id": "verbi-block-2",
+          "type": "rules",
+          "items": [
+            {
+              "id": "rule-1"
+            },
+            {
+              "id": "rule-2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cortesia",
+      "icon": "greeting",
+      "blocks": [
+        {
+          "id": "cortesia-block-1",
+          "type": "table",
+          "head": [
+            "",
+            "",
+            ""
+          ],
+          "rows": [
+            [
+              "",
+              "Ciao!",
+              "Buongiorno / Buonasera"
+            ],
+            [
+              "",
+              "Come stai?",
+              "Come sta?"
+            ],
+            [
+              "",
+              "Come ti chiami?",
+              "Come si chiama?"
+            ],
+            [
+              "",
+              "Scusa!",
+              "Scusi!"
+            ],
+            [
+              "",
+              "Ciao! / A presto!",
+              "Arrivederla! / Arrivederci!"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

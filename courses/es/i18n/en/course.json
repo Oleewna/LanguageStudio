@@ -1,0 +1,42 @@
+{
+  "tagline": "Spanish for everyday conversations",
+  "target": {
+    "name": "Spanish"
+  },
+  "exerciseCategories": {
+    "articles": {
+      "name": "Articles & nouns"
+    },
+    "verbs": {
+      "name": "Verbs"
+    },
+    "greetings": {
+      "name": "Greetings"
+    },
+    "food": {
+      "name": "Food & cafe"
+    },
+    "travel": {
+      "name": "Travel"
+    }
+  },
+  "paths": {
+    "foundations": {
+      "title": "Communication basics",
+      "subtitle": "Greetings, introductions, and basic phrases"
+    }
+  },
+  "units": {
+    "foundations-1": {
+      "title": "First steps"
+    }
+  },
+  "lessons": {
+    "communication-basics-1": {
+      "num": "Lesson 1",
+      "title": "Introductions",
+      "description": "Learn how to greet people and introduce yourself",
+      "time": "~15 min"
+    }
+  }
+}

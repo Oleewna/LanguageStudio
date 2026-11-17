@@ -1,0 +1,140 @@
+{
+  "id": "italian-reading-7",
+  "xpReward": 35,
+  "prevLessonId": "italian-reading-6",
+  "nextLessonId": "italian-reading-8",
+  "blocks": [
+    {
+      "id": "story-ir7",
+      "type": "story_text",
+      "paragraphs": [
+        {
+          "id": "ir7-p1",
+          "text": "Il signore prepara la lasagna. Dopo, fa un bagno."
+        }
+      ],
+      "vocabHints": [
+        {
+          "id": "hint-signore",
+          "word": "signore"
+        },
+        {
+          "id": "hint-prepara",
+          "word": "prepara"
+        },
+        {
+          "id": "hint-lasagna",
+          "word": "lasagna"
+        },
+        {
+          "id": "hint-bagno",
+          "word": "bagno"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-ir7",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "ir7-t1"
+        },
+        {
+          "id": "ir7-t2"
+        }
+      ]
+    },
+    {
+      "id": "tasks-ir7",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "ir7_q1",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir7_q1_opt1",
+              "text": "As one consonant combination",
+              "correct": true
+            },
+            {
+              "id": "ir7_q1_opt2",
+              "text": "As two fully separate consonant sounds",
+              "correct": false
+            },
+            {
+              "id": "ir7_q1_opt3",
+              "text": "As a G sound with no N",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir7_q2",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir7_q2_opt1",
+              "text": "ba-gno",
+              "correct": true
+            },
+            {
+              "id": "ir7_q2_opt2",
+              "text": "bag-no",
+              "correct": false
+            },
+            {
+              "id": "ir7_q2_opt3",
+              "text": "b-a-gno",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir7_q3",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir7_q3_opt1",
+              "text": "bagno",
+              "correct": true
+            },
+            {
+              "id": "ir7_q3_opt2",
+              "text": "banana",
+              "correct": false
+            },
+            {
+              "id": "ir7_q3_opt3",
+              "text": "bambino",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir7_q4",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir7_q4_opt1",
+              "text": "ba-gno",
+              "correct": true
+            },
+            {
+              "id": "ir7_q4_opt2",
+              "text": "bag-no",
+              "correct": false
+            },
+            {
+              "id": "ir7_q4_opt3",
+              "text": "b-agno",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "paid",
+  "priceId": "price_it_premium"
+}

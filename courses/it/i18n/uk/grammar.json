@@ -1,0 +1,157 @@
+{
+  "articoli": {
+    "title": "Артиклі",
+    "blocks": {
+      "articoli-block-1": {
+        "head": [
+          "",
+          "il",
+          "lo",
+          "l'"
+        ],
+        "rows": [
+          [
+            "",
+            "**il** ragazzo",
+            "**lo** studente",
+            "**l'**amico"
+          ],
+          [
+            "",
+            "**i** ragazzi",
+            "**gli** studenti",
+            "**gli** amici"
+          ],
+          [
+            "",
+            "**la** pizza",
+            "**la** ragazza",
+            "**l'**amica"
+          ],
+          [
+            "",
+            "**le** pizze",
+            "**le** ragazze",
+            "**le** amiche"
+          ]
+        ]
+      },
+      "articoli-block-2": {
+        "title": "Зверніть увагу:",
+        "text": "Перед голосними в однині артиклі **lo** та **la** скорочуються до **l'** (l'albergo, l'ora)."
+      },
+      "articoli-block-3": {
+        "items": {
+          "ex-1": {
+            "trans": ""
+          },
+          "ex-2": {
+            "trans": ""
+          }
+        }
+      }
+    }
+  },
+  "verbi": {
+    "title": "Essere & Avere",
+    "blocks": {
+      "verbi-block-1": {
+        "head": [
+          "",
+          "Essere",
+          "Avere",
+          ""
+        ],
+        "rows": [
+          [
+            "**io** (я)",
+            "sono",
+            "ho",
+            "Io sono Sofia / Ho un gatto"
+          ],
+          [
+            "**tu** (ти)",
+            "sei",
+            "hai",
+            "Sei italiana? / Hai fame?"
+          ],
+          [
+            "**lui / lei** (він / вона)",
+            "è",
+            "ha",
+            "Lui è Marco / Lei ha una casa"
+          ],
+          [
+            "**noi** (ми)",
+            "siamo",
+            "abbiamo",
+            "Siamo a Milano / Abbiamo tempo"
+          ],
+          [
+            "**voi** (ви)",
+            "siete",
+            "avete",
+            "Siete pronti? / Avete domande?"
+          ],
+          [
+            "**loro** (вони)",
+            "sono",
+            "hanno",
+            "Sono gentili / Hanno fretta"
+          ]
+        ]
+      },
+      "verbi-block-2": {
+        "items": {
+          "rule-1": {
+            "title": "",
+            "text": ""
+          },
+          "rule-2": {
+            "title": "",
+            "text": ""
+          }
+        }
+      }
+    }
+  },
+  "cortesia": {
+    "title": "Tu vs Lei",
+    "blocks": {
+      "cortesia-block-1": {
+        "head": [
+          "",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "",
+            "Ciao!",
+            "Buongiorno / Buonasera"
+          ],
+          [
+            "",
+            "Come stai?",
+            "Come sta?"
+          ],
+          [
+            "",
+            "Come ti chiami?",
+            "Come si chiama?"
+          ],
+          [
+            "",
+            "Scusa!",
+            "Scusi!"
+          ],
+          [
+            "",
+            "Ciao! / A presto!",
+            "Arrivederla! / Arrivederci!"
+          ]
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "id": "italian-reading-9",
+  "xpReward": 35,
+  "prevLessonId": "italian-reading-8",
+  "nextLessonId": "italian-reading-10",
+  "blocks": [
+    {
+      "id": "story-ir9",
+      "type": "story_text",
+      "paragraphs": [
+        {
+          "id": "ir9-p1",
+          "text": "Quando arriva Luca, chiede: «Quanto costa questo libro?»"
+        }
+      ],
+      "vocabHints": [
+        {
+          "id": "hint-quando",
+          "word": "quando"
+        },
+        {
+          "id": "hint-arriva",
+          "word": "arriva"
+        },
+        {
+          "id": "hint-chiede",
+          "word": "chiede"
+        },
+        {
+          "id": "hint-quanto",
+          "word": "quanto"
+        },
+        {
+          "id": "hint-questo-libro",
+          "word": "questo libro"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-ir9",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "ir9-t1"
+        },
+        {
+          "id": "ir9-t2"
+        }
+      ]
+    },
+    {
+      "id": "tasks-ir9",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "ir9_q1",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir9_q1_opt1",
+              "text": "qu",
+              "correct": true
+            },
+            {
+              "id": "ir9_q1_opt2",
+              "text": "gu",
+              "correct": false
+            },
+            {
+              "id": "ir9_q1_opt3",
+              "text": "cu",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir9_q2",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir9_q2_opt1",
+              "text": "quando",
+              "correct": true
+            },
+            {
+              "id": "ir9_q2_opt2",
+              "text": "guanto",
+              "correct": false
+            },
+            {
+              "id": "ir9_q2_opt3",
+              "text": "cuoco",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir9_q3",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir9_q3_opt1",
+              "text": "qu",
+              "correct": true
+            },
+            {
+              "id": "ir9_q3_opt2",
+              "text": "gu",
+              "correct": false
+            },
+            {
+              "id": "ir9_q3_opt3",
+              "text": "cu",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir9_q4",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir9_q4_opt1",
+              "text": "Quanto",
+              "correct": true
+            },
+            {
+              "id": "ir9_q4_opt2",
+              "text": "arriva",
+              "correct": false
+            },
+            {
+              "id": "ir9_q4_opt3",
+              "text": "Luca",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir9_q5",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir9_q5_opt1",
+              "text": "quando",
+              "correct": true
+            },
+            {
+              "id": "ir9_q5_opt2",
+              "text": "quanto",
+              "correct": false
+            },
+            {
+              "id": "ir9_q5_opt3",
+              "text": "questo",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "paid",
+  "priceId": "price_it_premium"
+}

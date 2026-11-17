@@ -1,0 +1,141 @@
+{
+  "id": "communication-basics-1-greetings",
+  "xpReward": 10,
+  "nextLessonId": "communication-basics-1-practice",
+  "prevLessonId": "communication-basics-1",
+  "blocks": [
+    {
+      "id": "vocab-1",
+      "type": "vocab",
+      "items": [
+        {
+          "id": "v-1",
+          "text": "Buongiorno!",
+          "it": "Buongiorno!"
+        },
+        {
+          "id": "v-2",
+          "text": "Buonasera!",
+          "it": "Buonasera!"
+        },
+        {
+          "id": "v-3",
+          "text": "Ciao!",
+          "it": "Ciao!"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-2",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "t-1"
+        },
+        {
+          "id": "t-2"
+        },
+        {
+          "id": "t-3"
+        }
+      ]
+    },
+    {
+      "id": "tasks-3",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "evening-greeting",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "daytime-greeting",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "informal-greeting",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "translate-daytime",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "friend-evening",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "opt-1",
+              "correct": true
+            },
+            {
+              "id": "opt-2",
+              "correct": false
+            },
+            {
+              "id": "opt-3",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "free"
+}

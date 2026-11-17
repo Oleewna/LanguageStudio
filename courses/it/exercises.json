@@ -1,0 +1,316 @@
+[
+  {
+    "id": "mcq-g1",
+    "format": "mcq",
+    "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "correct": false
+      },
+      {
+        "id": "opt-2",
+        "correct": true
+      },
+      {
+        "id": "opt-3",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "mcq-art1",
+    "format": "mcq",
+    "category": "articles",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "correct": false
+      },
+      {
+        "id": "opt-2",
+        "correct": true
+      },
+      {
+        "id": "opt-3",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "mcq-verb1",
+    "format": "mcq",
+    "category": "verbs",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "correct": true
+      },
+      {
+        "id": "opt-2",
+        "correct": false
+      },
+      {
+        "id": "opt-3",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "mcq-dir1",
+    "format": "mcq",
+    "category": "directions",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "correct": false
+      },
+      {
+        "id": "opt-2",
+        "correct": true
+      },
+      {
+        "id": "opt-3",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "blk-g1",
+    "format": "blank",
+    "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1",
+    "answers": [
+      "ciao"
+    ],
+    "xp": 10
+  },
+  {
+    "id": "blk-v1",
+    "format": "blank",
+    "category": "verbs",
+    "answers": [
+      "sono"
+    ],
+    "xp": 10
+  },
+  {
+    "id": "blk-art1",
+    "format": "blank",
+    "category": "articles",
+    "answers": [
+      "la"
+    ],
+    "xp": 10
+  },
+  {
+    "id": "match-greetings",
+    "format": "match",
+    "category": "greetings",
+    "xp": 20,
+    "pairs": [
+      {
+        "id": "m1",
+        "text": "ciao",
+        "it": "ciao"
+      },
+      {
+        "id": "m2",
+        "text": "grazie",
+        "it": "grazie"
+      },
+      {
+        "id": "m3",
+        "text": "prego",
+        "it": "prego"
+      },
+      {
+        "id": "m4",
+        "text": "benvenuto",
+        "it": "benvenuto"
+      },
+      {
+        "id": "m5",
+        "text": "buongiorno",
+        "it": "buongiorno"
+      }
+    ]
+  },
+  {
+    "id": "reorder-g1",
+    "format": "reorder",
+    "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1",
+    "words": [
+      "Ciao,",
+      "come",
+      "stai?"
+    ],
+    "xp": 10
+  },
+  {
+    "id": "listen-g1",
+    "format": "listen",
+    "category": "greetings",
+    "audioWord": "prego",
+    "xp": 10,
+    "options": [
+      {
+        "id": "opt-1",
+        "correct": false
+      },
+      {
+        "id": "opt-2",
+        "correct": true
+      },
+      {
+        "id": "opt-3",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "dlg-g1",
+    "format": "dialogue",
+    "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1-practice",
+    "lineA": "А: «Ciao! Come ti chiami?»",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "text": "Mi chiamo Sofia. E tu?",
+        "correct": true
+      },
+      {
+        "id": "opt-2",
+        "text": "Grazie mille per l'aiuto!",
+        "correct": false
+      },
+      {
+        "id": "opt-3",
+        "text": "Un caffè per favore.",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "mcq-greeting-evening",
+    "format": "mcq",
+    "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1-greetings",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "correct": true
+      },
+      {
+        "id": "opt-2",
+        "correct": false
+      },
+      {
+        "id": "opt-3",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "blank-greeting-daytime",
+    "format": "blank",
+    "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1-greetings",
+    "answers": [
+      "buongiorno"
+    ],
+    "xp": 10
+  },
+  {
+    "id": "mcq-name-question",
+    "format": "mcq",
+    "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1-practice",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "correct": true
+      },
+      {
+        "id": "opt-2",
+        "correct": false
+      },
+      {
+        "id": "opt-3",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "blank-name-answer",
+    "format": "blank",
+    "category": "greetings",
+    "pathId": "communication-basics",
+    "lessonId": "communication-basics-1-practice",
+    "answers": [
+      "chiamo"
+    ],
+    "xp": 10
+  },
+  {
+    "id": "mcq-shop1",
+    "format": "mcq",
+    "category": "shopping",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "correct": true
+      },
+      {
+        "id": "opt-2",
+        "correct": false
+      },
+      {
+        "id": "opt-3",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "id": "dlg-cafe1",
+    "format": "dialogue",
+    "category": "cafe",
+    "lineA": "А: «Buongiorno! Cosa desidera?»",
+    "xp": 15,
+    "options": [
+      {
+        "id": "opt-1",
+        "text": "Un cappuccino e una brioche, per favore.",
+        "correct": true
+      },
+      {
+        "id": "opt-2",
+        "text": "Piacere di conoscerti!",
+        "correct": false
+      },
+      {
+        "id": "opt-3",
+        "text": "Sto molto bene, grazie.",
+        "correct": false
+      }
+    ]
+  }
+]

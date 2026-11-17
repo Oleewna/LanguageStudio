@@ -1,0 +1,82 @@
+{
+  "communication-basics-1": {
+    "title": "Introductions",
+    "subtitle": "Hi, how are you?",
+    "description": "",
+    "duration": ""
+  },
+  "dialogue-1": {
+    "title": "Classroom dialogue",
+    "story": "Ana arrives for her first Spanish lesson and meets María."
+  },
+  "line-1": {
+    "trans": "Hello!",
+    "pronunciation": "[OH-lah]"
+  },
+  "line-2": {
+    "trans": "Hello! How are you?",
+    "pronunciation": "[KOH-moh ehs-TAHS]"
+  },
+  "line-3": {
+    "trans": "I’m fine, thank you. I am Ana.",
+    "pronunciation": "[ehs-TOY byehn, GRAH-see-ahs. soh AH-nah]"
+  },
+  "line-4": {
+    "trans": "Nice to meet you, Ana.",
+    "pronunciation": "[MOO-choh GOOS-toh, ah-NAH]"
+  },
+  "vocab-2": {
+    "title": "Vocabulary"
+  },
+  "v-1": {
+    "trans": "hello",
+    "pronunciation": "[о-ла]"
+  },
+  "v-2": {
+    "trans": "how are you?",
+    "pronunciation": "[ко-мо ес-тас]"
+  },
+  "v-3": {
+    "trans": "I am",
+    "pronunciation": "[сой]"
+  },
+  "v-4": {
+    "trans": "nice to meet you",
+    "pronunciation": "[му-чо гу-сто]"
+  },
+  "culture-3": {
+    "title": "Culture note"
+  },
+  "p-1": {
+    "text": "In Spanish-speaking settings, it is common to greet each other warmly and casually. A simple “Hola” and “¿Cómo estás?” feel natural from the very first meeting."
+  },
+  "takeaways-4": {
+    "title": "Key takeaways"
+  },
+  "t-1": {
+    "text": "Hola is a natural greeting to begin a conversation."
+  },
+  "t-2": {
+    "text": "¿Cómo estás? means “How are you?”"
+  },
+  "t-3": {
+    "text": "Soy ... means “I am ...”, and Mucho gusto means “Nice to meet you.”"
+  },
+  "tasks-5": {
+    "title": "Lesson tasks"
+  },
+  "q1": {
+    "question": "How do you say “My name is Ana” in Spanish?",
+    "options": {
+      "opt-1": "Soy Ana.",
+      "opt-2": "Estoy Ana.",
+      "opt-3": "Mucho gusto."
+    }
+  },
+  "q2": {
+    "question": "“Mucho gusto” means “nice to meet you.”"
+  },
+  "q3": {
+    "question": ""
+  }
+}

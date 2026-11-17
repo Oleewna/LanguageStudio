@@ -1,0 +1,172 @@
+{
+  "id": "italian-reading-12",
+  "xpReward": 35,
+  "prevLessonId": "italian-reading-11",
+  "blocks": [
+    {
+      "id": "story-ir12",
+      "type": "story_text",
+      "paragraphs": [
+        {
+          "id": "ir12-p1",
+          "text": "È domenica. Giulia e suo figlio escono in città."
+        },
+        {
+          "id": "ir12-p2",
+          "text": "Al mercato, il signore chiede: «Quanto costa questo libro?»"
+        },
+        {
+          "id": "ir12-p3",
+          "text": "Giulia sceglie le pesche e compra un gelato e una palla per suo figlio."
+        },
+        {
+          "id": "ir12-p4",
+          "text": "La sera prepara spaghetti con funghi. Sono felici perché sono insieme."
+        }
+      ],
+      "vocabHints": [
+        {
+          "id": "hint-domenica",
+          "word": "domenica"
+        },
+        {
+          "id": "hint-compra",
+          "word": "compra"
+        },
+        {
+          "id": "hint-prepara-ir12",
+          "word": "prepara"
+        },
+        {
+          "id": "hint-sono-felici",
+          "word": "sono felici"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-ir12",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "ir12-t1"
+        },
+        {
+          "id": "ir12-t2"
+        }
+      ]
+    },
+    {
+      "id": "tasks-ir12",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "ir12_q1",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir12_q1_opt1",
+              "text": "figlio",
+              "correct": true
+            },
+            {
+              "id": "ir12_q1_opt2",
+              "text": "mercato",
+              "correct": false
+            },
+            {
+              "id": "ir12_q1_opt3",
+              "text": "libro",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir12_q2",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir12_q2_opt1",
+              "text": "Quanto",
+              "correct": true
+            },
+            {
+              "id": "ir12_q2_opt2",
+              "text": "chiede",
+              "correct": false
+            },
+            {
+              "id": "ir12_q2_opt3",
+              "text": "mercato",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir12_q3",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir12_q3_opt1",
+              "text": "spaghetti",
+              "correct": true
+            },
+            {
+              "id": "ir12_q3_opt2",
+              "text": "mercato",
+              "correct": false
+            },
+            {
+              "id": "ir12_q3_opt3",
+              "text": "gelato",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir12_q4",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir12_q4_opt1",
+              "text": "quanto",
+              "correct": true
+            },
+            {
+              "id": "ir12_q4_opt2",
+              "text": "figlio",
+              "correct": false
+            },
+            {
+              "id": "ir12_q4_opt3",
+              "text": "pesche",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir12_q5",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir12_q5_opt1",
+              "text": "spaghetti",
+              "correct": true
+            },
+            {
+              "id": "ir12_q5_opt2",
+              "text": "mercato",
+              "correct": false
+            },
+            {
+              "id": "ir12_q5_opt3",
+              "text": "gelato",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "paid",
+  "priceId": "price_it_premium"
+}

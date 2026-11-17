@@ -1,0 +1,33 @@
+{
+  "italian-reading-4": {
+    "title": "Hard G",
+    "subtitle": "Read ga, go, and gu",
+    "description": "Hear the hard G sound in ga, go, gu and find it in familiar words.",
+    "duration": "5 min"
+  },
+  "story-ir4": { "title": "Reading" },
+  "ir4-p1": { "translations": "The cat looks at a rose." },
+  "hint-gatto": { "translations": "cat" },
+  "hint-guarda": { "translations": "looks at" },
+  "hint-rosa-ir4": { "translations": "rose" },
+  "takeaways-ir4": { "title": "Key takeaways" },
+  "ir4-t1": { "text": "In ga, go, gu, G has a hard sound: gatto, gomma, gusto." },
+  "ir4-t2": { "text": "This rule does not cover every word with G: its sound changes before E and I." },
+  "tasks-ir4": { "title": "Quick practice" },
+  "ir4_q1": {
+    "question": "In which syllables does G have the hard sound taught in this lesson?",
+    "options": { "ir4_q1_opt1": "ga, go, gu", "ir4_q1_opt2": "ge, gi, gu", "ir4_q1_opt3": "ge, go, gi" }
+  },
+  "ir4_q2": {
+    "question": "Which word contains the combination ga?",
+    "options": { "ir4_q2_opt1": "gamba", "ir4_q2_opt2": "gomma", "ir4_q2_opt3": "gusto" }
+  },
+  "ir4_q3": {
+    "question": "Which word contains hard G before A?",
+    "options": { "ir4_q3_opt1": "gamba", "ir4_q3_opt2": "gelato", "ir4_q3_opt3": "giraffa" }
+  },
+  "ir4_q4": {
+    "question": "Which word contains hard G before U?",
+    "options": { "ir4_q4_opt1": "gusto", "ir4_q4_opt2": "gelato", "ir4_q4_opt3": "giraffa" }
+  }
+}

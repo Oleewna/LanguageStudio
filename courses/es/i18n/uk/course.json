@@ -1,0 +1,42 @@
+{
+  "tagline": "Spanish for everyday conversations",
+  "target": {
+    "name": "Spanish"
+  },
+  "exerciseCategories": {
+    "articles": {
+      "name": "Артиклі & іменники"
+    },
+    "verbs": {
+      "name": "Дієслова"
+    },
+    "greetings": {
+      "name": "Привітання"
+    },
+    "food": {
+      "name": "Їжа та кафе"
+    },
+    "travel": {
+      "name": "Подорожі"
+    }
+  },
+  "paths": {
+    "foundations": {
+      "title": "Основи спілкування",
+      "subtitle": "Привітання, перше знайомство та базові фрази"
+    }
+  },
+  "units": {
+    "foundations-1": {
+      "title": "Перші кроки"
+    }
+  },
+  "lessons": {
+    "communication-basics-1": {
+      "num": "Урок 1",
+      "title": "Знайомство",
+      "description": "Навчіться вітатися й представлятися впевнено",
+      "time": "~15 min"
+    }
+  }
+}

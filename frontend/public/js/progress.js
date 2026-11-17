@@ -1,11 +1,12 @@
 (function (window) {
-  const { LocalStorageAdapter } = window.__LSProgressAdapters || {};
+  const { LocalStorageAdapter, ApiAdapter } = window.__LSProgressAdapters || {};
 
   if (!LocalStorageAdapter) {
     return;
   }
 
   const DEFAULT_USER_ID = 'local';
+  let currentUserId = DEFAULT_USER_ID;
   const DEFAULT_PROGRESSION = Object.freeze({
     dailyGoalDefault: 50,
     dailyGoalOptions: [20, 50, 100],
@@ -95,8 +96,9 @@
     const hasLegacyStreak = Object.prototype.hasOwnProperty.call(legacy, 'ls_streak');
     const hasLegacyLearned = Object.prototype.hasOwnProperty.call(legacy, 'ls_dict_learned');
     const hasLegacyBestLesson = Object.prototype.hasOwnProperty.call(legacy, 'ls_unit_1_lesson_1_best_xp');
+    const hasLegacyCompleted = Object.prototype.hasOwnProperty.call(legacy, 'ls_completed_lessons');
 
-    if (profile && Number(profile.schemaVersion) >= 1 && !hasLegacyXp && !hasLegacyStreak && !hasLegacyLearned && !hasLegacyBestLesson) {
+    if (profile && Number(profile.schemaVersion) >= 1 && !hasLegacyXp && !hasLegacyStreak && !hasLegacyLearned && !hasLegacyBestLesson && !hasLegacyCompleted) {
       return false;
     }
 
@@ -139,6 +141,23 @@
         lesson.updatedAt = currentIso();
         store.set('lessonProgress', 'it:1.1', lesson);
       }
+    }
+
+    if (hasLegacyCompleted) {
+      try {
+        const completed = JSON.parse(legacy.ls_completed_lessons || '[]');
+        if (Array.isArray(completed)) {
+          completed.forEach((lessonId) => {
+            const courseId = 'it';
+            const key = `${courseId}:${lessonId}`;
+            const lesson = store.get('lessonProgress', key) || createDefaultLessonProgress(courseId, lessonId);
+            lesson.state = 'completed';
+            lesson.completedAt = lesson.completedAt || currentIso();
+            lesson.updatedAt = currentIso();
+            store.set('lessonProgress', key, lesson);
+          });
+        }
+      } catch (error) {}
     }
 
     profile.schemaVersion = 1;
@@ -507,7 +526,8 @@
   }
 
   async function recordXp({ courseId, amount = 0, source = 'lesson', refId = '' } = {}) {
-    const profile = await ensureProfile(DEFAULT_USER_ID);
+    const activeUserId = currentUserId || DEFAULT_USER_ID;
+    const profile = await ensureProfile(activeUserId);
     const dateKey = todayKey();
     const daily = await ensureDaily(dateKey);
     const xpAmount = toNumber(amount, 0);
@@ -538,10 +558,10 @@
     }
 
     dispatchProgressEvent('progress:xp', { amount: xpAmount, totalXp: profile.totalXp, source, refId });
-    dispatchProgressEvent('progress:changed', { collection: 'profile', id: DEFAULT_USER_ID });
+    dispatchProgressEvent('progress:changed', { collection: 'profile', id: activeUserId });
     dispatchProgressEvent('progress:changed', { collection: 'daily', id: dateKey });
 
-    store.set('profile', DEFAULT_USER_ID, profile);
+    store.set('profile', activeUserId, profile);
     store.set('daily', dateKey, daily);
 
     return { profile, daily, amount: xpAmount, source, refId };
@@ -719,8 +739,137 @@
     return aliases[value.toLowerCase()] || value.toLowerCase();
   }
 
-  // Replace this adapter construction with ApiAdapter when a server-backed store is added.
-  const store = new LocalStorageAdapter(DEFAULT_USER_ID);
+  let store = new LocalStorageAdapter(DEFAULT_USER_ID);
+
+  function getXP() {
+    const profile = store.get('profile', currentUserId) || store.get('profile', DEFAULT_USER_ID);
+    if (profile && Number.isFinite(Number(profile.totalXp))) {
+      return Number(profile.totalXp);
+    }
+    if (typeof localStorage !== 'undefined') {
+      const legacy = localStorage.getItem('ls_xp');
+      if (legacy !== null && Number.isFinite(Number(legacy))) {
+        return Number(legacy);
+      }
+    }
+    return 0;
+  }
+
+  function getCompletedLessons(courseId = null) {
+    const normalizedCourse = courseId ? normalizeCourseId(courseId) : null;
+    const records = store.list('lessonProgress');
+    const completedIds = (records || [])
+      .filter((r) => r && r.state === 'completed' && (!normalizedCourse || normalizeCourseId(r.courseId) === normalizedCourse))
+      .map((r) => String(r.lessonId));
+
+    if (typeof localStorage !== 'undefined') {
+      try {
+        const raw = localStorage.getItem('ls_completed_lessons');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            parsed.forEach((id) => {
+              if (id && !completedIds.includes(String(id))) {
+                completedIds.push(String(id));
+              }
+            });
+          }
+        }
+      } catch (e) {}
+    }
+
+    return completedIds;
+  }
+
+  function isLessonCompleted(lessonId, courseId = null) {
+    if (!lessonId) return false;
+    return getCompletedLessons(courseId).includes(String(lessonId));
+  }
+
+  function setAdapter(adapter, userId = null) {
+    if (!adapter) return;
+    store = adapter;
+    if (userId) currentUserId = String(userId);
+    dispatchProgressEvent('progress:adapterChanged', { userId: currentUserId });
+  }
+
+  function getAdapter() {
+    return store;
+  }
+
+  function initSession(user) {
+    const { LocalStorageAdapter, ApiAdapter } = window.__LSProgressAdapters || {};
+    if (user && (user.id || user._id) && ApiAdapter) {
+      currentUserId = String(user.id || user._id);
+      store = new ApiAdapter(currentUserId);
+      if (typeof store.hydrateFromServer === 'function') {
+        store.hydrateFromServer().catch(() => {});
+      }
+      dispatchProgressEvent('progress:adapterChanged', { type: 'api', userId: currentUserId });
+      return store;
+    } else {
+      currentUserId = DEFAULT_USER_ID;
+      store = LocalStorageAdapter ? new LocalStorageAdapter(DEFAULT_USER_ID) : store;
+      dispatchProgressEvent('progress:adapterChanged', { type: 'local', userId: currentUserId });
+      return store;
+    }
+  }
+
+  async function mergeGuestProgress(userId) {
+    const { LocalStorageAdapter, ApiAdapter } = window.__LSProgressAdapters || {};
+    if (!LocalStorageAdapter || !ApiAdapter || typeof fetch !== 'function') return null;
+
+    const guestAdapter = new LocalStorageAdapter(DEFAULT_USER_ID);
+    const guestStoreBackup = store;
+    store = guestAdapter;
+    const guestPayload = exportProgress();
+    store = guestStoreBackup;
+
+    const profile = guestPayload.profile && guestPayload.profile[DEFAULT_USER_ID];
+    const hasXp = profile && Number(profile.totalXp) > 0;
+    const hasLessons = guestPayload.lessonProgress && Object.keys(guestPayload.lessonProgress).length > 0;
+    const hasDaily = guestPayload.daily && Object.keys(guestPayload.daily).length > 0;
+    const hasWords = guestPayload.wordStats && Object.keys(guestPayload.wordStats).length > 0;
+    const hasCustomWords = guestPayload.customWords && Object.keys(guestPayload.customWords).length > 0;
+
+    if (!hasXp && !hasLessons && !hasDaily && !hasWords && !hasCustomWords) {
+      return null;
+    }
+
+    try {
+      let csrfToken = null;
+      if (typeof document !== 'undefined') {
+        const match = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/);
+        if (match) csrfToken = decodeURIComponent(match[1]);
+      }
+
+      const headers = { 'Content-Type': 'application/json' };
+      if (csrfToken) headers['x-csrf-token'] = csrfToken;
+
+      const res = await fetch('/api/progress/merge', {
+        method: 'POST',
+        headers,
+        credentials: 'include',
+        body: JSON.stringify(guestPayload)
+      });
+
+      if (!res.ok) return null;
+      const data = await res.json();
+      if (data && data.merged) {
+        const userAdapter = new ApiAdapter(userId);
+        setAdapter(userAdapter, userId);
+        importProgress(data.merged);
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem(`ls_guest_imported_${userId}`, 'true');
+        }
+        dispatchProgressEvent('progress:guestMerged', { userId });
+        return data.merged;
+      }
+    } catch (e) {
+      console.warn('Could not merge guest progress with server:', e);
+    }
+    return null;
+  }
 
   async function getOrCreateRecord(collection, id) {
     const existing = store.get(collection, id);
@@ -752,7 +901,7 @@
     async remove(collection, id) {
       return store.remove(collection, id);
     },
-    async getProfile(userId = DEFAULT_USER_ID) {
+    async getProfile(userId = currentUserId || DEFAULT_USER_ID) {
       return getOrCreateRecord('profile', userId);
     },
     async getDaily(dateKey = todayKey()) {
@@ -775,6 +924,13 @@
     },
     exportProgress,
     importProgress,
+    mergeGuestProgress,
+    initSession,
+    setAdapter,
+    getAdapter,
+    getXP,
+    getCompletedLessons,
+    isLessonCompleted,
     getLevelInfo,
     getDailyGoal,
     getStreak,

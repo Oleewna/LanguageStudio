@@ -1,0 +1,140 @@
+{
+  "id": "italian-reading-11",
+  "xpReward": 35,
+  "prevLessonId": "italian-reading-10",
+  "nextLessonId": "italian-reading-12",
+  "blocks": [
+    {
+      "id": "story-ir11",
+      "type": "story_text",
+      "paragraphs": [
+        {
+          "id": "ir11-p1",
+          "text": "È sera. Marco è in città e ordina un caffè. «Perché è così buono?» chiede."
+        }
+      ],
+      "vocabHints": [
+        {
+          "id": "hint-sera",
+          "word": "sera"
+        },
+        {
+          "id": "hint-ordina",
+          "word": "ordina"
+        },
+        {
+          "id": "hint-cosi",
+          "word": "così"
+        },
+        {
+          "id": "hint-chiede-ir11",
+          "word": "chiede"
+        }
+      ]
+    },
+    {
+      "id": "takeaways-ir11",
+      "type": "takeaways",
+      "items": [
+        {
+          "id": "ir11-t1"
+        },
+        {
+          "id": "ir11-t2"
+        }
+      ]
+    },
+    {
+      "id": "tasks-ir11",
+      "type": "tasks",
+      "items": [
+        {
+          "id": "ir11_q1",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir11_q1_opt1",
+              "text": "città",
+              "correct": true
+            },
+            {
+              "id": "ir11_q1_opt2",
+              "text": "sera",
+              "correct": false
+            },
+            {
+              "id": "ir11_q1_opt3",
+              "text": "Marco",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir11_q2",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir11_q2_opt1",
+              "text": "caffè",
+              "correct": true
+            },
+            {
+              "id": "ir11_q2_opt2",
+              "text": "caffé",
+              "correct": false
+            },
+            {
+              "id": "ir11_q2_opt3",
+              "text": "caffe",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir11_q3",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir11_q3_opt1",
+              "text": "The stressed final vowel",
+              "correct": true
+            },
+            {
+              "id": "ir11_q3_opt2",
+              "text": "The number of syllables",
+              "correct": false
+            },
+            {
+              "id": "ir11_q3_opt3",
+              "text": "A doubled consonant",
+              "correct": false
+            }
+          ]
+        },
+        {
+          "id": "ir11_q4",
+          "kind": "choice",
+          "options": [
+            {
+              "id": "ir11_q4_opt1",
+              "text": "città",
+              "correct": true
+            },
+            {
+              "id": "ir11_q4_opt2",
+              "text": "citta",
+              "correct": false
+            },
+            {
+              "id": "ir11_q4_opt3",
+              "text": "cita",
+              "correct": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "access": "paid",
+  "priceId": "price_it_premium"
+}

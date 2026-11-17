@@ -1,0 +1,145 @@
+{
+  "es-mcq-01": {
+    "question": "Що означає «¿Cómo estás?» ?",
+    "explanation": "«¿Cómo estás?» використовується для запитання: «Як справи?»",
+    "options": [
+      {
+        "text": "А) Як тебе звати?"
+      },
+      {
+        "text": "Б) Як справи?"
+      },
+      {
+        "text": "В) Де туалет?"
+      }
+    ]
+  },
+  "es-mcq-02": {
+    "question": "Яка правильна форма «estar» для «yo»?",
+    "explanation": "Для «yo» форма дієслова estar — «estoy».",
+    "options": [
+      {
+        "text": "А) estoy"
+      },
+      {
+        "text": "Б) eres"
+      },
+      {
+        "text": "В) son"
+      }
+    ]
+  },
+  "es-blank-01": {
+    "question": "«___, ¿cómo estás?»",
+    "explanation": "Початкове привітання в розмові — «hola».",
+    "hint": "Підказка: неформальне привітання"
+  },
+  "es-blank-02": {
+    "question": "«___ calle es tranquila.»",
+    "explanation": "«calle» — жіночий рід, тому артикль «la».",
+    "hint": "Підказка: жіночий однина"
+  },
+  "es-match-01": {
+    "pairs": {
+      "m1": {
+        "trans": "привіт"
+      },
+      "m2": {
+        "trans": "дякую"
+      },
+      "m3": {
+        "trans": "будь ласка"
+      },
+      "m4": {
+        "trans": "приємно познайомитися"
+      }
+    },
+    "title": "Привітання та фрази"
+  },
+  "es-reorder-01": {
+    "explanation": "Порядок слів: «¡Hola! ¿Cómo estás?»",
+    "clue": "Привіт, як справи?"
+  },
+  "es-dialogue-01": {
+    "options": [
+      {
+        "text": "Estoy bien, gracias."
+      },
+      {
+        "text": "La cuenta, por favor."
+      },
+      {
+        "text": "No entiendo."
+      }
+    ],
+    "explanation": "Правильна відповідь — коротка фраза про самопочуття.",
+    "instruction": "Б: оберіть відповідь"
+  },
+  "es-mcq-03": {
+    "question": "Яка правильна форма запиту: «Де туалет?»",
+    "explanation": "«¿Dónde está el baño?» — коректний спосіб запитати про туалет.",
+    "options": [
+      {
+        "text": "А) ¿Dónde está el baño?"
+      },
+      {
+        "text": "Б) ¿Qué hora es?"
+      },
+      {
+        "text": "В) ¿Cómo te llamas?"
+      }
+    ]
+  },
+  "es-blank-03": {
+    "question": "«Quiero un ___, por favor.»",
+    "explanation": "У кафе часто кажуть «Quiero un café» — «Я хочу каву».",
+    "hint": "Підказка: напій"
+  },
+  "es-dialogue-02": {
+    "options": [
+      {
+        "text": "Claro, aquí tienen."
+      },
+      {
+        "text": "Mucho gusto."
+      },
+      {
+        "text": "¿Dónde está el tren?"
+      }
+    ],
+    "explanation": "«Claro, aquí tienen» — природна відповідь на замовлення.",
+    "instruction": "Б: оберіть відповідь, яка підтверджує замовлення"
+  },
+  "es-mcq-04": {
+    "question": "Як сказати «Я є Анна» по-іспанськи?",
+    "explanation": "«Soy» використовується для представлення себе: «Soy Ana».",
+    "options": [
+      {
+        "text": "А) Soy Ana."
+      },
+      {
+        "text": "Б) Estoy Ana."
+      },
+      {
+        "text": "В) Vivo Ana."
+      }
+    ]
+  },
+  "es-match-02": {
+    "pairs": {
+      "m5": {
+        "trans": "де знаходиться туалет?"
+      },
+      "m6": {
+        "trans": "потяг"
+      },
+      "m7": {
+        "trans": "вулиця"
+      },
+      "m8": {
+        "trans": "я не розумію"
+      }
+    },
+    "title": "Подорожні фрази"
+  }
+}
