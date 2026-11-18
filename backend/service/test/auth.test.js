@@ -311,3 +311,112 @@ test('Email verification flow marks emailVerified as true', async () => {
     assert.equal(userAfter.emailVerified, true);
     assert.equal(userAfter.emailVerificationToken, null);
 });
+
+test('User.findOrCreateByGoogle handles create, find by googleId, and email account linking', async () => {
+    // 1. Create a brand new user via Google
+    const created = await User.findOrCreateByGoogle('google-sub-1001', {
+        name: 'Google Learner',
+        email: 'google-learner@example.com'
+    });
+    assert.ok(created);
+    assert.equal(created.googleId, 'google-sub-1001');
+    assert.equal(created.email, 'google-learner@example.com');
+    assert.equal(created.displayName, 'Google Learner');
+    assert.equal(created.emailVerified, true);
+    assert.equal(created.role, 'learner');
+
+    // 2. Find existing user by googleId
+    const found = await User.findOrCreateByGoogle('google-sub-1001', {
+        name: 'Different Name',
+        email: 'google-learner@example.com'
+    });
+    assert.equal(found._id.toString(), created._id.toString());
+
+    // 3. Link googleId to an existing account that originally registered via email/password
+    const localUser = new User({
+        email: 'local-to-google@example.com',
+        displayName: 'Local User',
+        passwordHash: 'dummy-hash',
+        emailVerified: false
+    });
+    await localUser.save();
+
+    const linked = await User.findOrCreateByGoogle('google-sub-2002', {
+        name: 'Local User Google',
+        email: 'local-to-google@example.com'
+    });
+    assert.equal(linked._id.toString(), localUser._id.toString());
+    assert.equal(linked.googleId, 'google-sub-2002');
+    assert.equal(linked.emailVerified, true);
+});
+
+test('GET /api/v1/auth/session returns 200 { authenticated: false } when unauthenticated', async () => {
+    const res = await request(app).get('/api/v1/auth/session');
+    assert.equal(res.status, 200);
+    assert.equal(res.body.authenticated, false);
+});
+
+test('Google OAuth initiation and callback validation in backend/service', async () => {
+    // 1. Not configured returns 503
+    process.env.GOOGLE_CLIENT_ID = '';
+    process.env.GOOGLE_CLIENT_SECRET = '';
+    const resUnconfigured = await request(app).get('/api/v1/auth/google');
+    assert.equal(resUnconfigured.status, 503);
+    assert.match(resUnconfigured.body.error, /Google OAuth is not configured/);
+
+    // 2. Configured redirects to Google authorization URL
+    process.env.GOOGLE_CLIENT_ID = 'test-client-id';
+    process.env.GOOGLE_CLIENT_SECRET = 'test-client-secret';
+    const resConfigured = await request(app).get('/api/v1/auth/google');
+    assert.equal(resConfigured.status, 302);
+    assert.match(resConfigured.headers.location, /^https:\/\/accounts\.google\.com/);
+    assert.match(resConfigured.headers.location, /client_id=test-client-id/);
+    process.env.GOOGLE_CLIENT_ID = '';
+    process.env.GOOGLE_CLIENT_SECRET = '';
+
+    // 3. Callback with error parameter redirects to auth page
+    const resErr = await request(app).get('/api/v1/auth/google/callback?error=access_denied');
+    assert.equal(resErr.status, 302);
+    assert.match(resErr.headers.location, /error=google_failed/);
+
+    // 4. Callback with invalid state redirects with invalid_state error
+    const resInvalidState = await request(app).get('/api/v1/auth/google/callback?state=invalid-state&code=test-code');
+    assert.equal(resInvalidState.status, 302);
+    assert.match(resInvalidState.headers.location, /error=invalid_state/);
+});
+
+test('Unified session: Google authenticated user establishes ls.sid and accesses protected progress and course endpoints', async () => {
+    const user = await User.findOrCreateByGoogle('google-sub-unified', {
+        name: 'Unified Student',
+        email: 'unified@example.com'
+    });
+
+    // Create session for user
+    const agent = request.agent(app);
+    const csrfToken = await getCsrfSession(agent);
+
+    // Simulate login for this user or register to inspect cookie name
+    const registerRes = await agent
+        .post('/api/auth/register')
+        .set('x-csrf-token', csrfToken)
+        .send({
+            email: 'cookie-check@example.com',
+            password: 'Password123!',
+            displayName: 'Cookie Check'
+        });
+    assert.equal(registerRes.status, 201);
+
+    // Both email/password and session establishment set the 'ls.sid' cookie
+    const cookies = registerRes.headers['set-cookie'];
+    assert.ok(cookies.some(c => c.startsWith('ls.sid=')), 'Expected ls.sid cookie');
+
+    // Verify session user access to /api/auth/me, /api/auth/session, and /api/progress
+    const sessionRes = await agent.get('/api/v1/auth/session');
+    assert.equal(sessionRes.status, 200);
+    assert.equal(sessionRes.body.authenticated, true);
+    assert.equal(sessionRes.body.user.email, 'cookie-check@example.com');
+
+    const progressRes = await agent.get('/api/progress');
+    assert.equal(progressRes.status, 200);
+    assert.ok(progressRes.body);
+});

@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const { OAuth2Client } = require('google-auth-library');
 const userStore = require('../utils/userStore');
 const { loadGoogleConfig } = require('../utils/googleConfig');
+const config = require('../../config/env');
 
 // ─── Session store ───────────────────────────────────────────────────────────
 const sessions = new Map();
@@ -9,7 +10,7 @@ const SESSION_COOKIE = 'ls_session';
 const SESSION_LIFETIME_MS = 30 * 24 * 60 * 60 * 1000;
 
 // ─── OAuth state store (CSRF protection) ─────────────────────────────────────
-const oauthStates = new Map(); // state → timestamp
+const oauthStates = new Map(); // state -> timestamp
 const STATE_LIFETIME_MS = 10 * 60 * 1000; // 10 minutes
 
 function getOAuth2Client() {
@@ -46,7 +47,7 @@ function setSessionCookie(res, sessionId) {
         'SameSite=Lax',
         `Max-Age=${Math.floor(SESSION_LIFETIME_MS / 1000)}`
     ];
-    if (process.env.NODE_ENV === 'production') attributes.push('Secure');
+    if (config.NODE_ENV === 'production') attributes.push('Secure');
     res.setHeader('Set-Cookie', attributes.join('; '));
 }
 
@@ -71,8 +72,8 @@ function getUserForRequest(req) {
 }
 
 function getFrontendBase(req) {
-    if (process.env.FRONTEND_URL) {
-        return process.env.FRONTEND_URL.replace(/\/+$/, '');
+    if (config.FRONTEND_URL) {
+        return config.FRONTEND_URL.replace(/\/+$/, '');
     }
     const host = (req && req.headers && (req.headers['x-forwarded-host'] || req.headers.host)) || '';
     const proto = (req && req.headers && req.headers['x-forwarded-proto']) || (req && req.socket && req.socket.encrypted ? 'https' : 'http');
@@ -195,7 +196,7 @@ function logout(req, res) {
     const sessionId = getSessionId(req);
     if (sessionId) sessions.delete(sessionId);
     const attributes = [`${SESSION_COOKIE}=`, 'Path=/', 'HttpOnly', 'SameSite=Lax', 'Max-Age=0'];
-    if (process.env.NODE_ENV === 'production') attributes.push('Secure');
+    if (config.NODE_ENV === 'production') attributes.push('Secure');
     res.setHeader('Set-Cookie', attributes.join('; '));
     return res.status(200).json({ success: true });
 }

@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema(
             minlength: [1, 'Display name must be at least 1 character long.'],
             maxlength: [80, 'Display name cannot exceed 80 characters.']
         },
+        role: {
+            type: String,
+            enum: ['learner', 'admin'],
+            default: 'learner'
+        },
         emailVerified: {
             type: Boolean,
             default: false
@@ -74,7 +79,9 @@ userSchema.methods.toPublicJSON = function () {
     return {
         id: this._id.toString(),
         email: this.email,
+        name: this.displayName,
         displayName: this.displayName,
+        role: this.role || 'learner',
         emailVerified: Boolean(this.emailVerified),
         createdAt: this.createdAt ? this.createdAt.toISOString() : new Date().toISOString()
     };
@@ -100,6 +107,7 @@ class MemoryUser {
         this.email = data.email ? String(data.email).toLowerCase().trim() : '';
         this.passwordHash = data.passwordHash || null;
         this.displayName = data.displayName || '';
+        this.role = data.role || 'learner';
         this.emailVerified = Boolean(data.emailVerified);
         this.googleId = data.googleId || null;
         this.emailVerificationToken = data.emailVerificationToken || null;
@@ -127,7 +135,9 @@ class MemoryUser {
         return {
             id: this._id.toString(),
             email: this.email,
+            name: this.displayName,
             displayName: this.displayName,
+            role: this.role || 'learner',
             emailVerified: Boolean(this.emailVerified),
             createdAt: this.createdAt ? this.createdAt.toISOString() : new Date().toISOString()
         };
@@ -161,8 +171,19 @@ User.findOne = async function (query = {}) {
 
     const now = new Date();
     for (const user of memoryUsers.values()) {
+        if (query.googleId && user.googleId === query.googleId) {
+            return user;
+        }
         if (query.email && user.email === String(query.email).toLowerCase().trim()) {
             return user;
+        }
+        if (query.$or && Array.isArray(query.$or)) {
+            const matches = query.$or.some(subQuery => {
+                if (subQuery.googleId && user.googleId === subQuery.googleId) return true;
+                if (subQuery.email && user.email === String(subQuery.email).toLowerCase().trim()) return true;
+                return false;
+            });
+            if (matches) return user;
         }
         if (query.passwordResetToken && user.passwordResetToken === query.passwordResetToken) {
             if (query.passwordResetExpires && query.passwordResetExpires.$gt) {
@@ -184,6 +205,44 @@ User.findOne = async function (query = {}) {
         }
     }
     return null;
+};
+
+User.findOrCreateByGoogle = async function (googleId, profile = {}) {
+    if (!googleId) {
+        throw new Error('googleId is required');
+    }
+    const normalizedEmail = profile.email ? String(profile.email).toLowerCase().trim() : '';
+
+    // 1. Try finding by googleId
+    let user = await User.findOne({ googleId });
+    if (user) {
+        return user;
+    }
+
+    // 2. Try finding by email (if user previously registered with email)
+    if (normalizedEmail) {
+        user = await User.findOne({ email: normalizedEmail });
+        if (user) {
+            user.googleId = googleId;
+            if (!user.emailVerified) {
+                user.emailVerified = true;
+            }
+            await user.save();
+            return user;
+        }
+    }
+
+    // 3. Create new user
+    const displayName = (profile.name && String(profile.name).trim()) || (normalizedEmail ? normalizedEmail.split('@')[0] : 'Learner');
+    user = new User({
+        email: normalizedEmail,
+        displayName,
+        googleId,
+        emailVerified: true,
+        role: 'learner'
+    });
+    await user.save();
+    return user;
 };
 
 User.findById = async function (id) {

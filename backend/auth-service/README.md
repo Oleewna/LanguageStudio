@@ -1,4 +1,6 @@
-# auth-service
+# auth-service (DEPRECATED)
+
+> **Note:** Standalone `auth-service` has been retired. Google OAuth and local authentication have been consolidated directly into `backend/service` under unified MongoDB sessions (`ls.sid`).
 
 Standalone authentication service for LanguageStudio. Handles user identity exclusively via **Google OAuth 2.0** — no passwords or registration forms.
 

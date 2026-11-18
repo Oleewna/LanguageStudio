@@ -27,18 +27,31 @@ function readJsonFile(filePath) {
     return null;
 }
 
-function findLessonInCourse(courseData, lessonId) {
-    if (!courseData || !Array.isArray(courseData.paths)) return null;
+function findPathAndLessonInCourse(courseData, lessonId) {
+    if (!courseData || !Array.isArray(courseData.paths)) return { path: null, lesson: null };
     for (const p of courseData.paths) {
         if (!Array.isArray(p.units)) continue;
         for (const u of p.units) {
             if (!Array.isArray(u.lessons)) continue;
             for (const l of u.lessons) {
-                if (l.id === lessonId) return l;
+                if (l.id === lessonId) return { path: p, lesson: l };
             }
         }
     }
-    return null;
+    return { path: null, lesson: null };
+}
+
+function findLessonInCourse(courseData, lessonId) {
+    return findPathAndLessonInCourse(courseData, lessonId).lesson;
+}
+
+function resolveLessonPathId(courseData, lessonId) {
+    const found = findPathAndLessonInCourse(courseData, lessonId);
+    if (found.path && found.path.id) return found.path.id;
+    // Derive from prefix if lesson follows pattern <pathId>-<number/name>
+    const match = lessonId.match(/^([a-z]+-[a-z]+)/);
+    if (match) return match[1];
+    return lessonId;
 }
 
 function isLessonPaid(courseData, lessonDef, courseId, lessonId) {
@@ -64,6 +77,56 @@ function isLessonPaid(courseData, lessonDef, courseId, lessonId) {
 
     return false;
 }
+
+/**
+ * GET /api/courses
+ * Serves course catalog metadata.
+ * If ?course=<id> or ?id=<id> is provided, serves course metadata for that specific course.
+ * Otherwise serves the index of available courses from courses/index.json.
+ */
+router.get('/', (req, res, next) => {
+    try {
+        const courseId = req.query.course || req.query.id;
+        if (courseId) {
+            if (!validId(courseId)) {
+                return res.status(400).json({ error: 'Invalid course ID.', code: 'INVALID_ID' });
+            }
+            const courseData = readJsonFile(path.join(coursesDir, courseId, 'course.json'));
+            if (!courseData) {
+                return res.status(404).json({ error: 'Course not found.', code: 'NOT_FOUND' });
+            }
+            return res.json(courseData);
+        }
+
+        const indexData = readJsonFile(path.join(coursesDir, 'index.json'));
+        if (!indexData) {
+            return res.status(404).json({ error: 'Course index not found.', code: 'NOT_FOUND' });
+        }
+        return res.json(indexData);
+    } catch (error) {
+        return next(error);
+    }
+});
+
+/**
+ * GET /api/courses/:courseId
+ * Serves course metadata for a specific course.
+ */
+router.get('/:courseId', (req, res, next) => {
+    try {
+        const { courseId } = req.params;
+        if (!validId(courseId)) {
+            return res.status(400).json({ error: 'Invalid course ID.', code: 'INVALID_ID' });
+        }
+        const courseData = readJsonFile(path.join(coursesDir, courseId, 'course.json'));
+        if (!courseData) {
+            return res.status(404).json({ error: 'Course not found.', code: 'NOT_FOUND' });
+        }
+        return res.json(courseData);
+    } catch (error) {
+        return next(error);
+    }
+});
 
 /**
  * GET /api/courses/:courseId/lessons/:lessonId
@@ -103,10 +166,12 @@ router.get('/:courseId/lessons/:lessonId', async (req, res, next) => {
             });
         }
 
-        const hasAccess = await Entitlement.hasActiveEntitlement(userId, courseId);
+        const pathId = resolveLessonPathId(courseData, lessonId);
+        const hasAccess = await Entitlement.hasEntitlement(userId, courseId, pathId);
         if (!hasAccess) {
             return res.status(403).json({
-                error: 'Entitlement required to access this paid lesson.',
+                error: 'Path requires payment',
+                requiresPath: pathId,
                 code: 'ENTITLEMENT_REQUIRED',
                 courseId,
                 lessonId,
@@ -147,9 +212,14 @@ router.get('/:courseId/i18n/:locale/lessons/:lessonId', async (req, res, next) =
             if (!userId) {
                 return res.status(401).json({ error: 'Authentication required.', code: 'AUTH_REQUIRED' });
             }
-            const hasAccess = await Entitlement.hasActiveEntitlement(userId, courseId);
+            const pathId = resolveLessonPathId(courseData, lessonId);
+            const hasAccess = await Entitlement.hasEntitlement(userId, courseId, pathId);
             if (!hasAccess) {
-                return res.status(403).json({ error: 'Entitlement required.', code: 'ENTITLEMENT_REQUIRED' });
+                return res.status(403).json({
+                    error: 'Path requires payment',
+                    requiresPath: pathId,
+                    code: 'ENTITLEMENT_REQUIRED'
+                });
             }
 
             const paidI18nPath = path.join(paidContentBaseDir, courseId, 'i18n', locale, 'lessons', `${lessonId}.json`);

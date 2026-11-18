@@ -416,6 +416,7 @@
           lockError.code = errorData.code || (response.status === 401 ? 'AUTH_REQUIRED' : 'ENTITLEMENT_REQUIRED');
           lockError.courseId = courseId;
           lockError.lessonId = lessonId;
+          lockError.requiresPath = errorData.requiresPath;
           lockError.priceId = errorData.priceId;
           lockError.isLocked = true;
           throw lockError;

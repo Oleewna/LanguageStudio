@@ -102,6 +102,14 @@
           <span class="label">Price ID:</span>
           <span class="val" id="dispPriceId">-</span>
         </div>
+        <div class="checkout-row">
+          <span class="label">Recommended Tier:</span>
+          <span class="val" id="dispTier">Targeted Path Pass</span>
+        </div>
+        <div class="checkout-row">
+          <span class="label">Selected Paths:</span>
+          <span class="val" id="dispPaths">All Paths</span>
+        </div>
       </div>
 
       <div class="checkout-notice">
@@ -110,7 +118,7 @@
 
       <div class="btn-stack">
         <button type="button" class="btn-primary" id="btnSimulateSuccess" style="padding:0.85rem;font-weight:800;">
-          Simulate Payment Success (Sends Webhook)
+          Pay with Mock Checkout
         </button>
         <button type="button" class="btn-secondary" id="btnSimulateRefund" style="padding:0.75rem;font-weight:600;">
           Simulate Refund (Webhook Revocation)
@@ -142,13 +150,38 @@
       const courseId = params.get('courseId') || 'it';
       const priceId = params.get('priceId') || 'price_default';
       const userId = params.get('userId') || '';
-      const successUrl = params.get('successUrl') || `/pages/lesson.html?course=${encodeURIComponent(courseId)}&paid=1`;
+      const successUrl = params.get('successUrl') || `/pages/path.html?unlocked=true`;
       const cancelUrl = params.get('cancelUrl') || `/pages/pricing.html?course=${encodeURIComponent(courseId)}`;
+
+      let selectedPaths = [];
+      const rawPaths = params.get('selectedPaths') || params.get('paths') || '';
+      if (rawPaths) {
+        try {
+          selectedPaths = JSON.parse(rawPaths);
+        } catch (e) {
+          selectedPaths = rawPaths.split(',').map(s => s.trim()).filter(Boolean);
+        }
+      }
+      if (!Array.isArray(selectedPaths) || selectedPaths.length === 0) {
+        try {
+          const stored = sessionStorage.getItem('ls_pt_goals') || localStorage.getItem('ls_pt_goals');
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed)) selectedPaths = parsed;
+          }
+        } catch (e) {}
+      }
 
       document.getElementById('dispProvider').textContent = provider;
       document.getElementById('dispPaymentId').textContent = providerPaymentId;
       document.getElementById('dispCourseId').textContent = courseId;
       document.getElementById('dispPriceId').textContent = priceId;
+      if (document.getElementById('dispPaths')) {
+        document.getElementById('dispPaths').textContent = selectedPaths.length > 0 ? selectedPaths.join(', ') : 'All Course Paths';
+      }
+      if (document.getElementById('dispTier')) {
+        document.getElementById('dispTier').textContent = selectedPaths.length > 0 ? 'Targeted Path Pass' : 'Complete Course Pass';
+      }
 
       const statusMsg = document.getElementById('statusMsg');
       const setStatus = (text, isError = false) => {
@@ -171,6 +204,7 @@
               providerPaymentId,
               userId,
               courseId,
+              selectedPaths,
               provider: 'mock'
             })
           });
@@ -181,7 +215,7 @@
           setStatus('Webhook confirmed! Access granted. Redirecting…');
           setTimeout(() => {
             window.location.href = successUrl;
-          }, 1000);
+          }, 800);
         } catch (err) {
           setStatus('Error: ' + err.message, true);
         }

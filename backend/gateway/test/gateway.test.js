@@ -11,8 +11,31 @@ authUpstream.post('/api/auth/logout', (req, res) => {
 });
 
 const contentUpstream = express();
-contentUpstream.get('/api/content/course-index', (req, res) => {
+contentUpstream.use(express.json());
+contentUpstream.get('/api/auth/session', (req, res) => res.json({ authenticated: false, forwardedPath: req.path }));
+contentUpstream.get('/api/v1/auth/session', (req, res) => res.json({ authenticated: false, forwardedPath: req.path }));
+contentUpstream.post('/api/auth/logout', (req, res) => {
+    res.cookie('ls.sid', '', { maxAge: 0 });
+    res.json({ success: true, path: req.path });
+});
+contentUpstream.post('/api/v1/auth/logout', (req, res) => {
+    res.cookie('ls.sid', '', { maxAge: 0 });
+    res.json({ success: true, path: req.path });
+});
+contentUpstream.get('/api/courses', (req, res) => {
     res.json({ forwardedPath: req.path, courses: [{ id: 'it' }] });
+});
+contentUpstream.get('/api/v1/courses', (req, res) => {
+    res.json({ forwardedPath: req.path, courses: [{ id: 'it' }] });
+});
+contentUpstream.get('/api/vocab', (req, res) => {
+    res.json({ forwardedPath: req.path, vocab: [] });
+});
+contentUpstream.get('/api/payments', (req, res) => {
+    res.json({ forwardedPath: req.path, payments: [] });
+});
+contentUpstream.get('/api/v1/payments', (req, res) => {
+    res.json({ forwardedPath: req.path, payments: [] });
 });
 
 let authServer;
@@ -46,9 +69,13 @@ after(async () => {
 });
 
 test('proxies versioned auth and content APIs to their corresponding services', async () => {
-    const session = await fetch(`${baseUrl}/api/v1/auth/session`);
-    assert.equal(session.status, 200);
-    assert.deepEqual(await session.json(), { authenticated: false });
+    const sessionV1 = await fetch(`${baseUrl}/api/v1/auth/session`);
+    assert.equal(sessionV1.status, 200);
+    assert.deepEqual(await sessionV1.json(), { authenticated: false, forwardedPath: '/api/v1/auth/session' });
+
+    const sessionLegacy = await fetch(`${baseUrl}/api/auth/session`);
+    assert.equal(sessionLegacy.status, 200);
+    assert.deepEqual(await sessionLegacy.json(), { authenticated: false, forwardedPath: '/api/auth/session' });
 
     const logout = await fetch(`${baseUrl}/api/v1/auth/logout`, {
         method: 'POST',
@@ -57,14 +84,42 @@ test('proxies versioned auth and content APIs to their corresponding services', 
     assert.equal(logout.status, 200);
     assert.deepEqual(await logout.json(), {
         success: true,
-        path: '/api/auth/logout'
+        path: '/api/v1/auth/logout'
     });
 
-    const content = await fetch(`${baseUrl}/api/v1/content/course-index`);
-    assert.equal(content.status, 200);
-    assert.deepEqual(await content.json(), {
-        forwardedPath: '/api/content/course-index',
+    const courses = await fetch(`${baseUrl}/api/courses`);
+    assert.equal(courses.status, 200);
+    assert.deepEqual(await courses.json(), {
+        forwardedPath: '/api/courses',
         courses: [{ id: 'it' }]
+    });
+
+    const v1Courses = await fetch(`${baseUrl}/api/v1/courses`);
+    assert.equal(v1Courses.status, 200);
+    assert.deepEqual(await v1Courses.json(), {
+        forwardedPath: '/api/v1/courses',
+        courses: [{ id: 'it' }]
+    });
+
+    const vocab = await fetch(`${baseUrl}/api/vocab`);
+    assert.equal(vocab.status, 200);
+    assert.deepEqual(await vocab.json(), {
+        forwardedPath: '/api/vocab',
+        vocab: []
+    });
+
+    const payments = await fetch(`${baseUrl}/api/payments`);
+    assert.equal(payments.status, 200);
+    assert.deepEqual(await payments.json(), {
+        forwardedPath: '/api/payments',
+        payments: []
+    });
+
+    const v1Payments = await fetch(`${baseUrl}/api/v1/payments`);
+    assert.equal(v1Payments.status, 200);
+    assert.deepEqual(await v1Payments.json(), {
+        forwardedPath: '/api/v1/payments',
+        payments: []
     });
 });
 

@@ -1,20 +1,21 @@
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const config = require('../../config/env');
 
 function createSessionMiddleware() {
-    const isProd = process.env.NODE_ENV === 'production';
+    const isProd = config.NODE_ENV === 'production';
     const isTest =
-        process.env.NODE_ENV === 'test' ||
+        config.NODE_ENV === 'test' ||
         process.execArgv.includes('--test') ||
         process.argv.some(arg => typeof arg === 'string' && (arg.includes('test') || arg.endsWith('.test.js')));
-    const secret = process.env.SESSION_SECRET || 'language-studio-default-dev-secret-replace-in-env';
-    const cookieName = process.env.SESSION_COOKIE_NAME || 'ls.sid';
+    const secret = config.SESSION_SECRET || 'language-studio-default-dev-secret-replace-in-env';
+    const cookieName = config.SESSION_COOKIE_NAME || 'ls.sid';
 
     let store;
-    const mongoUri = process.env.MONGODB_URI;
+    const mongoUri = config.MONGODB_URI;
 
     // Use MongoStore if MONGODB_URI is provided and not explicitly set to use memory
-    if (mongoUri && !isTest && process.env.USE_MEMORY_SESSION !== 'true') {
+    if (mongoUri && !isTest && !config.USE_MEMORY_SESSION) {
         const createStore = MongoStore.create || MongoStore.default?.create || MongoStore.MongoStore?.create;
         store = createStore({
             mongoUrl: mongoUri,
@@ -35,7 +36,7 @@ function createSessionMiddleware() {
         store,
         cookie: {
             httpOnly: true,
-            secure: isProd || process.env.COOKIE_SECURE === 'true',
+            secure: isProd || config.COOKIE_SECURE,
             sameSite: 'lax',
             maxAge: 24 * 60 * 60 * 1000 // default 1 day
         }

@@ -1,5 +1,6 @@
 # Docs index
 
+- [ARCHITECTURE.md](../ARCHITECTURE.md) — complete backend architecture, service topology, and request lifecycles ("what calls what")
 - [schemas.md](schemas.md) — shared catalog and user-vocabulary model
 - [ADDING_A_COURSE.md](ADDING_A_COURSE.md) — how to add a course
 - [ADDING_A_PATH.md](ADDING_A_PATH.md) — how to add a learning path

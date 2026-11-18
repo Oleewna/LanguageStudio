@@ -9,8 +9,7 @@ if exist "%~dp0backend\service\install.bat" del /f /q "%~dp0backend\service\inst
 if exist "%~dp0backend\service\start_server.bat" del /f /q "%~dp0backend\service\start_server.bat"
 
 echo Starting LanguageStudio services...
-start "LanguageStudio content service" cmd /k "cd /d ""%~dp0backend\service"" && npm start"
-start "LanguageStudio auth service" cmd /k "cd /d ""%~dp0backend\auth-service"" && npm start"
+start "LanguageStudio service" cmd /k "cd /d ""%~dp0backend\service"" && npm start"
 start "LanguageStudio gateway" cmd /k "cd /d ""%~dp0backend\gateway"" && npm start"
 
 echo.

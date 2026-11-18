@@ -26,29 +26,36 @@ app.use((req, res, next) => {
 
 app.get('/health', (req, res) => res.json({ status: 'ok', service: 'gateway' }));
 
-app.use('/api/v1/auth', createProxyMiddleware({
-    target: config.authServiceUrl,
-    changeOrigin: true,
-    pathRewrite: requestPath => `/api/auth${requestPath}`,
-    on: {
-        error: (error, req, res) => {
-            console.error('Auth service proxy failed:', error.message);
-            if (!res.headersSent) res.status(502).json({ error: 'Authentication service is unavailable.' });
-        }
-    }
-}));
+function makePathRewrite(prefix) {
+    return (path) => {
+        if (!path || path === '/') return prefix;
+        if (path.startsWith('/?')) return `${prefix}${path.slice(1)}`;
+        if (path.startsWith('?')) return `${prefix}${path}`;
+        if (path.startsWith('/')) return `${prefix}${path}`;
+        return `${prefix}/${path}`;
+    };
+}
 
-app.use('/api/v1/content', createProxyMiddleware({
+const serviceProxy = (serviceName, prefix) => ({
     target: config.serviceUrl,
     changeOrigin: true,
-    pathRewrite: requestPath => `/api/content${requestPath}`,
+    pathRewrite: makePathRewrite(prefix),
     on: {
         error: (error, req, res) => {
-            console.error('Content service proxy failed:', error.message);
-            if (!res.headersSent) res.status(502).json({ error: 'Content service is unavailable.' });
+            console.error(`${serviceName} proxy failed:`, error.message);
+            if (!res.headersSent) res.status(502).json({ error: `${serviceName} is unavailable.` });
         }
     }
-}));
+});
+
+app.use('/api/auth', createProxyMiddleware(serviceProxy('Authentication service', '/api/auth')));
+app.use('/api/v1/auth', createProxyMiddleware(serviceProxy('Authentication service', '/api/v1/auth')));
+
+app.use('/api/courses', createProxyMiddleware(serviceProxy('Course service', '/api/courses')));
+app.use('/api/v1/courses', createProxyMiddleware(serviceProxy('Course service', '/api/v1/courses')));
+app.use('/api/vocab', createProxyMiddleware(serviceProxy('Vocab service', '/api/vocab')));
+app.use('/api/payments', createProxyMiddleware(serviceProxy('Payment service', '/api/payments')));
+app.use('/api/v1/payments', createProxyMiddleware(serviceProxy('Payment service', '/api/v1/payments')));
 
 app.use('/api/v1/progress', createProxyMiddleware({
     target: config.serviceUrl,
@@ -62,6 +69,12 @@ app.use('/api/v1/progress', createProxyMiddleware({
     }
 }));
 
+app.use('/courses', (req, res, next) => {
+    if (req.path.endsWith('.json')) {
+        return res.status(403).json({ error: 'Direct access to course content files is not permitted.' });
+    }
+    next();
+});
 app.use('/courses', express.static(path.join(projectRoot, 'courses')));
 app.use(express.static(path.join(projectRoot, 'frontend', 'public')));
 app.use(createProxyMiddleware({

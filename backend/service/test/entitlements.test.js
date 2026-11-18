@@ -192,3 +192,55 @@ test('GET /api/courses/:courseId/i18n/:locale/lessons/:lessonId - protects trans
     assert.strictEqual(res.status, 200);
     assert.ok(res.body);
 });
+
+test('Entitlement model & routing: path-specific gating unlocks ONLY selected paths', async () => {
+    const userId = 'usr_travel_only';
+    const courseId = 'it';
+
+    // Grant entitlement specifically for travel-conversation, NOT italian-reading
+    await Entitlement.grantEntitlement({
+        userId,
+        courseId,
+        selectedPaths: ['travel-conversation'],
+        provider: 'mock',
+        providerPaymentId: 'pay_travel_only_123'
+    });
+
+    // Check Entitlement.hasEntitlement directly
+    const hasTravel = await Entitlement.hasEntitlement(userId, courseId, 'travel-conversation');
+    const hasReading = await Entitlement.hasEntitlement(userId, courseId, 'italian-reading');
+    assert.strictEqual(hasTravel, true, 'User should be entitled to travel-conversation');
+    assert.strictEqual(hasReading, false, 'User should NOT be entitled to italian-reading');
+
+    // Attempting to access reading lesson must return 403 Forbidden with Path requires payment
+    const readingRes = await testRequest(router, {
+        method: 'GET',
+        url: '/it/lessons/italian-reading-2',
+        session: { userId }
+    });
+
+    assert.strictEqual(readingRes.status, 403);
+    assert.strictEqual(readingRes.body.error, 'Path requires payment');
+    assert.strictEqual(readingRes.body.requiresPath, 'italian-reading');
+
+    // Now grant entitlement specifically for italian-reading
+    const userIdReading = 'usr_reading_learner';
+    await Entitlement.grantEntitlement({
+        userId: userIdReading,
+        courseId,
+        selectedPaths: ['italian-reading'],
+        provider: 'mock',
+        providerPaymentId: 'pay_reading_path_456'
+    });
+
+    // User with italian-reading access now loads the paid lesson successfully
+    const successRes = await testRequest(router, {
+        method: 'GET',
+        url: '/it/lessons/italian-reading-2',
+        session: { userId: userIdReading }
+    });
+
+    assert.strictEqual(successRes.status, 200);
+    assert.strictEqual(successRes.body.id, 'italian-reading-2');
+    assert.strictEqual(successRes.body.access, 'paid');
+});

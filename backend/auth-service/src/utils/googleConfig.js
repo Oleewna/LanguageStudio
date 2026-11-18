@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const env = require('../../config/env');
 
 /**
  * Searches for and loads Google OAuth credentials from:
@@ -65,7 +66,7 @@ function loadGoogleConfig() {
                 if (clientId && clientSecret) {
                     const redirectUris = creds.redirect_uris || creds.redirectUris;
                     const redirectUri = (Array.isArray(redirectUris) && redirectUris[0]) ||
-                        process.env.GOOGLE_REDIRECT_URI ||
+                        env.GOOGLE_REDIRECT_URI ||
                         'http://localhost:3005/api/v1/auth/google/callback';
 
                     return {
@@ -82,9 +83,9 @@ function loadGoogleConfig() {
     }
 
     // 3. Fallback to environment variables
-    const envClientId = (process.env.GOOGLE_CLIENT_ID || '').trim();
-    const envClientSecret = (process.env.GOOGLE_CLIENT_SECRET || '').trim();
-    const envRedirectUri = (process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3005/api/v1/auth/google/callback').trim();
+    const envClientId = (env.GOOGLE_CLIENT_ID || '').trim();
+    const envClientSecret = (env.GOOGLE_CLIENT_SECRET || '').trim();
+    const envRedirectUri = (env.GOOGLE_REDIRECT_URI || 'http://localhost:3005/api/v1/auth/google/callback').trim();
 
     const isPlaceholder = !envClientId ||
         envClientId === 'YOUR_GOOGLE_CLIENT_ID_HERE' ||

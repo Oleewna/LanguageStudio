@@ -1,7 +1,5 @@
 const express = require('express');
-const path = require('path');
-
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+const config = require('../config/env');
 
 const authRoutes = require('./routes/auth');
 const { googleCallback, googleRedirect } = require('./controllers/authController');
@@ -26,13 +24,13 @@ app.use((error, req, res, next) => {
     });
 });
 
-const port = Number(process.env.PORT || 3007);
+const port = Number(config.PORT);
 if (!Number.isInteger(port) || port < 0 || port > 65535) {
     throw new Error('PORT must be an integer between 0 and 65535.');
 }
 
 if (require.main === module) {
-    const host = process.env.HOST || '127.0.0.1';
+    const host = config.HOST;
     app.listen(port, host, () => {
         console.log(`LanguageStudio auth service running at http://localhost:${port}`);
     });

@@ -35,7 +35,7 @@ router.post('/checkout', async (req, res, next) => {
             });
         }
 
-        const { courseId, priceId: inputPriceId, successUrl, cancelUrl } = req.body || {};
+        const { courseId, selectedPaths: rawSelectedPaths, priceId: inputPriceId, successUrl, cancelUrl } = req.body || {};
         if (!courseId || typeof courseId !== 'string') {
             return res.status(400).json({
                 error: 'Valid courseId is required.',
@@ -44,14 +44,34 @@ router.post('/checkout', async (req, res, next) => {
         }
 
         const safeCourseId = courseId.trim();
+        const selectedPaths = Array.isArray(rawSelectedPaths)
+            ? rawSelectedPaths.filter(p => typeof p === 'string' && p.trim()).map(p => p.trim())
+            : [];
 
         // Check if user already holds active access
-        const hasEntitlement = await Entitlement.hasActiveEntitlement(userId, safeCourseId);
-        if (hasEntitlement) {
-            return res.status(409).json({
-                error: 'User already has active access to this course.',
-                code: 'ALREADY_ENTITLED'
-            });
+        if (selectedPaths.length > 0) {
+            let allEntitled = true;
+            for (const p of selectedPaths) {
+                const entitled = await Entitlement.hasEntitlement(userId, safeCourseId, p);
+                if (!entitled) {
+                    allEntitled = false;
+                    break;
+                }
+            }
+            if (allEntitled) {
+                return res.status(409).json({
+                    error: 'User already has active access to this course.',
+                    code: 'ALREADY_ENTITLED'
+                });
+            }
+        } else {
+            const hasEntitlement = await Entitlement.hasActiveEntitlement(userId, safeCourseId);
+            if (hasEntitlement) {
+                return res.status(409).json({
+                    error: 'User already has active access to this course.',
+                    code: 'ALREADY_ENTITLED'
+                });
+            }
         }
 
         // Determine priceId
@@ -65,10 +85,11 @@ router.post('/checkout', async (req, res, next) => {
         const checkoutSession = await provider.createCheckout({
             userId,
             courseId: safeCourseId,
+            selectedPaths,
             priceId,
-            successUrl: successUrl || `/pages/lesson.html?course=${encodeURIComponent(safeCourseId)}&purchased=1`,
+            successUrl: successUrl || `/pages/path.html?unlocked=true`,
             cancelUrl: cancelUrl || `/pages/pricing.html?course=${encodeURIComponent(safeCourseId)}&canceled=1`,
-            metadata: { userId, courseId: safeCourseId }
+            metadata: { userId, courseId: safeCourseId, selectedPaths }
         });
 
         return res.status(200).json(checkoutSession);
@@ -116,6 +137,7 @@ router.post('/webhook', async (req, res, next) => {
             const { entitlement, idempotent } = await Entitlement.grantEntitlement({
                 userId,
                 courseId,
+                selectedPaths: event.selectedPaths || req.body.selectedPaths || [],
                 provider: event.provider,
                 providerPaymentId,
                 expiresAt
@@ -167,18 +189,56 @@ router.post('/webhook', async (req, res, next) => {
 });
 
 /**
+ * GET /api/payments/entitlements
+ * Returns all active entitlements for the authenticated user.
+ */
+router.get('/entitlements', async (req, res, next) => {
+    try {
+        const userId = req.session && req.session.userId;
+        if (!userId) {
+            return res.json({ authenticated: false, entitlements: [] });
+        }
+        const docs = await Entitlement.find({ userId: String(userId), status: 'active' });
+        const now = new Date();
+        const active = docs.filter(doc => !doc.expiresAt || new Date(doc.expiresAt) > now);
+        return res.json({
+            authenticated: true,
+            entitlements: active
+        });
+    } catch (error) {
+        return next(error);
+    }
+});
+
+/**
  * GET /api/payments/entitlement/:courseId
- * Helper to check current user entitlement state for a course.
+ * Helper to check current user entitlement state for a course or specific path.
  */
 router.get('/entitlement/:courseId', async (req, res, next) => {
     try {
         const userId = req.session && req.session.userId;
         if (!userId) {
-            return res.status(401).json({ authenticated: false, hasAccess: false });
+            return res.status(401).json({ authenticated: false, hasAccess: false, selectedPaths: [], isFullCourse: false });
         }
         const courseId = req.params.courseId;
-        const hasAccess = await Entitlement.hasActiveEntitlement(userId, courseId);
-        return res.json({ authenticated: true, courseId, hasAccess });
+        const pathId = req.query.pathId || req.query.path || null;
+        const hasAccess = await Entitlement.hasEntitlement(userId, courseId, pathId);
+
+        const docs = await Entitlement.find({ userId: String(userId), courseId: String(courseId), status: 'active' });
+        const now = new Date();
+        const active = docs.filter(doc => !doc.expiresAt || new Date(doc.expiresAt) > now);
+        const selectedPaths = [...new Set(active.flatMap(d => Array.isArray(d.selectedPaths) ? d.selectedPaths : []))];
+        const isFullCourse = active.some(d => !Array.isArray(d.selectedPaths) || d.selectedPaths.length === 0 || d.selectedPaths.includes('*'));
+
+        return res.json({
+            authenticated: true,
+            courseId,
+            pathId,
+            hasAccess,
+            selectedPaths,
+            isFullCourse,
+            entitlements: active
+        });
     } catch (error) {
         return next(error);
     }

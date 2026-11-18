@@ -33,6 +33,7 @@
       display: flex;
       flex-direction: column;
       background: var(--sidebar-bg);
+      overflow-x: hidden;
     }
 
     .st-left-head {
@@ -64,6 +65,7 @@
       padding: 0.5rem 0;
       flex: 1;
       overflow-y: auto;
+      overflow-x: hidden;
     }
 
     .st-cat-item {
@@ -71,6 +73,8 @@
       align-items: center;
       gap: 0.85rem;
       width: 100%;
+      box-sizing: border-box;
+      max-width: 100%;
       padding: 0.95rem 1.4rem;
       border: none;
       background: transparent;
@@ -676,17 +680,123 @@
   <script defer src="../js/layout.js"></script>
   <script defer src="../js/app.js"></script>
   <script>
-    // ── COPY FROM LOCALES ──────────────────────────────────────────────────────
+    // ── COPY FROM LOCALES & SAFE DEFAULTS ─────────────────────────────────────
+    const ST_COPY_DEFAULTS = {
+      uk: {
+        sidebarEyebrow: 'Налаштування',
+        sidebarTitle: 'Налаштування',
+        catProfile: 'Профіль',
+        catGeneral: 'Загальні',
+        catNotifications: 'Повідомлення',
+        catPayments: 'Оплата',
+
+        profileEyebrow: 'Студент',
+        profileHeading: 'Профіль',
+        profileDesc: 'Ваша навчальна ідентичність на цьому пристрої.',
+        profileRole: 'Студент',
+        profileName: 'Гостьовий профіль',
+        profileNote: 'Прогрес зберігається на цьому пристрої.',
+
+        generalEyebrow: 'Налаштування',
+        generalHeading: 'Загальні',
+        generalDesc: 'Мова, курс та оформлення.',
+        courseBLabel: 'Цільовий курс',
+        dailyGoalLabel: 'Щоденна навчальна ціль',
+        dailyGoalNote: 'Ціль зберігається на цьому пристрої.',
+        dailyGoalSaved: 'Щоденну ціль збережено.',
+        dailyGoalSaveError: 'Не вдалося зберегти ціль. Спробуйте ще раз.',
+        langBLabel: 'Мова перекладів та інтерфейсу',
+        themeBLabel: 'Тема інтерфейсу',
+        useDeviceTheme: 'Тема пристрою',
+        systemThemeActive: 'Тема відповідає налаштуванням пристрою.',
+        customThemeActive: 'Використовується вибрана тема.',
+
+        notifEyebrow: 'Сповіщення',
+        notifHeading: 'Повідомлення',
+        notifDesc: 'Виберіть, які оновлення ви хочете отримувати.',
+        remindersTitle: 'Нагадування про практику',
+        remindersDesc: 'Нагадування, щоб підтримувати регулярність навчання.',
+        summariesTitle: 'Підсумки прогресу',
+        summariesDesc: 'Огляд завершених уроків.',
+        vocabularyTitle: 'Сповіщення про нові слова',
+        vocabularyDesc: 'Новини про нові слова у вашому курсі.',
+
+        payEyebrow: 'Оплата',
+        payHeading: 'Оплата',
+        payDesc: 'Ваша підписка та інформація про оплату.',
+        planStatus: 'Демо',
+        planTitle: 'Демо-план LanguageStudio',
+        planNote: 'Це локальний навчальний застосунок, і доступ до матеріалів безкоштовний.',
+        billingTitle: 'Історія оплат',
+        billingNote: 'У цій демоверсії немає підписок або платіжних записів.'
+      },
+      en: {
+        sidebarEyebrow: 'Preferences',
+        sidebarTitle: 'Settings',
+        catProfile: 'Profile',
+        catGeneral: 'General',
+        catNotifications: 'Notifications',
+        catPayments: 'Payments',
+
+        profileEyebrow: 'Student',
+        profileHeading: 'Profile',
+        profileDesc: 'Your learning identity on this device.',
+        profileRole: 'Student',
+        profileName: 'Guest profile',
+        profileNote: 'Progress is saved on this device.',
+
+        generalEyebrow: 'Preferences',
+        generalHeading: 'General',
+        generalDesc: 'Language, course, and appearance settings.',
+        courseBLabel: 'Target course',
+        dailyGoalLabel: 'Daily learning goal',
+        dailyGoalNote: 'Your goal is saved on this device.',
+        dailyGoalSaved: 'Daily goal saved.',
+        dailyGoalSaveError: 'Could not save your goal. Please try again.',
+        langBLabel: 'Translations & interface',
+        themeBLabel: 'Interface theme',
+        useDeviceTheme: 'Use device theme',
+        systemThemeActive: 'Following your device appearance setting.',
+        customThemeActive: 'Using your selected theme.',
+
+        notifEyebrow: 'Alerts',
+        notifHeading: 'Notifications',
+        notifDesc: 'Choose which updates you want to receive.',
+        remindersTitle: 'Daily practice reminders',
+        remindersDesc: 'A gentle nudge to keep your learning streak going.',
+        summariesTitle: 'Lesson progress summaries',
+        summariesDesc: 'A recap of your completed lessons.',
+        vocabularyTitle: 'New vocabulary alerts',
+        vocabularyDesc: 'Updates when new words are added to your course.',
+
+        payEyebrow: 'Billing',
+        payHeading: 'Payments',
+        payDesc: 'Your subscription and billing information.',
+        planStatus: 'Demo',
+        planTitle: 'LanguageStudio demo plan',
+        planNote: 'This is a local learning app and access to current content is free.',
+        billingTitle: 'Billing history',
+        billingNote: 'No active subscriptions or payment records are connected in this demo build.'
+      }
+    };
+
+    function getSettingString(prop, lang) {
+      const key = String(prop);
+      const l = lang || (typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk');
+      const fallback = ST_COPY_DEFAULTS[l]?.[key] || ST_COPY_DEFAULTS.en?.[key] || ST_COPY_DEFAULTS.uk?.[key] || '';
+
+      if (typeof window.t === 'function') {
+        const res = window.t(`settings.${key}`, {}, l) || window.t(key, {}, l);
+        if (res && res !== `settings.${key}` && res !== key) return res;
+      }
+      return fallback;
+    }
+
     const ST_COPY = new Proxy({}, {
       get(target, lang) {
         return new Proxy({}, {
           get(tTarget, prop) {
-            const key = String(prop);
-            if (typeof window.t === 'function') {
-              const res = window.t(`settings.${key}`, {}, lang) || window.t(key, {}, lang);
-              if (res && res !== `settings.${key}` && res !== key) return res;
-            }
-            return key;
+            return getSettingString(prop, lang);
           }
         });
       }
@@ -824,7 +934,10 @@
       const lang = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
       const c = ST_COPY[lang] || ST_COPY.uk;
 
-      const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+      const set = (id, text) => {
+        const el = document.getElementById(id);
+        if (el && text) el.textContent = text;
+      };
 
       set('stSidebarEyebrow', c.sidebarEyebrow);
       set('stSidebarTitle', c.sidebarTitle);
@@ -864,10 +977,12 @@
 
       // notification labels
       document.querySelectorAll('[data-notification-title]').forEach(el => {
-        el.textContent = c[`${el.dataset.notificationTitle}Title`] || el.textContent;
+        const val = c[`${el.dataset.notificationTitle}Title`];
+        if (val) el.textContent = val;
       });
       document.querySelectorAll('[data-notification-description]').forEach(el => {
-        el.textContent = c[`${el.dataset.notificationDescription}Desc`] || el.textContent;
+        const val = c[`${el.dataset.notificationDescription}Desc`];
+        if (val) el.textContent = val;
       });
 
       document.title = `${c.sidebarTitle} — LanguageStudio`;
@@ -875,7 +990,7 @@
     }
 
     // ── INIT ──────────────────────────────────────────────────────────────────
-    function initSettingsPage() {
+    async function initSettingsPage() {
       if (typeof window.applySourceLanguageSettings === 'function') window.applySourceLanguageSettings();
       if (typeof window.applyTargetCourseSettings === 'function') window.applyTargetCourseSettings();
       applySettingsLanguage();
@@ -907,10 +1022,20 @@
 
       initNotifToggles();
       initDailyGoal();
+
+      if (typeof window.loadLocaleData === 'function') {
+        const lang = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+        try {
+          await Promise.all([window.loadLocaleData('en'), window.loadLocaleData(lang)]);
+          applySettingsLanguage();
+        } catch (_) {}
+      }
     }
 
     document.addEventListener('DOMContentLoaded', initSettingsPage);
     window.addEventListener('sourceLanguageChanged', applySettingsLanguage);
+    window.addEventListener('localeLoaded', applySettingsLanguage);
+    window.addEventListener('localesReady', applySettingsLanguage);
     window.addEventListener('themeChanged', renderThemeButton);
   </script>
 </body>

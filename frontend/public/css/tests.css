@@ -272,6 +272,17 @@
   cursor: not-allowed;
 }
 .test-action .ls-icon { width: 0.95rem; height: 0.95rem; }
+.test-action--active {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--primary-contrast);
+  cursor: pointer;
+  text-decoration: none;
+}
+.test-action--active:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
 .assessment-path-link {
   display: inline-flex;
   align-items: center;
@@ -377,4 +388,244 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .path-assessment-card { transition: none; }
+}
+
+/* ══════════════════════════════════════════════
+   PLACEMENT TEST — STEP VISIBILITY
+══════════════════════════════════════════════ */
+.pt-step[hidden] { display: none; }
+
+/* ══════════════════════════════════════════════
+   STEP 0 — GOAL GRID
+══════════════════════════════════════════════ */
+.pt-goal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.pt-goal-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  padding: 1rem 1rem 1rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease, transform 0.14s ease;
+}
+
+.pt-goal-card:hover {
+  border-color: var(--primary-border);
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pt-goal-card.is-selected {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+  box-shadow: 0 0 0 1px var(--primary-border);
+}
+
+.pt-goal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-bottom: 0.4rem;
+  border-radius: 0.7rem;
+  background: color-mix(in srgb, var(--primary) 12%, var(--surface));
+  color: var(--primary);
+  transition: background 0.18s ease;
+}
+.pt-goal-card.is-selected .pt-goal-icon {
+  background: color-mix(in srgb, var(--primary) 20%, var(--surface));
+}
+.pt-goal-icon .ls-icon { width: 1.3rem; height: 1.3rem; }
+
+.pt-goal-label {
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.pt-goal-desc {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+/* Checkmark badge */
+.pt-goal-check {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.pt-goal-card.is-selected .pt-goal-check {
+  border-color: var(--primary);
+  background: var(--primary);
+}
+.pt-goal-card.is-selected .pt-goal-check::after {
+  content: '';
+  display: block;
+  width: 0.45rem;
+  height: 0.25rem;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) translateY(-1px);
+}
+
+/* ══════════════════════════════════════════════
+   STEP 2 — RESULTS CARD
+══════════════════════════════════════════════ */
+.pt-results-card {
+  gap: 1.5rem;
+}
+
+.pt-result-level-block {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.pt-result-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--primary) 15%, var(--surface));
+  border: 3px solid var(--primary-border);
+  color: var(--primary);
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.pt-result-level-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pt-result-level-label {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  line-height: 1.2;
+}
+
+.pt-result-level-desc {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+}
+
+.pt-result-paths-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-top: 0.25rem;
+}
+
+.pt-result-paths-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.pt-result-paths-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pt-result-path-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--primary-border);
+  border-radius: 999px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.pt-result-path-chip .ls-icon { width: 0.95rem; height: 0.95rem; }
+
+.pt-result-score {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  padding: 0.65rem 1rem;
+  border-radius: 0.6rem;
+  background: var(--correct-light);
+  color: var(--correct);
+  border: 1px solid var(--correct-border);
+}
+
+.pt-cta-btn {
+  gap: 0.6rem;
+  font-size: 1rem;
+  min-height: 3.5rem;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+}
+.pt-cta-btn .ls-icon { width: 1.1rem; height: 1.1rem; }
+
+.pt-restart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.7rem;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+.pt-restart-btn:hover { border-color: var(--primary-border); color: var(--primary); }
+.pt-restart-btn .ls-icon { width: 1rem; height: 1rem; }
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media (max-width: 520px) {
+  .pt-goal-grid { grid-template-columns: 1fr; }
+  .pt-result-level-block { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .pt-result-badge { width: 4rem; height: 4rem; font-size: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pt-goal-card { transition: none; }
 }

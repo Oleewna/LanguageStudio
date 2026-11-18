@@ -1,5 +1,67 @@
 let pathProgressRecords = [];
+let userActiveEntitlements = [];
+let hasFullAccess = false;
+let userPaidPathIds = new Set();
 const LESSONS_PER_ROW = 3;
+
+async function loadEntitlements(courseId) {
+  try {
+    const res = await fetch('/api/payments/entitlements', { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data.entitlements)) {
+        userActiveEntitlements = data.entitlements;
+      }
+    }
+  } catch (err) {
+    console.warn('Could not load entitlements from payments API:', err);
+  }
+
+  // Also fallback / check progress snapshot if empty
+  if (!userActiveEntitlements.length && window.Progress && typeof window.Progress.getSnapshot === 'function') {
+    try {
+      const snap = await window.Progress.getSnapshot();
+      if (snap && Array.isArray(snap.entitlements)) {
+        userActiveEntitlements = snap.entitlements;
+      }
+    } catch (e) {}
+  }
+
+  hasFullAccess = false;
+  userPaidPathIds.clear();
+
+  for (const ent of userActiveEntitlements) {
+    if (ent.status !== 'active') continue;
+    if (ent.expiresAt && new Date(ent.expiresAt) <= new Date()) continue;
+    if (ent.courseId && ent.courseId !== courseId) continue;
+
+    const paths = Array.isArray(ent.selectedPaths) ? ent.selectedPaths : [];
+    if (paths.length === 0 || paths.includes('*') || paths.includes(courseId)) {
+      hasFullAccess = true;
+    } else {
+      paths.forEach(p => {
+        const norm = String(p).trim().toLowerCase();
+        userPaidPathIds.add(norm);
+        userPaidPathIds.add(norm.replace(/^[a-z]+-/, ''));
+      });
+    }
+  }
+}
+
+function isPathPaid(path) {
+  if (path.access === 'paid') return true;
+  if (path.access === 'free') return false;
+  const lessons = (path.units || []).flatMap(u => u.lessons || []);
+  return lessons.some(l => l.access === 'paid');
+}
+
+function isPathEntitled(pathId, courseId) {
+  if (hasFullAccess) return true;
+  if (!pathId) return false;
+  const norm = String(pathId).trim().toLowerCase();
+  const stripped = norm.replace(/^[a-z]+-/, '');
+  return userPaidPathIds.has(norm) || userPaidPathIds.has(stripped);
+}
 
 function toggleUnit(card) {
   card.classList.toggle('open');
@@ -98,7 +160,7 @@ function renderLessonRow(lesson, nodeState = 'upcoming') {
 
   const isPaid = lesson.access === 'paid';
   const paidBadge = isPaid && !lesson.completed
-    ? `<span class="lesson-badge-paid" style="font-size:0.75rem;padding:0.15rem 0.5rem;background:#fef3c7;color:#b45309;border-radius:4px;font-weight:700;margin-left:0.5rem;display:inline-flex;align-items:center;gap:3px;"><span style="font-size:0.7rem;">🔒</span> ${lang === 'en' ? 'PRO' : 'PRO'}</span>`
+    ? `<span class="lesson-badge-paid" style="font-size:0.75rem;padding:0.15rem 0.5rem;background:#fef3c7;color:#b45309;border-radius:4px;font-weight:700;margin-left:0.5rem;display:inline-flex;align-items:center;gap:3px;"><span data-icon="lock" style="font-size:0.7rem;"></span> ${lang === 'en' ? 'PRO' : 'PRO'}</span>`
     : '';
 
   const numHtml = lessonNum ? `<div class="lesson-num">${escapeHtml(lessonNum)}</div>` : '';
@@ -179,6 +241,8 @@ function renderCategoryCard(category, index) {
   const unitsHtml = (category.units || []).map((unit) => renderUnitGroup(unit, (category.units || []).length)).join('');
   const assessment = category.assessment;
   const lang = getPathLanguage();
+  const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+
   let assessmentStatus;
   let assessmentAction;
   if (assessment.total === 0) {
@@ -200,6 +264,22 @@ function renderCategoryCard(category, index) {
   const subtitle = getLocalizedText(category.subtitle);
   const badgeText = category.badgeText || buildBadgeText(category);
 
+  const pricingLink = `pricing.html?course=${encodeURIComponent(courseId)}&paths=${encodeURIComponent(category.id)}`;
+
+  const unlockBannerHtml = category.isPaidLocked ? `
+    <div class="paid-path-lock-banner" style="margin:1.5rem 0; padding:1.5rem; background:var(--bg-soft, #f8fafc); border:2px dashed var(--border-soft, #cbd5e1); border-radius:1rem; text-align:center; display:flex; flex-direction:column; align-items:center; gap:0.75rem;">
+      <div style="font-size:1.75rem; color:#b45309;">${getIconSvg('lock')}</div>
+      <h4 style="margin:0; font-size:1.15rem; font-weight:800; color:var(--ink, #1e293b);">${lang === 'en' ? 'Path requires payment' : 'Напрямок потребує оплати'}</h4>
+      <p style="margin:0; color:var(--ink-soft, #64748b); font-size:0.95rem; max-width:480px;">
+        ${lang === 'en' ? 'Unlock this personalized learning path to access all units, audio lessons, and vocabulary.' : 'Розблокуйте цей напрямок, щоб отримати доступ до всіх уроків та аудіоматеріалів.'}
+      </p>
+      <a href="${pricingLink}" class="btn-primary path-unlock-btn" style="display:inline-flex; align-items:center; gap:0.5rem; padding:0.75rem 1.5rem; font-weight:800; text-decoration:none; border-radius:0.75rem; margin-top:0.25rem;">
+        ${getIconSvg('lock')}
+        <span>${lang === 'en' ? 'Choose & Unlock Path' : 'Обрати та розблокувати напрямок'}</span>
+      </a>
+    </div>
+  ` : '';
+
   return `
     <div class="unit-card${openClass}" id="path-${escapeHtml(category.id)}" data-category-id="${escapeHtml(category.id)}" onclick="toggleUnit(this)">
       <div class="unit-header">
@@ -216,6 +296,7 @@ function renderCategoryCard(category, index) {
         </div>
       </div>
       <div class="category-body" onclick="event.stopPropagation()">
+        ${unlockBannerHtml}
         ${unitsHtml}
         <section class="path-assessment-checkpoint${assessment.unlocked ? ' is-unlocked' : ' is-locked'}" aria-label="${lang === 'en' ? 'Final learning path assessment' : 'Фінальний тест напрямку навчання'}">
           <div class="path-assessment-checkpoint-icon">${getIconSvg('tests')}</div>
@@ -238,25 +319,44 @@ function renderCategories(progressRecords = []) {
   const container = document.getElementById('pathContainer');
   if (!container) return;
 
+  const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+  const urlParams = new URLSearchParams(window.location.search);
+  const isJustUnlocked = urlParams.get('unlocked') === 'true';
+
   const categories = getCoursePaths().map((path) => {
-    const units = window.LSPathProgress.getSequentialUnits(path, progressRecords).map((unit) => ({
+    const paid = isPathPaid(path);
+    const entitled = !paid || isPathEntitled(path.id, courseId);
+    const isLocked = !entitled;
+
+    const effectivePath = {
+      ...path,
+      locked: isLocked
+    };
+
+    const units = window.LSPathProgress.getSequentialUnits(effectivePath, progressRecords).map((unit) => ({
       ...unit,
       lessons: unit.lessons.map((lesson) => ({
         ...lesson,
-        href: getLessonHref(lesson)
+        href: isLocked ? '#' : getLessonHref(lesson)
       }))
     }));
-    const pathWithProgress = { ...path, units };
+    const pathWithProgress = { ...effectivePath, units };
+
+    const lang = getPathLanguage();
+    const badgeText = isLocked
+      ? (lang === 'en' ? 'Locked · Paid' : 'Заблоковано')
+      : buildBadgeText(pathWithProgress);
 
     return {
       id: path.id,
       icon: path.icon || 'paths',
       title: path.title,
       subtitle: path.subtitle,
-      locked: Boolean(path.locked),
-      defaultOpen: Boolean(path.defaultOpen),
-      badgeText: buildBadgeText(pathWithProgress),
-      assessment: window.LSPathAssessment.getState(path, progressRecords),
+      locked: isLocked,
+      isPaidLocked: isLocked,
+      defaultOpen: Boolean(path.defaultOpen) || (isJustUnlocked && entitled && paid),
+      badgeText,
+      assessment: window.LSPathAssessment.getState(effectivePath, progressRecords),
       units
     };
   });
@@ -267,13 +367,26 @@ function renderCategories(progressRecords = []) {
     return;
   }
 
-  container.innerHTML = categories.map(renderCategoryCard).join('');
+  let toastHtml = '';
+  if (isJustUnlocked) {
+    const lang = getPathLanguage();
+    toastHtml = `
+      <div class="path-unlock-toast" style="background:#ecfdf5; border:1.5px solid #10b981; color:#065f46; padding:1rem 1.5rem; border-radius:1rem; margin-bottom:1.75rem; display:flex; align-items:center; gap:0.75rem; font-weight:800;">
+        <span data-icon="sparkles" style="font-size:1.4rem;"></span>
+        <span>${lang === 'en' ? 'Success! Your selected learning paths have been unlocked.' : 'Успішно! Ваші обрані напрямки навчання розблоковано.'}</span>
+      </div>
+    `;
+  }
+
+  container.innerHTML = toastHtml + categories.map(renderCategoryCard).join('');
   applySourceLanguageSettings();
   window.renderRegisteredIcons?.(container);
   window.renderLessonPathConnectors?.();
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+
   try {
     if (typeof window.loadCourse === 'function') {
       window.__LS_COURSE_DATA = await window.loadCourse();
@@ -289,10 +402,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
+    // Load active entitlements for this course
+    await loadEntitlements(courseId);
+
     if (!window.Progress || typeof window.Progress.list !== 'function') {
       throw new Error('Lesson progress is unavailable.');
     }
-    const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
     pathProgressRecords = await window.Progress.list('lessonProgress', { courseId });
     renderCategories(pathProgressRecords);
   } catch (error) {

@@ -454,10 +454,10 @@
               ${lang === 'en' ? 'What you get:' : 'Що входить у курс:'}
             </div>
             <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.5rem;font-size:0.9rem;color:var(--ink-soft);">
-              <li style="display:flex;align-items:center;gap:0.5rem;"><span style="color:#10b981;">✓</span> ${lang === 'en' ? 'Full structured learning path with all units' : 'Повний структурований шлях з усіма розділами'}</li>
-              <li style="display:flex;align-items:center;gap:0.5rem;"><span style="color:#10b981;">✓</span> ${lang === 'en' ? 'Vocabulary trainer with spaced repetition' : 'Словниковий тренажер з інтервальним повторенням'}</li>
-              <li style="display:flex;align-items:center;gap:0.5rem;"><span style="color:#10b981;">✓</span> ${lang === 'en' ? 'Interactive quizzes & audio dialogue practice' : 'Інтерактивні тести та аудіо-діалоги'}</li>
-              <li style="display:flex;align-items:center;gap:0.5rem;"><span style="color:#10b981;">✓</span> ${lang === 'en' ? 'One-time payment, no recurring subscriptions' : 'Одноразова оплата без прихованих підписок'}</li>
+              <li style="display:flex;align-items:center;gap:0.5rem;"><span data-icon="check" style="color:#10b981;"></span> ${lang === 'en' ? 'Full structured learning path with all units' : 'Повний структурований шлях з усіма розділами'}</li>
+              <li style="display:flex;align-items:center;gap:0.5rem;"><span data-icon="check" style="color:#10b981;"></span> ${lang === 'en' ? 'Vocabulary trainer with spaced repetition' : 'Словниковий тренажер з інтервальним повторенням'}</li>
+              <li style="display:flex;align-items:center;gap:0.5rem;"><span data-icon="check" style="color:#10b981;"></span> ${lang === 'en' ? 'Interactive quizzes & audio dialogue practice' : 'Інтерактивні тести та аудіо-діалоги'}</li>
+              <li style="display:flex;align-items:center;gap:0.5rem;"><span data-icon="check" style="color:#10b981;"></span> ${lang === 'en' ? 'One-time payment, no recurring subscriptions' : 'Одноразова оплата без прихованих підписок'}</li>
             </ul>
           </div>
 
@@ -599,7 +599,6 @@
         vocabularyMap,
         missingVocabulary
       );
-      const lang = typeof window.getSourceLanguage === 'function' ? window.getSourceLanguage() : 'uk';
 
       if (!normalized.sections || normalized.sections.length === 0) {
         normalized.sections = [{ type: 'takeaways', title: { uk: 'Опис уроку', en: 'Lesson summary' }, items: [readText(normalized.description, '')] }];

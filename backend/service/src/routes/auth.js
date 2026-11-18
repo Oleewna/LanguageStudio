@@ -13,7 +13,11 @@ router.get('/csrf', authController.getCsrf);
 
 // User profile & session
 router.get('/me', authController.getMe);
-router.get('/session', authController.getMe); // Backward-compatibility alias
+router.get('/session', authController.getSession);
+
+// Google OAuth
+router.get('/google', authController.googleRedirect);
+router.get('/google/callback', authController.googleCallback);
 
 // Registration & Login
 router.post('/register', strictAuthLimiter, csrfProtection, authController.register);

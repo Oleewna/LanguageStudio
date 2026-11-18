@@ -21,6 +21,7 @@
     "express": "^5.2.1",
     "express-rate-limit": "^8.7.4",
     "express-session": "^1.19.0",
+    "google-auth-library": "^11.3.4",
     "helmet": "^8.3.0",
     "mongoose": "^9.12.2",
     "supertest": "^7.3.2",

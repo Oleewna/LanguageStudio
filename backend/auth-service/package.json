@@ -12,6 +12,8 @@
   "dependencies": {
     "dotenv": "^18.0.9",
     "express": "^5.2.1",
-    "google-auth-library": "^11.3.4"
+    "google-auth-library": "^11.3.4",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
   }
 }

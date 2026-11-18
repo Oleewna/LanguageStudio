@@ -139,6 +139,48 @@
       margin: 0;
       line-height: 1.5;
     }
+    .pricing-summary-card {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(99, 102, 241, 0.03) 100%);
+      border: 1.5px solid var(--brand, #4f46e5);
+      border-radius: 1.25rem;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .pricing-summary-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .pricing-summary-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #ffffff;
+      border: 1px solid var(--border-soft, #e2e8f0);
+      padding: 0.35rem 0.75rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--ink, #1e293b);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .pricing-tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      padding: 0.25rem 0.65rem;
+      border-radius: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 800;
+      align-self: flex-start;
+    }
   </style>
 </head>
 <body>
@@ -151,6 +193,24 @@
       <p id="pricingSubheading">Start for free with introductory lessons, or upgrade once for unlimited lifetime access. No subscriptions or hidden fees.</p>
     </div>
 
+    <!-- Placement Test Summary (Rendered when navigated from test) -->
+    <div class="pricing-summary-card" id="pricingSummaryCard" hidden>
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
+        <div>
+          <span class="pricing-tier-badge" id="recommendedTierBadge">
+            <span data-icon="sparkles"></span> Recommended Plan
+          </span>
+          <h3 style="margin:0.5rem 0 0.25rem; font-size:1.25rem; font-weight:800; color:var(--ink, #1e293b);" id="summaryHeading">
+            Personalized Learning Plan
+          </h3>
+          <p style="margin:0; font-size:0.9rem; color:var(--ink-soft, #64748b);" id="summarySubtitle">
+            Based on your placement test, we have tailored your path to focus on your specific goals:
+          </p>
+        </div>
+      </div>
+      <div class="pricing-summary-chips" id="summaryChips"></div>
+    </div>
+
     <div class="pricing-grid">
       <!-- Free Starter Card -->
       <div class="pricing-card">
@@ -158,10 +218,10 @@
         <div class="pricing-plan-desc" id="starterDesc">Try introductory lessons and essential vocabulary at zero cost.</div>
         <div class="pricing-price">€0 <span class="period">forever</span></div>
         <ul class="pricing-features">
-          <li><span class="check">✓</span> <span id="feat1">First lesson and basics included</span></li>
-          <li><span class="check">✓</span> <span id="feat2">Interactive dialogues & native audio</span></li>
-          <li><span class="check">✓</span> <span id="feat3">Basic vocabulary word bank</span></li>
-          <li><span class="check">✓</span> <span id="feat4">Progress synchronization</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="feat1">First lesson and basics included</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="feat2">Interactive dialogues & native audio</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="feat3">Basic vocabulary word bank</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="feat4">Progress synchronization</span></li>
         </ul>
         <a href="path.html" class="btn-ghost" style="text-align:center;padding:0.75rem;font-weight:700;" id="btnFreeStart">
           Continue Learning Free
@@ -175,20 +235,20 @@
         <div class="pricing-plan-desc" id="proDesc">Complete structured path from beginner to conversational fluency.</div>
         <div class="pricing-price">€29 <span class="period">one-time</span></div>
         <ul class="pricing-features">
-          <li><span class="check">✓</span> <strong><span id="proFeat1">All units and reading lessons</span></strong></li>
-          <li><span class="check">✓</span> <span id="proFeat2">Full vocabulary trainer & spaced repetition</span></li>
-          <li><span class="check">✓</span> <span id="proFeat3">Grammar handbook and cultural notes</span></li>
-          <li><span class="check">✓</span> <span id="proFeat4">Interactive quizzes, audio & story texts</span></li>
-          <li><span class="check">✓</span> <span id="proFeat5">Lifetime updates with no recurring fees</span></li>
+          <li><span class="check" data-icon="check"></span> <strong><span id="proFeat1">All units and reading lessons</span></strong></li>
+          <li><span class="check" data-icon="check"></span> <span id="proFeat2">Full vocabulary trainer & spaced repetition</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="proFeat3">Grammar handbook and cultural notes</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="proFeat4">Interactive quizzes, audio & story texts</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="proFeat5">Lifetime updates with no recurring fees</span></li>
         </ul>
         <button type="button" class="btn-primary" style="padding:0.85rem;font-weight:800;font-size:1.05rem;" id="btnCheckout">
-          <span id="btnCheckoutLabel">Unlock Lifetime Access</span>
+          <span id="btnCheckoutLabel">Pay with Mock Checkout</span>
         </button>
       </div>
     </div>
 
     <div class="pricing-security-banner">
-      <div class="sec-icon">🔒</div>
+      <div class="sec-icon"><span data-icon="lock"></span></div>
       <div>
         <h4 id="secHeading">No real card data ever touches our server</h4>
         <p id="secText">
@@ -216,6 +276,55 @@
       const courseId = params.get('course') || (typeof window.getCourseId === 'function' ? window.getCourseId() : 'it');
       const lessonId = params.get('lesson') || '';
 
+      // Check for chosen paths from URL or placement test storage
+      const rawPaths = params.get('paths') || params.get('selectedPaths') || params.get('path') || '';
+      let chosenPaths = rawPaths ? rawPaths.split(',').map(s => s.trim()).filter(Boolean) : [];
+      if (chosenPaths.length === 0) {
+        try {
+          const stored = sessionStorage.getItem('ls_pt_goals') || localStorage.getItem('ls_pt_goals');
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed)) chosenPaths = parsed.map(s => String(s).trim()).filter(Boolean);
+          }
+        } catch (e) {}
+      }
+
+      // Map paths to course-specific paths where applicable
+      // e.g. "reading" -> "italian-reading" for Italian course
+      const normalizedSelectedPaths = chosenPaths.map(p => {
+        if (p === 'reading' && courseId === 'it') return 'italian-reading';
+        return p;
+      });
+
+      // Goal display meta
+      const goalMeta = {
+        reading: { icon: 'dictionary', label: 'Short Stories & Reading' },
+        'italian-reading': { icon: 'dictionary', label: 'Italian Reading & Pronunciation' },
+        travel: { icon: 'travel', label: 'Travel & Conversation' },
+        'travel-conversation': { icon: 'travel', label: 'Travel & Conversation' },
+        grammar: { icon: 'grammar', label: 'Grammar & Fundamentals' },
+        business: { icon: 'business', label: 'Work & Business' }
+      };
+
+      const summaryCard = document.getElementById('pricingSummaryCard');
+      const summaryChips = document.getElementById('summaryChips');
+
+      if (chosenPaths.length > 0 && summaryCard && summaryChips) {
+        summaryCard.hidden = false;
+        summaryChips.innerHTML = chosenPaths.map(p => {
+          const meta = goalMeta[p] || goalMeta[p.replace(/^[a-z]+-/, '')] || { icon: 'sparkles', label: p };
+          return `
+            <span class="pricing-summary-chip">
+              <span data-icon="${meta.icon}"></span>
+              <span>${meta.label}</span>
+            </span>
+          `;
+        }).join('');
+        if (window.renderRegisteredIcons) {
+          window.renderRegisteredIcons(summaryCard);
+        }
+      }
+
       const btnCheckout = document.getElementById('btnCheckout');
       const btnCheckoutLabel = document.getElementById('btnCheckoutLabel');
 
@@ -226,9 +335,13 @@
       btnCheckout?.addEventListener('click', async () => {
         btnCheckout.disabled = true;
         const originalText = btnCheckoutLabel.textContent;
-        btnCheckoutLabel.textContent = 'Preparing checkout…';
+        btnCheckoutLabel.textContent = 'Processing mock payment…';
 
         try {
+          const payloadPaths = normalizedSelectedPaths.length > 0
+            ? normalizedSelectedPaths
+            : (courseId === 'it' ? ['italian-reading'] : []);
+
           const res = await fetch('/api/payments/checkout', {
             method: 'POST',
             headers: {
@@ -236,7 +349,8 @@
             },
             body: JSON.stringify({
               courseId,
-              successUrl: `/pages/lesson.html?course=${encodeURIComponent(courseId)}${lessonId ? '&lesson=' + encodeURIComponent(lessonId) : ''}&paid=1`,
+              selectedPaths: payloadPaths,
+              successUrl: `/pages/path.html?unlocked=true`,
               cancelUrl: window.location.href
             })
           });
@@ -248,8 +362,8 @@
           }
 
           if (res.status === 409) {
-            alert('You already have active access to this course!');
-            window.location.href = `path.html?course=${encodeURIComponent(courseId)}`;
+            alert('You already have active access to this course or path!');
+            window.location.href = `/pages/path.html?course=${encodeURIComponent(courseId)}&unlocked=true`;
             return;
           }
 
@@ -259,14 +373,39 @@
           }
 
           const session = await res.json();
-          if (session.checkoutUrl) {
-            // Redirect offsite to payment provider / stub
-            window.location.href = session.checkoutUrl;
-          } else {
-            throw new Error('No checkout URL returned from payment provider.');
+
+          // Automatically trigger simulated webhook / instant grant
+          if (session.providerPaymentId) {
+            btnCheckoutLabel.textContent = 'Confirming entitlement…';
+            const webhookRes = await fetch('/api/payments/webhook', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-signature': 'mock_valid_signature'
+              },
+              body: JSON.stringify({
+                eventType: 'payment_success',
+                providerPaymentId: session.providerPaymentId,
+                userId: session.userId || '',
+                courseId: session.courseId || courseId,
+                selectedPaths: payloadPaths,
+                provider: 'mock'
+              })
+            });
+
+            if (!webhookRes.ok) {
+              const whData = await webhookRes.json().catch(() => ({}));
+              throw new Error(whData.error || 'Simulated webhook confirmation failed');
+            }
           }
+
+          btnCheckoutLabel.textContent = 'Unlocked! Redirecting…';
+          // Redirect user to /path or /pages/path.html?unlocked=true
+          setTimeout(() => {
+            window.location.href = '/pages/path.html?unlocked=true';
+          }, 300);
         } catch (error) {
-          alert(error.message || 'Error initiating checkout.');
+          alert(error.message || 'Error processing payment.');
           btnCheckout.disabled = false;
           btnCheckoutLabel.textContent = originalText;
         }

@@ -1,8 +1,7 @@
 const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
-
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+const config = require('../config/env');
 
 const { initDatabase } = require('./db/init');
 const { connectMongo } = require('./db/mongodb');
@@ -66,14 +65,14 @@ app.use((error, req, res, next) => {
     });
 });
 
-const port = Number(process.env.PORT || 3006);
+const port = Number(config.PORT);
 if (!Number.isInteger(port) || port < 0 || port > 65535) {
     throw new Error('PORT must be an integer between 0 and 65535.');
 }
 
 if (require.main === module) {
-    const host = process.env.HOST || '127.0.0.1';
-    if (process.env.MONGODB_URI && process.env.NODE_ENV !== 'test') {
+    const host = config.HOST;
+    if (config.MONGODB_URI && config.NODE_ENV !== 'test') {
         connectMongo().catch(err => {
             console.warn('MongoDB Atlas connection deferred:', err.message);
         });

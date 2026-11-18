@@ -17,40 +17,122 @@
   <div data-component="navbar"></div>
 
   <main class="page-container placement-test-page">
-    <section class="placement-test-shell" aria-labelledby="placementTestHeading">
-      <div class="placement-test-header">
-        <div class="eyebrow" data-i18n="eyebrow">ITALIAN PLACEMENT</div>
-        <h1 id="placementTestHeading" data-i18n="title">Quick check before you begin</h1>
-        <p data-i18n="description">Pick the best answer to estimate your starting point and help us match your lesson path.</p>
+    <section class="placement-test-shell" aria-labelledby="placementTestHeading" id="placementTestShell">
+
+      <!-- ══════════════════════════════════════════
+           STEP 0 — Goal / Path Selector (Onboarding)
+           ══════════════════════════════════════════ -->
+      <div id="stepGoals" class="pt-step" role="region" aria-labelledby="goalsHeading">
+        <div class="placement-test-header">
+          <div class="eyebrow" id="goalsEyebrow">КРОК 1 З 3</div>
+          <h1 id="goalsHeading">Що ви хочете вивчити?</h1>
+          <p id="goalsDesc">Оберіть одну або кілька цілей — ми підберемо навчальний план саме для вас.</p>
+        </div>
+
+        <div class="pt-goal-grid" id="goalGrid" role="group" aria-label="Цілі навчання">
+          <!-- rendered by JS -->
+        </div>
+
+        <div class="placement-test-footer" style="margin-top:1.5rem;">
+          <span class="placement-question-counter" id="goalsHint" aria-live="polite"></span>
+          <button type="button" class="placement-next-button" id="goalsNextBtn" disabled>
+            <span id="goalsNextLabel">Далі</span>
+            <span data-icon="arrow-right" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="placement-test-meta" style="margin-top:1rem;">
+          <div class="meta-chip"><span data-icon="sparkles"></span> <span id="metaBeginner">Для початківців</span></div>
+          <div class="meta-chip"><span data-icon="target"></span> <span id="metaSignup">Без реєстрації</span></div>
+        </div>
       </div>
 
-      <div class="placement-test-card">
-        <div class="placement-test-topline">
-          <span class="placement-question-counter" data-i18n="counter">Question 1 of 5</span>
-          <span class="placement-timer"><span data-icon="clock"></span> <span data-i18n="timer">2 min</span></span>
+      <!-- ══════════════════════════════════════════
+           STEP 1 — 5-Question Quiz
+           ══════════════════════════════════════════ -->
+      <div id="stepQuiz" class="pt-step" role="region" aria-labelledby="quizHeading" hidden>
+        <div class="placement-test-header">
+          <div class="eyebrow" id="quizEyebrow">ВИЗНАЧЕННЯ РІВНЯ</div>
+          <h1 id="quizHeading">Швидка перевірка перед початком</h1>
+          <p id="quizDesc">Оберіть найкращу відповідь, щоб зрозуміти свій рівень.</p>
         </div>
 
-        <div class="placement-question-block">
-          <div class="placement-flag" data-i18n="languageBadge">Italian</div>
-          <h2 data-i18n="questionText">How do you say “Good morning” in Italian?</h2>
+        <div class="placement-test-card">
+          <div class="placement-test-topline">
+            <span class="placement-question-counter" id="quizCounter" aria-live="polite">Питання 1 з 5</span>
+            <span class="placement-timer">
+              <span data-icon="clock"></span>
+              <span id="quizDifficulty"></span>
+            </span>
+          </div>
+
+          <div class="placement-question-block">
+            <div class="placement-flag" id="quizFlag">Italiano</div>
+            <h2 id="quizQuestionText" aria-live="polite"></h2>
+          </div>
+
+          <div class="placement-options" id="quizOptions" role="group" aria-label="Варіанти відповіді">
+            <!-- rendered by JS -->
+          </div>
+
+          <div class="placement-test-footer">
+            <span class="placement-question-counter" id="quizProgressNote" aria-live="polite"></span>
+            <button type="button" class="placement-next-button" id="quizNextBtn" disabled>
+              <span id="quizNextLabel">Наступне питання</span>
+              <span data-icon="arrow-right" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
 
-        <div class="placement-options" role="list" aria-label="Answer choices">
-          <button type="button" class="placement-option is-selected" data-i18n="optionA">Buongiorno</button>
-          <button type="button" class="placement-option" data-i18n="optionB">Buona sera</button>
-          <button type="button" class="placement-option" data-i18n="optionC">Arrivederci</button>
-          <button type="button" class="placement-option" data-i18n="optionD">Grazie</button>
-        </div>
-
-        <div class="placement-test-footer">
-          <button type="button" class="placement-next-button" data-i18n="nextButton">Next question</button>
+        <div class="placement-test-meta" style="margin-top:1rem;">
+          <div class="meta-chip"><span data-icon="sparkles"></span> <span id="metaBeginner2">Для початківців</span></div>
+          <div class="meta-chip"><span data-icon="target"></span> <span id="metaSignup2">Без реєстрації</span></div>
         </div>
       </div>
 
-      <div class="placement-test-meta">
-        <div class="meta-chip"><span data-icon="sparkles"></span> <span data-i18n="metaBeginner">Beginner-friendly</span></div>
-        <div class="meta-chip"><span data-icon="target"></span> <span data-i18n="metaSignup">No account needed</span></div>
+      <!-- ══════════════════════════════════════════
+           STEP 2 — Results Screen
+           ══════════════════════════════════════════ -->
+      <div id="stepResults" class="pt-step" role="region" aria-labelledby="resultsHeading" hidden>
+        <div class="placement-test-header">
+          <div class="eyebrow" id="resultsEyebrow">ВАШ РЕЗУЛЬТАТ</div>
+          <h1 id="resultsHeading">Ваш рівень визначено!</h1>
+          <p id="resultsDesc">На основі ваших відповідей ми підготували персональний навчальний план.</p>
+        </div>
+
+        <div class="placement-test-card pt-results-card">
+          <div class="pt-result-level-block">
+            <div class="pt-result-badge" id="resultBadge" aria-label="Визначений рівень">A1</div>
+            <div class="pt-result-level-info">
+              <span class="pt-result-level-label" id="resultLevelLabel">Початківець</span>
+              <span class="pt-result-level-desc" id="resultLevelDesc">A1 — Elementary</span>
+            </div>
+          </div>
+
+          <div class="pt-result-paths-block">
+            <div class="pt-result-paths-label" id="resultPathsLabel">Обрані напрямки навчання:</div>
+            <div class="pt-result-paths-list" id="resultPathsList">
+              <!-- rendered by JS -->
+            </div>
+          </div>
+
+          <div class="pt-result-score" id="resultScore"></div>
+
+          <div class="placement-test-footer" style="justify-content:center; padding-top:0.5rem;">
+            <a class="placement-next-button pt-cta-btn" id="resultCtaBtn" href="/pricing">
+              <span data-icon="sparkles" aria-hidden="true"></span>
+              <span id="resultCtaLabel">Розблокувати мій навчальний план</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="placement-test-meta" style="margin-top:1rem; justify-content:center;">
+          <button type="button" class="pt-restart-btn" id="restartBtn">
+            <span data-icon="refresh" aria-hidden="true"></span>
+            <span id="restartLabel">Пройти тест знову</span>
+          </button>
+        </div>
       </div>
+
     </section>
   </main>
 
@@ -60,65 +142,6 @@
   <script defer src="../js/icons.js"></script>
   <script defer src="../js/components.js"></script>
   <script defer src="../js/layout.js"></script>
-  <script>
-    (function () {
-      const translations = {
-        en: {
-          eyebrow: 'ITALIAN PLACEMENT',
-          title: 'Quick check before you begin',
-          description: 'Pick the best answer to estimate your starting point and help us match your lesson path.',
-          counter: 'Question 1 of 5',
-          timer: '2 min',
-          languageBadge: 'Italian',
-          questionText: 'How do you say “Good morning” in Italian?',
-          optionA: 'Buongiorno',
-          optionB: 'Buona sera',
-          optionC: 'Arrivederci',
-          optionD: 'Grazie',
-          nextButton: 'Next question',
-          metaBeginner: 'Beginner-friendly',
-          metaSignup: 'No account needed'
-        },
-        uk: {
-          eyebrow: 'ВИЗНАЧЕННЯ РІВНЯ ІТАЛІЙСЬКОЇ',
-          title: 'Швидка перевірка перед початком',
-          description: 'Оберіть найкращу відповідь, щоб зрозуміти свій рівень і підібрати правильний шлях навчання.',
-          counter: 'Питання 1 з 5',
-          timer: '2 хв',
-          languageBadge: 'Італійська',
-          questionText: 'Як сказати «Доброї ранку» італійською?',
-          optionA: 'Buongiorno',
-          optionB: 'Buona sera',
-          optionC: 'Arrivederci',
-          optionD: 'Grazie',
-          nextButton: 'Наступне питання',
-          metaBeginner: 'Для початківців',
-          metaSignup: 'Без реєстрації'
-        }
-      };
-
-      function getSourceLanguage() {
-        const saved = localStorage.getItem('ls_source_language') || localStorage.getItem('ls_italian_source_language');
-        if (saved === 'uk' || saved === 'en') return saved;
-        return (navigator.language || '').toLowerCase().startsWith('uk') ? 'uk' : 'en';
-      }
-
-      function applyLanguage() {
-        const lang = getSourceLanguage();
-        const dict = translations[lang] || translations.en;
-        document.documentElement.lang = lang;
-
-        document.querySelectorAll('[data-i18n]').forEach((element) => {
-          const key = element.dataset.i18n;
-          if (dict[key] !== undefined) {
-            element.textContent = dict[key];
-          }
-        });
-      }
-
-      applyLanguage();
-      window.addEventListener('sourceLanguageChanged', applyLanguage);
-    })();
-  </script>
+  <script defer src="../js/placement-test.js"></script>
 </body>
 </html>

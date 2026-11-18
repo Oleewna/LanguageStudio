@@ -242,3 +242,77 @@ test('POST /api/payments/webhook - revokes entitlement on refund or subscription
     const rec = await Entitlement.findOne({ providerPaymentId });
     assert.strictEqual(rec.status, 'refunded');
 });
+
+test('POST /api/payments/checkout & webhook - accepts and stores selectedPaths', async () => {
+    const userId = 'usr_paths_checkout';
+    const courseId = 'it';
+    const selectedPaths = ['italian-reading', 'travel-conversation'];
+
+    // 1. Initiate checkout with selectedPaths
+    const checkoutRes = await testRequest(router, {
+        method: 'POST',
+        url: '/checkout',
+        body: {
+            courseId,
+            selectedPaths
+        },
+        session: { userId }
+    });
+
+    assert.strictEqual(checkoutRes.status, 200);
+    assert.deepEqual(checkoutRes.body.selectedPaths, selectedPaths);
+    assert.ok(checkoutRes.body.checkoutUrl.includes('selectedPaths'));
+    const providerPaymentId = checkoutRes.body.providerPaymentId;
+
+    // 2. Deliver webhook with selectedPaths
+    const webhookRes = await testRequest(router, {
+        method: 'POST',
+        url: '/webhook',
+        body: {
+            eventType: 'payment_success',
+            providerPaymentId,
+            userId,
+            courseId,
+            selectedPaths,
+            provider: 'mock'
+        },
+        headers: { 'x-signature': 'mock_valid_signature' }
+    });
+
+    assert.strictEqual(webhookRes.status, 200);
+    assert.strictEqual(webhookRes.body.received, true);
+    assert.deepEqual(webhookRes.body.entitlement.selectedPaths, selectedPaths);
+
+    // 3. Verify entitlement in store has selectedPaths
+    const stored = await Entitlement.findOne({ providerPaymentId });
+    assert.ok(stored);
+    assert.deepEqual(stored.selectedPaths, selectedPaths);
+
+    // 4. Test GET /api/payments/entitlements
+    const listRes = await testRequest(router, {
+        method: 'GET',
+        url: '/entitlements',
+        session: { userId }
+    });
+    assert.strictEqual(listRes.status, 200);
+    assert.strictEqual(listRes.body.authenticated, true);
+    assert.strictEqual(listRes.body.entitlements.length, 1);
+    assert.deepEqual(listRes.body.entitlements[0].selectedPaths, selectedPaths);
+
+    // 5. Test GET /api/payments/entitlement/:courseId with pathId check
+    const readingCheck = await testRequest(router, {
+        method: 'GET',
+        url: `/entitlement/${courseId}?pathId=italian-reading`,
+        session: { userId }
+    });
+    assert.strictEqual(readingCheck.status, 200);
+    assert.strictEqual(readingCheck.body.hasAccess, true);
+
+    const grammarCheck = await testRequest(router, {
+        method: 'GET',
+        url: `/entitlement/${courseId}?pathId=grammar-basics`,
+        session: { userId }
+    });
+    assert.strictEqual(grammarCheck.status, 200);
+    assert.strictEqual(grammarCheck.body.hasAccess, false);
+});

@@ -75,4 +75,12 @@ router.get('/pages/checkout', (req, res) => {
     res.sendFile(path.join(__dirname, '../../../../frontend/public/pages/checkout.html'));
 });
 
+// GET Placement Test page
+router.get('/placement-test', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../../frontend/public/pages/placement-test.html'));
+});
+router.get('/pages/placement-test', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../../frontend/public/pages/placement-test.html'));
+});
+
 module.exports = router;

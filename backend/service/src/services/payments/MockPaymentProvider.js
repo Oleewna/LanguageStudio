@@ -17,7 +17,7 @@ class MockPaymentProvider extends PaymentProvider {
     /**
      * Creates a mock checkout session.
      */
-    async createCheckout({ userId, courseId, priceId, successUrl, cancelUrl, metadata = {} }) {
+    async createCheckout({ userId, courseId, selectedPaths = [], priceId, successUrl, cancelUrl, metadata = {} }) {
         if (!userId) throw new Error('userId is required for createCheckout');
         if (!courseId) throw new Error('courseId is required for createCheckout');
 
@@ -25,6 +25,10 @@ class MockPaymentProvider extends PaymentProvider {
         const rand = Math.random().toString(36).slice(2, 8);
         const providerPaymentId = `mock_pay_${timestamp}_${rand}`;
         const sessionId = `mock_sess_${timestamp}_${rand}`;
+
+        const normalizedPaths = Array.isArray(selectedPaths)
+            ? selectedPaths.filter(p => typeof p === 'string' && p.trim()).map(p => p.trim())
+            : [];
 
         // Return local stub checkout URL
         const query = new URLSearchParams({
@@ -36,6 +40,10 @@ class MockPaymentProvider extends PaymentProvider {
             userId
         });
 
+        if (normalizedPaths.length > 0) {
+            query.set('selectedPaths', JSON.stringify(normalizedPaths));
+        }
+
         if (successUrl) query.set('successUrl', successUrl);
         if (cancelUrl) query.set('cancelUrl', cancelUrl);
 
@@ -45,6 +53,7 @@ class MockPaymentProvider extends PaymentProvider {
             provider: this.name,
             providerPaymentId,
             courseId,
+            selectedPaths: normalizedPaths,
             priceId: priceId || 'price_default'
         };
     }
@@ -106,6 +115,10 @@ class MockPaymentProvider extends PaymentProvider {
 
         const userId = payload.userId || payload.data?.userId || payload.metadata?.userId || '';
         const courseId = payload.courseId || payload.data?.courseId || payload.metadata?.courseId || '';
+        const rawPaths = payload.selectedPaths || payload.data?.selectedPaths || payload.metadata?.selectedPaths || [];
+        const selectedPaths = Array.isArray(rawPaths)
+            ? rawPaths.filter(p => typeof p === 'string' && p.trim()).map(p => p.trim())
+            : [];
         const expiresAt = payload.expiresAt ? new Date(payload.expiresAt) : null;
 
         return {
@@ -113,6 +126,7 @@ class MockPaymentProvider extends PaymentProvider {
             providerPaymentId: String(providerPaymentId),
             userId: String(userId),
             courseId: String(courseId),
+            selectedPaths,
             status,
             expiresAt,
             provider: this.name

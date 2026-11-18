@@ -1,19 +1,91 @@
 (function () {
-  // Show error message from URL params (e.g. ?error=google_failed after a failed OAuth)
-  const urlParams = new URLSearchParams(window.location.search);
-  const errorParam = urlParams.get('error');
+  'use strict';
 
+  // ─── Translations for Ukrainian and English ──────────────────────────────────
+  const I18N = {
+    uk: {
+      pageTitle: 'Вхід — LanguageStudio',
+      welcomeTitle: 'Benvenuto!',
+      welcomeSub: 'Увійдіть за допомогою облікового запису Google, щоб зберігати свій прогрес на всіх пристроях.',
+      googleSignIn: 'Увійти через Google',
+      genericError: 'Не вдалося виконати запит. Спробуйте ще раз.',
+      // Google OAuth errors
+      google_failed: 'Не вдалося увійти через Google. Спробуйте ще раз.',
+      invalid_state: 'Помилка безпеки. Будь ласка, спробуйте увійти знову.',
+      missing_code: 'Авторизацію було скасовано. Спробуйте ще раз.',
+      google_profile_missing: 'Не вдалося отримати дані профілю Google.'
+    },
+    en: {
+      pageTitle: 'Sign in — LanguageStudio',
+      welcomeTitle: 'Benvenuto!',
+      welcomeSub: 'Sign in with Google to keep and sync your progress across all your devices.',
+      googleSignIn: 'Sign in with Google',
+      genericError: 'Request failed. Please try again.',
+      // Google OAuth errors
+      google_failed: 'Failed to sign in with Google. Please try again.',
+      invalid_state: 'Security verification failed. Please try again.',
+      missing_code: 'Authorization was cancelled. Please try again.',
+      google_profile_missing: 'Could not retrieve Google profile details.'
+    }
+  };
+
+  function getActiveLanguage() {
+    if (typeof window.getSourceLanguage === 'function') {
+      const l = window.getSourceLanguage();
+      if (l === 'en' || l === 'uk') return l;
+    }
+    const saved = localStorage.getItem('ls_source_language') || localStorage.getItem('ls_italian_source_language');
+    if (saved === 'en' || saved === 'uk') return saved;
+    return (navigator.language || '').toLowerCase().startsWith('uk') ? 'uk' : 'en';
+  }
+
+  function applyLanguage() {
+    const lang = getActiveLanguage();
+    const t = I18N[lang] || I18N.uk;
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (t[key] !== undefined) {
+        if (el.tagName === 'TITLE') {
+          document.title = t[key];
+        } else {
+          el.textContent = t[key];
+        }
+      }
+    });
+
+    // Refresh URL error banner if visible
+    const globalErrorEl = document.getElementById('auth-global-error');
+    if (globalErrorEl && !globalErrorEl.hidden && globalErrorEl.dataset.errorKey) {
+      globalErrorEl.textContent = t[globalErrorEl.dataset.errorKey] || t.genericError;
+    }
+  }
+
+  // ─── Initial setup ──────────────────────────────────────────────────────────
+  applyLanguage();
+  window.addEventListener('sourceLanguageChanged', applyLanguage);
+
+  const urlParams = new URLSearchParams(window.location.search);
+
+  // Forward returnUrl to Google OAuth links if provided
+  const returnParam = urlParams.get('returnUrl') || urlParams.get('redirect');
+  if (returnParam) {
+    document.querySelectorAll('.btn-google-signin').forEach(btn => {
+      btn.href = `/api/v1/auth/google?returnUrl=${encodeURIComponent(returnParam)}`;
+    });
+  }
+
+  // Handle URL errors (e.g. from Google OAuth callback)
+  const errorParam = urlParams.get('error');
   if (errorParam) {
-    const errorEl = document.getElementById('auth-error');
-    if (errorEl) {
-      const messages = {
-        google_failed: 'Не вдалося увійти через Google. Спробуйте ще раз.',
-        invalid_state: 'Помилка безпеки. Будь ласка, спробуйте увійти знову.',
-        missing_code: 'Авторизацію було скасовано. Спробуйте ще раз.',
-        google_profile_missing: 'Не вдалося отримати дані профілю Google.'
-      };
-      errorEl.textContent = messages[errorParam] || 'Помилка входу. Спробуйте ще раз.';
-      errorEl.hidden = false;
+    const globalErrorEl = document.getElementById('auth-global-error');
+    if (globalErrorEl) {
+      const lang = getActiveLanguage();
+      const t = I18N[lang] || I18N.uk;
+      globalErrorEl.dataset.errorKey = errorParam;
+      globalErrorEl.textContent = t[errorParam] || t.genericError;
+      globalErrorEl.hidden = false;
     }
   }
 })();

@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <link rel="icon" type="image/svg+xml" href="../assets/images/logo.svg" />
-<title>Вхід — LanguageStudio</title>
+<title data-i18n="pageTitle">Вхід — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
@@ -12,79 +12,11 @@
 <link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/auth.css">
 <link rel="stylesheet" href="../css/studio.css">
-<style>
-  .auth-google-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 2rem 1.5rem;
-  }
-
-  .auth-google-logo {
-    width: 56px;
-    height: 56px;
-    margin-bottom: 0.25rem;
-  }
-
-  .auth-google-title {
-    font-size: 1.5rem;
-    font-weight: 800;
-    text-align: center;
-    margin: 0;
-  }
-
-  .auth-google-sub {
-    font-size: 0.9375rem;
-    color: var(--color-text-muted, #666);
-    text-align: center;
-    margin: 0;
-  }
-
-  .btn-google-signin {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1.5rem;
-    background: #fff;
-    color: #3c4043;
-    border: 1px solid #dadce0;
-    border-radius: 4px;
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 1px 3px rgba(60,64,67,.3), 0 4px 8px rgba(60,64,67,.15);
-    transition: box-shadow 0.15s ease, background 0.15s ease;
-    cursor: pointer;
-  }
-
-  .btn-google-signin:hover {
-    background: #f8f9fa;
-    box-shadow: 0 1px 3px rgba(60,64,67,.4), 0 6px 12px rgba(60,64,67,.2);
-  }
-
-  .btn-google-signin:active {
-    background: #f1f3f4;
-    box-shadow: 0 1px 2px rgba(60,64,67,.3);
-  }
-
-  .btn-google-signin svg {
-    flex-shrink: 0;
-  }
-
-  .auth-error-msg {
-    color: var(--color-error, #c0392b);
-    font-size: 0.875rem;
-    text-align: center;
-  }
-</style>
 </head>
 <body class="auth-page">
 
 <!-- ═══════════ AUTH HEADER COMPONENT ═══════════ -->
 <div data-component="auth-header"></div>
-
 
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
 <main class="page-container">
@@ -92,29 +24,16 @@
   <div class="auth-wrap">
     <div class="auth-card">
 
-      <div class="auth-google-wrap">
-        <!-- LanguageStudio mini logo -->
-        <svg class="auth-google-logo" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="56" height="56" rx="12" fill="#4F46E5"/>
-          <text x="28" y="38" font-size="26" font-family="sans-serif" font-weight="700" fill="white" text-anchor="middle">L</text>
-        </svg>
+      <div class="auth-error-banner" id="auth-global-error" hidden role="alert"></div>
 
-        <h2 class="auth-google-title">Ласкаво просимо до LanguageStudio</h2>
-        <p class="auth-google-sub">Увійдіть за допомогою Google, щоб продовжити навчання.</p>
+      <div class="auth-panel" id="panel-auth">
+        <h2 class="auth-title" data-i18n="welcomeTitle">Benvenuto!</h2>
+        <p class="auth-sub" data-i18n="welcomeSub">Увійдіть за допомогою облікового запису Google, щоб зберігати свій прогрес на всіх пристроях.</p>
 
         <a href="/api/v1/auth/google" class="btn-google-signin">
-          <!-- Google "G" logo -->
-          <svg width="20" height="20" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-            <path fill="none" d="M0 0h48v48H0z"/>
-          </svg>
-          Увійти через Google
+          <img src="../assets/icons/google-logo.svg" width="20" height="20" alt="" aria-hidden="true">
+          <span data-i18n="googleSignIn">Увійти через Google</span>
         </a>
-
-        <p class="auth-error-msg" id="auth-error" hidden></p>
       </div>
 
     </div>

@@ -36,11 +36,8 @@ function registerTranslationEntry(entry) {
 }
 
 function getAppBasePath() {
-  if (typeof window.getBasePath === 'function') {
-    return window.getBasePath();
-  }
   const pathname = window.location.pathname || '';
-  if (pathname.includes('/pages/') || pathname.includes('/lessons/')) return '../../';
+  if (pathname.includes('/pages/') || pathname.includes('/lessons/')) return '../';
   return './';
 }
 
@@ -60,6 +57,7 @@ async function loadLocaleData(locale) {
           registerTranslationEntry({ [locale]: val, en: key });
         }
       });
+      window.dispatchEvent(new CustomEvent('localeLoaded', { detail: { locale, data } }));
       return data;
     }
   } catch (err) {
@@ -102,10 +100,15 @@ if (typeof window !== 'undefined') {
 
 // Preload current locale and fallback locale
 const initialLocale = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
-loadLocaleData('en');
-if (initialLocale !== 'en') {
-  loadLocaleData(initialLocale);
-}
+Promise.all([
+  loadLocaleData('en'),
+  initialLocale !== 'en' ? loadLocaleData(initialLocale) : Promise.resolve({})
+]).then(() => {
+  if (typeof applyInterfaceLanguage === 'function') {
+    applyInterfaceLanguage();
+  }
+  window.dispatchEvent(new CustomEvent('localesReady', { detail: { locale: initialLocale } }));
+}).catch(() => {});
 
 /**
  * Universal interface translation helper supporting Ukrainian and English.
@@ -292,9 +295,17 @@ function applySourceLanguageSettings() {
 function setSourceLanguage(language) {
   if (!SOURCE_LANGUAGES.some(option => option.code === language)) return;
   localStorage.setItem(SOURCE_LANGUAGE_KEY, language);
-  applySourceLanguageSettings();
-  updateThemeToggleButtons(getTheme());
-  window.dispatchEvent(new CustomEvent('sourceLanguageChanged', { detail: { language } }));
+  const effectiveLocale = getSourceLanguage();
+  const apply = () => {
+    applySourceLanguageSettings();
+    updateThemeToggleButtons(getTheme());
+    window.dispatchEvent(new CustomEvent('sourceLanguageChanged', { detail: { language } }));
+  };
+  if (typeof loadLocaleData === 'function') {
+    loadLocaleData(effectiveLocale).finally(apply);
+  } else {
+    apply();
+  }
 }
 
 function getTargetCourse() {
@@ -804,7 +815,7 @@ async function refreshStudentSession() {
   if (name) name.textContent = presentation.name;
   if (status) status.textContent = presentation.status;
   if (action) {
-    action.textContent = LOCAL_STUDENT_PROFILE.isAuthenticated ? 'Sign out' : 'Sign in or register';
+    action.textContent = LOCAL_STUDENT_PROFILE.isAuthenticated ? 'Sign out' : 'Sign in with Google';
     action.href = LOCAL_STUDENT_PROFILE.isAuthenticated ? '#' : getAuthPageHref();
     action.onclick = LOCAL_STUDENT_PROFILE.isAuthenticated
       ? async event => {

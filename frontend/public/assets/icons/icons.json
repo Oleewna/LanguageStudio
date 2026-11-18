@@ -45,7 +45,7 @@
   "globe": { "file": "Earth-1--Streamline-Core-Remix.svg", "mode": "mask" },
   "greeting": { "file": "Business-Handshake--Streamline-Core-Remix.svg", "mode": "mask" },
   "pin": { "file": "Location-Pin-3--Streamline-Core-Remix.svg", "mode": "mask" },
-  "verb": { "file": "_placeholder.svg", "mode": "mask" },
+  "verb": { "file": "Pen-Tool--Streamline-Core-Remix.svg", "mode": "mask" },
   "chat": { "file": "Chat-Bubble-Typing-Oval--Streamline-Core-Remix.svg", "mode": "mask" },
   "type": { "file": "Text-Square--Streamline-Core-Remix.svg", "mode": "mask" },
   "article": { "file": "Definition-Search-Book--Streamline-Core-Remix.svg", "mode": "mask" },
@@ -62,6 +62,7 @@
   "target": { "file": "Target--Streamline-Core-Remix.svg", "mode": "mask" },
   "travel": { "file": "Bag-Suitcase-2--Streamline-Core-Remix.svg", "mode": "mask" },
   "business": { "file": "Briefcase-Dollar--Streamline-Core-Remix.svg", "mode": "mask" },
-  "flag-it": { "file": "_placeholder.svg", "mode": "mask" },
-  "flag-es": { "file": "_placeholder.svg", "mode": "mask" }
+  "refresh": { "file": "Button-Rewind-1--Streamline-Core-Remix.svg", "mode": "mask" },
+  "flag-it": { "file": "flag-it.svg", "mode": "img" },
+  "flag-es": { "file": "flag-es.svg", "mode": "img" }
 }

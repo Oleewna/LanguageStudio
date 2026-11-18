@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const config = require('../../config/env');
 
-const configuredPath = process.env.AUTH_USERS_FILE || './data/users.json';
-const usersFile = path.resolve(__dirname, '../../', configuredPath);
+const usersFile = path.resolve(__dirname, '../../', config.AUTH_USERS_FILE);
 
 function readUsers() {
     try {

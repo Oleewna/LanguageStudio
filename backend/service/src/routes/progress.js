@@ -1,5 +1,6 @@
 const express = require('express');
 const { PROGRESS_MODELS } = require('../models/Progress');
+const { Entitlement } = require('../models/Entitlement');
 const { mergeRecord, mergePayloads, getEntityKey } = require('../services/progressConflict');
 
 const router = express.Router();
@@ -102,6 +103,14 @@ router.get('/', async (req, res, next) => {
         }
       });
       snapshot[coll] = collectionMap;
+    }
+
+    try {
+      const activeDocs = await Entitlement.find({ userId: String(userId), status: 'active' });
+      const now = new Date();
+      snapshot.entitlements = activeDocs.filter(e => !e.expiresAt || new Date(e.expiresAt) > now);
+    } catch (e) {
+      snapshot.entitlements = [];
     }
 
     return res.json(snapshot);

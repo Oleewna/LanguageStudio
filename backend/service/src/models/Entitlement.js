@@ -18,6 +18,10 @@ const entitlementSchema = new mongoose.Schema(
             required: [true, 'courseId is required.'],
             index: true
         },
+        selectedPaths: {
+            type: [String],
+            default: []
+        },
         status: {
             type: String,
             required: [true, 'status is required.'],
@@ -102,6 +106,7 @@ const Entitlement = {
     async create(data) {
         const record = {
             ...data,
+            selectedPaths: Array.isArray(data.selectedPaths) ? data.selectedPaths : [],
             status: data.status || 'active',
             createdAt: data.createdAt ? new Date(data.createdAt) : new Date(),
             expiresAt: data.expiresAt ? new Date(data.expiresAt) : null
@@ -146,12 +151,13 @@ const Entitlement = {
         return { acknowledged: true, deletedCount: count };
     },
 
-    async hasActiveEntitlement(userId, courseId) {
+    async hasEntitlement(userId, courseId, pathId = null) {
         if (!userId || !courseId) return false;
         const now = new Date();
 
+        let docs = [];
         if (!shouldUseMemory()) {
-            const doc = await MongooseEntitlement.findOne({
+            docs = await MongooseEntitlement.find({
                 userId: String(userId),
                 courseId: String(courseId),
                 status: 'active',
@@ -160,42 +166,84 @@ const Entitlement = {
                     { expiresAt: { $gt: now } }
                 ]
             }).lean();
-            return !!doc;
-        }
-
-        for (const record of memoryEntitlements.values()) {
-            if (
-                String(record.userId) === String(userId) &&
-                String(record.courseId) === String(courseId) &&
-                record.status === 'active'
-            ) {
-                if (!record.expiresAt || new Date(record.expiresAt) > now) {
-                    return true;
+        } else {
+            for (const record of memoryEntitlements.values()) {
+                if (
+                    String(record.userId) === String(userId) &&
+                    String(record.courseId) === String(courseId) &&
+                    record.status === 'active'
+                ) {
+                    if (!record.expiresAt || new Date(record.expiresAt) > now) {
+                        docs.push(record);
+                    }
                 }
             }
         }
+
+        if (!docs || docs.length === 0) return false;
+
+        // If no specific pathId was requested, having any active entitlement for this course returns true
+        if (!pathId) return true;
+
+        const normalizedPathId = String(pathId).trim().toLowerCase();
+
+        for (const doc of docs) {
+            const selected = Array.isArray(doc.selectedPaths) ? doc.selectedPaths : [];
+            // If selectedPaths is empty or contains wildcard, grants all paths in course
+            if (selected.length === 0 || selected.includes('*') || selected.includes(courseId)) {
+                return true;
+            }
+            const match = selected.some(p => {
+                const norm = String(p).trim().toLowerCase();
+                if (norm === normalizedPathId || norm === '*') return true;
+                if (normalizedPathId.endsWith(`-${norm}`) || norm.endsWith(`-${normalizedPathId}`)) return true;
+                const strippedDoc = norm.replace(/^[a-z]+-/, '');
+                const strippedReq = normalizedPathId.replace(/^[a-z]+-/, '');
+                return strippedDoc === strippedReq;
+            });
+            if (match) return true;
+        }
+
         return false;
     },
 
-    async grantEntitlement({ userId, courseId, provider, providerPaymentId, expiresAt = null }) {
+    async hasActiveEntitlement(userId, courseId, pathId = null) {
+        return this.hasEntitlement(userId, courseId, pathId);
+    },
+
+    async grantEntitlement({ userId, courseId, selectedPaths = [], provider, providerPaymentId, expiresAt = null }) {
         if (!userId || !courseId || !providerPaymentId) {
             throw new Error('userId, courseId, and providerPaymentId are required.');
         }
 
+        const normalizedPaths = Array.isArray(selectedPaths)
+            ? selectedPaths.filter(p => typeof p === 'string' && p.trim()).map(p => p.trim())
+            : [];
+
         const existing = await this.findOne({ providerPaymentId });
         if (existing) {
-            if (existing.status !== 'active') {
-                await this.updateOne(
-                    { providerPaymentId },
-                    { $set: { status: 'active', expiresAt: expiresAt ? new Date(expiresAt) : null } }
-                );
+            const updates = {
+                status: 'active',
+                expiresAt: expiresAt ? new Date(expiresAt) : null
+            };
+            if (normalizedPaths.length > 0) {
+                const combined = Array.from(new Set([
+                    ...(Array.isArray(existing.selectedPaths) ? existing.selectedPaths : []),
+                    ...normalizedPaths
+                ]));
+                updates.selectedPaths = combined;
             }
+            await this.updateOne(
+                { providerPaymentId },
+                { $set: updates }
+            );
             return { entitlement: await this.findOne({ providerPaymentId }), idempotent: true };
         }
 
         const created = await this.create({
             userId: String(userId),
             courseId: String(courseId),
+            selectedPaths: normalizedPaths,
             provider: String(provider || 'unknown'),
             providerPaymentId: String(providerPaymentId),
             status: 'active',

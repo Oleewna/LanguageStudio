@@ -10,7 +10,6 @@ if exist "%~dp0backend\service\start_server.bat" del /f /q "%~dp0backend\service
 
 for %%D in (
   "%~dp0backend\service"
-  "%~dp0backend\auth-service"
   "%~dp0backend\gateway"
 ) do (
   echo.

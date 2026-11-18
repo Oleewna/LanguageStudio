@@ -1,77 +1,261 @@
 # LanguageStudio
 
-A multi-course language learning web app with Italian and Spanish courses, interactive exercises, and optional cloud-synced progress.
+An immersive, modular, full-stack language learning web platform designed for acquiring real-world communicative fluency through structured learning paths, multi-format exercises, contextual dialogues, spaced repetition vocabulary, and grammar study.
 
-## Features
+---
 
-- Learning paths, lessons, vocabulary, grammar, and exercises (multiple choice, fill-in, matching, reorder, listening, dialogue, dictation)
-- Course dictionary and flashcards, light/dark themes, localized UI (`en` / `uk`)
-- Login and registration with HTTP-only session cookies; progress syncs to MongoDB when configured
-- Paid content with entitlement checks; falls back gracefully when MongoDB is unavailable
+## 🌟 Project Presentation
 
-## Requirements
+**LanguageStudio** bridges the gap between casual vocabulary memorization and genuine conversational comprehension. Rather than drilling words in a vacuum, the platform guides learners through thematic, real-life communicative situations — greeting neighbors, ordering at a café, navigating cities, and reading authentic dialogues — supported by structured grammar references, diagnostic placement tests, and interactive review tools.
 
-- Node.js ≥ 18
-- npm
+Built with a lightweight, accessible frontend and a resilient Node.js microservice architecture, LanguageStudio works seamlessly as a standalone offline guest app or as a fully synchronized cloud platform with user accounts, progress persistence, and tiered access to premium content.
 
-## Setup
+### Core Pedagogical Pillars
 
-1. **Copy `.env` files** (see [Configuration](#configuration) below)
-2. **Install dependencies** — from the repo root:
-   ```bat
-   install.bat
-   ```
-   This runs `npm install` in `backend\service`, `backend\auth-service`, and `backend\gateway`. No database setup step is needed.
-3. **Start all services**:
-   ```bat
-   start.bat
-   ```
-   Opens three terminal windows (service on :3006, auth-service on :3007, gateway on :3005).
-4. **Open the app**: [http://localhost:3005/](http://localhost:3005/)
+- **Communicative Context First**: Vocabulary and grammar are taught within authentic conversational scenarios rather than isolated flashcard drills.
+- **Multimodal Interactive Practice**: 7+ specialized exercise formats challenge reading, listening, writing, and syntactic composition.
+- **Cognitive Reinforcement**: Integrated course dictionary with spaced repetition tracking (SRS) and custom word saving.
+- **Adaptive Progression**: Clear milestones from beginner (A1/A2) foundations upward, validated by diagnostic placement and unit review tests.
+- **Zero-Friction Access**: Start learning immediately as a guest in offline mode; optionally log in or connect with Google to sync progress across devices.
 
-## Configuration
+---
 
-### `backend/service/.env` (required)
+## 🌍 Available Languages
 
+| Language | Course Code | Status | Coverage & Features |
+|---|---|---|---|
+| **Italian** (*Italiano*) | `it` | **Active / Production-Ready** | Full learning paths (*Communication Basics*, *Reading & Everyday Life*), 7+ exercise drill formats, situational dialogues, audio/TTS pronunciation (`it-IT`), comprehensive grammar reference, dictionary, flashcards, placement testing, and tiered free/premium units. |
+| **Spanish** (*Español*) | `es` | **Staging / In Development** | Structured course foundation (`courses/es/course.json`), core vocabulary, grammar rules, exercise templates, dialogue models, and audio/TTS configuration (`es-ES`). |
+
+### 🌐 Dual Interface Localization (Locales)
+The entire platform user interface — navigation, exercise instructions, grammar explanations, modals, and error prompts — is fully localized with instant on-the-fly switching:
+- **English (`en`)**: Complete internationalized UI.
+- **Ukrainian (`uk`)**: Complete localized UI with native Cyrillic translations for all lessons and exercise types.
+
+---
+
+## 🎨 Style, Aesthetics & UI/UX Design
+
+LanguageStudio departs from noisy, hyper-gamified language apps in favor of a **warm, tactile editorial design language** reminiscent of European literary ateliers, classical linguistics handbooks, and Mediterranean study spaces.
+
+```
+Light Mode Palette:
+┌─────────────────┬─────────────────┬─────────────────┬─────────────────┐
+│ Cream Canvas    │ Pine / Sage     │ Tuscan Gold     │ Ink Typography  │
+│ #F6F5EF         │ #4F7A6A         │ #C9A25B         │ #25302B         │
+│ (--bg)          │ (--primary)     │ (--accent)      │ (--text)        │
+└─────────────────┴─────────────────┴─────────────────┴─────────────────┘
+
+Dark Mode Palette:
+┌─────────────────┬─────────────────┬─────────────────┬─────────────────┐
+│ Charcoal Moss   │ Muted Pine      │ Soft Amber Gold │ Soft Ink Text   │
+│ #0F1412         │ #7FB09C         │ #D8B873         │ #E4EAE5         │
+│ (--bg)          │ (--primary)     │ (--accent)      │ (--text)        │
+└─────────────────┴─────────────────┴─────────────────┴─────────────────┘
+```
+
+### Key Design System Elements
+
+- **Refined Typography**:
+  - **Headings & Accents**: *Lora* — an elegant contemporary serif typeface with brushed curves, lending literary gravitas to lesson headers and vocabulary entries.
+  - **Body & Interactive UI**: *Nunito Sans* — a clean, highly legible geometric sans-serif optimized for reading speed and exercise drills across all viewport sizes.
+- **Thoughtful Palette & Design Tokens**:
+  - Warm parchment base (`#F6F5EF`) paired with deep forest sage (`#4F7A6A`) and warm Tuscan ochre gold (`#C9A25B`).
+  - Dark ink typography (`#25302B`) ensuring high contrast and reduced eye fatigue during long reading sessions.
+  - Unambiguous semantic indicators: vibrant emerald green (`#2E9E6B`) for successful answers and ruby red (`#D64545`) for errors.
+- **First-Class Dark Theme**:
+  - Implemented via semantic CSS variables (`[data-theme="dark"]`).
+  - Deep charcoal-moss background (`#0F1412`) with luminescent sage accents (`#7FB09C`) and muted gold highlights (`#D8B873`), preserving visual hierarchy without harsh contrast spikes.
+- **Micro-Interactions & Polish**:
+  - Tactile card elevations, soft borders (`--radius-md`), smooth transition feedback on answer selection, and responsive layout scaling across mobile, tablet, and desktop screens.
+  - Dedicated audio buttons with integrated browser SpeechSynthesis (TTS) tuned to native locales (`it-IT`, `es-ES`).
+
+---
+
+## ✨ Feature Highlights
+
+- **Structured Learning Paths & Units**: Sequential pathways with bite-sized lessons, clear learning objectives, estimated completion times, and milestone checks.
+- **7+ Interactive Exercise Engines**:
+  1. *Multiple Choice (MCQ)*: Rapid recognition and contextual grammar queries.
+  2. *Fill-in-the-Blank*: Sentence completion and verb conjugation drills.
+  3. *Matching Pairs*: Dual-column lexical and definition pairing.
+  4. *Sentence Reordering*: Interactive word-chip sequencing to build syntactic intuition.
+  5. *Listening Comprehension*: Audio playback with transcription and comprehension questions.
+  6. *Interactive Dialogues*: Multi-turn conversational roleplays with alternating turns.
+  7. *Dictation*: Audio-driven spelling and typing exercises.
+- **Dictionary & Spaced Repetition Flashcards**: Searchable course vocabulary backed by SQLite search, custom user word lists, and spaced review tracking.
+- **Grammar Guide & Rules Handbook**: Standalone grammar browser organized by category (articles, pronouns, verbs, syntax, situational usage).
+- **Placement & Diagnostic Testing**: Level assessment tests allowing learners to evaluate their proficiency and jump to relevant units.
+- **Unified Authentication**:
+  - Local email/password registration with Argon2 password hashing.
+  - Google OAuth 2.0 social sign-in.
+  - CSRF token protection, IP-based rate limiting, and secure HTTP-only cookies (`ls.sid`).
+- **Offline-First Resilience & Cloud Sync**:
+  - Guest mode saves progress locally in browser `localStorage`.
+  - Logged-in mode uses write-through caching with an offline sync queue.
+  - Smart server-side conflict resolution preserves maximum scores, cumulative XP, and latest timestamps on MongoDB Atlas.
+- **Content Gating & Monetization**:
+  - Free core lessons open to everyone.
+  - Premium modules gated server-side behind user entitlements.
+  - Pluggable payment provider architecture (Mock provider included, ready for Stripe or PayPal integration).
+
+---
+
+## 🛠️ System Architecture
+
+LanguageStudio is organized into an edge reverse proxy and a unified core backend service:
+
+```
+                           Browser (:3005)
+                                  │
+                        ┌─────────▼─────────┐
+                        │      Gateway      │ (:3005)
+                        └─────────┬─────────┘
+                                  │
+              ┌───────────────────┼───────────────────┐
+              │                   │                   │
+              ▼                   ▼                   ▼
+        Static Assets       /courses/*.json        /api/*
+      (frontend/public,   (Blocked / 403      (Proxied to
+          courses/)          Forbidden)        Service :3006)
+                                                      │
+                                                      ▼
+                                              ┌───────────────┐
+                                              │    service    │ (:3006)
+                                              └───────┬───────┘
+                                                      │
+                                  ┌───────────────────┴───────────────────┐
+                                  ▼                                       ▼
+                         MongoDB Atlas (Cloud)                   SQLite (Local)
+                        - Users & Sessions (ls.sid)             - Dictionary & vocab
+                        - User progress & stats                 - Word translations
+                        - Entitlements (paid access)            - Normalized search
+```
+
+> 📖 **Deep-Dive Documentation**: For an in-depth breakdown of the backend call flow, request lifecycles, route controllers, models, and conflict resolution engine, please read [ARCHITECTURE.md](ARCHITECTURE.md).
+
+---
+
+## 📋 Requirements
+
+- **Node.js** ≥ 18.x
+- **npm** (bundled with Node.js)
+- *(Optional)* **MongoDB Atlas account** (free tier connection string for cloud auth and progress sync)
+
+---
+
+## 🚀 Quick Start
+
+### 1. Configure Environment
+
+Copy the example environment file for the core service:
+
+```bash
+cd backend/service
+cp .env.example .env
+```
+
+Edit `backend/service/.env`:
 ```env
-SESSION_SECRET=your_secret_here        # required
-MONGODB_URI=mongodb+srv://...          # optional — enables cloud auth/progress sync
+PORT=3006
+SESSION_SECRET=your_long_random_secret_here   # Required for signed cookies
+MONGODB_URI=mongodb+srv://...                 # Optional: enables MongoDB persistence
 ```
 
-- Without `MONGODB_URI`, sessions are stored in memory and progress is not synced.
+> **Note**: Without `MONGODB_URI`, the server automatically falls back to an in-memory session store and mock progress adapter. No external database setup is strictly required to run locally!
 
-### `backend/.env` (optional)
+### 2. Install Dependencies
 
-Legacy gateway/shared settings; largely unused now. Create from `.env.example` if needed.
-
-## Project Layout
-
-```
-courses/              # JSON course content (Italian: it, Spanish: es)
-paid-content/         # Paid lesson files (entitlement-gated)
-frontend/public/      # App pages, styles, scripts
-backend/service/      # Main API, auth, and static frontend server (port 3006)
-backend/auth-service/ # Legacy auth service (port 3007)
-backend/gateway/      # Public entry point and API proxy (port 3005)
-scripts/              # Maintenance and validation scripts
-```
-
-## Scripts
-
-Run from the repo root:
-
-| Script | Purpose |
-|---|---|
-| `node scripts/validate-courses.mjs` | Validate all course JSON files |
-| `node scripts/check-icons.mjs` | Check for missing icons referenced in course data |
-| `import_vocab.bat` | Import CSV vocabulary into the SQLite user-word database |
-
-## Tests
-
-From `backend\service`:
+From the repository root:
 
 ```bat
+install.bat
+```
+
+*This automatically installs dependencies in `backend/service` and `backend/gateway`.*
+
+### 3. Start Services
+
+From the repository root:
+
+```bat
+start.bat
+```
+
+*This launches both the **API Service** (port 3006) and the **Gateway Proxy** (port 3005) in dedicated terminal windows.*
+
+### 4. Launch the App
+
+Open your browser at:
+👉 **[http://localhost:3005/](http://localhost:3005/)**
+
+---
+
+## 📁 Repository Structure
+
+```
+LanguageStudio/
+├── ARCHITECTURE.md       # Detailed technical architecture & request call flow
+├── README.md             # Main project documentation and presentation
+├── install.bat           # Root dependency installation script
+├── start.bat             # Root service launcher script
+├── import_vocab.bat      # CLI batch tool to import CSV vocabulary into SQLite
+│
+├── backend/
+│   ├── gateway/          # Reverse proxy, CORS enforcement & static file server (port 3005)
+│   ├── service/          # Core REST API, auth, progress sync & payment engine (port 3006)
+│   │   ├── config/       # Environment parsing & service configurations
+│   │   ├── data/         # SQLite databases (vocab.db, content.sqlite)
+│   │   └── src/          # Controllers, models, routes, middleware, and services
+│   └── auth-service/     # Deprecated standalone service (consolidated into service/)
+│
+├── courses/              # Course definitions, grammar, vocab, and free lessons
+│   ├── it/               # Italian course metadata, lessons, and i18n
+│   ├── es/               # Spanish course metadata, lessons, and i18n
+│   └── index.json        # Global catalog index of available courses
+│
+├── paid-content/         # Premium lesson definitions (isolated & entitlement-gated)
+│   └── courses/          # Protected course lessons served only via /api/courses
+│
+├── frontend/
+│   └── public/           # Client application assets
+│       ├── css/          # Modular CSS (main.css, studio.css, lesson.css, etc.)
+│       ├── js/           # Modern vanilla ES client logic (progress, auth, exercises)
+│       ├── locales/      # UI translations (en.json, uk.json)
+│       └── pages/        # Application views (home, lesson, dictionary, flashcards, etc.)
+│
+├── docs/                 # Guides for adding courses, paths, locales, icons, and schemas
+└── scripts/              # Validation, course verification, and utility scripts
+```
+
+---
+
+## 🧪 Testing & Validation
+
+### Run Backend Test Suite
+
+From `backend/service`:
+
+```bash
 npm test
 ```
 
-Runs the built-in Node.js test runner on `test/*.test.js`.
+Runs the built-in Node.js test runner across `test/*.test.js`, validating authentication, CSRF protection, lesson access gating, payment webhooks, and progress conflict merge algorithms.
+
+### Content Validation Scripts
+
+From the repository root:
+
+```bash
+# Validate course schema and JSON integrity
+node scripts/validate-courses.mjs
+
+# Verify all referenced icons exist
+node scripts/check-icons.mjs
+```
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
