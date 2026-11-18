@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 const { test, beforeEach } = require('node:test');
 const router = require('../src/routes/courseLessons');
 const { Entitlement } = require('../src/models/Entitlement');
+const { User } = require('../src/models/User');
 
 // Helper to simulate Express request/response against the router without TCP sockets
 function testRequest(routerInstance, { method = 'GET', url = '/', body = {}, query = {}, session = null, headers = {} }) {
@@ -243,4 +244,45 @@ test('Entitlement model & routing: path-specific gating unlocks ONLY selected pa
     assert.strictEqual(successRes.status, 200);
     assert.strictEqual(successRes.body.id, 'italian-reading-2');
     assert.strictEqual(successRes.body.access, 'paid');
+});
+
+test('Admin role grants instant access to paid lessons and all paths without purchasing', async () => {
+    const adminUser = new User({
+        email: 'admin_test@example.com',
+        displayName: 'Site Admin',
+        role: 'admin'
+    });
+    await adminUser.save();
+    const adminId = adminUser._id.toString();
+
+    // Check hasEntitlement returns true for admin even with 0 records in entitlements collection
+    const hasAccess = await Entitlement.hasEntitlement(adminId, 'it', 'italian-reading');
+    assert.strictEqual(hasAccess, true, 'Admin should automatically have entitlement to any path');
+
+    // Admin should be able to fetch paid lesson successfully without 401 or 403
+    const adminRes = await testRequest(router, {
+        method: 'GET',
+        url: '/it/lessons/italian-reading-2',
+        session: { userId: adminId }
+    });
+    assert.strictEqual(adminRes.status, 200);
+    assert.strictEqual(adminRes.body.id, 'italian-reading-2');
+});
+
+test('Course content and metadata endpoints serve index, course data, exercises, and grammar', async () => {
+    const indexRes = await testRequest(router, { method: 'GET', url: '/course-index' });
+    assert.strictEqual(indexRes.status, 200);
+    assert.ok(Array.isArray(indexRes.body.courses));
+
+    const courseRes = await testRequest(router, { method: 'GET', url: '/it' });
+    assert.strictEqual(courseRes.status, 200);
+    assert.strictEqual(courseRes.body.id, 'it');
+
+    const exercisesRes = await testRequest(router, { method: 'GET', url: '/it/exercises' });
+    assert.strictEqual(exercisesRes.status, 200);
+    assert.ok(Array.isArray(exercisesRes.body));
+
+    const grammarRes = await testRequest(router, { method: 'GET', url: '/it/grammar' });
+    assert.strictEqual(grammarRes.status, 200);
+    assert.ok(Array.isArray(grammarRes.body.topics));
 });

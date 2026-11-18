@@ -81,7 +81,7 @@ body {
   background: var(--it-green-light);
   color: var(--it-green);
   font-weight: 600;
-  border-left: 3px solid var(--it-red);
+  border-left: 3px solid var(--primary);
 }
 
 .lesson-exercises-link {

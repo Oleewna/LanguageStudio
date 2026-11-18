@@ -5,27 +5,57 @@ function shouldUseMemory() {
 }
 
 // -------------------------------------------------------------
-// 1. Profile Schema & Model
-// Primary key: userId
+// 1. Profile Helper (Stored inside User.profile in 'users' collection)
 // -------------------------------------------------------------
-const profileSchema = new mongoose.Schema(
-  {
-    userId: { type: String, required: true, unique: true },
-    timezone: { type: String, default: 'UTC' },
-    sourceLanguage: { type: String, default: 'device' },
-    activeCourseId: { type: String, default: '' },
-    dailyGoalXp: { type: Number, default: 50 },
-    effectsEnabled: { type: Boolean, default: true },
-    totalXp: { type: Number, default: 0 },
-    lastCelebratedLevel: { type: Number, default: 0 },
-    schemaVersion: { type: Number, default: 1 },
-    createdAt: { type: String, default: () => new Date().toISOString() },
-    updatedAt: { type: String, default: () => new Date().toISOString() }
-  },
-  { timestamps: false, collection: 'profiles' }
-);
+function formatUserProfile(user, fallbackUserId) {
+  if (!user) return null;
+  const p = user.profile || {};
+  const userId = user._id ? user._id.toString() : String(user.userId || fallbackUserId || '');
+  return {
+    userId,
+    timezone: p.timezone || 'UTC',
+    sourceLanguage: p.sourceLanguage || 'device',
+    activeCourseId: p.activeCourseId || '',
+    dailyGoalXp: typeof p.dailyGoalXp === 'number' ? p.dailyGoalXp : 50,
+    effectsEnabled: typeof p.effectsEnabled === 'boolean' ? p.effectsEnabled : true,
+    totalXp: typeof p.totalXp === 'number' ? p.totalXp : 0,
+    lastCelebratedLevel: typeof p.lastCelebratedLevel === 'number' ? p.lastCelebratedLevel : 0,
+    schemaVersion: p.schemaVersion || 1,
+    createdAt: p.createdAt || (user.createdAt ? new Date(user.createdAt).toISOString() : new Date().toISOString()),
+    updatedAt: p.updatedAt || new Date().toISOString()
+  };
+}
 
-const MongooseProfile = mongoose.models.Profile || mongoose.model('Profile', profileSchema);
+async function checkAndMigrateLegacyProfile(user, MongooseUser) {
+  if (!user || (user.profile && user.profile.updatedAt && user.profile.totalXp > 0)) {
+    return user;
+  }
+  try {
+    if (mongoose.connection && mongoose.connection.readyState === 1) {
+      const legacyColl = mongoose.connection.collection('profiles');
+      const legacyDoc = await legacyColl.findOne({ userId: String(user._id) });
+      if (legacyDoc) {
+        const migrated = {
+          timezone: legacyDoc.timezone || 'UTC',
+          sourceLanguage: legacyDoc.sourceLanguage || 'device',
+          activeCourseId: legacyDoc.activeCourseId || '',
+          dailyGoalXp: legacyDoc.dailyGoalXp ?? 50,
+          effectsEnabled: legacyDoc.effectsEnabled ?? true,
+          totalXp: legacyDoc.totalXp ?? 0,
+          lastCelebratedLevel: legacyDoc.lastCelebratedLevel ?? 0,
+          schemaVersion: legacyDoc.schemaVersion ?? 1,
+          createdAt: legacyDoc.createdAt || new Date().toISOString(),
+          updatedAt: legacyDoc.updatedAt || new Date().toISOString()
+        };
+        await MongooseUser.updateOne({ _id: user._id }, { $set: { profile: migrated } });
+        user.profile = migrated;
+      }
+    }
+  } catch (err) {
+    // Non-fatal if legacy collection does not exist
+  }
+  return user;
+}
 
 // -------------------------------------------------------------
 // 2. Daily Activity Schema & Model
@@ -273,7 +303,223 @@ function cleanMongoDoc(doc) {
   return clone;
 }
 
-const Profile = createModelWrapper('profile', MongooseProfile);
+const Profile = {
+  async find(filter = {}) {
+    if (shouldUseMemory()) {
+      const store = memoryStores.profile;
+      const results = [];
+      for (const rec of store.values()) {
+        if (matchesFilter(rec, filter)) {
+          results.push({ ...rec });
+        }
+      }
+      return results;
+    }
+
+    const MongooseUser = mongoose.models.User;
+    if (!MongooseUser) return [];
+
+    let users = [];
+    if (filter.userId) {
+      const query = mongoose.Types.ObjectId.isValid(filter.userId)
+        ? { _id: filter.userId }
+        : { _id: filter.userId };
+      let u = await MongooseUser.findOne(query).lean();
+      if (u) {
+        u = await checkAndMigrateLegacyProfile(u, MongooseUser);
+        users = [u];
+      }
+    } else {
+      users = await MongooseUser.find({}).lean();
+    }
+
+    const profiles = [];
+    for (const u of users) {
+      const formatted = formatUserProfile(u, filter.userId);
+      if (matchesFilter(formatted, filter)) {
+        profiles.push(formatted);
+      }
+    }
+
+    if (profiles.length === 0 && filter.userId) {
+      const store = memoryStores.profile;
+      for (const rec of store.values()) {
+        if (matchesFilter(rec, filter)) {
+          profiles.push({ ...rec });
+        }
+      }
+    }
+
+    return profiles;
+  },
+
+  async findOne(filter = {}) {
+    if (shouldUseMemory()) {
+      const store = memoryStores.profile;
+      for (const rec of store.values()) {
+        if (matchesFilter(rec, filter)) {
+          return { ...rec };
+        }
+      }
+      return null;
+    }
+
+    const MongooseUser = mongoose.models.User;
+    if (!MongooseUser) return null;
+
+    let user = null;
+    if (filter.userId) {
+      const query = mongoose.Types.ObjectId.isValid(filter.userId)
+        ? { _id: filter.userId }
+        : { _id: filter.userId };
+      user = await MongooseUser.findOne(query).lean();
+      if (user) {
+        user = await checkAndMigrateLegacyProfile(user, MongooseUser);
+      }
+    } else {
+      user = await MongooseUser.findOne({}).lean();
+    }
+
+    if (!user) {
+      const store = memoryStores.profile;
+      for (const rec of store.values()) {
+        if (matchesFilter(rec, filter)) {
+          return { ...rec };
+        }
+      }
+      return null;
+    }
+
+    const formatted = formatUserProfile(user, filter.userId);
+    return matchesFilter(formatted, filter) ? formatted : null;
+  },
+
+  async upsert(filter, updateData) {
+    const dataToSave = { ...filter, ...updateData };
+    const userId = String(dataToSave.userId || filter.userId || '');
+
+    if (shouldUseMemory()) {
+      const store = memoryStores.profile;
+      const key = normalizeEntityKey('profile', dataToSave);
+      const existing = store.get(key) || {};
+      const saved = { ...existing, ...dataToSave };
+      store.set(key, saved);
+      return { ...saved };
+    }
+
+    const MongooseUser = mongoose.models.User;
+    if (!MongooseUser) {
+      throw new Error('User model not found');
+    }
+
+    const query = mongoose.Types.ObjectId.isValid(userId) ? { _id: userId } : { _id: userId };
+    const updateSet = {};
+    const allowedFields = [
+      'timezone', 'sourceLanguage', 'activeCourseId', 'dailyGoalXp',
+      'effectsEnabled', 'totalXp', 'lastCelebratedLevel', 'schemaVersion',
+      'createdAt', 'updatedAt'
+    ];
+    for (const field of allowedFields) {
+      if (dataToSave[field] !== undefined) {
+        updateSet[`profile.${field}`] = dataToSave[field];
+      }
+    }
+    if (!updateSet['profile.updatedAt']) {
+      updateSet['profile.updatedAt'] = new Date().toISOString();
+    }
+
+    const updatedUser = await MongooseUser.findOneAndUpdate(
+      query,
+      { $set: updateSet },
+      { new: true }
+    ).lean();
+
+    if (!updatedUser) {
+      const store = memoryStores.profile;
+      const key = normalizeEntityKey('profile', dataToSave);
+      const existing = store.get(key) || {};
+      const saved = { ...existing, ...dataToSave };
+      store.set(key, saved);
+      return { ...saved };
+    }
+
+    return formatUserProfile(updatedUser, userId);
+  },
+
+  async deleteOne(filter = {}) {
+    if (shouldUseMemory()) {
+      const store = memoryStores.profile;
+      for (const [key, rec] of store.entries()) {
+        if (matchesFilter(rec, filter)) {
+          store.delete(key);
+          return { acknowledged: true, deletedCount: 1 };
+        }
+      }
+      return { acknowledged: true, deletedCount: 0 };
+    }
+
+    const MongooseUser = mongoose.models.User;
+    if (!MongooseUser) return { acknowledged: true, deletedCount: 0 };
+
+    if (filter.userId) {
+      const query = mongoose.Types.ObjectId.isValid(filter.userId) ? { _id: filter.userId } : { _id: filter.userId };
+      const res = await MongooseUser.updateOne(query, {
+        $set: {
+          profile: {
+            timezone: 'UTC',
+            sourceLanguage: 'device',
+            activeCourseId: '',
+            dailyGoalXp: 50,
+            effectsEnabled: true,
+            totalXp: 0,
+            lastCelebratedLevel: 0,
+            schemaVersion: 1,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          }
+        }
+      });
+      return { acknowledged: true, deletedCount: res.modifiedCount || 0 };
+    }
+    return { acknowledged: true, deletedCount: 0 };
+  },
+
+  async deleteMany(filter = {}) {
+    if (shouldUseMemory()) {
+      const store = memoryStores.profile;
+      let count = 0;
+      for (const [key, rec] of store.entries()) {
+        if (matchesFilter(rec, filter)) {
+          store.delete(key);
+          count += 1;
+        }
+      }
+      return { acknowledged: true, deletedCount: count };
+    }
+
+    const MongooseUser = mongoose.models.User;
+    if (!MongooseUser) return { acknowledged: true, deletedCount: 0 };
+
+    const res = await MongooseUser.updateMany({}, {
+      $set: {
+        profile: {
+          timezone: 'UTC',
+          sourceLanguage: 'device',
+          activeCourseId: '',
+          dailyGoalXp: 50,
+          effectsEnabled: true,
+          totalXp: 0,
+          lastCelebratedLevel: 0,
+          schemaVersion: 1,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        }
+      }
+    });
+    return { acknowledged: true, deletedCount: res.modifiedCount || 0 };
+  }
+};
+
 const Daily = createModelWrapper('daily', MongooseDaily);
 const LessonProgress = createModelWrapper('lessonProgress', MongooseLessonProgress);
 const WordStats = createModelWrapper('wordStats', MongooseWordStats);

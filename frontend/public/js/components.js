@@ -39,7 +39,6 @@
   const mobileLinks = [
     ['pages/home.html', 'home', 'home', 'Home'],
     ['pages/path.html', 'path', 'paths', 'Learning paths'],
-    ['pages/flashcards.html', 'flashcards', 'flashcards', 'Flashcards'],
     ['pages/exercises.html', 'exercises', 'exercises', 'Exercises'],
     ['pages/dictionary.html', 'dictionary', 'dictionary', 'My dictionary'],
     ['pages/grammar.html', 'grammar', 'grammar', 'Grammar guide'],
@@ -57,16 +56,58 @@
       <nav class="mob-nav" id="mobNav" aria-label="Mobile navigation">
         <div class="mob-nav-header"><a href="pages/home.html" class="mob-nav-brand" aria-label="LanguageStudio home">${brandMark}<span class="brand-wordmark">Language<span>Studio</span></span></a><button class="mob-close-btn" type="button" aria-label="Close">${icon('close')}</button></div>
         <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}<span class="mob-theme-label">Switch theme</span></button>
-        <div class="mob-section-label">Learn</div>${links.slice(0, 3).join('')}
-        <div class="mob-section-label">Practice</div>${links.slice(3, 8).join('')}
-        <div class="mob-section-label">Account</div>${links.slice(8).join('')}
+        <div class="mob-section-label">Learn</div>${links.slice(0, 2).join('')}
+        <div class="mob-section-label">Practice</div>${links.slice(2, 6).join('')}
+        <div class="mob-section-label">Account</div>${links.slice(6).join('')}
       </nav>`;
   }
 
   const EMBEDDED_COMPONENTS = {
     navbar: `${mobileNavigation()}<header class="topnav">
       <a href="pages/home.html" class="nav-brand" aria-label="LanguageStudio home">${brandMark}<span class="nav-brand-name">Language<span>Studio</span></span></a>
-      <div class="nav-right"><div class="student-stats"><div class="streak-badge">${icon('streak')}<span>1</span></div><div class="xp-badge">${icon('xp')}<span class="xp-val-display">0</span><span>XP</span></div></div>
+      <nav class="nav-links">
+        <a href="pages/home.html" class="nav-dd-btn" data-nav="home"><span data-i18n="nav.home">Home</span></a>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" type="button" data-nav-btn="path">
+            <span class="dd-icon">${icon('paths')}</span>
+            <span data-i18n="nav.paths">Learning path</span>
+            <span class="chev">${icon('chevron-down')}</span>
+          </button>
+          <div class="nav-dd-menu">
+            <a href="pages/path.html" class="nav-dd-item" data-nav="path">
+              <span class="dd-icon">${icon('paths')}</span><span data-i18n="nav.browsePaths">Browse all paths</span>
+            </a>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <button class="nav-dd-btn" type="button" data-nav-btn="practice">
+            <span class="dd-icon">${icon('exercises')}</span>
+            <span data-i18n="nav.practiceSection">Practice</span>
+            <span class="chev">${icon('chevron-down')}</span>
+          </button>
+          <div class="nav-dd-menu">
+            <a href="pages/exercises.html" class="nav-dd-item" data-nav="exercises">
+              <span class="dd-icon">${icon('exercises')}</span><span data-i18n="nav.exercises">Exercises</span>
+            </a>
+            <a href="pages/dictionary.html" class="nav-dd-item" data-nav="dictionary">
+              <span class="dd-icon">${icon('dictionary')}</span><span data-i18n="nav.dictionary">My dictionary</span>
+            </a>
+          </div>
+        </div>
+        <a href="pages/grammar.html" class="nav-dd-btn" data-nav="grammar">
+          <span class="dd-icon">${icon('grammar')}</span><span data-i18n="nav.grammar">Grammar guide</span>
+        </a>
+        <a href="pages/tests.html" class="nav-dd-btn" data-nav="tests" data-tests-link>
+          <span class="dd-icon">${icon('tests')}</span><span data-i18n="nav.tests">Tests</span>
+        </a>
+        <a href="pages/settings.html" class="nav-dd-btn" data-nav="settings">
+          <span class="dd-icon">${icon('filter')}</span><span data-i18n="nav.settings">Settings</span>
+        </a>
+      </nav>
+      <div class="nav-right">
+        <div class="student-stats"><div class="streak-badge">${icon('streak')}<span>1</span></div><div class="xp-badge">${icon('xp')}<span class="xp-val-display">0</span><span>XP</span></div></div>
+        <button class="theme-toggle-btn" type="button" title="Switch theme" aria-label="Switch theme">${icon('moon')}</button>
+        <a href="pages/auth.html" class="nav-dd-btn nav-auth-btn" data-nav="auth"><span class="dd-icon">${icon('user')}</span><span data-i18n="nav.signIn">Sign in</span></a>
         <button type="button" class="student-widget" title="Student profile" aria-label="Student profile"><span class="student-avatar">S</span></button>
         <button class="menu-toggle" type="button" aria-label="Menu">${icon('menu')}</button>
       </div></header>`,
@@ -90,7 +131,7 @@
   function getCurrentPageKey() {
     const path = window.location.pathname.toLowerCase().replace(/\\/g, '/');
     if (path.endsWith('/index.html') || path.endsWith('/')) return 'landing';
-    for (const key of ['home', 'lesson', 'flashcards', 'exercises', 'dictionary', 'grammar', 'settings', 'tests', 'path', 'courses', 'auth']) {
+    for (const key of ['home', 'lesson', 'exercises', 'dictionary', 'grammar', 'settings', 'tests', 'path', 'courses', 'auth']) {
       if (path.includes(`${key}.html`)) return key === 'lesson' ? 'lesson' : key;
     }
     return '';
@@ -217,6 +258,7 @@
     window.renderRegisteredIcons?.();
     window.updateXPDisplay?.();
     window.applySourceLanguageSettings?.();
+    window.applyInterfaceLanguage?.();
     document.querySelectorAll('.menu-toggle').forEach(button => {
       button.removeEventListener('click', openMobNavProxy);
       button.addEventListener('click', openMobNavProxy);

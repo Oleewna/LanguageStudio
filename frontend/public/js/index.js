@@ -249,7 +249,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-index-4]');
   if (!target) return;
   var result = (function(event) {
-location.href='pages/flashcards.html'
+location.href='pages/exercises.html?mode=flashcards'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();

@@ -53,6 +53,40 @@ app.use('/api/v1/auth', createProxyMiddleware(serviceProxy('Authentication servi
 
 app.use('/api/courses', createProxyMiddleware(serviceProxy('Course service', '/api/courses')));
 app.use('/api/v1/courses', createProxyMiddleware(serviceProxy('Course service', '/api/v1/courses')));
+
+app.use('/api/content', createProxyMiddleware({
+    target: config.serviceUrl,
+    changeOrigin: true,
+    pathRewrite: (requestPath) => {
+        if (!requestPath || requestPath === '/' || requestPath === '/course-index') return '/api/courses';
+        if (requestPath.startsWith('/courses/')) return `/api${requestPath}`;
+        if (requestPath.startsWith('/')) return `/api/courses${requestPath}`;
+        return `/api/courses/${requestPath}`;
+    },
+    on: {
+        error: (error, req, res) => {
+            console.error('Content proxy failed:', error.message);
+            if (!res.headersSent) res.status(502).json({ error: 'Content service is unavailable.' });
+        }
+    }
+}));
+
+app.use('/api/v1/content', createProxyMiddleware({
+    target: config.serviceUrl,
+    changeOrigin: true,
+    pathRewrite: (requestPath) => {
+        if (!requestPath || requestPath === '/' || requestPath === '/course-index') return '/api/v1/courses';
+        if (requestPath.startsWith('/courses/')) return `/api/v1${requestPath}`;
+        if (requestPath.startsWith('/')) return `/api/v1/courses${requestPath}`;
+        return `/api/v1/courses/${requestPath}`;
+    },
+    on: {
+        error: (error, req, res) => {
+            console.error('Content proxy failed:', error.message);
+            if (!res.headersSent) res.status(502).json({ error: 'Content service is unavailable.' });
+        }
+    }
+}));
 app.use('/api/vocab', createProxyMiddleware(serviceProxy('Vocab service', '/api/vocab')));
 app.use('/api/payments', createProxyMiddleware(serviceProxy('Payment service', '/api/payments')));
 app.use('/api/v1/payments', createProxyMiddleware(serviceProxy('Payment service', '/api/v1/payments')));

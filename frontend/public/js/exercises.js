@@ -1,3 +1,328 @@
+﻿// ── Practice Mode Switcher (Flashcards ↔ Exercises) ──────────────────────
+function switchPracticeMode(mode) {
+  const fcSection = document.getElementById('mode-flashcards');
+  const exSection = document.getElementById('mode-exercises');
+  const fcTab = document.getElementById('modeTabFlashcards');
+  const exTab = document.getElementById('modeTabExercises');
+
+  const isFlashcards = mode === 'flashcards';
+  if (fcTab) fcTab.classList.toggle('active', isFlashcards);
+  if (exTab) exTab.classList.toggle('active', !isFlashcards);
+
+  if (fcSection) fcSection.style.display = isFlashcards ? 'block' : 'none';
+  if (exSection) exSection.style.display = isFlashcards ? 'none' : 'block';
+
+  if (isFlashcards && typeof applyFlashcardFilters === 'function') {
+    applyFlashcardFilters();
+  }
+
+  const url = new URL(window.location.href);
+  if (isFlashcards) {
+    url.searchParams.set('mode', 'flashcards');
+  } else {
+    url.searchParams.delete('mode');
+  }
+  window.history.replaceState({}, '', url);
+}
+window.switchPracticeMode = switchPracticeMode;
+
+// ── Flashcards Functionality ──────────────────────────────────────────────
+let fcSelectedTopic = 'all';
+let fcCards = [];
+let fcCurrentIndex = 0;
+let fcIsFlipped = false;
+
+function getFcLocalizedText(value, fallback = '') {
+  if (typeof value === 'string') return value;
+  if (value && typeof value === 'object') {
+    const lang = (typeof getSourceLanguage === 'function') ? getSourceLanguage() : 'uk';
+    return value[lang] || value.uk || value.en || fallback;
+  }
+  return fallback;
+}
+
+function normalizeFlashcard(item) {
+  const track = item.path || item.track || 'general';
+  const topic = item.topic || 'general';
+  const exampleText = item.example && typeof item.example === 'object' ? item.example.text : item.ex || item.example || '';
+  return {
+    ...item,
+    track,
+    topic,
+    word: item.word || '',
+    pronunciation: getFcLocalizedText(item.pronunciation || item.phon, item.pronunciation || item.phon || ''),
+    trans: getFcLocalizedText(item.trans, item.trans || ''),
+    ex: exampleText
+  };
+}
+
+function getFlashcardFilterLabel(value, fallback = '') {
+  const language = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+  const label = String(value || '').replace(/[-_]/g, ' ');
+  const translated = typeof window.getInterfaceTranslation === 'function'
+    ? window.getInterfaceTranslation(label, language)
+    : null;
+  return translated || fallback || label;
+}
+
+function buildTopicChips(allWords) {
+  const chipContainer = document.querySelector('.topic-chips');
+  if (!chipContainer) return;
+
+  const topics = ['all', ...new Set(allWords.map(item => item.topic).filter(Boolean))];
+  const language = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+  chipContainer.replaceChildren(...topics.map(topic => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `topic-chip ${fcSelectedTopic === topic ? 'active' : ''}`;
+    button.dataset.topic = topic;
+    button.textContent = topic === 'all'
+      ? getFlashcardFilterLabel('all', language === 'en' ? 'All' : 'Усі')
+      : getFlashcardFilterLabel(topic);
+    button.addEventListener('click', () => setTopicChip(topic, button));
+    return button;
+  }));
+}
+
+async function applyFlashcardFilters() {
+  let list = [];
+  let courseWords = [];
+  const status = document.getElementById('fcReviewStatus');
+  if (status) status.textContent = '';
+
+  if (typeof window.loadCourseData === 'function') {
+    try {
+      const allCourseWords = await window.loadCourseData('vocab');
+      courseWords = Array.isArray(allCourseWords) ? allCourseWords.map(normalizeFlashcard) : [];
+    } catch (error) {
+      console.error('Could not load course vocabulary for flashcards:', error);
+      if (status) {
+        status.textContent = typeof getSourceLanguage === 'function' && getSourceLanguage() === 'en'
+          ? 'Course vocabulary could not be loaded. Please try again.'
+          : 'Не вдалося завантажити словник курсу. Спробуйте ще раз.';
+      }
+    }
+  }
+
+  const lessonId = new URLSearchParams(window.location.search).get('lesson');
+  list = lessonId
+    ? courseWords.filter((word) => (word.lessons || [word.lesson]).includes(lessonId))
+    : courseWords;
+
+  if (fcSelectedTopic !== 'all') {
+    list = list.filter(item => item.topic === fcSelectedTopic);
+  }
+
+  buildTopicChips(courseWords);
+  fcCards = list;
+  fcCurrentIndex = 0;
+  updateCardDisplay();
+}
+
+function setTopicChip(topic, btn) {
+  document.querySelectorAll('.topic-chip').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  fcSelectedTopic = topic;
+  applyFlashcardFilters();
+}
+
+function updateCardDisplay() {
+  const emptyNote = document.getElementById('fcEmptyNote');
+  const wordEl = document.getElementById('fcWord');
+  const pronunciationEl = document.getElementById('fcPronunciation');
+  const transEl = document.getElementById('fcTrans');
+  const exampleEl = document.getElementById('fcExample');
+  const counterEl = document.getElementById('fcCounter');
+  const unitTagEl = document.getElementById('fcUnitTag');
+  const topicTagEl = document.getElementById('fcTopicTag');
+
+  if (!fcCards.length) {
+    if (wordEl) wordEl.textContent = typeof getSourceLanguage === 'function' && getSourceLanguage() === 'en' ? 'No words found' : 'Слів не знайдено';
+    if (pronunciationEl) pronunciationEl.textContent = '';
+    if (transEl) transEl.textContent = typeof getSourceLanguage === 'function' && getSourceLanguage() === 'en' ? 'Try changing topics above' : 'Спробуйте змінити фільтри вище';
+    if (exampleEl) exampleEl.textContent = '';
+    if (counterEl) counterEl.textContent = '0 / 0';
+    if (unitTagEl) unitTagEl.textContent = '—';
+    if (topicTagEl) topicTagEl.textContent = '—';
+    const learnedButton = document.getElementById('fcMarkLearned');
+    if (learnedButton) learnedButton.disabled = true;
+    if (typeof applyInterfaceLanguage === 'function') applyInterfaceLanguage();
+    if (emptyNote) emptyNote.style.display = 'block';
+    return;
+  }
+  if (emptyNote) emptyNote.style.display = 'none';
+
+  const item = fcCards[fcCurrentIndex];
+  const inner = document.getElementById('fcInner');
+  if (fcIsFlipped) {
+    fcIsFlipped = false;
+    if (inner) inner.style.transform = 'rotateY(0deg)';
+  }
+
+  const trackLabel = (item.track || 'general').replace(/[-_]/g, ' ');
+  const topicLabel = (item.topic || 'general').replace(/[-_]/g, ' ');
+
+  if (unitTagEl) unitTagEl.innerHTML = `${typeof getIconSvg === 'function' ? getIconSvg('greeting') : ''}<span>${trackLabel}</span>`;
+  if (topicTagEl) topicTagEl.innerHTML = `${typeof getIconSvg === 'function' ? getIconSvg('type') : ''}<span>${topicLabel}</span>`;
+  if (wordEl) wordEl.textContent = item.word;
+  if (pronunciationEl) pronunciationEl.textContent = item.pronunciation || '';
+  if (transEl) transEl.textContent = item.trans || '';
+  if (exampleEl) exampleEl.textContent = item.ex ? `«${item.ex}»` : '';
+  if (counterEl) counterEl.textContent = `${fcCurrentIndex + 1} / ${fcCards.length}`;
+  const stage = document.querySelector('.fc-stage');
+  if (stage) {
+    stage.setAttribute('aria-label', `${item.word}: ${getFcLocalizedText({ uk: 'показати переклад', en: 'show translation' })}`);
+    stage.setAttribute('aria-pressed', 'false');
+  }
+  syncLearnedButton(item);
+  if (typeof applyInterfaceLanguage === 'function') applyInterfaceLanguage();
+}
+
+function syncLearnedButton(item) {
+  const button = document.getElementById('fcMarkLearned');
+  if (!button) return;
+
+  const vocabId = item && (item.vocabId || item.id || item.wordId);
+  const language = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+  const markLabel = language === 'en' ? 'Mark as learned' : 'Позначити як вивчене';
+  button.disabled = !vocabId;
+  button.setAttribute('aria-pressed', 'false');
+  button.textContent = markLabel;
+  if (!vocabId || !window.Progress || typeof window.Progress.list !== 'function') return;
+
+  const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+  window.Progress.list('wordStats', { courseId, vocabId: String(vocabId) }).then((records) => {
+    if (fcCards[fcCurrentIndex] !== item) return;
+    const learned = Boolean(Array.isArray(records) && records[0] && records[0].learned);
+    button.setAttribute('aria-pressed', String(learned));
+    button.textContent = learned
+      ? (language === 'en' ? 'Learned' : 'Вивчене')
+      : markLabel;
+  }).catch((error) => {
+    console.error('Could not load saved vocabulary progress:', error);
+  });
+}
+
+async function toggleLearnedState() {
+  const item = fcCards[fcCurrentIndex];
+  const vocabId = item && (item.vocabId || item.id || item.wordId);
+  const status = document.getElementById('fcReviewStatus');
+  const button = document.getElementById('fcMarkLearned');
+  if (!item || !vocabId || !window.Progress || typeof window.Progress.setWordLearned !== 'function') return;
+
+  const learned = button ? button.getAttribute('aria-pressed') !== 'true' : true;
+  const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+  try {
+    await window.Progress.setWordLearned(courseId, vocabId, learned);
+    syncLearnedButton(item);
+    if (status) {
+      const language = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+      status.textContent = learned
+        ? (language === 'en' ? `${item.word} marked as learned on this device.` : `${item.word} збережено як вивчене на цьому пристрої.`)
+        : (language === 'en' ? `${item.word} moved back to your review list.` : `${item.word} повернуто до повторення.`);
+    }
+  } catch (error) {
+    console.error('Could not save vocabulary progress:', error);
+    if (status) {
+      status.textContent = typeof getSourceLanguage === 'function' && getSourceLanguage() === 'en'
+        ? 'Could not save this word. Please try again.'
+        : 'Не вдалося зберегти слово. Спробуйте ще раз.';
+    }
+  }
+}
+
+function toggleFlip() {
+  if (!fcCards.length) return;
+  fcIsFlipped = !fcIsFlipped;
+  const inner = document.getElementById('fcInner');
+  const stage = document.querySelector('.fc-stage');
+  if (inner) inner.style.transform = fcIsFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+  if (stage) {
+    stage.setAttribute('aria-pressed', String(fcIsFlipped));
+    const language = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+    const action = fcIsFlipped
+      ? (language === 'en' ? 'show word' : 'показати слово')
+      : (language === 'en' ? 'show translation' : 'показати переклад');
+    stage.setAttribute('aria-label', `${fcCards[fcCurrentIndex].word}: ${action}`);
+  }
+}
+
+function nextCard() {
+  if (!fcCards.length) return;
+  fcCurrentIndex = (fcCurrentIndex + 1) % fcCards.length;
+  updateCardDisplay();
+}
+
+function prevCard() {
+  if (!fcCards.length) return;
+  fcCurrentIndex = (fcCurrentIndex - 1 + fcCards.length) % fcCards.length;
+  updateCardDisplay();
+}
+
+function speakCurrent(btn) {
+  if (typeof speak === 'function') {
+    speak(fcCards[fcCurrentIndex]?.word || '', btn);
+  }
+}
+
+function shuffleCards() {
+  for (let i = fcCards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [fcCards[i], fcCards[j]] = [fcCards[j], fcCards[i]];
+  }
+  fcCurrentIndex = 0;
+  updateCardDisplay();
+}
+
+function initFlashcards() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const requestedTopic = urlParams.get('topic');
+  if (requestedTopic) fcSelectedTopic = requestedTopic;
+  applyFlashcardFilters();
+
+  const learnedButton = document.getElementById('fcMarkLearned');
+  if (learnedButton) learnedButton.addEventListener('click', toggleLearnedState);
+
+  document.addEventListener('keydown', (event) => {
+    const fcSection = document.getElementById('mode-flashcards');
+    if (!fcSection || fcSection.style.display === 'none') return;
+
+    const target = event.target;
+    if (target instanceof HTMLElement && (
+      target.isContentEditable ||
+      target.matches('input, textarea, select, button, a')
+    )) return;
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      nextCard();
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      prevCard();
+    } else if (event.key === ' ' || (event.key === 'Enter' && target instanceof HTMLElement && target.classList.contains('fc-stage'))) {
+      event.preventDefault();
+      toggleFlip();
+    }
+  });
+}
+
+window.addEventListener('sourceLanguageChanged', () => {
+  if (typeof applyFlashcardFilters === 'function') {
+    applyFlashcardFilters();
+  }
+});
+
+Object.assign(window, {
+  toggleFlip,
+  nextCard,
+  prevCard,
+  speakCurrent,
+  shuffleCards,
+  toggleLearnedState,
+  applyFilters: applyFlashcardFilters,
+  applyFlashcardFilters
+});
+
 (() => {
   const DEFAULT_FORMATS = ['mcq', 'blank', 'match', 'reorder', 'listen', 'dialogue', 'dict'];
   const DEFAULT_XP = {
@@ -215,6 +540,18 @@
   function renderScopeFilters(course) {
     coursePaths = Array.isArray(course.paths) ? course.paths : [];
     courseLessons = coursePaths.flatMap(getPathLessons);
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedLesson = params.get('lesson') || 'all';
+    const requestedPath = params.get('path') || 'all';
+    const requestedLessonData = courseLessons.find((lesson) => lesson.id === requestedLesson);
+    selectedPathId = coursePaths.some((path) => path.id === requestedPath)
+      ? requestedPath
+      : requestedLessonData?.pathId || 'all';
+    selectedLessonId = requestedLessonData ? requestedLesson : 'all';
+
+    updateExerciseHeading();
+
     const pathSelect = document.getElementById('pathFilterSelect');
     const lessonSelect = document.getElementById('lessonFilterSelect');
     if (!pathSelect || !lessonSelect) return;
@@ -236,27 +573,8 @@
       pathSelect.appendChild(option);
     });
 
-    const params = new URLSearchParams(window.location.search);
-    const requestedLesson = params.get('lesson') || 'all';
-    const requestedPath = params.get('path') || 'all';
-    const requestedLessonData = courseLessons.find((lesson) => lesson.id === requestedLesson);
-    selectedPathId = coursePaths.some((path) => path.id === requestedPath)
-      ? requestedPath
-      : requestedLessonData?.pathId || 'all';
-    selectedLessonId = requestedLessonData ? requestedLesson : 'all';
     pathSelect.value = selectedPathId;
     renderLessonScopeOptions();
-
-    updateExerciseHeading();
-
-    if (selectedPathId !== 'all' || selectedLessonId !== 'all') {
-      const filterToggle = document.querySelector('[data-filter-toggle="exercises"]');
-      const filtersPanel = document.getElementById('exerciseFiltersPanel');
-      if (filterToggle && filtersPanel) {
-        filterToggle.setAttribute('aria-expanded', 'true');
-        filtersPanel.classList.remove('hidden');
-      }
-    }
 
     pathSelect.addEventListener('change', () => {
       selectedPathId = pathSelect.value;
@@ -372,26 +690,11 @@
       return;
     }
 
-    const groupFilter = document.getElementById('groupFilterSelect');
-    const groupVal = groupFilter ? groupFilter.value : 'all';
-    const searchInput = document.getElementById('searchInput');
-    const searchVal = searchInput ? searchInput.value.trim().toLowerCase() : '';
-
     const filtered = taskBank.filter((task) => {
       if (task.format !== currentTab) return false;
       if (selectedPathId !== 'all' && task.pathId !== selectedPathId) return false;
       if (selectedLessonId !== 'all' && task.lessonId !== selectedLessonId) return false;
       if (activeCategoryFilter !== 'all' && task.category !== activeCategoryFilter) return false;
-
-      const catInfo = getCategoryInfo(task.category);
-      if (groupVal !== 'all' && catInfo.group !== groupVal) return false;
-
-      if (searchVal) {
-        const qText = getText(task.question || task.prompt || task.title || task.lineA || '').toLowerCase();
-        const catText = getText(catInfo.name || '').toLowerCase();
-        if (!qText.includes(searchVal) && !catText.includes(searchVal)) return false;
-      }
-
       return true;
     });
 
@@ -855,7 +1158,7 @@
   }
 
   async function generateDictQuiz() {
-    const container = document.getElementById('dictQuizContainer');
+    const container = document.getElementById('dictQuizContainer') || document.getElementById('container-dict');
     if (!container) return;
 
     let pool;
@@ -942,33 +1245,14 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const requestedGroup = urlParams.get('group');
-    if (requestedGroup && ['grammar', 'situational'].includes(requestedGroup)) {
-      const groupSelect = document.getElementById('groupFilterSelect');
-      if (groupSelect) groupSelect.value = requestedGroup;
-    }
-
-    const filterToggle = document.querySelector('[data-filter-toggle="exercises"]');
-    const exerciseFiltersPanel = document.getElementById('exerciseFiltersPanel');
-    if (filterToggle && exerciseFiltersPanel) {
-      filterToggle.addEventListener('click', () => {
-        const isOpen = filterToggle.getAttribute('aria-expanded') === 'true';
-        filterToggle.setAttribute('aria-expanded', String(!isOpen));
-        exerciseFiltersPanel.classList.toggle('hidden', isOpen);
-      });
-    }
-
-    const groupSelect = document.getElementById('groupFilterSelect');
-    if (groupSelect) {
-      groupSelect.addEventListener('change', () => applyFiltersAndSort());
-    }
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput) {
-      searchInput.addEventListener('input', () => applyFiltersAndSort());
-    }
-
     initExerciseData();
+    if (typeof initFlashcards === 'function') {
+      initFlashcards();
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('mode') === 'flashcards' && typeof switchPracticeMode === 'function') {
+      switchPracticeMode('flashcards');
+    }
   });
 })();
 
@@ -1013,7 +1297,11 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-exercises-4]');
   if (!target) return;
   var result = (function(event) {
-location.href='flashcards.html'
+if (typeof switchPracticeMode === 'function') {
+  switchPracticeMode('flashcards');
+} else {
+  location.href='exercises.html?mode=flashcards';
+}
   }).call(target, event);
   if (result === false) {
     event.preventDefault();

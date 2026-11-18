@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const { Entitlement } = require('../models/Entitlement');
+const { User } = require('../models/User');
 const { getPaymentProvider } = require('../services/payments');
 
 const router = express.Router();
@@ -196,13 +197,37 @@ router.get('/entitlements', async (req, res, next) => {
     try {
         const userId = req.session && req.session.userId;
         if (!userId) {
-            return res.json({ authenticated: false, entitlements: [] });
+            return res.json({ authenticated: false, isAdmin: false, entitlements: [] });
         }
+        let isAdmin = false;
+        try {
+            const user = await User.findById(userId);
+            if (user && user.role === 'admin') {
+                isAdmin = true;
+            }
+        } catch (e) {}
+
         const docs = await Entitlement.find({ userId: String(userId), status: 'active' });
         const now = new Date();
         const active = docs.filter(doc => !doc.expiresAt || new Date(doc.expiresAt) > now);
+
+        if (isAdmin) {
+            active.push({
+                _id: `admin_entitlement_${userId}`,
+                userId: String(userId),
+                courseId: '*',
+                selectedPaths: ['*'],
+                status: 'active',
+                provider: 'admin-grant',
+                providerPaymentId: `admin_${userId}`,
+                createdAt: new Date(),
+                expiresAt: null
+            });
+        }
+
         return res.json({
             authenticated: true,
+            isAdmin,
             entitlements: active
         });
     } catch (error) {
@@ -218,26 +243,69 @@ router.get('/entitlement/:courseId', async (req, res, next) => {
     try {
         const userId = req.session && req.session.userId;
         if (!userId) {
-            return res.status(401).json({ authenticated: false, hasAccess: false, selectedPaths: [], isFullCourse: false });
+            return res.status(401).json({ authenticated: false, isAdmin: false, hasAccess: false, selectedPaths: [], isFullCourse: false });
         }
+        let isAdmin = false;
+        try {
+            const user = await User.findById(userId);
+            if (user && user.role === 'admin') {
+                isAdmin = true;
+            }
+        } catch (e) {}
+
         const courseId = req.params.courseId;
         const pathId = req.query.pathId || req.query.path || null;
-        const hasAccess = await Entitlement.hasEntitlement(userId, courseId, pathId);
+        const hasAccess = isAdmin || await Entitlement.hasEntitlement(userId, courseId, pathId);
 
         const docs = await Entitlement.find({ userId: String(userId), courseId: String(courseId), status: 'active' });
         const now = new Date();
         const active = docs.filter(doc => !doc.expiresAt || new Date(doc.expiresAt) > now);
-        const selectedPaths = [...new Set(active.flatMap(d => Array.isArray(d.selectedPaths) ? d.selectedPaths : []))];
-        const isFullCourse = active.some(d => !Array.isArray(d.selectedPaths) || d.selectedPaths.length === 0 || d.selectedPaths.includes('*'));
+        let selectedPaths = [...new Set(active.flatMap(d => Array.isArray(d.selectedPaths) ? d.selectedPaths : []))];
+        let isFullCourse = active.some(d => !Array.isArray(d.selectedPaths) || d.selectedPaths.length === 0 || d.selectedPaths.includes('*'));
+
+        if (isAdmin) {
+            isFullCourse = true;
+            selectedPaths = ['*'];
+        }
 
         return res.json({
             authenticated: true,
+            isAdmin,
             courseId,
             pathId,
             hasAccess,
             selectedPaths,
             isFullCourse,
             entitlements: active
+        });
+    } catch (error) {
+        return next(error);
+    }
+});
+
+/**
+ * POST /api/payments/dev-unlock
+ * Developer / testing 1-click unlock for learning paths.
+ */
+router.post('/dev-unlock', async (req, res, next) => {
+    try {
+        let userId = req.session && req.session.userId;
+        if (!userId) {
+            userId = 'test_dev_user';
+            req.session.userId = userId;
+        }
+        const courseId = (req.body && req.body.courseId) || 'it';
+        const { entitlement } = await Entitlement.grantEntitlement({
+            userId: String(userId),
+            courseId,
+            selectedPaths: ['*'],
+            provider: 'mock-dev',
+            providerPaymentId: `mock_dev_unlock_${Date.now()}`
+        });
+        return res.json({
+            success: true,
+            message: 'All learning paths unlocked for testing.',
+            entitlement
         });
     } catch (error) {
         return next(error);

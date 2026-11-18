@@ -6,9 +6,10 @@ const LESSONS_PER_ROW = 3;
 
 async function loadEntitlements(courseId) {
   try {
-    const res = await fetch('/api/payments/entitlements', { cache: 'no-store' });
+    const res = await fetch('/api/payments/entitlements', { cache: 'no-store', credentials: 'include' });
     if (res.ok) {
       const data = await res.json();
+      if (data.isAdmin) { hasFullAccess = true; }
       if (Array.isArray(data.entitlements)) {
         userActiveEntitlements = data.entitlements;
       }
@@ -30,10 +31,14 @@ async function loadEntitlements(courseId) {
   hasFullAccess = false;
   userPaidPathIds.clear();
 
+  if (localStorage.getItem('ls_unlocked_all') === 'true' || localStorage.getItem(`ls_unlocked_${courseId}`) === 'true' || localStorage.getItem('ls_role') === 'admin' || window.__LS_USER?.role === 'admin') {
+    hasFullAccess = true;
+  }
+
   for (const ent of userActiveEntitlements) {
     if (ent.status !== 'active') continue;
     if (ent.expiresAt && new Date(ent.expiresAt) <= new Date()) continue;
-    if (ent.courseId && ent.courseId !== courseId) continue;
+    if (ent.courseId && ent.courseId !== '*' && ent.courseId !== courseId) continue;
 
     const paths = Array.isArray(ent.selectedPaths) ? ent.selectedPaths : [];
     if (paths.length === 0 || paths.includes('*') || paths.includes(courseId)) {
@@ -384,7 +389,7 @@ function renderCategories(progressRecords = []) {
   window.renderLessonPathConnectors?.();
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
+async function initPathPage() {
   const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
 
   try {
@@ -402,9 +407,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    // Load active entitlements for this course
     await loadEntitlements(courseId);
-
     if (!window.Progress || typeof window.Progress.list !== 'function') {
       throw new Error('Lesson progress is unavailable.');
     }
@@ -418,6 +421,23 @@ document.addEventListener('DOMContentLoaded', async () => {
       container.innerHTML = `<p class="path-message" role="alert">${lang === 'en' ? 'Learning path completion could not be loaded. Please check your connection and try again.' : 'Не вдалося завантажити прогрес напрямків. Перевірте з’єднання та спробуйте ще раз.'}</p>`;
     }
   }
+}
+
+// Wait for localesReady (fired by app.js after all core modules initialise).
+// This guarantees window.Progress, window.loadCourse, and window.getSourceLanguage are ready.
+let _pathInited = false;
+function _startPathOnce() {
+  if (_pathInited) return;
+  _pathInited = true;
+  initPathPage();
+}
+
+window.addEventListener('localesReady', _startPathOnce, { once: true });
+
+// Safety net: if localesReady never fires (locale fetch fails / offline),
+// start after a short delay so the page is never permanently blank.
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => _startPathOnce(), 900);
 });
 
 window.addEventListener('sourceLanguageChanged', () => {
@@ -464,7 +484,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-path-4]');
   if (!target) return;
   var result = (function(event) {
-location.href='flashcards.html'
+location.href='exercises.html?mode=flashcards'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();
@@ -544,3 +564,26 @@ openMobNav()
     event.stopPropagation();
   }
 });
+
+window.unlockForTesting = async function () {
+  const statusEl = document.getElementById('devUnlockStatus');
+  if (statusEl) statusEl.textContent = 'Unlocking...';
+  try {
+    const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+    await fetch('/api/payments/dev-unlock', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ courseId }),
+      credentials: 'include'
+    });
+    localStorage.setItem(`ls_unlocked_${courseId}`, 'true');
+    localStorage.setItem('ls_unlocked_all', 'true');
+    if (statusEl) statusEl.textContent = 'Unlocked!';
+    window.location.reload();
+  } catch (err) {
+    const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+    localStorage.setItem(`ls_unlocked_${courseId}`, 'true');
+    localStorage.setItem('ls_unlocked_all', 'true');
+    window.location.reload();
+  }
+};

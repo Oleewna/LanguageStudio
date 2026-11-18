@@ -35,6 +35,16 @@ app.use('/api/v1/auth', authRoutes);
 // Application API routes
 app.use('/api/courses', courseLessonsRoutes);
 app.use('/api/v1/courses', courseLessonsRoutes);
+app.use('/api/content/courses', courseLessonsRoutes);
+app.use('/api/v1/content/courses', courseLessonsRoutes);
+app.use('/api/content/course-index', (req, res, next) => {
+    req.url = '/';
+    return courseLessonsRoutes(req, res, next);
+});
+app.use('/api/v1/content/course-index', (req, res, next) => {
+    req.url = '/';
+    return courseLessonsRoutes(req, res, next);
+});
 app.use('/api/payments', paymentsRoutes);
 app.use('/api/v1/payments', paymentsRoutes);
 app.use('/api/vocab', vocabRoutes);

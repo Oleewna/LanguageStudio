@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="../assets/images/logo.svg" />
-  <title>Pricing & Plans — LanguageStudio</title>
+  <title data-i18n="pricing.pageTitle">Pricing & Plans — LanguageStudio</title>
   <meta name="description" content="Unlock full access to LanguageStudio courses with one-time payment. No hidden subscriptions." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
@@ -25,12 +25,12 @@
     .pricing-hero h1 {
       font-size: 2.25rem;
       font-weight: 900;
-      color: var(--ink, #1e293b);
+      color: var(--ink);
       margin-bottom: 0.75rem;
     }
     .pricing-hero p {
       font-size: 1.1rem;
-      color: var(--ink-soft, #64748b);
+      color: var(--ink-soft);
       max-width: 620px;
       margin: 0 auto;
     }
@@ -41,29 +41,33 @@
       margin-bottom: 3rem;
     }
     .pricing-card {
-      background: var(--bg-card, #ffffff);
-      border: 1px solid var(--border-soft, #e2e8f0);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 1.25rem;
       padding: 2.25rem 2rem;
       display: flex;
       flex-direction: column;
       position: relative;
       transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-sm);
     }
     .pricing-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 28px -6px rgba(0,0,0,0.08);
+      box-shadow: var(--shadow-md);
     }
     .pricing-card.featured {
-      border: 2px solid var(--brand, #4f46e5);
-      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.15);
+      border: 2px solid var(--primary);
+      box-shadow: 0 10px 25px -5px rgba(63, 55, 201, 0.2);
+    }
+    [data-theme="dark"] .pricing-card.featured {
+      box-shadow: 0 10px 25px -5px rgba(169, 161, 255, 0.25);
     }
     .pricing-badge {
       position: absolute;
       top: -12px;
       right: 24px;
-      background: var(--brand, #4f46e5);
-      color: #fff;
+      background: var(--primary);
+      color: var(--primary-contrast);
       font-size: 0.75rem;
       font-weight: 800;
       padding: 0.25rem 0.75rem;
@@ -74,10 +78,11 @@
     .pricing-plan-title {
       font-size: 1.4rem;
       font-weight: 800;
+      color: var(--ink);
       margin-bottom: 0.5rem;
     }
     .pricing-plan-desc {
-      color: var(--ink-soft, #64748b);
+      color: var(--ink-soft);
       font-size: 0.95rem;
       margin-bottom: 1.5rem;
       min-height: 44px;
@@ -85,7 +90,7 @@
     .pricing-price {
       font-size: 2.5rem;
       font-weight: 900;
-      color: var(--ink, #1e293b);
+      color: var(--ink);
       margin-bottom: 1.5rem;
       display: flex;
       align-items: baseline;
@@ -94,7 +99,7 @@
     .pricing-price .period {
       font-size: 1rem;
       font-weight: 600;
-      color: var(--ink-soft, #64748b);
+      color: var(--ink-soft);
     }
     .pricing-features {
       list-style: none;
@@ -110,38 +115,41 @@
       align-items: center;
       gap: 0.65rem;
       font-size: 0.95rem;
-      color: var(--ink, #334155);
+      color: var(--ink);
     }
     .pricing-features li .check {
-      color: #10b981;
+      color: var(--correct);
       font-weight: bold;
     }
     .pricing-security-banner {
-      background: var(--bg-soft, #f8fafc);
-      border: 1px solid var(--border-soft, #e2e8f0);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 1rem;
       padding: 1.5rem;
       display: flex;
       align-items: flex-start;
       gap: 1rem;
+      box-shadow: var(--shadow-xs);
     }
     .pricing-security-banner .sec-icon {
       font-size: 1.75rem;
+      color: var(--primary);
     }
     .pricing-security-banner h4 {
       font-size: 1rem;
       font-weight: 800;
+      color: var(--ink);
       margin-bottom: 0.25rem;
     }
     .pricing-security-banner p {
       font-size: 0.9rem;
-      color: var(--ink-soft, #64748b);
+      color: var(--ink-soft);
       margin: 0;
       line-height: 1.5;
     }
     .pricing-summary-card {
-      background: linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(99, 102, 241, 0.03) 100%);
-      border: 1.5px solid var(--brand, #4f46e5);
+      background: var(--primary-light);
+      border: 1.5px solid var(--primary-border);
       border-radius: 1.25rem;
       padding: 1.5rem 1.75rem;
       margin-bottom: 2rem;
@@ -159,22 +167,22 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      background: #ffffff;
-      border: 1px solid var(--border-soft, #e2e8f0);
+      background: var(--surface);
+      border: 1px solid var(--border);
       padding: 0.35rem 0.75rem;
       border-radius: 2rem;
       font-size: 0.85rem;
       font-weight: 700;
-      color: var(--ink, #1e293b);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      color: var(--ink);
+      box-shadow: var(--shadow-xs);
     }
     .pricing-tier-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      background: #ecfdf5;
-      color: #065f46;
-      border: 1px solid #a7f3d0;
+      background: var(--correct-light);
+      color: var(--correct);
+      border: 1px solid var(--correct-border);
       padding: 0.25rem 0.65rem;
       border-radius: 0.5rem;
       font-size: 0.8rem;
@@ -188,9 +196,9 @@
 
   <main class="pricing-container">
     <div class="pricing-hero">
-      <p class="eyebrow" id="courseSubtitle">LanguageStudio Courses</p>
-      <h1 id="pricingHeading">Choose your learning plan</h1>
-      <p id="pricingSubheading">Start for free with introductory lessons, or upgrade once for unlimited lifetime access. No subscriptions or hidden fees.</p>
+      <p class="eyebrow" id="courseSubtitle" data-i18n="pricing.courseSubtitle">LanguageStudio Courses</p>
+      <h1 id="pricingHeading" data-i18n="pricing.heroTitle">Choose your learning plan</h1>
+      <p id="pricingSubheading" data-i18n="pricing.heroDesc">Start for free with introductory lessons, or upgrade once for unlimited lifetime access. No subscriptions or hidden fees.</p>
     </div>
 
     <!-- Placement Test Summary (Rendered when navigated from test) -->
@@ -198,7 +206,7 @@
       <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
         <div>
           <span class="pricing-tier-badge" id="recommendedTierBadge">
-            <span data-icon="sparkles"></span> Recommended Plan
+            <span data-icon="sparkles"></span> <span data-i18n="pricing.recPlan">Recommended Plan</span>
           </span>
           <h3 style="margin:0.5rem 0 0.25rem; font-size:1.25rem; font-weight:800; color:var(--ink, #1e293b);" id="summaryHeading">
             Personalized Learning Plan
@@ -214,35 +222,35 @@
     <div class="pricing-grid">
       <!-- Free Starter Card -->
       <div class="pricing-card">
-        <div class="pricing-plan-title" id="starterTitle">Free Starter</div>
-        <div class="pricing-plan-desc" id="starterDesc">Try introductory lessons and essential vocabulary at zero cost.</div>
-        <div class="pricing-price">€0 <span class="period">forever</span></div>
+        <div class="pricing-plan-title" id="starterTitle" data-i18n="pricing.starterTitle">Free Starter</div>
+        <div class="pricing-plan-desc" id="starterDesc" data-i18n="pricing.starterDesc">Try introductory lessons and essential vocabulary at zero cost.</div>
+        <div class="pricing-price">€0 <span class="period" data-i18n="pricing.starterPricePeriod">forever</span></div>
         <ul class="pricing-features">
-          <li><span class="check" data-icon="check"></span> <span id="feat1">First lesson and basics included</span></li>
-          <li><span class="check" data-icon="check"></span> <span id="feat2">Interactive dialogues & native audio</span></li>
-          <li><span class="check" data-icon="check"></span> <span id="feat3">Basic vocabulary word bank</span></li>
-          <li><span class="check" data-icon="check"></span> <span id="feat4">Progress synchronization</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="feat1" data-i18n="pricing.starterFeat1">First lesson and basics included</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="feat2" data-i18n="pricing.starterFeat2">Interactive dialogues & native audio</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="feat3" data-i18n="pricing.starterFeat3">Basic vocabulary word bank</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="feat4" data-i18n="pricing.starterFeat4">Progress synchronization</span></li>
         </ul>
-        <a href="path.html" class="btn-ghost" style="text-align:center;padding:0.75rem;font-weight:700;" id="btnFreeStart">
+        <a href="path.html" class="btn btn-ghost" style="text-align:center;padding:0.75rem;font-weight:700;width:100%;" id="btnFreeStart">
           Continue Learning Free
         </a>
       </div>
 
       <!-- Lifetime Access Card -->
       <div class="pricing-card featured">
-        <div class="pricing-badge" id="popularBadge">Most Popular</div>
-        <div class="pricing-plan-title" id="proTitle">Lifetime Course Pass</div>
-        <div class="pricing-plan-desc" id="proDesc">Complete structured path from beginner to conversational fluency.</div>
-        <div class="pricing-price">€29 <span class="period">one-time</span></div>
+        <div class="pricing-badge" id="popularBadge" data-i18n="pricing.popularBadge">Most Popular</div>
+        <div class="pricing-plan-title" id="proTitle" data-i18n="pricing.proTitle">Lifetime Course Pass</div>
+        <div class="pricing-plan-desc" id="proDesc" data-i18n="pricing.proDesc">Complete structured path from beginner to conversational fluency.</div>
+        <div class="pricing-price">€29 <span class="period" data-i18n="pricing.proPricePeriod">one-time</span></div>
         <ul class="pricing-features">
-          <li><span class="check" data-icon="check"></span> <strong><span id="proFeat1">All units and reading lessons</span></strong></li>
-          <li><span class="check" data-icon="check"></span> <span id="proFeat2">Full vocabulary trainer & spaced repetition</span></li>
-          <li><span class="check" data-icon="check"></span> <span id="proFeat3">Grammar handbook and cultural notes</span></li>
-          <li><span class="check" data-icon="check"></span> <span id="proFeat4">Interactive quizzes, audio & story texts</span></li>
-          <li><span class="check" data-icon="check"></span> <span id="proFeat5">Lifetime updates with no recurring fees</span></li>
+          <li><span class="check" data-icon="check"></span> <strong><span id="proFeat1" data-i18n="pricing.proFeat1">All units and reading lessons</span></strong></li>
+          <li><span class="check" data-icon="check"></span> <span id="proFeat2" data-i18n="pricing.proFeat2">Full vocabulary trainer & spaced repetition</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="proFeat3" data-i18n="pricing.proFeat3">Grammar handbook and cultural notes</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="proFeat4" data-i18n="pricing.proFeat4">Interactive quizzes, audio & story texts</span></li>
+          <li><span class="check" data-icon="check"></span> <span id="proFeat5" data-i18n="pricing.proFeat5">Lifetime updates with no recurring fees</span></li>
         </ul>
-        <button type="button" class="btn-primary" style="padding:0.85rem;font-weight:800;font-size:1.05rem;" id="btnCheckout">
-          <span id="btnCheckoutLabel">Pay with Mock Checkout</span>
+        <button type="button" class="btn btn-primary" style="padding:0.85rem;font-weight:800;font-size:1.05rem;width:100%;" id="btnCheckout">
+          <span id="btnCheckoutLabel" data-i18n="pricing.proBtn">Pay with Mock Checkout</span>
         </button>
       </div>
     </div>
@@ -250,7 +258,7 @@
     <div class="pricing-security-banner">
       <div class="sec-icon"><span data-icon="lock"></span></div>
       <div>
-        <h4 id="secHeading">No real card data ever touches our server</h4>
+        <h4 id="secHeading" data-i18n="pricing.securityHeading">No real card data ever touches our server</h4>
         <p id="secText">
           LanguageStudio never collects, handles, or stores your credit card numbers or banking credentials. 
           All transactions are handled off-site through certified, compliant payment infrastructure via encrypted sessions.

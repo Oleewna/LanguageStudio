@@ -13,16 +13,18 @@
       max-width: 540px;
       margin: 3rem auto;
       padding: 2.5rem 2rem;
-      background: var(--bg-card, #ffffff);
-      border: 1px solid var(--border-soft, #e2e8f0);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 1.25rem;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.06);
+      box-shadow: var(--shadow-md);
+      color: var(--ink);
     }
     .checkout-badge {
       display: inline-block;
       padding: 0.25rem 0.65rem;
-      background: #fef3c7;
-      color: #b45309;
+      background: var(--accent-light);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
       font-size: 0.75rem;
       font-weight: 800;
       border-radius: 0.5rem;
@@ -33,10 +35,11 @@
       font-size: 1.6rem;
       font-weight: 900;
       margin-bottom: 0.5rem;
-      color: var(--ink, #1e293b);
+      color: var(--ink);
     }
     .checkout-details {
-      background: var(--bg-soft, #f8fafc);
+      background: var(--card-sub-bg);
+      border: 1px solid var(--border);
       border-radius: 0.75rem;
       padding: 1.25rem;
       margin: 1.5rem 0;
@@ -50,20 +53,20 @@
       justify-content: space-between;
     }
     .checkout-row .label {
-      color: var(--ink-soft, #64748b);
+      color: var(--ink-soft);
     }
     .checkout-row .val {
       font-family: monospace;
       font-weight: 700;
-      color: var(--ink, #1e293b);
+      color: var(--ink);
     }
     .checkout-notice {
       padding: 0.85rem;
-      background: #eff6ff;
-      border-left: 4px solid #3b82f6;
+      background: var(--primary-light);
+      border-left: 4px solid var(--primary);
       border-radius: 0.35rem;
       font-size: 0.85rem;
-      color: #1e40af;
+      color: var(--ink);
       margin-bottom: 1.75rem;
       line-height: 1.5;
     }
@@ -117,13 +120,13 @@
       </div>
 
       <div class="btn-stack">
-        <button type="button" class="btn-primary" id="btnSimulateSuccess" style="padding:0.85rem;font-weight:800;">
+        <button type="button" class="btn btn-primary" id="btnSimulateSuccess" style="padding:0.85rem;font-weight:800;">
           Pay with Mock Checkout
         </button>
-        <button type="button" class="btn-secondary" id="btnSimulateRefund" style="padding:0.75rem;font-weight:600;">
+        <button type="button" class="btn btn-secondary" id="btnSimulateRefund" style="padding:0.75rem;font-weight:600;">
           Simulate Refund (Webhook Revocation)
         </button>
-        <button type="button" class="btn-ghost" id="btnCancel" style="padding:0.75rem;">
+        <button type="button" class="btn btn-ghost" id="btnCancel" style="padding:0.75rem;">
           Cancel and Return
         </button>
       </div>

@@ -74,15 +74,14 @@ LanguageStudio uses a purpose-driven persistence model:
 
 ### 3.1 MongoDB Atlas (User & State Layer)
 Configured via `MONGODB_URI` in `backend/service/.env`. Used for stateful, per-user, and transactional information:
-- **`User` (`backend/service/src/models/User.js`)**: User accounts, Argon2-hashed passwords, email verification tokens, password reset tokens, Google OAuth IDs (`googleId`), and profile metadata.
+- **`User` (`backend/service/src/models/User.js`)**: User accounts, Argon2-hashed passwords, email verification tokens, password reset tokens, Google OAuth IDs (`googleId`), and embedded 1-to-1 profile preferences (`profile`: timezone, sourceLanguage, activeCourseId, dailyGoalXp, effectsEnabled, totalXp, level).
 - **`sessions` collection**: Managed via `connect-mongo`. Stores server-side session payloads keyed by the signed `ls.sid` HTTP-only cookie.
-- **`Progress` (`backend/service/src/models/Progress.js`)**: Multi-collection progress records:
-  - `progress_profiles`: Overall XP, level, daily streak, and last active timestamp.
-  - `progress_daily`: Daily activity log and daily target tracking.
-  - `progress_lessons`: Per-lesson completion status, best scores, attempt counts, and unlocked vocabulary flags.
-  - `progress_wordstats`: Spaced repetition word mastery (correct/wrong counts, interval data).
-  - `progress_positions`: Last active course, unit, and lesson IDs.
-  - `progress_customwords`: User-added vocabulary lists.
+- **`Progress` (`backend/service/src/models/Progress.js`)**: Progress records partitioned by domain:
+  - `daily_activity`: Daily activity log and daily target tracking.
+  - `lesson_progress`: Per-lesson completion status, best scores, attempt counts, and unlocked vocabulary flags.
+  - `word_stats`: Spaced repetition word mastery (correct/wrong counts, interval data).
+  - `last_position`: Last active course, unit, and lesson IDs.
+  - `custom_words`: User-added vocabulary lists.
 - **`Entitlement` (`backend/service/src/models/Entitlement.js`)**: Commercial access grants per user, course, and learning path (`full_course` or specific `pathId`), with active/revoked states and expiration handling.
 
 > **Offline/Memory Fallback**: When `MONGODB_URI` is omitted, the service automatically falls back to Express `MemoryStore` for sessions and local mock storage, allowing development without external dependencies.

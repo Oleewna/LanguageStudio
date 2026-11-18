@@ -60,7 +60,7 @@
     padding: 0.55rem 0.9rem;
     flex: 1;
     min-width: 220px;
-    max-width: 400px;
+    max-width: 100%;
   }
   .search-input {
     border: none;
@@ -312,3 +312,15 @@
 #external-style-dictionary-3 { background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--ink-soft); }
 
 #external-style-dictionary-4 { display:flex;justify-content:flex-end;gap:0.6rem;margin-top:1.5rem; }
+
+@media (max-width: 600px) {
+  .search-box {
+    max-width: 100%;
+    min-width: 0;
+    flex: 1 1 100%;
+  }
+  .dict-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

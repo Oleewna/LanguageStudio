@@ -17,6 +17,7 @@
     padding: 0.85rem 1.25rem;
     border: none;
     background: none;
+    font-family: inherit;
     font-size: 0.84rem;
     font-weight: 600;
     color: var(--ink-soft);

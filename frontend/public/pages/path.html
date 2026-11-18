@@ -23,9 +23,15 @@
 <!-- ═══════════ HERO ═══════════ -->
 <section class="page-hero">
   <div class="page-hero-inner">
-    <div class="page-hero-label">Choose your goal</div>
-    <h1>Learning paths</h1>
-    <p>Each path builds vocabulary and phrases around a real-life situation — from travel to office conversations. Start with the basics, then move into your chosen path.</p>
+    <div class="page-hero-label" data-i18n="path.heroLabel">Choose your goal</div>
+    <h1 data-i18n="path.heroTitle">Learning paths</h1>
+    <p data-i18n="path.heroDesc">Each path builds vocabulary and phrases around a real-life situation — from travel to office conversations. Start with the basics, then move into your chosen path.</p>
+    <div style="margin-top:1rem;display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+      <button type="button" class="btn-ghost" id="btnDevUnlock" onclick="unlockForTesting()" style="font-size:0.82rem;padding:0.4rem 0.85rem;border:1px dashed var(--accent, #c9a25b);cursor:pointer;background:var(--surface);">
+        <span data-icon="sparkles"></span> <span data-i18n="path.devUnlockBtn">Unlock all paths for testing</span>
+      </button>
+      <span id="devUnlockStatus" style="font-size:0.8rem;color:var(--ink-soft);"></span>
+    </div>
   </div>
 </section>
 

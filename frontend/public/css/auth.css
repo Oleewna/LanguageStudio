@@ -1,7 +1,7 @@
 /* ── AUTH PAGE (Google Sign-In) — uses variables from main.css ── */
 
 .auth-topbar {
-  min-height: 4.5rem;
+  min-height: 4.65rem;
   padding: 0.7rem max(1rem, env(safe-area-inset-right)) 0.7rem max(1rem, env(safe-area-inset-left));
   display: flex;
   align-items: center;
@@ -37,7 +37,7 @@
 
 .auth-wrap {
   max-width: 440px;
-  margin: 4.5rem auto 0;
+  margin: clamp(2rem, 6vh, 4.5rem) auto 0;
 }
 
 .auth-card {

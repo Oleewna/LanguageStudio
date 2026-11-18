@@ -101,6 +101,30 @@ Dark Mode Palette:
 
 ---
 
+## 🧭 How to View, Navigate & Unlock Learning Paths
+
+### 1. How to See and Access Learning Paths
+- **Top Navigation**: Click **"Learning path"** in the top navigation bar from any page (on desktop, hover over it to see the path dropdown menu; on mobile, open the drawer menu).
+- **Home Dashboard**: On [Home (`/pages/home.html`)](http://localhost:3005/pages/home.html), click **"Explore your learning path"** to jump straight into your current pathway.
+- **Direct Page**: Open [`/pages/path.html`](http://localhost:3005/pages/path.html) directly to view all units, milestones, and lessons.
+- **Path Hierarchy**: Each course is structured as `Course` ➔ `Learning Paths` (e.g., *Communication Basics*, *Reading*) ➔ `Units` ➔ `Lessons`.
+
+### 2. Logging In vs. Unlocking Paths
+- **What Logging In Does**: Signing in with Google or local auth connects your student profile and syncs your streak, total XP, lesson completions, and saved dictionary words across all devices.
+- **Free vs. Premium Content**:
+  - **Free Paths** (e.g. *Communication Basics*): Open immediately to guests and logged-in students without requiring any payment.
+  - **Paid / Tiered Paths** (e.g. *Reading & Everyday Life*): Protected premium lessons (`paid-content/`) that require an active entitlement. Logging in alone does not grant paid entitlements.
+
+### 3. How to Unlock Paid Paths
+- **1-Click Developer / Testing Unlock**:
+  - On the [Learning Path page (`/pages/path.html`)](http://localhost:3005/pages/path.html) or on any locked lesson screen, click the **"✨ Unlock all paths for testing"** button.
+  - This calls `/api/payments/dev-unlock`, which instantly grants full course entitlement for your session and unlocks all lessons without going through external payment.
+- **Mock Checkout Simulation**:
+  - Visit [Pricing (`/pages/pricing.html`)](http://localhost:3005/pages/pricing.html) or click "Unlock Full Course" on any locked lesson.
+  - The built-in mock payment provider simulates checkout and confirms the entitlement webhook automatically.
+
+---
+
 ## 🛠️ System Architecture
 
 LanguageStudio is organized into an edge reverse proxy and a unified core backend service:
@@ -224,9 +248,40 @@ LanguageStudio/
 │       ├── locales/      # UI translations (en.json, uk.json)
 │       └── pages/        # Application views (home, lesson, dictionary, flashcards, etc.)
 │
-├── docs/                 # Guides for adding courses, paths, locales, icons, and schemas
+├── docs/                 # Complete technical documentation, guides, and specifications
+│   ├── INDEX.md          # Master documentation index
+│   ├── backend-services/ # Dedicated docs for every backend service (Gateway, Service, Auth)
+│   └── frontend-pages/   # Dedicated docs for every frontend page (all 15 views)
 └── scripts/              # Validation, course verification, and utility scripts
 ```
+
+---
+
+## 📚 Technical Documentation & Service Guides
+
+Comprehensive, standalone reference documents are available in [`docs/`](./docs/INDEX.md) covering every layer of the application:
+
+- **[Master Docs Index](./docs/INDEX.md)** — Complete catalog of all architectural, service, and page documents.
+- **Backend Services**:
+  - [Gateway Service (`:3005`)](./docs/backend-services/gateway.md)
+  - [Content & Core API Service (`:3006`)](./docs/backend-services/content-service.md)
+  - [Auth Service (`:3007`)](./docs/backend-services/auth-service.md)
+- **Frontend Pages**:
+  - [Landing Page (`index.html`)](./docs/frontend-pages/index.md)
+  - [Home Dashboard (`pages/home.html`)](./docs/frontend-pages/home.md)
+  - [Course Catalog (`pages/courses.html`)](./docs/frontend-pages/courses.md)
+  - [Learning Path (`pages/path.html`)](./docs/frontend-pages/path.md)
+  - [Lesson Runner (`pages/lesson.html`)](./docs/frontend-pages/lesson.md)
+  - [Practice Exercises (`pages/exercises.html`)](./docs/frontend-pages/exercises.md)
+  - [Flashcards (`pages/flashcards.html`)](./docs/frontend-pages/flashcards.md)
+  - [Vocabulary Dictionary (`pages/dictionary.html`)](./docs/frontend-pages/dictionary.md)
+  - [Grammar Guide (`pages/grammar.html`)](./docs/frontend-pages/grammar.md)
+  - [Placement Test (`pages/placement-test.html`)](./docs/frontend-pages/placement-test.md)
+  - [Tests & Assessments Hub (`pages/tests.html`)](./docs/frontend-pages/tests.md)
+  - [Pricing & Plans (`pages/pricing.html`)](./docs/frontend-pages/pricing.md)
+  - [Payment Simulator (`pages/checkout.html`)](./docs/frontend-pages/checkout.md)
+  - [Authentication (`pages/auth.html`)](./docs/frontend-pages/auth.md)
+  - [Settings & Profile (`pages/settings.html`)](./docs/frontend-pages/settings.md)
 
 ---
 

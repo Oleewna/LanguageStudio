@@ -153,6 +153,15 @@ const Entitlement = {
 
     async hasEntitlement(userId, courseId, pathId = null) {
         if (!userId || !courseId) return false;
+        try {
+            const { User } = require('./User');
+            const user = await User.findById(userId);
+            if (user && user.role === 'admin') {
+                return true;
+            }
+        } catch (e) {
+            // Ignore user lookup error and fallback to entitlement records
+        }
         const now = new Date();
 
         let docs = [];

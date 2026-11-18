@@ -4,15 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <link rel="icon" type="image/svg+xml" href="../assets/images/logo.svg" />
-<title>Exercises and practice — LanguageStudio</title>
+<title data-i18n="exercises.pageTitle">Practice — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
 <script src="../js/theme.js"></script>
 <link rel="stylesheet" href="../css/main.css">
 <link rel="stylesheet" href="../css/exercises.css">
+<link rel="stylesheet" href="../css/flashcards.css">
 <link rel="stylesheet" href="../css/studio.css">
-
 </head>
 <body>
 
@@ -21,123 +21,132 @@
 
 <section class="page-hero">
   <div class="page-hero-inner">
-    <p class="page-hero-label" id="exercisePageEyebrow">PRACTICE A LITTLE, OFTEN</p>
-    <h1 id="exercisePageTitle">Quick practice</h1>
-    <p id="exercisePageDescription">Pick a skill, try a short challenge, and build confidence one answer at a time.</p>
+    <p class="page-hero-label" id="exercisePageEyebrow" data-i18n="exercises.heroEyebrow">PRACTICE A LITTLE, OFTEN</p>
+    <h1 id="exercisePageTitle" data-i18n="exercises.heroTitle">Practice</h1>
+    <p id="exercisePageDescription" data-i18n="exercises.heroDescription">Pick a skill, try a short challenge, and build confidence one answer at a time.</p>
   </div>
 </section>
 
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
 <main class="page-container">
 
-  <!-- ═══════════ FILTER & SORT TOOLBAR ═══════════ -->
-  <div class="task-filter-panel">
-    <div class="filter-header-title">
-      <button type="button" class="filters-toggle-btn" aria-expanded="false" data-filter-toggle="exercises">
-        <span class="filters-toggle-icon"><span data-icon="layers"></span></span>
-        <span>Filters</span>
+  <!-- ═══════════ MODE SWITCHER ═══════════ -->
+  <div class="mode-switcher-wrap">
+    <div class="mode-switcher">
+      <button class="mode-tab active" id="modeTabExercises" data-mode="exercises" onclick="switchPracticeMode('exercises')">
+        <span data-icon="exercises"></span>
+        <span data-i18n="nav.exercises">Exercises</span>
       </button>
-      <span id="activeFilterSummary">Завантаження...</span>
-    </div>
-
-    <div class="filter-panel-content hidden" id="exerciseFiltersPanel">
-      <div class="filter-controls-row exercise-scope-row">
-        <div class="filter-group">
-          <label class="filter-label" for="pathFilterSelect">Learning path</label>
-          <select class="filter-select" id="pathFilterSelect"></select>
-        </div>
-        <div class="filter-group">
-          <label class="filter-label" for="lessonFilterSelect">Lesson</label>
-          <select class="filter-select" id="lessonFilterSelect"></select>
-        </div>
-      </div>
-
-      <!-- Category Pills -->
-      <div class="cat-pills-wrap" id="catPillsWrap">
-        <button class="cat-pill active" data-cat="all" data-external-handler-exercises-12=""><span data-icon="globe"></span> Всі категорії</button>
-        
-        <!-- Grammar categories -->
-        <button class="cat-pill" data-cat="articles" data-external-handler-exercises-13=""><span data-icon="pin"></span> Іменники & Артиклі</button>
-        <button class="cat-pill" data-cat="verbs" data-external-handler-exercises-14=""><span data-icon="verb"></span> Дієслова (Essere/Avere)</button>
-        <button class="cat-pill" data-cat="pronouns" data-external-handler-exercises-15=""><span data-icon="chat"></span> Займенники & Прийменники</button>
-        <button class="cat-pill" data-cat="sentence" data-external-handler-exercises-16=""><span data-icon="type"></span> Структура речення</button>
-        
-        <!-- Situational categories -->
-        <button class="cat-pill" data-cat="greetings" data-external-handler-exercises-17=""><span data-icon="greeting"></span> Знайомство & Сусіди</button>
-        <button class="cat-pill" data-cat="cafe" data-external-handler-exercises-18=""><span data-icon="cafe"></span> У кафе та барі</button>
-        <button class="cat-pill" data-cat="directions" data-external-handler-exercises-19=""><span data-icon="directions"></span> Орієнтування в місті</button>
-        <button class="cat-pill" data-cat="shopping" data-external-handler-exercises-20=""><span data-icon="shopping"></span> Покупки та ціни</button>
-      </div>
-
-      <!-- Secondary Controls: Group and Search -->
-      <div class="filter-controls-row">
-        <div class="filter-group">
-          <label class="filter-label" for="groupFilterSelect">Група</label>
-          <select class="filter-select" id="groupFilterSelect" data-external-handler-exercises-21="">
-            <option value="all">Усі теми (Граматика + Ситуації)</option>
-            <option value="grammar">Тільки Граматика</option>
-            <option value="situational">Тільки Ситуації</option>
-          </select>
-        </div>
-
-        <div class="filter-group">
-          <label class="filter-label" for="searchInput">Пошук за словом</label>
-          <input type="text" class="filter-input" id="searchInput" placeholder="Пошук фрази або правила..." data-external-handler-exercises-24="" />
-        </div>
-      </div>
+      <button class="mode-tab" id="modeTabFlashcards" data-mode="flashcards" onclick="switchPracticeMode('flashcards')">
+        <span data-icon="flashcards"></span>
+        <span data-i18n="nav.flashcards">Flashcards</span>
+      </button>
     </div>
   </div>
 
-  <!-- ═══════════ EXERCISE TYPE TABS ═══════════ -->
-  <h2 class="section-title"><span class="ic"><span data-icon="target"></span></span>Формати вправ</h2>
+  <!-- ═══════════ FLASHCARD MODE ═══════════ -->
+  <div id="mode-flashcards" style="display:none">
+    <div class="fc-wrapper">
 
-  <div class="task-tabs">
-    <button class="task-tab active" data-tab="mcq" data-external-handler-exercises-25=""><span data-icon="mcq"></span> Вибір відповіді</button>
-    <button class="task-tab" data-tab="blank" data-external-handler-exercises-26=""><span data-icon="blank"></span> Заповни пропуск</button>
-    <button class="task-tab" data-tab="match" data-external-handler-exercises-27=""><span data-icon="match"></span> Зіставлення слів</button>
-    <button class="task-tab" data-tab="reorder" data-external-handler-exercises-28=""><span data-icon="reorder"></span> Порядок слів</button>
-    <button class="task-tab" data-tab="listen" data-external-handler-exercises-29=""><span data-icon="listen"></span> Аудіювання</button>
-    <button class="task-tab" data-tab="dialogue" data-external-handler-exercises-30=""><span data-icon="chat"></span> Діалог</button>
-    <button class="task-tab" data-tab="dict" data-external-handler-exercises-31=""><span data-icon="from-dictionary"></span> Зі словника</button>
-  </div>
+      <!-- Filter by Topic / Thematic chips -->
+      <div class="topic-chips"></div>
 
-  <!-- Panel: Multiple Choice -->
-  <div class="task-panel active" id="panel-mcq">
-    <div id="container-mcq"></div>
-  </div>
+      <!-- 3D Card Stage -->
+      <div class="fc-stage" tabindex="0" role="button" aria-label="Flashcard: show translation" aria-pressed="false" onclick="toggleFlip()">
+        <div class="fc-inner" id="fcInner">
 
-  <!-- Panel: Fill in the Blank -->
-  <div class="task-panel" id="panel-blank">
-    <div id="container-blank"></div>
-  </div>
+          <!-- Front -->
+          <div class="fc-face fc-front">
+            <div class="fc-meta-row">
+              <span class="fc-tag" id="fcUnitTag"><span data-icon="greeting"></span><span>—</span></span>
+              <span class="fc-tag" id="fcTopicTag"><span data-icon="greeting"></span><span>—</span></span>
+            </div>
+            <div class="fc-word" id="fcWord" data-i18n="flashcards.loadingWords">Loading words…</div>
+            <div class="fc-pronunciation" id="fcPronunciation"></div>
+            <div class="fc-hint"><span data-icon="tap"></span> <span data-i18n="flashcards.tapHint">Tap to see translation</span></div>
+          </div>
 
-  <!-- Panel: Matching Pairs -->
-  <div class="task-panel" id="panel-match">
-    <div id="container-match"></div>
-  </div>
+          <!-- Back -->
+          <div class="fc-face fc-back">
+            <div class="fc-trans" id="fcTrans"></div>
+            <div class="fc-example" id="fcExample"></div>
+            <div class="fc-hint"><span data-icon="tap"></span> <span data-i18n="flashcards.tapAgainHint">Tap again to flip back</span></div>
+          </div>
 
-  <!-- Panel: Sentence Builder / Reordering -->
-  <div class="task-panel" id="panel-reorder">
-    <div id="container-reorder"></div>
-  </div>
+        </div>
+      </div>
 
-  <!-- Panel: Listening -->
-  <div class="task-panel" id="panel-listen">
-    <div id="container-listen"></div>
-  </div>
+      <div class="fc-empty-note" id="fcEmptyNote" data-i18n="flashcards.emptyNote">No words found for this course or lesson.</div>
 
-  <!-- Panel: Dialogue Completion -->
-  <div class="task-panel" id="panel-dialogue">
-    <div id="container-dialogue"></div>
-  </div>
+      <!-- Controls -->
+      <div class="fc-controls">
+        <button class="btn-ghost" onclick="prevCard()"><span data-icon="arrow-left"></span> <span data-i18n="flashcards.prev">Back</span></button>
+        <span class="fc-counter-badge" id="fcCounter">0 / 0</span>
+        <button class="btn-ghost" onclick="nextCard()"><span data-i18n="flashcards.next">Next</span> <span data-icon="arrow-right"></span></button>
+        <button class="audio-btn" onclick="speakCurrent(this)" title="Audio" data-i18n-title="flashcards.audioTitle"><span data-icon="audio"></span></button>
+        <button class="btn-ghost" onclick="shuffleCards()" title="Shuffle" data-i18n-title="flashcards.shuffleTitle"><span data-icon="shuffle"></span></button>
+      </div>
+      <div class="fc-review-controls">
+        <button type="button" class="btn-ghost" id="fcMarkLearned" aria-pressed="false" data-i18n="flashcards.markLearned">Mark as learned</button>
+      </div>
+      <p class="fc-review-status" id="fcReviewStatus" role="status" aria-live="polite"></p>
 
-  <!-- Panel: Dictionary Generator -->
-  <div class="task-panel" id="panel-dict">
-    <div class="card" id="external-style-exercises-2">
-      <div id="external-style-exercises-3">Тест генерується зі слів, пов’язаних із вибраним курсом або уроком.</div>
-      <button class="btn-primary" data-external-handler-exercises-32=""><span data-icon="generate"></span> Згенерувати новий тест</button>
     </div>
-    <div id="dictQuizContainer"></div>
+  </div>
+
+  <!-- ═══════════ EXERCISES MODE ═══════════ -->
+  <div id="mode-exercises">
+
+    <!-- ═══════════ EXERCISE TYPE TABS ═══════════ -->
+    <h2 class="section-title"><span class="ic"><span data-icon="target"></span></span><span data-i18n="exercises.formatsTitle">Exercise formats</span></h2>
+
+    <div class="task-tabs">
+      <button class="task-tab active" data-tab="mcq"><span data-icon="mcq"></span> <span data-i18n="exercises.tabMcq">Multiple choice</span></button>
+      <button class="task-tab" data-tab="blank"><span data-icon="blank"></span> <span data-i18n="exercises.tabBlank">Fill in the blank</span></button>
+      <button class="task-tab" data-tab="match"><span data-icon="match"></span> <span data-i18n="exercises.tabMatch">Word matching</span></button>
+      <button class="task-tab" data-tab="reorder"><span data-icon="reorder"></span> <span data-i18n="exercises.tabReorder">Sentence builder</span></button>
+      <button class="task-tab" data-tab="listen"><span data-icon="listen"></span> <span data-i18n="exercises.tabListen">Listening</span></button>
+      <button class="task-tab" data-tab="dialogue"><span data-icon="chat"></span> <span data-i18n="exercises.tabDialogue">Dialogue</span></button>
+      <button class="task-tab" data-tab="dict"><span data-icon="from-dictionary"></span> <span data-i18n="exercises.tabDict">From dictionary</span></button>
+    </div>
+
+    <!-- Panel: Multiple Choice -->
+    <div class="task-panel active" id="panel-mcq">
+      <div id="container-mcq"></div>
+    </div>
+
+    <!-- Panel: Fill in the Blank -->
+    <div class="task-panel" id="panel-blank">
+      <div id="container-blank"></div>
+    </div>
+
+    <!-- Panel: Matching Pairs -->
+    <div class="task-panel" id="panel-match">
+      <div id="container-match"></div>
+    </div>
+
+    <!-- Panel: Sentence Builder / Reordering -->
+    <div class="task-panel" id="panel-reorder">
+      <div id="container-reorder"></div>
+    </div>
+
+    <!-- Panel: Listening -->
+    <div class="task-panel" id="panel-listen">
+      <div id="container-listen"></div>
+    </div>
+
+    <!-- Panel: Dialogue Completion -->
+    <div class="task-panel" id="panel-dialogue">
+      <div id="container-dialogue"></div>
+    </div>
+
+    <!-- Panel: From Dictionary -->
+    <div class="task-panel" id="panel-dict">
+      <div id="container-dict">
+        <div id="dictQuizContainer"></div>
+      </div>
+    </div>
+
   </div>
 
 </main>
@@ -154,9 +163,9 @@
 <script defer src="../js/storage.js"></script>
 <script defer src="../js/progress-store.js"></script>
 <script defer src="../js/progress.js"></script>
-<script defer src="../js/user-vocab.js"></script>
 <script defer src="../js/layout.js"></script>
 <script defer src="../js/app.js"></script>
+<script defer src="../js/user-vocab.js"></script>
 <script defer src="../js/exercises.js"></script>
 </body>
 </html>

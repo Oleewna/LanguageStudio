@@ -59,6 +59,18 @@ const userSchema = new mongoose.Schema(
         createdAt: {
             type: Date,
             default: Date.now
+        },
+        profile: {
+            timezone: { type: String, default: 'UTC' },
+            sourceLanguage: { type: String, default: 'device' },
+            activeCourseId: { type: String, default: '' },
+            dailyGoalXp: { type: Number, default: 50 },
+            effectsEnabled: { type: Boolean, default: true },
+            totalXp: { type: Number, default: 0 },
+            lastCelebratedLevel: { type: Number, default: 0 },
+            schemaVersion: { type: Number, default: 1 },
+            createdAt: { type: String, default: () => new Date().toISOString() },
+            updatedAt: { type: String, default: () => new Date().toISOString() }
         }
     },
     {
@@ -83,7 +95,8 @@ userSchema.methods.toPublicJSON = function () {
         displayName: this.displayName,
         role: this.role || 'learner',
         emailVerified: Boolean(this.emailVerified),
-        createdAt: this.createdAt ? this.createdAt.toISOString() : new Date().toISOString()
+        createdAt: this.createdAt ? this.createdAt.toISOString() : new Date().toISOString(),
+        profile: this.profile || {}
     };
 };
 
@@ -115,6 +128,18 @@ class MemoryUser {
         this.passwordResetToken = data.passwordResetToken || null;
         this.passwordResetExpires = data.passwordResetExpires || null;
         this.createdAt = data.createdAt ? new Date(data.createdAt) : new Date();
+        this.profile = data.profile || {
+            timezone: 'UTC',
+            sourceLanguage: 'device',
+            activeCourseId: '',
+            dailyGoalXp: 50,
+            effectsEnabled: true,
+            totalXp: 0,
+            lastCelebratedLevel: 0,
+            schemaVersion: 1,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
     }
 
     async save() {
@@ -139,7 +164,8 @@ class MemoryUser {
             displayName: this.displayName,
             role: this.role || 'learner',
             emailVerified: Boolean(this.emailVerified),
-            createdAt: this.createdAt ? this.createdAt.toISOString() : new Date().toISOString()
+            createdAt: this.createdAt ? this.createdAt.toISOString() : new Date().toISOString(),
+            profile: this.profile || {}
         };
     }
 }
@@ -264,3 +290,4 @@ User.deleteMany = async function (query = {}) {
 User.schema = userSchema;
 
 module.exports = User;
+module.exports.User = User;

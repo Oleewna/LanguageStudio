@@ -137,11 +137,72 @@ function applyInterfaceLanguage() {
   const translatedTitle = getInterfaceTranslation(ORIGINAL_DOCUMENT_TITLE, language);
   if (translatedTitle) document.title = translatedTitle;
 
+  // 1. Process explicit data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (key) {
+      const translated = t(key, {}, language);
+      if (translated && translated !== key) {
+        if (el.tagName === 'TITLE') {
+          document.title = translated;
+        } else {
+          el.textContent = translated;
+        }
+      }
+    }
+  });
+
+  // 2. Process data-i18n-placeholder
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (key) {
+      const translated = t(key, {}, language);
+      if (translated && translated !== key) el.setAttribute('placeholder', translated);
+    }
+  });
+
+  // 3. Process data-i18n-title
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const key = el.dataset.i18nTitle;
+    if (key) {
+      const translated = t(key, {}, language);
+      if (translated && translated !== key) el.setAttribute('title', translated);
+    }
+  });
+
+  // 4. Process data-i18n-aria
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const key = el.dataset.i18nAria;
+    if (key) {
+      const translated = t(key, {}, language);
+      if (translated && translated !== key) el.setAttribute('aria-label', translated);
+    }
+  });
+
+  // 5. Process data-i18n-content
+  document.querySelectorAll('[data-i18n-content]').forEach(el => {
+    const key = el.dataset.i18nContent;
+    if (key) {
+      const translated = t(key, {}, language);
+      if (translated && translated !== key) el.setAttribute('content', translated);
+    }
+  });
+
+  // 6. Process option[data-i18n]
+  document.querySelectorAll('option[data-i18n]').forEach(opt => {
+    const key = opt.dataset.i18n;
+    if (key) {
+      const translated = t(key, {}, language);
+      if (translated && translated !== key) opt.textContent = translated;
+    }
+  });
+
+  // 7. TreeWalker for legacy or untagged static text nodes
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   let node;
 
   while ((node = walker.nextNode())) {
-    if (node.parentElement?.closest('[data-source-key],script,style,code,pre')) continue;
+    if (node.parentElement?.closest('[data-source-key],[data-i18n],script,style,code,pre')) continue;
     // Don't translate Italian foreign study content or pronunciation guidance
     if (node.parentElement?.closest('.dialogue-it, .dialogue-pronunciation, .grammar-highlight, [data-speak-text] b, [data-no-translate]')) continue;
 
@@ -167,6 +228,7 @@ function applyInterfaceLanguage() {
 
   document.querySelectorAll('[placeholder],[title],[aria-label],[alt]').forEach(element => {
     if (element.closest('.dialogue-it, [data-no-translate]')) return;
+    if (element.hasAttribute('data-i18n-placeholder') || element.hasAttribute('data-i18n-title') || element.hasAttribute('data-i18n-aria')) return;
     const originals = originalInterfaceAttributes.get(element) || {};
     ['placeholder', 'title', 'aria-label', 'alt'].forEach(attribute => {
       if (!element.hasAttribute(attribute)) return;
@@ -186,6 +248,7 @@ function applyInterfaceLanguage() {
     originalInterfaceAttributes.set(element, originals);
   });
 }
+window.applyInterfaceLanguage = applyInterfaceLanguage;
 
 const SOURCE_TRANSLATIONS = {
   'exercises.q1.question': { uk: 'Як перекладається італійська фраза «Come stai?»', en: 'What does the Italian phrase “Come stai?” mean?' },
@@ -290,6 +353,7 @@ function applySourceLanguageSettings() {
     element.textContent = getSourceTranslation(element.dataset.sourceKey, element.textContent);
   });
   applyTargetCourseSettings();
+  refreshStudentSession().catch(() => {});
 }
 
 function setSourceLanguage(language) {
@@ -772,6 +836,8 @@ async function refreshStudentSession() {
     } else if (response.ok) {
       const result = await response.json();
       const user = result.user || {};
+      window.__LS_USER = user;
+      if (user.role === 'admin') { localStorage.setItem('ls_role', 'admin'); } else { localStorage.removeItem('ls_role'); }
       Object.assign(LOCAL_STUDENT_PROFILE, {
         isAuthenticated: result.authenticated === true || Boolean(result.user),
         displayName: user.displayName || user.name || '',
@@ -808,41 +874,110 @@ async function refreshStudentSession() {
   });
 
   const profileModal = document.getElementById('profileModal');
-  if (!profileModal) return;
-  const name = profileModal.querySelector('.pm-header .pm-name');
-  const status = profileModal.querySelector('.pm-header .pm-path');
-  const action = profileModal.querySelector('.pm-footer a');
-  if (name) name.textContent = presentation.name;
-  if (status) status.textContent = presentation.status;
-  if (action) {
-    action.textContent = LOCAL_STUDENT_PROFILE.isAuthenticated ? 'Sign out' : 'Sign in with Google';
-    action.href = LOCAL_STUDENT_PROFILE.isAuthenticated ? '#' : getAuthPageHref();
-    action.onclick = LOCAL_STUDENT_PROFILE.isAuthenticated
-      ? async event => {
-          event.preventDefault();
-          try {
-            let csrfToken = null;
-            const match = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/);
-            if (match) csrfToken = decodeURIComponent(match[1]);
+  if (profileModal) {
+    const name = profileModal.querySelector('.pm-header .pm-name');
+    const status = profileModal.querySelector('.pm-header .pm-path');
+    const action = profileModal.querySelector('.pm-footer a[data-nav="auth"]') || profileModal.querySelector('.pm-footer a.btn-primary');
+    if (name) name.textContent = presentation.name;
+    if (status) status.textContent = presentation.status;
+    if (action) {
+      action.textContent = LOCAL_STUDENT_PROFILE.isAuthenticated ? (getSourceLanguage() === 'en' ? 'Log out' : 'Вийти') : (getSourceLanguage() === 'en' ? 'Sign in with Google' : 'Увійти через Google');
+      action.href = LOCAL_STUDENT_PROFILE.isAuthenticated ? '#' : getAuthPageHref();
+      action.onclick = LOCAL_STUDENT_PROFILE.isAuthenticated ? handleLogout : null;
+    }
+  }
 
-            const headers = { 'Content-Type': 'application/json' };
-            if (csrfToken) headers['x-csrf-token'] = csrfToken;
+  // Update ALL auth links across desktop topbar, mobile nav, landing page, etc.
+  const isAuth = Boolean(LOCAL_STUDENT_PROFILE.isAuthenticated);
+  const lang = typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk';
+  const authLabel = isAuth
+    ? (lang === 'en' ? 'Log out' : 'Вийти')
+    : (lang === 'en' ? 'Sign in' : 'Увійти');
 
-            const logoutResponse = await fetch(window.getApiUrl('auth/logout'), {
-              method: 'POST',
-              headers,
-              credentials: 'include'
-            });
-            if (!logoutResponse.ok) throw new Error(`Sign out failed (${logoutResponse.status}).`);
-            await refreshStudentSession();
-          } catch (error) {
-            if (status) status.textContent = 'Could not sign out. Please try again.';
-            console.error('Could not sign out:', error);
-          }
-        }
-      : null;
+  // Hide/show the student avatar widget based on auth state
+  document.querySelectorAll('.student-widget').forEach(w => {
+    w.style.display = isAuth ? '' : 'none';
+  });
+
+  document.querySelectorAll('[data-nav="auth"], .landing-signin, .auth-link, a[href$="auth.html"], a[href$="/auth.html"]').forEach(btn => {
+    if (btn.classList.contains('auth-home') || btn.closest('.auth-card')) return;
+
+    // On desktop topbar (nav-auth-btn) and mobile nav: hide when authenticated
+    // because the student-widget avatar already provides profile access.
+    const isNavAuthBtn = btn.classList.contains('nav-auth-btn') || btn.closest('.mob-nav') || btn.closest('.topnav');
+    if (isAuth && isNavAuthBtn) {
+      btn.style.display = 'none';
+      return;
+    } else if (!isAuth && isNavAuthBtn) {
+      btn.style.display = '';
+    }
+
+    btn.setAttribute('data-auth-state', isAuth ? 'authenticated' : 'unauthenticated');
+    const labelSpan = btn.querySelector('[data-i18n], span:not(.ic):not(.dd-icon)');
+    if (labelSpan) {
+      labelSpan.textContent = authLabel;
+    } else {
+      const textNodes = Array.from(btn.childNodes).filter(n => n.nodeType === Node.TEXT_NODE && n.nodeValue.trim());
+      if (textNodes.length) {
+        textNodes[0].nodeValue = ` ${authLabel} `;
+      } else {
+        btn.textContent = authLabel;
+      }
+    }
+
+    if (isAuth) {
+      btn.href = '#';
+      btn.onclick = handleLogout;
+      btn.setAttribute('title', authLabel);
+      btn.setAttribute('aria-label', authLabel);
+      const iconEl = btn.querySelector('[data-icon]');
+      if (iconEl) iconEl.setAttribute('data-icon', 'logout');
+    } else {
+      btn.href = getAuthPageHref();
+      btn.onclick = null;
+      btn.setAttribute('title', authLabel);
+      btn.setAttribute('aria-label', authLabel);
+      const iconEl = btn.querySelector('[data-icon]');
+      if (iconEl) iconEl.setAttribute('data-icon', 'user');
+    }
+  });
+}
+
+async function handleLogout(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  try {
+    let csrfToken = null;
+    const match = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/);
+    if (match) csrfToken = decodeURIComponent(match[1]);
+
+    const headers = { 'Content-Type': 'application/json' };
+    if (csrfToken) headers['x-csrf-token'] = csrfToken;
+
+    const logoutUrl = typeof window.getApiUrl === 'function' ? window.getApiUrl('auth/logout') : '/api/v1/auth/logout';
+    await fetch(logoutUrl, {
+      method: 'POST',
+      headers,
+      credentials: 'include'
+    }).catch(() => {});
+  } catch (error) {
+    console.warn('Could not sign out:', error);
+  } finally {
+    Object.assign(LOCAL_STUDENT_PROFILE, {
+      isAuthenticated: false,
+      displayName: '',
+      email: ''
+    });
+    localStorage.removeItem('ls_user_session');
+    await refreshStudentSession();
+    if (window.location.pathname.includes('auth.html')) {
+      window.location.reload();
+    }
   }
 }
+window.handleLogout = handleLogout;
 
 function getAuthPageHref() {
   const pagesMarker = '/pages/';
@@ -1008,6 +1143,8 @@ window.addEventListener('componentsLoaded', () => {
   applySourceLanguageSettings();
   refreshCurrentCourseConfig();
   initTheme();
+  // Re-run session so navbar auth buttons reflect login state once components are injected
+  refreshStudentSession().catch(() => {});
 });
 
 if (typeof window !== 'undefined') {

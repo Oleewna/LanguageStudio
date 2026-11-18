@@ -69,11 +69,20 @@ function populateFilters(all) {
   const cats = [...new Set(all.map(w => w.category).filter(Boolean))].sort();
   const types = [...new Set(all.map(w => w.type).filter(Boolean))].sort();
 
-  const typeLabels = { phrase: 'Фраза', noun: 'Іменник', verb: 'Дієслово', adjective: 'Прикметник', greeting: 'Привітання', other: 'Інше' };
+  const isEn = (typeof getSourceLanguage === 'function' ? getSourceLanguage() : 'uk') === 'en';
+  const typeLabels = isEn ? {
+    phrase: 'Phrase', noun: 'Noun', verb: 'Verb', adjective: 'Adjective', greeting: 'Greeting', other: 'Other'
+  } : {
+    phrase: 'Фраза', noun: 'Іменник', verb: 'Дієслово', adjective: 'Прикметник', greeting: 'Привітання', other: 'Інше'
+  };
 
-  lessonSel.innerHTML = '<option value="">Усі уроки</option>' + lessons.map(l => `<option value="${l}">${l}</option>`).join('');
-  catSel.innerHTML = '<option value="">Усі теми й ситуації</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
-  typeSel.innerHTML = '<option value="">Усі типи</option>' + types.map(t => `<option value="${t}">${typeLabels[t] || t}</option>`).join('');
+  const allLessonsLabel = isEn ? 'All lessons' : 'Усі уроки';
+  const allTopicsLabel = isEn ? 'All topics & situations' : 'Усі теми й ситуації';
+  const allTypesLabel = isEn ? 'All types' : 'Усі типи';
+
+  lessonSel.innerHTML = `<option value="">${allLessonsLabel}</option>` + lessons.map(l => `<option value="${l}">${l}</option>`).join('');
+  catSel.innerHTML = `<option value="">${allTopicsLabel}</option>` + cats.map(c => `<option value="${c}">${c}</option>`).join('');
+  typeSel.innerHTML = `<option value="">${allTypesLabel}</option>` + types.map(t => `<option value="${t}">${typeLabels[t] || t}</option>`).join('');
 
   lessonSel.value = prevLesson; catSel.value = prevCat; typeSel.value = prevType;
 }
@@ -125,22 +134,27 @@ async function renderDictionary() {
   });
 
   if (!filtered.length) {
-    grid.innerHTML = '<div class="no-results">Слів не знайдено</div>';
+    grid.innerHTML = `<div class="no-results">${isEn ? 'No words found' : 'Слів не знайдено'}</div>`;
     applyInterfaceLanguage();
     return;
   }
 
-  const typeLabels = { phrase: 'Фраза', noun: 'Іменник', verb: 'Дієслово', adjective: 'Прикметник', greeting: 'Привітання', other: 'Інше' };
+  const cardTitle = isEn ? 'Click to mark as learned' : 'Натисніть, щоб позначити як вивчене';
+  const learnedLabel = isEn ? 'Learned' : 'Вивчено';
+  const markLearnedLabel = isEn ? 'Mark as learned' : 'Позначити як вивчене';
+  const audioLabel = isEn ? 'Audio' : 'Аудіо';
+  const deleteLabel = isEn ? 'Delete' : 'Видалити';
+  const customTagLabel = isEn ? 'custom' : 'власне';
 
   grid.innerHTML = filtered.map(w => {
     const isLearned = learned.includes(w.id);
     const translation = getLocalizedText(w.trans, w.trans || '');
     return `
-    <div class="dict-card ${isLearned ? 'learned' : ''}" onclick="toggleLearned('${w.id}')" title="Натисніть, щоб позначити як вивчене">
+    <div class="dict-card ${isLearned ? 'learned' : ''}" onclick="toggleLearned('${w.id}')" title="${cardTitle}">
       <div>
         <div class="dict-word-title">
           ${w.word}
-          ${w.custom ? '<span class="custom-tag">власне</span>' : ''}
+          ${w.custom ? `<span class="custom-tag">${customTagLabel}</span>` : ''}
           ${w.type ? `<span class="type-tag">${typeLabels[w.type] || w.type}</span>` : ''}
         </div>
         <div class="dict-pronunciation">${w.pronunciation || ''}</div>
@@ -151,9 +165,9 @@ async function renderDictionary() {
         </div>
       </div>
       <div class="dict-actions">
-        <button class="star-btn ${isLearned ? 'active' : ''}" onclick="toggleLearned('${w.id}', event)" title="${isLearned ? 'Вивчено' : 'Позначити як вивчене'}" aria-label="${isLearned ? 'Вивчено' : 'Позначити як вивчене'}">${getIconSvg(isLearned ? 'star-filled' : 'star')}</button>
-        <button class="audio-btn" onclick="event.stopPropagation(); speak('${w.word.replace(/'/g, "\\'")}', this)" title="Аудіо" aria-label="Аудіо">${getIconSvg('audio')}</button>
-        ${w.custom ? `<button class="delete-btn" onclick="event.stopPropagation(); deleteWord('${w.id}')" title="Видалити" aria-label="Видалити">${getIconSvg('delete')}</button>` : ''}
+        <button class="star-btn ${isLearned ? 'active' : ''}" onclick="toggleLearned('${w.id}', event)" title="${isLearned ? learnedLabel : markLearnedLabel}" aria-label="${isLearned ? learnedLabel : markLearnedLabel}">${getIconSvg(isLearned ? 'star-filled' : 'star')}</button>
+        <button class="audio-btn" onclick="event.stopPropagation(); speak('${w.word.replace(/'/g, "\\'")}', this)" title="${audioLabel}" aria-label="${audioLabel}">${getIconSvg('audio')}</button>
+        ${w.custom ? `<button class="delete-btn" onclick="event.stopPropagation(); deleteWord('${w.id}')" title="${deleteLabel}" aria-label="${deleteLabel}">${getIconSvg('delete')}</button>` : ''}
       </div>
     </div>
   `;
@@ -402,7 +416,7 @@ document.addEventListener('click', function(event) {
   var target = event.target.closest('[data-external-handler-dictionary-4]');
   if (!target) return;
   var result = (function(event) {
-location.href='flashcards.html'
+location.href='exercises.html?mode=flashcards'
   }).call(target, event);
   if (result === false) {
     event.preventDefault();

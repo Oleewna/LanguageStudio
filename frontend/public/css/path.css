@@ -41,7 +41,7 @@
   .unit-num {
     width: 2.75rem;
     height: 2.75rem;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;

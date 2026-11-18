@@ -62,9 +62,56 @@
     }
   }
 
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str == null ? '' : String(str);
+    return div.innerHTML;
+  }
+
+  async function checkExistingAuth() {
+    try {
+      const res = await fetch('/api/v1/auth/me', { credentials: 'include' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.authenticated && data.user) {
+          const panel = document.getElementById('panel-auth');
+          const lang = getActiveLanguage();
+          const user = data.user;
+          const userName = user.displayName || user.name || user.email || (lang === 'en' ? 'Student' : 'Студент');
+          if (panel) {
+            panel.innerHTML = `
+              <h2 class="auth-title">${lang === 'en' ? 'Already Signed In' : 'Ви вже увійшли'}</h2>
+              <p class="auth-sub">${lang === 'en' ? 'Signed in as' : 'Ви увійшли як'} <strong>${escapeHtml(userName)}</strong>.</p>
+              <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:1.5rem;">
+                <button type="button" class="btn-primary" id="btnAuthLogout" style="background:var(--danger,#d64545);border-color:var(--danger,#d64545);justify-content:center;padding:0.75rem;">
+                  ${lang === 'en' ? 'Log out' : 'Вийти з акаунта'}
+                </button>
+                <a href="home.html" class="btn-ghost" style="text-align:center;padding:0.75rem;">
+                  ${lang === 'en' ? 'Go to Learning Space' : 'Перейти до навчання'}
+                </a>
+              </div>
+            `;
+            document.getElementById('btnAuthLogout')?.addEventListener('click', async () => {
+              if (typeof window.handleLogout === 'function') {
+                await window.handleLogout();
+              } else {
+                await fetch('/api/v1/auth/logout', { method: 'POST', credentials: 'include' });
+                window.location.reload();
+              }
+            });
+          }
+        }
+      }
+    } catch (e) {}
+  }
+
   // ─── Initial setup ──────────────────────────────────────────────────────────
   applyLanguage();
-  window.addEventListener('sourceLanguageChanged', applyLanguage);
+  checkExistingAuth();
+  window.addEventListener('sourceLanguageChanged', () => {
+    applyLanguage();
+    checkExistingAuth();
+  });
 
   const urlParams = new URLSearchParams(window.location.search);
 

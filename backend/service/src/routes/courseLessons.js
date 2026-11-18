@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const { Entitlement } = require('../models/Entitlement');
+const { User } = require('../models/User');
 
 const router = express.Router();
 const projectRoot = path.resolve(__dirname, '../../../../');
@@ -108,6 +109,18 @@ router.get('/', (req, res, next) => {
     }
 });
 
+router.get('/course-index', (req, res, next) => {
+    try {
+        const indexData = readJsonFile(path.join(coursesDir, 'index.json'));
+        if (!indexData) {
+            return res.status(404).json({ error: 'Course index not found.', code: 'NOT_FOUND' });
+        }
+        return res.json(indexData);
+    } catch (error) {
+        return next(error);
+    }
+});
+
 /**
  * GET /api/courses/:courseId
  * Serves course metadata for a specific course.
@@ -115,6 +128,13 @@ router.get('/', (req, res, next) => {
 router.get('/:courseId', (req, res, next) => {
     try {
         const { courseId } = req.params;
+        if (courseId === 'course-index' || courseId === 'index') {
+            const indexData = readJsonFile(path.join(coursesDir, 'index.json'));
+            if (!indexData) {
+                return res.status(404).json({ error: 'Course index not found.', code: 'NOT_FOUND' });
+            }
+            return res.json(indexData);
+        }
         if (!validId(courseId)) {
             return res.status(400).json({ error: 'Invalid course ID.', code: 'INVALID_ID' });
         }
@@ -132,7 +152,7 @@ router.get('/:courseId', (req, res, next) => {
  * GET /api/courses/:courseId/lessons/:lessonId
  * Server-side gate for lesson content.
  * Free lessons are returned directly.
- * Paid lessons require active session and entitlement (401/403 with clear code otherwise).
+ * Paid lessons require active session and entitlement (or admin role).
  */
 router.get('/:courseId/lessons/:lessonId', async (req, res, next) => {
     try {
@@ -145,18 +165,32 @@ router.get('/:courseId/lessons/:lessonId', async (req, res, next) => {
         const lessonDef = findLessonInCourse(courseData, lessonId);
         const paid = isLessonPaid(courseData, lessonDef, courseId, lessonId);
 
-        if (!paid) {
-            // Free content delivery
-            const freePath = path.join(coursesDir, courseId, 'lessons', `${lessonId}.json`);
-            const freeData = readJsonFile(freePath);
+        // Check if user is logged in and if admin
+        const userId = req.session && req.session.userId;
+        let isAdmin = false;
+        if (userId) {
+            try {
+                const user = await User.findById(userId);
+                if (user && user.role === 'admin') {
+                    isAdmin = true;
+                }
+            } catch (e) {}
+        }
+
+        if (!paid || isAdmin) {
+            // Free content delivery or Admin override
+            let lessonPath = path.join(coursesDir, courseId, 'lessons', `${lessonId}.json`);
+            if (!fs.existsSync(lessonPath)) {
+                lessonPath = path.join(paidContentBaseDir, courseId, 'lessons', `${lessonId}.json`);
+            }
+            const freeData = readJsonFile(lessonPath);
             if (!freeData) {
                 return res.status(404).json({ error: 'Lesson not found.', code: 'NOT_FOUND' });
             }
             return res.json(freeData);
         }
 
-        // Paid content enforcement
-        const userId = req.session && req.session.userId;
+        // Paid content enforcement for non-admin
         if (!userId) {
             return res.status(401).json({
                 error: 'Authentication required to access paid content.',
@@ -180,7 +214,10 @@ router.get('/:courseId/lessons/:lessonId', async (req, res, next) => {
         }
 
         // User is entitled: load lesson from paid-content
-        const paidPath = path.join(paidContentBaseDir, courseId, 'lessons', `${lessonId}.json`);
+        let paidPath = path.join(paidContentBaseDir, courseId, 'lessons', `${lessonId}.json`);
+        if (!fs.existsSync(paidPath)) {
+            paidPath = path.join(coursesDir, courseId, 'lessons', `${lessonId}.json`);
+        }
         const paidData = readJsonFile(paidPath);
         if (!paidData) {
             return res.status(404).json({ error: 'Paid lesson content not found.', code: 'NOT_FOUND' });
@@ -207,8 +244,18 @@ router.get('/:courseId/i18n/:locale/lessons/:lessonId', async (req, res, next) =
         const lessonDef = findLessonInCourse(courseData, lessonId);
         const paid = isLessonPaid(courseData, lessonDef, courseId, lessonId);
 
-        if (paid) {
-            const userId = req.session && req.session.userId;
+        const userId = req.session && req.session.userId;
+        let isAdmin = false;
+        if (userId) {
+            try {
+                const user = await User.findById(userId);
+                if (user && user.role === 'admin') {
+                    isAdmin = true;
+                }
+            } catch (e) {}
+        }
+
+        if (paid && !isAdmin) {
             if (!userId) {
                 return res.status(401).json({ error: 'Authentication required.', code: 'AUTH_REQUIRED' });
             }
@@ -221,17 +268,64 @@ router.get('/:courseId/i18n/:locale/lessons/:lessonId', async (req, res, next) =
                     code: 'ENTITLEMENT_REQUIRED'
                 });
             }
-
-            const paidI18nPath = path.join(paidContentBaseDir, courseId, 'i18n', locale, 'lessons', `${lessonId}.json`);
-            const data = readJsonFile(paidI18nPath);
-            if (!data) return res.status(404).json({ error: 'Translation not found.' });
-            return res.json(data);
         }
 
-        // Free lesson i18n
-        const freeI18nPath = path.join(coursesDir, courseId, 'i18n', locale, 'lessons', `${lessonId}.json`);
-        const data = readJsonFile(freeI18nPath);
+        let i18nPath = paid ? path.join(paidContentBaseDir, courseId, 'i18n', locale, 'lessons', `${lessonId}.json`) : path.join(coursesDir, courseId, 'i18n', locale, 'lessons', `${lessonId}.json`);
+        if (!fs.existsSync(i18nPath)) {
+            i18nPath = path.join(coursesDir, courseId, 'i18n', locale, 'lessons', `${lessonId}.json`);
+        }
+        const data = readJsonFile(i18nPath);
         if (!data) return res.status(404).json({ error: 'Translation not found.' });
+        return res.json(data);
+    } catch (error) {
+        return next(error);
+    }
+});
+
+/**
+ * GET /api/courses/:courseId/i18n/:locale/:resource
+ * Serves translations for course metadata, vocab, grammar, exercises.
+ */
+router.get('/:courseId/i18n/:locale/:resource', (req, res, next) => {
+    try {
+        const { courseId, locale, resource } = req.params;
+        if (!validId(courseId) || !validId(locale)) {
+            return res.status(400).json({ error: 'Invalid parameters.', code: 'INVALID_ID' });
+        }
+        const normalizedResource = resource.replace(/\.json$/, '');
+        if (!validId(normalizedResource)) {
+            return res.status(400).json({ error: 'Invalid resource name.', code: 'INVALID_ID' });
+        }
+        const filePath = path.join(coursesDir, courseId, 'i18n', locale, `${normalizedResource}.json`);
+        const data = readJsonFile(filePath);
+        if (!data) {
+            return res.status(404).json({ error: 'Translation not found.', code: 'NOT_FOUND' });
+        }
+        return res.json(data);
+    } catch (error) {
+        return next(error);
+    }
+});
+
+/**
+ * GET /api/courses/:courseId/:resource
+ * Serves course data files (vocab, grammar, exercises, course).
+ */
+router.get('/:courseId/:resource', (req, res, next) => {
+    try {
+        const { courseId, resource } = req.params;
+        if (!validId(courseId)) {
+            return res.status(400).json({ error: 'Invalid course ID.', code: 'INVALID_ID' });
+        }
+        const normalizedResource = resource.replace(/\.json$/, '');
+        if (!validId(normalizedResource)) {
+            return res.status(400).json({ error: 'Invalid resource name.', code: 'INVALID_ID' });
+        }
+        const filePath = path.join(coursesDir, courseId, `${normalizedResource}.json`);
+        const data = readJsonFile(filePath);
+        if (!data) {
+            return res.status(404).json({ error: 'Resource not found.', code: 'NOT_FOUND' });
+        }
         return res.json(data);
     } catch (error) {
         return next(error);

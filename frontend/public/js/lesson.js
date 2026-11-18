@@ -462,6 +462,11 @@
           </div>
 
           ${ctaHtml}
+          <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px dashed var(--border, #e2e8f0);">
+            <button type="button" class="btn-ghost" onclick="unlockForTesting()" style="font-size:0.85rem;padding:0.4rem 0.9rem;border:1px dashed var(--accent, #c9a25b);cursor:pointer;display:inline-flex;align-items:center;gap:0.4rem;">
+              <span data-icon="sparkles"></span> <span>${lang === 'en' ? 'Unlock for testing (Dev)' : 'Розблокувати для тестування (Dev)'}</span>
+            </button>
+          </div>
         </div>
       `;
     }
@@ -633,6 +638,26 @@
       showNotFound(lessonId);
     }
   }
+
+  window.unlockForTesting = async function () {
+    try {
+      const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+      await fetch('/api/payments/dev-unlock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ courseId }),
+        credentials: 'include'
+      });
+      localStorage.setItem(`ls_unlocked_${courseId}`, 'true');
+      localStorage.setItem('ls_unlocked_all', 'true');
+      window.location.reload();
+    } catch (err) {
+      const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
+      localStorage.setItem(`ls_unlocked_${courseId}`, 'true');
+      localStorage.setItem('ls_unlocked_all', 'true');
+      window.location.reload();
+    }
+  };
 
   setupSidebarToggle();
 

@@ -56,7 +56,11 @@
   }
 
   function getContentApiPath(resourcePath) {
-    return window.getApiUrl(`content/${resourcePath}`);
+    const clean = String(resourcePath || '').replace(/^\/+/, '');
+    if (clean === 'course-index') {
+      return window.getApiUrl('courses');
+    }
+    return window.getApiUrl(clean.startsWith('courses/') ? clean : `courses/${clean}`);
   }
 
   function getCourseId() {
@@ -72,13 +76,13 @@
 
   async function loadCourseIndex() {
     try {
-      // Try static course index first
-      const staticUrl = `${getBasePath()}courses/index.json`;
-      let resolved = await loadJson(staticUrl, 'Course index not found', true);
+      // Try API first
+      let resolved = await loadJson(getContentApiPath('course-index'), 'Course index not found', true);
 
-      // Fallback to API if static was not found
+      // Fallback to static course index if API is unreachable
       if (!resolved || !Array.isArray(resolved.courses)) {
-        resolved = await loadJson(getContentApiPath('course-index'), 'Course index not found', true);
+        const staticUrl = `${getBasePath()}courses/index.json`;
+        resolved = await loadJson(staticUrl, 'Course index not found', true);
       }
 
       if (!resolved || !Array.isArray(resolved.courses) || resolved.courses.length === 0) {
@@ -132,16 +136,13 @@
     // Load in reverse order so selected locale overrides 'en', which overrides first available
     const order = [...candidates].reverse();
     for (const loc of order) {
-      const url = `${getBasePath()}courses/${encodeURIComponent(courseId)}/i18n/${encodeURIComponent(loc)}/${relativePath}`;
+      const cleanRel = relativePath.replace(/\.json$/, '');
+      const apiI18nUrl = `/api/courses/${encodeURIComponent(courseId)}/i18n/${encodeURIComponent(loc)}/${cleanRel}`;
       try {
-        let data = await loadJson(url, '', true);
-        if (!data && relativePath.startsWith('lessons/')) {
-          const lessonFile = relativePath.slice('lessons/'.length).replace(/\.json$/, '');
-          const apiI18nUrl = `/api/courses/${encodeURIComponent(courseId)}/i18n/${encodeURIComponent(loc)}/lessons/${encodeURIComponent(lessonFile)}`;
-          const res = await fetch(apiI18nUrl, { cache: 'no-store' });
-          if (res.ok) {
-            data = await res.json().catch(() => null);
-          }
+        let data = await loadJson(apiI18nUrl, '', true);
+        if (!data) {
+          const staticUrl = `${getBasePath()}courses/${encodeURIComponent(courseId)}/i18n/${encodeURIComponent(loc)}/${relativePath}`;
+          data = await loadJson(staticUrl, '', true);
         }
         if (data && typeof data === 'object') {
           if (!mergedTranslations) mergedTranslations = {};
@@ -361,11 +362,17 @@
 
   async function loadCourse() {
     const id = getCourseId();
-    const staticUrl = `${getBasePath()}courses/${encodeURIComponent(id)}/course.json`;
-    let rawCourse = await loadJson(staticUrl, `Course not found: ${id}`, true);
+    // Try API first
+    let rawCourse = await loadJson(getContentApiPath(`courses/${encodeURIComponent(id)}`), '', true);
+
+    // Fallback to static if API did not return data
+    if (!rawCourse) {
+      const staticUrl = `${getBasePath()}courses/${encodeURIComponent(id)}/course.json`;
+      rawCourse = await loadJson(staticUrl, `Course not found: ${id}`, true);
+    }
 
     if (!rawCourse) {
-      rawCourse = await loadJson(getContentApiPath(`courses/${encodeURIComponent(id)}`), `Course not found: ${id}`);
+      throw new Error(`Course not found: ${id}`);
     }
 
     const availableLocales = Array.isArray(rawCourse.availableLocales) ? rawCourse.availableLocales : ['uk', 'en'];
@@ -391,45 +398,48 @@
     const rawName = String(name || '').trim();
     const normalizedName = rawName.endsWith('.json') ? rawName : `${rawName}.json`;
     const courseId = getCourseId();
-    const url = resolveCourseDataPath(name);
 
     let rawData = null;
-    try {
-      rawData = await loadJson(url, `Course data not found: ${name}`, true);
-    } catch (err) {
-      // Ignore static network errors, fallback to API
+
+    if (rawName === 'vocab') {
+      rawData = await loadJson(`/api/vocab?course=${encodeURIComponent(courseId)}`, '', true);
+      if (!rawData) {
+        rawData = await loadJson(getContentApiPath(`courses/${encodeURIComponent(courseId)}/vocab`), '', true);
+      }
+    } else if (rawName.startsWith('lessons/')) {
+      const lessonId = rawName.slice('lessons/'.length).replace(/\.json$/, '');
+      const apiLessonUrl = `/api/courses/${encodeURIComponent(courseId)}/lessons/${encodeURIComponent(lessonId)}`;
+      const response = await fetch(apiLessonUrl, { cache: 'no-store', credentials: 'include' });
+
+      if (response.status === 401 || response.status === 403) {
+        const errorData = await response.json().catch(() => ({}));
+        const lockError = new Error(errorData.error || (response.status === 401 ? 'Authentication required' : 'Entitlement required'));
+        lockError.status = response.status;
+        lockError.code = errorData.code || (response.status === 401 ? 'AUTH_REQUIRED' : 'ENTITLEMENT_REQUIRED');
+        lockError.courseId = courseId;
+        lockError.lessonId = lessonId;
+        lockError.requiresPath = errorData.requiresPath;
+        lockError.priceId = errorData.priceId;
+        lockError.isLocked = true;
+        throw lockError;
+      }
+
+      if (response.ok) {
+        rawData = await response.json();
+      } else {
+        rawData = await loadJson(getContentApiPath(`courses/${encodeURIComponent(courseId)}/lessons/${encodeURIComponent(lessonId)}`), '', true);
+      }
+    } else {
+      rawData = await loadJson(getContentApiPath(`courses/${encodeURIComponent(courseId)}/${rawName}`), '', true);
     }
 
-    // Fallback to API if static was not found (e.g. paid content outside public static)
+    // Fallback to static URL if API did not return data
     if (!rawData) {
-      if (rawName === 'vocab') {
-        rawData = await loadJson(`/api/vocab?course=${encodeURIComponent(courseId)}`, `Course data not found: ${name}`);
-      } else if (rawName.startsWith('lessons/')) {
-        const lessonId = rawName.slice('lessons/'.length).replace(/\.json$/, '');
-        const apiLessonUrl = `/api/courses/${encodeURIComponent(courseId)}/lessons/${encodeURIComponent(lessonId)}`;
-        const response = await fetch(apiLessonUrl, { cache: 'no-store' });
-
-        if (response.status === 401 || response.status === 403) {
-          const errorData = await response.json().catch(() => ({}));
-          const lockError = new Error(errorData.error || (response.status === 401 ? 'Authentication required' : 'Entitlement required'));
-          lockError.status = response.status;
-          lockError.code = errorData.code || (response.status === 401 ? 'AUTH_REQUIRED' : 'ENTITLEMENT_REQUIRED');
-          lockError.courseId = courseId;
-          lockError.lessonId = lessonId;
-          lockError.requiresPath = errorData.requiresPath;
-          lockError.priceId = errorData.priceId;
-          lockError.isLocked = true;
-          throw lockError;
-        }
-
-        if (response.ok) {
-          rawData = await response.json();
-        } else {
-          // Fallback to content API
-          rawData = await loadJson(getContentApiPath(`courses/${encodeURIComponent(courseId)}/lessons/${encodeURIComponent(lessonId)}`), `Course data not found: ${name}`);
-        }
-      } else {
-        rawData = await loadJson(getContentApiPath(`courses/${encodeURIComponent(courseId)}/${rawName}`), `Course data not found: ${name}`);
+      const url = resolveCourseDataPath(name);
+      try {
+        rawData = await loadJson(url, `Course data not found: ${name}`, true);
+      } catch (err) {
+        // Ignore static network errors
       }
     }
 

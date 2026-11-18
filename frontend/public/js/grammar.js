@@ -71,3 +71,4 @@ async function initGrammarTabs() {
 }
 
 document.addEventListener('DOMContentLoaded', initGrammarTabs);
+window.addEventListener('sourceLanguageChanged', initGrammarTabs);

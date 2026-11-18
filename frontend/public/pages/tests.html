@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <link rel="icon" type="image/svg+xml" href="../assets/images/logo.svg" />
-<title>Тести — LanguageStudio</title>
+<title data-i18n="tests.pageTitle">Tests — LanguageStudio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
@@ -17,15 +17,15 @@
 <div data-component="navbar"></div>
 
 <main class="page-container tests-page">
-  <section class="assessment-type-grid" aria-label="Типи тестів">
+  <section class="assessment-type-grid" aria-label="Test types" data-i18n-aria="tests.typeGridAria">
     <article class="assessment-type-card placement-card">
       <div class="assessment-type-icon"><span data-icon="target"></span></div>
-      <div class="eyebrow">ПЕРЕД НАВЧАННЯМ</div>
-      <h2>Тест на визначення рівня</h2>
-      <p>Пройдіть початкове оцінювання, щоб зрозуміти свій поточний рівень і з чого почати.</p>
+      <div class="eyebrow" data-i18n="tests.preLearningEyebrow">BEFORE LEARNING</div>
+      <h2 data-i18n="tests.placementTitle">Level placement test</h2>
+      <p data-i18n="tests.placementDesc">Take an initial diagnostic test to discover your starting level and find the right lessons.</p>
       <div class="assessment-card-footer">
-        <span class="assessment-status"><span data-icon="check"></span> Доступно</span>
-        <a class="test-action test-action--active" href="/placement-test"><span data-icon="target"></span> Пройти тест</a>
+        <span class="assessment-status"><span data-icon="check"></span> <span data-i18n="tests.placementStatus">Available</span></span>
+        <a class="test-action test-action--active" href="placement-test.html"><span data-icon="target"></span> <span data-i18n="tests.placementBtn">Take test</span></a>
       </div>
     </article>
   </section>
@@ -33,12 +33,12 @@
   <section class="path-assessments-section" id="path-assessments" aria-labelledby="path-assessments-title">
     <div class="tests-section-heading">
       <div>
-        <div class="eyebrow">ФІНАЛЬНА ПЕРЕВІРКА</div>
-        <h2 id="path-assessments-title">Фінальні тести напрямків</h2>
+        <div class="eyebrow" data-i18n="tests.finalEyebrow">FINAL CHECKPOINT</div>
+        <h2 id="path-assessments-title" data-i18n="tests.pathAssessmentsTitle">Learning path final tests</h2>
       </div>
     </div>
     <div class="path-assessment-grid" id="pathAssessmentList" aria-live="polite" aria-busy="true">
-      <p class="path-assessment-message" role="status">Завантажуємо напрямки…</p>
+      <p class="path-assessment-message" role="status" data-i18n="tests.loadingPaths">Loading learning paths…</p>
     </div>
   </section>
 </main>
