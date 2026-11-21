@@ -21,6 +21,27 @@ function readCourseJson(courseId) {
     return null;
 }
 
+function isTunnelRequest(req) {
+    if (process.env.PUBLIC_URL && process.env.PUBLIC_URL.trim()) {
+        return true;
+    }
+    const xForwardedHost = req.headers && req.headers['x-forwarded-host'];
+    if (xForwardedHost) {
+        const primaryHost = String(xForwardedHost).split(',')[0].trim().split(':')[0].toLowerCase();
+        if (primaryHost !== 'localhost' && primaryHost !== '127.0.0.1' && primaryHost !== '::1') {
+            return true;
+        }
+    }
+    return false;
+}
+
+function isDevEndpointsAllowed(req) {
+    if (process.env.ALLOW_DEV_ENDPOINTS === 'true') {
+        return true;
+    }
+    return !isTunnelRequest(req);
+}
+
 /**
  * POST /api/payments/checkout
  * Initiates an offsite checkout session with the configured payment provider.
@@ -104,9 +125,26 @@ router.post('/checkout', async (req, res, next) => {
  * Handles incoming provider webhooks with signature verification and idempotency.
  * Entitlements are granted or revoked ONLY from this webhook handler.
  */
-router.post('/webhook', async (req, res, next) => {
+router.post('/webhook', express.raw({ type: '*/*' }), async (req, res, next) => {
     try {
         const provider = getPaymentProvider();
+
+        // Extract raw body buffer if parsed by express.raw and decode JSON payload
+        let bodyPayload = req.body;
+        if (Buffer.isBuffer(req.body)) {
+            req.rawBody = req.body;
+            try {
+                bodyPayload = JSON.parse(req.body.toString('utf8'));
+            } catch (err) {
+                bodyPayload = {};
+            }
+        } else if (typeof req.body === 'string') {
+            try {
+                bodyPayload = JSON.parse(req.body);
+            } catch (err) {
+                bodyPayload = {};
+            }
+        }
 
         // Extract signature from headers (provider-agnostic support)
         const signature =
@@ -116,7 +154,7 @@ router.post('/webhook', async (req, res, next) => {
             req.headers['authorization'] ||
             '';
 
-        const isValid = provider.verifyWebhook(req.body, signature, req.headers);
+        const isValid = provider.verifyWebhook(req.rawBody || req.body, signature, req.headers);
         if (!isValid) {
             return res.status(400).json({
                 error: 'Invalid webhook signature.',
@@ -124,7 +162,7 @@ router.post('/webhook', async (req, res, next) => {
             });
         }
 
-        const event = provider.parseEvent(req.body, req.headers);
+        const event = provider.parseEvent(bodyPayload, req.headers);
         const { eventType, providerPaymentId, userId, courseId, expiresAt } = event;
 
         if (eventType === 'payment_success') {
@@ -138,7 +176,7 @@ router.post('/webhook', async (req, res, next) => {
             const { entitlement, idempotent } = await Entitlement.grantEntitlement({
                 userId,
                 courseId,
-                selectedPaths: event.selectedPaths || req.body.selectedPaths || [],
+                selectedPaths: event.selectedPaths || bodyPayload.selectedPaths || [],
                 provider: event.provider,
                 providerPaymentId,
                 expiresAt
@@ -190,14 +228,25 @@ router.post('/webhook', async (req, res, next) => {
 });
 
 /**
+ * GET /api/payments/config
+ * Exposes payment & testing configuration flags to frontend.
+ */
+router.get('/config', (req, res) => {
+    return res.json({
+        allowDevEndpoints: isDevEndpointsAllowed(req)
+    });
+});
+
+/**
  * GET /api/payments/entitlements
  * Returns all active entitlements for the authenticated user.
  */
 router.get('/entitlements', async (req, res, next) => {
     try {
         const userId = req.session && req.session.userId;
+        const allowDev = isDevEndpointsAllowed(req);
         if (!userId) {
-            return res.json({ authenticated: false, isAdmin: false, entitlements: [] });
+            return res.json({ authenticated: false, isAdmin: false, allowDevEndpoints: allowDev, entitlements: [] });
         }
         let isAdmin = false;
         try {
@@ -228,6 +277,7 @@ router.get('/entitlements', async (req, res, next) => {
         return res.json({
             authenticated: true,
             isAdmin,
+            allowDevEndpoints: allowDev,
             entitlements: active
         });
     } catch (error) {
@@ -286,13 +336,22 @@ router.get('/entitlement/:courseId', async (req, res, next) => {
 /**
  * POST /api/payments/dev-unlock
  * Developer / testing 1-click unlock for learning paths.
+ * Disabled behind tunnel unless ALLOW_DEV_ENDPOINTS=true.
  */
 router.post('/dev-unlock', async (req, res, next) => {
     try {
+        if (!isDevEndpointsAllowed(req)) {
+            return res.status(403).json({
+                error: 'Dev unlock is disabled in tunnel/production environment.',
+                code: 'DEV_UNLOCK_DISABLED'
+            });
+        }
         let userId = req.session && req.session.userId;
         if (!userId) {
             userId = 'test_dev_user';
-            req.session.userId = userId;
+            if (req.session) {
+                req.session.userId = userId;
+            }
         }
         const courseId = (req.body && req.body.courseId) || 'it';
         const { entitlement } = await Entitlement.grantEntitlement({

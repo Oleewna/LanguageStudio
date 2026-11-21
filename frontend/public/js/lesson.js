@@ -1,4 +1,17 @@
 (function () {
+  let allowDevUnlock = false;
+  async function checkDevEndpoints() {
+    try {
+      const res = await fetch('/api/payments/config');
+      if (res.ok) {
+        const data = await res.json();
+        allowDevUnlock = Boolean(data.allowDevEndpoints);
+      }
+    } catch (e) {
+      allowDevUnlock = false;
+    }
+  }
+
   'use strict';
 
   function getCurrentCourseId() {
@@ -462,11 +475,12 @@
           </div>
 
           ${ctaHtml}
+          ${allowDevUnlock ? `
           <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px dashed var(--border, #e2e8f0);">
             <button type="button" class="btn-ghost" onclick="unlockForTesting()" style="font-size:0.85rem;padding:0.4rem 0.9rem;border:1px dashed var(--accent, #c9a25b);cursor:pointer;display:inline-flex;align-items:center;gap:0.4rem;">
               <span data-icon="sparkles"></span> <span>${lang === 'en' ? 'Unlock for testing (Dev)' : 'Розблокувати для тестування (Dev)'}</span>
             </button>
-          </div>
+          </div>` : ''}
         </div>
       `;
     }
@@ -545,6 +559,7 @@
 
   async function initLessonPage() {
     try {
+      await checkDevEndpoints();
       const lessonId = getCurrentLessonId();
       const course = await window.loadCourse();
       const lessonList = getLessonList(course);
@@ -642,20 +657,22 @@
   window.unlockForTesting = async function () {
     try {
       const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
-      await fetch('/api/payments/dev-unlock', {
+      const res = await fetch('/api/payments/dev-unlock', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ courseId }),
         credentials: 'include'
       });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        alert(data.error || 'Dev unlock is disabled in this environment.');
+        return;
+      }
       localStorage.setItem(`ls_unlocked_${courseId}`, 'true');
       localStorage.setItem('ls_unlocked_all', 'true');
       window.location.reload();
     } catch (err) {
-      const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
-      localStorage.setItem(`ls_unlocked_${courseId}`, 'true');
-      localStorage.setItem('ls_unlocked_all', 'true');
-      window.location.reload();
+      alert('Unlock failed');
     }
   };
 

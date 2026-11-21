@@ -1,0 +1,728 @@
+{
+  "lessons": [
+    {
+      "num": "Урок 4",
+      "id": "communication-basics-1-review",
+      "title": "Приємно познайомитися",
+      "time": "2 хв",
+      "reward": "10 XP",
+      "prevId": "communication-basics-1-practice",
+      "nextId": "communication-basics-1-origin",
+      "goal": "Природно відповісти під час знайомства.",
+      "phrases": [
+        {
+          "speaker": "Anna",
+          "it": "Piacere!",
+          "uk": "Приємно познайомитися!"
+        },
+        {
+          "speaker": "Marco",
+          "it": "Piacere!",
+          "uk": "Навзаєм!"
+        }
+      ],
+      "remember": [
+        "**Piacere!** — одне слово зі значенням «приємність»; використовуйте його під час знайомства."
+      ],
+      "practice": [
+        {
+          "prompt": "Згадайте: Скажіть «Приємно познайомитися».",
+          "answer": "Piacere!",
+          "options": []
+        },
+        {
+          "prompt": "Оберіть: Ви щойно познайомилися. Яка фраза підходить?",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Piacere!",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Buonanotte!",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "A che ora?",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Доповніть: **Mi chiamo Anna. _____!**",
+          "answer": "Piacere",
+          "options": []
+        },
+        {
+          "prompt": "Оберіть відповідь: Хтось каже **Piacere!** Яка відповідь природна?",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Piacere!",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Sono di Roma.",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "Buonanotte!",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Розташуйте репліки: Розташуйте репліки знайомства.",
+          "answer": "Come ti chiami? → Mi chiamo Anna. → Piacere!",
+          "options": []
+        }
+      ]
+    },
+    {
+      "num": "Урок 5",
+      "id": "communication-basics-1-origin",
+      "title": "Звідки ти?",
+      "time": "2 хв",
+      "reward": "10 XP",
+      "prevId": "communication-basics-1-review",
+      "nextId": "communication-basics-2",
+      "goal": "Запитати, звідки людина, і назвати місто.",
+      "phrases": [
+        {
+          "speaker": "Elena",
+          "it": "Di dove sei?",
+          "uk": "Звідки ти?"
+        },
+        {
+          "speaker": "Nina",
+          "it": "Sono di Kyiv. E tu?",
+          "uk": "Я з Києва. А ти?"
+        },
+        {
+          "speaker": "Elena",
+          "it": "Sono di Roma.",
+          "uk": "Я з Рима."
+        }
+      ],
+      "remember": [
+        "з»; **dove** — «де»; **sei** — «ти є».",
+        "**Sono** означає «я є»; **di** — «з». Додайте після **di** назву міста, щоб сказати, звідки ви."
+      ],
+      "practice": [
+        {
+          "prompt": "Оберіть: Як запитати «Звідки ти?»",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Di dove sei?",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Come ti chiami?",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "Come stai?",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Складіть фразу: Оберіть фразу «Я з Києва».",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Sono di Kyiv.",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Mi chiamo Kyiv.",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "Parlo Kyiv.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Твоя черга: Замініть **Kyiv** назвою свого міста.",
+          "answer": "Sono di + your city / Sono di + ваше місто",
+          "options": []
+        },
+        {
+          "prompt": "Доповніть: **Di _____ sei? — Sono di Roma.**",
+          "answer": "dove",
+          "options": []
+        },
+        {
+          "prompt": "Перекладіть: Скажіть «Я з Києва».",
+          "answer": "Sono di Kyiv.",
+          "options": []
+        }
+      ]
+    },
+    {
+      "num": "Урок 6",
+      "id": "communication-basics-2",
+      "title": "Навчатися чи працювати?",
+      "time": "2 хв",
+      "reward": "10 XP",
+      "prevId": "communication-basics-1-origin",
+      "nextId": "communication-basics-2-languages",
+      "goal": "Розповісти, чи ви навчаєтеся, чи працюєте.",
+      "phrases": [
+        {
+          "speaker": "Greta",
+          "it": "Studi o lavori?",
+          "uk": "Ти навчаєшся чи працюєш?"
+        },
+        {
+          "speaker": "Sofia",
+          "it": "Studio italiano. E tu?",
+          "uk": "Я вивчаю італійську. А ти?"
+        },
+        {
+          "speaker": "Greta",
+          "it": "Lavoro.",
+          "uk": "Я працюю."
+        }
+      ],
+      "remember": [
+        "або»; **lavori** — «ти працюєш».",
+        "**Studio** означає «я навчаюся»; **lavoro** — «я працюю»."
+      ],
+      "practice": [
+        {
+          "prompt": "Оберіть — `study-or-work`",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Do you study or work?",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "What do you like?",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "How are you?",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Доповніть — `say-what-you-study`",
+          "answer": "Studio",
+          "options": []
+        },
+        {
+          "prompt": "Оберіть — `say-you-work`",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Lavoro.",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Studio.",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "Parlo.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Зіставте: Зіставте дієслово зі значенням.",
+          "answer": "",
+          "options": []
+        },
+        {
+          "prompt": "Доповніть: **Studi o _____? — Lavoro.**",
+          "answer": "lavori",
+          "options": []
+        }
+      ]
+    },
+    {
+      "num": "Урок 7",
+      "id": "communication-basics-2-languages",
+      "title": "Мови, якими я розмовляю",
+      "time": "2 хв",
+      "reward": "10 XP",
+      "prevId": "communication-basics-2",
+      "nextId": "communication-basics-2-family",
+      "goal": "Запитати й сказати, якими мовами ви розмовляєте.",
+      "phrases": [
+        {
+          "speaker": "Sofia",
+          "it": "Che lingue parli?",
+          "uk": "Якими мовами ти розмовляєш?"
+        },
+        {
+          "speaker": "Greta",
+          "it": "Parlo italiano e inglese. E tu?",
+          "uk": "Я розмовляю італійською та англійською. А ти?"
+        },
+        {
+          "speaker": "Sofia",
+          "it": "Parlo ucraino.",
+          "uk": "Я розмовляю українською."
+        }
+      ],
+      "remember": [
+        "**Parlo** означає «я розмовляю»; після нього додайте назву мови.",
+        "**Italiano** означає «італійська»; **inglese** — «англійська»; **ucraino** — «українська»."
+      ],
+      "practice": [
+        {
+          "prompt": "Оберіть — `languages-question`",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Che lingue parli?",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Dove vivi?",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "Che lavoro fai?",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Складіть фразу — `languages-answer`",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Parlo ucraino.",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Sono ucraino.",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "Vivo ucraino.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Твоя черга — `languages-your-turn`",
+          "answer": "Parlo + language / Parlo + назва мови",
+          "options": []
+        },
+        {
+          "prompt": "Доповніть: «Я розмовляю італійською та англійською».",
+          "answer": "inglese",
+          "options": []
+        },
+        {
+          "prompt": "Згадайте: Що означає **Parlo ucraino**?",
+          "answer": "I speak Ukrainian. / Я розмовляю українською.",
+          "options": []
+        }
+      ]
+    },
+    {
+      "num": "Урок 8",
+      "id": "communication-basics-2-family",
+      "title": "Моя родина",
+      "time": "2 хв",
+      "reward": "10 XP",
+      "prevId": "communication-basics-2-languages",
+      "nextId": "communication-basics-3",
+      "goal": "Сказати, що у вас є брат або сестра.",
+      "phrases": [
+        {
+          "speaker": "Sofia",
+          "it": "Ho una sorella.",
+          "uk": "У мене є сестра."
+        },
+        {
+          "speaker": "Greta",
+          "it": "Ho un fratello.",
+          "uk": "У мене є брат."
+        }
+      ],
+      "remember": [
+        "якась» перед іменником жіночого роду; **sorella** — «сестра».",
+        "якийсь» перед іменником чоловічого роду; **fratello** — «брат»."
+      ],
+      "practice": [
+        {
+          "prompt": "Оберіть: Яка фраза означає «У мене є сестра»?",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Ho una sorella.",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Sono una sorella.",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "Parlo una sorella.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Доповніть: «У мене є брат».",
+          "answer": "fratello",
+          "options": []
+        },
+        {
+          "prompt": "Твоя черга: Скажіть, чи маєте брата або сестру.",
+          "answer": "Ho un fratello / Ho una sorella",
+          "options": []
+        },
+        {
+          "prompt": "Оберіть: Яке слово означає «у мене є»?",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Ho",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Sono",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "Parlo",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Перекладіть: Скажіть «У мене є брат».",
+          "answer": "Ho un fratello.",
+          "options": []
+        }
+      ]
+    },
+    {
+      "num": "Урок 9",
+      "id": "communication-basics-3",
+      "title": "Що тобі подобається?",
+      "time": "2 хв",
+      "reward": "10 XP",
+      "prevId": "communication-basics-2-family",
+      "nextId": "communication-basics-3-plans",
+      "goal": "Сказати, що вам подобається робити, і запитати співрозмовника.",
+      "phrases": [
+        {
+          "speaker": "Sofia",
+          "it": "Che cosa ti piace fare?",
+          "uk": "Що тобі подобається робити?"
+        },
+        {
+          "speaker": "Greta",
+          "it": "Mi piace ascoltare la musica. E a te?",
+          "uk": "Мені подобається слухати музику. А тобі?"
+        },
+        {
+          "speaker": "Sofia",
+          "it": "Mi piace leggere.",
+          "uk": "Мені подобається читати."
+        }
+      ],
+      "remember": [
+        "**Mi** означає «мені»; **piace** — «подобається».",
+        "та»; **musica** — «музика».",
+        "який»; **cosa** — «річ»; **ti** — «тобі»; **fare** — «робити»."
+      ],
+      "practice": [
+        {
+          "prompt": "Оберіть — `like-reading`",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Mi piace leggere.",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Studio leggere.",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "Sono leggere.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Оберіть запитання — `interest-question`",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Che cosa ti piace fare?",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Come ti chiami?",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "Dove lavori?",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Зіставте значення — `music-interest`",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "To listen to music",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "To read a book",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "To work in a bookshop",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Доповніть: «Мені подобається читати».",
+          "answer": "piace",
+          "options": []
+        },
+        {
+          "prompt": "Оберіть дієслово: Яке дієслово в початковій формі означає «слухати»?",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "ascoltare",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "lavoro",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "parli",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "num": "Урок 10",
+      "id": "communication-basics-3-plans",
+      "title": "Запросити на каву",
+      "time": "2 хв",
+      "reward": "10 XP",
+      "prevId": "communication-basics-3",
+      "nextId": "communication-basics-3-time",
+      "goal": "Запросити друга на каву й прийняти запрошення.",
+      "phrases": [
+        {
+          "speaker": "Sofia",
+          "it": "Ti va di prendere un caffè sabato?",
+          "uk": "Хочеш випити кави в суботу?"
+        },
+        {
+          "speaker": "Greta",
+          "it": "Volentieri!",
+          "uk": "Із задоволенням!"
+        }
+      ],
+      "remember": [
+        "**Ti** означає «тобі»; **va** — «підходить»; **di** у цьому запрошенні відповідає частці «щось зробити».",
+        "якийсь»; **caffè** — «кава»; **sabato** — «субота».",
+        "**Volentieri!** — одне слово зі значенням «із задоволенням»; використовуйте його, щоб прийняти запрошення."
+      ],
+      "practice": [
+        {
+          "prompt": "Оберіть — `invite-coffee`",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Ti va di prendere un caffè?",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Mi chiamo un caffè.",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "Parlo un caffè.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Оберіть відповідь — `gladly-reply`",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Volentieri!",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Sono di Roma.",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "Mi chiamo Anna.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Доповніть — `coffee-invitation`",
+          "answer": "caffè",
+          "options": []
+        },
+        {
+          "prompt": "Згадайте: Що означає **Volentieri!** у відповіді на запрошення?",
+          "answer": "Gladly! / Із задоволенням!",
+          "options": []
+        },
+        {
+          "prompt": "Доповніть: **Ti va di _____ un caffè?**",
+          "answer": "prendere",
+          "options": []
+        }
+      ]
+    },
+    {
+      "num": "Урок 11",
+      "id": "communication-basics-3-time",
+      "title": "Домовитися про час",
+      "time": "2 хв",
+      "reward": "10 XP",
+      "prevId": "communication-basics-3-plans",
+      "nextId": null,
+      "goal": "Запитати, о котрій, і запропонувати третю годину.",
+      "phrases": [
+        {
+          "speaker": "Greta",
+          "it": "A che ora?",
+          "uk": "О котрій?"
+        },
+        {
+          "speaker": "Sofia",
+          "it": "Alle tre?",
+          "uk": "О третій?"
+        },
+        {
+          "speaker": "Greta",
+          "it": "Perfetto!",
+          "uk": "Чудово!"
+        }
+      ],
+      "remember": [
+        "година».",
+        "**Alle** означає «о» перед назвою години; **tre** — «три».",
+        "**Perfetto!** — одне слово зі значенням «чудово»."
+      ],
+      "practice": [
+        {
+          "prompt": "Згадайте — `ask-time`",
+          "answer": "A che ora?",
+          "options": []
+        },
+        {
+          "prompt": "Доповніть — `suggest-three`",
+          "answer": "tre",
+          "options": []
+        },
+        {
+          "prompt": "Оберіть — `agree-on-time`",
+          "answer": "A",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Perfetto!",
+              "isCorrect": true
+            },
+            {
+              "letter": "B",
+              "text": "Volentieri!",
+              "isCorrect": false
+            },
+            {
+              "letter": "C",
+              "text": "Buonasera!",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "prompt": "Перекладіть: Запитайте «О котрій?».",
+          "answer": "A che ora?",
+          "options": []
+        },
+        {
+          "prompt": "Доповніть діалог: **A che ora? — _____ tre? — Perfetto!**",
+          "answer": "Alle",
+          "options": []
+        }
+      ]
+    }
+  ],
+  "summary": []
+}

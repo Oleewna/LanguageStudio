@@ -215,6 +215,51 @@ Open your browser at:
 
 ---
 
+## 🌐 Using ngrok (Public Tunnel & Remote Testing)
+
+To expose LanguageStudio over an HTTPS tunnel (to share the site, test Google Sign-In over HTTPS, and receive payment webhooks):
+
+### 1. Configure Environment Variables
+
+Add the following to `backend/.env` (or `backend/service/.env`):
+
+```env
+NGROK_DOMAIN=your-domain.ngrok-free.app
+PUBLIC_URL=https://your-domain.ngrok-free.app
+ALLOW_DEV_ENDPOINTS=false
+PAYMENT_WEBHOOK_SECRET=your_webhook_signing_secret
+```
+
+- **`NGROK_DOMAIN`**: Your reserved ngrok domain (e.g. `my-name.ngrok-free.app`).
+- **`PUBLIC_URL`**: Full HTTPS URL used for the Google OAuth callback, post-login redirects, and CORS headers.
+- **`ALLOW_DEV_ENDPOINTS`**: Set to `true` only if you need 1-click test unlocking or the mock webhook signature behind the public tunnel. By default (`false`), tunnel requests disable `/api/payments/dev-unlock` and reject `mock_valid_signature`.
+- **`PAYMENT_WEBHOOK_SECRET`**: Secret used to verify incoming provider webhook signatures with HMAC-SHA256 or bearer secret match.
+
+### 2. Start Services and Tunnel
+
+1. Start LanguageStudio local services:
+   ```bat
+   start.bat
+   ```
+2. Start the tunnel in a separate window:
+   ```bat
+   start-tunnel.bat
+   ```
+
+### 3. Google Cloud Console Configuration
+
+In your [Google Cloud Console](https://console.cloud.google.com/) under **APIs & Services > Credentials** > **OAuth 2.0 Client IDs**:
+
+1. **Authorized JavaScript origins**:
+   - `https://your-domain.ngrok-free.app`
+   - `http://localhost:3005` (keep for local development)
+2. **Authorized redirect URIs**:
+   - `https://your-domain.ngrok-free.app/api/v1/auth/google/callback`
+   - `http://localhost:3005/api/v1/auth/google/callback` (keep for local development)
+3. Save changes. Google OAuth sign-in will now work seamlessly through both localhost and the public ngrok domain.
+
+---
+
 ## 📁 Repository Structure
 
 ```

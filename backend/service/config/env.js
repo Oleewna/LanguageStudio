@@ -1,5 +1,6 @@
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
 module.exports = {
     get PORT() {
@@ -26,6 +27,23 @@ module.exports = {
     get USE_MEMORY_SESSION() {
         return process.env.USE_MEMORY_SESSION === "true";
     },
+    get PUBLIC_URL() {
+        const val = (process.env.PUBLIC_URL || "").trim();
+        return val.includes("your-name") ? "" : val.replace(/\/+$/, '');
+    },
+    get APP_URL() {
+        const val = (process.env.APP_URL || "").trim();
+        if (val && !val.includes("your-name")) {
+            return val.replace(/\/+$/, '');
+        }
+        return this.PUBLIC_URL || process.env.FRONTEND_URL || "http://localhost:3005";
+    },
+    get ALLOW_DEV_ENDPOINTS() {
+        return process.env.ALLOW_DEV_ENDPOINTS === "true";
+    },
+    get PAYMENT_WEBHOOK_SECRET() {
+        return process.env.PAYMENT_WEBHOOK_SECRET;
+    },
     get GOOGLE_CLIENT_ID() {
         return process.env.GOOGLE_CLIENT_ID;
     },
@@ -33,10 +51,18 @@ module.exports = {
         return process.env.GOOGLE_CLIENT_SECRET;
     },
     get GOOGLE_REDIRECT_URI() {
-        return process.env.GOOGLE_REDIRECT_URI || "http://localhost:3005/api/v1/auth/google/callback";
+        if (process.env.GOOGLE_REDIRECT_URI && !process.env.GOOGLE_REDIRECT_URI.includes("your-name")) {
+            return process.env.GOOGLE_REDIRECT_URI;
+        }
+        const base = this.PUBLIC_URL || process.env.FRONTEND_URL || "http://localhost:3005";
+        return `${base.replace(/\/+$/, '')}/api/v1/auth/google/callback`;
     },
     get FRONTEND_URL() {
-        return process.env.FRONTEND_URL || "http://localhost:3005";
+        const val = (process.env.FRONTEND_URL || "").trim();
+        if (val && !val.includes("your-name")) {
+            return val.replace(/\/+$/, '');
+        }
+        return this.PUBLIC_URL || "http://localhost:3005";
     },
     get VOCAB_DB_PATH() {
         return process.env.VOCAB_DB_PATH;

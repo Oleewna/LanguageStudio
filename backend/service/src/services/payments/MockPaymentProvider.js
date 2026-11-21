@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const PaymentProvider = require('./PaymentProvider');
 
 /**
@@ -60,18 +61,61 @@ class MockPaymentProvider extends PaymentProvider {
 
     /**
      * Verifies the webhook signature.
-     * Accepts:
-     * - 'mock_valid_signature' (standard test token)
-     * - or secret match (signature === this.secret)
-     * - rejects invalid/mismatched signatures
+     * Behind a tunnel / public URL, mock_valid_signature is rejected unless ALLOW_DEV_ENDPOINTS=true.
+     * Verifies with PAYMENT_WEBHOOK_SECRET (direct, v1=, or HMAC-SHA256).
      */
     verifyWebhook(payload, signature, headers = {}) {
         if (!signature || typeof signature !== 'string') {
             return false;
         }
 
-        // Standard mock valid signature or matching configured webhook secret
-        if (signature === 'mock_valid_signature' || signature === this.secret) {
+        const allowDev = process.env.ALLOW_DEV_ENDPOINTS === 'true';
+        let isTunnel = Boolean(process.env.PUBLIC_URL && process.env.PUBLIC_URL.trim());
+        if (!isTunnel && headers && headers['x-forwarded-host']) {
+            const primaryHost = String(headers['x-forwarded-host']).split(',')[0].trim().split(':')[0].toLowerCase();
+            if (primaryHost !== 'localhost' && primaryHost !== '127.0.0.1' && primaryHost !== '::1') {
+                isTunnel = true;
+            }
+        }
+
+        const isMockSignature = signature === 'mock_valid_signature' ||
+            signature === 'v1=mock_valid_signature' ||
+            (signature.includes('v1=') && signature.split(',').map(s => s.trim()).includes('v1=mock_valid_signature'));
+
+        // Behind tunnel reject mock signature unless ALLOW_DEV_ENDPOINTS=true
+        if (isTunnel && !allowDev && isMockSignature) {
+            return false;
+        }
+
+        const webhookSecret = process.env.PAYMENT_WEBHOOK_SECRET || this.secret;
+
+        // Direct secret match
+        if (webhookSecret && signature === webhookSecret) {
+            return true;
+        }
+
+        // HMAC verification support for raw body or payload
+        if (webhookSecret) {
+            try {
+                const raw = Buffer.isBuffer(payload)
+                    ? payload
+                    : (typeof payload === 'string' ? Buffer.from(payload) : Buffer.from(JSON.stringify(payload)));
+                const hmac = crypto.createHmac('sha256', webhookSecret).update(raw).digest('hex');
+                if (signature === hmac || signature === `sha256=${hmac}`) {
+                    return true;
+                }
+                if (signature.includes('v1=')) {
+                    const parts = signature.split(',').map(s => s.trim());
+                    const v1 = parts.find(p => p.startsWith('v1='));
+                    if (v1 === `v1=${webhookSecret}` || v1 === `v1=${hmac}`) {
+                        return true;
+                    }
+                }
+            } catch (e) {}
+        }
+
+        // Standard mock signature acceptance when allowed
+        if ((!isTunnel || allowDev) && signature === 'mock_valid_signature') {
             return true;
         }
 
@@ -79,7 +123,10 @@ class MockPaymentProvider extends PaymentProvider {
         if (signature.includes('v1=')) {
             const parts = signature.split(',').map(s => s.trim());
             const v1 = parts.find(p => p.startsWith('v1='));
-            return v1 === `v1=${this.secret}` || v1 === 'v1=mock_valid_signature';
+            return (
+                (!isTunnel || allowDev ? v1 === 'v1=mock_valid_signature' : false) ||
+                (webhookSecret ? v1 === `v1=${webhookSecret}` : false)
+            );
         }
 
         return false;
@@ -89,6 +136,20 @@ class MockPaymentProvider extends PaymentProvider {
      * Parses the payload into normalized payment event object.
      */
     parseEvent(payload, headers = {}) {
+        if (Buffer.isBuffer(payload)) {
+            try {
+                payload = JSON.parse(payload.toString('utf8'));
+            } catch (e) {
+                throw new Error('Invalid JSON payload buffer.');
+            }
+        } else if (typeof payload === 'string') {
+            try {
+                payload = JSON.parse(payload);
+            } catch (e) {
+                throw new Error('Invalid JSON payload string.');
+            }
+        }
+
         if (!payload || typeof payload !== 'object') {
             throw new Error('Invalid payload: expected an object.');
         }

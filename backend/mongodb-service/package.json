@@ -1,0 +1,27 @@
+{
+  "name": "mongodb-service",
+  "version": "1.0.0",
+  "description": "LanguageStudio MongoDB Service - decentralized database connection, models, and data access services",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "mongodb",
+    "mongoose",
+    "models",
+    "service",
+    "languagestudio"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "argon2": "^0.45.2",
+    "connect-mongo": "^6.0.0",
+    "dotenv": "^18.0.9",
+    "express": "^5.2.1",
+    "mongoose": "^9.12.2"
+  }
+}

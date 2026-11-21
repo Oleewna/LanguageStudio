@@ -66,9 +66,11 @@ function loadGoogleConfig() {
 
                 if (clientId && clientSecret) {
                     const redirectUris = creds.redirect_uris || creds.redirectUris;
-                    const redirectUri = (Array.isArray(redirectUris) && redirectUris[0]) ||
-                        env.GOOGLE_REDIRECT_URI ||
-                        'http://localhost:3005/api/v1/auth/google/callback';
+                    const redirectUri = env.PUBLIC_URL || process.env.GOOGLE_REDIRECT_URI
+                        ? env.GOOGLE_REDIRECT_URI
+                        : ((Array.isArray(redirectUris) && redirectUris[0]) ||
+                            env.GOOGLE_REDIRECT_URI ||
+                            'http://localhost:3005/api/v1/auth/google/callback');
 
                     return {
                         clientId: String(clientId).trim(),
@@ -86,12 +88,17 @@ function loadGoogleConfig() {
     // 3. Fallback to environment variables
     const envClientId = (env.GOOGLE_CLIENT_ID || '').trim();
     const envClientSecret = (env.GOOGLE_CLIENT_SECRET || '').trim();
-    const envRedirectUri = (env.GOOGLE_REDIRECT_URI || 'http://localhost:3005/api/v1/auth/google/callback').trim();
+    const rawRedirectUri = (env.GOOGLE_REDIRECT_URI || '').trim();
+    const envRedirectUri = (!rawRedirectUri || rawRedirectUri.includes('your-name'))
+        ? 'http://localhost:3005/api/v1/auth/google/callback'
+        : rawRedirectUri;
 
     const isPlaceholder = !envClientId ||
         envClientId === 'YOUR_GOOGLE_CLIENT_ID_HERE' ||
+        envClientId.includes('your-name') ||
         !envClientSecret ||
-        envClientSecret === 'YOUR_GOOGLE_CLIENT_SECRET_HERE';
+        envClientSecret === 'YOUR_GOOGLE_CLIENT_SECRET_HERE' ||
+        envClientSecret.includes('your-name');
 
     return {
         clientId: isPlaceholder ? '' : envClientId,

@@ -1,12 +1,13 @@
 # LanguageStudio Backend Services
 
-LanguageStudio backend is structured into three microservices:
+LanguageStudio backend is structured into modular microservices and data services:
 
 | Service | Port | Directory | Purpose | Documentation |
 |---|---|---|---|---|
 | **Gateway** | `3005` | [`gateway/`](./gateway/) | Public-facing reverse proxy, static file server, and CORS handler | [Gateway README](./gateway/README.md) |
-| **Content Service** | `3006` | [`service/`](./service/) | Core data API: vocabulary, lesson content, progress, payments, SQLite & MongoDB | [Service README](./service/README.md) |
-| **Auth Service** | `3007` | [`auth-service/`](./auth-service/) | Dedicated authentication service with Google OAuth 2.0 | [Auth Service README](./auth-service/README.md) |
+| **Content & API Service** | `3006` | [`service/`](./service/) | Core data API: vocabulary, lesson content, progress, payments, SQLite database | [Service README](./service/README.md) |
+| **MongoDB Service** | `3008` | [`mongodb-service/`](./mongodb-service/) | Dedicated MongoDB persistence layer: connection lifecycle, schemas, models (User, Progress, Entitlement), and decentralized data services | [MongoDB Service README](./mongodb-service/README.md) |
+| **Auth Service (Legacy)** | `3007` | [`auth-service/`](./auth-service/) | Dedicated authentication service (auth is also integrated directly in `service/`) | [Auth Service README](./auth-service/README.md) |
 
 ## System Architecture
 

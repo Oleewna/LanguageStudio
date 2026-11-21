@@ -9,6 +9,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const config = require('./config/env');
 
 const app = express();
+app.set('trust proxy', 1);
 const projectRoot = path.resolve(__dirname, '../../..');
 
 app.use((req, res, next) => {
@@ -39,6 +40,7 @@ function makePathRewrite(prefix) {
 const serviceProxy = (serviceName, prefix) => ({
     target: config.serviceUrl,
     changeOrigin: true,
+    xfwd: true,
     pathRewrite: makePathRewrite(prefix),
     on: {
         error: (error, req, res) => {
@@ -57,6 +59,7 @@ app.use('/api/v1/courses', createProxyMiddleware(serviceProxy('Course service', 
 app.use('/api/content', createProxyMiddleware({
     target: config.serviceUrl,
     changeOrigin: true,
+    xfwd: true,
     pathRewrite: (requestPath) => {
         if (!requestPath || requestPath === '/' || requestPath === '/course-index') return '/api/courses';
         if (requestPath.startsWith('/courses/')) return `/api${requestPath}`;
@@ -74,6 +77,7 @@ app.use('/api/content', createProxyMiddleware({
 app.use('/api/v1/content', createProxyMiddleware({
     target: config.serviceUrl,
     changeOrigin: true,
+    xfwd: true,
     pathRewrite: (requestPath) => {
         if (!requestPath || requestPath === '/' || requestPath === '/course-index') return '/api/v1/courses';
         if (requestPath.startsWith('/courses/')) return `/api/v1${requestPath}`;
@@ -94,6 +98,7 @@ app.use('/api/v1/payments', createProxyMiddleware(serviceProxy('Payment service'
 app.use('/api/v1/progress', createProxyMiddleware({
     target: config.serviceUrl,
     changeOrigin: true,
+    xfwd: true,
     pathRewrite: requestPath => `/api/progress${requestPath}`,
     on: {
         error: (error, req, res) => {
@@ -114,6 +119,7 @@ app.use(express.static(path.join(projectRoot, 'frontend', 'public')));
 app.use(createProxyMiddleware({
     target: config.serviceUrl,
     changeOrigin: true,
+    xfwd: true,
     on: {
         error: (error, req, res) => {
             console.error('Page service proxy failed:', error.message);

@@ -16,11 +16,17 @@ const courseLessonsRoutes = require('./routes/courseLessons');
 const pagesRoutes = require('./routes/pageroutes');
 
 const app = express();
+app.set('trust proxy', 1);
 
 initDatabase();
 
 // Security headers with Helmet
 app.use(helmet({ contentSecurityPolicy: false }));
+
+// Raw body parser for webhook routes (express.raw on that route only)
+const rawWebhookParser = express.raw({ type: '*/*' });
+app.use('/api/payments/webhook', rawWebhookParser);
+app.use('/api/v1/payments/webhook', rawWebhookParser);
 
 app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: false, limit: '16kb' }));

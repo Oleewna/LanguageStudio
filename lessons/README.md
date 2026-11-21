@@ -1,7 +1,56 @@
-# Lesson references
+# База уроків (Lesson References)
 
-These Markdown files are readable lesson references; they are not loaded by the application. The authoritative lesson content, lesson metadata, vocabulary, grammar, and exercises live in the SQLite database.
+Ця директорія містить текстові довідники уроків у форматі Markdown. Файли створені для швидкого перегляду, вичитки та редагування контенту без необхідності читати вихідний програмний код чи розбирати складні JSON-структури.
 
-To add or modify a lesson, sign in as an administrator, open **Content editor** in the app, and update the database catalog. Add the lesson body to that course's `lessons` array and link its ID from the appropriate path and unit. The editor validates lesson IDs, block types, ordering, and cross-references before saving the full catalog transactionally.
+---
 
-There is no JSON-file import step. Back up the database before substantial edits; see [the content database guide](../backend/content-db/README.md).
+## 📁 Структура директорії
+
+- [it/](./it/README.md) — уроки італійської мови:
+  - `communication-basics-1.md` ... `communication-basics-3-time.md` (Основи спілкування)
+  - `italian-reading-2.md` ... `italian-reading-12.md` (Правила читання)
+  - `communication-basics-summary.md` (Підсумкове повторення курсу)
+  - `README.md` (Навігаційний покажчик усіх уроків)
+
+---
+
+## 🔍 Як використовується інформація з кожного файлу
+
+### 1. Принцип «Один файл — один урок» (1 file = 1 lesson)
+- **Повна автономність (Self-contained):** кожен `.md` файл є повністю самостійним уроком. У ньому зібрано всі необхідні матеріали: метадані, діалоги, правила вимови, словниковий банк, текст для читання, ключові тези та вправи для перевірки з правильними відповідями.
+- Щоб вичитати чи перевірити будь-який конкретний урок, достатньо відкрити лише його файл. Немає потреби паралельно переглядати інші файли чи відкривати кілька документів одночасно.
+
+### 2. Зв'язки між уроками (Dependencies & Cross-references)
+Хоча кожен файл самодостатній за змістом, уроки пов'язані між собою логічно:
+- **Послідовна навігація (Sequence Links):** на початку та в кінці кожного файлу є навігаційні посилання `[← Попередній урок]` та `[Наступний урок →]`, які відповідають послідовності проходження курсу в додатку.
+- **Накопичувальне повторення (Spaced Repetition & Cumulative Vocabulary):** наступні уроки спираються на матеріал попередніх. Наприклад:
+  - Базові привітання з перших уроків (`Ciao!`, `Come stai?`, `Bene, grazie!`) органічно повторюються в діалогах наступних уроків знайомства.
+  - Урок [italian-reading-12.md](./it/italian-reading-12.md) (*«Читаємо в контексті»*) об'єднує в єдиному зв'язному тексті всі буквосполучення, вивчені окремо в уроках з 2 по 11 (`ca/co/cu`, `ce/ci/che/chi`, `ge/gi/ghe/ghi`, `sc`, `gn`, `gli`, `qu`, подвоєні приголосні, наголоси).
+- Жоден файл уроку **не завантажує динамічно вміст з іншого файлу** — всі необхідні для розуміння фрази та підказки зафіксовані безпосередньо всередині кожного уроку.
+
+---
+
+## ⚙️ Як ці файли пов'язані з кодом додатку
+
+Додаток LanguageStudio не завантажує `.md` файли напряму під час виконання (runtime). Вони є згенерованим текстовим представленням контенту, який у коді зберігається в декомпозиційному вигляді:
+
+1. **Базові файли уроків (`courses/<courseId>/lessons/<lessonId>.json` та `paid-content/...`):**
+   - Містять структуру блоків уроку (діалоги, репліки, параграфи для читання, ID опцій тестів, нагороди XP).
+2. **Файли локалізації (`courses/<courseId>/i18n/<locale>/lessons/<lessonId>.json`):**
+   - Зберігають переклади українською (`uk`) та англійською (`en`), транскрипції, назви блоків та пояснення до тестів за відповідними ID.
+3. **Загальні каталоги курсу:**
+   - `course.json` — структура шляхів (paths), розділів (units) та послідовність уроків.
+   - `vocab.json` — загальний словник курсу (слова прив'язані до уроків через поле `lesson`).
+   - `exercises.json` — банк додаткових вправ (прив'язані через `pathId` та `lessonId`).
+
+Файли в цій папці ([lessons/it/](./it/README.md)) об'єднують ці розрізнені JSON-файли в єдині, зручні для читання документи.
+
+---
+
+## 🔄 Оновлення уроків
+
+Якщо вносяться зміни до JSON-файлів у `courses/` або `paid-content/courses/`, актуалізувати Markdown-файли можна повторним запуском генератора:
+
+```bash
+node scripts/extract-lessons-md.mjs
+```

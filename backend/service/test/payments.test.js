@@ -316,3 +316,138 @@ test('POST /api/payments/checkout & webhook - accepts and stores selectedPaths',
     assert.strictEqual(grammarCheck.status, 200);
     assert.strictEqual(grammarCheck.body.hasAccess, false);
 });
+
+test('POST /api/payments/dev-unlock - security gating behind tunnel and localhost', async () => {
+    // 1. Allowed on localhost
+    let res = await testRequest(router, {
+        method: 'POST',
+        url: '/dev-unlock',
+        body: { courseId: 'it' },
+        headers: { host: 'localhost:3005' }
+    });
+    assert.strictEqual(res.status, 200);
+    assert.strictEqual(res.body.success, true);
+
+    // 2. Blocked (403) when request arrives via tunnel
+    res = await testRequest(router, {
+        method: 'POST',
+        url: '/dev-unlock',
+        body: { courseId: 'it' },
+        headers: { 'x-forwarded-host': 'my-tunnel.ngrok-free.app' }
+    });
+    assert.strictEqual(res.status, 403);
+    assert.strictEqual(res.body.code, 'DEV_UNLOCK_DISABLED');
+
+    // 3. Allowed when ALLOW_DEV_ENDPOINTS=true
+    process.env.ALLOW_DEV_ENDPOINTS = 'true';
+    res = await testRequest(router, {
+        method: 'POST',
+        url: '/dev-unlock',
+        body: { courseId: 'it' },
+        headers: { 'x-forwarded-host': 'my-tunnel.ngrok-free.app' }
+    });
+    assert.strictEqual(res.status, 200);
+    assert.strictEqual(res.body.success, true);
+    delete process.env.ALLOW_DEV_ENDPOINTS;
+});
+
+test('POST /api/payments/webhook - mock signature rejected behind tunnel unless ALLOW_DEV_ENDPOINTS=true', async () => {
+    const payload = {
+        eventType: 'payment_success',
+        providerPaymentId: 'pay_tunnel_001',
+        userId: 'usr_tunnel_user',
+        courseId: 'it'
+    };
+
+    // 1. Rejected when arriving via tunnel
+    let res = await testRequest(router, {
+        method: 'POST',
+        url: '/webhook',
+        body: payload,
+        headers: {
+            'x-forwarded-host': 'demo.ngrok-free.app',
+            'x-signature': 'mock_valid_signature'
+        }
+    });
+    assert.strictEqual(res.status, 400);
+    assert.strictEqual(res.body.code, 'INVALID_SIGNATURE');
+
+    // 2. Accepted behind tunnel when ALLOW_DEV_ENDPOINTS=true
+    process.env.ALLOW_DEV_ENDPOINTS = 'true';
+    res = await testRequest(router, {
+        method: 'POST',
+        url: '/webhook',
+        body: payload,
+        headers: {
+            'x-forwarded-host': 'demo.ngrok-free.app',
+            'x-signature': 'mock_valid_signature'
+        }
+    });
+    assert.strictEqual(res.status, 200);
+    assert.strictEqual(res.body.received, true);
+    delete process.env.ALLOW_DEV_ENDPOINTS;
+});
+
+test('POST /api/payments/webhook - accepts PAYMENT_WEBHOOK_SECRET and raw body HMAC behind tunnel', async () => {
+    const crypto = require('crypto');
+    const secret = 'prod_secret_tunnel_webhook_key_99';
+    process.env.PAYMENT_WEBHOOK_SECRET = secret;
+
+    const payload = {
+        eventType: 'payment_success',
+        providerPaymentId: 'pay_tunnel_secret_002',
+        userId: 'usr_secret_user',
+        courseId: 'it'
+    };
+
+    // 1. Exact secret match behind tunnel
+    let res = await testRequest(router, {
+        method: 'POST',
+        url: '/webhook',
+        body: payload,
+        headers: {
+            'x-forwarded-host': 'payments.ngrok-free.app',
+            'x-signature': secret
+        }
+    });
+    assert.strictEqual(res.status, 200);
+    assert.strictEqual(res.body.received, true);
+
+    // 2. HMAC-SHA256 signature with raw buffer
+    const rawBuffer = Buffer.from(JSON.stringify(payload));
+    const hmac = crypto.createHmac('sha256', secret).update(rawBuffer).digest('hex');
+
+    res = await testRequest(router, {
+        method: 'POST',
+        url: '/webhook',
+        body: rawBuffer,
+        headers: {
+            'x-forwarded-host': 'payments.ngrok-free.app',
+            'x-signature': `sha256=${hmac}`
+        }
+    });
+    assert.strictEqual(res.status, 200);
+    assert.strictEqual(res.body.received, true);
+
+    delete process.env.PAYMENT_WEBHOOK_SECRET;
+});
+
+test('GET /api/payments/config - exposes allowDevEndpoints flag correctly', async () => {
+    // Localhost
+    let res = await testRequest(router, {
+        method: 'GET',
+        url: '/config',
+        headers: { host: 'localhost:3005' }
+    });
+    assert.strictEqual(res.status, 200);
+    assert.strictEqual(res.body.allowDevEndpoints, true);
+
+    // Tunnel
+    res = await testRequest(router, {
+        method: 'GET',
+        url: '/config',
+        headers: { 'x-forwarded-host': 'my-tunnel.ngrok-free.app' }
+    });
+    assert.strictEqual(res.status, 200);
+    assert.strictEqual(res.body.allowDevEndpoints, false);
+});

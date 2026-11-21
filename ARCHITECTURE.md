@@ -63,7 +63,8 @@ LanguageStudio employs a modular backend architecture comprising an edge reverse
 | Service | Port | Directory | Role & Responsibility |
 |---|---|---|---|
 | **Gateway** | `3005` | `backend/gateway/` | Public entry point. Serves static frontend files (`frontend/public/`), blocks raw `.json` file downloads, enforces CORS headers, and proxies `/api/*` traffic upstream to port 3006. |
-| **Content & API Service** | `3006` | `backend/service/` | Core application engine. Houses session management, MongoDB models, SQLite database connections, authentication controller, progress synchronization, and payment verification. |
+| **Content & API Service** | `3006` | `backend/service/` | Core application engine. Houses session management, SQLite database connections, authentication controller, progress synchronization, and payment verification. |
+| **MongoDB Service** | `3008` | `backend/mongodb-service/` | Dedicated database persistence layer: MongoDB Atlas connection, Mongoose schemas, data models (`User`, `Progress`, `Entitlement`), session store factory, and decentralized service operations (`userService`, `progressService`, `entitlementService`). |
 | **Auth Service (Legacy)** | `3007` | `backend/auth-service/` | *Retired / Deprecated.* Authentication and Google OAuth 2.0 flows have been consolidated directly into `backend/service` under unified session cookies (`ls.sid`). |
 
 ---

@@ -13,6 +13,13 @@ async function loadEntitlements(courseId) {
       if (Array.isArray(data.entitlements)) {
         userActiveEntitlements = data.entitlements;
       }
+      const btn = document.getElementById('btnDevUnlock');
+      if (btn && typeof data.allowDevEndpoints !== 'undefined') {
+        btn.style.display = data.allowDevEndpoints ? '' : 'none';
+        if (!data.allowDevEndpoints && btn.parentElement) {
+          btn.parentElement.style.display = 'none';
+        }
+      }
     }
   } catch (err) {
     console.warn('Could not load entitlements from payments API:', err);
@@ -565,25 +572,48 @@ openMobNav()
   }
 });
 
+async function syncDevUnlockVisibility() {
+  const btn = document.getElementById('btnDevUnlock');
+  if (!btn) return;
+  try {
+    const res = await fetch('/api/payments/config');
+    if (res.ok) {
+      const cfg = await res.json();
+      const allowed = Boolean(cfg.allowDevEndpoints);
+      btn.style.display = allowed ? '' : 'none';
+      if (!allowed && btn.parentElement) {
+        btn.parentElement.style.display = 'none';
+      }
+    }
+  } catch (e) {}
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', syncDevUnlockVisibility);
+} else {
+  syncDevUnlockVisibility();
+}
+
 window.unlockForTesting = async function () {
   const statusEl = document.getElementById('devUnlockStatus');
   if (statusEl) statusEl.textContent = 'Unlocking...';
   try {
     const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
-    await fetch('/api/payments/dev-unlock', {
+    const res = await fetch('/api/payments/dev-unlock', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ courseId }),
       credentials: 'include'
     });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      if (statusEl) statusEl.textContent = data.error || 'Unlock disabled';
+      return;
+    }
     localStorage.setItem(`ls_unlocked_${courseId}`, 'true');
     localStorage.setItem('ls_unlocked_all', 'true');
     if (statusEl) statusEl.textContent = 'Unlocked!';
     window.location.reload();
   } catch (err) {
-    const courseId = typeof window.getCourseId === 'function' ? window.getCourseId() : 'it';
-    localStorage.setItem(`ls_unlocked_${courseId}`, 'true');
-    localStorage.setItem('ls_unlocked_all', 'true');
-    window.location.reload();
+    if (statusEl) statusEl.textContent = 'Unlock failed';
   }
 };

@@ -1,5 +1,5 @@
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
+const { createMongoSessionStore } = require('../../../mongodb-service');
 const config = require('../../config/env');
 
 function createSessionMiddleware() {
@@ -16,9 +16,7 @@ function createSessionMiddleware() {
 
     // Use MongoStore if MONGODB_URI is provided and not explicitly set to use memory
     if (mongoUri && !isTest && !config.USE_MEMORY_SESSION) {
-        const createStore = MongoStore.create || MongoStore.default?.create || MongoStore.MongoStore?.create;
-        store = createStore({
-            mongoUrl: mongoUri,
+        store = createMongoSessionStore(mongoUri, {
             collectionName: 'sessions',
             ttl: 30 * 24 * 60 * 60, // 30 days in seconds
             autoRemove: 'native',
@@ -36,7 +34,7 @@ function createSessionMiddleware() {
         store,
         cookie: {
             httpOnly: true,
-            secure: isProd || config.COOKIE_SECURE,
+            secure: isProd ? true : (config.COOKIE_SECURE ? true : 'auto'),
             sameSite: 'lax',
             maxAge: 24 * 60 * 60 * 1000 // default 1 day
         }

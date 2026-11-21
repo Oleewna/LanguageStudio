@@ -14,29 +14,80 @@ const { loadGoogleConfig } = require('../utils/googleConfig');
 const config = require('../../config/env');
 
 // ─── OAuth state store (CSRF protection) ─────────────────────────────────────
-const oauthStates = new Map(); // state -> { timestamp, returnUrl }
+const oauthStates = new Map(); // state -> { timestamp, returnUrl, redirectUri }
 const STATE_LIFETIME_MS = 10 * 60 * 1000; // 10 minutes
 
-function getOAuth2Client() {
+function getRequestProto(req) {
+    const raw = req && req.headers && req.headers['x-forwarded-proto'];
+    if (raw) {
+        const first = String(raw).split(',')[0].trim().toLowerCase();
+        if (first === 'https' || first === 'http') return first;
+    }
+    if (req && req.protocol) {
+        const proto = String(req.protocol).split(',')[0].trim().toLowerCase();
+        if (proto === 'https' || proto === 'http') return proto;
+    }
+    return (req && (req.secure || (req.socket && req.socket.encrypted))) ? 'https' : 'http';
+}
+
+function getRequestHost(req) {
+    const raw = (req && req.headers && (req.headers['x-forwarded-host'] || req.headers.host)) || '';
+    let host = String(raw).split(',')[0].trim();
+    if (host.includes(':3006')) {
+        host = host.replace(':3006', ':3005');
+    }
+    return host;
+}
+
+function computeRedirectUri(req) {
     const googleConfig = loadGoogleConfig();
+    const configuredUri = (googleConfig.redirectUri || '').trim();
+    const isPlaceholder = !configuredUri || configuredUri.includes('your-name');
+
+    if (req) {
+        const host = getRequestHost(req);
+        const proto = getRequestProto(req);
+        if (host) {
+            return `${proto}://${host}/api/v1/auth/google/callback`;
+        }
+    }
+
+    if (!isPlaceholder) {
+        return configuredUri;
+    }
+
+    if (config.PUBLIC_URL) {
+        return `${config.PUBLIC_URL.replace(/\/+$/, '')}/api/v1/auth/google/callback`;
+    }
+
+    return 'http://localhost:3005/api/v1/auth/google/callback';
+}
+
+function getOAuth2Client(explicitRedirectUri) {
+    const googleConfig = loadGoogleConfig();
+    const redirectUri = explicitRedirectUri || googleConfig.redirectUri;
     return {
-        client: new OAuth2Client(googleConfig.clientId, googleConfig.clientSecret, googleConfig.redirectUri),
-        config: googleConfig
+        client: new OAuth2Client(googleConfig.clientId, googleConfig.clientSecret, redirectUri),
+        config: { ...googleConfig, redirectUri }
     };
 }
 
 function getFrontendBase(req) {
-    if (config.FRONTEND_URL) {
-        return config.FRONTEND_URL.replace(/\/+$/, '');
+    if (req) {
+        const host = getRequestHost(req);
+        const proto = getRequestProto(req);
+        if (host) {
+            return `${proto}://${host}`;
+        }
     }
-    const host = (req && req.headers && (req.headers['x-forwarded-host'] || req.headers.host)) || '';
-    const proto = (req && req.headers && req.headers['x-forwarded-proto']) || (req && req.socket && req.socket.encrypted ? 'https' : 'http');
-    // If request came directly to service on port 3006, redirect user to the gateway on port 3005
-    if (host.includes(':3006')) {
-        return `${proto}://${host.replace(':3006', ':3005')}`;
+    if (config.PUBLIC_URL && !config.PUBLIC_URL.includes('your-name')) {
+        return config.PUBLIC_URL.replace(/\/+$/, '');
     }
-    if (host && !host.includes(':3006')) {
-        return `${proto}://${host}`;
+    if (process.env.APP_URL && !process.env.APP_URL.includes('your-name')) {
+        return process.env.APP_URL.replace(/\/+$/, '');
+    }
+    if (process.env.FRONTEND_URL && !process.env.FRONTEND_URL.includes('your-name')) {
+        return process.env.FRONTEND_URL.replace(/\/+$/, '');
     }
     return 'http://localhost:3005';
 }
@@ -334,7 +385,8 @@ async function getSession(req, res, next) {
 }
 
 function googleRedirect(req, res) {
-    const { client, config } = getOAuth2Client();
+    const redirectUri = computeRedirectUri(req);
+    const { client, config } = getOAuth2Client(redirectUri);
 
     if (!config.clientId || !config.clientSecret) {
         return res.status(503).json({
@@ -351,7 +403,7 @@ function googleRedirect(req, res) {
 
     const state = crypto.randomBytes(16).toString('hex');
     const returnUrl = req.query.returnUrl || req.query.redirect || null;
-    oauthStates.set(state, { timestamp: Date.now(), returnUrl });
+    oauthStates.set(state, { timestamp: Date.now(), returnUrl, redirectUri });
 
     const authUrl = client.generateAuthUrl({
         access_type: 'offline',
@@ -384,7 +436,8 @@ async function googleCallback(req, res) {
     }
 
     try {
-        const { client, config } = getOAuth2Client();
+        const redirectUri = stateData?.redirectUri || computeRedirectUri(req);
+        const { client, config } = getOAuth2Client(redirectUri);
 
         // Exchange code for tokens
         const { tokens } = await client.getToken(code);

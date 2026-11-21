@@ -9,6 +9,7 @@ if exist "%~dp0backend\service\install.bat" del /f /q "%~dp0backend\service\inst
 if exist "%~dp0backend\service\start_server.bat" del /f /q "%~dp0backend\service\start_server.bat"
 
 for %%D in (
+  "%~dp0backend\mongodb-service"
   "%~dp0backend\service"
   "%~dp0backend\gateway"
 ) do (
